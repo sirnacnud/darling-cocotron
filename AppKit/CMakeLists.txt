@@ -12,6 +12,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
 	-mmacosx-version-min=10.10"
 )
 
+set(OpenGL_GL_PREFERENCE "GLVND")
+
 find_package(X11 REQUIRED)
 find_package(Freetype REQUIRED)
 
