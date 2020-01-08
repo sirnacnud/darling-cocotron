@@ -247,6 +247,9 @@ static NSData *makeWindowIcon() {
    }
 }
 
+-(void)showWindowWithoutActivation {
+   [self ensureMapped];
+}
 
 -(void)setDelegate:delegate {
    _delegate=delegate;

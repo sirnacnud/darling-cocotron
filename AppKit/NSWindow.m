@@ -2350,18 +2350,29 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 -(void)makeKeyAndOrderFront:sender {
-   if ([self isMiniaturized])
-    [_platformWindow deminiaturize];
+    if ([self isMiniaturized])
+        [_platformWindow deminiaturize];
 
-// Order window before making it key, per doc.s and behavior
+    // Order window before making it key, per doc.s and behavior
 
-   [self orderWindow:NSWindowAbove relativeTo:0];
+    [self orderWindow:NSWindowAbove relativeTo:0];
 
-	if([self canBecomeKeyWindow])
-		[self makeKeyWindow];
+    if ([self canBecomeKeyWindow])
+        [self makeKeyWindow];
 
-   if([self canBecomeMainWindow])
-    [self makeMainWindow];
+    if ([self canBecomeMainWindow])
+        [self makeMainWindow];
+}
+
+-(void)setIsVisible:(BOOL)visible {
+    if (_isVisible == visible)
+        return;
+    _isVisible = visible;
+    if (visible) {
+        [_platformWindow showWindowWithoutActivation];
+    } else {
+        [_platformWindow hideWindow];
+    }
 }
 
 -(void)orderFront:sender {
