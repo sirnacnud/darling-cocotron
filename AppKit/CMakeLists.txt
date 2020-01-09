@@ -491,7 +491,7 @@ add_framework(AppKit
 )
 
 reexport(AppKit Foundation ${CMAKE_BINARY_DIR}/src/external/foundation/Foundation)
-reexport(AppKit ApplicationServices ${CMAKE_BINARY_DIR}/src/ApplicationServices/ApplicationServices)
+reexport(AppKit ApplicationServices ${CMAKE_BINARY_DIR}/src/frameworks/ApplicationServices/ApplicationServices)
 
 function(add_backend name)
 	cmake_parse_arguments(BACKEND "" "INFO_PLIST" "SOURCES;DEPENDENCIES;RESOURCES" ${ARGN})
