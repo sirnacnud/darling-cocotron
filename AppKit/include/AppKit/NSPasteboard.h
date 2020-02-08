@@ -52,6 +52,10 @@ APPKIT_EXPORT NSString *const NSRulerPboard;
 
 APPKIT_EXPORT NSString *const NSPasteboardNameGeneral;
 
+typedef NSString *NSPasteboardReadingOptionKey;
+
+APPKIT_EXPORT const NSPasteboardReadingOptionKey NSPasteboardURLReadingContentsConformToTypesKey;
+
 @class NSPasteboard;
 
 // @interface NSObject (NSPasteboard)

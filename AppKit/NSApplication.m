@@ -136,6 +136,9 @@ NSApplication * NSApp = nil;
     
    _lock=NSZoneMalloc(NULL,sizeof(pthread_mutex_t));
 
+   CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), NSModalPanelRunLoopMode);
+   CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), NSEventTrackingRunLoopMode);
+
    pthread_mutex_init(_lock,NULL);
    
    [self _showSplashImage];
@@ -1360,9 +1363,6 @@ int NSApplicationMain(int argc, const char *argv[]) {
         if (argc = [arguments count])
             [[NSUserDefaults standardUserDefaults] setObject:((argc == 1) ? [arguments lastObject] : arguments) forKey:@"NSOpen"];
     }
-
-    CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), NSModalPanelRunLoopMode);
-    CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), NSEventTrackingRunLoopMode);
 
     [NSClassFromString(@"Win32RunningCopyPipe") performSelector:@selector(startRunningCopyPipe)];
 

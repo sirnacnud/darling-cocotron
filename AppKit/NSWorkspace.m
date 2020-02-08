@@ -28,6 +28,8 @@ NSString *const NSWorkspaceDidTerminateApplicationNotification = @"NSWorkspaceDi
 const NSNotificationName NSWorkspaceSessionDidBecomeActiveNotification = @"NSWorkspaceSessionDidBecomeActiveNotification";
 const NSNotificationName NSWorkspaceSessionDidResignActiveNotification = @"NSWorkspaceSessionDidResignActiveNotification";
 
+const NSNotificationName NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification = @"NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification";
+
 @implementation NSWorkspace
 
 +(NSWorkspace *)sharedWorkspace {

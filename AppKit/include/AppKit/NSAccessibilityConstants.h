@@ -329,3 +329,5 @@ APPKIT_EXPORT NSString *const NSAccessibilitySupportsMainThreadIdleNotificationA
 APPKIT_EXPORT NSString *const NSAccessibilityErrorCodeExceptionInfo;
 APPKIT_EXPORT NSString * const NSAccessibilityLayoutChangedNotification;
 APPKIT_EXPORT NSString * const NSAccessibilityUIElementsKey;
+
+APPKIT_EXPORT NSString * const NSAccessibilityToggleSubrole;

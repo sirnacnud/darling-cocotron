@@ -1,13 +1,11 @@
 #import <Foundation/NSObject.h>
 
 // DUMMY
-const NSString *NSPopoverDidCloseNotification = @"NSPopoverDidCloseNotification";
-const NSString *NSPopoverWillCloseNotification = @"NSPopoverWillCloseNotification";
 
-@interface NSPopover : NSObject
+@interface NSCarbonMenuImpl : NSObject
 @end
 
-@implementation NSPopover
+@implementation NSCarbonMenuImpl
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
 	return [NSMethodSignature signatureWithObjCTypes: "v@:"];
@@ -18,5 +16,3 @@ const NSString *NSPopoverWillCloseNotification = @"NSPopoverWillCloseNotificatio
 	NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
 }
 @end
-
-

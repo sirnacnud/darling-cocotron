@@ -121,6 +121,7 @@ set(AppKit_sources
 	NSErrors.m
 	NSPopover.m
 	NSRunningApplication.m
+	NSAccessibilityCustomChooser.m
 
 	nib.subproj/NSButtonImageSource.m
 	nib.subproj/NSNibBindingConnector.m
@@ -214,6 +215,7 @@ set(AppKit_sources
 	NSMenu.subproj/NSMenuWindow.m
 	NSMenu.subproj/NSMenu.m
 	NSMenu.subproj/NSMenuItem.m
+	NSMenu.subproj/NSCarbonMenuImpl.m
 
 	NSPathControl.m
 	NSSound.m

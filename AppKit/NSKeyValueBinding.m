@@ -42,9 +42,11 @@ NSString *const NSSelectedTagBinding = @"selectedTag";
 NSString *const NSSelectionIndexesBinding = @"selectionIndexes";
 NSString *const NSTitleBinding = @"title";
 NSString *const NSValidatesImmediatelyBindingOption = @"NSValidatesImmediately";
+NSString *const NSNotApplicablePlaceholderBindingOption = @"NSNotApplicablePlaceholder";
 NSString *const NSValueBinding = @"value";
 NSString *const NSVisibleBinding = @"visible";
 NSString *const NSToolTipBinding = @"toolTip";
+NSString *const NSEditableBinding = @"editable";
 
 NSString *const NSNullPlaceholderBindingOption = @"NSNullPlaceholder";
 NSString *const NSNoSelectionPlaceholderBindingOption=@"NSNoSelectionPlaceholder";

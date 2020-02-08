@@ -49,6 +49,8 @@ NSString * const NSRulerPboard=@"NSRulerPboard";
 
 NSString * const NSPasteboardNameGeneral = @"Apple CFPasteboard general";
 
+const NSPasteboardReadingOptionKey NSPasteboardURLReadingContentsConformToTypesKey = @"NSPasteboardURLReadingContentsConformToTypesKey";
+
 @implementation NSPasteboard
 
 + (NSPasteboard *) generalPasteboard {

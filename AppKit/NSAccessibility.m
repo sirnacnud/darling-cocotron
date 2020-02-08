@@ -333,6 +333,7 @@ NSString *const NSAccessibilitySupportsMainThreadIdleNotificationAttribute = @"A
 
 NSString * const NSAccessibilityLayoutChangedNotification = @"AXLayoutChanged";
 NSString * const NSAccessibilityUIElementsKey = @"AXUIElementsKey";
+NSString * const NSAccessibilityToggleSubrole = @"NSAccessibilityToggleSubrole";
 
 void NSAccessibilityPostNotification (
    id element,
