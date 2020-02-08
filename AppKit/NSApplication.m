@@ -1361,6 +1361,9 @@ int NSApplicationMain(int argc, const char *argv[]) {
             [[NSUserDefaults standardUserDefaults] setObject:((argc == 1) ? [arguments lastObject] : arguments) forKey:@"NSOpen"];
     }
 
+    CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), NSModalPanelRunLoopMode);
+    CFRunLoopAddCommonMode(CFRunLoopGetCurrent(), NSEventTrackingRunLoopMode);
+
     [NSClassFromString(@"Win32RunningCopyPipe") performSelector:@selector(startRunningCopyPipe)];
 
     if(class==Nil)
