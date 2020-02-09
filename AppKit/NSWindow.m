@@ -63,6 +63,7 @@ NSString *const NSWindowDidOrderOffScreenNotification = @"NSWindowDidOrderOffScr
 NSString *const NSWindowDidOrderOnScreenNotification = @"_NSWindowDidBecomeVisible";
 NSString *const NSWindowWillEnterFullScreenNotification = @"NSWindowWillEnterFullScreenNotification";
 NSString *const NSWindowWillExitFullScreenNotification = @"NSWindowWillExitFullScreenNotification";
+NSString *const NSWindowDidExposeNotification = @"NSWindowDidExposeNotification";
 
 @interface CGWindow(private)
 - (void)dirtyRect:(CGRect)rect;
@@ -2814,6 +2815,13 @@ static BOOL _allowsAutomaticWindowTabbing;
    [_drawers makeObjectsPerformSelector:@selector(parentWindowDidMiniaturize:) withObject:self];
 
    [NSApp updateWindows];
+}
+
+-(void)platformWindowExposed:(CGWindow *)window inRect:(NSRect)rect {
+   NSValue *nsrect=[NSValue valueWithRect:rect];
+   NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:nsrect, @"NSExposedRect", nil];
+    
+   [[NSNotificationCenter defaultCenter] postNotificationName:NSWindowDidExposeNotification object:self userInfo:userInfo];
 }
 
 -(void)platformWindow:(CGWindow *)window frameChanged:(NSRect)frame didSize:(BOOL)didSize {

@@ -108,6 +108,8 @@ typedef enum {
 - (void)platformWindowActivated:(CGWindow *)window displayIfNeeded:(BOOL)displayIfNeeded;
 - (void)platformWindowDeactivated:(CGWindow *)window checkForAppDeactivation:(BOOL)checkForApp;
 
+- (void)platformWindowExposed:(CGWindow *)window inRect:(NSRect)rect;
+
 - (BOOL)platformWindowIgnoreModalMessages:(CGWindow *)window;
 
 - (BOOL)platformWindowSetCursorEvent:(CGWindow *)window;

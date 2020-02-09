@@ -597,6 +597,8 @@ static void socketCallback(
      // [_backingContext addToDirtyRect:rect];
      if(ev->xexpose.count==0)
       [window flushBuffer]; 
+
+     [delegate platformWindowExposed:window inRect:rect];
      break;
 
     case GraphicsExpose:

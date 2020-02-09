@@ -110,6 +110,7 @@ APPKIT_EXPORT NSString *const NSWindowDidOrderOffScreenNotification;
 APPKIT_EXPORT NSString *const NSWindowDidOrderOnScreenNotification;
 APPKIT_EXPORT NSString *const NSWindowWillEnterFullScreenNotification;
 APPKIT_EXPORT NSString *const NSWindowWillExitFullScreenNotification;
+APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 
 @interface NSWindow : NSResponder {
     NSRect _frame;
