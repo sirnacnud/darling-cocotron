@@ -32,75 +32,10 @@ static void initme(void) {
     verbose = getenv("STUB_VERBOSE") != NULL;
 }
 
-CGError CGDisplayShowCursor(CGDirectDisplayID display)
-{
-    if (verbose) puts("STUB: CGDisplayShowCursor called");
-	return (CGError)0;
-}
-
 boolean_t CGCursorIsVisible(void)
 {
     if (verbose) puts("STUB: CGCursorIsVisible called");
 	return false;
-}
-
-CFArrayRef CGDisplayAvailableModes(CGDirectDisplayID a)
-{
-	// Usual keys: Width, Height, Mode, BitsPerPixel, SamplesPerPixel, RefreshRate, UsableForDesktopGUI, IOFlags, kCGDisplayBytesPerRow, IODisplayModeID
-
-    if (verbose) puts("STUB: CGDisplayAvailableModes called");
-
-    CFTypeRef arrayValues[ 1 ];
-
-    CFTypeRef dummyDisplayKeys[ 3 ];
-    CFTypeRef dummyDisplayValues[ 3 ];
-
-    dummyDisplayKeys[0] = CFSTR("Width");
-    dummyDisplayKeys[1] = CFSTR("Height");
-    dummyDisplayKeys[2] = CFSTR("BitsPerPixel");
-
-    // TODO: put some real values here
-    int val = 640;
-    dummyDisplayValues[0] = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &val);
-    val = 480;
-    dummyDisplayValues[1] = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &val);
-    val = 32;
-    dummyDisplayValues[2] = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &val);
-
-    CFDictionaryRef dictionary = CFDictionaryCreate(
-        kCFAllocatorDefault,
-        (const void **)&dummyDisplayKeys,
-        (const void **)&dummyDisplayValues,
-        3,
-        &kCFTypeDictionaryKeyCallBacks,
-        &kCFTypeDictionaryValueCallBacks
-    );
-
-    arrayValues[0] = dictionary;
-
-    CFArrayRef ret = CFArrayCreate(kCFAllocatorDefault, 
-    	                      &arrayValues, 
-    	                      1, 
-    	                      &kCFTypeArrayCallBacks);
-
-    CFRelease(dummyDisplayValues[0]);
-    CFRelease(dummyDisplayValues[1]);
-    CFRelease(dummyDisplayValues[2]);
-
-    // TODO: autorelease ret?
-	return ret;
-}
-
-CGRect CGDisplayBounds(CGDirectDisplayID a)
-{
-    if (verbose) puts("STUB: CGDisplayBounds called");
-	return CGRectMake(0,0,640,480);
-}
-
-CGError CGDisplayHideCursor(CGDirectDisplayID a)
-{
-    if (verbose) puts("STUB: CGDisplayHideCursor called");
-	return (CGError)0;
 }
 
 CGOpenGLDisplayMask CGDisplayIDToOpenGLDisplayMask(CGDirectDisplayID a)
@@ -121,12 +56,6 @@ void CGDisplayRestoreColorSyncSettings(void)
 	
 }
 
-CGError CGGetActiveDisplayList(uint32_t a, CGDirectDisplayID *b, uint32_t *c)
-{
-    if (verbose) puts("STUB: CGGetActiveDisplayList called");
-	return (CGError)0;
-}
-
 CGError CGGetDisplayTransferByFormula(CGDirectDisplayID a, CGGammaValue *b, CGGammaValue *c, CGGammaValue *d, CGGammaValue *e, CGGammaValue *f, CGGammaValue *g, CGGammaValue *h, CGGammaValue *i, CGGammaValue *j)
 {
     if (verbose) puts("STUB: CGGetDisplayTransferByFormula called");
@@ -143,12 +72,6 @@ void CGGetLastMouseDelta(int32_t *a, int32_t *b)
 {
     if (verbose) puts("STUB: CGGetLastMouseDelta called");
 	
-}
-
-CGDirectDisplayID CGMainDisplayID(void)
-{
-    if (verbose) puts("STUB: CGMainDisplayID called");
-	return (CGDirectDisplayID)0;
 }
 
 CGError CGSetDisplayTransferByFormula(CGDirectDisplayID a, CGGammaValue b, CGGammaValue c, CGGammaValue d, CGGammaValue e, CGGammaValue f, CGGammaValue g, CGGammaValue h, CGGammaValue i, CGGammaValue j)

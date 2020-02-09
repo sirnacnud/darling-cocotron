@@ -72,4 +72,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - (CGRect) insetRect: (CGRect) frame forNativeWindowBorderWithStyle: (NSUInteger) styleMask;
 - (CGRect) outsetRect: (CGRect) frame forNativeWindowBorderWithStyle: (NSUInteger) styleMask;
 
+- (NSArray *) modesForScreen:(int)screenIndex;
+- (NSDictionary*) currentModeForScreen:(int)screenIndex;
+- (BOOL) setMode:(NSDictionary *)mode forScreen:(int)screenIndex;
+
 @end

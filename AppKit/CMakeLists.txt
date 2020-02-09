@@ -15,6 +15,10 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
 set(OpenGL_GL_PREFERENCE "GLVND")
 
 find_package(X11 REQUIRED)
+if (NOT X11_Xrandr_FOUND)
+	message(FATAL "XRandR not found")
+endif (NOT X11_Xrandr_FOUND)
+
 find_package(Freetype REQUIRED)
 
 # We do not link to host's libGL (directly),
@@ -59,7 +63,8 @@ include_directories(
 
 	${CMAKE_CURRENT_SOURCE_DIR}/X11.backend
 
-	${X11_INCLUDE_DIRS}
+	${X11_INCLUDE_DIR}
+	${X11_Xrandr_INCLUDE_PATH}
 	${FREETYPE_INCLUDE_DIRS}
 	${OPENGL_INCLUDE_DIRS}
 	${PC_CAIRO_INCLUDE_DIRS}
@@ -546,5 +551,6 @@ add_backend(X11
 		QuartzCore
 		# native libraries
                 X11
+		XRandR
 		fontconfig
 )

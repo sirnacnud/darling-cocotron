@@ -33,6 +33,7 @@
 #import <fcntl.h>
 #import <fontconfig/fontconfig.h>
 #import <X11/Xutil.h>
+#import <X11/extensions/Xrandr.h>
 
 @implementation X11Display
 
@@ -130,10 +131,128 @@ static void socketCallback(
 }
 
 -(NSArray *)screens {
-   NSRect frame=NSMakeRect(0, 0,
-                           DisplayWidth(_display, DefaultScreen(_display)),
-                           DisplayHeight(_display, DefaultScreen(_display)));
-   return [NSArray arrayWithObject:[[[NSScreen alloc] initWithFrame:frame visibleFrame:frame] autorelease]];
+   int eventBase, errorBase;
+
+   if (XRRQueryExtension(_display, &eventBase, &errorBase))
+   {
+      XRRScreenResources *screen;
+
+      screen = XRRGetScreenResources(_display, DefaultRootWindow(_display));
+      NSMutableArray<NSScreen*>* retval = [NSMutableArray arrayWithCapacity: screen->ncrtc];
+
+      for (int i = 0; i < screen->ncrtc; i++)
+      {
+         XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, screen->crtcs[i]);
+         NSRect frame = NSMakeRect(crtc->x, crtc->y, crtc->width, crtc->height);
+
+         NSScreen* screen = [[[NSScreen alloc] initWithFrame:frame visibleFrame:frame] autorelease];
+
+         [retval addObject: screen];
+      }
+
+      XRRFreeScreenResources(screen);
+
+      return [NSArray arrayWithArray:retval];
+   }
+   else
+   {
+      NSRect frame=NSMakeRect(0, 0,
+                              DisplayWidth(_display, DefaultScreen(_display)),
+                              DisplayHeight(_display, DefaultScreen(_display)));
+      return [NSArray arrayWithObject:[[[NSScreen alloc] initWithFrame:frame visibleFrame:frame] autorelease]];
+   }
+}
+
+static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi) {
+   double rate = 0;
+
+   if (mi->hTotal && mi->vTotal)
+      rate = (double) mi->dotClock / ((double) mi->hTotal * (double) mi->vTotal);
+
+   return @{
+      @"Width": @(mi->width),
+      @"Height": @(mi->height),
+      @"Depth": @(defaultDepth),
+      @"RefreshRate": @(rate)
+   };
+}
+
+- (NSArray *) modesForScreen:(int)screenIndex {
+   int eventBase, errorBase;
+   const int defaultDepth = XDefaultDepthOfScreen(XDefaultScreenOfDisplay(_display));
+
+   if (!XRRQueryExtension(_display, &eventBase, &errorBase))
+   {
+      Screen* defaultScreen = XDefaultScreenOfDisplay(_display);
+      return @[
+         @{
+            @"Width": @(WidthOfScreen(defaultScreen)),
+            @"Height": @(HeightOfScreen(defaultScreen)),
+            @"Depth": @(defaultDepth)
+         }
+      ];
+   }
+   else
+   {
+      XRRScreenResources *screen = XRRGetScreenResources(_display, DefaultRootWindow(_display));
+
+      NSMutableArray<NSScreen*>* retval = [NSMutableArray arrayWithCapacity: screen->nmode];
+
+      // NOTE: screenIndex is left unused here. The XRandR stuff is quite complex
+      // and I don't understand all the relationships between crtcs, outputs, monitors...
+      for (int i = 0; i < screen->nmode; i++)
+      {
+         NSDictionary* dict = modeInfoToDictionary(&screen->modes[i]);
+         [retval addObject: dict];
+      }
+
+      XRRFreeScreenResources(screen);
+      return [NSArray arrayWithArray:retval];
+   }
+}
+
+- (BOOL) setMode:(NSDictionary *)mode forScreen:(int)screenIndex
+{
+   int eventBase, errorBase;
+
+   if (XRRQueryExtension(_display, &eventBase, &errorBase))
+   {
+      // TODO: Use XRRSetCrtcConfig
+      // https://cgit.freedesktop.org/xorg/lib/libXrandr/tree/include/X11/extensions/Xrandr.h#n283
+   }
+
+   return FALSE;
+}
+
+- (NSDictionary*) currentModeForScreen:(int)screenIndex {
+   int eventBase, errorBase;
+
+   if (XRRQueryExtension(_display, &eventBase, &errorBase))
+   {
+      XRRScreenResources *screen = XRRGetScreenResources(_display, DefaultRootWindow(_display));
+
+      if (screenIndex < 0 || screenIndex >= screen->ncrtc)
+      {
+         XRRFreeScreenResources(screen);
+         return @{};
+      }
+
+      XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, screen->crtcs[screenIndex]);
+
+      for (int i = 0; i < screen->nmode; i++)
+      {
+         if (screen->modes[i].id == crtc->mode)
+         {
+            NSDictionary* dict = modeInfoToDictionary(&screen->modes[i]);
+
+            XRRFreeScreenResources(screen);
+            return dict;
+         }
+      }
+
+      XRRFreeScreenResources(screen);
+   }
+   return @{};
 }
 
 - (NSPasteboard *) pasteboardWithName: (NSString *) name {
