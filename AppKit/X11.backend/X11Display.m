@@ -163,7 +163,7 @@ static void socketCallback(
    }
 }
 
-static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi) {
+static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    double rate = 0;
 
    if (mi->hTotal && mi->vTotal)
@@ -172,7 +172,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi) {
    return @{
       @"Width": @(mi->width),
       @"Height": @(mi->height),
-      @"Depth": @(defaultDepth),
+      @"Depth": @(depth),
       @"RefreshRate": @(rate)
    };
 }
@@ -202,7 +202,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi) {
       // and I don't understand all the relationships between crtcs, outputs, monitors...
       for (int i = 0; i < screen->nmode; i++)
       {
-         NSDictionary* dict = modeInfoToDictionary(&screen->modes[i]);
+         NSDictionary* dict = modeInfoToDictionary(&screen->modes[i], defaultDepth);
          [retval addObject: dict];
       }
 
@@ -243,7 +243,8 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi) {
       {
          if (screen->modes[i].id == crtc->mode)
          {
-            NSDictionary* dict = modeInfoToDictionary(&screen->modes[i]);
+            const int defaultDepth = XDefaultDepthOfScreen(XDefaultScreenOfDisplay(_display));
+            NSDictionary* dict = modeInfoToDictionary(&screen->modes[i], defaultDepth);
 
             XRRFreeScreenResources(screen);
             return dict;
