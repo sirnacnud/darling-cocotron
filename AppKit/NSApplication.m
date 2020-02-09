@@ -1193,6 +1193,12 @@ NSApplication * NSApp = nil;
     }
 }
 
+// This is a method removed from official headers in 10.4,
+// but it still exists and is widely used.
+-(void)setAppleMenu:(NSMenu *)menu {
+   NSUnimplementedMethod();
+}
+
 -(NSMenu *)servicesMenu {
    return [[NSApp mainMenu] _menuWithName:@"_NSServicesMenu"];
 }
