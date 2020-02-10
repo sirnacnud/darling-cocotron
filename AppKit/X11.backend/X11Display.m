@@ -138,16 +138,42 @@ static void socketCallback(
       XRRScreenResources *screen;
 
       screen = XRRGetScreenResources(_display, DefaultRootWindow(_display));
-      NSMutableArray<NSScreen*>* retval = [NSMutableArray arrayWithCapacity: screen->ncrtc];
+      NSMutableArray<NSScreen*>* retval = [NSMutableArray arrayWithCapacity: screen->noutput];
 
-      for (int i = 0; i < screen->ncrtc; i++)
+      Atom edidAtom = XInternAtom(_display, "EDID", FALSE);
+
+      for (int i = 0; i < screen->noutput; i++)
       {
-         XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, screen->crtcs[i]);
-         NSRect frame = NSMakeRect(crtc->x, crtc->y, crtc->width, crtc->height);
+         XRROutputInfo *oinfo = XRRGetOutputInfo(_display, screen, screen->outputs[i]);
+         NSScreen* nsscreen;
 
-         NSScreen* screen = [[[NSScreen alloc] initWithFrame:frame visibleFrame:frame] autorelease];
+         if (oinfo->crtc)
+         {
+            XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, oinfo->crtc);
+            NSRect frame = NSMakeRect(crtc->x, crtc->y, crtc->width, crtc->height);
 
-         [retval addObject: screen];
+            nsscreen = [[[NSScreen alloc] initWithFrame:frame visibleFrame:frame] autorelease];
+
+            Atom actualType;
+            unsigned long nitems, bytesAfter;
+            int actualFormat;
+            unsigned char* prop;
+
+            if (XRRGetOutputProperty(_display, screen->outputs[i], edidAtom, 0, 100, FALSE, FALSE, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytesAfter, &prop) == Success)
+            {
+               [nsscreen setEdid: [NSData dataWithBytes: prop length: nitems]];
+            }
+
+            XRRFreeCrtcInfo(crtc);
+         }
+         else
+         {
+            nsscreen = [[[NSScreen alloc] initWithFrame:NSZeroRect visibleFrame:NSZeroRect] autorelease];
+         }
+
+         [retval addObject: nsscreen];
+         
+         XRRFreeOutputInfo(oinfo);
       }
 
       XRRFreeScreenResources(screen);
@@ -196,16 +222,36 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    {
       XRRScreenResources *screen = XRRGetScreenResources(_display, DefaultRootWindow(_display));
 
-      NSMutableArray<NSScreen*>* retval = [NSMutableArray arrayWithCapacity: screen->nmode];
-
-      // NOTE: screenIndex is left unused here. The XRandR stuff is quite complex
-      // and I don't understand all the relationships between crtcs, outputs, monitors...
-      for (int i = 0; i < screen->nmode; i++)
+      if (screenIndex < 0 || screenIndex >= screen->noutput)
       {
-         NSDictionary* dict = modeInfoToDictionary(&screen->modes[i], defaultDepth);
-         [retval addObject: dict];
+         XRRFreeScreenResources(screen);
+         return nil;
       }
 
+      XRROutputInfo *oinfo = XRRGetOutputInfo(_display, screen, screen->outputs[screenIndex]);
+
+      NSMutableArray<NSDictionary*>* retval = [NSMutableArray arrayWithCapacity: oinfo->nmode];
+
+      for (int i = 0; i < oinfo->nmode; i++)
+      {
+         XRRModeInfo* mode = NULL;
+         for (int j = 0; j < screen->nmode; j++)
+         {
+            if (screen->modes[j].id == oinfo->modes[i])
+            {
+               mode = &screen->modes[j];
+               break;
+            }
+         }
+
+         if (mode != NULL)
+         {
+            NSDictionary* dict = modeInfoToDictionary(mode, defaultDepth);
+            [retval addObject: dict];
+         }
+      }
+
+      XRRFreeOutputInfo(oinfo);
       XRRFreeScreenResources(screen);
       return [NSArray arrayWithArray:retval];
    }
@@ -226,34 +272,37 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 
 - (NSDictionary*) currentModeForScreen:(int)screenIndex {
    int eventBase, errorBase;
+   NSDictionary* dict = @{};
 
    if (XRRQueryExtension(_display, &eventBase, &errorBase))
    {
       XRRScreenResources *screen = XRRGetScreenResources(_display, DefaultRootWindow(_display));
 
-      if (screenIndex < 0 || screenIndex >= screen->ncrtc)
+      if (screenIndex <= 0 || screenIndex >= screen->noutput)
       {
          XRRFreeScreenResources(screen);
-         return @{};
+         return dict;
       }
 
-      XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, screen->crtcs[screenIndex]);
+      XRROutputInfo* oinfo = XRRGetOutputInfo(_display, screen, screen->outputs[screenIndex]);
+      XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, oinfo->crtc);
 
       for (int i = 0; i < screen->nmode; i++)
       {
          if (screen->modes[i].id == crtc->mode)
          {
             const int defaultDepth = XDefaultDepthOfScreen(XDefaultScreenOfDisplay(_display));
-            NSDictionary* dict = modeInfoToDictionary(&screen->modes[i], defaultDepth);
+            dict = modeInfoToDictionary(&screen->modes[i], defaultDepth);
 
-            XRRFreeScreenResources(screen);
-            return dict;
+            break;
          }
       }
 
+      XRRFreeOutputInfo(oinfo);
+      XRRFreeCrtcInfo(crtc);
       XRRFreeScreenResources(screen);
    }
-   return @{};
+   return dict;
 }
 
 - (NSPasteboard *) pasteboardWithName: (NSString *) name {
@@ -852,7 +901,9 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 }
 
 -(int)handleError:(XErrorEvent*)errorEvent {
-   NSLog(@"************** ERROR");
+   NSLog(@"************** X11 ERROR!");
+   NSLog(@"Request code: %d:%d", errorEvent->request_code, errorEvent->minor_code);
+   NSLog(@"Error code: %d", errorEvent->error_code);
    return 0;
 }
 

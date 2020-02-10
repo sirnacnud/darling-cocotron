@@ -11,6 +11,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 @interface NSScreen : NSObject {
     NSRect _frame;
     NSRect _visibleFrame;
+    NSData* _edid;
 }
 
 + (NSScreen *)mainScreen;
@@ -25,4 +26,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (CGFloat)userSpaceScaleFactor;
 
+@end
+
+@interface NSScreen (Darling)
+- (NSData*) edid;
+- (void) setEdid: (NSData*)data;
 @end

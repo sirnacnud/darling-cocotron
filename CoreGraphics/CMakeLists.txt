@@ -117,4 +117,5 @@ add_framework(CoreGraphics
 		Foundation
 		Onyx2D
 		OpenGL
+		IOKit
 )

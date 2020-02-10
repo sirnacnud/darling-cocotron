@@ -20,6 +20,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    return self;
 }
 
+-(void)dealloc {
+   if (_edid)
+      [_edid release];
+   [super dealloc];
+}
+
 +(NSScreen *)mainScreen {
    NSScreen *result=[[NSApp keyWindow] screen];
 
@@ -50,3 +56,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 @end
+
+@implementation NSScreen (Darling)
+- (NSData*) edid {
+   return self->_edid;
+}
+
+- (void) setEdid: (NSData*)data {
+   self->_edid = [data retain];
+}
+@end
+

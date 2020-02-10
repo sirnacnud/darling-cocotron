@@ -1,31 +1,74 @@
 #import <CoreGraphics/CGDirectDisplay.h>
 #import <CoreGraphics/CGError.h>
 #import <AppKit/NSDisplay.h>
+#import <AppKit/NSScreen.h>
 #import <IOKit/graphics/IOGraphicsTypes.h>
+#import <IOKit/graphics/IOGraphicsLib.h>
+#include <dlfcn.h>
 
-CGError CGReleaseAllDisplays(void) {
-   return 0;
+CGError CGReleaseAllDisplays(void)
+{
+   return kCGErrorSuccess;
+}
+
+// Our platform abstraction is in AppKit
+static NSDisplay* currentDisplay(void)
+{
+   Class cls = NSClassFromString(@"NSDisplay");
+
+   if (!cls)
+   {
+      if (dlopen("/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit", RTLD_LAZY | RTLD_GLOBAL) != NULL)
+         cls = NSClassFromString(@"NSDisplay");
+   }
+
+   return [cls currentDisplay];
 }
 
 CGDirectDisplayID CGMainDisplayID(void)
 {
-   return 0;
-}
-
-CGError CGGetOnlineDisplayList(uint32_t maxDisplays, CGDirectDisplayID *onlineDisplays, uint32_t *displayCount)
-{
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return kCGErrorInvalidConnection;
 
    NSArray<NSScreen*>* screens = [display screens];
-
-   if (displayCount)
-      *displayCount = [screens count];
    
-   for (int i = 0; i < [screens count] && i < maxDisplays; i++)
+   for (int i = 0; i < [screens count]; i++)
    {
-      onlineDisplays[i] = i+1;
+      if (!NSIsEmptyRect([[screens objectAtIndex: i] frame]))
+      {
+         return i+1;
+      }
+   }
+
+   return kCGNullDirectDisplay;
+}
+
+CGError CGGetOnlineDisplayList(uint32_t maxDisplays, CGDirectDisplayID *onlineDisplays, uint32_t *displayCount)
+{
+   NSDisplay* display = currentDisplay();
+   if (!display)
+      return kCGErrorInvalidConnection;
+
+   NSArray<NSScreen*>* screens = [display screens];
+   const CGDirectDisplayID mainDisplay = CGMainDisplayID();
+
+   *displayCount = 0;
+
+   // Main display should be the first returned
+   if (mainDisplay != kCGNullDirectDisplay)
+   {
+      (*displayCount)++;
+      onlineDisplays[0] = mainDisplay;
+   }
+   
+   for (int i = 0; i < [screens count] && *displayCount < maxDisplays; i++)
+   {
+      if ((i+1) != mainDisplay)
+      {
+         onlineDisplays[*displayCount] = i+1;
+         (*displayCount)++;
+      }
    }
 
    return kCGErrorSuccess;
@@ -33,7 +76,7 @@ CGError CGGetOnlineDisplayList(uint32_t maxDisplays, CGDirectDisplayID *onlineDi
 
 size_t CGDisplayPixelsHigh(CGDirectDisplayID displayIndex)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return kCGErrorInvalidConnection;
 
@@ -46,7 +89,7 @@ size_t CGDisplayPixelsHigh(CGDirectDisplayID displayIndex)
 
 size_t CGDisplayPixelsWide(CGDirectDisplayID displayIndex)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return kCGErrorInvalidConnection;
 
@@ -59,7 +102,23 @@ size_t CGDisplayPixelsWide(CGDirectDisplayID displayIndex)
 
 CGError CGGetActiveDisplayList(uint32_t maxDisplays, CGDirectDisplayID *activeDisplays, uint32_t *displayCount)
 {
-   return CGGetOnlineDisplayList(maxDisplays, activeDisplays, displayCount);
+   NSDisplay* display = currentDisplay();
+   if (!display)
+      return kCGErrorInvalidConnection;
+
+   NSArray<NSScreen*>* screens = [display screens];
+   
+   *displayCount = 0;
+   for (int i = 0; i < [screens count] && *displayCount < maxDisplays; i++)
+   {
+      if (!NSIsEmptyRect([[screens objectAtIndex: i] frame]))
+      {
+         activeDisplays[*displayCount] = i+1;
+         (*displayCount)++;
+      }
+   }
+
+   return kCGErrorSuccess;
 }
 
 CGError CGGetDisplaysWithOpenGLDisplayMask(CGOpenGLDisplayMask mask, uint32_t maxDisplays, CGDirectDisplayID *displays, uint32_t *matchingDisplayCount)
@@ -74,7 +133,7 @@ CGDirectDisplayID CGOpenGLDisplayMaskToDisplayID(CGOpenGLDisplayMask mask)
 
 CGError CGGetDisplaysWithPoint(CGPoint point, uint32_t maxDisplays, CGDirectDisplayID *displays, uint32_t *matchingDisplayCount)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return kCGErrorInvalidConnection;
 
@@ -96,7 +155,7 @@ CGError CGGetDisplaysWithPoint(CGPoint point, uint32_t maxDisplays, CGDirectDisp
 
 CGError CGGetDisplaysWithRect(CGRect rect, uint32_t maxDisplays, CGDirectDisplayID *displays, uint32_t *matchingDisplayCount)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return kCGErrorInvalidConnection;
 
@@ -128,7 +187,7 @@ CGError CGDisplayRelease(CGDirectDisplayID display)
 
 CGRect CGDisplayBounds(CGDirectDisplayID displayIndex)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return NSZeroRect;
 
@@ -141,7 +200,7 @@ CGRect CGDisplayBounds(CGDirectDisplayID displayIndex)
 
 CGError CGDisplayHideCursor(CGDirectDisplayID displayIndex)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return kCGErrorInvalidConnection;
    
@@ -151,7 +210,7 @@ CGError CGDisplayHideCursor(CGDirectDisplayID displayIndex)
 
 CGError CGDisplayShowCursor(CGDirectDisplayID displayIndex)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return kCGErrorInvalidConnection;
    
@@ -161,7 +220,7 @@ CGError CGDisplayShowCursor(CGDirectDisplayID displayIndex)
 
 CFArrayRef CGDisplayAvailableModes(CGDirectDisplayID displayIndex)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return NULL;
    return (CFArrayRef) [display modesForScreen:displayIndex-1];
@@ -181,7 +240,7 @@ CGDirectDisplayID CGDisplayMirrorsDisplay(CGDirectDisplayID display)
 
 CGDisplayModeRef CGDisplayCopyDisplayMode(CGDirectDisplayID displayId)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return NULL;
 
@@ -239,7 +298,7 @@ CFStringRef CGDisplayModeCopyPixelEncoding(CGDisplayModeRef mode)
 
 CFArrayRef CGDisplayCopyAllDisplayModes(CGDirectDisplayID displayIndex, CFDictionaryRef options)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return NULL;
    return (CFArrayRef) [[display modesForScreen:displayIndex-1] retain];
@@ -247,10 +306,127 @@ CFArrayRef CGDisplayCopyAllDisplayModes(CGDirectDisplayID displayIndex, CFDictio
 
 CGError CGDisplaySetDisplayMode(CGDirectDisplayID displayId, CGDisplayModeRef mode, CFDictionaryRef options)
 {
-   NSDisplay* display = [NSClassFromString(@"NSDisplay") currentDisplay];
+   NSDisplay* display = currentDisplay();
    if (!display)
       return kCGErrorInvalidConnection;
    BOOL result = [display setMode:mode forScreen:displayId-1];
 
    return result ? kCGErrorSuccess : kCGErrorFailure;
+}
+
+static NSData* edidForDisplay(CGDirectDisplayID displayId)
+{
+   NSDisplay* display = currentDisplay();
+   if (!display)
+      return nil;
+
+   NSArray<NSScreen*>* screens = [display screens];
+   if (displayId <= 0 || displayId > [screens count])
+      return nil;
+   
+   NSScreen* screen = [screens objectAtIndex: displayId-1];
+   NSData* edid = [screen edid];
+   if (edid && [edid length] >= 16)
+      return edid;
+
+   return nil;
+}
+
+uint32_t CGDisplaySerialNumber(CGDirectDisplayID displayId)
+{
+   NSData* edid = edidForDisplay(displayId);
+   if (!edid)
+      return 0;
+   
+   return CFSwapInt32LittleToHost(*(uint32_t*) (&[edid bytes][12]));
+}
+
+uint32_t CGDisplayModelNumber(CGDirectDisplayID displayId)
+{
+   NSData* edid = edidForDisplay(displayId);
+   if (!edid)
+      return 0;
+   
+   return CFSwapInt16LittleToHost(*(uint16_t*) (&[edid bytes][10]));
+}
+
+uint32_t CGDisplayVendorNumber(CGDirectDisplayID displayId)
+{
+   NSData* edid = edidForDisplay(displayId);
+   if (!edid)
+      return 0;
+   
+   return CFSwapInt16BigToHost(*(uint16_t*) (&[edid bytes][8]));
+}
+
+io_service_t CGDisplayIOServicePort(CGDirectDisplayID displayID)
+{
+   // The code in this function is:
+   // Copyright (c) 2002-2006 Marcus Geelnard
+   // Copyright (c) 2006-2010 Camilla Berglund <elmindreda@elmindreda.org>
+   // Taken from https://github.com/glfw/glfw/blob/e0a6772e5e4c672179fc69a90bcda3369792ed1f/src/cocoa_monitor.m
+
+   io_iterator_t iter;
+   io_service_t serv, servicePort = 0;
+   
+   CFMutableDictionaryRef matching = IOServiceMatching("IODisplayConnect");
+   
+   // releases matching for us
+   kern_return_t err = IOServiceGetMatchingServices(kIOMasterPortDefault,
+                                                   matching,
+                                                   &iter);
+   if (err)
+      return 0;
+   
+   while ((serv = IOIteratorNext(iter)) != 0)
+   {
+      CFDictionaryRef info;
+      CFIndex vendorID, productID, serialNumber;
+      CFNumberRef vendorIDRef, productIDRef, serialNumberRef;
+      Boolean success;
+      
+      info = IODisplayCreateInfoDictionary(serv,
+                                          kIODisplayOnlyPreferredName);
+      
+      vendorIDRef = CFDictionaryGetValue(info,
+                                          CFSTR(kDisplayVendorID));
+      productIDRef = CFDictionaryGetValue(info,
+                                          CFSTR(kDisplayProductID));
+      serialNumberRef = CFDictionaryGetValue(info,
+                                             CFSTR(kDisplaySerialNumber));
+      
+      success = CFNumberGetValue(vendorIDRef, kCFNumberCFIndexType,
+                                 &vendorID);
+      success &= CFNumberGetValue(productIDRef, kCFNumberCFIndexType,
+                                 &productID);
+      success &= CFNumberGetValue(serialNumberRef, kCFNumberCFIndexType,
+                                 &serialNumber);
+      
+      if (!success)
+      {
+         CFRelease(info);
+         continue;
+      }
+      
+      // If the vendor and product id along with the serial don't match
+      // then we are not looking at the correct monitor.
+      // NOTE: The serial number is important in cases where two monitors
+      //       are the exact same.
+      if (CGDisplayVendorNumber(displayID) != vendorID  ||
+         CGDisplayModelNumber(displayID) != productID  ||
+         CGDisplaySerialNumber(displayID) != serialNumber)
+      {
+         CFRelease(info);
+         continue;
+      }
+      
+      // The VendorID, Product ID, and the Serial Number all Match Up!
+      // Therefore we have found the appropriate display io_service
+      servicePort = serv;
+      CFRelease(info);
+      break;
+   }
+   
+   IOObjectRelease(iter);
+   return servicePort;
 }
