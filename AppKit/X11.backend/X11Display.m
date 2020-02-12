@@ -161,7 +161,8 @@ static void socketCallback(
 
             if (XRRGetOutputProperty(_display, screen->outputs[i], edidAtom, 0, 100, FALSE, FALSE, AnyPropertyType, &actualType, &actualFormat, &nitems, &bytesAfter, &prop) == Success)
             {
-               [nsscreen setEdid: [NSData dataWithBytes: prop length: nitems]];
+               if (prop && nitems > 0)
+                  [nsscreen setEdid: [NSData dataWithBytes: prop length: nitems]];
             }
 
             XRRFreeCrtcInfo(crtc);

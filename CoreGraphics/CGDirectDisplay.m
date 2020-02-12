@@ -59,14 +59,16 @@ CGError CGGetOnlineDisplayList(uint32_t maxDisplays, CGDirectDisplayID *onlineDi
    if (mainDisplay != kCGNullDirectDisplay)
    {
       (*displayCount)++;
-      onlineDisplays[0] = mainDisplay;
+      if (maxDisplays > 0)
+         onlineDisplays[0] = mainDisplay;
    }
    
-   for (int i = 0; i < [screens count] && *displayCount < maxDisplays; i++)
+   for (int i = 0; i < [screens count]; i++)
    {
       if ((i+1) != mainDisplay)
       {
-         onlineDisplays[*displayCount] = i+1;
+         if (*displayCount < maxDisplays)
+            onlineDisplays[*displayCount] = i+1;
          (*displayCount)++;
       }
    }
@@ -109,11 +111,12 @@ CGError CGGetActiveDisplayList(uint32_t maxDisplays, CGDirectDisplayID *activeDi
    NSArray<NSScreen*>* screens = [display screens];
    
    *displayCount = 0;
-   for (int i = 0; i < [screens count] && *displayCount < maxDisplays; i++)
+   for (int i = 0; i < [screens count]; i++)
    {
       if (!NSIsEmptyRect([[screens objectAtIndex: i] frame]))
       {
-         activeDisplays[*displayCount] = i+1;
+         if (*displayCount < maxDisplays)
+            activeDisplays[*displayCount] = i+1;
          (*displayCount)++;
       }
    }
@@ -140,12 +143,13 @@ CGError CGGetDisplaysWithPoint(CGPoint point, uint32_t maxDisplays, CGDirectDisp
    NSArray<NSScreen*>* screens = [display screens];
    *matchingDisplayCount = 0;
 
-   for (int i = 0; i < [screens count] && *matchingDisplayCount < maxDisplays; i++)
+   for (int i = 0; i < [screens count]; i++)
    {
       NSRect rect = [[screens objectAtIndex: i] frame];
       if (NSPointInRect(point, rect))
       {
-         displays[*matchingDisplayCount] = i+1;
+         if (*matchingDisplayCount < maxDisplays)
+            displays[*matchingDisplayCount] = i+1;
          (*matchingDisplayCount)++;
       }
    }
@@ -162,12 +166,13 @@ CGError CGGetDisplaysWithRect(CGRect rect, uint32_t maxDisplays, CGDirectDisplay
    NSArray<NSScreen*>* screens = [display screens];
    *matchingDisplayCount = 0;
 
-   for (int i = 0; i < [screens count] && *matchingDisplayCount < maxDisplays; i++)
+   for (int i = 0; i < [screens count]; i++)
    {
       NSRect screenRect = [[screens objectAtIndex: i] frame];
       if (NSIntersectsRect(rect, screenRect))
       {
-         displays[*matchingDisplayCount] = i+1;
+         if (*matchingDisplayCount < maxDisplays)
+            displays[*matchingDisplayCount] = i+1;
          (*matchingDisplayCount)++;
       }
    }
@@ -336,7 +341,7 @@ uint32_t CGDisplaySerialNumber(CGDirectDisplayID displayId)
 {
    NSData* edid = edidForDisplay(displayId);
    if (!edid)
-      return 0;
+      return displayId;
    
    return CFSwapInt32LittleToHost(*(uint32_t*) (&[edid bytes][12]));
 }
@@ -345,7 +350,7 @@ uint32_t CGDisplayModelNumber(CGDirectDisplayID displayId)
 {
    NSData* edid = edidForDisplay(displayId);
    if (!edid)
-      return 0;
+      return kDisplayProductIDGeneric;
    
    return CFSwapInt16LittleToHost(*(uint16_t*) (&[edid bytes][10]));
 }
@@ -354,7 +359,7 @@ uint32_t CGDisplayVendorNumber(CGDirectDisplayID displayId)
 {
    NSData* edid = edidForDisplay(displayId);
    if (!edid)
-      return 0;
+      return kDisplayVendorIDUnknown;
    
    return CFSwapInt16BigToHost(*(uint16_t*) (&[edid bytes][8]));
 }
@@ -394,6 +399,12 @@ io_service_t CGDisplayIOServicePort(CGDirectDisplayID displayID)
                                           CFSTR(kDisplayProductID));
       serialNumberRef = CFDictionaryGetValue(info,
                                              CFSTR(kDisplaySerialNumber));
+
+      if (!vendorIDRef || !productIDRef || !serialNumberRef)
+      {
+         CFRelease(info);
+         continue;
+      }
       
       success = CFNumberGetValue(vendorIDRef, kCFNumberCFIndexType,
                                  &vendorID);
