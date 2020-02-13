@@ -18,6 +18,9 @@ find_package(X11 REQUIRED)
 if (NOT X11_Xrandr_FOUND)
 	message(FATAL "XRandR not found")
 endif (NOT X11_Xrandr_FOUND)
+if (NOT X11_Xkb_FOUND)
+	message(FATAL "Xkb not found")
+endif (NOT X11_Xkb_FOUND)
 
 find_package(Freetype REQUIRED)
 
@@ -42,6 +45,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/libmalloc/include
 	${CMAKE_SOURCE_DIR}/src/copyfile
 	${CMAKE_SOURCE_DIR}/src/libc/gen
+	${CMAKE_SOURCE_DIR}/src/frameworks
 	${CMAKE_SOURCE_DIR}/src/external/icu/icuSources/i18n
 	${CMAKE_SOURCE_DIR}/src/external/icu/icuSources/common
 	${CMAKE_SOURCE_DIR}/src/external/libxml2/include
@@ -65,6 +69,7 @@ include_directories(
 
 	${X11_INCLUDE_DIR}
 	${X11_Xrandr_INCLUDE_PATH}
+	${X11_Xkb_INCLUDE_PATH}
 	${FREETYPE_INCLUDE_DIRS}
 	${OPENGL_INCLUDE_DIRS}
 	${PC_CAIRO_INCLUDE_DIRS}
@@ -537,6 +542,7 @@ add_backend(X11
 		X11.backend/X11SubWindow.m
 		X11.backend/X11Event.m
 		X11.backend/X11Pasteboard.m
+		X11.backend/imKStoUCS.m
 	INFO_PLIST
 		X11.backend/Info.plist
 	DEPENDENCIES

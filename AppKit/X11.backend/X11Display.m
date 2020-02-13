@@ -34,6 +34,10 @@
 #import <fontconfig/fontconfig.h>
 #import <X11/Xutil.h>
 #import <X11/extensions/Xrandr.h>
+#import <X11/XKBlib.h>
+#import "imKStoUCS.h"
+#import "CarbonKeys.h"
+#import <stddef.h>
 
 @implementation X11Display
 
@@ -287,7 +291,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
       }
 
       XRROutputInfo* oinfo = XRRGetOutputInfo(_display, screen, screen->outputs[screenIndex]);
-      
+
       if (oinfo->crtc)
       {
          XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, oinfo->crtc);
@@ -310,6 +314,104 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
       XRRFreeScreenResources(screen);
    }
    return dict;
+}
+
+- (UCKeyboardLayout*) keyboardLayout:(uint32_t*)byteLength
+{
+   int major = XkbMajorVersion, minor = XkbMinorVersion;
+   XkbDescPtr pKBDesc;
+   unsigned char group = 0;
+   XkbStateRec state;
+
+   struct MyLayout
+   {
+      UCKeyboardLayout layout;
+      UCKeyModifiersToTableNum modifierVariants;
+      UInt8 secondTableNum, thirdTableNum;
+      UCKeyToCharTableIndex tableIndex;
+      UInt32 secontTableOffset;
+      UCKeyOutput table1[128];
+      UCKeyOutput table2[128];
+   };
+
+   if (byteLength)
+      *byteLength = 0;
+
+   if (!XkbLibraryVersion(&major, &minor))
+      return NULL;
+   if (!XkbQueryExtension(_display, NULL, NULL, &major, &minor, NULL))
+      return NULL;
+
+   pKBDesc = XkbGetMap(_display, XkbAllClientInfoMask, XkbUseCoreKbd);
+   if (!pKBDesc)
+      return NULL;
+   
+   if (XkbGetState(_display, XkbUseCoreKbd, &state) == Success)
+        group = state.group;
+
+   struct MyLayout* layout = (struct MyLayout*) malloc(sizeof(struct MyLayout));
+
+   layout->layout.keyLayoutHeaderFormat = kUCKeyLayoutHeaderFormat;
+   layout->layout.keyLayoutDataVersion = 0;
+   layout->layout.keyLayoutFeatureInfoOffset = 0;
+   layout->layout.keyboardTypeCount = 1;
+
+   memset(layout->layout.keyboardTypeList, 0, sizeof(UCKeyboardTypeHeader));
+
+   layout->layout.keyboardTypeList[0].keyModifiersToTableNumOffset = offsetof(struct MyLayout, modifierVariants);
+   layout->layout.keyboardTypeList[0].keyToCharTableIndexOffset = offsetof(struct MyLayout, tableIndex);
+
+   layout->modifierVariants.keyModifiersToTableNumFormat = kUCKeyModifiersToTableNumFormat;
+   layout->modifierVariants.defaultTableNum = 0;
+   layout->modifierVariants.modifiersCount = 3;
+   layout->modifierVariants.tableNum[0] = 0;
+   layout->modifierVariants.tableNum[1] = 0; // cmd key bit
+   layout->modifierVariants.tableNum[2] = 1; // shift key bit
+
+   layout->tableIndex.keyToCharTableIndexFormat = kUCKeyToCharTableIndexFormat;
+   layout->tableIndex.keyToCharTableSize = 128;
+   layout->tableIndex.keyToCharTableCount = 2;
+   layout->tableIndex.keyToCharTableOffsets[0] = offsetof(struct MyLayout, table1);
+   layout->tableIndex.keyToCharTableOffsets[1] = offsetof(struct MyLayout, table2);
+
+   for (int shift = 0; shift <= 1; shift++)
+   {
+      UCKeyOutput* outTable = (shift == 0) ? layout->table1 : layout->table2;
+      for (int i = 0; i < 128; i++)
+      {
+         // Reverse the operation we do in -postXEvent:
+         const int x11KeyCode = carbonToX11[i];
+
+         if (!x11KeyCode)
+         {
+            outTable[i] = 0;
+            continue;
+         }
+
+         // NOTE: Not using the group here. It just works with 0 instead...
+         KeySym sym = XkbKeycodeToKeysym(_display, i, 0, shift);
+
+         if (sym != NoSymbol)
+            outTable[i] = X11_KeySymToUcs4(sym);
+         else
+            outTable[i] = 0;
+      }
+   }
+
+   XkbFreeClientMap(pKBDesc, XkbAllClientInfoMask, true);
+
+   if (byteLength)
+      *byteLength = sizeof(struct MyLayout);
+
+   return &layout->layout;
+}
+
+-(NSUInteger)currentModifierFlags {
+   XkbStateRec r;
+   if (XkbGetState(_display, XkbUseCoreKbd, &r) != Success)
+      return 0;
+
+   return [self modifierFlagsForState: r.mods];
 }
 
 - (NSPasteboard *) pasteboardWithName: (NSString *) name {
@@ -586,9 +688,17 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
       ret|=NSShiftKeyMask;
    if(state & ControlMask)
       ret|=NSControlKeyMask;
-   if(state & Mod2Mask)
-      ret|=NSCommandKeyMask;
-   // TODO: alt doesn't work; might want to track key presses/releases instead
+   // if(state & Mod2Mask) // Mod2Mask is numlock
+   //   ret|=NSCommandKeyMask;
+   if (state & LockMask)
+      ret |= NSAlphaShiftKeyMask;
+   if (state & Mod4Mask)
+      ret |= NSCommandKeyMask;
+   if (state & Mod1Mask)
+      ret |= NSAlternateKeyMask;
+   if (state & Mod5Mask) // AltGr
+      ret |= NSFunctionKeyMask;
+
    return ret;
 }
 
@@ -625,6 +735,10 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
            strIg = [[NSString alloc] initWithCString: buf encoding: NSISOLatin1StringEncoding];
        }
 
+       // If there's an app that uses constants from HIToolbox/Events.h (e.g. kVK_ANSI_A),
+       // this gives it a chance to work.
+       const int carbonKeyCode = x11ToCarbon[ev->xkey.keycode];
+
        id event = [NSEvent keyEventWithType: ev->type == KeyPress ? NSKeyDown : NSKeyUp
                                    location: pos
                               modifierFlags: modifierFlags
@@ -634,7 +748,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
                                  characters: str
                 charactersIgnoringModifiers: strIg
                                   isARepeat: NO
-                                    keyCode: ev->xkey.keycode];
+                                    keyCode: carbonKeyCode];
 
         [self postEvent: event atStart: NO];
 

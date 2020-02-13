@@ -8,6 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <Foundation/Foundation.h>
 #import <AppKit/NSFont.h>
+#import <CoreServices/UnicodeUtilities.h>
 
 @class NSEvent, NSColor, NSPasteboard, NSDraggingManager, NSPrintInfo, NSView, NSSavePanel, NSOpenPanel, CGWindow;
 
@@ -75,5 +76,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - (NSArray *) modesForScreen:(int)screenIndex;
 - (NSDictionary*) currentModeForScreen:(int)screenIndex;
 - (BOOL) setMode:(NSDictionary *)mode forScreen:(int)screenIndex;
+
+// Returned memory must be free()ed by the caller
+- (UCKeyboardLayout*) keyboardLayout:(uint32_t*)byteLength;
 
 @end
