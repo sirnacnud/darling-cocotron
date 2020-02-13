@@ -11,6 +11,8 @@
 -(id)initWithShape:(unsigned int)shape;
 -(id)initWithName:(const char*)name;
 -(id)initWithImage:(NSImage*)image hotPoint:(NSPoint)hotPoint;
+-(id)initBlank;
+-(id)init;
 -(void)dealloc;
 
 @property (readonly) Cursor cursor;

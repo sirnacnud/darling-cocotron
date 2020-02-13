@@ -26,6 +26,7 @@
 #import <AppKit/NSFontManager.h>
 #import <AppKit/NSFontTypeface.h>
 #import <AppKit/NSWindow.h>
+#import <AppKit/NSCursor.h>
 
 #import <Onyx2D/O2Font_freetype.h>
 
@@ -103,6 +104,8 @@ static void socketCallback(
 #endif
 
     _windowsByID=[NSMutableDictionary new];
+    _blankCursor = [[X11Cursor alloc] initBlank];
+    _defaultCursor = [[X11Cursor alloc] init];
 
     lastFocusedWindow=nil;
     lastClickTimeStamp=0.0;
@@ -112,6 +115,9 @@ static void socketCallback(
 }
 
 -(void)dealloc {
+   [_blankCursor release];
+   [_defaultCursor release];
+
    if(_display) XCloseDisplay(_display);
 #ifdef DARLING
    CFRunLoopRemoveSource(CFRunLoopGetMain(), _source, kCFRunLoopCommonModes);
@@ -479,11 +485,16 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 }
 
 -(void)hideCursor {
-   NSUnimplementedMethod();
+   [self setCursor: _blankCursor];
 }
 
 -(void)unhideCursor {
-   NSUnimplementedMethod();
+   NSCursor* current = [NSCursor currentCursor];
+   if (current != nil) {
+      [current push];
+      [current pop];
+   } else
+      [self setCursor: _defaultCursor];
 }
 
 // Arrow, IBeam, HorizontalResize, VerticalResize

@@ -81,6 +81,34 @@
 	return self;
 }
 
+-(id)initBlank {
+	X11Display* d = (X11Display*) [NSDisplay currentDisplay];
+	Display* display = [d display];
+
+	static const char data[1] = {0};
+
+	Pixmap blank;
+	XColor dummy;
+
+	blank = XCreateBitmapFromData(display, DefaultRootWindow(display), data, 1, 1);
+	if (blank != None)
+	{
+		_cursor = XCreatePixmapCursor(display, blank, blank, &dummy, &dummy, 0, 0);
+		XFreePixmap(display, blank);
+	}
+	else
+		_cursor = None;
+
+	return self;
+}
+
+-(id)init {
+	X11Display* d = (X11Display*) [NSDisplay currentDisplay];
+	Display* display = [d display];
+
+	_cursor = XcursorLibraryLoadCursor (display, "left_ptr");
+}
+
 -(void)dealloc {
 	X11Display* d = (X11Display*) [NSDisplay currentDisplay];
 	Display* display = [d display];

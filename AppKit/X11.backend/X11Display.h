@@ -14,6 +14,8 @@
 #import <CoreFoundation/CFSocket.h>
 #endif
 
+@class X11Cursor;
+
 @interface X11Display : NSDisplay {
     Display *_display;
     int _fileDescriptor;
@@ -31,6 +33,7 @@
     id lastFocusedWindow;
     NSTimeInterval lastClickTimeStamp;
     int clickCount;
+    X11Cursor *_blankCursor, *_defaultCursor;
 }
 
 - (Display *)display;
