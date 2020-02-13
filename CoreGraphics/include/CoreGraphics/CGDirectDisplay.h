@@ -33,3 +33,9 @@ COREGRAPHICS_EXPORT size_t CGDisplayPixelsWide(CGDirectDisplayID display);
 
 COREGRAPHICS_EXPORT Boolean CGDisplayIsMain(CGDirectDisplayID display);
 COREGRAPHICS_EXPORT CGDirectDisplayID CGDisplayMirrorsDisplay(CGDirectDisplayID display);
+
+COREGRAPHICS_EXPORT CGDisplayModeRef CGDisplayCopyDisplayMode(CGDirectDisplayID displayId);
+COREGRAPHICS_EXPORT void CGDisplayModeRelease(CGDisplayModeRef mode);
+COREGRAPHICS_EXPORT CGDisplayModeRef CGDisplayModeRetain(CGDisplayModeRef mode);
+COREGRAPHICS_EXPORT CGDisplayModeRef CGDisplayCopyDisplayMode(CGDirectDisplayID displayId);
+COREGRAPHICS_EXPORT double CGDisplayModeGetRefreshRate(CGDisplayModeRef mode);

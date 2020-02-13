@@ -391,14 +391,6 @@ static BOOL _allowsAutomaticWindowTabbing;
 	}
 }
 
--(CGWindow *)platformWindow {
-   if(_platformWindow==nil){
-    [self performSelectorOnMainThread:@selector(_createPlatformWindowOnMainThread) withObject:nil waitUntilDone:YES modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
-   }
-
-   return _platformWindow;
-}
-
 -(CGContextRef)cgContext {
    return [[self platformWindow] cgContext];
 }
@@ -3209,3 +3201,12 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 @end
 
+@interface NSWindow (Darling)
+-(CGWindow *)platformWindow {
+   if(_platformWindow==nil){
+    [self performSelectorOnMainThread:@selector(_createPlatformWindowOnMainThread) withObject:nil waitUntilDone:YES modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
+   }
+
+   return _platformWindow;
+}
+@end

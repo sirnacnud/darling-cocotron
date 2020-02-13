@@ -425,6 +425,11 @@ static NSData *makeWindowIcon() {
    return NO;
 }
 
+- (CGLContextObj)cglContext
+{
+   return _cglContext;
+}
+
 -(void) createCGLContextObjIfNeeded {
    if (_cglContext==NULL) {
     CGLError error;

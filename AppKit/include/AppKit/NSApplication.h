@@ -36,7 +36,6 @@ APPKIT_EXPORT NSString *const NSApplicationWillTerminateNotification;
 
 APPKIT_EXPORT NSString *const NSApplicationDidChangeScreenParametersNotification;
 
-APPKIT_EXPORT id NSApp;
 typedef double NSAppKitVersion;
 APPKIT_EXPORT const NSAppKitVersion NSAppKitVersionNumber;
 
@@ -96,8 +95,6 @@ typedef enum {
     NSMutableArray *_orderedWindows; // get rid of
     NSTimer *_attentionTimer;
 }
-
-APPKIT_EXPORT NSApplication * NSApp;
 
 + (NSApplication *)sharedApplication;
 
@@ -220,6 +217,8 @@ APPKIT_EXPORT NSApplication * NSApp;
 - (void)_windowDidBecomeDeactive:(NSWindow *)window;
 
 @end
+
+APPKIT_EXPORT __kindof NSApplication * NSApp;
 
 @interface NSObject (NSApplication_serviceRequest)
 - (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pasteboard types:(NSArray *)types;

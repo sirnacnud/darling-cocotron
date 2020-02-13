@@ -375,6 +375,10 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 
 - (NSInteger)windowNumber;
 - (int)gState;
+
+@property(readonly, strong) NSScreen *screen;
+@property(readonly, strong) NSScreen *deepestScreen;
+
 - (NSScreen *)screen;
 - (NSScreen *)deepestScreen;
 - (NSColorSpace *)colorSpace;
@@ -541,6 +545,10 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 
 - (CGSubWindow *) _createSubWindowWithFrame: (CGRect) frame;
 
+@end
+
+@interface NSWindow (Darling)
+-(CGWindow *)platformWindow;
 @end
 
 //private

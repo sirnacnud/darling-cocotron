@@ -171,6 +171,7 @@ static void socketCallback(
          {
             nsscreen = [[[NSScreen alloc] initWithFrame:NSZeroRect visibleFrame:NSZeroRect] autorelease];
          }
+         [nsscreen setCgDirectDisplayID: (i+1)];
 
          [retval addObject: nsscreen];
          

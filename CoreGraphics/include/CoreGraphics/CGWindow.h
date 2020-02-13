@@ -34,6 +34,7 @@ typedef enum {
 - (void)syncDelegateProperties;
 
 - (O2Context *)cgContext;
+- (CGLContextObj)cglContext;
 
 - (NSUInteger)styleMask;
 
