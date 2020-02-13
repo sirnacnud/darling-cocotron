@@ -287,21 +287,26 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
       }
 
       XRROutputInfo* oinfo = XRRGetOutputInfo(_display, screen, screen->outputs[screenIndex]);
-      XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, oinfo->crtc);
-
-      for (int i = 0; i < screen->nmode; i++)
+      
+      if (oinfo->crtc)
       {
-         if (screen->modes[i].id == crtc->mode)
-         {
-            const int defaultDepth = XDefaultDepthOfScreen(XDefaultScreenOfDisplay(_display));
-            dict = modeInfoToDictionary(&screen->modes[i], defaultDepth);
+         XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, oinfo->crtc);
 
-            break;
+         for (int i = 0; i < screen->nmode; i++)
+         {
+            if (screen->modes[i].id == crtc->mode)
+            {
+               const int defaultDepth = XDefaultDepthOfScreen(XDefaultScreenOfDisplay(_display));
+               dict = modeInfoToDictionary(&screen->modes[i], defaultDepth);
+
+               break;
+            }
          }
+
+         XRRFreeCrtcInfo(crtc);
       }
 
       XRRFreeOutputInfo(oinfo);
-      XRRFreeCrtcInfo(crtc);
       XRRFreeScreenResources(screen);
    }
    return dict;
