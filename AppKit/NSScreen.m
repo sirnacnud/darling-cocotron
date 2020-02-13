@@ -63,8 +63,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 - (void) setEdid: (NSData*)data {
-   [self->_edid release];
+   NSData* old = self->_edid;
    self->_edid = [data retain];
+   [old release];
 }
 
 - (CGDirectDisplayID) cgDirectDisplayID {

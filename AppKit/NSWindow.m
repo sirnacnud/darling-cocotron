@@ -3201,7 +3201,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 @end
 
-@interface NSWindow (Darling)
+@implementation NSWindow (Darling)
 -(CGWindow *)platformWindow {
    if(_platformWindow==nil){
     [self performSelectorOnMainThread:@selector(_createPlatformWindowOnMainThread) withObject:nil waitUntilDone:YES modes:[NSArray arrayWithObject:NSDefaultRunLoopMode]];
