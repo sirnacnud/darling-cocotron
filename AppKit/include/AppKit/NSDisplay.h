@@ -35,6 +35,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - (void)hideCursor;
 - (void)unhideCursor;
 
+- (id)cursorWithImage:(NSImage *)image hotSpot:(NSPoint)hotSpot;
 - (id)cursorWithName:(NSString *)name;
 - (void)setCursor:(id)cursor;
 

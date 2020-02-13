@@ -21,6 +21,9 @@ endif (NOT X11_Xrandr_FOUND)
 if (NOT X11_Xkb_FOUND)
 	message(FATAL "Xkb not found")
 endif (NOT X11_Xkb_FOUND)
+if (NOT X11_Xcursor_FOUND)
+	message(FATAL "Xcursor not found")
+endif (NOT X11_Xcursor_FOUND)
 
 find_package(Freetype REQUIRED)
 
@@ -542,6 +545,7 @@ add_backend(X11
 		X11.backend/X11SubWindow.m
 		X11.backend/X11Event.m
 		X11.backend/X11Pasteboard.m
+		X11.backend/X11Cursor.m
 		X11.backend/imKStoUCS.m
 	INFO_PLIST
 		X11.backend/Info.plist
@@ -558,5 +562,6 @@ add_backend(X11
 		# native libraries
                 X11
 		XRandR
+		Xcursor
 		fontconfig
 )

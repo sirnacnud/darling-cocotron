@@ -24,7 +24,7 @@ id NSPlatformCreateCursorImpWithName(NSString *name) {
 
 id NSPlatformCreateCursorImpWithImage(NSImage *image,NSPoint hotSpot) {
 #ifndef WINDOWS
-   return nil;
+   return [[[NSDisplay currentDisplay] cursorWithImage:image hotSpot:hotSpot] retain];
 #else
 /// move to the platform files
    size_t width=[image size].width;

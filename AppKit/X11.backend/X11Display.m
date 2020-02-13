@@ -10,6 +10,7 @@
 #import "X11Display.h"
 #import "X11Window.h"
 #import "X11Pasteboard.h"
+#import "X11Cursor.h"
 #import <AppKit/NSScreen.h>
 #import <AppKit/NSApplication.h>
 #import <Foundation/NSDebug.h>
@@ -487,12 +488,52 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 
 // Arrow, IBeam, HorizontalResize, VerticalResize
 -(id)cursorWithName:(NSString *)name {
-   NSUnimplementedMethod();
-   return nil;
+   unsigned int shape = XC_left_ptr;
+   const char* xname = "left_ptr";
+
+   if([name isEqualToString:@"arrowCursor"])
+    xname = "left_ptr";
+   else if([name isEqualToString:@"closedHandCursor"])
+    xname = "hand3";
+   else if([name isEqualToString:@"crosshairCursor"])
+    xname = "crosshair";
+   //else if([name isEqualToString:@"disappearingItemCursor"])
+   // shape = XC_left_ptr;
+   else if([name isEqualToString:@"IBeamCursor"])
+    xname = "xterm";
+   else if([name isEqualToString:@"openHandCursor"])
+    xname = "fleur";
+   else if([name isEqualToString:@"pointingHandCursor"])
+    xname = "hand";
+   else if([name isEqualToString:@"resizeDownCursor"])
+    xname = "bottom_side";
+   else if([name isEqualToString:@"resizeLeftCursor"])
+    xname = "left_side";
+   else if([name isEqualToString:@"resizeLeftRightCursor"])
+    xname = "h_double_arrow";
+   else if([name isEqualToString:@"resizeRightCursor"])
+    xname = "right_side";
+   else if([name isEqualToString:@"resizeUpCursor"])
+    xname = "top_side";
+   else if([name isEqualToString:@"resizeUpDownCursor"])
+    xname = "v_double_arrow";
+
+   return [[[X11Cursor alloc] initWithName: xname] autorelease];
+}
+
+- (id)cursorWithImage:(NSImage *)image hotSpot:(NSPoint)hotSpot {
+   return [[[X11Cursor alloc] initWithImage:image hotPoint:hotSpot] autorelease];
 }
 
 -(void)setCursor:(id)cursor {
-   NSUnimplementedMethod();
+   CGWindow* window = [[NSApp keyWindow] platformWindow];
+   if (window != nil)
+   {
+      Window w = [(X11Window*)window windowHandle];
+      Cursor c = ((X11Cursor*) cursor).cursor;
+
+      XDefineCursor(_display, w, c);
+   }
 }
 
 -(void)beep {
