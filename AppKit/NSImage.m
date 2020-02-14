@@ -164,6 +164,9 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate = @"NSTouchBarRecordStop
 }
 
 +imageNamed:(NSString *)name {
+   if (name == nil)
+      return nil;
+      
    NSImage *image=[[self allImages] objectForKey:name];
    if(image==nil){
     NSArray *bundles=[self _checkBundles];
