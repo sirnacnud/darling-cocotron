@@ -20,6 +20,7 @@
 #import <Onyx2D/O2Context_builtin_FT.h>
 
 #import <X11/Xutil.h>
+#import <X11/Xatom.h>
 #import "X11Display.h"
 #import "X11Window.h"
 #import "X11SubWindow.h"
@@ -409,20 +410,42 @@ static NSData *makeWindowIcon() {
 }
 
 -(void)captureEvents {
-   // FIXME: find out what this is supposed to do
+   // TODO: XGrabPointer()? But when do we call XUngrabPointer()?
 }
 
 -(void)miniaturize {
-   NSUnimplementedMethod();
-
+   XIconifyWindow(_display, _window, DefaultScreen(_display));
 }
 
 -(void)deminiaturize {
-   NSUnimplementedMethod();
+   XRaiseWindow(_display, _window);
 }
 
 -(BOOL)isMiniaturized {
-   return NO;
+   Atom wmState = XInternAtom(_display, "_NET_WM_STATE", FALSE);
+   Atom hiddenState = XInternAtom(_display, "_NET_WM_STATE_HIDDEN", FALSE);
+
+   Atom type;
+   int format;
+   unsigned long nItem, bytesAfter;
+   unsigned char *properties = NULL;
+   BOOL rv = NO;
+
+   if (XGetWindowProperty(_display, _window, wmState, 0, (~0L), FALSE, XA_ATOM, &type, &format, &nItem, &bytesAfter, &properties) == Success)
+   {
+      Atom *atoms = (Atom *) properties;
+      for (int i = 0; i < nItem; i++)
+      {
+         if (atoms[i] == hiddenState)
+         {
+            rv = YES;
+            break;
+         }
+      }
+      XFree(properties);
+   }
+
+   return rv;
 }
 
 - (CGLContextObj)cglContext

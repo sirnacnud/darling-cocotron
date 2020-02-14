@@ -104,8 +104,6 @@ static void socketCallback(
 #endif
 
     _windowsByID=[NSMutableDictionary new];
-    _blankCursor = [[X11Cursor alloc] initBlank];
-    _defaultCursor = [[X11Cursor alloc] init];
 
     lastFocusedWindow=nil;
     lastClickTimeStamp=0.0;
@@ -485,16 +483,24 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 }
 
 -(void)hideCursor {
+   if (!_blankCursor)
+      _blankCursor = [[X11Cursor alloc] initBlank];
    [self setCursor: _blankCursor];
 }
 
 -(void)unhideCursor {
    NSCursor* current = [NSCursor currentCursor];
-   if (current != nil) {
+   if (current != nil)
+   {
       [current push];
       [current pop];
-   } else
+   }
+   else
+   {
+      if (!_defaultCursor)
+         _defaultCursor = [[X11Cursor alloc] init];
       [self setCursor: _defaultCursor];
+   }
 }
 
 // Arrow, IBeam, HorizontalResize, VerticalResize
