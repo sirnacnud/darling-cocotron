@@ -439,9 +439,9 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    if([colorName isEqual:@"controlTextColor"])
       return [NSColor blackColor];
    if([colorName isEqual:@"menuBackgroundColor"])
-      return [NSColor lightGrayColor];
+      return [NSColor colorWithCalibratedWhite: 0.9 alpha: 1.0];
    if([colorName isEqual:@"mainMenuBarColor"])
-      return [NSColor lightGrayColor];
+      return [NSColor colorWithCalibratedWhite: 0.9 alpha: 1.0];
    if([colorName isEqual:@"controlShadowColor"])
       return [NSColor darkGrayColor];
    if([colorName isEqual:@"selectedControlColor"])
@@ -468,6 +468,8 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
       return [NSColor blueColor];
    if([colorName isEqual:@"selectedControlTextColor"])
       return [NSColor blackColor];
+   if([colorName isEqual:@"windowFrameColor"])
+      return [NSColor lightGrayColor];
 
    NSLog(@"missing color for %@", colorName);
    return [NSColor redColor];
