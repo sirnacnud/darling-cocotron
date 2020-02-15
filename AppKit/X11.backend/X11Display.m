@@ -37,7 +37,7 @@
 #import <X11/Xutil.h>
 #import <X11/extensions/Xrandr.h>
 #import <X11/XKBlib.h>
-#import "imKStoUCS.h"
+#import "X11KeySymToUCS.h"
 #import "CarbonKeys.h"
 #import <stddef.h>
 
@@ -321,6 +321,21 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    return dict;
 }
 
+- (int)keyboardLayoutId
+{
+   int major = XkbMajorVersion, minor = XkbMinorVersion;
+   XkbStateRec state;
+
+   if (!XkbLibraryVersion(&major, &minor))
+      return -1;
+   if (!XkbQueryExtension(_display, NULL, NULL, &major, &minor, NULL))
+      return -1;
+   if (XkbGetState(_display, XkbUseCoreKbd, &state) == Success)
+      return state.group;
+
+   return -1;
+}
+
 - (UCKeyboardLayout*) keyboardLayout:(uint32_t*)byteLength
 {
    int major = XkbMajorVersion, minor = XkbMinorVersion;
@@ -394,12 +409,13 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
          }
 
          // NOTE: Not using the group here. It just works with 0 instead...
-         KeySym sym = XkbKeycodeToKeysym(_display, i, 0, shift);
+         KeySym sym = XkbKeycodeToKeysym(_display, x11KeyCode, 0, shift);
 
          if (sym != NoSymbol)
-            outTable[i] = X11_KeySymToUcs4(sym);
+            outTable[i] = X11KeySymToUCS(sym);
          else
             outTable[i] = 0;
+         printf("KB map: Carbon %d -> X11 %d -> KeySym %d -> UCS4 %d\n", i, x11KeyCode, sym, outTable[i]);
       }
    }
 
@@ -798,6 +814,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
        // If there's an app that uses constants from HIToolbox/Events.h (e.g. kVK_ANSI_A),
        // this gives it a chance to work.
        const int carbonKeyCode = x11ToCarbon[ev->xkey.keycode];
+       printf("Key: X11 %d -> carbon %d\n", ev->xkey.keycode, carbonKeyCode);
 
        id event = [NSEvent keyEventWithType: ev->type == KeyPress ? NSKeyDown : NSKeyUp
                                    location: pos
@@ -849,6 +866,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
                                   clickCount: clickCount
                                       deltaX: 0.0
                                       deltaY: 0.0];
+         [event _setButtonNumber: ev->xbutton.button];
          [self postEvent: event atStart: NO];
          break;
 
@@ -883,6 +901,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
                                  clickCount: clickCount
                                      deltaX: 0.0
                                      deltaY: deltaY];
+     [event _setButtonNumber: ev->xbutton.button];
      [self postEvent: event atStart: NO];
      break;
 

@@ -15,6 +15,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     CGFloat _deltaY;
     NSInteger _trackingNumber;
     void *_userData;
+    NSInteger _buttonNumber;
 }
 
 - initWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned)modifierFlags window:(NSWindow *)window clickCount:(int)clickCount deltaX:(CGFloat)deltaX deltaY:(CGFloat)deltaY;
@@ -28,5 +29,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - (NSTrackingArea *)trackingArea;
 - (NSInteger)trackingNumber;
 - (void *)userData;
+
+- (void)_setButtonNumber:(NSInteger)num;
 
 @end

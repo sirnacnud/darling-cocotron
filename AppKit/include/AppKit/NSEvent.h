@@ -247,6 +247,11 @@ enum {
 - (NSTrackingArea *)trackingArea;
 - (void *)userData;
 
+@property(getter=isARepeat, readonly) BOOL ARepeat;
+- (BOOL)isARepeat;
+@property(readonly) NSInteger buttonNumber;
+- (NSInteger)buttonNumber;
+
 @end
 
 APPKIT_EXPORT unsigned NSEventMaskFromType(NSEventType type);

@@ -549,7 +549,7 @@ add_backend(X11
 		X11.backend/X11Event.m
 		X11.backend/X11Pasteboard.m
 		X11.backend/X11Cursor.m
-		X11.backend/imKStoUCS.m
+		X11.backend/X11KeySymToUCS.m
 	INFO_PLIST
 		X11.backend/Info.plist
 	DEPENDENCIES

@@ -80,5 +80,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 // Returned memory must be free()ed by the caller
 - (UCKeyboardLayout*) keyboardLayout:(uint32_t*)byteLength;
+// Returns an opaque number of the current keyboard layout.
+// This is because apps tend to call TISCopyCurrentKeyboardLayoutInputSource() repeatedly
+// and expect to get the same pointer if layout hasn't changed.
+- (int)keyboardLayoutId;
 
 @end

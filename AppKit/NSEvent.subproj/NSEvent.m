@@ -199,6 +199,14 @@ static NSTimer *_periodicTimer=nil;
     return nil;
 }
 
+- (BOOL)isARepeat {
+   return FALSE;
+}
+
+- (NSInteger)buttonNumber {
+   return 0;
+}
+
 @end
 
 unsigned NSEventMaskFromType(NSEventType type){
