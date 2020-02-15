@@ -415,7 +415,6 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
             outTable[i] = X11KeySymToUCS(sym);
          else
             outTable[i] = 0;
-         printf("KB map: Carbon %d -> X11 %d -> KeySym %d -> UCS4 %d\n", i, x11KeyCode, sym, outTable[i]);
       }
    }
 
@@ -814,7 +813,6 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
        // If there's an app that uses constants from HIToolbox/Events.h (e.g. kVK_ANSI_A),
        // this gives it a chance to work.
        const int carbonKeyCode = x11ToCarbon[ev->xkey.keycode];
-       printf("Key: X11 %d -> carbon %d\n", ev->xkey.keycode, carbonKeyCode);
 
        id event = [NSEvent keyEventWithType: ev->type == KeyPress ? NSKeyDown : NSKeyUp
                                    location: pos
