@@ -2482,6 +2482,17 @@ static BOOL _allowsAutomaticWindowTabbing;
    [_backgroundView print:sender];
 }
 
+- (void)toggleFullScreen:(id)sender {
+   NSWindowStyleMask mask = _styleMask;
+
+   if (mask & NSWindowStyleMaskFullScreen)
+      mask &= ~NSWindowStyleMaskFullScreen;
+   else
+      mask |= NSWindowStyleMaskFullScreen;
+      
+   [self setStyleMask: mask];
+}
+
 -(void)toggleToolbarShown:sender {    
     [_toolbar setVisible:![_toolbar isVisible]];
     [sender setTitle:[NSString stringWithFormat:@"%@ Toolbar", [_toolbar isVisible] ? @"Hide" : @"Show"]];

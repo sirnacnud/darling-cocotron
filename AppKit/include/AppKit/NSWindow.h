@@ -17,6 +17,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @class NSView, NSEvent, NSColor, NSColorSpace, NSCursor, NSImage, NSScreen, NSText, NSTextView, CGWindow, NSPasteboard, NSSheetContext, NSUndoManager, NSButton, NSButtonCell, NSDrawer, NSDockTile, NSToolbar, NSWindowAnimationContext, NSTrackingArea, NSThemeFrame, NSWindowController, NSMenuItem, CARenderer;
 
+// Old NSWindowStyleMask constants
 enum {
     NSBorderlessWindowMask = 0x00,
     NSTitledWindowMask = 0x01,
@@ -25,6 +26,25 @@ enum {
     NSResizableWindowMask = 0x08,
     NSTexturedBackgroundWindowMask = 0x100,
 };
+
+// New NSWindowStyleMask constants
+enum {
+    NSWindowStyleMaskBorderless = 0,
+    NSWindowStyleMaskTitled = 0x01,
+    NSWindowStyleMaskClosable = 0x02,
+    NSWindowStyleMaskMiniaturizable = 0x04,
+    NSWindowStyleMaskResizable = 0x08,
+    NSWindowStyleMaskTexturedBackground = 0x100,
+    NSWindiwStyleMaskUnifiedTitleAndToolbar = 0x1000,
+    NSWindowStyleMaskFullScreen = 0x4000,
+    NSWindowStyleMaskFullSizeContentView = 0x8000,
+    // NSPanel only:
+    NSWindowStyleMaskUtilityWindow = 0x10,
+    NSWindowStyleMaskDocModalWindow = 0x40,
+    NSWindowStyleMaskNonactivatingPanel = 0x80,
+    NSWindowStyleMaskHUDWindow = 0x2000,
+};
+typedef NSUInteger NSWindowStyleMask;
 
 typedef enum {
     NSBackingStoreRetained = 0,
@@ -509,6 +529,7 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 
 - (void)toggleToolbarShown:sender;
 - (void)runToolbarCustomizationPalette:sender;
+- (void)toggleFullScreen:(id)sender;
 
 @end
 
