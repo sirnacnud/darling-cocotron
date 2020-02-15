@@ -24,6 +24,9 @@ endif (NOT X11_Xkb_FOUND)
 if (NOT X11_Xcursor_FOUND)
 	message(FATAL "Xcursor not found")
 endif (NOT X11_Xcursor_FOUND)
+if (NOT X11_Xext_FOUND)
+	message(FATAL "Xext not found")
+endif (NOT X11_Xext_FOUND)
 
 find_package(Freetype REQUIRED)
 

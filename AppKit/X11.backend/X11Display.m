@@ -289,7 +289,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    {
       XRRScreenResources *screen = XRRGetScreenResources(_display, DefaultRootWindow(_display));
 
-      if (screenIndex <= 0 || screenIndex >= screen->noutput)
+      if (screenIndex < 0 || screenIndex >= screen->noutput)
       {
          XRRFreeScreenResources(screen);
          return dict;

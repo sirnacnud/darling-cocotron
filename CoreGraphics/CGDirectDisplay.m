@@ -292,6 +292,7 @@ CFStringRef CGDisplayModeCopyPixelEncoding(CGDisplayModeRef mode)
 
    switch (depth)
    {
+      case 24:
       case 32:
          return CFSTR(IO32BitDirectPixels);
       case 16:
