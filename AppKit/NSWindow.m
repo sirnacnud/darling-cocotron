@@ -872,7 +872,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 
    [_backgroundView setFrameSize:_frame.size];
     
-    [[self platformWindow] setFrame:_frame];
+    [_platformWindow setFrame:_frame];
     
    if(didSize)
     [self resetCursorRects];
@@ -886,8 +886,10 @@ static BOOL _allowsAutomaticWindowTabbing;
 // If you setFrame:display:YES before rearranging views with only setFrame: calls (which do not mark the view for display)
 // Cocoa will properly redisplay the views
 // So, doing a hard display right here is not the right thing to do, delay it 
-   if(display)
+   if(display) {
+    [self platformWindow];
     [_backgroundView setNeedsDisplay:YES];
+   }
 
    if(animate){
      NSWindowAnimationContext *context;
@@ -1056,7 +1058,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 -(void)setAlphaValue:(CGFloat)value {
    _alphaValue=value;
-   [[self platformWindow] setAlphaValue:value];
+   [_platformWindow setAlphaValue:value];
 }
 
 -(void)_toolbarSizeDidChangeFromOldHeight:(CGFloat)oldHeight {
@@ -1142,7 +1144,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 -(void)setHasShadow:(BOOL)value {
    _hasShadow=value;
-   [[self platformWindow] setHasShadow:value];
+   [_platformWindow setHasShadow:value];
 }
 
 -(void)setIgnoresMouseEvents:(BOOL)value {
@@ -1172,12 +1174,12 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 -(void)setLevel:(NSInteger)value {
    _level=value;
-   [[self platformWindow] setLevel:_level];
+   [_platformWindow setLevel:_level];
 }
 
 -(void)setOpaque:(BOOL)value {
    _isOpaque=value;
-   [[self platformWindow] setOpaque:_isOpaque];
+   [_platformWindow setOpaque:_isOpaque];
 }
 
 -(void)setParentWindow:(NSWindow *)value {
@@ -1792,12 +1794,12 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 -(void)disableFlushWindow {
    _flushDisabled++;
-   [[self platformWindow] disableFlushWindow];
+   [_platformWindow disableFlushWindow];
 }
 
 -(void)enableFlushWindow {
    _flushDisabled--;
-   [[self platformWindow] enableFlushWindow];
+   [_platformWindow enableFlushWindow];
 }
 
 -(void)flushWindow {
