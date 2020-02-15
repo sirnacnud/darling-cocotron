@@ -143,68 +143,69 @@ static NSData *makeWindowIcon() {
     if (isPanel && _styleMask & NSDocModalWindowMask)
         _styleMask = NSBorderlessWindowMask;
     // TODO: get rid of these glX calls
-   GLint att[] = {
-    GLX_RGBA,
-    GLX_DOUBLEBUFFER,
-    GLX_RED_SIZE, 4,
-    GLX_GREEN_SIZE, 4,
-    GLX_BLUE_SIZE, 4,
-    GLX_DEPTH_SIZE, 4,
-    None
-   };
+    GLint att[] = {
+        GLX_RGBA,
+        GLX_DOUBLEBUFFER,
+        GLX_RED_SIZE, 4,
+        GLX_GREEN_SIZE, 4,
+        GLX_BLUE_SIZE, 4,
+        GLX_DEPTH_SIZE, 4,
+        None
+       };
 
-      int screen = DefaultScreen(_display);
+    int screen = DefaultScreen(_display);
 
-      if((_visualInfo=glXChooseVisual(_display,screen,att))==NULL){
-       NSLog(@"glXChooseVisual failed at %s %d",__FILE__,__LINE__);
-      }
+    if ((_visualInfo = glXChooseVisual(_display, screen, att)) == NULL) {
+        NSLog(@"glXChooseVisual failed at %s %d", __FILE__, __LINE__);
+    }
 
-      Colormap cmap = XCreateColormap(_display, RootWindow(_display, _visualInfo->screen), _visualInfo->visual, AllocNone);
+    Colormap cmap = XCreateColormap(_display, RootWindow(_display, _visualInfo->screen), _visualInfo->visual, AllocNone);
 
-      if(cmap<0){
-       NSLog(@"XCreateColormap failed");
-       [self dealloc];
-       return nil;
-      }
+    if (cmap < 0) {
+        NSLog(@"XCreateColormap failed");
+        [self release];
+        return nil;
+    }
 
-   XSetWindowAttributes xattr;
-   unsigned long xattr_mask;
-   xattr_mask = CWOverrideRedirect|CWColormap;
-      xattr.colormap=cmap;
+    XSetWindowAttributes xattr;
+    unsigned long xattr_mask;
     xattr.override_redirect = _styleMask == NSBorderlessWindowMask ? True : False;
+    xattr_mask = CWOverrideRedirect | CWColormap;
+    xattr.colormap = cmap;
 
-   _window = XCreateWindow(_display, DefaultRootWindow(_display),
+    _window = XCreateWindow(_display, DefaultRootWindow(_display),
                               _frame.origin.x, _frame.origin.y, _frame.size.width, _frame.size.height,
                               0, (_visualInfo==NULL)?CopyFromParent:_visualInfo->depth, InputOutput,
                               (_visualInfo==NULL)?CopyFromParent:_visualInfo->visual,
                               xattr_mask, &xattr);
 
-   [self syncDelegateProperties];
+    [self syncDelegateProperties];
 
-   Atom atm=XInternAtom(_display, "WM_DELETE_WINDOW", False);
-   XSetWMProtocols(_display, _window, &atm , 1);
+    Atom atm = XInternAtom(_display, "WM_DELETE_WINDOW", False);
+    XSetWMProtocols(_display, _window, &atm, 1);
 
-   const char *name = [[[NSProcessInfo processInfo] processName] UTF8String];
+    const char *name = [[[NSProcessInfo processInfo] processName] UTF8String];
 
-   XClassHint classHint = {
-       .res_name = (char *) name,
-       .res_class = (char *) name
-   };
-   XSetClassHint(_display, _window, &classHint);
 
-   XSetWindowBackgroundPixmap(_display, _window, None);
+    XClassHint classHint = {
+        .res_name = (char *) name,
+        .res_class = (char *) name
+    };
+    XSetClassHint(_display, _window, &classHint);
 
-   _cglWindow = CGLGetWindow(_window);
+    XSetWindowBackgroundPixmap(_display, _window, None);
 
-   [(X11Display*)[NSDisplay currentDisplay] setWindow:self forID:_window];
+    _cglWindow = CGLGetWindow((void *) _window);
+
+    [(X11Display *) [NSDisplay currentDisplay] setWindow: self forID: _window];
 
     if (_styleMask == NSBorderlessWindowMask) {
         [[self class] removeDecorationForWindow: _window onDisplay: _display];
     }
 
-   [self setWindowIcon];
+    [self setWindowIcon];
 
-   return self;
+    return self;
 }
 
 -(void)dealloc {
