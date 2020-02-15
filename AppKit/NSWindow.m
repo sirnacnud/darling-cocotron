@@ -375,20 +375,13 @@ static BOOL _allowsAutomaticWindowTabbing;
 /*
   There are issues when creating a Win32 handle on a non-main thread, so we always do it on the main thread
  */
--(void)_createPlatformWindowOnMainThread {
-	if(_platformWindow==nil){
-		if([self isKindOfClass:[NSPanel class]])
-			_platformWindow=[[[NSDisplay currentDisplay] panelWithFrame: _frame styleMask:_styleMask backingType:_backingType] retain];
-		else
-			_platformWindow=[[[NSDisplay currentDisplay] windowWithFrame: _frame styleMask:_styleMask backingType:_backingType] retain];
-		
-		[_platformWindow setDelegate:self];
-		[_platformWindow setLevel:_level];
-		
+- (void) _createPlatformWindowOnMainThread {
+    if (_platformWindow != nil) return;
+    _platformWindow = [[NSDisplay currentDisplay] newWindowWithDelegate: self];
+
 		[self _updatePlatformWindowTitle];
-		
+
 		[[NSDraggingManager draggingManager] registerWindow:self dragTypes:nil];
-	}
 }
 
 -(CGContextRef)cgContext {

@@ -12,7 +12,7 @@
 #import <GL/glx.h>
 #import <OpenGL/CGLInternal.h>
 
-@class O2Context_cairo, X11Display, CAWindowOpenGLContext;
+@class X11Display, CAWindowOpenGLContext, NSWindow;
 
 @interface X11Window : CGWindow {
     int _level; //TODO: care about this value
@@ -23,7 +23,7 @@
     CGLWindowRef _cglWindow;
     CAWindowOpenGLContext *_caContext;
 
-    id _delegate;
+    NSWindow *_delegate;
     CGSBackingStoreType _backingType;  // stored, but ignored
     O2Context *_context;
 
@@ -33,7 +33,7 @@
     BOOL _mapped;
 }
 + (void)removeDecorationForWindow:(Window)w onDisplay:(Display *)dpy;
-- initWithFrame:(NSRect)frame styleMask:(NSUInteger)styleMask isPanel:(BOOL)isPanel backingType:(NSUInteger)backingType;
+- (instancetype) initWithDelegate: (NSWindow *) delegate;
 - (O2Rect)frame;
 - (Visual *)visual;
 - (Drawable)drawable;

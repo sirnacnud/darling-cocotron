@@ -24,8 +24,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (NSDraggingManager *)draggingManager;
 
-- (CGWindow *)windowWithFrame:(NSRect)frame styleMask:(unsigned)styleMask backingType:(unsigned)backingType;
-- (CGWindow *)panelWithFrame:(NSRect)frame styleMask:(unsigned)styleMask backingType:(unsigned)backingType;
+- (CGWindow *) newWindowWithDelegate: (NSWindow *) delegate;
 
 - (NSColor *)colorWithName:(NSString *)colorName;
 - (void)_addSystemColor:(NSColor *)result forName:(NSString *)colorName;

@@ -127,12 +127,8 @@ static void socketCallback(
    [super dealloc];
 }
 
--(CGWindow *)windowWithFrame:(NSRect)frame styleMask:(unsigned)styleMask backingType:(unsigned)backingType {
-	return [[[X11Window alloc] initWithFrame:frame styleMask:styleMask isPanel:NO backingType:backingType] autorelease];
-}
-
--(CGWindow *)panelWithFrame:(NSRect)frame styleMask:(unsigned)styleMask backingType:(unsigned)backingType {
-	return [[[X11Window alloc] initWithFrame:frame styleMask:styleMask isPanel:YES backingType:backingType] autorelease];
+- (CGWindow *) newWindowWithDelegate: (NSWindow *) delegate {
+    return [[X11Window alloc] initWithDelegate: delegate];
 }
 
 -(Display *)display {

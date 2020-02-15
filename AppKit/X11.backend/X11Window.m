@@ -131,17 +131,17 @@ static NSData *makeWindowIcon() {
         [data bytes], [data length] / sizeof(long));
 }
 
-
--initWithFrame:(O2Rect)frame styleMask:(NSUInteger)styleMask isPanel:(BOOL)isPanel backingType:(NSUInteger)backingType {
-   _level=kCGNormalWindowLevel;
-   _styleMask = styleMask;
-   _backingType=backingType;
-   _deviceDictionary=[NSMutableDictionary new];
-   _display=[(X11Display*)[NSDisplay currentDisplay] display];
-   int s = DefaultScreen(_display);
-   _frame=[self transformFrame:frame];
-   if(isPanel && styleMask&NSDocModalWindowMask)
-    styleMask=NSBorderlessWindowMask;
+- (instancetype) initWithDelegate: (NSWindow *) delegate {
+    _delegate = delegate;
+    _level = [delegate level];
+    _styleMask = [delegate styleMask];
+    _backingType = (CGSBackingStoreType) [delegate backingType];
+    _deviceDictionary = [NSMutableDictionary new];
+    _display = [(X11Display *) [NSDisplay currentDisplay] display];
+    _frame = [self transformFrame: [delegate frame]];
+    BOOL isPanel = [delegate isKindOfClass: [NSPanel class]];
+    if (isPanel && _styleMask & NSDocModalWindowMask)
+        _styleMask = NSBorderlessWindowMask;
     // TODO: get rid of these glX calls
    GLint att[] = {
     GLX_RGBA,
@@ -169,9 +169,9 @@ static NSData *makeWindowIcon() {
 
    XSetWindowAttributes xattr;
    unsigned long xattr_mask;
-   xattr.override_redirect = styleMask == NSBorderlessWindowMask ? True : False;
    xattr_mask = CWOverrideRedirect|CWColormap;
       xattr.colormap=cmap;
+    xattr.override_redirect = _styleMask == NSBorderlessWindowMask ? True : False;
 
    _window = XCreateWindow(_display, DefaultRootWindow(_display),
                               _frame.origin.x, _frame.origin.y, _frame.size.width, _frame.size.height,
@@ -198,8 +198,8 @@ static NSData *makeWindowIcon() {
 
    [(X11Display*)[NSDisplay currentDisplay] setWindow:self forID:_window];
 
-   if(styleMask == NSBorderlessWindowMask){
-     [[self class] removeDecorationForWindow:_window onDisplay:_display];
+    if (_styleMask == NSBorderlessWindowMask) {
+        [[self class] removeDecorationForWindow: _window onDisplay: _display];
     }
 
    [self setWindowIcon];

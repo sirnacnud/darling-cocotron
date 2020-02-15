@@ -91,14 +91,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    return nil;
 }
 
--(CGWindow *)windowWithFrame:(NSRect)frame styleMask:(unsigned)styleMask backingType:(unsigned)backingType {
-   NSInvalidAbstractInvocation();
-   return nil;
-}
-
--(CGWindow *)panelWithFrame:(NSRect)frame styleMask:(unsigned)styleMask backingType:(unsigned)backingType {
-   NSInvalidAbstractInvocation();
-   return nil;
+- (CGWindow *) newWindowWithDelegate: (NSWindow *) delegate {
+    NSInvalidAbstractInvocation();
+    return nil;
 }
 
 -(NSColor *)colorWithName:(NSString *)colorName {
