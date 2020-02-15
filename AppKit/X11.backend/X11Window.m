@@ -512,6 +512,8 @@ static NSData *makeWindowIcon() {
 -(void) openGLFlushBuffer {
    CGLError error;
 
+   CGLContextObj prevContext = CGLGetCurrentContext();
+
    [self createCGLContextObjIfNeeded];
    if (_caContext == nil)
     return;
@@ -525,6 +527,8 @@ static NSData *makeWindowIcon() {
 
    glFlush();
    CGLSwapBuffers(_cglWindow);
+
+   CGLSetCurrentContext(prevContext);
 }
 
 -(void)flushBuffer {
