@@ -8,6 +8,8 @@
 
 #import <AppKit/NSWindow.h>
 #import <AppKit/NSPanel.h>
+#import <AppKit/NSMenuWindow.h>
+#import <AppKit/NSPopUpWindow.h>
 #import <AppKit/NSRaise.h>
 #import <QuartzCore/CAWindowOpenGLContext.h>
 #import <Foundation/NSProcessInfo.h>
@@ -186,7 +188,6 @@ static NSData *makeWindowIcon() {
 
     const char *name = [[[NSProcessInfo processInfo] processName] UTF8String];
 
-
     XClassHint classHint = {
         .res_name = (char *) name,
         .res_class = (char *) name
@@ -194,6 +195,42 @@ static NSData *makeWindowIcon() {
     XSetClassHint(_display, _window, &classHint);
 
     XSetWindowBackgroundPixmap(_display, _window, None);
+
+    BOOL isModal = [delegate isSheet] || [NSApp modalWindow] == delegate;
+    // FIXME: There should be no need for this.
+    isModal |= [delegate isKindOfClass: NSClassFromString(@"NSSavePanel")];
+
+    const char *windowType;
+    BOOL isTransient = YES;
+    if (isModal) {
+        windowType = "_NET_WM_WINDOW_TYPE_DIALOG";
+    } else if ([delegate isKindOfClass: [NSMenuWindow class]] || [delegate isKindOfClass: [NSPopUpWindow class]]) {
+        windowType = "_NET_WM_WINDOW_TYPE_MENU";
+    } else if (isPanel) {
+        windowType = "_NET_WM_WINDOW_TYPE_UTILITY";
+    } else {
+        windowType = "_NET_WM_WINDOW_TYPE_NORMAL";
+        isTransient = NO;
+    }
+    long windowTypeAtom = (long) XInternAtom(_display, windowType, False);
+    XChangeProperty(_display, _window,
+                    XInternAtom(_display, "_NET_WM_WINDOW_TYPE", False),
+                    XA_ATOM,
+                    32, PropModeReplace,
+                    (const unsigned char *) &windowTypeAtom, 1);
+
+    if (isTransient && [NSApp mainWindow]) {
+        X11Window *mainWindow = (X11Window *) [[NSApp mainWindow] platformWindow];
+        XSetTransientForHint(_display, _window, [mainWindow windowHandle]);
+    }
+    if (isModal) {
+        long modalAtom = (long) XInternAtom(_display, "_NET_WM_STATE_MODAL", False);
+        XChangeProperty(_display, _window,
+                        XInternAtom(_display, "_NET_WM_STATE", False),
+                        XA_ATOM,
+                        32, PropModeReplace,
+                        (const unsigned char *) &modalAtom, 1);
+    }
 
     _cglWindow = CGLGetWindow((void *) _window);
 
