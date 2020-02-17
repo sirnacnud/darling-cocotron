@@ -31,6 +31,7 @@
     O2Rect _frame;
     NSUInteger _styleMask;
     BOOL _mapped;
+    CGPoint _lastMotionPos;
 }
 + (void)removeDecorationForWindow:(Window)w onDisplay:(Display *)dpy;
 - (instancetype) initWithDelegate: (NSWindow *) delegate;
@@ -43,6 +44,9 @@
 - (Window)windowHandle;
 
 - (void)frameChanged;
+- (void)setLastKnownCursorPosition:(CGPoint)point;
+
+- (void)setStyleMaskInternal:(NSUInteger) styleMask force:(BOOL)force;
 
 @end
 

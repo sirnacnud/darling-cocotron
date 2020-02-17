@@ -34,6 +34,7 @@
     NSTimeInterval lastClickTimeStamp;
     int clickCount;
     X11Cursor *_blankCursor, *_defaultCursor;
+    BOOL _cursorGrabbed;
 }
 
 - (Display *)display;

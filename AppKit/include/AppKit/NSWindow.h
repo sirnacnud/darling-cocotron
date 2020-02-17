@@ -262,6 +262,7 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 - (NSURL *)representedURL;
 
 - (NSInteger)level;
+@property(readonly) NSRect frame;
 - (NSRect)frame;
 - (NSUInteger)styleMask;
 - (NSBackingStoreType)backingType;

@@ -236,9 +236,12 @@ static NSData *makeWindowIcon() {
 
     [(X11Display *) [NSDisplay currentDisplay] setWindow: self forID: _window];
 
+    // FIXME: Move this call into setStyleMaskInternal below!
     if (_styleMask == NSBorderlessWindowMask) {
         [[self class] removeDecorationForWindow: _window onDisplay: _display];
     }
+    [self setStyleMaskInternal: _styleMask
+                     force: TRUE];
 
     [self setWindowIcon];
 
@@ -255,8 +258,64 @@ static NSData *makeWindowIcon() {
     return _styleMask;
 }
 
+- (void)setStyleMaskInternal:(NSUInteger) mask force:(BOOL)force {
+   if (force || (mask & NSWindowStyleMaskResizable) != (_styleMask & NSWindowStyleMaskResizable))
+   {
+      XSizeHints* sh = XAllocSizeHints();
+      if (mask & NSWindowStyleMaskResizable)
+      {
+         // Make resizable
+         sh->flags = 0;
+      }
+      else
+      {
+         // Make non-resizable
+         sh->flags = PMinSize | PMaxSize;
+         sh->min_width = sh->max_width = _frame.size.width;
+         sh->min_height = sh->max_height = _frame.size.height;
+      }
+
+      XSetWMSizeHints(_display, _window, sh, XA_WM_NORMAL_HINTS);
+      XFree(sh);
+   }
+
+   if (force || (mask & NSWindowStyleMaskFullScreen) != (_styleMask & NSWindowStyleMaskFullScreen))
+   {
+      Atom atomState = XInternAtom(_display, "_NET_WM_STATE", False);
+      if (mask & NSWindowStyleMaskFullScreen)
+      {
+         // Make fullscreen
+         Atom a = XInternAtom(_display, "_NET_WM_STATE_FULLSCREEN", False);
+
+         XChangeProperty(_display, _window, atomState,
+            XA_ATOM, 32, PropModeAppend, (unsigned char *)&a, 1);
+      }
+      else
+      {
+         // Make non-fullscreen
+         // NOTE: This kills all other _NET_WM_STATE properties,
+         // but the question is how much they matter in case of windows
+         // that go fullscreen?
+         XDeleteProperty(_display, _window, atomState);
+      }
+   }
+}
+
 - (void) setStyleMask: (NSUInteger) mask {
+   NSLog(@"X11Window setStyleMask: 0x%x\n", mask);
+
+   [self setStyleMaskInternal: mask
+                     force: FALSE];
+
     _styleMask = mask;
+}
+
+- (void)_setWMState
+{
+   int numAtoms = 0;
+
+   if (_styleMask & NSWindowStyleMaskFullScreen)
+      numAtoms++;
 }
 
 +(void)removeDecorationForWindow:(Window)w onDisplay:(Display*)dpy
@@ -301,7 +360,7 @@ static NSData *makeWindowIcon() {
 
 - (void) syncDelegateProperties {
     long mask = KeyPressMask | KeyReleaseMask |
-        ExposureMask | StructureNotifyMask |
+        ExposureMask | StructureNotifyMask | EnterWindowMask | LeaveWindowMask |
         ButtonPressMask | ButtonReleaseMask | ButtonMotionMask |
         VisibilityChangeMask | FocusChangeMask | SubstructureRedirectMask;
 
@@ -448,7 +507,6 @@ static NSData *makeWindowIcon() {
 }
 
 -(void)captureEvents {
-   // TODO: XGrabPointer()? But when do we call XUngrabPointer()?
 }
 
 -(void)miniaturize {
@@ -537,10 +595,12 @@ static NSData *makeWindowIcon() {
     [self openGLFlushBuffer];
 }
 
+- (void)setLastKnownCursorPosition:(CGPoint)point {
+   _lastMotionPos = point;
+}
 
 -(NSPoint)mouseLocationOutsideOfEventStream {
-   NSUnimplementedMethod();
-   return NSZeroPoint;
+   return _lastMotionPos;
 }
 
 

@@ -107,6 +107,7 @@
 	Display* display = [d display];
 
 	_cursor = XcursorLibraryLoadCursor (display, "left_ptr");
+	return self;
 }
 
 -(void)dealloc {

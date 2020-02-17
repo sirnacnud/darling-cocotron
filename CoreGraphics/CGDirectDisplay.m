@@ -442,3 +442,22 @@ io_service_t CGDisplayIOServicePort(CGDirectDisplayID displayID)
    IOObjectRelease(iter);
    return servicePort;
 }
+
+CGError CGWarpMouseCursorPosition(CGPoint newCursorPosition)
+{
+   NSDisplay* display = currentDisplay();
+   if (!display)
+      return kCGErrorInvalidConnection;
+   [display warpMouse: newCursorPosition];
+   return kCGErrorSuccess;
+}
+
+CGError CGAssociateMouseAndMouseCursorPosition(boolean_t connected)
+{
+   NSDisplay* display = currentDisplay();
+   if (!display)
+      return kCGErrorInvalidConnection;
+
+   [display grabMouse: connected];
+   return kCGErrorSuccess;
+}

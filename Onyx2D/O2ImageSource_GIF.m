@@ -59,7 +59,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 -(CFDictionaryRef)copyPropertiesAtIndex:(NSUInteger)index options:(CFDictionaryRef)options {
-   return nil;
+   return [@{
+      kO2ImagePropertyDPIHeight: @(72),
+      kO2ImagePropertyDPIHeight: @(72)
+   } retain];
 }
 
 -(O2Image *)createImageAtIndex:(NSUInteger)index options:(NSDictionary *)options {
