@@ -2357,9 +2357,9 @@ static BOOL _allowsAutomaticWindowTabbing;
         return;
     _isVisible = visible;
     if (visible) {
-        [_platformWindow showWindowWithoutActivation];
+        [[self platformWindow] showWindowWithoutActivation];
     } else {
-        [_platformWindow hideWindow];
+        [[self platformWindow] hideWindow];
     }
 }
 
