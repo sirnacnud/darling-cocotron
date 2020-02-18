@@ -11,6 +11,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <Onyx2D/O2ColorSpace.h>
 #import <Onyx2D/O2Image.h>
 
+static int readCallback(GifFileType* ft, GifByteType* buf, int count)
+{
+   NSInputStream* stream = (NSInputStream*) ft->UserData;
+   return [stream read: buf
+      maxLength: count];
+}
+
 @implementation O2ImageSource_GIF
 
 +(BOOL)isPresentInDataProvider:(O2DataProvider *)provider {
@@ -33,7 +40,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    [super initWithDataProvider:provider options:options];
 
    NSInputStream *stream=[_provider inputStream];
-   if((_gif=DGifOpen(stream))==NULL){
+   if((_gif=DGifOpen(stream, readCallback, NULL))==NULL){
     [self dealloc];
     return nil;
    }
@@ -44,7 +51,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 -(void)dealloc {
    if(_gif!=NULL)
-    DGifCloseFile(_gif);
+    DGifCloseFile(_gif, NULL);
 
    [super dealloc];
 }
@@ -59,7 +66,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 -(CFDictionaryRef)copyPropertiesAtIndex:(NSUInteger)index options:(CFDictionaryRef)options {
-   return [@{
+   return (CFDictionaryRef) [@{
       kO2ImagePropertyDPIHeight: @(72),
       kO2ImagePropertyDPIHeight: @(72)
    } retain];
@@ -90,6 +97,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    int            interlacePass=1;
    int            interlaceDelta=8;
    NSData        *bitmap=[[NSData alloc] initWithBytesNoCopy:pixels length:bytesPerRow*height];
+
+   GraphicsControlBlock gcb;
+   gcb.TransparentColor = NO_TRANSPARENT_COLOR;
+   DGifSavedExtensionToGCB(_gif, index, &gcb);
   
    size_t r,c;
    
@@ -108,6 +119,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       GifColorType *gifColor=colorLUT+colorIndex;
 
       scanline->a=255;
+      if (gcb.TransparentColor != NO_TRANSPARENT_COLOR && gcb.TransparentColor == colorIndex)
+         scanline->a = 0;
+
       scanline->r=gifColor->Red;
       scanline->g=gifColor->Green;
       scanline->b=gifColor->Blue;

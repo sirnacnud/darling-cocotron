@@ -16,6 +16,7 @@ find_package(Freetype REQUIRED)
 find_package(PNG REQUIRED)
 find_package(TIFF REQUIRED)
 find_package(JPEG REQUIRED)
+find_package(GIF REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(PC_FONTCONFIG fontconfig)
@@ -48,11 +49,11 @@ include_directories(
 	${PNG_INCLUDE_DIRS}
 	${TIFF_INCLUDE_DIRS}
 	${JPEG_INCLUDE_DIRS}
+	${GIF_INCLUDE_DIRS}
 	${PC_FONTCONFIG_INCLUDE_DIRS}
 )
 
 set(Onyx2D_sources
-	gif_lib.m
 	O2AffineTransform.m
 	O2argb32f.m
 	O2argb8u.m
@@ -166,5 +167,5 @@ add_framework(Onyx2D
 		# native libraries
 		FreeType
 		fontconfig
-		jpeg png tiff
+		jpeg png tiff gif
 )
