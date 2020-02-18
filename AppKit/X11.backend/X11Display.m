@@ -789,10 +789,6 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    NSEventType type;
    id window = [self windowForID: ev->xany.window];
 
-   // Global events (e.g. after grabbing the pointer) may not come with a window ID we recognize
-   if (window == nil)
-      window = [NSApp keyWindow];
-
    id delegate = [window delegate];
 
    switch (ev->type) {
@@ -907,26 +903,30 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 
     case MotionNotify:;
     {
-      NSLog(@"MotionNotify, x=%d, y=%d\n", ev->xmotion.x, ev->xmotion.y);
+      // NSLog(@"MotionNotify, x=%d, y=%d, xroot=%d, yroot=%d\n", ev->xmotion.x, ev->xmotion.y, ev->xmotion.x_root, ev->xmotion.y_root);
 
      CGPoint lastMotionPos = [window mouseLocationOutsideOfEventStream];
-     CGFloat deltaX = ev->xmotion.x - lastMotionPos.x;
-     CGFloat deltaY = ev->xmotion.y - lastMotionPos.y;
+     pos=[window transformPoint:NSMakePoint(ev->xmotion.x, ev->xmotion.y)];
+
+     CGFloat deltaX = pos.x - lastMotionPos.x;
+     CGFloat deltaY = pos.y - lastMotionPos.y;
 
       // NSLog(@"cursorGrabbed=%d, deltaX=%f, deltaY=%f\n", _cursorGrabbed, deltaX, deltaY);
      if (_cursorGrabbed)
      {
-        if (ev->xmotion.x != lastMotionPos.x || ev->xmotion.y != lastMotionPos.y)
+        if (pos.x != lastMotionPos.x || pos.y != lastMotionPos.y)
         {
-            CGPoint globalPos = lastMotionPos;
-            CGRect frame = [window frame];
+            CGPoint globalPos = [window transformPoint: lastMotionPos];
+            // NSLog(@"last known pos in window: x=%f, y=%f", globalPos.x, globalPos.y);
+            CGRect frame = [window transformFrame: [window frame]];
+
             globalPos.x += frame.origin.x;
             globalPos.y += frame.origin.y;
 
-            // [self warpMouse: globalPos];
+            [self warpMouse: globalPos];
 
-            ev->xmotion.x = lastMotionPos.x;
-            ev->xmotion.y = lastMotionPos.y;
+            pos.x = lastMotionPos.x;
+            pos.y = lastMotionPos.y;
         }
         else
         {
@@ -936,12 +936,8 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
      }
      else
      {
-         lastMotionPos.x = ev->xmotion.x;
-         lastMotionPos.y = ev->xmotion.y;
-         [window setLastKnownCursorPosition: lastMotionPos];
+         [window setLastKnownCursorPosition: pos];
      }
-
-     pos=[window transformPoint:NSMakePoint(ev->xmotion.x, ev->xmotion.y)];
 
      type=NSMouseMoved;
 
@@ -969,7 +965,8 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 
     case EnterNotify:
      NSLog(@"EnterNotify");
-     [window setLastKnownCursorPosition: NSMakePoint(ev->xcrossing.x, ev->xcrossing.y)];
+     if (!_cursorGrabbed)
+      [window setLastKnownCursorPosition: [window transformPoint: NSMakePoint(ev->xcrossing.x, ev->xcrossing.y)]];
      break;
      
     case LeaveNotify:
@@ -1185,7 +1182,7 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top, CGFlo
 - (void)warpMouse:(NSPoint)position
 {
    NSLog(@"Warp to: x=%f, y=%f\n", position.x, position.y);
-   XWarpPointer(_display, None, None, 0, 0, 0, 0, position.x, position.y);
+   XWarpPointer(_display, None, DefaultRootWindow(_display), 0, 0, 0, 0, position.x, position.y);
    XSync(_display, FALSE);
 }
 
@@ -1197,7 +1194,8 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top, CGFlo
       if (!nswin)
          nswin = [NSApp mainWindow];
 
-      Window win = [[nswin platformWindow] windowHandle];
+      X11Window* xwin = (X11Window*) [nswin platformWindow];
+      Window win = [xwin windowHandle];
       //Window win = DefaultRootWindow(_display);
       const unsigned int mask = ButtonPressMask | ButtonReleaseMask | PointerMotionMask | FocusChangeMask;
       int result = XGrabPointer(_display, win, FALSE, mask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
@@ -1206,13 +1204,18 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top, CGFlo
          _cursorGrabbed = TRUE;
          NSLog(@"XGrabPointer() succeeded for window %p\n", win);
 
-         NSRect frame = nswin.frame;
-         CGPoint pt = NSMakePoint(frame.size.width / 2.0 + frame.origin.x, frame.size.height / 2.0 + frame.origin.y);
+         NSRect frame = [xwin transformFrame: nswin.frame];
+         // NSLog(@"Window's frame is at %f,%f, size %fx%f\n", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+         CGPoint ptGlobal = NSMakePoint(frame.size.width / 2.0 + frame.origin.x, frame.size.height / 2.0 + frame.origin.y);
+         CGPoint ptLocal = NSMakePoint(frame.size.width / 2.0, frame.size.height / 2.0 );
 
-         [self warpMouse: pt];
+         // NSLog(@"setting last known pos in window to x=%f, y=%f\n", ptLocal.x, ptLocal.y);
+
+         [xwin setLastKnownCursorPosition: [xwin transformPoint: ptLocal]];
+         [self warpMouse: ptGlobal];
       }
       else
-         NSLog(@"XGrabPointer() failed with error %d\n", result);
+         NSLog(@"XGrabPointer() failed with error %d for window %d\n", result, win);
    }
    else
    {

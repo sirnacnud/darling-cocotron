@@ -2079,9 +2079,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 -(NSPoint)mouseLocationOutsideOfEventStream {
-   NSPoint point=[_platformWindow mouseLocationOutsideOfEventStream];
-
-   return [self convertScreenToBase:point];
+   return [_platformWindow mouseLocationOutsideOfEventStream];
 }
 
 -(NSEvent *)currentEvent {

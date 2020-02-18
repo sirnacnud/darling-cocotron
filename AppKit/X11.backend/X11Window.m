@@ -310,14 +310,6 @@ static NSData *makeWindowIcon() {
     _styleMask = mask;
 }
 
-- (void)_setWMState
-{
-   int numAtoms = 0;
-
-   if (_styleMask & NSWindowStyleMaskFullScreen)
-      numAtoms++;
-}
-
 +(void)removeDecorationForWindow:(Window)w onDisplay:(Display*)dpy
 {
    return;
@@ -596,11 +588,11 @@ static NSData *makeWindowIcon() {
 }
 
 - (void)setLastKnownCursorPosition:(CGPoint)point {
-   _lastMotionPos = point;
+   _lastMotionPos = [self transformPoint: point];
 }
 
 -(NSPoint)mouseLocationOutsideOfEventStream {
-   return _lastMotionPos;
+   return [self transformPoint: _lastMotionPos];
 }
 
 
