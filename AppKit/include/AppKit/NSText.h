@@ -59,6 +59,9 @@ APPKIT_EXPORT NSString *const NSTextDidChangeNotification;
 
 @interface NSText : NSView <NSChangeSpelling, NSIgnoreMisspelledWords>
 
+- (instancetype)initWithCoder:(NSCoder *)coder;
+- (instancetype)initWithFrame:(NSRect)frameRect;
+
 - delegate;
 - (NSString *)string;
 - (NSData *)RTFFromRange:(NSRange)range;
