@@ -415,6 +415,7 @@ set(AppKit_sources
 	NSCollectionViewLayout.m
 
 	NSSharingService.m
+	MacWorkspace.m
 )
 
 set_source_files_properties(${AppKit_sources} LANGUAGE C)

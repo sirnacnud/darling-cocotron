@@ -29,6 +29,7 @@ APPKIT_EXPORT NSString *const NSWorkspaceDidTerminateApplicationNotification;
 APPKIT_EXPORT const NSNotificationName NSWorkspaceSessionDidBecomeActiveNotification;
 APPKIT_EXPORT const NSNotificationName NSWorkspaceSessionDidResignActiveNotification;
 
+typedef NSUInteger NSWorkspaceIconCreationOptions;
 
 
 @interface NSWorkspace : NSObject {
@@ -90,6 +91,12 @@ APPKIT_EXPORT const NSNotificationName NSWorkspaceSessionDidResignActiveNotifica
 - (void)hideOtherApplications;
 
 - (int)extendPowerOffBy:(int)milliseconds;
+
+- (BOOL)setIcon:(NSImage *)image 
+        forFile:(NSString *)fullPath 
+        options:(NSWorkspaceIconCreationOptions)options;
+- (void)activateFileViewerSelectingURLs:(NSArray<NSURL *> *)fileURLs;
+- (NSURL *)URLForApplicationWithBundleIdentifier:(NSString *)bundleIdentifier;
 
 @end
 
