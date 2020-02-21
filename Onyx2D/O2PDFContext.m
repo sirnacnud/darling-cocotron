@@ -344,11 +344,11 @@ const NSString *kO2PDFContextTitle=@"kO2PDFContextTitle";
    }
 }
 
-- (void)translateCTM:(O2Float)x:(O2Float)y
+- (void) translateCTM: (O2Float) x : (O2Float) y
 {
     [self contentWithFormat:@"1 0 0 1 %f %f cm ", x, y];
 }
-- (void)scaleCTM:(O2Float)x:(O2Float)y
+- (void) scaleCTM: (O2Float) x : (O2Float) y
 {
     [self contentWithFormat:@"%f 0 0 %f 0 0 cm ", x, y];
 }
