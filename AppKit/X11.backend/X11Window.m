@@ -67,6 +67,7 @@ static NSData *makeWindowIcon() {
     NSString *path = [bundle pathForImageResource: name];
     if (path == nil) {
         NSLog(@"Cannot find an icon file named %@", name);
+        return nil;
     }
     NSURL *url = [NSURL fileURLWithPath: path];
 
