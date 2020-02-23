@@ -563,7 +563,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
       Cursor c = ((X11Cursor*) cursor).cursor;
 
       XDefineCursor(_display, w, c);
-      XSync(_display, false);
+      XSync(_display, False);
    }
 }
 
@@ -990,7 +990,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
      [delegate platformWindowDeactivated:window checkForAppDeactivation:NO];
      lastFocusedWindow=nil;
      if (_cursorGrabbed)
-      [self grabMouse: FALSE];
+      [self grabMouse: NO];
      break;
          
     case KeymapNotify:
@@ -1183,7 +1183,7 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top, CGFlo
 {
    NSLog(@"Warp to: x=%f, y=%f\n", position.x, position.y);
    XWarpPointer(_display, None, DefaultRootWindow(_display), 0, 0, 0, 0, position.x, position.y);
-   XSync(_display, FALSE);
+   XSync(_display, False);
 }
 
 - (void)grabMouse:(BOOL)doGrab
@@ -1198,11 +1198,11 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top, CGFlo
       Window win = [xwin windowHandle];
       //Window win = DefaultRootWindow(_display);
       const unsigned int mask = ButtonPressMask | ButtonReleaseMask | PointerMotionMask | FocusChangeMask;
-      int result = XGrabPointer(_display, win, FALSE, mask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
+      int result = XGrabPointer(_display, win, False, mask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
       if (result == GrabSuccess)
       {
-         _cursorGrabbed = TRUE;
-         NSLog(@"XGrabPointer() succeeded for window %p\n", win);
+         _cursorGrabbed = YES;
+         NSLog(@"XGrabPointer() succeeded for window %lu\n", win);
 
          NSRect frame = [xwin transformFrame: nswin.frame];
          // NSLog(@"Window's frame is at %f,%f, size %fx%f\n", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
@@ -1215,14 +1215,14 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top, CGFlo
          [self warpMouse: ptGlobal];
       }
       else
-         NSLog(@"XGrabPointer() failed with error %d for window %d\n", result, win);
+         NSLog(@"XGrabPointer() failed with error %d for window %lu\n", result, win);
    }
    else
    {
       XUngrabPointer(_display, CurrentTime);
-      _cursorGrabbed = FALSE;
+      _cursorGrabbed = NO;
    }
-   XSync(_display, FALSE);
+   XSync(_display, False);
 }
 
 @end

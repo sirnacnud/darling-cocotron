@@ -242,7 +242,7 @@ static NSData *makeWindowIcon() {
         [[self class] removeDecorationForWindow: _window onDisplay: _display];
     }
     [self setStyleMaskInternal: _styleMask
-                     force: TRUE];
+                         force: YES];
 
     [self setWindowIcon];
 
@@ -303,10 +303,10 @@ static NSData *makeWindowIcon() {
 }
 
 - (void) setStyleMask: (NSUInteger) mask {
-   NSLog(@"X11Window setStyleMask: 0x%x\n", mask);
+    NSLog(@"X11Window setStyleMask: 0x%lx\n", (unsigned long) mask);
 
-   [self setStyleMaskInternal: mask
-                     force: FALSE];
+    [self setStyleMaskInternal: mask
+                         force: NO];
 
     _styleMask = mask;
 }
