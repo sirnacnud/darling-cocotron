@@ -197,13 +197,13 @@ static NSData *makeWindowIcon() {
 
     XSetWindowBackgroundPixmap(_display, _window, None);
 
-    BOOL isModal = [delegate isSheet] || [NSApp modalWindow] == delegate;
+    _isModal = [delegate isSheet] || [NSApp modalWindow] == delegate;
     // FIXME: There should be no need for this.
-    isModal |= [delegate isKindOfClass: NSClassFromString(@"NSSavePanel")];
+    _isModal |= [delegate isKindOfClass: NSClassFromString(@"NSSavePanel")];
 
     const char *windowType;
     BOOL isTransient = YES;
-    if (isModal) {
+    if (_isModal) {
         windowType = "_NET_WM_WINDOW_TYPE_DIALOG";
     } else if ([delegate isKindOfClass: [NSMenuWindow class]] || [delegate isKindOfClass: [NSPopUpWindow class]]) {
         windowType = "_NET_WM_WINDOW_TYPE_MENU";
@@ -223,14 +223,6 @@ static NSData *makeWindowIcon() {
     if (isTransient && [NSApp mainWindow]) {
         X11Window *mainWindow = (X11Window *) [[NSApp mainWindow] platformWindow];
         XSetTransientForHint(_display, _window, [mainWindow windowHandle]);
-    }
-    if (isModal) {
-        long modalAtom = (long) XInternAtom(_display, "_NET_WM_STATE_MODAL", False);
-        XChangeProperty(_display, _window,
-                        XInternAtom(_display, "_NET_WM_STATE", False),
-                        XA_ATOM,
-                        32, PropModeReplace,
-                        (const unsigned char *) &modalAtom, 1);
     }
 
     _cglWindow = CGLGetWindow((void *) _window);
@@ -280,25 +272,35 @@ static NSData *makeWindowIcon() {
       XFree(sh);
    }
 
-   if (force || (mask & NSWindowStyleMaskFullScreen) != (_styleMask & NSWindowStyleMaskFullScreen))
-   {
-      Atom atomState = XInternAtom(_display, "_NET_WM_STATE", False);
-      if (mask & NSWindowStyleMaskFullScreen)
-      {
-         // Make fullscreen
-         Atom a = XInternAtom(_display, "_NET_WM_STATE_FULLSCREEN", False);
-
-         XChangeProperty(_display, _window, atomState,
-            XA_ATOM, 32, PropModeAppend, (unsigned char *)&a, 1);
-      }
-      else
-      {
-         // Make non-fullscreen
-         // NOTE: This kills all other _NET_WM_STATE properties,
-         // but the question is how much they matter in case of windows
-         // that go fullscreen?
-         XDeleteProperty(_display, _window, atomState);
-      }
+   if (!_mapped) {
+       long states[2];
+       int states_cnt = 0;
+       if (_isModal) {
+           states[states_cnt++] = (long) XInternAtom(_display, "_NET_WM_STATE_MODAL", False);
+       }
+       if (mask & NSWindowStyleMaskFullScreen) {
+           states[states_cnt++] = (long) XInternAtom(_display, "_NET_WM_STATE_FULLSCREEN", False);
+       }
+       XChangeProperty(
+           _display, _window,
+           XInternAtom(_display, "_NET_WM_STATE", False),
+           XA_ATOM, 32, PropModeReplace,
+           (const unsigned char *) states, states_cnt
+       );
+   } else if (force || ((mask & NSWindowStyleMaskFullScreen) != (_styleMask & NSWindowStyleMaskFullScreen))) {
+       XClientMessageEvent event = { 0 };
+       event.type = ClientMessage;
+       event.window = _window;
+       event.message_type = XInternAtom(_display, "_NET_WM_STATE", False);
+       event.format = 32;
+       event.data.l[0] = (mask & NSWindowStyleMaskFullScreen) ? 1 : 2;
+       event.data.l[1] = (long) XInternAtom(_display, "_NET_WM_STATE_FULLSCREEN", False);
+       event.data.l[3] = 1;
+       XSendEvent(
+           _display, DefaultRootWindow(_display),
+           False, SubstructureNotifyMask | SubstructureRedirectMask,
+           (XEvent *) &event
+       );
    }
 }
 

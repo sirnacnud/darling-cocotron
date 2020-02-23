@@ -32,7 +32,9 @@
     NSUInteger _styleMask;
     BOOL _mapped;
     CGPoint _lastMotionPos;
+    BOOL _isModal;
 }
+
 + (void)removeDecorationForWindow:(Window)w onDisplay:(Display *)dpy;
 - (instancetype) initWithDelegate: (NSWindow *) delegate;
 - (O2Rect)frame;
