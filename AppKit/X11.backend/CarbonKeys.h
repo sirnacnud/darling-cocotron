@@ -2,7 +2,7 @@
 #define _CARBONKEYS_H
 
 #include <stdint.h>
-#include <Carbon/HIToolbox/Events.h>
+#include <HIToolbox/Events.h>
 
 // The contents of this file are hardware specific to a certain degree,
 // but this is probably as good as we can do.
