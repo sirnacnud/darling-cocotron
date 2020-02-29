@@ -49,7 +49,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @interface NSBundle (UINSBundleLocalizableStringAdditions)
 
-+ (NSBundle *)currentNibLoadingBundle;
-+ (NSString *)currentNibPath;
++ (id)currentNibLoadingBundle;
++ (void)popNibLoadingBundle;
++ (void)pushNibLoadingBundle:(id)bundle;
++ (id)currentStringsTableName;
++ (id)currentNibPath;
++ (void)popNibPath;
++ (void)pushNibPath:(id)path;
++ (BOOL)_loadNibFile:(id)file externalNameTable:(id)tableName options:(id)options withZone:(struct _NSZone *)zone;
+- (BOOL)loadNibFile:(id)file externalNameTable:(id)tableName options:(id)options withZone:(struct _NSZone *)zone;
 
 @end

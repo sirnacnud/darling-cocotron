@@ -13,9 +13,31 @@
 #import <Foundation/NSAutoreleasePool.h>
 #import <AppKit/NSRaise.h>
 #import <Foundation/NSPlatform.h>
+#import <dispatch/dispatch.h>
 
-static NSBundle* _currentNibLoadingBundle;
-static NSString* _currentNibPath;
+static NSMutableArray<NSBundle*>* _nibLoadingBundles(void)
+{
+	static NSMutableArray<NSBundle*>* inst;
+	static dispatch_once_t once;
+
+	dispatch_once(&once, ^{
+		inst = [[NSMutableArray alloc] init];
+	});
+
+	return inst;
+}
+
+static NSMutableArray<NSString*>* _nibPaths(void)
+{
+	static NSMutableArray<NSString*>* inst;
+	static dispatch_once_t once;
+
+	dispatch_once(&once, ^{
+		inst = [[NSMutableArray alloc] init];
+	});
+
+	return inst;
+}
 
 @implementation NSObject(NSNibLoading)
 
@@ -30,7 +52,7 @@ static NSString* _currentNibPath;
 	
     NIBDEBUG(@"+ loadNibFile: '%@' externalNameTable: withZone:", path);
 
-	_currentNibPath = path;
+	[NSBundle pushNibPath: path];
     
 	NSAutoreleasePool *pool=[NSAutoreleasePool new];
 	NSNib *nib=[[[NSNib allocWithZone:zone] initWithContentsOfFile:path] autorelease];
@@ -38,7 +60,7 @@ static NSString* _currentNibPath;
 	BOOL result=[nib instantiateNibWithExternalNameTable:nameTable];
 	[pool release];
 
-	_currentNibPath = nil;
+	[NSBundle popNibPath];
 
 	return result;
 }
@@ -79,44 +101,82 @@ static NSString* _currentNibPath;
 		path = fileName;
 	}
 
-	_currentNibPath = path;
-	_currentNibLoadingBundle = self;
+	[NSBundle pushNibPath: path];
+	[NSBundle pushNibLoadingBundle: self];
 	
 	NSNib *nib=[[[NSNib allocWithZone:zone] initWithContentsOfFile:path] autorelease];
 	
 	BOOL result=[nib instantiateNibWithExternalNameTable:nameTable];
 	[pool release];
 
-	_currentNibPath = nil;
-	_currentNibLoadingBundle = nil;
+	[NSBundle popNibPath];
+	[NSBundle popNibLoadingBundle];
 	
 	return result;
 }
 
 - (BOOL) loadNibNamed: (NSString *) name owner: (id) owner topLevelObjects: (NSArray **) topLevelObjects {
-	_currentNibLoadingBundle = self;
-	_currentNibPath = [self pathForResource:name ofType:@"nib"];
+	[NSBundle pushNibPath: [self pathForResource:name ofType:@"nib"]];
+	[NSBundle pushNibLoadingBundle: self];
 
     NSNib *nib = [[NSNib alloc] initWithNibNamed: name bundle: self];
     BOOL res = [nib instantiateNibWithOwner: owner topLevelObjects: topLevelObjects];
     [nib release];
 
-	_currentNibLoadingBundle = nil;
-	_currentNibPath = nil;
-	
+	[NSBundle popNibPath];
+	[NSBundle popNibLoadingBundle];
+
     return res;
 }
 
 @end
 
 @implementation NSBundle (UINSBundleLocalizableStringAdditions)
-+ (NSBundle *)currentNibLoadingBundle
++ (id)currentNibLoadingBundle
 {
-	return _currentNibLoadingBundle;
+	return [_nibLoadingBundles() lastObject];
 }
 
-+ (NSString *)currentNibPath
++ (void)popNibLoadingBundle
 {
-	return _currentNibPath;
+	[_nibLoadingBundles() removeLastObject];
+}
+
++ (void)pushNibLoadingBundle:(id)bundle
+{
+	[_nibLoadingBundles() addObject: bundle];
+}
+
++ (id)currentStringsTableName
+{
+	// TODO
+	return nil;
+}
+
++ (id)currentNibPath
+{
+	return [_nibPaths() lastObject];
+}
+
++ (void)popNibPath
+{
+	[_nibPaths() removeLastObject];
+}
+
++ (void)pushNibPath:(id)path
+{
+	[_nibPaths() addObject: path];
+}
+
++ (BOOL)_loadNibFile:(id)file externalNameTable:(id)tableName options:(id)options withZone:(struct _NSZone *)zone
+{
+	// TODO: work with options
+	return [NSBundle loadNibFile: file externalNameTable:tableName withZone:zone];
+}
+
+- (BOOL)loadNibFile:(id)file externalNameTable:(id)tableName options:(id)options withZone:(struct _NSZone *)zone
+{
+	// TODO: work with options
+	return [self loadNibFile: file externalNameTable:tableName withZone:zone];
 }
 @end
