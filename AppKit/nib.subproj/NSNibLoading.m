@@ -14,6 +14,9 @@
 #import <AppKit/NSRaise.h>
 #import <Foundation/NSPlatform.h>
 
+static NSBundle* _currentNibLoadingBundle;
+static NSString* _currentNibPath;
+
 @implementation NSObject(NSNibLoading)
 
 -(void)awakeFromNib {
@@ -26,12 +29,16 @@
 +(BOOL)loadNibFile:(NSString *)path externalNameTable:(NSDictionary *)nameTable withZone:(NSZone *)zone {
 	
     NIBDEBUG(@"+ loadNibFile: '%@' externalNameTable: withZone:", path);
+
+	_currentNibPath = path;
     
 	NSAutoreleasePool *pool=[NSAutoreleasePool new];
 	NSNib *nib=[[[NSNib allocWithZone:zone] initWithContentsOfFile:path] autorelease];
 
 	BOOL result=[nib instantiateNibWithExternalNameTable:nameTable];
 	[pool release];
+
+	_currentNibPath = nil;
 
 	return result;
 }
@@ -71,21 +78,45 @@
 		NSLog(@"warning: full path passed when only nib file name should be used");
 		path = fileName;
 	}
+
+	_currentNibPath = path;
+	_currentNibLoadingBundle = self;
 	
 	NSNib *nib=[[[NSNib allocWithZone:zone] initWithContentsOfFile:path] autorelease];
 	
 	BOOL result=[nib instantiateNibWithExternalNameTable:nameTable];
 	[pool release];
+
+	_currentNibPath = nil;
+	_currentNibLoadingBundle = nil;
 	
 	return result;
 }
 
 - (BOOL) loadNibNamed: (NSString *) name owner: (id) owner topLevelObjects: (NSArray **) topLevelObjects {
+	_currentNibLoadingBundle = self;
+	_currentNibPath = [self pathForResource:name ofType:@"nib"];
+
     NSNib *nib = [[NSNib alloc] initWithNibNamed: name bundle: self];
     BOOL res = [nib instantiateNibWithOwner: owner topLevelObjects: topLevelObjects];
     [nib release];
+
+	_currentNibLoadingBundle = nil;
+	_currentNibPath = nil;
+	
     return res;
 }
 
 @end
 
+@implementation NSBundle (UINSBundleLocalizableStringAdditions)
++ (NSBundle *)currentNibLoadingBundle
+{
+	return _currentNibLoadingBundle;
+}
+
++ (NSString *)currentNibPath
+{
+	return _currentNibPath;
+}
+@end
