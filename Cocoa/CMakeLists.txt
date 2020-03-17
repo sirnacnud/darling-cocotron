@@ -1,9 +1,5 @@
 project(Cocoa)
 
-add_compile_options(
-	-mmacosx-version-min=10.10
-)
-
 set(Cocoa_sources
 	Cocoa.m
 )
