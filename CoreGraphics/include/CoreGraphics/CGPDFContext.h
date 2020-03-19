@@ -27,13 +27,13 @@ COREGRAPHICS_EXPORT const CFStringRef kCGPDFContextKeywords;
 COREGRAPHICS_EXPORT const CFStringRef kCGPDFContextTitle;
 COREGRAPHICS_EXPORT const CFStringRef kCGPDFContextMediaBox;
 
-#ifdef __OBJC__
+typedef struct CF_BRIDGED_TYPE(id) O2PDFContext *CGPDFContextRef;
 
-@class O2PDFContext;
-typedef O2PDFContext *CGPDFContextRef;
+CF_IMPLICIT_BRIDGING_ENABLED
+
 COREGRAPHICS_EXPORT CGContextRef CGPDFContextCreate(CGDataConsumerRef consumer, const CGRect *mediaBox, CFDictionaryRef auxiliaryInfo);
 COREGRAPHICS_EXPORT void CGPDFContextClose(CGContextRef self);
 
-#endif
+CF_IMPLICIT_BRIDGING_DISABLED
 
 #endif

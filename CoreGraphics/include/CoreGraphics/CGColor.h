@@ -8,13 +8,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <CoreGraphics/CoreGraphicsExport.h>
 
-@class O2Color;
-
-typedef O2Color *CGColorRef;
+typedef struct CF_BRIDGED_TYPE(id) O2Color *CGColorRef;
 
 #import "CGGeometry.h"
 #import "CGColorSpace.h"
 #import "CGPattern.h"
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT CGColorRef CGColorRetain(CGColorRef self);
 COREGRAPHICS_EXPORT void CGColorRelease(CGColorRef self);
@@ -42,3 +42,5 @@ COREGRAPHICS_EXPORT CGColorRef CGColorGetConstantColor(CFStringRef colorName);
 COREGRAPHICS_EXPORT const CFStringRef kCGColorWhite;
 COREGRAPHICS_EXPORT const CFStringRef kCGColorBlack;
 COREGRAPHICS_EXPORT const CFStringRef kCGColorClear;
+
+CF_IMPLICIT_BRIDGING_DISABLED

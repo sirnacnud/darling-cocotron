@@ -8,13 +8,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <CoreGraphics/CoreGraphicsExport.h>
 
-@class O2PDFDocument;
-typedef O2PDFDocument *CGPDFDocumentRef;
+typedef struct CF_BRIDGED_TYPE(id) O2PDFDoument *CGPDFDocumentRef;
 
 #import <CoreFoundation/CFURL.h>
 
 #import <CoreGraphics/CGPDFPage.h>
 #import <CoreGraphics/CGDataProvider.h>
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT CGPDFDocumentRef CGPDFDocumentRetain(CGPDFDocumentRef self);
 COREGRAPHICS_EXPORT void CGPDFDocumentRelease(CGPDFDocumentRef self);
@@ -24,3 +25,5 @@ COREGRAPHICS_EXPORT CGPDFDocumentRef CGPDFDocumentCreateWithProvider(CGDataProvi
 
 COREGRAPHICS_EXPORT size_t CGPDFDocumentGetNumberOfPages(CGPDFDocumentRef self);
 COREGRAPHICS_EXPORT CGPDFPageRef CGPDFDocumentGetPage(CGPDFDocumentRef self, size_t pageNumber);
+
+CF_IMPLICIT_BRIDGING_DISABLED

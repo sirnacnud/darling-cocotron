@@ -10,8 +10,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <CoreGraphics/CGGeometry.h>
 
-@class O2ColorSpace;
-typedef O2ColorSpace *CGColorSpaceRef;
+typedef struct CF_BRIDGED_TYPE(id) O2ColorSpace *CGColorSpaceRef;
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT const CFStringRef kCGColorSpaceGenericGray;
 COREGRAPHICS_EXPORT const CFStringRef kCGColorSpaceGenericRGB;
@@ -66,3 +67,5 @@ COREGRAPHICS_EXPORT CGColorSpaceModel CGColorSpaceGetModel(CGColorSpaceRef self)
 COREGRAPHICS_EXPORT size_t CGColorSpaceGetNumberOfComponents(CGColorSpaceRef self);
 
 COREGRAPHICS_EXPORT CGColorSpaceRef CGColorSpaceCreateWithName(CFStringRef name);
+
+CF_IMPLICIT_BRIDGING_DISABLED

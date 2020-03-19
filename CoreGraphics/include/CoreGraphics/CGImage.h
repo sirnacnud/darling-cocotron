@@ -50,8 +50,9 @@ enum {
 
 typedef unsigned CGBitmapInfo;
 
-@class O2Image;
-typedef O2Image *CGImageRef;
+typedef struct CF_BRIDGED_TYPE(id) O2Image *CGImageRef;
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT CGImageRef CGImageRetain(CGImageRef image);
 COREGRAPHICS_EXPORT void CGImageRelease(CGImageRef image);
@@ -84,3 +85,5 @@ COREGRAPHICS_EXPORT CGColorRenderingIntent CGImageGetRenderingIntent(CGImageRef 
 
 COREGRAPHICS_EXPORT bool CGImageIsMask(CGImageRef self);
 COREGRAPHICS_EXPORT CGImageAlphaInfo CGImageGetAlphaInfo(CGImageRef self);
+
+CF_IMPLICIT_BRIDGING_DISABLED

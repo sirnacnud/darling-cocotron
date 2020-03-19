@@ -11,11 +11,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <CoreGraphics/CGColorSpace.h>
 #import <CoreGraphics/CGFunction.h>
 
-@class O2Shading;
-typedef O2Shading *CGShadingRef;
+typedef struct CF_BRIDGED_TYPE(id) O2Shading *CGShadingRef;
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT CGShadingRef CGShadingRetain(CGShadingRef self);
 COREGRAPHICS_EXPORT void CGShadingRelease(CGShadingRef self);
 
 COREGRAPHICS_EXPORT CGShadingRef CGShadingCreateAxial(CGColorSpaceRef colorSpace, CGPoint startPoint, CGPoint endPoint, CGFunctionRef function, bool extendStart, bool extendEnd);
 COREGRAPHICS_EXPORT CGShadingRef CGShadingCreateRadial(CGColorSpaceRef colorSpace, CGPoint startPoint, CGFloat startRadius, CGPoint endPoint, CGFloat endRadius, CGFunctionRef function, bool extendStart, bool extendEnd);
+
+CF_IMPLICIT_BRIDGING_DISABLED

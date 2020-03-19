@@ -8,8 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <CoreGraphics/CGGeometry.h>
 
-@class O2Function;
-typedef O2Function *CGFunctionRef;
+typedef struct CF_BRIDGED_TYPE(id) O2Function *CGFunctionRef;
 
 typedef struct {
     unsigned version;
@@ -17,7 +16,11 @@ typedef struct {
     void (*releaseInfo)(void *);
 } CGFunctionCallbacks;
 
+CF_IMPLICIT_BRIDGING_ENABLED
+
 COREGRAPHICS_EXPORT CGFunctionRef CGFunctionRetain(CGFunctionRef self);
 COREGRAPHICS_EXPORT void CGFunctionRelease(CGFunctionRef self);
 
 COREGRAPHICS_EXPORT CGFunctionRef CGFunctionCreate(void *info, size_t domainDimension, const CGFloat *domain, size_t rangeDimension, const CGFloat *range, const CGFunctionCallbacks *callbacks);
+
+CF_IMPLICIT_BRIDGING_DISABLED

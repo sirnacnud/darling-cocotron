@@ -17,7 +17,7 @@ extern const CFStringRef kCGWindowBounds;
 extern const CFStringRef kCGWindowLayer;
 extern const CFStringRef kCGWindowOwnerPID;
 
-@class O2Context, CGEvent;
+@class CGEvent;
 
 typedef enum {
     CGSBackingStoreRetained = 0,
@@ -33,7 +33,8 @@ typedef enum {
 - (void)invalidate;
 - (void)syncDelegateProperties;
 
-- (O2Context *)cgContext;
+// Goes in private interface
+//- (O2Context *)cgContext;
 - (CGLContextObj)cglContext;
 
 - (NSUInteger)styleMask;

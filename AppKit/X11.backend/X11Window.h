@@ -12,7 +12,7 @@
 #import <GL/glx.h>
 #import <OpenGL/CGLInternal.h>
 
-@class X11Display, CAWindowOpenGLContext, NSWindow;
+@class X11Display, CAWindowOpenGLContext, NSWindow, O2Context;
 
 @interface X11Window : CGWindow {
     int _level; //TODO: care about this value

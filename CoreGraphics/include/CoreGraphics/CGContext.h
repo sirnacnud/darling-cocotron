@@ -8,8 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS",WITHOUT WARRANTY OF ANY KIND,EXPRESS OR IMPLIED
 
 #import <CoreGraphics/CoreGraphicsExport.h>
 
-@class O2Context;
-typedef O2Context *CGContextRef;
+typedef struct CF_BRIDGED_TYPE(id) O2Context *CGContextRef;
 
 #import <CoreGraphics/CGGeometry.h>
 #import <CoreGraphics/CGAffineTransform.h>
@@ -21,6 +20,8 @@ typedef O2Context *CGContextRef;
 #import <CoreGraphics/CGShading.h>
 #import <CoreGraphics/CGPDFPage.h>
 #import <CoreGraphics/CGLayer.h>
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 typedef enum {
     kCGEncodingFontSpecific,
@@ -265,3 +266,5 @@ COREGRAPHICS_EXPORT void CGContextSetAllowsFontSubpixelQuantization(CGContextRef
 COREGRAPHICS_EXPORT void CGContextSetShouldSubpixelQuantizeFonts(CGContextRef context, bool shouldSubpixelQuantizeFonts);
 COREGRAPHICS_EXPORT void CGContextSetAllowsFontSubpixelPositioning(CGContextRef context, bool allowsFontSubpixelPositioning);
 COREGRAPHICS_EXPORT void CGContextSetShouldSubpixelPositionFonts(CGContextRef context, bool shouldSubpixelPositionFonts);
+
+CF_IMPLICIT_BRIDGING_DISABLED

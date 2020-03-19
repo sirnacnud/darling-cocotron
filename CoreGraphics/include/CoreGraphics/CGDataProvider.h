@@ -9,10 +9,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <CoreGraphics/CoreGraphicsExport.h>
 #import <CoreFoundation/CFData.h>
 
-@class O2DataProvider;
-typedef O2DataProvider *CGDataProviderRef;
+typedef struct CF_BRIDGED_TYPE(id) O2DataProvider *CGDataProviderRef;
 
 typedef void (*CGDataProviderReleaseDataCallback)(void *info, const void *data, size_t size);
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT CGDataProviderRef CGDataProviderRetain(CGDataProviderRef provider);
 COREGRAPHICS_EXPORT void CGDataProviderRelease(CGDataProviderRef provider);
@@ -22,3 +23,5 @@ COREGRAPHICS_EXPORT CGDataProviderRef CGDataProviderCreateWithCFData(CFDataRef d
 COREGRAPHICS_EXPORT CGDataProviderRef CGDataProviderCreateWithData(void *info, const void *data, size_t size, CGDataProviderReleaseDataCallback releaseCallback);
 
 COREGRAPHICS_EXPORT CFDataRef CGDataProviderCopyData(CGDataProviderRef self);
+
+CF_IMPLICIT_BRIDGING_DISABLED

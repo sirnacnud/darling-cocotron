@@ -9,11 +9,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <CoreText/CTFont.h>
 #import <CoreText/KTFont.h>
 
-CTFontRef CTFontCreateWithGraphicsFont(CGFontRef cgFont,CGFloat size,CGAffineTransform *xform,id attributes) {
+CTFontRef CTFontCreateWithGraphicsFont(CGFontRef cgFont,CGFloat size,CGAffineTransform *xform, /* CTFontDescriptorRef */ void *attributes) {
    return [[KTFont alloc] initWithFont:cgFont size:size];
 }
 
-CTFontRef CTFontCreateUIFontForLanguage(CTFontUIFontType uiFontType,CGFloat size,NSString *language ) {
+CTFontRef CTFontCreateUIFontForLanguage(CTFontUIFontType uiFontType,CGFloat size, CFStringRef language ) {
    return [[KTFont alloc] initWithUIFontType:uiFontType size:size language:language];
 }
 
@@ -29,7 +29,7 @@ size_t CTFontGetGlyphCount(CTFontRef self) {
    return [self numberOfGlyphs];
 }
 
-BOOL CTFontGetGlyphsForCharacters(CTFontRef self,const unichar *characters,CGGlyph *glyphs,size_t count) {
+bool CTFontGetGlyphsForCharacters(CTFontRef self,const UniChar *characters,CGGlyph *glyphs,size_t count) {
    [self getGlyphs:glyphs forCharacters:characters length:count];
    // FIXME: change getGlyphs: to return a BOOL
    return YES;

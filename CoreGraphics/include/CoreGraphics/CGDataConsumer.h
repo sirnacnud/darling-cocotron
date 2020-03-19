@@ -10,8 +10,9 @@
 #import <CoreFoundation/CFData.h>
 #import <CoreFoundation/CFURL.h>
 
-@class O2DataConsumer;
-typedef O2DataConsumer *CGDataConsumerRef;
+typedef struct CF_BRIDGED_TYPE(id) O2DataConsumer *CGDataConsumerRef;
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 typedef size_t (*CGDataConsumerPutBytesCallback)(void *info, const void *buffer, size_t count);
 
@@ -27,3 +28,5 @@ COREGRAPHICS_EXPORT CGDataConsumerRef CGDataConsumerCreate(void *info, const CGD
 COREGRAPHICS_EXPORT CGDataConsumerRef CGDataConsumerCreateWithURL(CFURLRef url);
 
 COREGRAPHICS_EXPORT void CGDataConsumerRelease(CGDataConsumerRef self);
+
+CF_IMPLICIT_BRIDGING_DISABLED

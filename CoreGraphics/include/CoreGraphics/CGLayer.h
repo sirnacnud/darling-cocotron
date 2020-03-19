@@ -8,15 +8,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <CoreGraphics/CoreGraphicsExport.h>
 
-@class O2Layer;
-typedef O2Layer *CGLayerRef;
+typedef struct CF_BRIDGED_TYPE(id) O2Layer *CGLayerRef;
 
 #import <CoreGraphics/CGContext.h>
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT CGLayerRef CGLayerRetain(CGLayerRef self);
 COREGRAPHICS_EXPORT void CGLayerRelease(CGLayerRef self);
 
-COREGRAPHICS_EXPORT CGLayerRef CGLayerCreateWithContext(CGContextRef context, CGSize size, id unused);
+COREGRAPHICS_EXPORT CGLayerRef CGLayerCreateWithContext(CGContextRef context, CGSize size, CFDictionaryRef unused);
 
 COREGRAPHICS_EXPORT CGSize CGLayerGetSize(CGLayerRef self);
 COREGRAPHICS_EXPORT CGContextRef CGLayerGetContext(CGLayerRef self);
+
+CF_IMPLICIT_BRIDGING_DISABLED

@@ -11,10 +11,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include <CoreFoundation/CoreFoundation.h>
 
-@class O2Font;
-typedef O2Font *CGFontRef;
+typedef struct CF_BRIDGED_TYPE(id) O2Font *CGFontRef;
 
 typedef uint16_t CGGlyph;
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT CGFontRef CGFontCreateWithFontName(CFStringRef name);
 COREGRAPHICS_EXPORT CGFontRef CGFontRetain(CGFontRef self);
@@ -38,3 +39,5 @@ COREGRAPHICS_EXPORT CGGlyph CGFontGetGlyphWithGlyphName(CGFontRef self, CFString
 COREGRAPHICS_EXPORT CFStringRef CGFontCopyGlyphNameForGlyph(CGFontRef self, CGGlyph glyph);
 
 COREGRAPHICS_EXPORT CFDataRef CGFontCopyTableForTag(CGFontRef self, uint32_t tag);
+
+CF_IMPLICIT_BRIDGING_DISABLED

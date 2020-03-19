@@ -33,10 +33,10 @@ const CFStringRef kCGWindowOwnerPID = CFSTR("kCGWindowOwnerPID");
 }
 
 
--(O2Context *)cgContext {
-   O2InvalidAbstractInvocation();
-   return nil;
-}
+//-(O2Context *)cgContext {
+//  O2InvalidAbstractInvocation();
+//   return nil;
+//}
 
 -(NSUInteger)styleMask {
    O2InvalidAbstractInvocation();

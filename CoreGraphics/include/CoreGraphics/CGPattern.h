@@ -8,8 +8,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <CoreGraphics/CoreGraphicsExport.h>
 
-@class O2Pattern;
-typedef O2Pattern *CGPatternRef;
+typedef struct CF_BRIDGED_TYPE(id) O2Pattern *CGPatternRef;
 
 #import <CoreGraphics/CGGeometry.h>
 #import <CoreGraphics/CGContext.h>
@@ -28,7 +27,11 @@ typedef enum {
     kCGPatternTilingConstantSpacing,
 } CGPatternTiling;
 
+CF_IMPLICIT_BRIDGING_ENABLED
+
 COREGRAPHICS_EXPORT CGPatternRef CGPatternRetain(CGPatternRef self);
 COREGRAPHICS_EXPORT void CGPatternRelease(CGPatternRef self);
 
 COREGRAPHICS_EXPORT CGPatternRef CGPatternCreate(void *info, CGRect bounds, CGAffineTransform matrix, CGFloat xstep, CGFloat ystep, CGPatternTiling tiling, bool isColored, const CGPatternCallbacks *callbacks);
+
+CF_IMPLICIT_BRIDGING_DISABLED

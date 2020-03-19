@@ -25,9 +25,10 @@ typedef struct {
 
 typedef void (*CGPathApplierFunction)(void *info, const CGPathElement *element);
 
-@class O2MutablePath;
-typedef O2MutablePath *CGPathRef;
-typedef O2MutablePath *CGMutablePathRef;
+typedef struct CF_BRIDGED_TYPE(id) O2MutablePath *CGPathRef;
+typedef struct CF_BRIDGED_TYPE(id) O2MutablePath *CGMutablePathRef;
+
+CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT void CGPathRelease(CGPathRef self);
 COREGRAPHICS_EXPORT CGPathRef CGPathRetain(CGPathRef self);
@@ -68,3 +69,5 @@ COREGRAPHICS_EXPORT CGPathRef CGPathCreateWithRect(CGRect rect, const CGAffineTr
 COREGRAPHICS_EXPORT CGRect CGPathGetPathBoundingBox(CGPathRef path); 
 
 COREGRAPHICS_EXPORT CGPathRef CGPathCreateCopyByTransformingPath(CGPathRef path, CGAffineTransform *transform);
+
+CF_IMPLICIT_BRIDGING_DISABLED
