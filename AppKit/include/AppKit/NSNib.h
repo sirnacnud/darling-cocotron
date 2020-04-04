@@ -18,6 +18,11 @@ APPKIT_EXPORT NSString *const NSNibTopLevelObjects;
     NSData *_data;
     NSMutableArray *_allObjects;
     NSDictionary *_nameTable;
+    struct _NSNibFlags {
+        unsigned int _isKeyed:1;
+        unsigned int _inheritsDecodeTimeBundle:1;
+        unsigned int _reserved:30;
+    } _flags;
 }
 
 - initWithCoder:(NSCoder*)coder;

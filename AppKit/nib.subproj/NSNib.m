@@ -51,22 +51,33 @@ NSString * const NSNibTopLevelObjects=@"NSNibTopLevelObjects";
 		[soundBlobs release];
 		[sounds release];
 	}
+
+    return self;
 }
 
 -initWithContentsOfFile:(NSString *)path {
 
     NIBDEBUG(@"initWithContentsOfFile: %@", path);
     
-   NSString *keyedobjects=path;
+   NSString *objects=path;
    BOOL      isDirectory=NO;
 
-	if([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory] && isDirectory)
-    keyedobjects=[[path stringByAppendingPathComponent:@"keyedobjects"] stringByAppendingPathExtension:@"nib"];
+	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory] && isDirectory) {
+        objects = [[path stringByAppendingPathComponent:@"keyedobjects"] stringByAppendingPathExtension:@"nib"];
+
+        if (![[NSFileManager defaultManager] fileExistsAtPath: objects])
+            objects = [[path stringByAppendingPathComponent:@"objects"] stringByAppendingPathExtension:@"nib"];
+        else
+            _flags._isKeyed = TRUE;
+    }
    
-   if(!keyedobjects && !isDirectory)
-      keyedobjects=path; // assume new-style compiled xib
+   if(!objects && !isDirectory)
+   {
+      objects=path; // assume new-style compiled xib
+      _flags._isKeyed = TRUE;
+   }
    
-   if((_data=[[NSData alloc] initWithContentsOfFile:keyedobjects])==nil){
+   if((_data=[[NSData alloc] initWithContentsOfFile:objects])==nil){
     [self release];
     return nil;
    }
@@ -133,73 +144,89 @@ NSString * const NSNibTopLevelObjects=@"NSNibTopLevelObjects";
     
     NIBDEBUG(@"instantiateNibWithExternalNameTable: %@", nameTable);
     
-   NSAutoreleasePool *pool=[NSAutoreleasePool new];
-   _nameTable=[nameTable retain];
-    NSKeyedUnarchiver *unarchiver=[[[NSKeyedUnarchiver alloc] initForReadingWithData:_data] autorelease];
     NSIBObjectData    *objectData;
-    int                i,count;
-    NSMenu            *menu;
-    NSArray           *topLevelObjects;
-    
-    [unarchiver setDelegate:self];
-    
-    /*
-    TO DO:
-     - utf8 in the multinational panel
-     - misaligned objects in boxes everywhere
-    */
-    [unarchiver setClass:[NSTableCornerView class] forClassName:@"_NSCornerView"];
-    [unarchiver setClass:[NSNibHelpConnector class] forClassName:@"NSIBHelpConnector"];
-    
-    objectData=[unarchiver decodeObjectForKey:@"IB.objectdata"];
+    @autoreleasepool
+    {
+        _nameTable=[nameTable retain];
+
+        NSCoder *unarchiver;
+        int                i,count;
+        NSMenu            *menu;
+        NSArray           *topLevelObjects;
         
-    [objectData buildConnectionsWithNameTable:_nameTable];
-	if((menu=[objectData mainMenu])!=nil) {
-		// Rename the first item to have the application name.
-		if ([menu numberOfItems] > 0) {
-			NSMenuItem *firstItem = [menu itemAtIndex: 0];
-			NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
-			[firstItem setTitle: appName];
-		}
-		[NSApp setMainMenu:menu];
-	}
-	
-    topLevelObjects = [objectData topLevelObjects];
+        if (_flags._isKeyed)
+        {
+            NSKeyedUnarchiver* keyed;
+            unarchiver = keyed = [[[NSKeyedUnarchiver alloc] initForReadingWithData:_data] autorelease];
+            [keyed setDelegate:self];
 
-    // Top-level objects are always retained - this echoes observed Cocoa behaviour
-	[topLevelObjects makeObjectsPerformSelector:@selector(retain)];
+            /*
+            TO DO:
+            - utf8 in the multinational panel
+            - misaligned objects in boxes everywhere
+            */
+            [keyed setClass:[NSTableCornerView class] forClassName:@"_NSCornerView"];
+            [keyed setClass:[NSNibHelpConnector class] forClassName:@"NSIBHelpConnector"];
 
-    // if external table contains a mutable array for key NSNibTopLevelObjects,
-	// then this array also retains all top-level objects,
-    if([_nameTable objectForKey:NSNibTopLevelObjects]) {
-        [[_nameTable objectForKey:NSNibTopLevelObjects] setArray:topLevelObjects];
-	}
-    
-    // We do not need to add the objects from nameTable to allObjects as they get put into the uid->object table already
-    // Do we send awakeFromNib to objects in the nameTable *not* present in the nib ?
+            objectData=[keyed decodeObjectForKey:@"IB.objectdata"];
+        }
+        else
+        {
+            NSUnarchiver* unkeyed;
+            unarchiver = unkeyed = [[[NSUnarchiver alloc] initForReadingWithData:_data] autorelease];
 
-    count=[_allObjects count];
+            [unkeyed decodeClassName:@"_NSCornerView" asClassName:@"NSTableCornerView"];
+            [unkeyed decodeClassName:@"NSIBHelpConnector" asClassName:@"NSNibHelpConnector"];
+            
+            objectData = [unkeyed decodeObject];
+        }
+            
+        [objectData buildConnectionsWithNameTable:_nameTable];
+        if((menu=[objectData mainMenu])!=nil) {
+            // Rename the first item to have the application name.
+            if ([menu numberOfItems] > 0) {
+                NSMenuItem *firstItem = [menu itemAtIndex: 0];
+                NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
+                [firstItem setTitle: appName];
+            }
+            [NSApp setMainMenu:menu];
+        }
+        
+        topLevelObjects = [objectData topLevelObjects];
 
-    for(i=0;i<count;i++){
-     id object=[_allObjects objectAtIndex:i];
-     
-     if([object respondsToSelector:@selector(awakeFromNib)])
-      [object awakeFromNib];
-    }
+        // Top-level objects are always retained - this echoes observed Cocoa behaviour
+        [topLevelObjects makeObjectsPerformSelector:@selector(retain)];
 
-    for(i=0;i<count;i++){
-     id object=[_allObjects objectAtIndex:i];
+        // if external table contains a mutable array for key NSNibTopLevelObjects,
+        // then this array also retains all top-level objects,
+        if([_nameTable objectForKey:NSNibTopLevelObjects]) {
+            [[_nameTable objectForKey:NSNibTopLevelObjects] setArray:topLevelObjects];
+        }
+        
+        // We do not need to add the objects from nameTable to allObjects as they get put into the uid->object table already
+        // Do we send awakeFromNib to objects in the nameTable *not* present in the nib ?
 
-     if([object respondsToSelector:@selector(postAwakeFromNib)])
-      [object performSelector:@selector(postAwakeFromNib)];
-    }
+        count=[_allObjects count];
 
-    [[objectData visibleWindows] makeObjectsPerformSelector:@selector(makeKeyAndOrderFront:) withObject:nil];
-    
-    [_nameTable release];
-    _nameTable=nil;
+        for(i=0;i<count;i++){
+        id object=[_allObjects objectAtIndex:i];
+        
+        if([object respondsToSelector:@selector(awakeFromNib)])
+        [object awakeFromNib];
+        }
 
-    [pool release];
+        for(i=0;i<count;i++){
+        id object=[_allObjects objectAtIndex:i];
+
+        if([object respondsToSelector:@selector(postAwakeFromNib)])
+        [object performSelector:@selector(postAwakeFromNib)];
+        }
+
+        [[objectData visibleWindows] makeObjectsPerformSelector:@selector(makeKeyAndOrderFront:) withObject:nil];
+        
+        [_nameTable release];
+        _nameTable=nil;
+   }
 
     return (objectData!=nil);
 }
