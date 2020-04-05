@@ -319,8 +319,8 @@
 					[key release];
 				}
 
-				unsigned long long nextOid;
-				[coder decodeValueOfObjCType: @encode(unsigned long long)
+				int nextOid;
+				[coder decodeValueOfObjCType: @encode(int)
 					at: &nextOid];
 				_nextOid = nextOid;
 

@@ -22,10 +22,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 -initWithCoder:(NSCoder *)coder {
-   if([coder allowsKeyedCoding]){
-    // NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
-    
-    //; _nextResponder=[keyed decodeObjectForKey:@"NSNextResponder"]; 
+   if([coder allowsKeyedCoding])
+   {
+      NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
+
+      _nextResponder=[keyed decodeObjectForKey:@"NSNextResponder"]; 
+   }
+   else
+   {
+      _nextResponder = [coder decodeObject];
+      NSLog(@"nextResponder <- %p\n", _nextResponder);
    }
    return self;
 }

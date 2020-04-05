@@ -44,8 +44,33 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 -initWithCoder:(NSCoder *)coder {
+    NSLog(@"NSTextField initWithCoder");
    [super initWithCoder:coder];
    [self registerForDraggedTypes:[NSArray arrayWithObject:NSStringPboardType]];
+
+   if ([coder allowsKeyedCoding])
+   {
+       NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *)coder;
+
+       [self setDelegate: [keyed decodeObjectForKey:@"NSDelegate"]];
+       _errorAction = NSSelectorFromString([keyed decodeObjectForKey:@"NSErrorAction"]);
+
+       double maxLayoutWidth = [keyed decodeDoubleForKey:@"NSPreferredMaxLayoutWidth"];
+       // TODO
+   }
+   else
+   {
+        NSInteger version = [coder versionForClassName: @"NSTextField"];
+
+        if (version < 25)
+        {
+            [self setNextKeyView: [coder decodeObject]];
+            [self setNextKeyView: [coder decodeObject]];
+        }
+
+        [self setDelegate: [coder decodeObject]];
+        [coder decodeValuesOfObjCTypes: ":", &_errorAction];
+   }
    return self;
 }
 

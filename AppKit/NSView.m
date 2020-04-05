@@ -1,5 +1,6 @@
 /* Copyright (c) 2006-2007 Christopher J. W. Lloyd
                  2009-2010 Markus Hitter <mah@jump-ing.de>
+                 2020 Lubos Dolezel
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -77,6 +78,56 @@ static BOOL NSShowAllViews = NO;
    NSUnimplementedMethod();
 }
 
+typedef struct __VFlags {
+#ifdef __BIG_ENDIAN__
+	unsigned int        rotatedFromBase:1;
+	unsigned int        rotatedOrScaledFromBase:1;
+	unsigned int        autosizing:6;
+	unsigned int        autoresizeSubviews:1;
+	unsigned int        wantsGState:1;
+	unsigned int        needsDisplay:1;
+	unsigned int        validGState:1;
+	unsigned int        newGState:1;
+	unsigned int        noVerticalAutosizing:1;
+	unsigned int        frameChangeNotesSuspended:1;
+	unsigned int        needsFrameChangeNote:1;
+	unsigned int        focusChangeNotesSuspended:1;
+	unsigned int        boundsChangeNotesSuspended:1;
+	unsigned int        needsBoundsChangeNote:1;
+	unsigned int        removingWithoutInvalidation:1;
+ unsigned int        interfaceStyle0:1;
+	unsigned int        needsDisplayForBounds:1;
+	unsigned int        specialArchiving:1;
+	unsigned int        interfaceStyle1:1;
+	unsigned int        retainCount:6;
+	unsigned int        retainCountOverMax:1;
+	unsigned int        aboutToResize:1;
+#else
+	unsigned int        aboutToResize:1;
+	unsigned int        retainCountOverMax:1;
+	unsigned int        retainCount:6;
+	unsigned int        interfaceStyle1:1;
+	unsigned int        specialArchiving:1;
+	unsigned int        needsDisplayForBounds:1;
+	unsigned int        interfaceStyle0:1;
+ unsigned int        removingWithoutInvalidation:1;
+	unsigned int        needsBoundsChangeNote:1;
+	unsigned int        boundsChangeNotesSuspended:1;
+	unsigned int        focusChangeNotesSuspended:1;
+	unsigned int        needsFrameChangeNote:1;
+	unsigned int        frameChangeNotesSuspended:1;
+	unsigned int        noVerticalAutosizing:1;
+	unsigned int        newGState:1;
+	unsigned int        validGState:1;
+	unsigned int        needsDisplay:1;
+	unsigned int        wantsGState:1;
+	unsigned int        autoresizeSubviews:1;
+	unsigned int        autosizing:6;
+	unsigned int        rotatedOrScaledFromBase:1;
+	unsigned int        rotatedFromBase:1;
+#endif
+} _VFlags;
+
 -initWithCoder:(NSCoder *)coder {
    [super initWithCoder:coder];
 
@@ -90,8 +141,15 @@ static BOOL NSShowAllViews = NO;
     else if([keyed containsValueForKey:@"NSFrameSize"])
      _frame.size=[keyed decodeSizeForKey:@"NSFrameSize"];
 
-    _bounds.origin=NSMakePoint(0,0);
-    _bounds.size=_frame.size;
+   if ([keyed containsValueForKey: @"NSBounds"])
+   {
+      _bounds = [keyed decodeRectForKey: @"NSBounds"];
+   }
+   else
+   {
+      _bounds.origin=NSMakePoint(0,0);
+      _bounds.size=_frame.size;
+   }
     _window=nil;
     _superview=nil;
     _subviews=[NSMutableArray new];
@@ -115,6 +173,26 @@ static BOOL NSShowAllViews = NO;
     [_subviews makeObjectsPerformSelector:@selector(_setSuperview:) withObject:self];
 	[_subviews makeObjectsPerformSelector:@selector(viewDidMoveToSuperview)];
 
+   _window = [keyed decodeObjectForKey: @"NSWindow"];
+   _superview = [keyed decodeObjectForKey: @"NSSuperview"];
+   [self setNextKeyView: [keyed decodeObjectForKey: @"NSNextKeyView"]];
+
+   if ([keyed containsValueForKey: @"NSViewShadow"])
+      [self setShadow: [keyed decodeObjectForKey: @"NSViewShadow"]];
+
+   if ([keyed containsValueForKey: @"NSViewCompositeFilter"])
+      [self setCompositingFilter: [keyed decodeObjectForKey: @"NSViewCompositeFilter"]];
+
+   if ([keyed containsValueForKey: @"NSViewBackgroundFilters"])
+      [self setBackgroundFilters: [keyed decodeObjectForKey: @"NSViewBackgroundFilters"]];
+
+   if ([keyed containsValueForKey: @"NSViewAnimations"])
+      [self setAnimations: [keyed decodeObjectForKey: @"NSViewAnimations"]];
+
+   [self setCanDrawConcurrently: [keyed decodeBoolForKey: @"NSViewCanDrawConcurrently"]];
+
+   // TODO: NSViewConstraints, NSViewLayoutGuides, ...
+
     _needsDisplay=YES;
     _invalidRectCount=0;
     _invalidRects=NULL;
@@ -125,8 +203,109 @@ static BOOL NSShowAllViews = NO;
     
     _contentFilters=[[keyed decodeObjectForKey:@"NSViewContentFilters"] retain];
    }
-   else {
-    [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
+   else
+   {
+      NSInteger version = [coder versionForClassName: @"NSView"];
+      if (version == 0)
+         [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
+
+      union
+      {
+         _VFlags vf;
+         uint32_t value;
+      } vflags;
+
+      vflags.value = 0;
+      NSLog(@"NSView version is %d\n", version);
+
+      if (version <= 16)
+      {
+         float dummy;
+         [coder decodeValuesOfObjCTypes: "f", &dummy];
+
+         _frame = [coder decodeRect];
+         _bounds = [coder decodeRect];
+         _superview = [coder decodeObject];
+         _window = [coder decodeObject];
+
+         short flags1, flags2;
+         id obj;
+
+         [coder decodeValuesOfObjCTypes: "@ss@", &_subviews, &flags1, &flags2, &obj];
+
+         // FIXME: These masks most likely aren't PPC (big endian) compatible
+         vflags.vf.rotatedFromBase = (flags1 & 0x400) != 0;
+         vflags.vf.rotatedOrScaledFromBase = vflags.vf.validGState = (flags1 & 0x200) != 0;
+         vflags.vf.autosizing = (flags2 & 0xFC00) >> 10;
+         vflags.vf.autoresizeSubviews = (flags2 & 0x200) != 0;
+         vflags.vf.wantsGState = (flags2 & 0x10) != 0;
+      }
+      else if (version <= 40)
+      {
+         _frame = [coder decodeRect];
+         _bounds = [coder decodeRect];
+
+         _superview = [coder decodeObject];
+         _window = [coder decodeObject];
+
+         id dummy, frameMatrix;
+         [coder decodeValuesOfObjCTypes: "@@@@", &_subviews, &dummy, &frameMatrix, &_draggedTypes];
+
+         uint8_t flags1, flags2;
+         flags1 = [coder decodeByte];
+         flags2 = [coder decodeByte];
+
+         union
+         {
+            _VFlags vf;
+            uint32_t value;
+         } vflags;
+
+         vflags.value = 0;
+         vflags.vf.rotatedFromBase = flags1 & 1;
+         vflags.vf.rotatedOrScaledFromBase = flags2 & 1;
+
+         uint8_t flags3, flags4, flags5;
+         flags3 = [coder decodeByte];
+         flags4 = [coder decodeByte];
+         flags5 = [coder decodeByte];
+         [coder decodeByte];
+
+         vflags.vf.autosizing = flags3 & 0x3F;
+         vflags.vf.autoresizeSubviews = flags4 & 1;
+         vflags.vf.wantsGState = flags5 & 1;
+
+         if (version >= 25)
+         {
+            [self setNextKeyView: [coder decodeObject]];
+            [coder decodeByte];
+         }
+      }
+      else
+      {
+         int flags;
+         [coder decodeValuesOfObjCTypes: "i", &flags];
+
+         vflags.value = flags & 0xFFC00000;
+
+         id dummy, frameMatrix;
+
+         float fx,fy,fw,fh;
+         float bx,by,bw,bh;
+         [coder decodeValuesOfObjCTypes: "@@@@ffffffff", &_draggedTypes, &_subviews, &dummy, &frameMatrix,
+            &fx, &fy, &fw, &fh, &bx, &by, &bx, &bh];
+
+         _frame = NSMakeRect(fx, fy, fw, fh);
+         _bounds = NSMakeRect(bx, by, bw, bh);
+
+         _superview = [coder decodeObject];
+         _window = [coder decodeObject];
+         [self setNextKeyView: [coder decodeObject]];
+         dummy = [coder decodeObject];
+      }
+
+      _autoresizingMask = vflags.vf.autosizing;
+      _autoresizesSubviews = vflags.vf.autoresizeSubviews;
    }
 
    return self;

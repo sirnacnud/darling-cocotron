@@ -49,16 +49,63 @@ static NSMutableDictionary *cellClassDictionary = nil;
 }
 
 -initWithCoder:(NSCoder *)coder {
-   [super initWithCoder:coder];
+    [super initWithCoder:coder];
 
-   if([coder allowsKeyedCoding]){
-    NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
-    [self setCell:[keyed decodeObjectForKey:@"NSCell"]];
     _aux = [[NSControlAuxiliary alloc] init];
-   }
-   else {
-    [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
-   }
+
+    if([coder allowsKeyedCoding])
+    {
+        NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
+        [self setCell:[keyed decodeObjectForKey:@"NSCell"]];
+
+        [_aux setTag: [keyed decodeIntegerForKey: @"NSTag"]];
+
+        SEL sel = NSSelectorFromString([keyed decodeObjectForKey: @"NSControlAction"]);
+        if (sel)
+            [_aux setAction: sel];
+        [_aux setTarget: [keyed decodeObjectForKey: @"NSControlTarget"]];
+    }
+    else
+    {
+        NSInteger version = [coder versionForClassName: @"NSControl"];
+        if (version <= 16)
+        {
+            NSInteger tag;
+            id cell;
+            short flags;
+
+            [coder decodeValuesOfObjCTypes: "i@s", &tag, &cell, &flags];
+            [_aux setTag: tag];
+            [self setCell: cell];
+
+            // TODO: flags
+        }
+        else if (version <= 40)
+        {
+            NSInteger tag;
+            uint8_t flags1, flags2;
+
+            [coder decodeValuesOfObjCTypes: "i", &tag];
+            flags1 = [coder decodeByte];
+            flags2 = [coder decodeByte];
+            
+            [_aux setTag: tag];
+            [self setCell: [coder decodeObject]];
+
+            // TODO: flags
+        }
+        else
+        {
+            NSInteger tag;
+            uint8_t flags1, flags2;
+
+            [coder decodeValuesOfObjCTypes: "icc@", &tag, &flags1, &flags2, &self->_cell];
+
+            [_aux setTag: tag];
+
+            // TODO: flags
+        }
+    }
 
    return self;
 }
