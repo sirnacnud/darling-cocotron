@@ -17,19 +17,55 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 @implementation NSCustomObject
 
 -initWithCoder:(NSCoder *)coder {
-   if([coder allowsKeyedCoding]){
-    NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
+   if([coder allowsKeyedCoding])
+   {
+      NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
     
-    _className=[[keyed decodeObjectForKey:@"NSClassName"] retain];
+      _className=[[keyed decodeObjectForKey:@"NSClassName"] retain];
+      self->extension = [[keyed decodeObjectForKey:@"NSExtension"] retain];
    }
-   else 
-    [NSException raise:NSInvalidArgumentException format:@"-[%@ %s] does not handle %@",[self class],sel_getName(_cmd),[coder class]];
+   else
+   {
+      NSInteger version = [coder versionForClassName: @"NSCustomObject"];
+      if (version == 0)
+      {
+         char* className;
+
+         [coder decodeValuesOfObjCTypes: "*@", &className, &self->extension];
+
+         if (className)
+         {
+            _className = [[NSString alloc] initWithBytesNoCopy: className
+               length: strlen(className)
+               encoding: NSNEXTSTEPStringEncoding
+               freeWhenDone: TRUE];
+         }
+         else
+            _className = @"NSObject";
+
+         NSString* mapped = [NSUnarchiver classNameDecodedForArchiveClassName: _className];
+         if (![mapped isEqualToString: _className])
+         {
+            [_className release];
+            _className = [mapped copy];
+         }
+      }
+      else if (version <= 16 || version > 40)
+      {
+         [coder decodeValuesOfObjCTypes: "@@", &_className, &self->extension];
+      }
+      else
+      {
+         _className = [[coder decodeObject] retain];
+      }
+   }
 
    return self;
 }
 
 -(void)dealloc {
    [_className release];
+   [self->extension release];
    [super dealloc];
 }
 
