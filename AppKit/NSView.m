@@ -209,6 +209,8 @@ typedef struct __VFlags {
       if (version == 0)
          [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
 
+      NSLog(@"NSView version is %d\n", version);
+
       union
       {
          _VFlags vf;
@@ -228,12 +230,11 @@ typedef struct __VFlags {
          _superview = [coder decodeObject];
          _window = [coder decodeObject];
 
-         short flags1, flags2;
+         unsigned short flags1, flags2;
          id obj;
 
          [coder decodeValuesOfObjCTypes: "@ss@", &_subviews, &flags1, &flags2, &obj];
 
-         // FIXME: These masks most likely aren't PPC (big endian) compatible
          vflags.vf.rotatedFromBase = (flags1 & 0x400) != 0;
          vflags.vf.rotatedOrScaledFromBase = vflags.vf.validGState = (flags1 & 0x200) != 0;
          vflags.vf.autosizing = (flags2 & 0xFC00) >> 10;
@@ -242,6 +243,7 @@ typedef struct __VFlags {
       }
       else if (version <= 40)
       {
+         NSUnarchiver* una = (NSUnarchiver*) coder;
          _frame = [coder decodeRect];
          _bounds = [coder decodeRect];
 
@@ -252,8 +254,8 @@ typedef struct __VFlags {
          [coder decodeValuesOfObjCTypes: "@@@@", &_subviews, &dummy, &frameMatrix, &_draggedTypes];
 
          uint8_t flags1, flags2;
-         flags1 = [coder decodeByte];
-         flags2 = [coder decodeByte];
+         flags1 = [una decodeByte];
+         flags2 = [una decodeByte];
 
          union
          {
@@ -266,10 +268,10 @@ typedef struct __VFlags {
          vflags.vf.rotatedOrScaledFromBase = flags2 & 1;
 
          uint8_t flags3, flags4, flags5;
-         flags3 = [coder decodeByte];
-         flags4 = [coder decodeByte];
-         flags5 = [coder decodeByte];
-         [coder decodeByte];
+         flags3 = [una decodeByte];
+         flags4 = [una decodeByte];
+         flags5 = [una decodeByte];
+         [una decodeByte];
 
          vflags.vf.autosizing = flags3 & 0x3F;
          vflags.vf.autoresizeSubviews = flags4 & 1;
@@ -278,7 +280,7 @@ typedef struct __VFlags {
          if (version >= 25)
          {
             [self setNextKeyView: [coder decodeObject]];
-            [coder decodeByte];
+            [una decodeByte];
          }
       }
       else
