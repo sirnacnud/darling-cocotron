@@ -50,82 +50,87 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    NSUnimplementedMethod();
 }
 
+-_applyAppleFlags:(unsigned int)flags flags2:(unsigned int)flags2
+{
+   // These flags are big endian so the first flag is over on the left of the int
+   _state           = (flags & 0x80000000) ? NSOnState : NSOffState;
+   _isHighlighted   = (flags & 0x40000000) ? YES : NO;
+   _isEnabled       = (flags & 0x20000000) ? NO : YES;  // "disabled" in Cocoa
+   _isEditable      = (flags & 0x10000000) ? YES : NO;
+   _cellType        = (flags & 0x0C000000) >> 26;
+
+   // vCentered     = (flags & 0x02000000)
+   // hCentered     = (flags & 0x01000000)
+
+   _isBordered      = (flags & 0x00800000) ? YES : NO;
+   _isBezeled       = (flags & 0x00400000) ? YES : NO;
+   _isSelectable    = (flags & 0x00200000) ? YES : NO;
+   _isScrollable    = (flags & 0x00100000) ? YES : NO;
+   // _wraps        = (flags & 0x00100000) ? NO : YES; // ! scrollable, use lineBreakMode ?
+
+   // 0x00080000 = continuous
+   // 0x00040000 = action on mouse down
+   // 0x00000100 = action on mouse drag
+   _isContinuous    = (flags & 0x00080100) ? YES : NO;
+   
+   //actOnMouseDown = (flags & 0x00040000)
+   //isLeaf         = (flags & 0x00020000)
+
+   // invObjectVal  = (flags & 0x00010000)
+   _hasValidObjectValue = YES;
+   
+   // invalidFont   = (flags & 0x00008000)
+   // cellReserved1 = (flags & 0x00001800)
+   // singleLineMode= (flags & 0x00000400)
+   // actOnMouseDrag= (flags & 0x00000100)
+   // isLoaded      = (flags & 0x00000080)
+   // truncLastLine = (flags & 0x00000040)
+   // dontActOnMsUp = (flags & 0x00000020)
+   // isWhite       = (flags & 0x00000010)
+   // userKeyEquiv  = (flags & 0x00000008)
+   // showsFirstResp= (flags & 0x00000004)
+   
+   _focusRingType   = (flags & 0x00000003);
+   
+   // Now for flags2 - the layout of these flags seems to be more
+   // random. So the best way to find out which bit(s) you need is
+   // to diff a xib file before and after you make the change you're
+   // trying to support (i.e. check a checkbox) and convert the decimal
+   // NSCellFlags2 value to hex
+   // wasSelectable = (flags2 & 0x80000000)
+   
+   _isRichText        = (flags2 & 0x40000000) ? YES : NO;
+   
+   // importsGraph  = (flags2 & 0x10000000)
+   
+   _textAlignment   = (flags2 & 0x1c000000) >> 26;
+
+   // layoutDirRTL  = (flags2 & 0x01000000)
+   _writingDirection=NSWritingDirectionNatural;
+   
+   // backgrdStyle  = (flags2 & 0x00c00000) >> 21;
+   // cellReserved  = (flags2 & 0x003c0000)
+   _refusesFirstResponder = (flags2 & 0x02000000) ? YES : NO;
+   _allowsMixedState= (flags2 & 0x01000000) ? YES : NO;
+
+   // inMixedState  = (flags2 & 0x00800000)
+
+   _sendsActionOnEndEditing = (flags2 &0x00400000) ? YES : NO;
+   
+   // Odd this isn't in flags - it's near other items in flags in the Cocoa struct from which these are derived.
+   _lineBreakMode   = (flags2 & 0x00000600) >> 9 & 0x7;
+   _controlSize     = (flags2 & 0x000E0000) >> 17;
+}
+
 -initWithCoder:(NSCoder *)coder {
+   unsigned int flags = 0, flags2 = 0;
    if([coder allowsKeyedCoding]){
     NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
-    int                flags=[keyed decodeIntForKey:@"NSCellFlags"];
-    int                flags2=[keyed decodeIntForKey:@"NSCellFlags2"];
+    flags=[keyed decodeIntForKey:@"NSCellFlags"];
+    flags2=[keyed decodeIntForKey:@"NSCellFlags2"];
     id                 check;
 
-       // These flags are big endian so the first flag is over on the left of the int
-       _state           = (flags & 0x80000000) ? NSOnState : NSOffState;
-       _isHighlighted   = (flags & 0x40000000) ? YES : NO;
-       _isEnabled       = (flags & 0x20000000) ? NO : YES;  // "disabled" in Cocoa
-       _isEditable      = (flags & 0x10000000) ? YES : NO;
-       _cellType        = (flags & 0x0C000000) >> 26;
-
-       // vCentered     = (flags & 0x02000000)
-       // hCentered     = (flags & 0x01000000)
-
-       _isBordered      = (flags & 0x00800000) ? YES : NO;
-       _isBezeled       = (flags & 0x00400000) ? YES : NO;
-       _isSelectable    = (flags & 0x00200000) ? YES : NO;
-       _isScrollable    = (flags & 0x00100000) ? YES : NO;
-       // _wraps        = (flags & 0x00100000) ? NO : YES; // ! scrollable, use lineBreakMode ?
-
-       // 0x00080000 = continuous
-       // 0x00040000 = action on mouse down
-       // 0x00000100 = action on mouse drag
-       _isContinuous    = (flags & 0x00080100) ? YES : NO;
-       
-       //actOnMouseDown = (flags & 0x00040000)
-       //isLeaf         = (flags & 0x00020000)
-
-       // invObjectVal  = (flags & 0x00010000)
-       _hasValidObjectValue = YES;
-       
-       // invalidFont   = (flags & 0x00008000)
-       // cellReserved1 = (flags & 0x00001800)
-       // singleLineMode= (flags & 0x00000400)
-       // actOnMouseDrag= (flags & 0x00000100)
-       // isLoaded      = (flags & 0x00000080)
-       // truncLastLine = (flags & 0x00000040)
-       // dontActOnMsUp = (flags & 0x00000020)
-       // isWhite       = (flags & 0x00000010)
-       // userKeyEquiv  = (flags & 0x00000008)
-       // showsFirstResp= (flags & 0x00000004)
-       
-       _focusRingType   = (flags & 0x00000003);
-       
-       // Now for flags2 - the layout of these flags seems to be more
-       // random. So the best way to find out which bit(s) you need is
-       // to diff a xib file before and after you make the change you're
-       // trying to support (i.e. check a checkbox) and convert the decimal
-       // NSCellFlags2 value to hex
-       // wasSelectable = (flags2 & 0x80000000)
-       
-       _isRichText        = (flags2 & 0x40000000) ? YES : NO;
-       
-       // importsGraph  = (flags2 & 0x10000000)
-       
-       _textAlignment   = (flags2 & 0x1c000000) >> 26;
-
-       // layoutDirRTL  = (flags2 & 0x01000000)
-       _writingDirection=NSWritingDirectionNatural;
-       
-       // backgrdStyle  = (flags2 & 0x00c00000) >> 21;
-       // cellReserved  = (flags2 & 0x003c0000)
-       _refusesFirstResponder = (flags2 & 0x02000000) ? YES : NO;
-       _allowsMixedState= (flags2 & 0x01000000) ? YES : NO;
-
-       // inMixedState  = (flags2 & 0x00800000)
-
-       _sendsActionOnEndEditing = (flags2 &0x00400000) ? YES : NO;
-       
-       // Odd this isn't in flags - it's near other items in flags in the Cocoa struct from which these are derived.
-       _lineBreakMode   = (flags2 & 0x00000600) >> 9 & 0x7;
-       _controlSize     = (flags2 & 0x000E0000) >> 17;
-       
+    [self _applyAppleFlags: flags flags2:flags2];
 
     _objectValue=[[keyed decodeObjectForKey:@"NSContents"] retain];
     check=[keyed decodeObjectForKey:@"NSNormalImage"];
@@ -144,7 +149,59 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
        _font=[[NSFont userFontOfSize:13 - _controlSize*2] retain];
    }
    else {
-    [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
+      NSInteger version = [coder versionForClassName: @"NSCell"];
+      if (version < 54)
+         [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@ for version %ld",[self class],[coder class], version];
+      
+      NSLog(@"NSCell version is %d\n", version);
+      [coder decodeValuesOfObjCTypes: "ii", &flags, &flags2];
+
+      /*
+      flags |= inFlags >> 31;
+      flags |= ((inFlags >> 29) & 2);
+      flags |= (inFlags >> 27) & 4;
+      flags |= (inFlags >> 25) & 8;
+      flags |= (inFlags >> 22) & 0x30;
+      flags |= (inFlags >> 19) & 0x40;
+      flags |= (inFlags >> 17) & 0x80;
+      flags |= (inFlags >> 15) & 0x100;
+      flags |= (inFlags >> 13) & 0x200;
+      flags |= (inFlags >> 11) & 0x400;
+      flags |= (inFlags >> 9) & 0x800;
+      flags |= (inFlags >> 7) & 0x1000;
+      flags |= (inFlags >> 5) & 0x2000;
+      flags |= (inFlags >> 3) & 0x4000;
+
+      flags |= (inFlags << 15) & 0x800000;
+      flags |= (inFlags << 17) & 0x1000000;
+      flags |= (inFlags & 0x40) << 12;
+      flags |= (inFlags << 21) & 0x4000000;
+      flags |= (inFlags << 23) & 0x8000000;
+
+      // flags &= 0x8E271FFFF;
+
+      flags |= (inFlags << 25) & 0x10000000;
+      */
+
+      [self _applyAppleFlags: flags flags2:flags2];
+
+      id o1, o2, o3;
+      [coder decodeValuesOfObjCTypes: "@@@@", &_objectValue, &o1, &o2, &o3];
+      NSLog(@"out: %p %p %p %p\n", _objectValue, o1, o2, o3);
+      NSLog(@"out &: %p %p %p %p\n", &_objectValue, &o1, &o2, &o3);
+      if (o1)
+      {
+         if ([o1 isKindOfClass:[NSImage class]])
+            _image = o1;
+         else if ([o1 isKindOfClass:[NSFont class]])
+            _font = o1;
+      }
+
+      [self setFormatter: o2];
+      [self setRepresentedObject: o3];
+
+      // Is this correct?
+      _font=[[NSFont userFontOfSize:13 - _controlSize*2] retain];
    }
    return self;
 }
