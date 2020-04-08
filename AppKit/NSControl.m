@@ -68,11 +68,13 @@ static NSMutableDictionary *cellClassDictionary = nil;
     else
     {
         NSInteger version = [coder versionForClassName: @"NSControl"];
+        NSLog(@"NSControl version is %d\n", version);
+        
         if (version <= 16)
         {
             NSInteger tag;
             id cell;
-            short flags;
+            unsigned short flags;
 
             [coder decodeValuesOfObjCTypes: "i@s", &tag, &cell, &flags];
             [_aux setTag: tag];
