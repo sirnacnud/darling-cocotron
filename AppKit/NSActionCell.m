@@ -24,9 +24,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
  
     _tag=[keyed decodeIntForKey:@"NSTag"];
+    _action = NSSelectorFromString([keyed decodeObjectForKey:@"NSAction"]);
+    [self setTarget: [keyed decodeObjectForKey: @"NSTarget"]];
    }
    else {
-    [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
+      NSInteger version = [coder versionForClassName: @"NSActionCell"];
+
+      if (version <= 16)
+      {
+         [self setTarget: [coder decodeObject]];
+         [coder decodeValuesOfObjCTypes: "i:", &_tag, &_action];
+      }
+      else
+      {
+         [coder decodeValuesOfObjCTypes: "i:", &_tag, &_action];
+         [self setTarget: [coder decodeObject]];
+         [self setControlView: [coder decodeObject]];
+      }
    }
    return self;
 }
