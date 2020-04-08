@@ -14,6 +14,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <AppKit/NSGraphicsContextFunctions.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import <Foundation/NSKeyedArchiver.h>
+#import <Foundation/NSByteOrder.h>
 #import <AppKit/NSRaise.h>
 
 #import <Onyx2D/O2Font.h>
@@ -296,27 +297,112 @@ static NSLock *_cacheLock=nil;
 }
 
 -initWithCoder:(NSCoder *)coder {
+   NSString* name;
+   CGFloat size;
+
    if([coder allowsKeyedCoding]){
     NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
        NSString *fontName = [keyed decodeObjectForKey:@"NSName"];
 #ifndef DARLING
-    NSString          *name=[[NSFont nibFontTranslator] translateFromNibFontName: fontName];
+      name=[[NSFont nibFontTranslator] translateFromNibFontName: fontName];
 #else
-    NSString *name = fontName;
+      name = fontName;
 #endif
-    CGFloat              size=[keyed decodeFloatForKey:@"NSSize"];
+                 size=[keyed decodeFloatForKey:@"NSSize"];
     // int                flags=[keyed decodeIntForKey:@"NSfFlags"]; // ?
-    
-    [self dealloc];
-    
-    NSFont *realFont = [[NSFont fontWithName:name size:size] retain];
-       O2FontLog(@"coded font name: %@ translated font name: %@ rendered font: %@", fontName, name, realFont);
-       return realFont;
+    NSUInteger matrixLen;
+    const uint32_t* matrixBytes = (const uint32_t*) [keyed decodeBytesForKey:@"NSMatrix" returnedLength: &matrixLen];
+
+    if (matrixLen >= 6*sizeof(float) && matrixBytes)
+    {
+       for (int i = 0; i < 6; i++)
+       {
+          union
+          {
+             uint32_t dword;
+             float flt;
+          } ff;
+
+          ff.dword = NSSwapBigIntToHost(matrixBytes[i]);
+          _matrix[i] = ff.flt;
+       }
+    }
    }
    else {
-    [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
+      NSInteger version = [coder versionForClassName: @"NSFont"];
+
+      NSLog(@"NSFont version is %d\n", version);
+
+      unsigned int fFlags = 0;
+      bool f2;
+      unsigned int fx;
+      if (version >= 21)
+      {
+         NSUnarchiver* una = (NSUnarchiver*) coder;
+         name = [coder decodePropertyList];
+
+         float flt;
+         [coder decodeValuesOfObjCTypes: "f", &flt];
+         fx = [una decodeByte] != 0;
+
+         fFlags = [una decodeByte];
+         fFlags <<= 13;
+
+         f2 = [una decodeByte] != 0;
+         uint8_t f3 = [una decodeByte];
+
+         fFlags |= f3 << 1;
+
+         size = flt;
+      }
+      else
+      {
+         char* nameStr;
+         float flt;
+         unsigned short flags1, flags2;
+
+         [coder decodeValuesOfObjCTypes: (version == 2) ? "%fss" : "*fss", &nameStr, &flt, &flags1, &flags2];
+
+         name = [NSString stringWithCString: name encoding: NSASCIIStringEncoding];
+         free(nameStr);
+
+         fFlags= ((unsigned) flags2 & 4) << 11;
+         fFlags |= (flags2 >> 8) & 0x1E;
+
+         fx = flags2 & 1;
+         f2 = ((unsigned) flags2 >> 1) & 1;
+
+         size = flt;
+      }
+
+      NSLog(@"fFlags = 0x%x, fx = %d\n", fFlags, fx);
+      if (!(fFlags & 0x2000))
+      {
+         if (f2)
+         {
+            // TODO: Do some transform of flt
+            // D0189
+         }
+         else
+         {
+            float transform[6];
+            [coder decodeArrayOfObjCType: "f" count: 6 at:transform];
+            for (int i = 0; i < 6; i++)
+               _matrix[i] = transform[i];
+         }
+      }
+
+      if (fx != 0)
+         [coder decodeValuesOfObjCTypes: "i", &fx];
    }
-   return nil;
+
+   NSLog(@"NSFont decoding done\n");
+
+   [self dealloc];
+   NSFont *realFont = [[NSFont fontWithName:name size:size] retain];
+
+   O2FontLog(@"coded font name: %@ translated font name: %@ rendered font: %@", fontName, name, realFont);
+   return realFont;
 }
 
 
