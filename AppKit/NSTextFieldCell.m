@@ -20,6 +20,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <Foundation/NSKeyedArchiver.h>
 #import <AppKit/NSObject+BindingSupport.h>
 #import <AppKit/NSRaise.h>
+#import "NSCoder+AppKit.h"
 
 @implementation NSTextFieldCell
 
@@ -40,7 +41,72 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     _placeholder=[[keyed decodeObjectForKey:@"NSPlaceholderString"] retain];
    }
    else {
-    [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
+      NSInteger version = [coder versionForClassName: @"NSTextFieldCell"];
+      NSLog(@"NSTextFieldCell version is %d\n", version);
+      if (version > 40)
+      {
+         uint8_t flags;
+         [coder decodeValuesOfObjCTypes: "c@@", &flags, &_backgroundColor, &_textColor];
+         
+         _drawsBackground = flags & 1;
+         _bezelStyle = (flags & 0xe) >> 1;
+
+         if (version <= 60)
+         {
+            if ([_textColor isEqual: [NSColor textColor]])
+               [self setTextColor: [NSColor controlTextColor]];
+         }
+      }
+      else if (version > 16)
+      {
+         _drawsBackground = [coder decodeByte] != 0;
+         [self setBackgroundColor: [coder decodeObject]];
+         [self setTextColor: [coder decodeObject]];
+      }
+      else if (version > 1)
+      {
+         [coder decodeValuesOfObjCTypes: "@@c", &_backgroundColor, &_textColor, &_drawsBackground];
+      }
+      else
+      {
+         float bgcolor, fgcolor;
+         [coder decodeValuesOfObjCTypes: "ff", &bgcolor, fgcolor];
+
+         if (bgcolor <= 0.0f)
+         {
+            _drawsBackground = FALSE;
+            [self setBackgroundColor: [NSColor whiteColor]];
+         }
+         else
+         {
+            _drawsBackground = TRUE;
+            [self setBackgroundColor: [NSColor colorWithCalibratedWhite: bgcolor alpha: 1.0]];
+         }
+         [self setTextColor: [NSColor colorWithCalibratedWhite: fgcolor alpha: 1.0]];
+
+         if (version != 0)
+         {
+            NSColor* color = [coder decodeNXColor];
+            if (color != nil)
+               [self setTextColor: color];
+            
+            color = [coder decodeNXColor];
+            if (color != nil)
+               [self setBackgroundColor: color];
+         }
+      }
+
+      if (version <= 55)
+      {
+         // Fix some hardcoded colors
+         if ([_backgroundColor isEqual: [NSColor whiteColor]])
+            [self setBackgroundColor: [NSColor textBackgroundColor]];
+         else if ([_backgroundColor isEqual: [NSColor lightGrayColor]])
+            [self setBackgroundColor: [NSColor controlColor]];
+
+         if ([_textColor isEqual: [NSColor blackColor]])
+            [self setTextColor: [NSColor controlTextColor]];
+      }
    }
 
    return self;
