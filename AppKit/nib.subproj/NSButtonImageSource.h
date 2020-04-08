@@ -9,12 +9,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <Foundation/NSObject.h>
 
 @class NSImage;
+typedef struct NSButtonState {} NSButtonState;
 
 @interface NSButtonImageSource : NSObject {
     NSString *_imageName;
+    NSDictionary* _buttonImages;
+    CGSize _imageSize, _focusRingImageSize;
 }
 
 - (NSImage *)normalImage;
 - (NSImage *)alternateImage;
+- (NSImage *)imageForState:(NSButtonState)state;
+- (NSString *)name;
 
 @end

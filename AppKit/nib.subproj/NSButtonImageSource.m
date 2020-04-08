@@ -20,11 +20,57 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     
     _imageName=[[keyed decodeObjectForKey:@"NSImageName"] retain];
    }
+   else
+   {
+      NSInteger version = [coder versionForClassName: @"NSButtonImageSource"];
+      NSLog(@"NSButtonImageSource version is %d\n", version);
+
+      if (version == 1)
+      {
+         _imageName = [[coder decodeObject] retain];
+      }
+      else if (version == 2)
+      {
+         char c;
+         float f1, f2, f3, f4;
+         int reserved1, reserved2, reserved3;
+
+         [coder decodeValuesOfObjCTypes: "c", &c];
+         [coder decodeValuesOfObjCTypes: "@ffffciii", &_buttonImages, &f1, &f2, &f3, &f4, &c, &reserved1, &reserved2, &reserved3];
+
+         _imageSize = NSMakeSize(f1, f2);
+         _focusRingImageSize = NSMakeSize(f3, f4);
+      }
+      else
+      {
+         id obj = [coder decodeObject];
+         if ([obj isKindOfClass: [NSString class]])
+         {
+            _imageName = [obj retain];
+            NSLog(@"*** decoded image name %@\n", _imageName);
+         }
+         else
+         {
+            _buttonImages = (NSDictionary*) [obj retain];
+            NSLog(@"buttonImages: %@\n", _buttonImages);
+
+            int reserved1, reserved2, reserved3;
+            float f1, f2, f3, f4;
+
+            [coder decodeValuesOfObjCTypes: "ffffcccciii", &f1, &f2, &f3, &f4, &reserved1, &reserved1, &reserved1, &reserved1,
+               &reserved1, &reserved2, &reserved3];
+
+            _imageSize = NSMakeSize(f1, f2);
+            _focusRingImageSize = NSMakeSize(f3, f4);
+         }
+      }
+   }
    return self;
 }
 
 -(void)dealloc {
    [_imageName release];
+   [_buttonImages release];
    [super dealloc];
 }
 
@@ -36,6 +82,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    NSString *name=[@"NSHighlighted" stringByAppendingString:[_imageName substringFromIndex:2]];
 
    return [NSImage imageNamed:name];
+}
+
+- (NSImage *)imageForState:(NSButtonState)state
+{
+   NSLog(@"imageForState: TODO, lookup in _buttonImages\n");
+   return [self normalImage];
+}
+
+- (NSString *)name
+{
+   return _imageName;
 }
 
 @end
