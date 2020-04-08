@@ -97,115 +97,157 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 -initWithCoder:(NSCoder *)coder {
-   if([coder allowsKeyedCoding]){
-    NSKeyedUnarchiver *keyed=(NSKeyedUnarchiver *)coder;
-    int                colorSpace=[keyed decodeIntForKey:@"NSColorSpace"];
-    NSColor           *result;
+   NSColor *result = nil;
+   NSKeyedUnarchiver *keyed = nil;
+   int colorSpace;
 
-    switch(colorSpace){
-    
-     case 1:{
+   if ([coder allowsKeyedCoding])
+   {
+      keyed = (NSKeyedUnarchiver *)coder;
+      colorSpace = [keyed decodeIntForKey:@"NSColorSpace"];
+   }
+   else
+   {
+      uint8_t space;
+      [coder decodeValuesOfObjCTypes: "c", &space];
+      colorSpace = space;
+   }
+
+   switch(colorSpace)
+   { 
+     case 1: // NSCalibratedRGBColor
+     case 2: // NSDeviceRGBColor
+     {
+         CGFloat values[4]={0,0,0,1};
+
+         if (keyed != nil)
+         {
+            NSUInteger    length;
+            const uint8_t *rgb=[keyed decodeBytesForKey:@"NSRGB" returnedLength:&length];
+            NSString   *string=[[[NSString alloc] initWithBytes:rgb length:length encoding:NSUTF8StringEncoding] autorelease];
+            NSArray    *components=[string componentsSeparatedByString:@" "];
+            int         count=[components count];
+
+            for (int i=0;i<count && i<4;i++)
+               values[i]=[[components objectAtIndex:i] doubleValue];
+         }
+         else
+         {
+            float fvalues[4];
+            [coder decodeValuesOfObjCTypes: "ffff", &fvalues[0], &fvalues[1], &fvalues[2], &fvalues[3]];
+
+            for (int i = 0; i < 4; i++)
+               values[i] = fvalues[i];
+         }
+
+         if (colorSpace == 1)
+            result = [NSColor colorWithCalibratedRed:values[0] green:values[1] blue:values[2] alpha:values[3]];
+         else
+            result = [NSColor colorWithDeviceRed:values[0] green:values[1] blue:values[2] alpha:values[3]];
+      }
+      break;
+      
+     case 3: // NSCalibratedWhiteColor
+     case 4: // NSDeviceWhiteColor
+     {
+         CGFloat values[2]={0,1};
+
+         if (keyed != nil)
+         {
+            NSUInteger    length;
+            const uint8_t *white=[keyed decodeBytesForKey:@"NSWhite" returnedLength:&length];
+            NSString   *string=[[[NSString alloc] initWithBytes:white length:length encoding:NSUTF8StringEncoding] autorelease];
+            NSArray    *components=[string componentsSeparatedByString:@" "];
+            int         count=[components count];
+                  
+            for (int i=0;i<count && i<2;i++)
+               values[i]=[[components objectAtIndex:i] doubleValue];
+         }
+         else
+         {
+            float fvalues[2];
+            [coder decodeValuesOfObjCTypes: "ff", &fvalues[0], &fvalues[1]];
+
+            for (int i = 0; i < 2; i++)
+               values[i] = fvalues[i];
+         }
+
+         if (colorSpace == 3)
+            result=[NSColor colorWithCalibratedWhite:values[0] alpha:values[1]];
+         else
+            result=[NSColor colorWithDeviceWhite:values[0] alpha:values[1]];
+      }
+      break;
+      
+     case 5: // NSDeviceCMYKColor
+     {
 // NSComponents data
 // NSCustomColorSpace NSColorSpace
-       NSUInteger    length;
-       const uint8_t *rgb=[keyed decodeBytesForKey:@"NSRGB" returnedLength:&length];
-       NSString   *string=[[[NSString alloc] initWithBytes:rgb length:length encoding:NSUTF8StringEncoding] autorelease];
-       NSArray    *components=[string componentsSeparatedByString:@" "];
-       CGFloat       values[4]={0,0,0,1};
-       int         i,count=[components count];
-       
-       for(i=0;i<count && i<4;i++)
-        values[i]=[[components objectAtIndex:i] doubleValue];
-       
-       result=[NSColor colorWithCalibratedRed:values[0] green:values[1] blue:values[2] alpha:values[3]];
-      }
-      break;
-      
-     case 2:{
-       NSUInteger    length;
-       const uint8_t *rgb=[keyed decodeBytesForKey:@"NSRGB" returnedLength:&length];
-       NSString   *string=[[[NSString alloc] initWithBytes:rgb length:length encoding:NSUTF8StringEncoding] autorelease];
-       NSArray    *components=[string componentsSeparatedByString:@" "];
-       CGFloat       values[4]={0,0,0,1};
-       int         i,count=[components count];
-       
-       for(i=0;i<count && i<4;i++)
-        values[i]=[[components objectAtIndex:i] doubleValue];
+         CGFloat       values[5]={0,0,0,0,1};
 
-       result=[NSColor colorWithDeviceRed:values[0] green:values[1] blue:values[2] alpha:values[3]];
-      }
-      break;
-      
-     case 3:{
-       NSUInteger    length;
-       const uint8_t *white=[keyed decodeBytesForKey:@"NSWhite" returnedLength:&length];
-       NSString   *string=[[[NSString alloc] initWithBytes:white length:length encoding:NSUTF8StringEncoding] autorelease];
-       NSArray    *components=[string componentsSeparatedByString:@" "];
-       CGFloat       values[2]={0,1};
-       int         i,count=[components count];
-              
-       for(i=0;i<count && i<2;i++)
-        values[i]=[[components objectAtIndex:i] doubleValue];
+         if (keyed != nil)
+         {
+            NSUInteger    length;
+            const uint8_t *cmyk=[keyed decodeBytesForKey:@"NSCMYK" returnedLength:&length];
+            NSString   *string=[[[NSString alloc] initWithBytes:cmyk length:length-1 encoding:NSUTF8StringEncoding] autorelease];
+            NSArray    *components=[string componentsSeparatedByString:@" "];
+            int         count=[components count];
+            
+            for (int i=0;i<count && i<5;i++)
+               values[i]=[[components objectAtIndex:i] doubleValue];
+         }
+         else
+         {
+            float fvalues[5];
+            [coder decodeValuesOfObjCTypes: "fffff", &fvalues[0], &fvalues[1], &fvalues[2], &fvalues[3], &fvalues[4]];
 
-       result=[NSColor colorWithCalibratedWhite:values[0] alpha:values[1]];
-      }
-      break;
-      
-     case 4:{
-       NSUInteger    length;
-       const uint8_t *white=[keyed decodeBytesForKey:@"NSWhite" returnedLength:&length];
-       NSString   *string=[[[NSString alloc] initWithBytes:white length:length encoding:NSUTF8StringEncoding] autorelease];
-       NSArray    *components=[string componentsSeparatedByString:@" "];
-       CGFloat       values[2]={0,1};
-       int         i,count=[components count];
-       
-       for(i=0;i<count && i<2;i++)
-        values[i]=[[components objectAtIndex:i] doubleValue];
+            for (int i = 0; i < 5; i++)
+               values[i] = fvalues[i];
+         }
 
-       result=[NSColor colorWithDeviceWhite:values[0] alpha:values[1]];
+         result=[NSColor colorWithDeviceCyan:values[0] magenta:values[1] yellow:values[2] black:values[3] alpha:values[4]];
       }
       break;
       
-     case 5:{
-// NSComponents data
-// NSCustomColorSpace NSColorSpace
-       NSUInteger    length;
-       const uint8_t *cmyk=[keyed decodeBytesForKey:@"NSCMYK" returnedLength:&length];
-       NSString   *string=[[[NSString alloc] initWithBytes:cmyk length:length-1 encoding:NSUTF8StringEncoding] autorelease];
-       NSArray    *components=[string componentsSeparatedByString:@" "];
-       CGFloat       values[5]={0,0,0,0,1};
-       int         i,count=[components count];
-       
-       for(i=0;i<count && i<5;i++)
-        values[i]=[[components objectAtIndex:i] doubleValue];
+     case 6: // NSCatalogColor
+     {
+         NSString *catalogName, *colorName;
+         NSColor* color;
 
-       result=[NSColor colorWithDeviceCyan:values[0] magenta:values[1] yellow:values[2] black:values[3] alpha:values[4]];
+         if (keyed != nil)
+         {
+            catalogName = [keyed decodeObjectForKey:@"NSCatalogName"];
+            colorName = [keyed decodeObjectForKey:@"NSColorName"];
+            color=[keyed decodeObjectForKey:@"NSColor"];
+         }
+         else
+         {
+            [coder decodeValuesOfObjCTypes: "@@@", &catalogName, &colorName, &color];
+         }
+
+         result = [NSColor_catalog colorWithCatalogName: catalogName colorName: colorName color:color];
       }
       break;
-      
-     case 6:{
-       NSString *catalogName=[keyed decodeObjectForKey:@"NSCatalogName"];
-       NSString *colorName=[keyed decodeObjectForKey:@"NSColorName"];
-       NSColor  *color=[keyed decodeObjectForKey:@"NSColor"];
-       
-       result=[NSColor_catalog colorWithCatalogName: catalogName colorName: colorName color:color];
+      case 9: // oldSystemColor
+      {
+
       }
-      break;
+      case 10: // NSPatternColor
+      {
+
+      }
+      case 11: // NSColorSpaceColor
+      {
+
+      }
 
      default:
       NSLog(@"-[%@ %s] unknown color space %d",[self class],sel_getName(_cmd),colorSpace);
       result=[NSColor blackColor];
       break;
     }
-    
-    return [result retain];
-   }
 
-   
-   else {
-    [NSException raise:NSInvalidArgumentException format:@"%@ can not initWithCoder:%@",[self class],[coder class]];
-    return nil;
-   }
+    return [result retain];
 }
 
 -copyWithZone:(NSZone *)zone {
