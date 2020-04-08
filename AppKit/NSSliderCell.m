@@ -16,6 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <Foundation/NSKeyedArchiver.h>
 #import <AppKit/NSGraphicsStyle.h>
 #import <AppKit/NSRaise.h>
+#import "NSCoder+AppKit.h"
 
 #define PIXELINSET	8
 #define TICKHEIGHT      8
@@ -45,7 +46,77 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     _allowsTickMarkValuesOnly=[keyed decodeBoolForKey:@"NSAllowsTickMarkValuesOnly"];
    }
    else {
-    [NSException raise:NSInvalidArgumentException format:@"-[%@ %s] is not implemented for coder %@",[self class],sel_getName(_cmd),coder];
+      NSInteger version = [coder versionForClassName: @"NSSliderCell"];
+      double value;
+
+      _altIncrementValue = 0;
+      if (version > 225)
+      {
+         int flags1, flags2;
+         [coder decodeValuesOfObjCTypes:"ddddiii", &_maxValue, &_minValue, &value, &_altIncrementValue,
+            &_numberOfTickMarks, &flags1, &flags2];
+         // TODO: flags
+      }
+      else if (version > 41)
+      {
+         int flags1, flags2;
+         float f1;
+         id obj1, obj2;
+         [coder decodeValuesOfObjCTypes:"dddfd@@iii", &_maxValue, &_minValue, &value, &f1, &_altIncrementValue, &obj1, &obj2,
+            &_numberOfTickMarks, &flags1, &flags2];
+         // TODO: flags
+      }
+      else if (version > 40)
+      {
+         id obj1, obj2;
+         [coder decodeValuesOfObjCTypes: "dddfd@@", &_maxValue, &_minValue, &value, &_altIncrementValue, &obj1, &obj2];
+      }
+      else if (version > 16)
+      {
+         float f1;
+         [coder decodeValuesOfObjCTypes: "dddfd", &_maxValue, &_minValue, &value, &f1, &_altIncrementValue];
+         [self setImage: [coder decodeObject]];
+         /*[self setTitleCell:*/ [coder decodeObject] /*]*/;
+      }
+      else if (version > 5)
+      {
+         float f1;
+         id obj1, obj2;
+         [coder decodeValuesOfObjCTypes: "dddf@d@", &_maxValue, &_minValue, &value, &f1, &obj1, &_altIncrementValue, &obj2];
+      }
+      else if (version == 5)
+      {
+         float f1, f2;
+         id obj;
+
+         [coder decodeValuesOfObjCTypes: "dddf@fd", &_maxValue, _minValue, &value, &f1, &obj, &f2, &_altIncrementValue];
+
+         [coder decodeNXColor];
+      }
+      else if (version == 4 || version == 3)
+      {
+         float f1, f2;
+         id obj;
+
+         [coder decodeValuesOfObjCTypes: "dddf@f", &_maxValue, _minValue, &value, &f1, &obj, &f2];
+
+         [coder decodeNXColor];
+      }
+      else if (version == 2)
+      {
+         float f1;
+         id obj;
+
+         [coder decodeValuesOfObjCTypes: "dddf@", &_maxValue, _minValue, &value, &f1, &obj];
+      }
+      else
+      {
+         [coder decodeValuesOfObjCTypes: "ddd", &_maxValue, _minValue, &value];
+         [self setTitle: @""];
+         _altIncrementValue = 0;
+      }
+      
+      [self setDoubleValue: value];
    }
 
    return self;
