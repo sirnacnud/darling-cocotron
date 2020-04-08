@@ -416,6 +416,7 @@ set(AppKit_sources
 
 	NSSharingService.m
 	MacWorkspace.m
+	NSCoder+AppKit.m
 )
 
 set_source_files_properties(${AppKit_sources} LANGUAGE C)
