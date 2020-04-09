@@ -19,6 +19,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <Onyx2D/O2Font.h>
 
+NSNotificationName NSFontSetChangedNotification = @"NSFontSetChangedNotification";
+NSNotificationName NSAntialiasThresholdChangedNotification = @"NSAntialiasThresholdChangedNotification";
+
 FOUNDATION_EXPORT char *NSUnicodeToSymbol(const unichar *characters,NSUInteger length,
   BOOL lossy, NSUInteger *resultLength,NSZone *zone);
 

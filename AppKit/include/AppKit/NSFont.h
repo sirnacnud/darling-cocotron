@@ -144,4 +144,15 @@ typedef enum {
 @end
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 NSInteger NSConvertGlyphsToPackedGlyphs(NSGlyph *glyphs, NSInteger length, NSMultibyteGlyphPacking packing, char *output);
+
+extern NSNotificationName NSFontSetChangedNotification;
+extern NSNotificationName NSAntialiasThresholdChangedNotification;
+
+#ifdef __cplusplus
+}
+#endif
