@@ -20,3 +20,13 @@
 #include <CoreFoundation/CoreFoundation.h>
 
 const CFStringRef kCTFontFamilyNameKey = CFSTR("CTFontFamilyName");
+const CFStringRef kCTFontAttributeName = CFSTR("NSFont");
+const CFStringRef kCTFontFamilyNameAttribute = CFSTR("NSFontFamilyAttribute");
+const CFStringRef kCTFontNameAttribute = CFSTR("NSFontNameAttribute");
+const CFStringRef kCTFontSizeAttribute = CFSTR("NSFontSizeAttribute");
+const CFStringRef kCTFontSymbolicTrait = CFSTR("NSCTFontSymbolicTrait");
+const CFStringRef kCTFontTraitsAttribute = CFSTR("NSCTFontTraitsAttribute");
+const CFStringRef kCTForegroundColorFromContextAttributeName = CFSTR("CTForegroundColorFromContext");
+const CFStringRef kCTStrokeWidthAttributeName = CFSTR("NSStrokeWidth");
+const CFStringRef kCTForegroundColorAttributeName = CFSTR("CTForegroundColor");
+const CFStringRef kCTParagraphStyleAttributeName = CFSTR("NSParagraphStyle");
