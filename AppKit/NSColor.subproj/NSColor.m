@@ -21,6 +21,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <objc/runtime.h>
 
+static int NSColor_ignoresAlpha = -1;
+
 @interface NSColor(private)
 -(NSString *)catalogName;
 -(NSString *)colorName;
@@ -721,6 +723,24 @@ static void releasePatternInfo(void *info){
    NSData *data=[NSKeyedArchiver archivedDataWithRootObject:self];
 
    [pasteboard setData:data forType:NSColorPboardType];
+}
+
++(void)setIgnoresAlpha:(BOOL)ignores {
+   NSColor_ignoresAlpha = ignores;
+}
+
+// TODO: Affects NSColorPanel, NSColorSwatch and NSColorPickerTouchBarItem
++(BOOL)ignoresAlpha {
+   if (NSColor_ignoresAlpha == -1)
+   {
+      @synchronized(self)
+      {
+         if (NSColor_ignoresAlpha == -1)
+            NSColor_ignoresAlpha = [[[NSUserDefaults standardUserDefaults] objectForKey: @"NSIgnoreAlpha"] compare: @"NO" options:NSCaseInsensitiveSearch] != NSOrderedSame;
+      }
+   }
+
+   return NSColor_ignoresAlpha;
 }
 
 @end
