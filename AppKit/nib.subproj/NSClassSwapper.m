@@ -27,6 +27,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
 
     _object = [class alloc];
+    if ([coder respondsToSelector: @selector(replaceObject:withObject:)]) {
+        [coder replaceObject: self withObject: _object];
+    }
     if ([_object respondsToSelector: @selector(initWithCoder:)]) {
         _object = [_object initWithCoder: coder];
     } else {
