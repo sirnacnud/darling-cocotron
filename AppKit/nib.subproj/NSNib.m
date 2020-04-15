@@ -62,14 +62,21 @@ NSString * const NSNibTopLevelObjects=@"NSNibTopLevelObjects";
    NSString *objects=path;
    BOOL      isDirectory=NO;
 
-	if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory] && isDirectory) {
-        objects = [[path stringByAppendingPathComponent:@"keyedobjects"] stringByAppendingPathExtension:@"nib"];
+   if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory]) {
+       [self release];
+       return nil;
+   }
+	 if (isDirectory) {
+       objects = [[path stringByAppendingPathComponent:@"keyedobjects"] stringByAppendingPathExtension:@"nib"];
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath: objects])
-            objects = [[path stringByAppendingPathComponent:@"objects"] stringByAppendingPathExtension:@"nib"];
-        else
-            _flags._isKeyed = TRUE;
-    }
+       if ([[NSFileManager defaultManager] fileExistsAtPath: objects])
+           _flags._isKeyed = TRUE;
+       else
+           objects = [[path stringByAppendingPathComponent:@"objects"] stringByAppendingPathExtension:@"nib"];
+   } else {
+       // FIXME: Should we try to infer keyed-ness form the file itself in this case?
+       _flags._isKeyed = TRUE;
+   }
    
    if(!objects && !isDirectory)
    {
