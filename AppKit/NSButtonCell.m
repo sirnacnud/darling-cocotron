@@ -47,7 +47,7 @@ static const CGFloat kImageMargin = 2.;
    [coder encodeInt:_keyEquivalentModifierMask forKey:@"NSButtonCell keyEquivalentModifierMask"];
 }
 
--_applyAppleFlags:(unsigned)flags flags2:(unsigned)flags2
+-_applyButtonCellAppleFlags:(unsigned)flags flags2:(unsigned)flags2
 {
    _imagePosition=NSNoImage;
    if((flags&0x00480000)==0x00400000)
@@ -158,7 +158,7 @@ static const CGFloat kImageMargin = 2.;
     _titleOrAttributedTitle=[[keyed decodeObjectForKey:@"NSContents"] retain];
     _alternateTitle=[[keyed decodeObjectForKey:@"NSAlternateContents"] retain];
 
-    [self _applyAppleFlags: flags flags2: flags2];
+    [self _applyButtonCellAppleFlags: flags flags2: flags2];
 
     check=[keyed decodeObjectForKey:@"NSAlternateImage"];
     if([check isKindOfClass:[NSImage class]])
@@ -378,13 +378,13 @@ static const CGFloat kImageMargin = 2.;
             }
          }
 
-         [self _applyAppleFlags: flags flags2: flags2];
+         [self _applyButtonCellAppleFlags: flags flags2: flags2];
 
          [self setKeyEquivalentModifierMask: keyEquivModMask];
       }
       else
       {
-         [self _applyAppleFlags: flags flags2: flags2];
+         [self _applyButtonCellAppleFlags: flags flags2: flags2];
       }
 
       if (version < 58)
