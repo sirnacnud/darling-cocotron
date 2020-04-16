@@ -10,31 +10,33 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <AppKit/AppKitExport.h>
 #import <AppKit/NSGraphics.h>
 #import <AppKit/NSRunningApplication.h>
+#import <Foundation/NSRunLoop.h>
+#import <Foundation/NSNotification.h>
 
 @class NSWindow, NSImage, NSMenu, NSPasteboard, NSDisplay, NSDockTile;
 
-APPKIT_EXPORT NSString *const NSModalPanelRunLoopMode;
-APPKIT_EXPORT NSString *const NSEventTrackingRunLoopMode;
+APPKIT_EXPORT const NSRunLoopMode NSModalPanelRunLoopMode;
+APPKIT_EXPORT const NSRunLoopMode NSEventTrackingRunLoopMode;
 
-APPKIT_EXPORT NSString *const NSApplicationWillFinishLaunchingNotification;
-APPKIT_EXPORT NSString *const NSApplicationDidFinishLaunchingNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationWillFinishLaunchingNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationDidFinishLaunchingNotification;
 
-APPKIT_EXPORT NSString *const NSApplicationWillBecomeActiveNotification;
-APPKIT_EXPORT NSString *const NSApplicationDidBecomeActiveNotification;
-APPKIT_EXPORT NSString *const NSApplicationWillResignActiveNotification;
-APPKIT_EXPORT NSString *const NSApplicationDidResignActiveNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationWillBecomeActiveNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationDidBecomeActiveNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationWillResignActiveNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationDidResignActiveNotification;
 
-APPKIT_EXPORT NSString *const NSApplicationWillUpdateNotification;
-APPKIT_EXPORT NSString *const NSApplicationDidUpdateNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationWillUpdateNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationDidUpdateNotification;
 
-APPKIT_EXPORT NSString *const NSApplicationWillHideNotification;
-APPKIT_EXPORT NSString *const NSApplicationDidHideNotification;
-APPKIT_EXPORT NSString *const NSApplicationWillUnhideNotification;
-APPKIT_EXPORT NSString *const NSApplicationDidUnhideNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationWillHideNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationDidHideNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationWillUnhideNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationDidUnhideNotification;
 
-APPKIT_EXPORT NSString *const NSApplicationWillTerminateNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationWillTerminateNotification;
 
-APPKIT_EXPORT NSString *const NSApplicationDidChangeScreenParametersNotification;
+APPKIT_EXPORT const NSNotificationName NSApplicationDidChangeScreenParametersNotification;
 
 typedef double NSAppKitVersion;
 APPKIT_EXPORT const NSAppKitVersion NSAppKitVersionNumber;
@@ -142,9 +144,13 @@ typedef enum {
 
 - (void)sendEvent:(NSEvent *)event;
 
-- (NSEvent *)nextEventMatchingMask:(unsigned int)mask untilDate:(NSDate *)untilDate inMode:(NSString *)mode dequeue:(BOOL)dequeue;
+- (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
+                          untilDate: (NSDate *) untilDate
+                             inMode: (NSRunLoopMode) mode
+                            dequeue: (BOOL) dequeue;
 - (NSEvent *)currentEvent;
-- (void)discardEventsMatchingMask:(unsigned)mask beforeEvent:(NSEvent *)event;
+- (void) discardEventsMatchingMask: (NSEventMask) mask
+                       beforeEvent: (NSEvent *) event;
 - (void)postEvent:(NSEvent *)event atStart:(BOOL)atStart;
 
 - targetForAction:(SEL)action;
@@ -168,7 +174,12 @@ typedef enum {
 - (void)stopModal;
 - (void)abortModal;
 
-- (void)beginSheet:(NSWindow *)sheet modalForWindow:(NSWindow *)window modalDelegate:modalDelegate didEndSelector:(SEL)didEndSelector contextInfo:(void *)contextInfo;
+- (void) beginSheet: (NSWindow *) sheet
+     modalForWindow: (NSWindow *) window
+      modalDelegate: (id) modalDelegate
+     didEndSelector: (SEL) didEndSelector
+        contextInfo: (void *) contextInfo;
+
 - (void)endSheet:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode;
 - (void)endSheet:(NSWindow *)sheet;
 

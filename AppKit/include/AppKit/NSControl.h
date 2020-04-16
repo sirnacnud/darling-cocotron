@@ -13,9 +13,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @class NSCell, NSFont, NSText, NSTextView, NSControlAuxiliary;
 
-APPKIT_EXPORT NSString *const NSControlTextDidBeginEditingNotification;
-APPKIT_EXPORT NSString *const NSControlTextDidChangeNotification;
-APPKIT_EXPORT NSString *const NSControlTextDidEndEditingNotification;
+APPKIT_EXPORT const NSNotificationName NSControlTextDidBeginEditingNotification;
+APPKIT_EXPORT const NSNotificationName NSControlTextDidChangeNotification;
+APPKIT_EXPORT const NSNotificationName NSControlTextDidEndEditingNotification;
 
 @interface NSControl : NSView {
     NSControlAuxiliary *_aux;
@@ -26,9 +26,9 @@ APPKIT_EXPORT NSString *const NSControlTextDidEndEditingNotification;
 + (Class)cellClass;
 + (void)setCellClass:(Class)aClass;
 
-- cell;
+- (id) cell;
 
-- target;
+- (id) target;
 - (SEL)action;
 - (NSInteger)tag;
 - (NSFont *)font;
@@ -47,7 +47,7 @@ APPKIT_EXPORT NSString *const NSControlTextDidEndEditingNotification;
 - (BOOL)usesSingleLineMode;
 
 
-- objectValue;
+- (id) objectValue;
 - (NSString *)stringValue;
 - (NSAttributedString *)attributedStringValue;
 - (int)intValue;
@@ -55,7 +55,7 @@ APPKIT_EXPORT NSString *const NSControlTextDidEndEditingNotification;
 - (double)doubleValue;
 - (NSInteger)integerValue;
 
-- selectedCell;
+- (id) selectedCell;
 - (NSInteger)selectedTag;
 
 - (void)setCell:(NSCell *)cell;

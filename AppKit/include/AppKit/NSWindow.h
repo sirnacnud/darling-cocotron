@@ -16,6 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <ApplicationServices/ApplicationServices.h>
 
 @class NSView, NSEvent, NSColor, NSColorSpace, NSCursor, NSImage, NSScreen, NSText, NSTextView, CGWindow, NSPasteboard, NSSheetContext, NSUndoManager, NSButton, NSButtonCell, NSDrawer, NSDockTile, NSToolbar, NSWindowAnimationContext, NSTrackingArea, NSThemeFrame, NSWindowController, NSMenuItem, CARenderer;
+@protocol NSWindowDelegate;
 
 // Old NSWindowStyleMask constants
 enum {
@@ -28,7 +29,7 @@ enum {
 };
 
 // New NSWindowStyleMask constants
-enum {
+typedef NS_OPTIONS(NSUInteger, NSWindowStyleMask) {
     NSWindowStyleMaskBorderless = 0,
     NSWindowStyleMaskTitled = 0x01,
     NSWindowStyleMaskClosable = 0x02,
@@ -44,34 +45,31 @@ enum {
     NSWindowStyleMaskNonactivatingPanel = 0x80,
     NSWindowStyleMaskHUDWindow = 0x2000,
 };
-typedef NSUInteger NSWindowStyleMask;
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, NSBackingStoreType) {
     NSBackingStoreRetained = 0,
     NSBackingStoreNonretained = 1,
     NSBackingStoreBuffered = 2,
-} NSBackingStoreType;
+};
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, NSWindowButton) {
     NSWindowCloseButton,
     NSWindowMiniaturizeButton,
     NSWindowZoomButton,
     NSWindowToolbarButton,
     NSWindowDocumentIconButton,
-} NSWindowButton;
+};
 
-enum {
+typedef NS_OPTIONS(NSUInteger, NSWindowNumberListOptions) {
     NSWindowNumberListAllApplications = 0x01,
     NSWindowNumberListAllSpaces = 0x10
 };
-typedef NSUInteger NSWindowNumberListOptions;
 
-enum {
+typedef NS_ENUM(NSUInteger, NSWindowBackingLocation) {
     NSWindowBackingLocationDefault = 0x00,
     NSWindowBackingLocationVideoMemory = 0x01,
     NSWindowBackingLocationMainMemory = 0x02
 };
-typedef NSUInteger NSWindowBackingLocation;
 
 enum {
     NSNormalWindowLevel = kCGNormalWindowLevel,
@@ -84,8 +82,9 @@ enum {
     NSPopUpMenuWindowLevel = kCGPopUpMenuWindowLevel,
     NSScreenSaverWindowLevel = kCGScreenSaverWindowLevel,
 };
+typedef NSInteger NSWindowLevel;
 
-enum {
+typedef NS_OPTIONS(NSUInteger, NSWindowCollectionBehavior) {
     NSWindowCollectionBehaviorDefault = 0x00,
     NSWindowCollectionBehaviorCanJoinAllSpaces = 0x01,
     NSWindowCollectionBehaviorMoveToActiveSpace = 0x02,
@@ -95,48 +94,46 @@ enum {
     NSWindowCollectionBehaviorParticipatesInCycle = 0x20,
     NSWindowCollectionBehaviorIgnoresCycle = 0x40
 };
-typedef NSUInteger NSWindowCollectionBehavior;
 
-enum {
+typedef NS_ENUM(NSUInteger, NSWindowSharingType) {
     NSWindowSharingNone = 0x00,
     NSWindowSharingReadOnly = 0x01,
     NSWindowSharingReadWrite = 0x02
 };
-typedef NSUInteger NSWindowSharingType;
 
 typedef int NSSelectionDirection;
 
-APPKIT_EXPORT NSString *const NSWindowDidBecomeKeyNotification;
-APPKIT_EXPORT NSString *const NSWindowDidResignKeyNotification;
-APPKIT_EXPORT NSString *const NSWindowDidBecomeMainNotification;
-APPKIT_EXPORT NSString *const NSWindowDidResignMainNotification;
-APPKIT_EXPORT NSString *const NSWindowWillMiniaturizeNotification;
-APPKIT_EXPORT NSString *const NSWindowDidMiniaturizeNotification;
-APPKIT_EXPORT NSString *const NSWindowDidDeminiaturizeNotification;
-APPKIT_EXPORT NSString *const NSWindowWillMoveNotification;
-APPKIT_EXPORT NSString *const NSWindowDidMoveNotification;
-APPKIT_EXPORT NSString *const NSWindowDidResizeNotification;
-APPKIT_EXPORT NSString *const NSWindowDidUpdateNotification;
-APPKIT_EXPORT NSString *const NSWindowWillCloseNotification;
-APPKIT_EXPORT NSString *const NSWindowWillStartLiveResizeNotification;
-APPKIT_EXPORT NSString *const NSWindowDidEndLiveResizeNotification;
-APPKIT_EXPORT NSString *const NSWindowWillBeginSheetNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidBecomeKeyNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidResignKeyNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidBecomeMainNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidResignMainNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowWillMiniaturizeNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidMiniaturizeNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidDeminiaturizeNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowWillMoveNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidMoveNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidResizeNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidUpdateNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowWillCloseNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowWillStartLiveResizeNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidEndLiveResizeNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowWillBeginSheetNotification;
 
-APPKIT_EXPORT NSString * const NSWindowDidChangeScreenNotification;
-APPKIT_EXPORT NSString *const NSWindowDidEndSheetNotification;
-APPKIT_EXPORT NSString *const NSWindowDidEnterFullScreenNotification;
-APPKIT_EXPORT NSString *const NSWindowDidExitFullScreenNotification;
-APPKIT_EXPORT NSString *const NSWindowDidOrderOffScreenNotification;
-APPKIT_EXPORT NSString *const NSWindowDidOrderOnScreenNotification;
-APPKIT_EXPORT NSString *const NSWindowWillEnterFullScreenNotification;
-APPKIT_EXPORT NSString *const NSWindowWillExitFullScreenNotification;
-APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidChangeScreenNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidEndSheetNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidEnterFullScreenNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidExitFullScreenNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidOrderOffScreenNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidOrderOnScreenNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowWillEnterFullScreenNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowWillExitFullScreenNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidExposeNotification;
 
 @interface NSWindow : NSResponder {
     NSRect _frame;
-    NSUInteger _styleMask;
+    NSWindowStyleMask _styleMask;
     NSBackingStoreType _backingType;
-    NSInteger _level;
+    NSWindowLevel _level;
 
     NSSize _minSize;
     NSSize _maxSize;
@@ -144,7 +141,7 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
     NSSize _contentMaxSize;
 
     NSWindow *_parentWindow;
-    NSMutableArray *_childWindows;
+    NSMutableArray<NSWindow *> *_childWindows;
 
     NSString *_representedFilename;
     NSString *_title;
@@ -157,7 +154,7 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
     NSView *_contentView;
     NSColor *_backgroundColor;
 
-    id _delegate;
+    id<NSWindowDelegate> _delegate;
     NSResponder *_firstResponder;
 
     NSTextView *_sharedFieldEditor;
@@ -234,19 +231,28 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 
 + (NSWindowDepth)defaultDepthLimit;
 
-+ (NSRect)frameRectForContentRect:(NSRect)contentRect styleMask:(NSUInteger)styleMask;
-+ (NSRect)contentRectForFrameRect:(NSRect)frameRect styleMask:(NSUInteger)styleMask;
-+ (CGFloat)minFrameWidthWithTitle:(NSString *)title styleMask:(NSUInteger)styleMask;
-+ (NSInteger)windowNumberAtPoint:(NSPoint)point belowWindowWithWindowNumber:(NSInteger)window;
-+ (NSArray *)windowNumbersWithOptions:(NSWindowNumberListOptions)options;
-+ (void)removeFrameUsingName:(NSString *)name;
++ (NSRect) frameRectForContentRect: (NSRect) contentRect styleMask: (NSWindowStyleMask) styleMask;
++ (NSRect) contentRectForFrameRect: (NSRect) frameRect styleMask: (NSWindowStyleMask) styleMask;
++ (CGFloat) minFrameWidthWithTitle: (NSString *) title styleMask: (NSWindowStyleMask) styleMask;
++ (NSInteger) windowNumberAtPoint: (NSPoint) point belowWindowWithWindowNumber: (NSInteger) window;
++ (NSArray *) windowNumbersWithOptions: (NSWindowNumberListOptions) options;
++ (void) removeFrameUsingName: (NSString *) name;
 
-+ (NSButton *)standardWindowButton:(NSWindowButton)button forStyleMask:(NSUInteger)styleMask;
-+ (void)menuChanged:(NSMenu *)menu;
++ (NSButton *) standardWindowButton: (NSWindowButton) button forStyleMask: (NSWindowStyleMask) styleMask;
++ (void) menuChanged: (NSMenu *) menu;
 
-- initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)styleMask backing:(unsigned)backing defer:(BOOL)defer;
-- initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)styleMask backing:(unsigned)backing defer:(BOOL)defer screen:(NSScreen *)screen;
-- (NSWindow *)initWithWindowRef:(void *)carbonRef;
+- (instancetype) initWithContentRect: (NSRect) contentRect
+                           styleMask: (NSWindowStyleMask) styleMask
+                             backing: (NSBackingStoreType) backing
+                               defer: (BOOL) defer;
+
+- (instancetype) initWithContentRect: (NSRect) contentRect
+                           styleMask: (NSWindowStyleMask) styleMask
+                             backing: (NSBackingStoreType) backing
+                               defer: (BOOL) defer
+                              screen: (NSScreen *) screen;
+
+- (NSWindow *) initWithWindowRef: (void *) carbonRef NS_RETURNS_NOT_RETAINED;
 
 - (NSGraphicsContext *)graphicsContext;
 - (NSDictionary *)deviceDescription;
@@ -255,20 +261,20 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 - (void)setAllowsConcurrentViewDrawing:(BOOL)allows;
 
 - (NSView *)contentView;
-- (id)delegate;
+- (id<NSWindowDelegate>) delegate;
 
 - (NSString *)title;
 - (NSString *)representedFilename;
 - (NSURL *)representedURL;
 
-- (NSInteger)level;
+- (NSWindowLevel) level;
 @property(readonly) NSRect frame;
-- (NSRect)frame;
-- (NSUInteger)styleMask;
-- (NSBackingStoreType)backingType;
-- (NSWindowBackingLocation)preferredBackingLocation;
-- (void)setPreferredBackingLocation:(NSWindowBackingLocation)location;
-- (NSWindowBackingLocation)backingLocation;
+- (NSRect) frame;
+- (NSWindowStyleMask) styleMask;
+- (NSBackingStoreType) backingType;
+- (NSWindowBackingLocation) preferredBackingLocation;
+- (void) setPreferredBackingLocation: (NSWindowBackingLocation) location;
+- (NSWindowBackingLocation) backingLocation;
 
 - (NSSize)minSize;
 - (NSSize)maxSize;
@@ -317,13 +323,13 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 - (NSToolbar *)toolbar;
 - (NSView *)initialFirstResponder;
 
-- (void)setDelegate:delegate;
+- (void) setDelegate: (id<NSWindowDelegate>) delegate;
 - (void)setFrame:(NSRect)frame display:(BOOL)display;
 - (void)setFrame:(NSRect)frame display:(BOOL)display animate:(BOOL)flag;
 - (void)setContentSize:(NSSize)contentSize;
 - (void)setFrameOrigin:(NSPoint)point;
 - (void)setFrameTopLeftPoint:(NSPoint)point;
-- (void)setStyleMask:(NSUInteger)styleMask;
+- (void)setStyleMask:(NSWindowStyleMask)styleMask;
 - (void)setMinSize:(NSSize)size;
 - (void)setMaxSize:(NSSize)size;
 - (void)setContentMinSize:(NSSize)value;
@@ -383,9 +389,9 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 - (void)setFrameFromString:(NSString *)value;
 - (NSString *)stringWithSavedFrame;
 
-- (int)resizeFlags;
-- (CGFloat)userSpaceScaleFactor;
-- (NSResponder *)firstResponder;
+- (NSEventModifierFlags) resizeFlags;
+- (CGFloat) userSpaceScaleFactor;
+- (NSResponder *) firstResponder;
 
 - (NSButton *)standardWindowButton:(NSWindowButton)value;
 - (NSButtonCell *)defaultButtonCell;
@@ -484,21 +490,27 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 
 - (void)close;
 - (void)center;
-- (void)orderWindow:(NSWindowOrderingMode)place relativeTo:(int)relativeTo;
+- (void)orderWindow:(NSWindowOrderingMode)place relativeTo:(NSInteger)relativeTo;
 - (void)orderFrontRegardless;
 
 - (NSPoint)mouseLocationOutsideOfEventStream;
 
-- (NSEvent *)currentEvent;
-- (NSEvent *)nextEventMatchingMask:(unsigned)mask;
-- (NSEvent *)nextEventMatchingMask:(unsigned)mask untilDate:(NSDate *)untilDate inMode:(NSString *)mode dequeue:(BOOL)dequeue;
-- (void)discardEventsMatchingMask:(unsigned)mask beforeEvent:(NSEvent *)event;
+- (NSEvent *) currentEvent;
+- (NSEvent *) nextEventMatchingMask: (NSEventMask) mask;
+
+- (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
+                          untilDate: (NSDate *) untilDate
+                             inMode: (NSRunLoopMode) mode
+                            dequeue: (BOOL) dequeue;
+
+- (void) discardEventsMatchingMask: (NSEventMask) mask
+                       beforeEvent: (NSEvent *) event;
 
 - (void)sendEvent:(NSEvent *)event;
 - (void)postEvent:(NSEvent *)event atStart:(BOOL)atStart;
 
-- (BOOL)tryToPerform:(SEL)selector with:object;
-- (void)keyDown:(NSEvent *)event;
+- (BOOL) tryToPerform: (SEL) selector with: (id) object;
+- (void) keyDown: (NSEvent *) event;
 
 - (NSPoint)cascadeTopLeftFromPoint:(NSPoint)topLeftPoint;
 
@@ -508,9 +520,16 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 - (void)registerForDraggedTypes:(NSArray *)types;
 - (void)unregisterDraggedTypes;
 
-- (void)dragImage:(NSImage *)image at:(NSPoint)location offset:(NSSize)offset event:(NSEvent *)event pasteboard:(NSPasteboard *)pasteboard source:source slideBack:(BOOL)slideBack;
+- (void) dragImage: (NSImage *) image
+                at: (NSPoint) location
+            offset: (NSSize) offset
+             event: (NSEvent *) event
+        pasteboard: (NSPasteboard *) pasteboard
+            source: (id) source
+         slideBack: (BOOL) slideBack;
 
-- validRequestorForSendType:(NSString *)sendType returnType:(NSString *)returnType;
+- (id) validRequestorForSendType: (NSString *) sendType
+                      returnType: (NSString *) returnType;
 
 - (void)update;
 
@@ -534,8 +553,8 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 
 @end
 
-@interface NSObject (NSWindow_delegate)
-
+@protocol NSWindowDelegate<NSObject>
+@optional
 - (void)windowWillBeginSheet:(NSNotification *)note;
 - (void)windowDidEndSheet:(NSNotification *)note;
 - (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect;
@@ -574,6 +593,6 @@ APPKIT_EXPORT NSString *const NSWindowDidExposeNotification;
 @end
 
 //private
-APPKIT_EXPORT NSString *const NSWindowWillAnimateNotification;
-APPKIT_EXPORT NSString *const NSWindowAnimatingNotification;
-APPKIT_EXPORT NSString *const NSWindowDidAnimateNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowWillAnimateNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowAnimatingNotification;
+APPKIT_EXPORT const NSNotificationName NSWindowDidAnimateNotification;

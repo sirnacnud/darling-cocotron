@@ -20,13 +20,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <AppKit/NSRaise.h>
 #import <AppKit/NSGraphicsContext.h>
 
-NSString * const NSToolbarCustomizeToolbarItemIdentifier=@"NSToolbarCustomizeToolbarItem";
-NSString * const NSToolbarFlexibleSpaceItemIdentifier=@"NSToolbarFlexibleSpaceItem";
-NSString * const NSToolbarPrintItemIdentifier=@"NSToolbarPrintItem";
-NSString * const NSToolbarSeparatorItemIdentifier=@"NSToolbarSeparatorItem";
-NSString * const NSToolbarShowColorsItemIdentifier=@"NSToolbarShowColorsItem";
-NSString * const NSToolbarShowFontsItemIdentifier=@"NSToolbarShowFontsItem";
-NSString * const NSToolbarSpaceItemIdentifier=@"NSToolbarSpaceItem";
+const NSToolbarItemIdentifier NSToolbarCustomizeToolbarItemIdentifier = @"NSToolbarCustomizeToolbarItem";
+const NSToolbarItemIdentifier NSToolbarFlexibleSpaceItemIdentifier = @"NSToolbarFlexibleSpaceItem";
+const NSToolbarItemIdentifier NSToolbarPrintItemIdentifier = @"NSToolbarPrintItem";
+const NSToolbarItemIdentifier NSToolbarSeparatorItemIdentifier = @"NSToolbarSeparatorItem";
+const NSToolbarItemIdentifier NSToolbarShowColorsItemIdentifier = @"NSToolbarShowColorsItem";
+const NSToolbarItemIdentifier NSToolbarShowFontsItemIdentifier = @"NSToolbarShowFontsItem";
+const NSToolbarItemIdentifier NSToolbarSpaceItemIdentifier = @"NSToolbarSpaceItem";
 
 extern NSSize _NSToolbarSizeRegular;
 extern NSSize _NSToolbarSizeSmall;
@@ -124,7 +124,7 @@ extern NSSize _NSToolbarIconSizeSmall;
    }
 }
 
--initWithItemIdentifier:(NSString *)identifier {
+- (instancetype) initWithItemIdentifier: (NSToolbarItemIdentifier) identifier {
    _itemIdentifier=[identifier retain];
    _toolbar=nil;
    _enclosingView=[[NSToolbarItemView alloc] init];
@@ -180,7 +180,7 @@ extern NSSize _NSToolbarIconSizeSmall;
    _toolbar = toolbar;
 }
 
--(NSString *)itemIdentifier {
+- (NSToolbarItemIdentifier) itemIdentifier {
    return _itemIdentifier;
 }
 

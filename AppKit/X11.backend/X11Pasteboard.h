@@ -22,7 +22,7 @@ along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 #import "X11Display.h"
 
 @interface X11Pasteboard : NSPasteboard {
-    NSString *_name;
+    NSPasteboardName _name;
     Display *_display;
     Window _window;
     Atom _selectionName;
@@ -39,7 +39,7 @@ along with Darling.  If not, see <http://www.gnu.org/licenses/>.
     } _selectionNotifyResult;
 }
 
-- (instancetype) initWithName: (NSString *) name;
+- (instancetype) initWithName: (NSPasteboardName) name;
 
 // Sent by -[X11Display postXEvent:]
 - (void) selectionNotify: (XSelectionEvent *) event;

@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2007 Christopher J. W. Lloyd
+/* Copyright (C) 2006-2007 Christopher J. W. Lloyd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -41,9 +41,9 @@ enum {
     NSOKButton
 };
 
-APPKIT_EXPORT int NSRunAlertPanel(NSString *title, NSString *message, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...);
-APPKIT_EXPORT int NSRunInformationalAlertPanel(NSString *title, NSString *msgFormat, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...);
-APPKIT_EXPORT int NSRunCriticalAlertPanel(NSString *title, NSString *msgFormat, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...);
+APPKIT_EXPORT NSInteger NSRunAlertPanel(NSString *title, NSString *message, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...);
+APPKIT_EXPORT NSInteger NSRunInformationalAlertPanel(NSString *title, NSString *msgFormat, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...);
+APPKIT_EXPORT NSInteger NSRunCriticalAlertPanel(NSString *title, NSString *msgFormat, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...);
 APPKIT_EXPORT void NSBeginAlertSheet(NSString *title, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, NSWindow *documentWindow, id modalDelegate, SEL didEndSelector, SEL didDismissSelector, void *contextInfo, NSString *message, ...);
 APPKIT_EXPORT void NSBeginCriticalAlertSheet(NSString *title, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, NSWindow *documentWindow, id modalDelegate, SEL didEndSelector, SEL didDismissSelector, void *contextInfo, NSString *message, ...);
 APPKIT_EXPORT void NSBeginInformationalAlertSheet(NSString *title, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, NSWindow *documentWindow, id modalDelegate, SEL didEndSelector, SEL didDismissSelector, void *contextInfo, NSString *message, ...);

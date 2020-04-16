@@ -14,6 +14,7 @@
 #import <AppKit/NSScreen.h>
 #import <AppKit/NSApplication.h>
 #import <Foundation/NSDebug.h>
+#import "NSEvent_mouse.h"
 
 #ifndef DARLING
 #import <Foundation/NSSelectInputSource.h>
@@ -135,7 +136,7 @@ static void socketCallback(
    return _display;
 }
 
--(NSArray *)screens {
+- (NSArray *) screens {
    int eventBase, errorBase;
 
    if (XRRQueryExtension(_display, &eventBase, &errorBase))
@@ -573,26 +574,24 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    XBell(_display, 100);
 }
 
--(NSSet *)allFontFamilyNames {
-   int i;
-   FcPattern *pat=FcPatternCreate();
-   FcObjectSet *props=FcObjectSetBuild(FC_FAMILY, NULL);
-   
-   FcFontSet *set = FcFontList (O2FontSharedFontConfig(), pat, props);
-   NSMutableSet* ret=[NSMutableSet set];
-   
-   for(i = 0; i < set->nfont; i++)
-   {
-      FcChar8 *family;
-      if (FcPatternGetString (set->fonts[i], FC_FAMILY, 0, &family) == FcResultMatch) {
-         [ret addObject:[NSString stringWithUTF8String:(char*)family]];
-      }
-   }
-   
-   FcPatternDestroy(pat);
-   FcObjectSetDestroy(props);
-   FcFontSetDestroy(set);
-   return ret;
+- (NSSet *) allFontFamilyNames {
+    FcPattern *pat = FcPatternCreate();
+    FcObjectSet *props = FcObjectSetBuild(FC_FAMILY, NULL);
+
+    FcFontSet *set = FcFontList(O2FontSharedFontConfig(), pat, props);
+    NSMutableSet *ret = [NSMutableSet set];
+
+    for (int i = 0; i < set->nfont; i++) {
+        FcChar8 *family;
+        if (FcPatternGetString(set->fonts[i], FC_FAMILY, 0, &family) == FcResultMatch) {
+            [ret addObject: [NSString stringWithUTF8String: (const char *) family]];
+        }
+    }
+
+    FcPatternDestroy(pat);
+    FcObjectSetDestroy(props);
+    FcFontSetDestroy(set);
+    return ret;
 }
 
 - (NSString *) substituteFamilyName: (NSString *) familyName {
@@ -619,73 +618,73 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    return res;
 }
 
--(NSArray *)fontTypefacesForFamilyName:(NSString *)familyName {
-   familyName = [self substituteFamilyName: familyName];
-   if (familyName == nil) {
-      return @[];
-   }
-   FcPattern *pat = FcPatternCreate();
-   FcPatternAddString(pat, FC_FAMILY, (unsigned char *) [familyName UTF8String]);
-   FcObjectSet *props=FcObjectSetBuild(FC_FAMILY, FC_STYLE, FC_SLANT, FC_WIDTH, FC_WEIGHT, NULL);
+- (NSArray<NSFontTypeface *> *) fontTypefacesForFamilyName: (NSString *) familyName {
+    familyName = [self substituteFamilyName: familyName];
+    if (familyName == nil) {
+        return @[];
+    }
+    FcPattern *pat = FcPatternCreate();
+    FcPatternAddString(pat, FC_FAMILY, (unsigned char *) [familyName UTF8String]);
+    FcObjectSet *props = FcObjectSetBuild(FC_FAMILY, FC_STYLE, FC_SLANT, FC_WIDTH, FC_WEIGHT, NULL);
 
-   FcFontSet *set = FcFontList (O2FontSharedFontConfig(), pat, props);
-   NSMutableArray* ret=[NSMutableArray array];
-   
-   for(int i = 0; i < set->nfont; i++)
-   {
-      FcChar8 *typeface;
-      FcPattern *p=set->fonts[i];
-      if (FcPatternGetString (p, FC_STYLE, 0, &typeface) == FcResultMatch) {
-         NSString* traitName=[NSString stringWithUTF8String:(char*)typeface];
-         FcChar8* pattern=FcNameUnparse(p);
-         NSString* name=[NSString stringWithUTF8String:(char*)pattern];
-         FcStrFree(pattern);
-         
-         NSFontTraitMask traits=0;
-         int slant, width, weight;
-         
-         FcPatternGetInteger(p, FC_SLANT, FC_SLANT_ROMAN, &slant);
-         FcPatternGetInteger(p, FC_WIDTH, FC_WIDTH_NORMAL, &width);
-         FcPatternGetInteger(p, FC_WEIGHT, FC_WEIGHT_REGULAR, &weight);
+    FcFontSet *set = FcFontList(O2FontSharedFontConfig(), pat, props);
+    NSMutableArray *ret = [NSMutableArray array];
 
-         switch(slant) {
+    for (int i = 0; i < set->nfont; i++) {
+        FcChar8 *typeface;
+        FcPattern *p = set->fonts[i];
+        if (FcPatternGetString (p, FC_STYLE, 0, &typeface) == FcResultMatch) {
+            NSString *traitName = [NSString stringWithUTF8String: (const char *) typeface];
+            FcChar8 *pattern = FcNameUnparse(p);
+            NSString *name = [NSString stringWithUTF8String: (const char *) pattern];
+            FcStrFree(pattern);
+
+            NSFontTraitMask traits = 0;
+            int slant, width, weight;
+            FcPatternGetInteger(p, FC_SLANT, FC_SLANT_ROMAN, &slant);
+            FcPatternGetInteger(p, FC_WIDTH, FC_WIDTH_NORMAL, &width);
+            FcPatternGetInteger(p, FC_WEIGHT, FC_WEIGHT_REGULAR, &weight);
+
+            switch (slant) {
             case FC_SLANT_OBLIQUE:
             case FC_SLANT_ITALIC:
-               traits|=NSItalicFontMask;
-               break;
+                traits |= NSItalicFontMask;
+                break;
             default:
-               traits|=NSUnitalicFontMask;
-               break;
-         }
-         
-         if(weight<=FC_WEIGHT_LIGHT)
-            traits|=NSUnboldFontMask;
-         else if(weight>=FC_WEIGHT_SEMIBOLD)
-            traits|=NSBoldFontMask;
-         
-         if(width<=FC_WIDTH_SEMICONDENSED)
-            traits|=NSNarrowFontMask;
-         else if(width>=FC_WIDTH_SEMIEXPANDED)
-            traits|=NSExpandedFontMask;
-         
-         NSFontTypeface *face=[[NSFontTypeface alloc] initWithName:name traitName:traitName traits:traits];
-         [ret addObject:face];
-         [face release];
-      }
-   }
-   
-   FcPatternDestroy(pat);
-   FcObjectSetDestroy(props);
-   FcFontSetDestroy(set);
-   return ret;
+                traits |= NSUnitalicFontMask;
+                break;
+            }
+
+            if (weight <= FC_WEIGHT_LIGHT)
+                traits |= NSUnboldFontMask;
+            else if (weight >= FC_WEIGHT_SEMIBOLD)
+                traits |= NSBoldFontMask;
+
+            if (width <= FC_WIDTH_SEMICONDENSED)
+                traits |= NSNarrowFontMask;
+            else if (width >= FC_WIDTH_SEMIEXPANDED)
+                traits |= NSExpandedFontMask;
+
+            NSFontTypeface *face = [[NSFontTypeface alloc] initWithName: name
+                                                              traitName: traitName
+                                                                 traits: traits];
+            [ret addObject: face];
+            [face release];
+        }
+    }
+
+    FcPatternDestroy(pat);
+    FcObjectSetDestroy(props);
+    FcFontSetDestroy(set);
+    return ret;
 }
 
--(CGFloat)scrollerWidth {
-   return 15.0;
+- (CGFloat) scrollerWidth {
+    return 15.0;
 }
 
--(CGFloat)doubleClickInterval {
-   return 1.0;
+- (CGFloat) doubleClickInterval {
+    return 1.0;
 }
 
 
@@ -699,9 +698,12 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    return 0;
 }
 
--(O2Context *)graphicsPortForPrintOperationWithView:(NSView *)view printInfo:(NSPrintInfo *)printInfo pageRange:(NSRange)pageRange {
-   NSUnimplementedMethod();
-   return nil;
+- (O2Context *) graphicsPortForPrintOperationWithView: (NSView *) view
+                                            printInfo: (NSPrintInfo *) printInfo
+                                            pageRange: (NSRange) pageRange
+{
+    NSUnimplementedMethod();
+    return nil;
 }
 
 -(int)savePanel:(NSSavePanel *)savePanel runModalForDirectory:(NSString *)directory file:(NSString *)file {
@@ -738,32 +740,34 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    return [_windowsByID objectForKey:[NSNumber numberWithUnsignedLong:i]];
 }
 
--(NSEvent *)nextEventMatchingMask:(unsigned)mask untilDate:(NSDate *)untilDate inMode:(NSString *)mode dequeue:(BOOL)dequeue {
-   NSEvent *result;
-   
+- (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
+                          untilDate: (NSDate *) untilDate
+                             inMode: (NSRunLoopMode) mode
+                            dequeue: (BOOL) dequeue
+{
 #ifndef DARLING
-   [[NSRunLoop currentRunLoop] addInputSource:_inputSource forMode:mode];
+    [[NSRunLoop currentRunLoop] addInputSource: _inputSource forMode: mode];
 #else
     [self processPendingEvents];
 #endif
 
-   result=[super nextEventMatchingMask:mask untilDate:untilDate inMode:mode dequeue:dequeue];
+    NSEvent *result = [super nextEventMatchingMask: mask untilDate: untilDate inMode: mode dequeue: dequeue];
 
 #ifndef DARLING
-   [[NSRunLoop currentRunLoop] removeInputSource:_inputSource forMode:mode];
+    [[NSRunLoop currentRunLoop] removeInputSource: _inputSource forMode: mode];
 #endif
 
    return result;
 }
 
--(unsigned int)modifierFlagsForState:(unsigned int)state {
-   unsigned int ret=0;
+- (NSEventModifierFlags) modifierFlagsForState: (unsigned int) state {
+   NSEventModifierFlags ret = 0;
    if(state & ShiftMask)
-      ret|=NSShiftKeyMask;
+      ret |= NSShiftKeyMask;
    if(state & ControlMask)
-      ret|=NSControlKeyMask;
-   // if(state & Mod2Mask) // Mod2Mask is numlock
-   //   ret|=NSCommandKeyMask;
+      ret |= NSControlKeyMask;
+   // if (state & Mod2Mask) // Mod2Mask is numlock
+   //   ret |= NSCommandKeyMask;
    if (state & LockMask)
       ret |= NSAlphaShiftKeyMask;
    if (state & Mod4Mask)
@@ -779,9 +783,11 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 - (NSArray *) orderedWindowNumbers {
     NSMutableArray *result = [NSMutableArray array];
 
-    for (NSWindow* win in [NSApp windows]) [result addObject:[NSNumber numberWithInteger:[win windowNumber]]];
+    for (NSWindow* win in [NSApp windows]) {
+        [result addObject: @([win windowNumber])];
+    }
 
-    NSUnimplementedFunction(); //(Window numbers not even remotely ordered)
+    NSUnimplementedFunction(); // (Window numbers not even remotely ordered)
 
     return result;
 }
@@ -796,7 +802,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
    switch (ev->type) {
    case KeyPress:
    case KeyRelease:;
-       unsigned int modifierFlags = [self modifierFlagsForState: ev->xkey.state];
+       NSEventModifierFlags modifierFlags = [self modifierFlagsForState: ev->xkey.state];
        char buf[4] = {0};
 
        XLookupString((XKeyEvent*) ev, buf, 4, NULL, NULL);
@@ -864,7 +870,7 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
                                   clickCount: clickCount
                                       deltaX: 0.0
                                       deltaY: 0.0];
-         [event _setButtonNumber: ev->xbutton.button];
+         [(NSEvent_mouse *) event _setButtonNumber: ev->xbutton.button];
          [self postEvent: event atStart: NO];
          break;
 
@@ -905,64 +911,59 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
 
     case MotionNotify:;
     {
-      // NSLog(@"MotionNotify, x=%d, y=%d, xroot=%d, yroot=%d\n", ev->xmotion.x, ev->xmotion.y, ev->xmotion.x_root, ev->xmotion.y_root);
+        // NSLog(@"MotionNotify, x=%d, y=%d, xroot=%d, yroot=%d\n", ev->xmotion.x, ev->xmotion.y, ev->xmotion.x_root, ev->xmotion.y_root);
 
-     CGPoint lastMotionPos = [window mouseLocationOutsideOfEventStream];
-     pos=[window transformPoint:NSMakePoint(ev->xmotion.x, ev->xmotion.y)];
+        CGPoint lastMotionPos = [window mouseLocationOutsideOfEventStream];
+        pos=[window transformPoint:NSMakePoint(ev->xmotion.x, ev->xmotion.y)];
 
-     CGFloat deltaX = pos.x - lastMotionPos.x;
-     CGFloat deltaY = pos.y - lastMotionPos.y;
+        CGFloat deltaX = pos.x - lastMotionPos.x;
+        CGFloat deltaY = pos.y - lastMotionPos.y;
 
-      // NSLog(@"cursorGrabbed=%d, deltaX=%f, deltaY=%f\n", _cursorGrabbed, deltaX, deltaY);
-     if (_cursorGrabbed)
-     {
-        if (pos.x != lastMotionPos.x || pos.y != lastMotionPos.y)
-        {
-            CGPoint globalPos = [window transformPoint: lastMotionPos];
-            // NSLog(@"last known pos in window: x=%f, y=%f", globalPos.x, globalPos.y);
-            CGRect frame = [window transformFrame: [window frame]];
+        // NSLog(@"cursorGrabbed=%d, deltaX=%f, deltaY=%f\n", _cursorGrabbed, deltaX, deltaY);
+        if (_cursorGrabbed) {
+            if (pos.x != lastMotionPos.x || pos.y != lastMotionPos.y) {
+                CGPoint globalPos = [window transformPoint: lastMotionPos];
+                // NSLog(@"last known pos in window: x=%f, y=%f", globalPos.x, globalPos.y);
+                CGRect frame = [window transformFrame: [window frame]];
 
-            globalPos.x += frame.origin.x;
-            globalPos.y += frame.origin.y;
+                globalPos.x += frame.origin.x;
+                globalPos.y += frame.origin.y;
 
-            [self warpMouse: globalPos];
+                [self warpMouse: globalPos];
 
-            pos.x = lastMotionPos.x;
-            pos.y = lastMotionPos.y;
+                pos.x = lastMotionPos.x;
+                pos.y = lastMotionPos.y;
+            } else {
+                // This is an event generated by [self warpMouse:] above
+                break;
+            }
+        } else {
+            [window setLastKnownCursorPosition: pos];
         }
-        else
-        {
-           // This is an event generated by [self warpMouse:] above
+
+        type = NSMouseMoved;
+
+        if (ev->xmotion.state&Button1Mask) {
+            type = NSLeftMouseDragged;
+        } else if (ev->xmotion.state&Button2Mask) {
+            type = NSRightMouseDragged;
+        }
+
+        if (type == NSMouseMoved && ![delegate acceptsMouseMovedEvents])
             break;
-        }
-     }
-     else
-     {
-         [window setLastKnownCursorPosition: pos];
-     }
 
-     type=NSMouseMoved;
+        event = [NSEvent mouseEventWithType: type
+                                   location: pos
+                              modifierFlags: [self modifierFlagsForState:ev->xmotion.state]
+                                     window: delegate
+                                 clickCount: 1
+                                     deltaX: deltaX
+                                     deltaY: deltaY];
+        [self postEvent: event atStart: NO];
+        [self discardEventsMatchingMask: NSLeftMouseDraggedMask beforeEvent: event];
 
-     if(ev->xmotion.state&Button1Mask) {
-      type=NSLeftMouseDragged;
-     }
-     else if (ev->xmotion.state&Button2Mask) {
-      type=NSRightMouseDragged;
-     }
-
-     if(type==NSMouseMoved && ![delegate acceptsMouseMovedEvents])
-      break;
-
-     event=[NSEvent mouseEventWithType:type
-                                  location:pos
-                             modifierFlags:[self modifierFlagsForState:ev->xmotion.state]
-                                    window:delegate
-                                clickCount:1 deltaX:deltaX deltaY:deltaY];
-      [self postEvent:event atStart:NO];
-      [self discardEventsMatchingMask:NSLeftMouseDraggedMask beforeEvent:event];
-
-      [delegate platformWindowSetCursorEvent:window];
-      break;
+        [delegate platformWindowSetCursorEvent: window];
+        break;
     }
 
     case EnterNotify:
@@ -1181,63 +1182,63 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top, CGFlo
     return frame;
 }
 
-- (void)warpMouse:(NSPoint)position
-{
-   NSLog(@"Warp to: x=%f, y=%f\n", position.x, position.y);
-   XWarpPointer(_display, None, DefaultRootWindow(_display), 0, 0, 0, 0, position.x, position.y);
-   XSync(_display, False);
+- (void) warpMouse: (NSPoint) position {
+    NSLog(@"Warp to: x=%f, y=%f\n", position.x, position.y);
+    XWarpPointer(_display, None, DefaultRootWindow(_display), 0, 0, 0, 0, position.x, position.y);
+    XSync(_display, False);
 }
 
-- (void)grabMouse:(BOOL)doGrab
-{
-   if (doGrab)
-   {
-      NSWindow* nswin = [NSApp keyWindow];
-      if (!nswin)
-         nswin = [NSApp mainWindow];
+- (void) grabMouse: (BOOL) doGrab {
+    if (doGrab) {
+        NSWindow *nswin = [NSApp keyWindow];
+        if (!nswin)
+            nswin = [NSApp mainWindow];
 
-      X11Window* xwin = (X11Window*) [nswin platformWindow];
-      Window win = [xwin windowHandle];
-      //Window win = DefaultRootWindow(_display);
-      const unsigned int mask = ButtonPressMask | ButtonReleaseMask | PointerMotionMask | FocusChangeMask;
-      int result = XGrabPointer(_display, win, False, mask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
-      if (result == GrabSuccess)
-      {
-         _cursorGrabbed = YES;
-         NSLog(@"XGrabPointer() succeeded for window %lu\n", win);
+        X11Window *xwin = (X11Window*) [nswin platformWindow];
+        Window win = [xwin windowHandle];
+        // Window win = DefaultRootWindow(_display);
+        const unsigned int mask = ButtonPressMask | ButtonReleaseMask | PointerMotionMask | FocusChangeMask;
+        int result = XGrabPointer(_display, win, False, mask, GrabModeAsync, GrabModeAsync, None, None, CurrentTime);
+        if (result == GrabSuccess) {
+            _cursorGrabbed = YES;
+            NSLog(@"XGrabPointer() succeeded for window %lu\n", win);
 
-         NSRect frame = [xwin transformFrame: nswin.frame];
-         // NSLog(@"Window's frame is at %f,%f, size %fx%f\n", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
-         CGPoint ptGlobal = NSMakePoint(frame.size.width / 2.0 + frame.origin.x, frame.size.height / 2.0 + frame.origin.y);
-         CGPoint ptLocal = NSMakePoint(frame.size.width / 2.0, frame.size.height / 2.0 );
+            NSRect frame = [xwin transformFrame: nswin.frame];
+            // NSLog(@"Window's frame is at %f,%f, size %fx%f\n", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+            CGPoint ptGlobal = NSMakePoint(
+                frame.size.width / 2.0 + frame.origin.x,
+                frame.size.height / 2.0 + frame.origin.y
+            );
+            CGPoint ptLocal = NSMakePoint(frame.size.width / 2.0, frame.size.height / 2.0 );
 
-         // NSLog(@"setting last known pos in window to x=%f, y=%f\n", ptLocal.x, ptLocal.y);
+            // NSLog(@"setting last known pos in window to x=%f, y=%f\n", ptLocal.x, ptLocal.y);
 
-         [xwin setLastKnownCursorPosition: [xwin transformPoint: ptLocal]];
-         [self warpMouse: ptGlobal];
-      }
-      else
-         NSLog(@"XGrabPointer() failed with error %d for window %lu\n", result, win);
-   }
-   else
-   {
-      XUngrabPointer(_display, CurrentTime);
-      _cursorGrabbed = NO;
-   }
-   XSync(_display, False);
+            [xwin setLastKnownCursorPosition: [xwin transformPoint: ptLocal]];
+            [self warpMouse: ptGlobal];
+        } else {
+            NSLog(@"XGrabPointer() failed with error %d for window %lu\n", result, win);
+        }
+    } else {
+        XUngrabPointer(_display, CurrentTime);
+        _cursorGrabbed = NO;
+    }
+    XSync(_display, False);
 }
 
 @end
 
 #import <AppKit/NSGraphicsStyle.h>
 
-@implementation NSGraphicsStyle (Overrides) 
--(void)drawMenuBranchArrowInRect:(NSRect)rect selected:(BOOL)selected {
-    NSImage* arrow=[NSImage imageNamed:@"NSMenuArrow"];
+@implementation NSGraphicsStyle (Overrides)
+- (void) drawMenuBranchArrowInRect: (NSRect) rect selected: (BOOL) selected {
+    NSImage *arrow = [NSImage imageNamed:@"NSMenuArrow"];
     // ??? magic numbers
-    rect.origin.y+=5;
-    rect.origin.x-=2;
-    [arrow drawInRect:rect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    rect.origin.y += 5;
+    rect.origin.x -= 2;
+    [arrow drawInRect: rect
+             fromRect: NSZeroRect
+            operation: NSCompositeSourceOver
+             fraction: 1.0];
 }
 
 @end

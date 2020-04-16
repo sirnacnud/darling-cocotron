@@ -20,16 +20,18 @@ enum {
     NSToolbarItemVisibilityPriorityUser = 2000
 };
 
-APPKIT_EXPORT NSString *const NSToolbarCustomizeToolbarItemIdentifier;
-APPKIT_EXPORT NSString *const NSToolbarFlexibleSpaceItemIdentifier;
-APPKIT_EXPORT NSString *const NSToolbarPrintItemIdentifier;
-APPKIT_EXPORT NSString *const NSToolbarSeparatorItemIdentifier;
-APPKIT_EXPORT NSString *const NSToolbarShowColorsItemIdentifier;
-APPKIT_EXPORT NSString *const NSToolbarShowFontsItemIdentifier;
-APPKIT_EXPORT NSString *const NSToolbarSpaceItemIdentifier;
+typedef NSString *NSToolbarItemIdentifier;
+
+APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarCustomizeToolbarItemIdentifier;
+APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarFlexibleSpaceItemIdentifier;
+APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarPrintItemIdentifier;
+APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarSeparatorItemIdentifier;
+APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarShowColorsItemIdentifier;
+APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarShowFontsItemIdentifier;
+APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarSpaceItemIdentifier;
 
 @interface NSToolbarItem : NSObject <NSCopying, NSValidatedUserInterfaceItem> {
-    NSString *_itemIdentifier;
+    NSToolbarItemIdentifier _itemIdentifier;
     NSToolbar *_toolbar;
     NSToolbarItemView *_enclosingView;
     NSString *_toolTip;
@@ -51,10 +53,10 @@ APPKIT_EXPORT NSString *const NSToolbarSpaceItemIdentifier;
     BOOL _isEnabled;
 }
 
-- initWithItemIdentifier:(NSString *)identifier;
+- (instancetype) initWithItemIdentifier: (NSToolbarItemIdentifier) identifier;
 
-- (NSString *)itemIdentifier;
-- (NSToolbar *)toolbar;
+- (NSToolbarItemIdentifier) itemIdentifier;
+- (NSToolbar *) toolbar;
 
 - (NSString *)label;
 - (NSString *)paletteLabel;

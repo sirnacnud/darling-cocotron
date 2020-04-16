@@ -8,6 +8,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #import <Foundation/NSObject.h>
 #import <AppKit/AppKitExport.h>
+#import <Foundation/NSNotification.h>
+#import <AppKit/NSToolbarItem.h>
 
 @class NSString, NSMutableArray, NSArray, NSDictionary, NSNotification, NSMutableDictionary, NSWindow, NSView, NSToolbarItem, NSToolbarView, NSToolbarCustomizationPalette;
 
@@ -24,12 +26,16 @@ typedef enum {
     NSToolbarDisplayModeLabelOnly
 } NSToolbarDisplayMode;
 
-APPKIT_EXPORT NSString *const NSToolbarWillAddItemNotification;
-APPKIT_EXPORT NSString *const NSToolbarDidRemoveItemNotification;
+APPKIT_EXPORT const NSNotificationName NSToolbarWillAddItemNotification;
+APPKIT_EXPORT const NSNotificationName NSToolbarDidRemoveItemNotification;
+
+typedef NSString *NSToolbarIdentifier;
+
+@protocol NSToolbarDelegate;
 
 @interface NSToolbar : NSObject {
-    NSString *_identifier;
-    id _delegate;
+    NSToolbarIdentifier _identifier;
+    id<NSToolbarDelegate> _delegate;
     NSMutableArray *_items;
     NSString *_selectedItemIdentifier;
     NSMutableArray *_allowedItems;
@@ -49,10 +55,10 @@ APPKIT_EXPORT NSString *const NSToolbarDidRemoveItemNotification;
     BOOL _loadDefaultItems;
 }
 
-- initWithIdentifier:(NSString *)identifier;
+- (instancetype) initWithIdentifier: (NSToolbarIdentifier) identifier;
 
-- (NSString *)identifier;
-- delegate;
+- (NSToolbarIdentifier) identifier;
+- (id<NSToolbarDelegate>) delegate;
 - (BOOL)isVisible;
 - (NSToolbarSizeMode)sizeMode;
 - (NSToolbarDisplayMode)displayMode;
@@ -64,7 +70,7 @@ APPKIT_EXPORT NSString *const NSToolbarDidRemoveItemNotification;
 - (BOOL)allowsUserCustomization;
 - (NSString *)selectedItemIdentifier;
 
-- (void)setDelegate:delegate;
+- (void) setDelegate: (id<NSToolbarDelegate>) delegate;
 - (void)setVisible:(BOOL)flag;
 - (void)setSizeMode:(NSToolbarSizeMode)mode;
 - (void)setDisplayMode:(NSToolbarDisplayMode)mode;
@@ -74,8 +80,8 @@ APPKIT_EXPORT NSString *const NSToolbarDidRemoveItemNotification;
 - (void)setAllowsUserCustomization:(BOOL)flag;
 - (void)setSelectedItemIdentifier:(NSString *)identifier;
 
-- (void)insertItemWithItemIdentifier:(NSString *)identifier atIndex:(int)index;
-- (void)removeItemAtIndex:(int)index;
+- (void) insertItemWithItemIdentifier: (NSToolbarItemIdentifier) identifier atIndex: (NSInteger) index;
+- (void) removeItemAtIndex: (NSInteger) index;
 
 - (void)validateVisibleItems;
 
@@ -90,15 +96,18 @@ APPKIT_EXPORT NSString *const NSToolbarDidRemoveItemNotification;
 
 @end
 
-@interface NSObject (NSToolbar_delegate)
+@protocol NSToolbarDelegate<NSObject>
 
-- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)identifier willBeInsertedIntoToolbar:(BOOL)flag;
+@optional
+- (NSToolbarItem *) toolbar: (NSToolbar *) toolbar
+      itemForItemIdentifier: (NSToolbarItemIdentifier) identifier
+  willBeInsertedIntoToolbar: (BOOL) flag;
 
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
-- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar;
-- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar;
+- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar;
+- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar;
+- (NSArray *) toolbarSelectableItemIdentifiers: (NSToolbar *) toolbar;
 
-- (void)toolbarWillAddItem:(NSNotification *)note;
-- (void)toolbarDidRemoveItem:(NSNotification *)note;
+- (void) toolbarWillAddItem: (NSNotification *) note;
+- (void) toolbarDidRemoveItem: (NSNotification *) note;
 
 @end

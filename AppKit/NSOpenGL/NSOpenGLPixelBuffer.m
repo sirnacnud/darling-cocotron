@@ -11,34 +11,39 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSOpenGLPixelBuffer
 
--initWithTextureTarget:(unsigned long)textureTarget textureInternalFormat:(unsigned long)textureFormat textureMaxMipMapLevel:(long)mipMapLevel pixelsWide:(int)pixelsWide pixelsHigh:(int)pixelsHigh {
-   NSUnimplementedMethod();
-   return self;
+- (instancetype) initWithTextureTarget: (GLenum) textureTarget
+                 textureInternalFormat: (GLenum) textureFormat
+                 textureMaxMipMapLevel: (GLint) mipMapLevel
+                            pixelsWide: (GLsizei) pixelsWide
+                            pixelsHigh: (GLsizei) pixelsHigh
+{
+    NSUnimplementedMethod();
+    return self;
 }
 
--(unsigned)textureTarget {
-   NSUnimplementedMethod();
-   return 0;
+- (GLenum) textureTarget {
+    NSUnimplementedMethod();
+    return 0;
 }
 
--(unsigned long)textureInternalFormat {
-   NSUnimplementedMethod();
-   return 0;
+- (GLenum) textureInternalFormat {
+    NSUnimplementedMethod();
+    return 0;
 }
 
--(long)textureMaxMipMapLevel {
-   NSUnimplementedMethod();
-   return 0;
+- (GLint) textureMaxMipMapLevel {
+    NSUnimplementedMethod();
+    return 0;
 }
 
--(int)pixelsWide {
-   NSUnimplementedMethod();
-   return 0;
+- (GLsizei) pixelsWide {
+    NSUnimplementedMethod();
+    return 0;
 }
 
--(int)pixelsHigh {
-   NSUnimplementedMethod();
-   return 0;
+- (GLsizei) pixelsHigh {
+    NSUnimplementedMethod();
+    return 0;
 }
 
 @end

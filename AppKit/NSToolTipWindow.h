@@ -11,7 +11,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @class NSString, NSTextField, NSTrackingArea;
 
-// Hmm. I assume that we're going to only have 1 tool tip active per application with this implementation/
+// Hmm. I assume that we're going to only have 1 tool tip active per application
+// with this implementation.
 
 @interface NSToolTipWindow : NSWindow {
     NSTextField *_textField;
@@ -23,13 +24,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     BOOL _sizeAdjusted;
 }
 
-+ (NSToolTipWindow *)sharedToolTipWindow;
++ (NSToolTipWindow *) sharedToolTipWindow;
 
-- (NSString *)toolTip;
-- (void)setToolTip:(NSString *)toolTip;
+- (NSString *) toolTip;
+- (void) setToolTip: (NSString *) toolTip;
 
 // Private
-- (NSTrackingArea *)_trackingArea;
-- (void)_setTrackingArea:(NSTrackingArea *)trackingArea;
+- (NSTrackingArea *) _trackingArea;
+- (void) _setTrackingArea: (NSTrackingArea *) trackingArea;
 
 @end

@@ -21,7 +21,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 typedef NSTrackingArea *NSTrackingRectTag;
 typedef NSTrackingArea *NSToolTipTag;
 
-enum {
+typedef NS_OPTIONS(NSUInteger, NSAutoresizingMaskOptions) {
     NSViewNotSizable = 0x00,
     NSViewMinXMargin = 0x01,
     NSViewWidthSizable = 0x02,
@@ -31,14 +31,14 @@ enum {
     NSViewMaxYMargin = 0x20
 };
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, NSBorderType) {
     NSNoBorder,
     NSLineBorder,
     NSBezelBorder,
     NSGrooveBorder
-} NSBorderType;
+};
 
-enum {
+typedef NS_ENUM(NSInteger, NSViewLayerContentsPlacement) {
     NSViewLayerContentsPlacementScaleAxesIndependently = 0,
     NSViewLayerContentsPlacementScaleProportionallyToFit,
     NSViewLayerContentsPlacementScaleProportionallyToFill,
@@ -52,19 +52,17 @@ enum {
     NSViewLayerContentsPlacementLeft,
     NSViewLayerContentsPlacementTopLeft
 };
-typedef NSInteger NSViewLayerContentsPlacement;
 
-enum {
+typedef NS_ENUM(NSInteger, NSViewLayerContentsRedrawPolicy) {
     NSViewLayerContentsRedrawNever = 0,
     NSViewLayerContentsRedrawOnSetNeedsDisplay,
     NSViewLayerContentsRedrawDuringViewResize,
     NSViewLayerContentsRedrawBeforeViewResize
 };
-typedef NSInteger NSViewLayerContentsRedrawPolicy;
 
-APPKIT_EXPORT NSString *const NSViewFrameDidChangeNotification;
-APPKIT_EXPORT NSString *const NSViewBoundsDidChangeNotification;
-APPKIT_EXPORT NSString *const NSViewFocusDidChangeNotification;
+APPKIT_EXPORT const NSNotificationName NSViewFrameDidChangeNotification;
+APPKIT_EXPORT const NSNotificationName NSViewBoundsDidChangeNotification;
+APPKIT_EXPORT const NSNotificationName NSViewFocusDidChangeNotification;
 
 @interface NSView : NSResponder <NSAnimatablePropertyContainer> {
     NSRect _frame;
@@ -80,7 +78,7 @@ APPKIT_EXPORT NSString *const NSViewFocusDidChangeNotification;
     BOOL _postsNotificationOnBoundsChange;
     BOOL _autoresizesSubviews;
     BOOL _inLiveResize;
-    unsigned _autoresizingMask;
+    NSAutoresizingMaskOptions _autoresizingMask;
     NSInteger _tag;
     NSArray *_draggedTypes;
     NSMutableArray *_trackingAreas;
@@ -117,7 +115,7 @@ APPKIT_EXPORT NSString *const NSViewFocusDidChangeNotification;
 + (NSMenu *)defaultMenu;
 + (NSFocusRingType)defaultFocusRingType;
 
-- initWithFrame:(NSRect)frame;
+- (instancetype) initWithFrame: (NSRect) frame;
 
 - (NSRect)frame;
 - (CGFloat)frameRotation;
@@ -142,7 +140,7 @@ APPKIT_EXPORT NSString *const NSViewFocusDidChangeNotification;
 
 - (NSArray *)subviews;
 - (BOOL)autoresizesSubviews;
-- (unsigned)autoresizingMask;
+- (NSAutoresizingMaskOptions)autoresizingMask;
 - (NSFocusRingType)focusRingType;
 
 - (NSInteger)tag;
@@ -216,7 +214,7 @@ APPKIT_EXPORT NSString *const NSViewFocusDidChangeNotification;
 - (void)didAddSubview:(NSView *)subview;
 - (void)willRemoveSubview:(NSView *)subview;
 - (void)setAutoresizesSubviews:(BOOL)flag;
-- (void)setAutoresizingMask:(unsigned int)mask;
+- (void)setAutoresizingMask:(NSAutoresizingMaskOptions)mask;
 - (void)setFocusRingType:(NSFocusRingType)value;
 
 - (void)setNextKeyView:(NSView *)next;

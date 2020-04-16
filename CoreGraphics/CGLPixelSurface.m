@@ -1,3 +1,5 @@
+#define GL_GLEXT_PROTOTYPES 1
+
 #import <CoreGraphics/CGLPixelSurface.h>
 #import <CoreGraphics/CGWindow.h>
 #import <Onyx2D/O2Image.h>
@@ -69,7 +71,13 @@
    _surface=[[O2Surface_DIBSection alloc] initWithWidth:_width height:-_height compatibleWithDeviceContext:nil];
 #else
     O2ColorSpaceRef colorSpace=O2ColorSpaceCreateDeviceRGB();
-   _surface=[[O2Surface alloc] initWithBytes: NULL Width: _width height: -_height bitsPerComponent: 8 bytesPerRow: 0 colorSpace: colorSpace bitmapInfo: kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Little];
+   _surface = [[O2Surface alloc] initWithBytes: NULL
+                                         width: _width
+                                        height: -_height
+                              bitsPerComponent: 8
+                                   bytesPerRow: 0
+                                    colorSpace: colorSpace
+                                    bitmapInfo: kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Little];
    O2ColorSpaceRelease(colorSpace);
 #endif
    

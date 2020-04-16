@@ -11,40 +11,40 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSModalSessionX
 
--initWithWindow:(NSWindow *)window {
-    _window=[window retain];
-    _unprocessedEvents=[[NSMutableArray alloc] init];
-    _stopCode=NSRunContinuesResponse;
+- (instancetype) initWithWindow: (NSWindow *) window {
+    _window = [window retain];
+    _unprocessedEvents = [[NSMutableArray alloc] init];
+    _stopCode = NSRunContinuesResponse;
     return self;
 }
 
--(void)dealloc {
-   [_window release];
+- (void) dealloc {
+    [_window release];
     [_unprocessedEvents release];
-   [super dealloc];
+    [super dealloc];
 }
 
-+sessionWithWindow:(NSWindow *)window {
-   return [[[self alloc] initWithWindow:window] autorelease];
++ (instancetype) sessionWithWindow: (NSWindow *) window {
+    return [[[self alloc] initWithWindow: window] autorelease];
 }
 
--(void)stopModalWithCode:(int)code {
-   _stopCode=code;
+- (void) stopModalWithCode: (NSModalResponse) code {
+    _stopCode = code;
 }
 
--(NSWindow *)modalWindow {
-   return _window;
+- (NSWindow *) modalWindow {
+    return _window;
 }
 
--(int)stopCode {
-   return _stopCode;
+- (NSModalResponse) stopCode {
+    return _stopCode;
 }
 
--(void)addUnprocessedEvent:(NSEvent *)event {
+- (void) addUnprocessedEvent: (NSEvent *) event {
     [_unprocessedEvents addObject: event];
 }
 
--(NSArray *)unprocessedEvents {
+- (NSArray *) unprocessedEvents {
     return _unprocessedEvents;
 }
 

@@ -22,9 +22,9 @@ along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 
 @implementation X11Pasteboard
 
-static NSMutableDictionary<NSString *, X11Pasteboard *> *nameToPboard;
+static NSMutableDictionary<NSPasteboardName, X11Pasteboard *> *nameToPboard;
 
-+ (X11Pasteboard *) pasteboardWithName: (NSString *) name {
++ (X11Pasteboard *) pasteboardWithName: (NSPasteboardName) name {
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         nameToPboard = [NSMutableDictionary new];
@@ -41,7 +41,7 @@ static NSMutableDictionary<NSString *, X11Pasteboard *> *nameToPboard;
     return nameToPboard[name];
 }
 
-- (instancetype) initWithName: (NSString *) name {
+- (instancetype) initWithName: (NSPasteboardName) name {
     self = [super init];
     _name = [name retain];
 

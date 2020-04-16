@@ -149,7 +149,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    return _tag;
 }
 
--(int)state {
+- (NSControlStateValue) state {
     return _state;
 }
 
@@ -241,7 +241,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    _tag=tag;
 }
 
--(void)setState:(int)state {
+- (void) setState: (NSControlStateValue) state {
     _state = state;
 }
 

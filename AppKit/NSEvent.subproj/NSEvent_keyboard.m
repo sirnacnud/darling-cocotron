@@ -11,34 +11,46 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSEvent_keyboard
 
--initWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned)modifierFlags window:(NSWindow *)window characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers isARepeat:(BOOL)isARepeat keyCode:(unsigned short)keyCode {
-   [super initWithType:type location:location modifierFlags:modifierFlags window:window];
-   _characters=[characters copy];
-   _charactersIgnoringModifiers=[charactersIgnoringModifiers copy];
-   _isARepeat=isARepeat;
-   _keyCode=keyCode;
+- (instancetype) initWithType: (NSEventType) type
+                     location: (NSPoint) location
+                modifierFlags: (NSEventModifierFlags) modifierFlags
+                       window: (NSWindow *) window
+                   characters: (NSString *) characters
+  charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
+                    isARepeat: (BOOL) isARepeat
+                      keyCode: (unsigned short) keyCode
+{
+   [super initWithType: type
+              location: location
+         modifierFlags: modifierFlags
+                window: window];
+
+   _characters = [characters copy];
+   _charactersIgnoringModifiers = [charactersIgnoringModifiers copy];
+   _isARepeat = isARepeat;
+   _keyCode = keyCode;
    return self;
 }
 
--(void)dealloc {
+- (void) dealloc {
    [_characters release];
    [_charactersIgnoringModifiers release];
    [super dealloc];
 }
 
--(NSString *)characters {
+- (NSString *) characters {
    return _characters;
 }
 
--(NSString *)charactersIgnoringModifiers {
+- (NSString *) charactersIgnoringModifiers {
    return _charactersIgnoringModifiers;
 }
 
--(unsigned short)keyCode {
+- (unsigned short) keyCode {
    return _keyCode;
 }
 
-- (BOOL)isARepeat {
+- (BOOL) isARepeat {
    return _isARepeat;
 }
 

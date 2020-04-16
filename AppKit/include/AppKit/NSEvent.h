@@ -79,7 +79,7 @@ typedef NS_ENUM(NSUInteger, NSEventType) {
     NSPlatformSpecificDisplayEvent = 30
 };
 
-typedef enum {
+typedef NS_OPTIONS(unsigned long long, NSEventMask) {
     NSLeftMouseDownMask = 1 << NSLeftMouseDown,
     NSLeftMouseUpMask = 1 << NSLeftMouseUp,
     NSRightMouseDownMask = 1 << NSRightMouseDown,
@@ -100,9 +100,9 @@ typedef enum {
     NSAnyEventMask = 0xffffffff,
 
     NSPlatformSpecificDisplayMask = 1 << NSPlatformSpecificDisplayEvent,
-} NSEventMask;
+};
 
-enum {
+typedef NS_OPTIONS(NSUInteger, NSEventModifierFlags) {
     NSAlphaShiftKeyMask = 1 << 16,
     NSShiftKeyMask = 1 << 17,
     NSControlKeyMask = 1 << 18,
@@ -114,7 +114,7 @@ enum {
     NSDeviceIndependentModifierFlagsMask = 0xffff0000UL
 };
 
-enum {
+enum: unsigned int {
     NSUpArrowFunctionKey = 0xF700,
     NSDownArrowFunctionKey = 0xF701,
     NSLeftArrowFunctionKey = 0xF702,
@@ -195,63 +195,109 @@ enum {
 };
 
 @interface NSEvent : NSObject {
-    int _type;
+    NSEventType _type;
     NSTimeInterval _timestamp;
     NSPoint _locationInWindow;
-    NSUInteger _modifierFlags;
+    NSEventModifierFlags _modifierFlags;
     NSInteger _windowNumber;
 }
 
-+ (NSPoint)mouseLocation;
-+ (NSUInteger)modifierFlags;
++ (NSPoint) mouseLocation;
++ (NSEventModifierFlags) modifierFlags;
 
-- initWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned)modifierFlags window:(NSWindow *)window;
+- (instancetype) initWithType: (NSEventType) type
+                     location: (NSPoint) location
+                modifierFlags: (NSEventModifierFlags) modifierFlags
+                       window: (NSWindow *) window;
 
 // FIXME: get rid of
-+ (NSEvent *)mouseEventWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned int)modifierFlags window:(NSWindow *)window clickCount:(int)clickCount deltaX:(CGFloat)deltaX deltaY:(CGFloat)deltaY;
++ (NSEvent *) mouseEventWithType: (NSEventType) type
+                        location: (NSPoint) location
+                   modifierFlags: (NSEventModifierFlags) modifierFlags
+                          window: (NSWindow *) window
+                      clickCount: (NSInteger) clickCount
+                          deltaX: (CGFloat) deltaX
+                          deltaY: (CGFloat) deltaY;
 
 // FIXME: get rid of
-+ (NSEvent *)mouseEventWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned)modifierFlags window:(NSWindow *)window deltaY:(CGFloat)deltaY;
++ (NSEvent *) mouseEventWithType: (NSEventType) type
+                        location: (NSPoint) location
+                   modifierFlags: (NSEventModifierFlags) modifierFlags
+                          window: (NSWindow *) window
+                          deltaY: (CGFloat) deltaY;
 
-+ (NSEvent *)enterExitEventWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(NSUInteger)flags timestamp:(NSTimeInterval)timestamp windowNumber:(NSInteger)windowNumber context:(NSGraphicsContext *)context eventNumber:(NSInteger)eventNumber trackingNumber:(NSInteger)tracking userData:(void *)userData;
++ (NSEvent *) enterExitEventWithType: (NSEventType) type
+                            location: (NSPoint) location
+                       modifierFlags: (NSEventModifierFlags) flags
+                           timestamp: (NSTimeInterval) timestamp
+                        windowNumber: (NSInteger) windowNumber
+                             context: (NSGraphicsContext *) context
+                         eventNumber: (NSInteger) eventNumber
+                      trackingNumber: (NSInteger) tracking
+                            userData: (void *) userData;
 
-+ (NSEvent *)mouseEventWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(NSUInteger)flags timestamp:(NSTimeInterval)timestamp windowNumber:(NSInteger)windowNumber context:(NSGraphicsContext *)context eventNumber:(NSInteger)eventNumber clickCount:(NSInteger)clickCount pressure:(float)pressure;
++ (NSEvent *) mouseEventWithType: (NSEventType) type
+                        location: (NSPoint) location
+                   modifierFlags: (NSEventModifierFlags) flags
+                       timestamp: (NSTimeInterval) timestamp
+                    windowNumber: (NSInteger) windowNumber
+                         context: (NSGraphicsContext *) context
+                     eventNumber: (NSInteger) eventNumber
+                      clickCount: (NSInteger) clickCount
+                        pressure: (float) pressure;
 
-+ (NSEvent *)keyEventWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned int)modifierFlags timestamp:(NSTimeInterval)timestamp windowNumber:(NSInteger)windowNumber context:(NSGraphicsContext *)context characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers isARepeat:(BOOL)isARepeat keyCode:(unsigned short)keyCode;
++ (NSEvent *) keyEventWithType: (NSEventType) type
+                      location: (NSPoint) location
+                 modifierFlags: (NSEventModifierFlags) modifierFlags
+                     timestamp: (NSTimeInterval) timestamp
+                  windowNumber: (NSInteger) windowNumber
+                       context: (NSGraphicsContext *) context
+                    characters: (NSString *) characters
+   charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
+                     isARepeat: (BOOL) isARepeat
+                       keyCode: (unsigned short) keyCode;
 
-+ (NSEvent *)otherEventWithType:(NSEventType)type location:(NSPoint)location modifierFlags:(NSUInteger)flags timestamp:(NSTimeInterval)timestamp windowNumber:(NSInteger)windowNum context:(NSGraphicsContext *)context subtype:(short)subtype data1:(NSInteger)data1 data2:(NSInteger)data2;
++ (NSEvent *) otherEventWithType: (NSEventType) type
+                        location: (NSPoint) location
+                   modifierFlags: (NSEventModifierFlags) flags
+                       timestamp: (NSTimeInterval) timestamp
+                    windowNumber: (NSInteger) windowNum
+                         context: (NSGraphicsContext *) context
+                         subtype: (short) subtype
+                           data1: (NSInteger) data1
+                           data2: (NSInteger) data2;
 
-- (NSEventType)type;
-- (NSTimeInterval)timestamp;
-- (NSPoint)locationInWindow;
-- (unsigned)modifierFlags;
-- (NSWindow *)window;
-- (NSInteger)windowNumber;
+- (NSEventType) type;
+- (NSTimeInterval) timestamp;
+- (NSPoint) locationInWindow;
+- (NSEventModifierFlags) modifierFlags;
+- (NSWindow *) window;
+- (NSInteger) windowNumber;
 
-- (int)clickCount;
-- (CGFloat)deltaX;
-- (CGFloat)deltaY;
-- (CGFloat)deltaZ;
+- (NSInteger) clickCount;
+- (CGFloat) deltaX;
+- (CGFloat) deltaY;
+- (CGFloat) deltaZ;
 
-- (NSString *)characters;
-- (NSString *)charactersIgnoringModifiers;
-- (unsigned short)keyCode;
+- (NSString *) characters;
+- (NSString *) charactersIgnoringModifiers;
+- (unsigned short) keyCode;
 
-+ (void)startPeriodicEventsAfterDelay:(NSTimeInterval)delay withPeriod:(NSTimeInterval)period;
-+ (void)stopPeriodicEvents;
++ (void) startPeriodicEventsAfterDelay: (NSTimeInterval) delay withPeriod: (NSTimeInterval) period;
++ (void) stopPeriodicEvents;
 
-- (short)subtype;
-- (NSInteger)data1;
-- (NSInteger)data2;
-- (NSInteger)trackingNumber;
-- (NSTrackingArea *)trackingArea;
-- (void *)userData;
+- (short) subtype;
+- (NSInteger) data1;
+- (NSInteger) data2;
+- (NSInteger) trackingNumber;
+- (NSTrackingArea *) trackingArea;
+- (void *) userData;
 
 @property(getter=isARepeat, readonly) BOOL ARepeat;
-- (BOOL)isARepeat;
+- (BOOL) isARepeat;
 @property(readonly) NSInteger buttonNumber;
-- (NSInteger)buttonNumber;
+- (NSInteger) buttonNumber;
 
 @end
 
-APPKIT_EXPORT unsigned NSEventMaskFromType(NSEventType type);
+APPKIT_EXPORT NSEventMask NSEventMaskFromType(NSEventType type);

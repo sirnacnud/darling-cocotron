@@ -497,7 +497,7 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
    NSInteger i,numberOfComponents=[color numberOfComponents];
    CGFloat   components[numberOfComponents];
-   unsigned  pixels[numberOfComponents];
+   NSUInteger  pixels[numberOfComponents];
 
 	// Extract the RGBA components
    [color getComponents:components];

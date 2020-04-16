@@ -9,56 +9,65 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <Foundation/Foundation.h>
 #import <AppKit/NSFont.h>
 #import <CoreServices/UnicodeUtilities.h>
+#import <AppKit/NSPasteboard.h>
+#import <AppKit/NSEvent.h>
 
-@class NSEvent, NSColor, NSPasteboard, NSDraggingManager, NSPrintInfo, NSView, NSSavePanel, NSOpenPanel, CGWindow;
+@class NSColor, NSDraggingManager, NSPrintInfo, NSView, NSSavePanel, NSOpenPanel, NSFontTypeface, CGWindow;
 
 @interface NSDisplay : NSObject {
     NSMutableArray *_eventQueue;
 }
 
-+ (NSDisplay *)currentDisplay;
++ (NSDisplay *) currentDisplay;
 
-- (NSArray *)screens;
+- (NSArray *) screens;
 
-- (NSPasteboard *)pasteboardWithName:(NSString *)name;
+- (NSPasteboard *) pasteboardWithName: (NSPasteboardName) name;
 
-- (NSDraggingManager *)draggingManager;
+- (NSDraggingManager *) draggingManager;
 
 - (CGWindow *) newWindowWithDelegate: (NSWindow *) delegate;
 
-- (NSColor *)colorWithName:(NSString *)colorName;
-- (void)_addSystemColor:(NSColor *)result forName:(NSString *)colorName;
+- (NSColor *) colorWithName: (NSString *) colorName;
+- (void) _addSystemColor: (NSColor *) result forName: (NSString *) colorName;
 
-- (NSTimeInterval)textCaretBlinkInterval;
+- (NSTimeInterval) textCaretBlinkInterval;
 
-- (void)hideCursor;
-- (void)unhideCursor;
+- (void) hideCursor;
+- (void) unhideCursor;
 
-- (id)cursorWithImage:(NSImage *)image hotSpot:(NSPoint)hotSpot;
-- (id)cursorWithName:(NSString *)name;
-- (void)setCursor:(id)cursor;
+- (id) cursorWithImage: (NSImage *) image hotSpot: (NSPoint) hotSpot;
+- (id) cursorWithName: (NSString *) name;
+- (void) setCursor: (id) cursor;
 
-- (NSEvent *)nextEventMatchingMask:(unsigned)mask untilDate:(NSDate *)untilDate inMode:(NSString *)mode dequeue:(BOOL)dequeue;
+- (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
+                          untilDate: (NSDate *) untilDate
+                             inMode: (NSRunLoopMode) mode
+                            dequeue: (BOOL) dequeue;
 
-- (void)discardEventsMatchingMask:(unsigned)mask beforeEvent:(NSEvent *)event;
+- (void) discardEventsMatchingMask: (NSEventMask) mask
+                       beforeEvent: (NSEvent *) event;
 
-- (void)postEvent:(NSEvent *)event atStart:(BOOL)atStart;
+- (void) postEvent: (NSEvent *) event atStart: (BOOL) atStart;
 
-- (BOOL)containsAndRemovePeriodicEvents;
+- (BOOL) containsAndRemovePeriodicEvents;
 
-- (unsigned)modifierForDefault: (NSString *) key : (unsigned) standard;
+- (NSEventModifierFlags) modifierForDefault: (NSString *) key
+                                   standard: (NSEventModifierFlags) standard;
 
-- (void)beep;
+- (void) beep;
 
-- (NSSet *)allFontFamilyNames;
-- (NSArray *)fontTypefacesForFamilyName:(NSString *)name;
+- (NSSet *) allFontFamilyNames;
+- (NSArray<NSFontTypeface *> *) fontTypefacesForFamilyName: (NSString *) name;
 
-- (CGFloat)scrollerWidth;
+- (CGFloat) scrollerWidth;
 
-- (int)runModalPageLayoutWithPrintInfo:(NSPrintInfo *)printInfo;
-- (int)runModalPrintPanelWithPrintInfoDictionary:(NSMutableDictionary *)attributes;
+- (int) runModalPageLayoutWithPrintInfo: (NSPrintInfo *) printInfo;
+- (int) runModalPrintPanelWithPrintInfoDictionary: (NSMutableDictionary *) attributes;
 
-- (CGContextRef)graphicsPortForPrintOperationWithView:(NSView *)view printInfo:(NSPrintInfo *)printInfo pageRange:(NSRange)pageRange;
+- (CGContextRef) graphicsPortForPrintOperationWithView: (NSView *) view
+                                             printInfo: (NSPrintInfo *) printInfo
+                                             pageRange: (NSRange) pageRange;
 
 - (BOOL) implementsCustomPanelForClass: (Class) panelClass;
 
@@ -73,18 +82,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - (CGRect) insetRect: (CGRect) frame forNativeWindowBorderWithStyle: (NSUInteger) styleMask;
 - (CGRect) outsetRect: (CGRect) frame forNativeWindowBorderWithStyle: (NSUInteger) styleMask;
 
-- (NSArray *) modesForScreen:(int)screenIndex;
-- (NSDictionary*) currentModeForScreen:(int)screenIndex;
-- (BOOL) setMode:(NSDictionary *)mode forScreen:(int)screenIndex;
+- (NSArray *) modesForScreen: (int) screenIndex;
+- (NSDictionary*) currentModeForScreen: (int) screenIndex;
+- (BOOL) setMode: (NSDictionary *) mode forScreen: (int) screenIndex;
 
 // Returned memory must be free()ed by the caller
-- (UCKeyboardLayout*) keyboardLayout:(uint32_t*)byteLength;
+- (UCKeyboardLayout*) keyboardLayout: (uint32_t*) byteLength;
 // Returns an opaque number of the current keyboard layout.
 // This is because apps tend to call TISCopyCurrentKeyboardLayoutInputSource() repeatedly
 // and expect to get the same pointer if layout hasn't changed.
-- (int)keyboardLayoutId;
+- (int) keyboardLayoutId;
 
-- (void)warpMouse:(NSPoint)position;
-- (void)grabMouse:(BOOL)doGrab;
+- (void) warpMouse: (NSPoint) position;
+- (void) grabMouse: (BOOL) doGrab;
 
 @end

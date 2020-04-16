@@ -73,19 +73,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    _alternateImage=value;
 }
 
--(void)setState:(int)value {
-   _state=value;
-   _isHighlighted=(_state==NSOnState)?YES:NO;
+- (void) setState: (NSControlStateValue) value {
+    _state = value;
+    _isHighlighted = _state == NSOnState;
 }
 
--(void)set {
-   [self setState:NSOnState];
-   _isHighlighted=YES;
+- (void) set {
+    [self setState: NSControlStateValueOn];
+    _isHighlighted = YES;
 }
 
--(void)reset {
-   [self setState:NSOffState];
-   _isHighlighted=NO;
+- (void) reset {
+    [self setState: NSControlStateValueOff];
+    _isHighlighted = NO;
 }
 
 -(NSColor *)highlightColorInView:(NSView *)view {

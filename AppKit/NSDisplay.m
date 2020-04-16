@@ -11,22 +11,22 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSDisplay
 
-+(void)initialize {
-   if(self==[NSDisplay class]){
-    NSDictionary *map=[NSDictionary dictionaryWithObjectsAndKeys:
-     @"Command",@"LeftControl",
-     @"Alt",@"LeftAlt",
-     @"Control",@"RightControl",
-     @"Alt",@"RightAlt",
-     nil];
-    NSDictionary *modifierMapping=[NSDictionary dictionaryWithObject:map forKey:@"NSModifierFlagMapping"];
++ (void) initialize {
+    if (self == [NSDisplay class]){
+        NSDictionary *map = @{
+            @"LeftControl": @"Command",
+            @"LeftAlt": @"Alt",
+            @"RightControl": @"Control",
+            @"RightAlt": @"Alt"
+        };
+        NSDictionary *modifierMapping = @{ @"NSModifierFlagMapping": map };
 
-    [[NSUserDefaults standardUserDefaults] registerDefaults:modifierMapping];
+        [[NSUserDefaults standardUserDefaults] registerDefaults: modifierMapping];
    }
 }
 
-+(NSDisplay *)currentDisplay {
-   return NSThreadSharedInstance(@"NSDisplay");
++ (NSDisplay *) currentDisplay {
+    return NSThreadSharedInstance(@"NSDisplay");
 }
 
 - (instancetype) init {
@@ -76,19 +76,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return nil;
 }
 
--(NSArray *)screens {
-   NSInvalidAbstractInvocation();
-   return nil;
+- (NSArray<NSScreen *> *) screens {
+    NSInvalidAbstractInvocation();
+    return nil;
 }
 
--(NSPasteboard *)pasteboardWithName:(NSString *)name {
-   NSInvalidAbstractInvocation();
-   return nil;
+- (NSPasteboard *) pasteboardWithName: (NSPasteboardName) name {
+    NSInvalidAbstractInvocation();
+    return nil;
 }
 
--(NSDraggingManager *)draggingManager {
-   NSInvalidAbstractInvocation();
-   return nil;
+- (NSDraggingManager *) draggingManager {
+    NSInvalidAbstractInvocation();
+    return nil;
 }
 
 - (CGWindow *) newWindowWithDelegate: (NSWindow *) delegate {
@@ -96,118 +96,131 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return nil;
 }
 
--(NSColor *)colorWithName:(NSString *)colorName {
-   NSInvalidAbstractInvocation();
-   return nil;
+- (NSColor *) colorWithName: (NSString *) colorName {
+    NSInvalidAbstractInvocation();
+    return nil;
 }
 
--(void)_addSystemColor:(NSColor *) result forName:(NSString *)colorName {
-   NSInvalidAbstractInvocation();
+- (void) _addSystemColor: (NSColor *) result forName: (NSString *) colorName {
+    NSInvalidAbstractInvocation();
  }
 
 
--(NSTimeInterval)textCaretBlinkInterval {
-   NSInvalidAbstractInvocation();
-   return 1;
+- (NSTimeInterval) textCaretBlinkInterval {
+    NSInvalidAbstractInvocation();
+    return 1;
 }
 
--(void)hideCursor {
-   NSInvalidAbstractInvocation();
+- (void) hideCursor {
+    NSInvalidAbstractInvocation();
 }
 
--(void)unhideCursor {
-   NSInvalidAbstractInvocation();
+- (void) unhideCursor {
+    NSInvalidAbstractInvocation();
 }
 
 // Arrow, IBeam, HorizontalResize, VerticalResize
--(id)cursorWithName:(NSString *)name {
-   NSInvalidAbstractInvocation();
-   return nil;
+- (id) cursorWithName: (NSString *) name {
+    NSInvalidAbstractInvocation();
+    return nil;
 }
 
--(void)setCursor:(id)cursor {
-   NSInvalidAbstractInvocation();
+- (void) setCursor: (id) cursor {
+    NSInvalidAbstractInvocation();
 }
 
--(NSEvent *)nextEventMatchingMask:(unsigned)mask untilDate:(NSDate *)untilDate inMode:(NSString *)mode dequeue:(BOOL)dequeue {
-   NSEvent *result=nil;
+- (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
+                          untilDate: (NSDate *) untilDate
+                             inMode: (NSString *) mode
+                            dequeue: (BOOL) dequeue
+{
+    NSEvent *result = nil;
 
-   if([_eventQueue count])
-      untilDate=[NSDate date];
-   
-   [[NSRunLoop currentRunLoop] runMode:mode beforeDate:untilDate];
+    if ([_eventQueue count])
+        untilDate = [NSDate date];
 
-   while(result==nil && [_eventQueue count]>0){
-    NSEvent *check=[_eventQueue objectAtIndex:0];
-    
-    if(!(NSEventMaskFromType([check type])&mask))
-     [_eventQueue removeObjectAtIndex:0];
-   else {
-     result=[[check retain] autorelease];
+    [[NSRunLoop currentRunLoop] runMode: mode beforeDate: untilDate];
 
-    if(dequeue)
-     [_eventQueue removeObjectAtIndex:0];
-   }
-   }
+    while (result == nil && [_eventQueue count] > 0) {
+        NSEvent *event = _eventQueue[0];
 
-   if(result==nil)
-    result=[[[NSEvent alloc] initWithType:NSAppKitSystem location:NSMakePoint(0,0) modifierFlags:0 window:nil] autorelease];
-   
-   return result;
-}
+        if (!(NSEventMaskFromType([event type]) & mask)) {
+            [_eventQueue removeObjectAtIndex: 0];
+        } else {
+            result = [[event retain] autorelease];
 
--(void)discardEventsMatchingMask:(unsigned)mask beforeEvent:(NSEvent *)event {
-   int count=[_eventQueue count];
-
-   while(--count>=0){
-    NSEvent *check=[_eventQueue objectAtIndex:count];
-
-    if(check==event)
-     break;
-   }
-
-   while(--count>=0){
-    if(NSEventMaskFromType([event type])&mask)
-     [_eventQueue removeObjectAtIndex:count];
-   }
-}
-
--(void)postEvent:(NSEvent *)event atStart:(BOOL)atStart {
-   if(atStart)
-    [_eventQueue insertObject:event atIndex:0];
-   else
-    [_eventQueue addObject:event];
-}
-
--(BOOL)containsAndRemovePeriodicEvents {
-   BOOL result=NO;
-   int  count=[_eventQueue count];
-
-   while(--count>=0){
-    if([(NSEvent *)[_eventQueue objectAtIndex:count] type]==NSPeriodic){
-     result=YES;
-     [_eventQueue removeObjectAtIndex:count];
+            if (dequeue)
+                [_eventQueue removeObjectAtIndex: 0];
+        }
     }
-   }
 
-   return result;
+    if (result == nil) {
+        result = [[[NSEvent alloc] initWithType: NSAppKitSystem
+                                       location: NSZeroPoint
+                                  modifierFlags: 0
+                                         window: nil]
+                     autorelease];
+    }
+
+    return result;
 }
 
--(unsigned)modifierForDefault:(NSString *)key:(unsigned)standard {
-   NSDictionary *modmap=[[NSUserDefaults standardUserDefaults] dictionaryForKey:@"NSModifierFlagMapping"];
-   NSString     *remap=[modmap objectForKey:key];
+- (void) discardEventsMatchingMask: (NSEventMask) mask beforeEvent: (NSEvent *) event {
+    NSInteger count = [_eventQueue count];
 
-   if([remap isEqualToString:@"Command"])
-    return NSCommandKeyMask;
-   if([remap isEqualToString:@"Alt"])
-    return NSAlternateKeyMask;
-   if([remap isEqualToString:@"Control"])
-    return NSControlKeyMask;
+    while (--count >= 0) {
+        if (_eventQueue[count] == event) {
+            break;
+        }
+    }
 
-   return standard;
+    while (--count >= 0) {
+        if (NSEventMaskFromType([event type]) & mask) {
+            [_eventQueue removeObjectAtIndex: count];
+        }
+    }
 }
 
--(void)beep {
+- (void) postEvent: (NSEvent *) event atStart: (BOOL) atStart {
+    if (atStart) {
+        [_eventQueue insertObject: event atIndex: 0];
+    } else {
+        [_eventQueue addObject: event];
+    }
+}
+
+- (BOOL) containsAndRemovePeriodicEvents {
+    BOOL result = NO;
+    NSUInteger count = [_eventQueue count];
+
+    while (--count >= 0) {
+        NSEvent *event = _eventQueue[count];
+        if ([event type]==NSPeriodic) {
+            result = YES;
+            [_eventQueue removeObjectAtIndex: count];
+        }
+    }
+
+    return result;
+}
+
+- (NSEventModifierFlags) modifierForDefault: (NSString *) key
+                                   standard: (NSEventModifierFlags) standard
+{
+    NSDictionary *modmap = [[NSUserDefaults standardUserDefaults] dictionaryForKey: @"NSModifierFlagMapping"];
+    NSString *remap = modmap[key];
+
+    if ([remap isEqualToString: @"Command"])
+        return NSCommandKeyMask;
+    if ([remap isEqualToString: @"Alt"])
+        return NSAlternateKeyMask;
+    if ([remap isEqualToString: @"Control"])
+        return NSControlKeyMask;
+
+    return standard;
+}
+
+- (void) beep {
    NSInvalidAbstractInvocation();
 }
 

@@ -10,6 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <AppKit/AppKitExport.h>
 
 typedef NSString *NSPasteboardType;
+typedef NSString *NSPasteboardName;
 
 // New Pasteboard Types (added in 10.6) and interchangeable with the old pasteboard types in Cocotron
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeString;
@@ -44,13 +45,13 @@ APPKIT_EXPORT const NSPasteboardType NSFilesPromisePboardType;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardNameDrag;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardURLReadingFileURLsOnlyKey;
 
-APPKIT_EXPORT NSString *const NSDragPboard;
-APPKIT_EXPORT NSString *const NSFindPboard;
-APPKIT_EXPORT NSString *const NSFontPboard;
-APPKIT_EXPORT NSString *const NSGeneralPboard;
-APPKIT_EXPORT NSString *const NSRulerPboard;
+APPKIT_EXPORT const NSPasteboardName NSDragPboard;
+APPKIT_EXPORT const NSPasteboardName NSFindPboard;
+APPKIT_EXPORT const NSPasteboardName NSFontPboard;
+APPKIT_EXPORT const NSPasteboardName NSGeneralPboard;
+APPKIT_EXPORT const NSPasteboardName NSRulerPboard;
 
-APPKIT_EXPORT NSString *const NSPasteboardNameGeneral;
+APPKIT_EXPORT const NSPasteboardName NSPasteboardNameGeneral;
 
 typedef NSString *NSPasteboardReadingOptionKey;
 
@@ -67,9 +68,9 @@ APPKIT_EXPORT const NSPasteboardReadingOptionKey NSPasteboardURLReadingContentsC
 @interface NSPasteboard : NSObject
 
 + (NSPasteboard *) generalPasteboard;
-+ (NSPasteboard *) pasteboardWithName: (NSString *) name;
++ (NSPasteboard *) pasteboardWithName: (NSPasteboardName) name;
 
-- (NSString *) name;
+- (NSPasteboardName) name;
 - (NSInteger) changeCount;
 
 - (NSInteger) clearContents;

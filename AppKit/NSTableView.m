@@ -1742,10 +1742,9 @@ _dataSource);
     [self tile];
 }
 
-- (unsigned)draggingSourceOperationMaskForLocal:(BOOL)isLocal { 
-        return NSDragOperationCopy; 
-
-} 
+- (NSDragOperation) draggingSourceOperationMaskForLocal: (BOOL) isLocal {
+    return NSDragOperationCopy;
+}
 
 - (NSInteger)_getDraggedRow:(id <NSDraggingInfo>)info { 
 	NSPoint dragPoint = [self convertPoint:[info draggingLocation] fromView:nil];
@@ -1775,27 +1774,21 @@ _dataSource);
 
 } 
 
-- (unsigned)draggingEntered:(id <NSDraggingInfo>)sender { 
-        NSInteger i; 
-        for(i = 0; i < [[self _draggedTypes] count]; i++) 
-        { 
-                if ([[[sender draggingPasteboard] types] containsObject:[[self _draggedTypes] objectAtIndex: i]]) 
-                        return [self _validateDraggedRow:sender]; 
-        } 
-        return NSDragOperationNone; 
+- (NSDragOperation) draggingEntered: (id<NSDraggingInfo>) sender {
+    for (NSInteger i = 0; i < [[self _draggedTypes] count]; i++) {
+        if ([[[sender draggingPasteboard] types] containsObject:[[self _draggedTypes] objectAtIndex: i]])
+            return [self _validateDraggedRow:sender];
+    }
+    return NSDragOperationNone;
+}
 
-} 
-
-- (unsigned)draggingUpdated:(id <NSDraggingInfo>)sender { 
-        NSInteger i; 
-        for(i = 0; i < [[self _draggedTypes] count]; i++) 
-        { 
-                if ([[[sender draggingPasteboard] types] containsObject:[[self _draggedTypes] objectAtIndex: i]]) 
-                        return [self _validateDraggedRow:sender]; 
-        } 
-        return NSDragOperationNone; 
-
-} 
+- (NSDragOperation) draggingUpdated: (id<NSDraggingInfo>) sender {
+    for (NSInteger i = 0; i < [[self _draggedTypes] count]; i++) {
+        if ([[[sender draggingPasteboard] types] containsObject:[[self _draggedTypes] objectAtIndex: i]])
+            return [self _validateDraggedRow: sender];
+    }
+    return NSDragOperationNone;
+}
 
 - (void)draggingExited:(id <NSDraggingInfo>)sender 
 { 

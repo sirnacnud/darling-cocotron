@@ -24,45 +24,52 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSToolTipWindow
 
-+ (NSToolTipWindow *)sharedToolTipWindow
++ (NSToolTipWindow *) sharedToolTipWindow
 {
     static NSToolTipWindow *singleton = nil;
-    
-    if (singleton == nil){
-        singleton = [[NSToolTipWindow alloc] initWithContentRect:NSMakeRect(0, 0, 20, 20) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-        [singleton setLevel:NSPopUpMenuWindowLevel];
+
+    if (singleton == nil) {
+        singleton = [[NSToolTipWindow alloc] initWithContentRect: NSMakeRect(0, 0, 20, 20)
+                                                       styleMask: NSBorderlessWindowMask
+                                                         backing: NSBackingStoreBuffered
+                                                           defer: NO];
+        [singleton setLevel: NSPopUpMenuWindowLevel];
     }
-    
+
     return singleton;
 }
 
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)styleMask backing:(unsigned)backing defer:(BOOL)defer
+- (instancetype) initWithContentRect: (NSRect) contentRect
+                           styleMask: (NSWindowStyleMask) styleMask
+                             backing: (NSBackingStoreType) backing
+                               defer: (BOOL) defer
 {
-    [super initWithContentRect:contentRect styleMask:styleMask backing:backing defer:defer];
-    _textField = [[NSTextField alloc] initWithFrame:contentRect]; // Will be adjusted later.
-    [_textField setFrameOrigin:NSMakePoint(2., -3.)]; // Should be (0., 0.).
-    [_textField setFont:[NSFont toolTipsFontOfSize:0.]];
-    [_textField setEditable:NO];
-    [_textField setBordered:NO];
-    [_textField setBezeled:NO];
-    [self setBackgroundColor:[NSColor colorWithDeviceRed:1. green:1. blue:.88 alpha:1.]];
-    [_backgroundView setWindowBorderType:NSWindowToolTipBorderType];
-    [[self contentView] addSubview:_textField];
+    [super initWithContentRect: contentRect
+                     styleMask: styleMask
+                       backing: backing
+                         defer: defer];
 
-    _trackingArea = nil;
-    _sizeAdjusted = NO;
+    _textField = [[NSTextField alloc] initWithFrame: contentRect]; // Will be adjusted later.
+    [_textField setFrameOrigin: NSMakePoint(2., -3.)]; // Should be (0., 0.).
+    [_textField setFont: [NSFont toolTipsFontOfSize: 0.]];
+    [_textField setEditable: NO];
+    [_textField setBordered: NO];
+    [_textField setBezeled: NO];
+    [self setBackgroundColor: [NSColor colorWithDeviceRed: 1. green: 1. blue: .88 alpha: 1.]];
+    [_backgroundView setWindowBorderType: NSWindowToolTipBorderType];
+    [[self contentView] addSubview: _textField];
 
     return self;
 }
 
-- (NSString *)toolTip
+- (NSString *) toolTip
 {
     return [_textField stringValue];
 }
 
-- (void)setToolTip:(NSString *)toolTip
+- (void) setToolTip: (NSString *) toolTip
 {
-    [_textField setStringValue:toolTip];
+    [_textField setStringValue: toolTip];
     _sizeAdjusted = NO;
 }
 
@@ -70,41 +77,44 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return _trackingArea;
 }
 
-- (void)_setTrackingArea:(NSTrackingArea *)trackingArea {
-    _trackingArea=trackingArea;
+- (void) _setTrackingArea: (NSTrackingArea *) trackingArea {
+    _trackingArea = trackingArea;
 }
 
 // NSWindow override.
--(void)orderFront:sender
-{
-    if (_sizeAdjusted == NO) {
+- (void) orderFront: (id) sender {
+    if (!_sizeAdjusted) {
         NSSize messageSize = NSZeroSize;
         NSRect windowFrame = [self frame];
 
         messageSize = [[NSScreen mainScreen] visibleFrame].size;
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"NSToolTipAutoWrappingDisabled"]==NO)
-         messageSize.width /= 4.;
-        else
-         messageSize.width = NSStringDrawerLargeDimension;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"NSToolTipAutoWrappingDisabled"] == NO) {
+            messageSize.width /= 4.;
+        } else {
+            messageSize.width = NSStringDrawerLargeDimension;
+        }
 
-        messageSize=[[NSStringDrawer sharedStringDrawer] sizeOfString:[_textField stringValue] withAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont toolTipsFontOfSize:0.], NSFontAttributeName, nil] inSize:messageSize];
+        NSStringDrawer *stringDrawer = [NSStringDrawer sharedStringDrawer];
+        messageSize = [stringDrawer sizeOfString: [_textField stringValue]
+                                  withAttributes: @{ NSFontAttributeName: [NSFont toolTipsFontOfSize:0.] }
+                                          inSize: messageSize];
         messageSize.width += TEXTFIELD_MARGIN * 2;
         messageSize.width += 2.; // Shouldn't be neccessary.
         messageSize.height += TEXTFIELD_MARGIN * 2;
 
-        [_textField setFrameSize:messageSize];
-		
+        [_textField setFrameSize: messageSize];
+
         windowFrame.origin = [NSEvent mouseLocation];
         windowFrame.origin.x += 10.;
         windowFrame.origin.y += 10.;
         windowFrame.size = messageSize;
         windowFrame.size.height -= 1.; // Shouldn't be neccessary.
-        [self setFrame:windowFrame display:YES];
-        
+        [self setFrame: windowFrame display: YES];
+
         _sizeAdjusted = YES;
     }
 
-    [super orderFront:sender];
+    [super orderFront: sender];
 }
 
 @end

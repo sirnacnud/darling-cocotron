@@ -38,16 +38,17 @@ const NSPasteboardType NSTIFFPboardType = @"NSTIFFPboardType";
 const NSPasteboardType NSURLPboardType = @"NSURLPboardType";
 
 const NSPasteboardType NSFilesPromisePboardType = @"Apple files promise pasteboard type";
-NSString * const NSPasteboardNameDrag = @"Apple CFPasteboard drag";
+
+const NSPasteboardName NSPasteboardNameDrag = @"Apple CFPasteboard drag";
 NSString * const NSPasteboardURLReadingFileURLsOnlyKey = @"NSPasteboardURLReadingFileURLsOnlyKey";
 
-NSString * const NSDragPboard=@"NSDragPboard";
-NSString * const NSFindPboard=@"NSFindPboard";
-NSString * const NSFontPboard=@"NSFontPboard";
-NSString * const NSGeneralPboard=@"NSGeneralPboard";
-NSString * const NSRulerPboard=@"NSRulerPboard";
+const NSPasteboardName NSDragPboard = @"NSDragPboard";
+const NSPasteboardName NSFindPboard = @"NSFindPboard";
+const NSPasteboardName NSFontPboard = @"NSFontPboard";
+const NSPasteboardName NSGeneralPboard = @"NSGeneralPboard";
+const NSPasteboardName NSRulerPboard = @"NSRulerPboard";
 
-NSString * const NSPasteboardNameGeneral = @"Apple CFPasteboard general";
+const NSPasteboardName NSPasteboardNameGeneral = @"Apple CFPasteboard general";
 
 const NSPasteboardReadingOptionKey NSPasteboardURLReadingContentsConformToTypesKey = @"NSPasteboardURLReadingContentsConformToTypesKey";
 
@@ -57,11 +58,11 @@ const NSPasteboardReadingOptionKey NSPasteboardURLReadingContentsConformToTypesK
    return [self pasteboardWithName: NSGeneralPboard];
 }
 
-+ (NSPasteboard *) pasteboardWithName: (NSString *) name {
++ (NSPasteboard *) pasteboardWithName: (NSPasteboardName) name {
    return [[NSDisplay currentDisplay] pasteboardWithName: name];
 }
 
-- (NSString *) name {
+- (NSPasteboardName) name {
     NSUnimplementedMethod();
     return nil;
 }

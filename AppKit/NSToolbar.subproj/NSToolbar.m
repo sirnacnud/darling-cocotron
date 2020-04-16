@@ -23,25 +23,25 @@ NSSize _NSToolbarSizeSmall = { 32, 32 };
 NSSize _NSToolbarIconSizeRegular = { 32, 32 };
 NSSize _NSToolbarIconSizeSmall = { 24, 24 };
 
-NSString * const NSToolbarWillAddItemNotification = @"NSToolbarWillAddItemNotification";
-NSString * const NSToolbarDidRemoveItemNotification = @"NSToolbarDidRemoveItemNotification";
+const NSNotificationName NSToolbarWillAddItemNotification = @"NSToolbarWillAddItemNotification";
+const NSNotificationName NSToolbarDidRemoveItemNotification = @"NSToolbarDidRemoveItemNotification";
 
-// private inter-toolbar notification
-NSString * const NSToolbarChangeAppearanceNotification = @"__NSToolbarChangeAppearanceNotification";
+// Private inter-toolbar notification.
+const NSNotificationName NSToolbarChangeAppearanceNotification = @"__NSToolbarChangeAppearanceNotification";
 
 @interface NSWindow(NSToolbarPrivate)
--(void)_toolbarSizeDidChangeFromOldHeight:(CGFloat)oldHeight;
+- (void) _toolbarSizeDidChangeFromOldHeight: (CGFloat) oldHeight;
 @end
 
 @interface NSToolbarItem(private)
--(void)_setToolbar:(NSToolbar *)toolbar;
+- (void) _setToolbar: (NSToolbar *) toolbar;
 @end
 
 @implementation NSToolbar
 
--(NSDictionary *)_labelAttributesForSizeMode:(NSToolbarSizeMode)sizeMode {
+- (NSDictionary *) _labelAttributesForSizeMode:(NSToolbarSizeMode)sizeMode {
    NSMutableParagraphStyle *style = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
-    
+
    [style setLineBreakMode:NSLineBreakByClipping];
    [style setAlignment:NSCenterTextAlignment];
  
@@ -246,81 +246,83 @@ static BOOL isStandardItemIdentifier(NSString *identifier){
    return item;
 }
 
--(NSArray *)_itemsWithIdentifiers:(NSArray*)identifiers {   
-   NSMutableArray *result=[NSMutableArray array];
-   
-   for (NSString *identifier in identifiers) {
-    NSToolbarItem *item=[self _itemForItemIdentifier:identifier willBeInsertedIntoToolbar:NO];
-    
-    if(item!=nil)
-     [result addObject:item];
-   }
-   
-   return result;
+- (NSArray *) _itemsWithIdentifiers: (NSArray *) identifiers {
+    NSMutableArray *result = [NSMutableArray array];
+
+    for (NSToolbarItemIdentifier identifier in identifiers) {
+        NSToolbarItem *item = [self _itemForItemIdentifier: identifier willBeInsertedIntoToolbar: NO];
+
+        if (item != nil)
+            [result addObject: item];
+    }
+
+    return result;
 }
 
--(void)_insertItem:(NSToolbarItem *)item atIndex:(NSInteger)index {
-   [[NSNotificationCenter defaultCenter] postNotificationName:NSToolbarWillAddItemNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:item, @"item", [NSNumber numberWithInteger:index],@"index",nil]];
+- (void) _insertItem: (NSToolbarItem *) item atIndex: (NSInteger) index {
+    [[NSNotificationCenter defaultCenter] postNotificationName: NSToolbarWillAddItemNotification
+                                                        object: self
+                                                      userInfo: @{ @"item": item, @"index": @(index) }];
 
-   [_items insertObject:item atIndex:index];
-   [_view _insertItem:item atIndex:index];
+    [_items insertObject: item atIndex: index];
+    [_view _insertItem: item atIndex: index];
 }
 
--(void)_removeItemAtIndex:(NSInteger)index {
-   NSToolbarItem *item=[[[_items objectAtIndex:index] retain] autorelease];
+- (void) _removeItemAtIndex: (NSInteger) index {
+    NSToolbarItem *item = [[_items[index] retain] autorelease];
 
-   [_items removeObjectAtIndex:index];
-   [_view _removeItemAtIndex:index];
+    [_items removeObjectAtIndex: index];
+    [_view _removeItemAtIndex: index];
 
-   [[NSNotificationCenter defaultCenter] postNotificationName:NSToolbarDidRemoveItemNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:item, @"item", nil]];
+    [[NSNotificationCenter defaultCenter] postNotificationName: NSToolbarDidRemoveItemNotification
+                                                        object: self
+                                                      userInfo: @{ @"item": item, @"index": @(index) }];
 }
 
--(void)toolbarWillAddItem:(NSNotification *)note {
-   NSToolbar *toolbar=[note object];
-   
-   if(toolbar==self)
-    return;
-   if(![[toolbar identifier] isEqualToString:_identifier])
-    return;
+- (void) toolbarWillAddItem: (NSNotification *) note {
+    NSToolbar *toolbar = [note object];
 
-   NSToolbarItem *item=[[note userInfo] objectForKey:@"item"];
+    if (toolbar == self)
+        return;
+    if (![[toolbar identifier] isEqualToString: _identifier])
+        return;
 
-   if([_items containsObject:item])
-    return;
-    
-   NSInteger      index=[[[note userInfo] objectForKey:@"index"] integerValue];
-   
-   [self _insertItem:item atIndex:index];
+    NSToolbarItem *item = [note userInfo][@"item"];
+
+    if ([_items containsObject: item])
+        return;
+
+    NSInteger index = [[note userInfo][@"index"] integerValue];
+    [self _insertItem: item atIndex: index];
 }
 
--(void)toolbarDidRemoveItem:(NSNotification *)note {
-   NSToolbar *toolbar=[note object];
-   
-   if(toolbar==self)
-    return;
-   if(![[toolbar identifier] isEqualToString:_identifier])
-    return;
-    
-   NSToolbarItem *item=[[note userInfo] objectForKey:@"item"];
-   NSInteger      index=[[[note userInfo] objectForKey:@"index"] integerValue];
+- (void) toolbarDidRemoveItem: (NSNotification *) note {
+    NSToolbar *toolbar = [note object];
 
-   [self _removeItemAtIndex:index];
+    if (toolbar == self)
+        return;
+    if (![[toolbar identifier] isEqualToString: _identifier])
+        return;
+
+    NSToolbarItem *item = [note userInfo][@"item"];
+    NSInteger index = [[note userInfo][@"index"] integerValue];
+
+    [self _removeItemAtIndex: index];
 }
 
--(void)insertItemWithItemIdentifier:(NSString *)identifier atIndex:(int)index {
-   NSToolbarItem *item=[self _itemForItemIdentifier:identifier willBeInsertedIntoToolbar:YES];
-    
-   [self _insertItem:item atIndex:index];
-   
-   if([self autosavesConfiguration])
-    [self saveConfiguration];
+- (void) insertItemWithItemIdentifier: (NSToolbarItemIdentifier) identifier atIndex: (NSInteger) index {
+    NSToolbarItem *item = [self _itemForItemIdentifier: identifier willBeInsertedIntoToolbar: YES];
+    [self _insertItem: item atIndex: index];
+
+    if ([self autosavesConfiguration])
+        [self saveConfiguration];
 }
 
--(void)removeItemAtIndex:(int)index {
-   [self _removeItemAtIndex:index];
+- (void) removeItemAtIndex: (NSInteger) index {
+    [self _removeItemAtIndex: index];
 
-   if([self autosavesConfiguration])
-    [self saveConfiguration];
+    if ([self autosavesConfiguration])
+        [self saveConfiguration];
 }
 
 // called from drag&drop
@@ -332,16 +334,16 @@ static BOOL isStandardItemIdentifier(NSString *identifier){
     [self saveConfiguration];
 }
 
--(NSArray *)_defaultToolbarItems {
-   NSArray *result=nil;
+- (NSArray *) _defaultToolbarItems {
+    NSArray *result = nil;
 
-   if([_delegate respondsToSelector:@selector(toolbarDefaultItemIdentifiers:)])
-    result=[self _itemsWithIdentifiers:[_delegate toolbarDefaultItemIdentifiers:self]];
+    if ([_delegate respondsToSelector: @selector(toolbarDefaultItemIdentifiers:)])
+        result = [self _itemsWithIdentifiers: [_delegate toolbarDefaultItemIdentifiers: self]];
 
-   if(result==nil)
-    result=_defaultItems;
-    
-   return result;
+    if (result == nil)
+        result = _defaultItems;
+
+    return result;
 }
 
 -(void)loadDefaultItemsIfNeeded {

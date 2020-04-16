@@ -7,6 +7,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/NSObject.h>
+#import <AppKit/NSCell.h>
 #import <AppKit/NSUserInterfaceValidation.h>
 
 @class NSMenu, NSImage, NSAttributedString;
@@ -26,7 +27,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     NSInteger _indentationLevel;
     BOOL _enabled;
     BOOL _hidden;
-    int _state;
+    NSControlStateValue _state;
     id _representedObject;
     NSImage *_image;
     NSImage *_onStateImage;
@@ -36,18 +37,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 + (NSMenuItem *)separatorItem;
 
-- initWithTitle:(NSString *)title action:(SEL)action keyEquivalent:(NSString *)keyEquivalent;
+- (instancetype) initWithTitle: (NSString *) title
+                        action: (SEL) action
+                 keyEquivalent: (NSString *) keyEquivalent;
 
 - (NSMenu *)menu;
 - (NSString *)title;
 - (NSAttributedString *)attributedTitle;
 - (NSString *)mnemonic;
 - (unsigned)mnemonicLocation;
-- target;
+- (id) target;
 - (SEL)action;
 - (NSInteger)indentationLevel;
 - (NSInteger)tag;
-- (int)state;
+- (NSControlStateValue)state;
 - (NSString *)keyEquivalent;
 - (unsigned)keyEquivalentModifierMask;
 - (NSImage *)image;
@@ -72,7 +75,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - (void)setAction:(SEL)action;
 - (void)setIndentationLevel:(NSInteger)indentationLevel;
 - (void)setTag:(NSInteger)tag;
-- (void)setState:(int)state;
+- (void)setState:(NSControlStateValue)state;
 - (void)setKeyEquivalent:(NSString *)keyEquivalent;
 - (void)setKeyEquivalentModifierMask:(unsigned)mask;
 - (void)setImage:(NSImage *)image;

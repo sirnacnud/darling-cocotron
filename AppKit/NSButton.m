@@ -14,6 +14,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <AppKit/NSRaise.h>
 #import <AppKit/NSFont.h>
 #import <AppKit/NSFontManager.h>
+#import <AppKit/NSColor.h>
 
 @implementation NSButton
 
@@ -59,7 +60,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    return [_cell keyEquivalent];
 }
 
--(NSUInteger)keyEquivalentModifierMask {
+-(NSEventModifierFlags)keyEquivalentModifierMask {
    return [_cell keyEquivalentModifierMask];
 }
 
@@ -75,8 +76,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    return [_cell title];
 }
 
--(NSInteger)state {
-   return [_cell state];
+- (NSControlStateValue) state {
+    return [_cell state];
 }
 
 -(BOOL)allowsMixedState {
@@ -125,7 +126,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    [self setNeedsDisplay:YES];
 }
 
--(void)setKeyEquivalentModifierMask:(NSUInteger)value {
+-(void)setKeyEquivalentModifierMask:(NSEventModifierFlags)value {
    [_cell setKeyEquivalentModifierMask:value];
 }
 
@@ -144,9 +145,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    [self setNeedsDisplay:YES];
 }
 
--(void)setState:(NSInteger)value {
-   [_cell setState:value];
-   [self setNeedsDisplay:YES];
+- (void) setState: (NSControlStateValue) value {
+    [_cell setState: value];
+    [self setNeedsDisplay: YES];
 }
 
 -(void)setNextState {

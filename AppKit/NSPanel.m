@@ -12,140 +12,212 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSPanel
 
-+(BOOL)hasMainMenuForStyleMask:(NSUInteger)styleMask {
++ (BOOL) hasMainMenuForStyleMask: (NSWindowStyleMask) styleMask {
     return NO;
 }
 
--initWithContentRect:(NSRect)contentRect styleMask:(unsigned int)styleMask backing:(unsigned)backing defer:(BOOL)defer {
-   [super initWithContentRect:contentRect styleMask:styleMask backing:backing defer:defer];
-	if ((styleMask & NSUtilityWindowMask) ||
-		(styleMask & NSDocModalWindowMask)) {
-		_level = NSFloatingWindowLevel; // We want these panels to be above normal windows - so they don't get lost!
-	} else {
-		_level = NSNormalWindowLevel;
-	}
-   _releaseWhenClosed=NO;
-   return self;
+- (instancetype) initWithContentRect: (NSRect) contentRect
+                           styleMask: (NSWindowStyleMask) styleMask
+                             backing: (NSBackingStoreType) backing
+                               defer: (BOOL) defer
+{
+    self = [super initWithContentRect: contentRect
+                            styleMask: styleMask
+                              backing: backing
+                                defer: defer];
+    if ((styleMask & NSUtilityWindowMask) || (styleMask & NSDocModalWindowMask)) {
+        // We want these panels to be above normal windows - so they don't get lost!
+        _level = NSFloatingWindowLevel;
+    } else {
+        _level = NSNormalWindowLevel;
+    }
+    _releaseWhenClosed=NO;
+    return self;
 }
 
--(BOOL)canBecomeMainWindow {
-   return NO;
+- (BOOL) canBecomeMainWindow {
+    return NO;
 }
 
--(void)becomeMainWindow {
-   if([self canBecomeMainWindow])
-    [super becomeMainWindow];
+- (void) becomeMainWindow {
+    if ([self canBecomeMainWindow])
+        [super becomeMainWindow];
 }
 
--(BOOL)worksWhenModal {
-   return _worksWhenModal;
+- (BOOL) worksWhenModal {
+    return _worksWhenModal;
 }
 
--(BOOL)becomesKeyOnlyIfNeeded {
-   return _becomesKeyOnlyIfNeeded;
+- (BOOL) becomesKeyOnlyIfNeeded {
+    return _becomesKeyOnlyIfNeeded;
 }
 
--(BOOL)isFloatingPanel {
-   return _isFloatingPanel;
+- (BOOL) isFloatingPanel {
+    return _isFloatingPanel;
 }
 
--(void)setWorksWhenModal:(BOOL)flag {
-   _worksWhenModal=flag;
+- (void) setWorksWhenModal: (BOOL) flag {
+    _worksWhenModal=flag;
 }
 
--(void)setBecomesKeyOnlyIfNeeded:(BOOL)flag {
-   _becomesKeyOnlyIfNeeded=flag;
+- (void) setBecomesKeyOnlyIfNeeded: (BOOL) flag {
+    _becomesKeyOnlyIfNeeded=flag;
 }
 
--(void)setFloatingPanel:(BOOL)flag {
-   _isFloatingPanel=flag;
+- (void) setFloatingPanel: (BOOL) flag {
+    _isFloatingPanel=flag;
 }
 
 @end
 
-int NSRunAlertPanel(NSString *title, NSString *format, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...) {
-   va_list          arguments;
-   NSString        *message;
-   NSPanel         *panel;
-   int              result;
+NSInteger NSRunAlertPanel(
+    NSString *title,
+    NSString *format,
+    NSString *defaultButton,
+    NSString *alternateButton,
+    NSString *otherButton,
+    ...
+) {
+    va_list arguments;
+    va_start(arguments, otherButton);
+    NSString *message = [[[NSString alloc] initWithFormat: format arguments: arguments] autorelease];
 
-   va_start(arguments,otherButton);
+    NSPanel *panel = [[NSAlertPanel alloc] initWithTitle: title
+                                                 message: message
+                                           defaultButton: defaultButton
+                                         alternateButton: alternateButton
+                                             otherButton: otherButton
+                                                   sheet: NO];
 
-   message=[[[NSString alloc] initWithFormat:format arguments:arguments] autorelease];
-
-   panel=[[NSAlertPanel alloc] initWithTitle:title message:message defaultButton:defaultButton alternateButton:alternateButton otherButton:otherButton sheet:NO];
-
-   result=[NSApp runModalForWindow:panel];
-
-   [panel release];
-
-   return result;
+    NSInteger result = [NSApp runModalForWindow: panel];
+    [panel release];
+    return result;
 }
 
-int NSRunInformationalAlertPanel(NSString *title, NSString *msgFormat, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...) {
+NSInteger NSRunInformationalAlertPanel(
+    NSString *title,
+    NSString *format,
+    NSString *defaultButton,
+    NSString *alternateButton,
+    NSString *otherButton,
+    ...
+) {
+    va_list arguments;
+    va_start(arguments, otherButton);
+    NSString *message = [[[NSString alloc] initWithFormat: format arguments: arguments] autorelease];
 
-    // FIXME: should have a different icon
-	va_list          arguments;
-	NSString        *message;
-    
-	va_start(arguments,otherButton);
-	
-	message=[[[NSString alloc] initWithFormat:msgFormat arguments:arguments] autorelease];
-    
-    return NSRunAlertPanel(title, msgFormat, defaultButton, alternateButton, otherButton);
+    // FIXME: Should have a different icon.
+    return NSRunAlertPanel(title, @"%@", defaultButton, alternateButton, otherButton, message);
 }
 
-int NSRunCriticalAlertPanel(NSString *title, NSString *msgFormat, NSString *defaultButton, NSString *alternateButton, NSString *otherButton, ...) {
-    
-    // FIXME: should have a different icon
-    va_list          arguments;
-    NSString        *message;
+NSInteger NSRunCriticalAlertPanel(
+    NSString *title,
+    NSString *format,
+    NSString *defaultButton,
+    NSString *alternateButton,
+    NSString *otherButton,
+    ...
+) {
+    va_list arguments;
+    va_start(arguments, otherButton);
+    NSString *message = [[[NSString alloc] initWithFormat: format arguments: arguments] autorelease];
 
-    va_start(arguments,otherButton);
-
-    message=[[[NSString alloc] initWithFormat:msgFormat arguments:arguments] autorelease];
-
-    return NSRunAlertPanel(title, msgFormat, defaultButton, alternateButton, otherButton);
+    // FIXME: Should have a different icon.
+    return NSRunAlertPanel(title, @"%@", defaultButton, alternateButton, otherButton, message);
 }
 
-void NSBeginAlertSheet(NSString *title,NSString *defaultButton,NSString *alternateButton,NSString *otherButton,NSWindow *window, id modalDelegate,SEL didEndSelector,SEL didDismissSelector,void *contextInfo,NSString *format,...) {
-   va_list          arguments;
-   NSString        *message;
-   NSPanel         *panel;
+void NSBeginAlertSheet(
+    NSString *title,
+    NSString *defaultButton,
+    NSString *alternateButton,
+    NSString *otherButton,
+    NSWindow *window,
+    id modalDelegate,
+    SEL didEndSelector,
+    SEL didDismissSelector,
+    void *contextInfo,
+    NSString *format,
+    ...
+) {
+   va_list arguments;
+   va_start(arguments, format);
+   NSString *message = [[[NSString alloc] initWithFormat: format arguments: arguments] autorelease];
 
-   va_start(arguments,format);
+   NSPanel *panel = [[[NSAlertPanel alloc] initWithTitle: title
+                                                 message: message
+                                           defaultButton: defaultButton
+                                         alternateButton: alternateButton
+                                             otherButton: otherButton
+                                                   sheet: YES]
+                        autorelease];
 
-   message=[[[NSString alloc] initWithFormat:format arguments:arguments] autorelease];
-
-   panel=[[[NSAlertPanel alloc] initWithTitle:title message:message defaultButton:defaultButton alternateButton:alternateButton otherButton:otherButton sheet:YES] autorelease];
-
-   [NSApp beginSheet:panel modalForWindow:window modalDelegate:modalDelegate didEndSelector:didEndSelector contextInfo:contextInfo];
+   [NSApp beginSheet: panel
+      modalForWindow: window
+       modalDelegate: modalDelegate
+      didEndSelector: didEndSelector
+         contextInfo: contextInfo];
 }
 
-void NSBeginCriticalAlertSheet(NSString *title,NSString *defaultButton,NSString *alternateButton,NSString *otherButton,NSWindow *window, id modalDelegate,SEL didEndSelector,SEL didDismissSelector,void *contextInfo,NSString *format,...)
-{
-	// FIXME: should probably have different icon or so
-	
-	va_list          arguments;
-	NSString        *message;
+void NSBeginCriticalAlertSheet(
+    NSString *title,
+    NSString *defaultButton,
+    NSString *alternateButton,
+    NSString *otherButton,
+    NSWindow *window,
+    id modalDelegate,
+    SEL didEndSelector,
+    SEL didDismissSelector,
+    void *contextInfo,
+    NSString *format,
+    ...
+) {
+    va_list arguments;
+    va_start(arguments, format);
+    NSString *message = [[[NSString alloc] initWithFormat: format arguments: arguments] autorelease];
 
-	va_start(arguments,format);
-	
-	message=[[[NSString alloc] initWithFormat:format arguments:arguments] autorelease];
-	
-	NSBeginAlertSheet(title, defaultButton, alternateButton,otherButton,window, modalDelegate, didEndSelector,didDismissSelector,contextInfo,message);
+    // FIXME: Should probably have different icon or so.
+    NSBeginAlertSheet(
+        title,
+        defaultButton,
+        alternateButton,
+        otherButton,
+        window,
+        modalDelegate,
+        didEndSelector,
+        didDismissSelector,
+        contextInfo,
+        message
+    );
 }
 
-void NSBeginInformationalAlertSheet(NSString *title,NSString *defaultButton,NSString *alternateButton,NSString *otherButton,NSWindow *window, id modalDelegate,SEL didEndSelector,SEL didDismissSelector,void *contextInfo,NSString *format,...)
-{
-	// FIXME: should probably have different icon or so
-	
-	va_list          arguments;
-	NSString        *message;
-	
-	va_start(arguments,format);
-	
-	message=[[[NSString alloc] initWithFormat:format arguments:arguments] autorelease];
-	
-	NSBeginAlertSheet(title, defaultButton, alternateButton,otherButton,window, modalDelegate, didEndSelector,didDismissSelector,contextInfo,message);
+void NSBeginInformationalAlertSheet(
+    NSString *title,
+    NSString *defaultButton,
+    NSString *alternateButton,
+    NSString *otherButton,
+    NSWindow *window,
+    id modalDelegate,
+    SEL didEndSelector,
+    SEL didDismissSelector,
+    void *contextInfo,
+    NSString *format,
+    ...
+) {
+    va_list arguments;
+    va_start(arguments, format);
+    NSString *message = [[[NSString alloc] initWithFormat: format arguments: arguments] autorelease];
+
+    // FIXME: Should probably have different icon or so.
+    NSBeginAlertSheet(
+        title,
+        defaultButton,
+        alternateButton,
+        otherButton,
+        window,
+        modalDelegate,
+        didEndSelector,
+        didDismissSelector,
+        contextInfo,
+        message
+    );
 }

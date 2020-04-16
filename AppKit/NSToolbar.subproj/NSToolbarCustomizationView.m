@@ -166,11 +166,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    }
 }
  
-- (unsigned)draggingSourceOperationMaskForLocal:(BOOL)isLocal 
-{
+- (NSDragOperation) draggingSourceOperationMaskForLocal: (BOOL) isLocal {
     return NSDragOperationCopy;
 }
 
 @end
 
-NSString * const NSToolbarItemIdentifierPboardType = @"NSToolbarItemIdentifierPboardType";
+const NSPasteboardType NSToolbarItemIdentifierPboardType = @"NSToolbarItemIdentifierPboardType";

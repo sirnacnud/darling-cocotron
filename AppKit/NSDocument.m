@@ -18,209 +18,199 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <AppKit/NSPrintInfo.h>
 #import <AppKit/NSRaise.h>
 #import "NSKeyValueBinding/NSObject+BindingSupport.h"
+#import <objc/runtime.h>
 
 @implementation NSDocument
 
 static int untitled_document_number = 0;
 
-+(NSArray *)readableTypes {
-   int             i;
-   NSArray        *knownDocTypes = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDocumentTypes"];
-   NSMutableArray *readableTypes = [NSMutableArray array];
-   NSDictionary   *typeDict;
-   NSString       *typeName, *typeRole;
-   
-   for (i = 0; i < [knownDocTypes count]; i++)
-   {
-      typeDict = [knownDocTypes objectAtIndex:i];
-      typeRole = [typeDict objectForKey:@"CFBundleTypeRole"];
-      if (NSClassFromString((NSString *)[typeDict objectForKey:@"NSDocumentClass"]) == self &&
-          ([typeRole isEqualToString:@"Viewer"] || [typeRole isEqualToString:@"Editor"]))
-      {
-         typeName = [typeDict objectForKey:@"CFBundleTypeName"];
-         if (typeName)
-            [readableTypes addObject:typeName];
-      }
-   }
-   
-   return [NSArray arrayWithArray:readableTypes];
-}
++ (NSArray *) readableTypes {
+    NSArray *knownDocTypes = [[NSBundle mainBundle] infoDictionary][@"CFBundleDocumentTypes"];
+    NSMutableArray *readableTypes = [NSMutableArray array];
 
-+(NSArray *)writableTypes {
-   int             i;
-   NSArray        *knownDocTypes = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDocumentTypes"];
-   NSMutableArray *writableTypes = [NSMutableArray array];
-   NSDictionary   *typeDict;
-   NSString       *typeName;
-   
-   for (i = 0; i < [knownDocTypes count]; i++)
-   {
-      typeDict  = [knownDocTypes objectAtIndex:i];
-      if (NSClassFromString((NSString *)[typeDict objectForKey:@"NSDocumentClass"]) == self &&
-          [(NSString *)[typeDict objectForKey:@"CFBundleTypeRole"] isEqualToString:@"Editor"])
-      {
-         typeName = [typeDict objectForKey:@"CFBundleTypeName"];
-         if (typeName)
-            [writableTypes addObject:typeName];
-      }
-   }
-   
-   return [NSArray arrayWithArray:writableTypes];
-}
-
-+(BOOL)isNativeType:(NSString *)type {
-   BOOL          result = NO;
-   int           i;
-   NSArray      *knownDocTypes = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDocumentTypes"];
-   NSDictionary *typeDict;
-   
-   for (i = 0; i < [knownDocTypes count]; i++)
-   {
-      typeDict = [knownDocTypes objectAtIndex:i];
-      result  |= NSClassFromString((NSString *)[typeDict objectForKey:@"NSDocumentClass"]) == self &&
-                 [(NSString *)[typeDict objectForKey:@"CFBundleTypeRole"] isEqualToString:@"Editor"] &&
-                 [(NSString *)[typeDict objectForKey:@"CFBundleTypeName"] isEqualToString:type];
-   }
-   
-   return result;
-}
-
--(BOOL)_isSelectorOverridden:(SEL)selector {
-   IMP mine=[NSDocument instanceMethodForSelector:selector];
-   IMP theirs=[self methodForSelector:selector];
-   
-   return (mine!=theirs)?YES:NO;
-}
-
--init {
-  self = [super init];
-  if (self)
-    {
-      _windowControllers=[NSMutableArray new];
-      _fileURL=nil;
-      _fileType=nil;
-      _changeCount=0;
-      _untitledNumber=untitled_document_number++;
-      _hasUndoManager=YES;
-      _activeEditors=[NSMutableArray new];
+    for (NSDictionary *typeDict in knownDocTypes) {
+        NSString *typeRole = typeDict[@"CFBundleTypeRole"];
+        Class documentClass = NSClassFromString((NSString *) typeDict[@"NSDocumentClass"]);
+        if (
+            documentClass == self &&
+            ([typeRole isEqualToString:@"Viewer"] || [typeRole isEqualToString:@"Editor"])
+        ) {
+            NSString *typeName = typeDict[@"CFBundleTypeName"];
+            if (typeName)
+                [readableTypes addObject: typeName];
+        }
     }
-  return self;
+
+    return [NSArray arrayWithArray: readableTypes];
 }
 
--initWithType:(NSString *)type error:(NSError **)error {
-   [self init];
-   [self setFileType:type];
-   return self;
++ (NSArray *) writableTypes {
+    NSArray *knownDocTypes = [[NSBundle mainBundle] infoDictionary][@"CFBundleDocumentTypes"];
+    NSMutableArray *writableTypes = [NSMutableArray array];
+
+    for (NSDictionary *typeDict in knownDocTypes) {
+        NSString *typeRole = typeDict[@"CFBundleTypeRole"];
+        Class documentClass = NSClassFromString((NSString *) typeDict[@"NSDocumentClass"]);
+        if (documentClass == self && [typeRole isEqualToString: @"Editor"]) {
+            NSString *typeName = typeDict[@"CFBundleTypeName"];
+            if (typeName)
+                [writableTypes addObject: typeName];
+        }
+    }
+
+    return [NSArray arrayWithArray: writableTypes];
 }
 
--(void)_updateFileModificationDate
-{
-  NSFileManager * fileManager = [NSFileManager defaultManager];
-  NSString * path = [_fileURL path];
-  NSDictionary * attributes = [fileManager fileAttributesAtPath:path traverseLink:YES];
-  [self setFileModificationDate:[attributes objectForKey:NSFileModificationDate]];
++ (BOOL) isNativeType: (NSString *) type {
+    BOOL result = NO;
+    NSArray *knownDocTypes = [[NSBundle mainBundle] infoDictionary][@"CFBundleDocumentTypes"];
+
+    for (NSDictionary *typeDict in knownDocTypes) {
+        NSString *typeRole = typeDict[@"CFBundleTypeRole"];
+        NSString *typeName = typeDict[@"CFBundleTypeName"];
+        Class documentClass = NSClassFromString((NSString *) typeDict[@"NSDocumentClass"]);
+        result |= documentClass == self && [typeRole isEqualToString: @"Editor"] && [typeName isEqualToString: type];
+    }
+
+    return result;
 }
 
--initWithContentsOfURL:(NSURL *)url ofType:(NSString *)type error:(NSError **)error {
-   if([self _isSelectorOverridden:@selector(initWithContentsOfFile:ofType:)]){
-    if([self initWithContentsOfFile:[url path] ofType:type]==nil)
-     return nil;
-   }
-   else {
+- (BOOL) _isSelectorOverridden: (SEL) selector {
+    IMP mine = [NSDocument instanceMethodForSelector: selector];
+    IMP theirs = [self methodForSelector: selector];
+
+    return mine != theirs;
+}
+
+- (instancetype) init {
+    self = [super init];
+    if (self) {
+        _windowControllers = [NSMutableArray new];
+        _untitledNumber = untitled_document_number++;
+        _hasUndoManager = YES;
+        _activeEditors = [NSMutableArray new];
+    }
+    return self;
+}
+
+- (instancetype) initWithType: (NSString *) type error: (NSError **) error {
     [self init];
-	   [self setFileURL:url];
-	   [self setFileType:type];
-    if(![self readFromURL:url ofType:type error:error]){
-     [self dealloc];
-     return nil;
-    }
-   }
-   [self _updateFileModificationDate];
-   return self;
+    [self setFileType: type];
+    return self;
 }
 
--initForURL:(NSURL *)url withContentsOfURL:(NSURL *)contentsURL ofType:(NSString *)type error:(NSError **)error {
-   [self init];
-	[self setFileURL:url];
-	[self setFileType:type];
-   if(contentsURL!=nil){
-    if(![self readFromURL:contentsURL ofType:type error:error]){
-     [self dealloc];
-     return nil;
-    }
-   }
-   [self _updateFileModificationDate];
-   return self;
+- (void) _updateFileModificationDate {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *path = [_fileURL path];
+    NSDictionary *attributes = [fileManager fileAttributesAtPath: path traverseLink: YES];
+    [self setFileModificationDate: attributes[NSFileModificationDate]];
 }
 
--(void)dealloc
+- (instancetype) initWithContentsOfURL: (NSURL *) url
+                                ofType: (NSString *) type
+                                 error: (NSError **) error
 {
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-  [_windowControllers release];
-  [_fileURL release];
-  [_fileType release];
-  [_fileModificationDate release];
-  [_lastComponentOfFileName release];
-  [_autosavedContentsFileURL release];
-  [_printInfo release];
-  [_undoManager release];
-  [_activeEditors release];
-  
-  [super dealloc];
+    if ([self _isSelectorOverridden: @selector(initWithContentsOfFile:ofType:)]) {
+        if ([self initWithContentsOfFile: [url path] ofType: type] == nil)
+            return nil;
+    } else {
+        [self init];
+        [self setFileURL: url];
+        [self setFileType: type];
+        if (![self readFromURL: url ofType: type error: error]) {
+            [self dealloc];
+            return nil;
+        }
+    }
+    [self _updateFileModificationDate];
+    return self;
 }
 
--(NSURL *)autosavedContentsFileURL {
-   return _autosavedContentsFileURL;
+- (instancetype) initForURL: (NSURL *) url
+          withContentsOfURL: (NSURL *) contentsURL
+                     ofType:(NSString *) type
+                      error:(NSError **) error
+{
+    [self init];
+    [self setFileURL: url];
+    [self setFileType: type];
+    if (contentsURL != nil) {
+        if (![self readFromURL: contentsURL ofType: type error: error]) {
+            [self dealloc];
+            return nil;
+        }
+    }
+    [self _updateFileModificationDate];
+    return self;
 }
 
--(NSDate *)fileModificationDate {
-   return _fileModificationDate;
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+
+    [_windowControllers release];
+    [_fileURL release];
+    [_fileType release];
+    [_fileModificationDate release];
+    [_lastComponentOfFileName release];
+    [_autosavedContentsFileURL release];
+    [_printInfo release];
+    [_undoManager release];
+    [_activeEditors release];
+
+    [super dealloc];
 }
 
--(NSURL *)fileURL {
-   return _fileURL;
+- (NSURL *) autosavedContentsFileURL {
+    return _autosavedContentsFileURL;
 }
 
--(NSPrintInfo *)printInfo {
-    return _printInfo?_printInfo:[NSPrintInfo sharedPrintInfo];
+- (NSDate *) fileModificationDate {
+    return _fileModificationDate;
 }
 
--(NSString *)fileType {
-   return _fileType;
+- (NSURL *)fileURL {
+    return _fileURL;
 }
 
--(BOOL)hasUndoManager {
+- (NSPrintInfo *) printInfo {
+    return _printInfo ? _printInfo : [NSPrintInfo sharedPrintInfo];
+}
+
+- (NSString *) fileType {
+    return _fileType;
+}
+
+- (BOOL) hasUndoManager {
     return _hasUndoManager;
 }
 
 
--(NSUndoManager *)undoManager {
+- (NSUndoManager *) undoManager {
     if (_undoManager == nil && _hasUndoManager == YES) {
-        [self setUndoManager:[NSUndoManager new]];
+        [self setUndoManager: [NSUndoManager new]];
         [_undoManager beginUndoGrouping];
     }
 
     return _undoManager;
 }
 
--(void)setAutosavedContentsFileURL:(NSURL *)url {
-   url=[url copy];
-   [_autosavedContentsFileURL release];
-   _autosavedContentsFileURL=url;
+- (void) setAutosavedContentsFileURL: (NSURL *) url {
+    url = [url copy];
+    [_autosavedContentsFileURL release];
+    _autosavedContentsFileURL = url;
 }
 
--(void)setFileModificationDate:(NSDate *)value {
-   value=[value copy];
-   [_fileModificationDate release];
-   _fileModificationDate=value;
+- (void) setFileModificationDate: (NSDate *) value {
+    value = [value copy];
+    [_fileModificationDate release];
+    _fileModificationDate = value;
 }
 
--(void)setFileURL:(NSURL *)url {
-   url=[url copy];
-   [_fileURL release];
-   _fileURL=url;
-   [_windowControllers makeObjectsPerformSelector:@selector(synchronizeWindowTitleWithDocumentName)];
+- (void) setFileURL: (NSURL *) url {
+    url = [url copy];
+    [_fileURL release];
+    _fileURL = url;
+    [_windowControllers makeObjectsPerformSelector: @selector(synchronizeWindowTitleWithDocumentName)];
 }
 
 -(void)setPrintInfo:(NSPrintInfo *)value {

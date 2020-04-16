@@ -605,8 +605,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
    return _autoresizesSubviews;
 }
 
--(unsigned)autoresizingMask {
-   return _autoresizingMask;
+- (NSAutoresizingMaskOptions) autoresizingMask {
+    return _autoresizingMask;
 }
 
 -(NSFocusRingType)focusRingType {
@@ -1128,8 +1128,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
    _autoresizesSubviews=flag;
 }
 
--(void)setAutoresizingMask:(unsigned int)mask {
-   _autoresizingMask=mask;
+- (void) setAutoresizingMask: (NSAutoresizingMaskOptions) mask {
+    _autoresizingMask = mask;
 }
 
 -(void)setFocusRingType:(NSFocusRingType)value {

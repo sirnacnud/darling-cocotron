@@ -13,11 +13,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (BOOL)isTransparent;
 - (NSString *)keyEquivalent;
-- (NSUInteger)keyEquivalentModifierMask;
+- (NSEventModifierFlags)keyEquivalentModifierMask;
 - (NSImage *)image;
 - (NSCellImagePosition)imagePosition;
 - (NSString *)title;
-- (NSInteger)state;
+- (NSControlStateValue)state;
 - (BOOL)allowsMixedState;
 - (NSSound *)sound;
 
@@ -31,11 +31,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (void)setTransparent:(BOOL)value;
 - (void)setKeyEquivalent:(NSString *)value;
-- (void)setKeyEquivalentModifierMask:(NSUInteger)value;
+- (void)setKeyEquivalentModifierMask:(NSEventModifierFlags)value;
 - (void)setImage:(NSImage *)value;
 - (void)setImagePosition:(NSCellImagePosition)value;
 - (void)setTitle:(NSString *)value;
-- (void)setState:(NSInteger)value;
+- (void)setState:(NSControlStateValue)value;
 - (void)setNextState;
 - (void)setAllowsMixedState:(BOOL)value;
 - (void)setSound:(NSSound *)value;

@@ -12,13 +12,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @class NSFont, NSImage, NSView;
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, NSCellType) {
     NSNullCellType,
     NSTextCellType,
     NSImageCellType
-} NSCellType;
+};
 
-enum {
+enum: unsigned int {
     NSAnyType = 0,
     NSIntType = 1,
     NSPositiveIntType = 2,
@@ -28,7 +28,7 @@ enum {
     NSPositiveDoubleType = 7
 };
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, NSCellImagePosition) {
     NSNoImage = 0,
     NSImageOnly = 1,
     NSImageLeft = 2,
@@ -36,9 +36,9 @@ typedef enum {
     NSImageBelow = 4,
     NSImageAbove = 5,
     NSImageOverlaps = 6,
-} NSCellImagePosition;
+};
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, NSImageScaling) {
     NSImageScaleProportionallyDown = 0,
     NSImageScaleAxesIndependently = 1,
     NSImageScaleNone = 2,
@@ -48,7 +48,13 @@ typedef enum {
     NSScaleProportionally = NSImageScaleProportionallyDown,
     NSScaleToFit = NSImageScaleAxesIndependently,
     NSScaleNone = NSImageScaleNone,
-} NSImageScaling;
+};
+
+typedef NS_ENUM(NSInteger, NSControlStateValue) {
+    NSControlStateValueMixed = -1,
+    NSControlStateValueOff = 0,
+    NSControlStateValueOn = 1,
+};
 
 typedef enum {
     NSMixedState = -1,
@@ -56,23 +62,20 @@ typedef enum {
     NSOnState = 1,
 } NSCellState;
 
-typedef NSInteger NSControlStateValue;
-
-typedef enum {
+typedef NS_ENUM(NSUInteger, NSControlSize) {
     NSRegularControlSize,
     NSSmallControlSize,
     NSMiniControlSize
-} NSControlSize;
+};
 
 typedef NSUInteger NSControlTint;
 
-enum {
+typedef NS_ENUM(NSInteger, NSBackgroundStyle) {
     NSBackgroundStyleLight = 0,
     NSBackgroundStyleDark = 1,
     NSBackgroundStyleRaised = 2,
     NSBackgroundStyleLowered = 3,
 };
-typedef NSInteger NSBackgroundStyle;
 
 enum {
     NSCellHitNone = 0x00,

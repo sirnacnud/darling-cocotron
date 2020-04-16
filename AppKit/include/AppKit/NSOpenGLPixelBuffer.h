@@ -7,17 +7,22 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/NSObject.h>
+#import <OpenGL/gl.h>
 
 @interface NSOpenGLPixelBuffer : NSObject {
 }
 
-- initWithTextureTarget:(unsigned long)textureTarget textureInternalFormat:(unsigned long)textureFormat textureMaxMipMapLevel:(long)mipMapLevel pixelsWide:(int)pixelsWide pixelsHigh:(int)pixelsHigh;
+- (instancetype) initWithTextureTarget: (GLenum) textureTarget
+                 textureInternalFormat: (GLenum) textureFormat
+                 textureMaxMipMapLevel: (GLint) mipMapLevel
+                            pixelsWide: (GLsizei) pixelsWide
+                            pixelsHigh: (GLsizei) pixelsHigh;
 
-- (unsigned)textureTarget;
-- (unsigned long)textureInternalFormat;
-- (long)textureMaxMipMapLevel;
+- (GLenum) textureTarget;
+- (GLenum) textureInternalFormat;
+- (GLint) textureMaxMipMapLevel;
 
-- (int)pixelsWide;
-- (int)pixelsHigh;
+- (GLsizei) pixelsWide;
+- (GLsizei) pixelsHigh;
 
 @end

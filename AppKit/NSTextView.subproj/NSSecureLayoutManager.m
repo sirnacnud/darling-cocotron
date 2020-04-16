@@ -13,21 +13,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSSecureLayoutManager
 
--(void)setEchosBullets:(BOOL)yorn {
-   _echosBullets=yorn;
+- (void) setEchosBullets: (BOOL) yorn {
+    _echosBullets = yorn;
 }
 
--(unsigned)getGlyphs:(NSGlyph *)glyphs range:(NSRange)glyphRange {
-   NSRange       characterRange=[self characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
-   NSDictionary *attributes=[_textStorage attributesAtIndex:characterRange.location effectiveRange:NULL];
-   NSFont       *font=NSFontAttributeInDictionary(attributes);
-   unichar       buffer[characterRange.length];
-   int           i;
+- (NSUInteger) getGlyphs: (NSGlyph *) glyphs range: (NSRange) glyphRange {
+    NSRange characterRange = [self characterRangeForGlyphRange: glyphRange actualGlyphRange: NULL];
+    NSDictionary *attributes = [_textStorage attributesAtIndex: characterRange.location effectiveRange: NULL];
+    NSFont *font = NSFontAttributeInDictionary(attributes);
+    unichar buffer[characterRange.length];
 
-   for(i=0;i<characterRange.length;i++)
-    buffer[i]=_echosBullets?0x2022:' '; // unicode bullet
+    for (NSUInteger i = 0; i < characterRange.length; i++)
+        buffer[i] = _echosBullets ? 0x2022 : ' '; // unicode bullet
 
-   return [font getGlyphs:glyphs forCharacters:buffer length:characterRange.length];
+    return [font getGlyphs: glyphs forCharacters: buffer length: characterRange.length];
 }
 
 @end

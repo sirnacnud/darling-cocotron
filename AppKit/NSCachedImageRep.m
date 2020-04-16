@@ -14,73 +14,70 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @implementation NSCachedImageRep
 
--initWithWindow:(NSWindow *)window rect:(NSRect)rect {
-   _size=rect.size;
-   _window=[window retain];
-   _origin=rect.origin;
+- (instancetype) initWithWindow: (NSWindow *) window rect: (NSRect) rect {
+    _size = rect.size;
+    _window = [window retain];
+    _origin = rect.origin;
 
-// this is a little broken, the windows get resized to larger size when on-screen
-	if([[NSUserDefaults standardUserDefaults] boolForKey:@"NSShowAllWindows"])
-    [_window orderFront:nil];
-   return self;
+    // This is a little broken, the windows get resized to larger size when
+    // on-screen.
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"NSShowAllWindows"])
+        [_window orderFront: nil];
+    return self;
 }
 
--initWithSize:(NSSize)size depth:(NSWindowDepth)windowDepth separate:(BOOL)separateWindow alpha:(BOOL)hasAlpha {
-// FIXME: Implement shared caches, but also update NSImage to handle caching in them
-
-	int styleMask = NSBorderlessWindowMask;
-	if([[NSUserDefaults standardUserDefaults] boolForKey:@"NSShowAllWindows"] == NO) {
-		styleMask |= NSAppKitPrivateWindow;
-	}
-	NSWindow *window=[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,size.width,size.height) styleMask:styleMask backing:NSBackingStoreBuffered defer:NO];
-
-   NSDictionary *entries=[NSDictionary dictionaryWithObject:@"Onyx" forKey:@"CGContext"];
-   
-   [[window platformWindow] addEntriesToDeviceDictionary:entries];
-   
-   [self initWithWindow:window rect:NSMakeRect(0,0,size.width,size.height)];
-   
-   [window release];
-   
-   return self;
-}
-
--(void)dealloc {
-   [_window release];
-   [super dealloc];
-}
-
--(NSWindow *)window {
-   return _window;
-}
-
--(NSRect)rect {
-   return NSMakeRect(_origin.x,_origin.y,_size.width,_size.height);
-}
-
--(BOOL)drawAtPoint:(NSPoint)point {
-   NSRect     rect={point,_size};
-   CGImageRef imageRef=CGBitmapContextCreateImage([[_window graphicsContext] graphicsPort]);
-   
-   CGContextDrawImage(NSCurrentGraphicsPort(),rect,imageRef);
-   
-   CGImageRelease(imageRef);
-   
-   return YES;
-}
-
--(BOOL)drawInRect:(NSRect)rect {
-   CGImageRef imageRef=CGBitmapContextCreateImage([[_window graphicsContext] graphicsPort]);
-   
-   CGContextDrawImage(NSCurrentGraphicsPort(),rect,imageRef);
-   
-   CGImageRelease(imageRef);
-   
-   return YES;
-}
-
-- (void)draw
+- (instancetype) initWithSize: (NSSize) size
+                        depth: (NSWindowDepth) windowDepth
+                     separate: (BOOL) separateWindow
+                        alpha: (BOOL) hasAlpha
 {
-	[self drawInRect:[self rect]];
+    // FIXME: Implement shared caches, but also update NSImage to handle caching in them.
+    NSWindowStyleMask styleMask = NSBorderlessWindowMask;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"NSShowAllWindows"] == NO) {
+        styleMask |= NSAppKitPrivateWindow;
+    }
+    NSRect rect = { NSZeroPoint, size };
+    NSWindow *window = [[NSWindow alloc] initWithContentRect: rect
+                                                   styleMask: styleMask
+                                                     backing: NSBackingStoreBuffered
+                                                       defer: NO];
+
+    NSDictionary *entries = @{ @"CGContext": @"Onyx" };
+    [[window platformWindow] addEntriesToDeviceDictionary: entries];
+    [self initWithWindow: window rect: rect];
+    [window release];
+    return self;
+}
+
+- (void) dealloc {
+    [_window release];
+    [super dealloc];
+}
+
+- (NSWindow *) window {
+    return _window;
+}
+
+- (NSRect) rect {
+    return NSMakeRect(_origin.x, _origin.y, _size.width, _size.height);
+}
+
+- (BOOL) drawAtPoint: (NSPoint) point {
+    NSRect rect = {point,_size};
+    CGImageRef imageRef = CGBitmapContextCreateImage([[_window graphicsContext] graphicsPort]);
+    CGContextDrawImage(NSCurrentGraphicsPort(), rect, imageRef);
+    CGImageRelease(imageRef);
+    return YES;
+}
+
+- (BOOL) drawInRect: (NSRect) rect {
+    CGImageRef imageRef = CGBitmapContextCreateImage([[_window graphicsContext] graphicsPort]);
+    CGContextDrawImage(NSCurrentGraphicsPort(), rect, imageRef);
+    CGImageRelease(imageRef);
+    return YES;
+}
+
+- (BOOL) draw {
+    return [self drawInRect:[self rect]];
 }
 @end
