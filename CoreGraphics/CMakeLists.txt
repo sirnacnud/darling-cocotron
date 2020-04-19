@@ -40,6 +40,7 @@ set_property(SOURCE
 	CGShading.m
 	CGWindow.m
 	CGSubWindow.m
+	CGS.m
 
 	APPEND PROPERTY COMPILE_FLAGS "-include Foundation/Foundation.h"
 )
@@ -96,6 +97,7 @@ set(CoreGraphics_sources
 	CGWindow.m
 	CGSubWindow.m
 	CGDisplayFade.m
+	CGS.m
 	# KTFont+PDF.m 'KGPDFArray.h' file not found
 )
 
