@@ -238,6 +238,11 @@ const NSNotificationName NSWorkspaceAccessibilityDisplayOptionsDidChangeNotifica
    return 0;
 }
 
+-(NSString *)fullPathForApplication:(NSString *)appName {
+   NSInvalidAbstractInvocation();
+   return nil;
+}
+
 @end
 
 @implementation NSWorkspace (CocotronAdditions)

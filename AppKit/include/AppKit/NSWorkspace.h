@@ -97,6 +97,7 @@ typedef NSUInteger NSWorkspaceIconCreationOptions;
         options:(NSWorkspaceIconCreationOptions)options;
 - (void)activateFileViewerSelectingURLs:(NSArray<NSURL *> *)fileURLs;
 - (NSURL *)URLForApplicationWithBundleIdentifier:(NSString *)bundleIdentifier;
+- (NSString *)fullPathForApplication:(NSString *)appName;
 
 @end
 
