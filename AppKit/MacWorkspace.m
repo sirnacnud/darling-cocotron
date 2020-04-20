@@ -1,6 +1,7 @@
 #import "MacWorkspace.h"
 #import <AppKit/NSRaise.h>
 #import <AppKit/NSApplication.h>
+#include <LaunchServices/LaunchServices.h>
 
 
 @implementation NSWorkspace(macos)
@@ -284,9 +285,35 @@
 
 - (NSURL *)URLForApplicationWithBundleIdentifier:(NSString *)bundleIdentifier
 {
-	// TODO: Call LSFindApplicationForInfo()
-	NSUnimplementedMethod();
-	return NULL;
+	CFURLRef url;
+	OSStatus status = LSFindApplicationForInfo(kLSUnknownCreator, (CFStringRef) bundleIdentifier, NULL, NULL, &url);
+
+	if (status != noErr)
+		return nil;
+
+	return [(NSURL*) url autorelease];
+}
+
+- (NSString *)fullPathForApplication:(NSString *)appName
+{
+	// If absolute, return as-is
+	if ([appName isAbsolutePath])
+		return appName;
+
+	// If it doesn't have an suffix, add .app
+	if ([[appName pathExtension] isEqualToString: @""])
+		appName = [appName stringByAppendingPathExtension: @"app"];
+
+	CFURLRef url;
+	OSStatus status = LSFindApplicationForInfo(kLSUnknownCreator, NULL, (CFStringRef) appName, NULL, &url);
+
+	if (status != noErr)
+		return nil;
+
+	NSString* path = [(NSURL*)url path];
+	CFRelease(url);
+
+	return path;
 }
 
 @end

@@ -508,6 +508,7 @@ add_framework(AppKit
 		FreeType
 		fontconfig
 		jpeg png tiff
+		CoreServices
 )
 
 reexport(AppKit Foundation ${CMAKE_BINARY_DIR}/src/external/foundation/Foundation)
