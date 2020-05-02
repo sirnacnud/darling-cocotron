@@ -47,7 +47,11 @@ typedef enum {
     NSFocusRingTypeExterior
 } NSFocusRingType;
 
-typedef int NSWindowDepth;
+typedef enum NSWindowDepth : int32_t {
+    NSWindowDepthOnehundredtwentyeightBitRGB = 0x220,
+    NSWindowDepthSixtyfourBitRGB = 0x210,
+    NSWindowDepthTwentyfourBitRGB = 0x208
+} NSWindowDepth;
 
 enum {
     NSAnimationEffectDisappearingItemDefault = 0,

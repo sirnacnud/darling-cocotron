@@ -38,6 +38,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 NSString * const NSViewFrameDidChangeNotification=@"NSViewFrameDidChangeNotification";
 NSString * const NSViewBoundsDidChangeNotification=@"NSViewBoundsDidChangeNotification";
 NSString * const NSViewFocusDidChangeNotification=@"NSViewFocusDidChangeNotification";
+const NSNotificationName NSViewGlobalFrameDidChangeNotification=@"NSViewGlobalFrameDidChangeNotification";
 
 @interface NSView(NSView_forward)
 -(CGAffineTransform)transformFromWindow;

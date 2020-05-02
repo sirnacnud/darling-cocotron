@@ -40,6 +40,7 @@ APPKIT_EXPORT const NSPasteboardType NSStringPboardType;
 APPKIT_EXPORT const NSPasteboardType NSTabularTextPboardType;
 APPKIT_EXPORT const NSPasteboardType NSTIFFPboardType;
 APPKIT_EXPORT const NSPasteboardType NSURLPboardType;
+APPKIT_EXPORT const NSPasteboardType NSHTMLPboardType;
 
 APPKIT_EXPORT const NSPasteboardType NSFilesPromisePboardType;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardNameDrag;

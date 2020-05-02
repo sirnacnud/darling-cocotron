@@ -65,6 +65,19 @@ const NSNotificationName NSWindowWillEnterFullScreenNotification = @"NSWindowWil
 const NSNotificationName NSWindowWillExitFullScreenNotification = @"NSWindowWillExitFullScreenNotification";
 const NSNotificationName NSWindowDidExposeNotification = @"NSWindowDidExposeNotification";
 
+NSInteger NSBitsPerPixelFromDepth(NSWindowDepth depth) {
+    switch (depth) {
+        case NSWindowDepthOnehundredtwentyeightBitRGB:
+            return 128;
+        case NSWindowDepthSixtyfourBitRGB:
+            return 64;
+        case NSWindowDepthTwentyfourBitRGB:
+            return 24;
+    }
+    
+    return 0;
+}
+
 @interface CGWindow(private)
 - (void)dirtyRect:(CGRect)rect;
 @end

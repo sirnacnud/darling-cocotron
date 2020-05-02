@@ -21,7 +21,12 @@
 #define _CGEVENT_H_
 
 #include <CoreGraphics/CGEventTypes.h>
+#import <CoreGraphics/CGGeometry.h>
+#import <CoreGraphics/CGError.h>
+
+typedef uint32_t CGButtonCount;
 
 extern void CGEventPost(CGEventTapLocation tapLocation, CGEventRef event);
+CGError CGPostMouseEvent(CGPoint mouseCursorPosition, boolean_t updateMouseCursorPosition, CGButtonCount buttonCount, boolean_t mouseButtonDown, ...);
 
 #endif

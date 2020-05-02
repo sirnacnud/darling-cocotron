@@ -25,6 +25,11 @@
 #import <IOKit/graphics/IOGraphicsLib.h>
 #include <dlfcn.h>
 
+CGError CGCaptureAllDisplays(void)
+{
+   return kCGErrorSuccess;
+}
+
 CGError CGReleaseAllDisplays(void)
 {
    return kCGErrorSuccess;
@@ -479,4 +484,29 @@ CGError CGAssociateMouseAndMouseCursorPosition(boolean_t connected)
 
    [display grabMouse: connected];
    return kCGErrorSuccess;
+}
+
+CFDictionaryRef CGDisplayBestModeForParametersAndRefreshRate(
+   CGDirectDisplayID display,
+   size_t bitsPerPixel,
+   size_t width, size_t height,
+   CGRefreshRate refreshRate,
+   boolean_t *exactMatch)
+{
+   return nil;
+}
+
+boolean_t CGDisplayIsCaptured(CGDirectDisplayID display)
+{
+   return FALSE;
+}
+
+CGError CGDisplaySwitchToMode(CGDirectDisplayID display, CFDictionaryRef mode)
+{
+   return kCGErrorSuccess;
+}
+
+CFDictionaryRef CGDisplayCurrentMode(CGDirectDisplayID display)
+{
+   return nil;
 }

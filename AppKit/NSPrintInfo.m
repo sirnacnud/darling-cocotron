@@ -46,6 +46,10 @@ NSString * const NSPrintVerticallyCentered=@"NSPrintVerticallyCentered";
 
 NSString * const NSPrintHeaderAndFooter=@"NSPrintHeaderAndFooter";
 
+const NSPrintingPaginationMode NSFitPagination = NSPrintingPaginationModeFit;
+const NSPrintingPaginationMode NSAutoPagination = NSPrintingPaginationModeAutomatic;
+const NSPrintingPaginationMode NSClipPagination = NSPrintingPaginationModeClip;
+
 @implementation NSPrintInfo
 
 +(NSPrintInfo *)sharedPrintInfo {

@@ -1,8 +1,6 @@
 #include <stdint.h>
 
-typedef int32_t CGError;
-
-enum {
+typedef enum CGError : int32_t {
   kCGErrorSuccess = 0,
   kCGErrorFailure = 1000,
   kCGErrorIllegalArgument = 1001,
@@ -14,5 +12,6 @@ enum {
   kCGErrorTypeCheck = 1008,
   kCGErrorInvalidOperation = 1010,
   kCGErrorNoneAvailable = 1011,
-};
+} CGError;
 
+typedef CGError CGDisplayErr;

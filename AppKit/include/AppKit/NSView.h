@@ -63,6 +63,7 @@ typedef NS_ENUM(NSInteger, NSViewLayerContentsRedrawPolicy) {
 APPKIT_EXPORT const NSNotificationName NSViewFrameDidChangeNotification;
 APPKIT_EXPORT const NSNotificationName NSViewBoundsDidChangeNotification;
 APPKIT_EXPORT const NSNotificationName NSViewFocusDidChangeNotification;
+APPKIT_EXPORT const NSNotificationName NSViewGlobalFrameDidChangeNotification;
 
 @interface NSView : NSResponder <NSAnimatablePropertyContainer> {
     NSRect _frame;

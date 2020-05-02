@@ -12,7 +12,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 @class NSDictionary, NSMutableDictionary, NSPrinter;
 
-typedef int NSPrintingPaginationMode;
+typedef enum NSPrintingPaginationMode : int {
+    NSPrintingPaginationModeAutomatic,
+    NSPrintingPaginationModeFit,
+    NSPrintingPaginationModeClip
+    
+} NSPrintingPaginationMode;
+
+const NSPrintingPaginationMode NSFitPagination;
+const NSPrintingPaginationMode NSAutoPagination;
+const NSPrintingPaginationMode NSClipPagination;
 
 typedef enum {
     NSPortraitOrientation,
