@@ -94,7 +94,7 @@ add_framework(QuartzCore
 		CoreGraphics
 	LINK_FLAGS
 	" -Wl,-reexport_library,${CMAKE_BINARY_DIR}/src/frameworks/CoreImage/CoreImage \
-	-Wl,-reexport_library,${CMAKE_BINARY_DIR}/src/CoreVideo/CoreVideo \
+	-Wl,-reexport_library,${CMAKE_BINARY_DIR}/src/frameworks/CoreVideo/CoreVideo \
 	-Wl,-reexport_library,${CMAKE_BINARY_DIR}/src/external/objc4/runtime/libobjc.A.dylib "
 )
 
