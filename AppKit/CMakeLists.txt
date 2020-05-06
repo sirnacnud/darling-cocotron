@@ -417,6 +417,9 @@ set(AppKit_sources
 	NSSharingService.m
 	MacWorkspace.m
 	NSCoder+AppKit.m
+
+	NSMovie.m
+	NSMovieView.m
 )
 
 set_source_files_properties(${AppKit_sources} LANGUAGE C)

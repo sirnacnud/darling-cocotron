@@ -75,6 +75,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <AppKit/NSMatrix.h>
 #import <AppKit/NSMenu.h>
 #import <AppKit/NSMenuItem.h>
+#import <AppKit/NSMovie.h>
+#import <AppKit/NSMovieView.h>
 #import <AppKit/NSMutableParagraphStyle.h>
 #import <AppKit/NSNib.h>
 #import <AppKit/NSNibLoading.h>
