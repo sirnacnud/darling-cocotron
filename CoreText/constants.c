@@ -30,3 +30,14 @@ const CFStringRef kCTForegroundColorFromContextAttributeName = CFSTR("CTForegrou
 const CFStringRef kCTStrokeWidthAttributeName = CFSTR("NSStrokeWidth");
 const CFStringRef kCTForegroundColorAttributeName = CFSTR("CTForegroundColor");
 const CFStringRef kCTParagraphStyleAttributeName = CFSTR("NSParagraphStyle");
+const CFStringRef kCTFontCascadeListAttribute = CFSTR("CTFontCascadeListAttribute");
+const CFStringRef kCTFontFeatureSelectorIdentifierKey = CFSTR("CTFontFeatureSelectorIdentifierKey");
+const CFStringRef kCTFontFeatureSettingsAttribute = CFSTR("CTFontFeatureSettingsAttribute");
+const CFStringRef kCTFontFeatureTypeIdentifierKey = CFSTR("CTFontFeatureTypeIdentifierKey");
+const CFStringRef kCTFontPostScriptNameKey = CFSTR("CTFontPostScriptNameKey");
+const CFStringRef kCTFontURLAttribute = CFSTR("CTFontURLAttribute");
+const CFStringRef kCTKernAttributeName = CFSTR("CTKernAttributeName");
+const CFStringRef kCTLanguageAttributeName = CFSTR("CTLanguageAttributeName");
+const CFStringRef kCTTypesetterOptionForcedEmbeddingLevel = CFSTR("CTTypesetterOptionForcedEmbeddingLevel");
+const CFStringRef kCTVerticalFormsAttributeName = CFSTR("CTVerticalFormsAttributeName");
+
