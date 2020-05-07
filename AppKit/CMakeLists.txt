@@ -16,17 +16,20 @@ set(OpenGL_GL_PREFERENCE "GLVND")
 
 find_package(X11 REQUIRED)
 if (NOT X11_Xrandr_FOUND)
-	message(FATAL "XRandR not found")
+	message(FATAL_ERROR "XRandR not found")
 endif (NOT X11_Xrandr_FOUND)
 if (NOT X11_Xkb_FOUND)
-	message(FATAL "Xkb not found")
+	message(FATAL_ERROR "Xkb not found")
 endif (NOT X11_Xkb_FOUND)
 if (NOT X11_Xcursor_FOUND)
-	message(FATAL "Xcursor not found")
+	message(FATAL_ERROR "Xcursor not found")
 endif (NOT X11_Xcursor_FOUND)
 if (NOT X11_Xext_FOUND)
-	message(FATAL "Xext not found")
+	message(FATAL_ERROR "Xext not found")
 endif (NOT X11_Xext_FOUND)
+if (NOT X11_xkbfile_FOUND)
+	message(FATAL_ERROR "xkbfile not found")
+endif (NOT X11_xkbfile_FOUND)
 
 find_package(Freetype REQUIRED)
 
@@ -76,6 +79,7 @@ include_directories(
 	${X11_INCLUDE_DIR}
 	${X11_Xrandr_INCLUDE_PATH}
 	${X11_Xkb_INCLUDE_PATH}
+	${X11_xkbfile_INCLUDE_PATH}
 	${FREETYPE_INCLUDE_DIRS}
 	${OPENGL_INCLUDE_DIRS}
 	${PC_CAIRO_INCLUDE_DIRS}
@@ -573,4 +577,5 @@ add_backend(X11
 		XRandR
 		Xcursor
 		fontconfig
+		xkbfile
 )

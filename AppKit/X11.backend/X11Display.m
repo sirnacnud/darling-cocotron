@@ -38,6 +38,7 @@
 #import <X11/Xutil.h>
 #import <X11/extensions/Xrandr.h>
 #import <X11/XKBlib.h>
+#import <X11/extensions/XKBrules.h>
 #import "X11KeySymToUCS.h"
 #import "CarbonKeys.h"
 #import <stddef.h>
@@ -331,6 +332,59 @@ static NSDictionary* modeInfoToDictionary(const XRRModeInfo* mi, int depth) {
       return state.group;
 
    return -1;
+}
+
+- (void) keyboardLayoutName:(NSString**)name fullName:(NSString**)fullName
+{
+   int major = XkbMajorVersion, minor = XkbMinorVersion;
+
+   if (name)
+      *name = @"?";
+   if (fullName)
+      *fullName = @"?";
+
+   if (!XkbLibraryVersion(&major, &minor))
+      return;
+   if (!XkbQueryExtension(_display, NULL, NULL, &major, &minor, NULL))
+      return;
+
+   XkbStateRec state;
+   if (XkbGetState(_display, XkbUseCoreKbd, &state) != Success)
+      return;
+
+   XkbDescPtr desc = XkbGetKeyboard(_display, XkbAllComponentsMask, XkbUseCoreKbd);
+   if (!desc)
+      return;
+
+   if (fullName != NULL)
+   {
+      char *group = XGetAtomName(_display, desc->names->groups[state.group]);
+
+      if (group != NULL)
+      {
+         *fullName = [NSString stringWithUTF8String: group];
+         XFree(group);
+      }
+   }
+
+   XkbRF_VarDefsRec vd;
+   if (name != NULL && XkbRF_GetNamesProp(_display, NULL, &vd))
+   {
+      char* saveptr;
+      char *tok = strtok_r(vd.layout, ",", &saveptr);
+
+      for (int i = 0; i < state.group; i++)
+      {
+         tok = strtok_r(NULL, ",", &saveptr);
+         if (tok == NULL)
+            break;
+      }
+
+      if (tok != NULL)
+      {
+         *name = [NSString stringWithUTF8String: tok];
+      }
+   }
 }
 
 - (UCKeyboardLayout*) keyboardLayout:(uint32_t*)byteLength

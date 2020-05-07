@@ -92,6 +92,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 // This is because apps tend to call TISCopyCurrentKeyboardLayoutInputSource() repeatedly
 // and expect to get the same pointer if layout hasn't changed.
 - (int) keyboardLayoutId;
+- (void) keyboardLayoutName:(NSString**)name fullName:(NSString**)fullName;
 
 - (void) warpMouse: (NSPoint) position;
 - (void) grabMouse: (BOOL) doGrab;
