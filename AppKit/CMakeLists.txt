@@ -28,7 +28,7 @@ if (NOT X11_Xext_FOUND)
 	message(FATAL_ERROR "Xext not found")
 endif (NOT X11_Xext_FOUND)
 if (NOT X11_Xkbfile_FOUND)
-	message(FATAL_ERROR "xkbfile not found")
+	message(FATAL_ERROR "Xkbfile not found")
 endif (NOT X11_Xkbfile_FOUND)
 
 find_package(Freetype REQUIRED)
