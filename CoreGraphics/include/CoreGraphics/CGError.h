@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-typedef enum CGError : int32_t {
+typedef enum {
   kCGErrorSuccess = 0,
   kCGErrorFailure = 1000,
   kCGErrorIllegalArgument = 1001,
