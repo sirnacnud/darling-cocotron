@@ -1,58 +1,68 @@
 /* Copyright (c) 2006-2007 Christopher J. W. Lloyd
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+#import "O2Context_gdi+AppKit.h"
+#import <AppKit/Win32Cursor.h>
+#import <AppKit/Win32DeviceContextWindow.h>
 #import <AppKit/Win32Display.h>
 #import <AppKit/Win32Event.h>
-#import <AppKit/Win32Window.h>
-#import <AppKit/Win32Cursor.h>
-#import <Onyx2D/O2Context_gdi.h>
-#import <AppKit/Win32DeviceContextWindow.h>
-#import "O2Context_gdi+AppKit.h"
 #import <AppKit/Win32EventInputSource.h>
+#import <AppKit/Win32Window.h>
+#import <Onyx2D/O2Context_gdi.h>
 
-#import <AppKit/NSScreen.h>
 #import <AppKit/NSEvent_CoreGraphics.h>
 #import <AppKit/NSGraphicsContext.h>
+#import <AppKit/NSScreen.h>
 
 #import <AppKit/Win32GeneralPasteboard.h>
 #import <AppKit/Win32Pasteboard.h>
 #import <Foundation/NSSet.h>
 
 #import <AppKit/NSApplication.h>
-#import <AppKit/NSWindow-Private.h>
-#import <AppKit/NSMenu.h>
-#import <AppKit/NSCursor.h>
 #import <AppKit/NSColor_CGColor.h>
-#import <Onyx2D/O2ColorSpace.h>
-#import <Onyx2D/O2Font.h>
+#import <AppKit/NSCursor.h>
+#import <AppKit/NSMenu.h>
+#import <AppKit/NSOpenPanel-Win32.h>
 #import <AppKit/NSPrintInfo.h>
 #import <AppKit/NSSavePanel-Win32.h>
-#import <AppKit/NSOpenPanel-Win32.h>
+#import <AppKit/NSWindow-Private.h>
+#import <Onyx2D/O2ColorSpace.h>
+#import <Onyx2D/O2Font.h>
+#import <commdlg.h>
+#import <malloc.h>
 #import <windows.h>
 #import <windowsx.h>
 #import <winuser.h>
-#import <commdlg.h>
-#import <malloc.h>
 
-#import <AppKit/NSFontTypeface.h>
 #import <AppKit/NSFontMetric.h>
+#import <AppKit/NSFontTypeface.h>
 
 #ifndef WM_MOUSEHWHEEL
-#define WM_MOUSEHWHEEL                  0x020E
+#define WM_MOUSEHWHEEL 0x020E
 #endif
 
-@implementation NSDisplay(windows)
+@implementation NSDisplay (windows)
 
-+allocWithZone:(NSZone *)zone {
-   return NSAllocateObject([Win32Display class],0,NULL);
++ allocWithZone: (NSZone *) zone {
+    return NSAllocateObject([Win32Display class], 0, NULL);
 }
 
 @end
-
 
 @implementation Win32Display
 
@@ -60,364 +70,406 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #ifdef WAITCURSOR
 
-static DWORD   mainThreadId;
-static HANDLE  waitCursorStop;
-static HANDLE  waitCursorStart;
+static DWORD mainThreadId;
+static HANDLE waitCursorStop;
+static HANDLE waitCursorStart;
 static HCURSOR waitCursorHandle;
 
-static DWORD WINAPI runWaitCursor(LPVOID arg){
-   waitCursorHandle=LoadCursor(NULL,IDC_WAIT);
+static DWORD WINAPI runWaitCursor(LPVOID arg) {
+    waitCursorHandle = LoadCursor(NULL, IDC_WAIT);
 
-   AttachThreadInput(GetCurrentThreadId(),mainThreadId,TRUE);
+    AttachThreadInput(GetCurrentThreadId(), mainThreadId, TRUE);
 
-   while(YES){
-    WaitForSingleObject(waitCursorStart,INFINITE);
+    while (YES) {
+        WaitForSingleObject(waitCursorStart, INFINITE);
 
-    if(WaitForSingleObject(waitCursorStop,500)==WAIT_TIMEOUT){
-     SetCursor(waitCursorHandle);
+        if (WaitForSingleObject(waitCursorStop, 500) == WAIT_TIMEOUT) {
+            SetCursor(waitCursorHandle);
 
-     WaitForSingleObject(waitCursorStop,INFINITE);
+            WaitForSingleObject(waitCursorStop, INFINITE);
+        }
     }
-   }
 }
 #endif
 
-+(void)initialize {
-   if(self==[Win32Display class]){
++ (void) initialize {
+    if (self == [Win32Display class]) {
 #ifdef WAITCURSOR
-    mainThreadId=GetCurrentThreadId();
-    waitCursorStop=CreateEvent(NULL,FALSE,FALSE,NULL);
-    waitCursorStart=CreateEvent(NULL,FALSE,FALSE,NULL);
-    CreateThread(NULL,0,runWaitCursor,0,0,&threadID);
+        mainThreadId = GetCurrentThreadId();
+        waitCursorStop = CreateEvent(NULL, FALSE, FALSE, NULL);
+        waitCursorStart = CreateEvent(NULL, FALSE, FALSE, NULL);
+        CreateThread(NULL, 0, runWaitCursor, 0, 0, &threadID);
 #endif
-   }
+    }
 }
 
-+(Win32Display *)currentDisplay {
-   return (Win32Display *)[super currentDisplay];
++ (Win32Display *) currentDisplay {
+    return (Win32Display *) [super currentDisplay];
 }
 
--(void)loadPrivateFontPaths:(NSArray *)paths {
+- (void) loadPrivateFontPaths: (NSArray *) paths {
 
 #ifndef FR_PRIVATE
 #define FR_PRIVATE 0x10
 #endif
-    HANDLE library=LoadLibrary("GDI32");
-    typedef WINGDIAPI int WINAPI (*ftype)(LPCWSTR,DWORD,PVOID);
-    ftype  function=(ftype)GetProcAddress(library,"AddFontResourceExW");
-    if(function==NULL) {
+    HANDLE library = LoadLibrary("GDI32");
+    typedef WINGDIAPI int WINAPI (*ftype)(LPCWSTR, DWORD, PVOID);
+    ftype function = (ftype) GetProcAddress(library, "AddFontResourceExW");
+    if (function == NULL) {
         NSLog(@"GetProcAddress(\"GDI32\",\"AddFontResourceExW\") failed");
         return;
     }
 
-    for(NSString *path in paths){
-        const uint16_t *rep=[path fileSystemRepresentationW];
-        if(function(rep,FR_PRIVATE,0)==0){
-            NSLog(@"AddFontResourceExW failed for %@",path);
+    for (NSString *path in paths) {
+        const uint16_t *rep = [path fileSystemRepresentationW];
+        if (function(rep, FR_PRIVATE, 0) == 0) {
+            NSLog(@"AddFontResourceExW failed for %@", path);
         }
     }
 }
 
--(void)loadPrivateFonts {
-    // A special info plist key can specify a resource dir containing the bundled application fonts - returns nil if
-    // the path is not specified so the original code path is followed
-    NSString* fontsDir = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"ATSApplicationFontsPath"];
-    
-    NSArray*  ttfPaths=[[NSBundle mainBundle] pathsForResourcesOfType:@"ttf" inDirectory: fontsDir];
-    NSArray*  TTFPaths=[[NSBundle mainBundle] pathsForResourcesOfType:@"TTF" inDirectory: fontsDir];
-    NSArray*  otfPaths=[[NSBundle mainBundle] pathsForResourcesOfType:@"otf" inDirectory: fontsDir];
-    NSArray*  OTFPaths=[[NSBundle mainBundle] pathsForResourcesOfType:@"OTF" inDirectory: fontsDir];
-    
-    NSMutableArray* allPaths = [NSMutableArray arrayWithCapacity: 100];
+- (void) loadPrivateFonts {
+    // A special info plist key can specify a resource dir containing the
+    // bundled application fonts - returns nil if the path is not specified so
+    // the original code path is followed
+    NSString *fontsDir = [[NSBundle mainBundle]
+        objectForInfoDictionaryKey: @"ATSApplicationFontsPath"];
+
+    NSArray *ttfPaths =
+        [[NSBundle mainBundle] pathsForResourcesOfType: @"ttf"
+                                           inDirectory: fontsDir];
+    NSArray *TTFPaths =
+        [[NSBundle mainBundle] pathsForResourcesOfType: @"TTF"
+                                           inDirectory: fontsDir];
+    NSArray *otfPaths =
+        [[NSBundle mainBundle] pathsForResourcesOfType: @"otf"
+                                           inDirectory: fontsDir];
+    NSArray *OTFPaths =
+        [[NSBundle mainBundle] pathsForResourcesOfType: @"OTF"
+                                           inDirectory: fontsDir];
+
+    NSMutableArray *allPaths = [NSMutableArray arrayWithCapacity: 100];
     [allPaths addObjectsFromArray: ttfPaths];
     [allPaths addObjectsFromArray: TTFPaths];
     [allPaths addObjectsFromArray: otfPaths];
     [allPaths addObjectsFromArray: OTFPaths];
-    
+
     [self loadPrivateFontPaths: allPaths];
 }
 
--(void)forceLoadOfFontsAtPaths:(NSArray *)paths {
+- (void) forceLoadOfFontsAtPaths: (NSArray *) paths {
     [self loadPrivateFontPaths: paths];
 }
 
--(id)init {
-   self=[super init];
-   if (self!=nil){
-    _eventInputSource=[Win32EventInputSource new];
+- (id) init {
+    self = [super init];
+    if (self != nil) {
+        _eventInputSource = [Win32EventInputSource new];
 
-    _generalPasteboard=nil;
-    _pasteboards=[NSMutableDictionary new];
+        _generalPasteboard = nil;
+        _pasteboards = [NSMutableDictionary new];
 
-    _nameToColor=[NSMutableDictionary new];
+        _nameToColor = [NSMutableDictionary new];
 
-    _cursorDisplayCount=1;
-    _cursorCache=[NSMutableDictionary new];
-	_pastLocation = [self mouseLocation];
+        _cursorDisplayCount = 1;
+        _cursorCache = [NSMutableDictionary new];
+        _pastLocation = [self mouseLocation];
 
-    _ignoringModifiersString = [NSMutableString new];
-       
-    [self loadPrivateFonts];
-   }
-   return self;
+        _ignoringModifiersString = [NSMutableString new];
+
+        [self loadPrivateFonts];
+    }
+    return self;
 }
 
-static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor,HDC hdcMonitor,LPRECT rect,LPARAM dwData) {
-	static FARPROC  getMonitorInfo = NULL;
-	
-	if (NULL == getMonitorInfo) {
-		HANDLE library = LoadLibrary("USER32");
-		getMonitorInfo = GetProcAddress(library,"GetMonitorInfoA");
-	}
+static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
+                                       LPRECT rect, LPARAM dwData) {
+    static FARPROC getMonitorInfo = NULL;
 
-	NSMutableArray *array= (id)dwData;
-  
-	MONITORINFOEX info;
-	info.cbSize = sizeof(info);
-	getMonitorInfo(hMonitor,&info);
-	
-	NSRect frame = CGRectFromRECT( info.rcMonitor );
-	NSRect visibleFrame = CGRectFromRECT( info.rcWork );
-    
-    // According to http://msdn.microsoft.com/en-us/library/windows/desktop/dd145066(v=vs.85).aspx
-    // the rcMonitor and rcWork rects are already in virtual screen coords so there should be
-    // no need for any further massaging.
-    
-    // But apparently it's not true and the visibleFrame.origin.y needs to be offset - i.e. guess
-    // there's some coordinate system origin mismatch?
-    visibleFrame.origin.y = NSHeight(frame)-NSHeight(visibleFrame);
-    
-	NSScreen *screen=[[[NSScreen alloc] initWithFrame:frame visibleFrame:visibleFrame] autorelease];
+    if (NULL == getMonitorInfo) {
+        HANDLE library = LoadLibrary("USER32");
+        getMonitorInfo = GetProcAddress(library, "GetMonitorInfoA");
+    }
 
-   if (info.dwFlags & MONITORINFOF_PRIMARY) [array insertObject:screen atIndex:0];
-   else [array addObject:screen];
+    NSMutableArray *array = (id) dwData;
 
-   return TRUE;
+    MONITORINFOEX info;
+    info.cbSize = sizeof(info);
+    getMonitorInfo(hMonitor, &info);
+
+    NSRect frame = CGRectFromRECT(info.rcMonitor);
+    NSRect visibleFrame = CGRectFromRECT(info.rcWork);
+
+    // According to
+    // http://msdn.microsoft.com/en-us/library/windows/desktop/dd145066(v=vs.85).aspx
+    // the rcMonitor and rcWork rects are already in virtual screen coords so
+    // there should be no need for any further massaging.
+
+    // But apparently it's not true and the visibleFrame.origin.y needs to be
+    // offset - i.e. guess there's some coordinate system origin mismatch?
+    visibleFrame.origin.y = NSHeight(frame) - NSHeight(visibleFrame);
+
+    NSScreen *screen =
+        [[[NSScreen alloc] initWithFrame: frame
+                            visibleFrame: visibleFrame] autorelease];
+
+    if (info.dwFlags & MONITORINFOF_PRIMARY)
+        [array insertObject: screen atIndex: 0];
+    else
+        [array addObject: screen];
+
+    return TRUE;
 }
 
--(NSArray *)screens {
-	static FARPROC enumDisplayMonitors = NULL;
-	if (NULL == enumDisplayMonitors) {
-		HANDLE  library = LoadLibrary( "USER32" );
-		enumDisplayMonitors = GetProcAddress(library,"EnumDisplayMonitors");
-	}
-	
-	if(enumDisplayMonitors != NULL){
-		NSMutableArray *result = [NSMutableArray array];
-		enumDisplayMonitors( NULL, NULL, monitorEnumerator, result );
-		return result;
-	} else {
-		NSRect frame=NSMakeRect(0,0,GetSystemMetrics(SM_CXSCREEN),GetSystemMetrics(SM_CYSCREEN));
+- (NSArray *) screens {
+    static FARPROC enumDisplayMonitors = NULL;
+    if (NULL == enumDisplayMonitors) {
+        HANDLE library = LoadLibrary("USER32");
+        enumDisplayMonitors = GetProcAddress(library, "EnumDisplayMonitors");
+    }
 
-		return [NSArray arrayWithObject:[[[NSScreen alloc] initWithFrame:frame visibleFrame:frame] autorelease]];
-   }
+    if (enumDisplayMonitors != NULL) {
+        NSMutableArray *result = [NSMutableArray array];
+        enumDisplayMonitors(NULL, NULL, monitorEnumerator, result);
+        return result;
+    } else {
+        NSRect frame = NSMakeRect(0, 0, GetSystemMetrics(SM_CXSCREEN),
+                                  GetSystemMetrics(SM_CYSCREEN));
+
+        return
+            [NSArray arrayWithObject: [[[NSScreen alloc] initWithFrame: frame
+                                                          visibleFrame: frame]
+                                          autorelease]];
+    }
 }
 
--(NSPasteboard *)pasteboardWithName:(NSString *)name {
-   if([name isEqualToString:NSGeneralPboard]){
-    if(_generalPasteboard==nil)
-     _generalPasteboard=[[Win32GeneralPasteboard alloc] init];
+- (NSPasteboard *) pasteboardWithName: (NSString *) name {
+    if ([name isEqualToString: NSGeneralPboard]) {
+        if (_generalPasteboard == nil)
+            _generalPasteboard = [[Win32GeneralPasteboard alloc] init];
 
-    return _generalPasteboard;
-   }
-   else if([name isEqualToString:NSDragPboard])
-    return [[[Win32Pasteboard alloc] init] autorelease];
-   else {
-    NSPasteboard *result=[_pasteboards objectForKey:name];
+        return _generalPasteboard;
+    } else if ([name isEqualToString: NSDragPboard])
+        return [[[Win32Pasteboard alloc] init] autorelease];
+    else {
+        NSPasteboard *result = [_pasteboards objectForKey: name];
 
-    if(result==nil){
-     result=[[[Win32Pasteboard alloc] init] autorelease];
-     [_pasteboards setObject:result forKey:name];
+        if (result == nil) {
+            result = [[[Win32Pasteboard alloc] init] autorelease];
+            [_pasteboards setObject: result forKey: name];
+        }
+
+        return result;
+    }
+}
+
+- (NSDraggingManager *) draggingManager {
+    return NSThreadSharedInstance(@"Win32DraggingManager");
+}
+
+- (CGWindow *) windowWithFrame: (NSRect) frame
+                     styleMask: (unsigned) styleMask
+                   backingType: (unsigned) backingType {
+    return [[[Win32Window alloc] initWithFrame: frame
+                                     styleMask: styleMask
+                                       isPanel: NO
+                                   backingType: backingType] autorelease];
+}
+
+- (CGWindow *) panelWithFrame: (NSRect) frame
+                    styleMask: (unsigned) styleMask
+                  backingType: (unsigned) backingType {
+    return [[[Win32Window alloc] initWithFrame: frame
+                                     styleMask: styleMask
+                                       isPanel: YES
+                                   backingType: backingType] autorelease];
+}
+
+- (void) invalidateSystemColors {
+    [_nameToColor removeAllObjects];
+}
+
+- (void) buildSystemColors {
+    struct {
+        NSString *name;
+        int value;
+    } table[] = {
+        {@"controlBackgroundColor", COLOR_WINDOW},
+        {@"controlColor", COLOR_3DFACE},
+        {@"controlDarkShadowColor", COLOR_3DDKSHADOW},
+        {@"controlHighlightColor", COLOR_3DLIGHT},
+        {@"controlLightHighlightColor", COLOR_3DHILIGHT},
+        {@"controlShadowColor", COLOR_3DSHADOW},
+        {@"controlTextColor", COLOR_BTNTEXT},
+        //  { @"disabledControlTextColor", COLOR_3DSHADOW },
+        {@"disabledControlTextColor", COLOR_GRAYTEXT},
+        {@"highlightColor", COLOR_3DHILIGHT},
+        {@"knobColor", COLOR_3DFACE},
+        {@"scrollBarColor", COLOR_SCROLLBAR},
+        {@"selectedControlColor", COLOR_HIGHLIGHT},
+        {@"selectedControlTextColor", COLOR_HIGHLIGHTTEXT},
+        {@"selectedKnobColor", COLOR_HIGHLIGHT},
+        {@"selectedTextBackgroundColor", COLOR_HIGHLIGHT},
+        {@"selectedTextColor", COLOR_HIGHLIGHTTEXT},
+        {@"shadowColor", COLOR_3DDKSHADOW},
+        {@"textBackgroundColor", COLOR_WINDOW},
+        {@"textColor", COLOR_WINDOWTEXT},
+        {@"gridColor", COLOR_INACTIVEBORDER}, // what should this be?
+        {@"headerColor", COLOR_3DFACE}, // these do not appear in the user-space
+                                        // System color list,
+        {@"headerTextColor",
+         COLOR_BTNTEXT}, // probably because Apple builds that off System.clr
+        {@"alternateSelectedControlColor", COLOR_WINDOW},         // FIXME:
+        {@"alternateSelectedControlTextColor", COLOR_WINDOWTEXT}, // FIXME:
+        {@"secondarySelectedControlColor", COLOR_HIGHLIGHT},      // FIXME:
+        {@"keyboardFocusIndicatorColor", COLOR_ACTIVEBORDER},     // FIXME:
+        {@"windowFrameColor", COLOR_WINDOWFRAME},                 // FIXME:
+        {@"selectedMenuItemColor", 29 /* COLOR_MENUHILIGHT */},   // FIXME:
+        {@"selectedMenuItemTextColor", COLOR_HIGHLIGHTTEXT},      // FIXME:
+                                                                  // extensions
+        {@"menuBackgroundColor", COLOR_MENU},
+        {@"mainMenuBarColor", 30},
+        {@"menuItemTextColor", COLOR_MENUTEXT},
+        {@"_sourceListBackgroundColor", COLOR_WINDOW},
+
+        {nil, 0}};
+    int i;
+    CGColorSpaceRef colorSpace = [[O2ColorSpace alloc] initWithPlatformRGB];
+
+    for (i = 0; table[i].name != nil; i++) {
+        LOGBRUSH contents;
+        CGColorRef colorRef;
+        CGFloat components[4];
+        NSColor *color;
+
+        GetObject(GetSysColorBrush(table[i].value), sizeof(LOGBRUSH),
+                  &contents);
+
+        components[0] = GetRValue(contents.lbColor) / 255.0;
+        components[1] = GetGValue(contents.lbColor) / 255.0;
+        components[2] = GetBValue(contents.lbColor) / 255.0;
+        components[3] = 1;
+
+        colorRef = CGColorCreate(colorSpace, components);
+
+        color = [NSColor_CGColor colorWithColorRef: colorRef
+                                         spaceName: NSDeviceRGBColorSpace];
+        CGColorRelease(colorRef);
+        [_nameToColor setObject: color forKey: table[i].name];
+    }
+
+    CGColorSpaceRelease(colorSpace);
+}
+
+- (NSColor *) colorWithName: (NSString *) colorName {
+    if ([_nameToColor count] == 0)
+        [self buildSystemColors];
+
+    return [_nameToColor objectForKey: colorName];
+}
+
+- (void) _addSystemColor: (NSColor *) color forName: (NSString *) name {
+    if ([_nameToColor count] == 0)
+        [self buildSystemColors];
+    [_nameToColor setObject: color forKey: name];
+}
+
+- (NSTimeInterval) textCaretBlinkInterval {
+    return ((CGFloat) GetCaretBlinkTime()) / 1000.0;
+}
+
+- (void) hideCursor {
+    _cursorDisplayCount = ShowCursor(FALSE);
+}
+
+- (void) unhideCursor {
+    _cursorDisplayCount = ShowCursor(TRUE);
+}
+
+- (void) _unhideCursorForMouseMove {
+    while (_cursorDisplayCount <= 0)
+        [self unhideCursor];
+}
+
+- cursorWithName: (NSString *) name {
+    id result = [_cursorCache objectForKey: name];
+
+    if (result == nil) {
+        result = [[[Win32Cursor alloc] initWithName: name] autorelease];
+        [_cursorCache setObject: result forKey: name];
     }
 
     return result;
-   }
 }
 
--(NSDraggingManager *)draggingManager {
-   return NSThreadSharedInstance(@"Win32DraggingManager");
+- (void) setCursor: (id) cursor {
+    HCURSOR handle = [cursor cursorHandle];
+    // HCURSOR current=GetCursor();
+
+    [_cursor autorelease];
+    _cursor = [cursor retain];
+
+    //  if(current!=handle)
+    SetCursor(_lastCursor = handle);
 }
 
--(CGWindow *)windowWithFrame:(NSRect)frame styleMask:(unsigned)styleMask backingType:(unsigned)backingType {
-   return [[[Win32Window alloc] initWithFrame:frame styleMask:styleMask isPanel:NO backingType:backingType] autorelease];
-}
-
--(CGWindow *)panelWithFrame:(NSRect)frame styleMask:(unsigned)styleMask backingType:(unsigned)backingType {
-   return [[[Win32Window alloc] initWithFrame:frame styleMask:styleMask isPanel:YES backingType:backingType] autorelease];
-}
-
--(void)invalidateSystemColors {
-   [_nameToColor removeAllObjects];
-}
-
--(void)buildSystemColors {
-   struct {
-    NSString *name;
-    int       value;
-   } table[]={
-    { @"controlBackgroundColor", COLOR_WINDOW },
-    { @"controlColor", COLOR_3DFACE },
-    { @"controlDarkShadowColor", COLOR_3DDKSHADOW },
-    { @"controlHighlightColor", COLOR_3DLIGHT },
-    { @"controlLightHighlightColor", COLOR_3DHILIGHT },
-    { @"controlShadowColor", COLOR_3DSHADOW },
-    { @"controlTextColor", COLOR_BTNTEXT },
-  //  { @"disabledControlTextColor", COLOR_3DSHADOW },
-    { @"disabledControlTextColor", COLOR_GRAYTEXT },
-    { @"highlightColor", COLOR_3DHILIGHT },
-    { @"knobColor", COLOR_3DFACE },
-    { @"scrollBarColor", COLOR_SCROLLBAR },
-    { @"selectedControlColor", COLOR_HIGHLIGHT },
-    { @"selectedControlTextColor", COLOR_HIGHLIGHTTEXT },
-    { @"selectedKnobColor", COLOR_HIGHLIGHT },
-    { @"selectedTextBackgroundColor", COLOR_HIGHLIGHT },
-    { @"selectedTextColor", COLOR_HIGHLIGHTTEXT },
-    { @"shadowColor", COLOR_3DDKSHADOW },
-    { @"textBackgroundColor", COLOR_WINDOW },
-    { @"textColor", COLOR_WINDOWTEXT },
-    { @"gridColor", COLOR_INACTIVEBORDER },		// what should this be?
-    { @"headerColor", COLOR_3DFACE },		// these do not appear in the user-space System color list,
-    { @"headerTextColor", COLOR_BTNTEXT },	// probably because Apple builds that off System.clr
-   { @"alternateSelectedControlColor", COLOR_WINDOW }, // FIXME:
-   { @"alternateSelectedControlTextColor", COLOR_WINDOWTEXT }, // FIXME:
-   { @"secondarySelectedControlColor", COLOR_HIGHLIGHT }, // FIXME:
-   { @"keyboardFocusIndicatorColor", COLOR_ACTIVEBORDER }, // FIXME:
-   { @"windowFrameColor", COLOR_WINDOWFRAME }, // FIXME:
-   { @"selectedMenuItemColor", 29 /* COLOR_MENUHILIGHT */ }, // FIXME:
-   { @"selectedMenuItemTextColor", COLOR_HIGHLIGHTTEXT }, // FIXME:
-// extensions
-    { @"menuBackgroundColor", COLOR_MENU },
-	{ @"mainMenuBarColor", 30 },
-    { @"menuItemTextColor", COLOR_MENUTEXT },
-     { @"_sourceListBackgroundColor", COLOR_WINDOW },
- 
-    { nil, 0 }
-   };
-   int i;
-   CGColorSpaceRef colorSpace=[[O2ColorSpace alloc] initWithPlatformRGB];
-
-   for(i=0;table[i].name!=nil;i++){
-    LOGBRUSH   contents;
-    CGColorRef colorRef;
-    CGFloat    components[4];
-    NSColor   *color;
-
-    GetObject(GetSysColorBrush(table[i].value),sizeof(LOGBRUSH),&contents);
-
-    components[0]=GetRValue(contents.lbColor)/255.0;
-    components[1]=GetGValue(contents.lbColor)/255.0;
-    components[2]=GetBValue(contents.lbColor)/255.0;
-    components[3]=1;
-    
-    colorRef=CGColorCreate(colorSpace,components);
-
-    color=[NSColor_CGColor colorWithColorRef:colorRef spaceName:NSDeviceRGBColorSpace];
-    CGColorRelease(colorRef);
-    [_nameToColor setObject:color forKey:table[i].name];
-   }
-   
-   CGColorSpaceRelease(colorSpace);
-}
-
--(NSColor *)colorWithName:(NSString *)colorName {
-   if([_nameToColor count]==0)
-    [self buildSystemColors];
-
-   return [_nameToColor objectForKey:colorName];
-}
-
--(void) _addSystemColor: (NSColor *) color forName: (NSString *) name {
-   if([_nameToColor count]==0)
-    [self buildSystemColors];
-   [_nameToColor setObject: color forKey: name];
-}
-
--(NSTimeInterval)textCaretBlinkInterval {
-   return ((CGFloat)GetCaretBlinkTime())/1000.0;
-}
-
--(void)hideCursor {
-   _cursorDisplayCount=ShowCursor(FALSE);
-}
-
--(void)unhideCursor {
-   _cursorDisplayCount=ShowCursor(TRUE);
-}
-
--(void)_unhideCursorForMouseMove {
-   while(_cursorDisplayCount<=0)
-    [self unhideCursor];
-}
-
--cursorWithName:(NSString *)name {
-   id result=[_cursorCache objectForKey:name];
-
-   if(result==nil){
-    result=[[[Win32Cursor alloc] initWithName:name] autorelease];
-    [_cursorCache setObject:result forKey:name];
-   }
-
-   return result;
-}
-
--(void)setCursor:(id)cursor {
-   HCURSOR handle=[cursor cursorHandle];
-   // HCURSOR current=GetCursor();
-
-   [_cursor autorelease];
-   _cursor=[cursor retain];
-
- //  if(current!=handle)
-    SetCursor(_lastCursor=handle);
-}
-
--(void)stopWaitCursor {
+- (void) stopWaitCursor {
 #ifdef WAITCURSOR
-   SetEvent(waitCursorStop);
+    SetEvent(waitCursorStop);
 
-   if(_lastCursor!=NULL)
-    SetCursor(_lastCursor);
-   else {
-    POINT pt;
-    GetCursorPos(&pt);
-    SetCursorPos(pt.x, pt.y);
-  //  _lastCursor=GetCursor();
-   }
-#endif
-}
-
--(void)startWaitCursor {
-#ifdef WAITCURSOR
-   ResetEvent(waitCursorStop);
-   SetEvent(waitCursorStart);
-#endif
-}
-
--(NSEvent *)nextEventMatchingMask:(unsigned)mask untilDate:(NSDate *)untilDate inMode:(NSString *)mode dequeue:(BOOL)dequeue {
-   NSEvent *result=nil;
-
-   [[NSRunLoop currentRunLoop] addInputSource:_eventInputSource forMode:mode];
-   [self stopWaitCursor];
-   
-   do{
-    result=[super nextEventMatchingMask:mask|NSPlatformSpecificDisplayMask untilDate:untilDate inMode:mode dequeue:dequeue];
-    
-    if([result type]==NSPlatformSpecificDisplayEvent){
-     Win32Event *win32Event=(Win32Event *)[(NSEvent_CoreGraphics *)result coreGraphicsEvent];
-     MSG msg=[win32Event msg];
-     
-     DispatchMessageW(&msg);
-     result=nil;
+    if (_lastCursor != NULL)
+        SetCursor(_lastCursor);
+    else {
+        POINT pt;
+        GetCursorPos(&pt);
+        SetCursorPos(pt.x, pt.y);
+        //  _lastCursor=GetCursor();
     }
-    
-    if(result!=nil)
-     break;
-   }while([untilDate timeIntervalSinceNow]>0 || [_eventQueue count]>0);
-   [self startWaitCursor];
-   
-//   [[NSRunLoop currentRunLoop] removeInputSource:_eventInputSource forMode:mode];
+#endif
+}
 
-   return result;
+- (void) startWaitCursor {
+#ifdef WAITCURSOR
+    ResetEvent(waitCursorStop);
+    SetEvent(waitCursorStart);
+#endif
+}
+
+- (NSEvent *) nextEventMatchingMask: (unsigned) mask
+                          untilDate: (NSDate *) untilDate
+                             inMode: (NSString *) mode
+                            dequeue: (BOOL) dequeue {
+    NSEvent *result = nil;
+
+    [[NSRunLoop currentRunLoop] addInputSource: _eventInputSource
+                                       forMode: mode];
+    [self stopWaitCursor];
+
+    do {
+        result =
+            [super nextEventMatchingMask: mask | NSPlatformSpecificDisplayMask
+                               untilDate: untilDate
+                                  inMode: mode
+                                 dequeue: dequeue];
+
+        if ([result type] == NSPlatformSpecificDisplayEvent) {
+            Win32Event *win32Event = (Win32Event *) [(
+                NSEvent_CoreGraphics *) result coreGraphicsEvent];
+            MSG msg = [win32Event msg];
+
+            DispatchMessageW(&msg);
+            result = nil;
+        }
+
+        if (result != nil)
+            break;
+    } while ([untilDate timeIntervalSinceNow] > 0 || [_eventQueue count] > 0);
+    [self startWaitCursor];
+
+    //   [[NSRunLoop currentRunLoop] removeInputSource:_eventInputSource
+    //   forMode:mode];
+
+    return result;
 }
 
 #define kVK_ANSI_A 0x00
@@ -542,11 +594,12 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor,HDC hdcMonitor,LPRECT r
 
 #define kVK_UNMAPPED 0xFFFF
 
-unsigned appleKeyCodeForWindowsKeyCode(unsigned wParam,unsigned lParam,BOOL *isKeypad){
-   unsigned scanCode=(lParam>>16)&0xFF;
+unsigned appleKeyCodeForWindowsKeyCode(unsigned wParam, unsigned lParam,
+                                       BOOL *isKeypad) {
+    unsigned scanCode = (lParam >> 16) & 0xFF;
 
-   *isKeypad=NO;
-// clang-format off
+    *isKeypad = NO;
+    // clang-format off
    if(lParam&0x01000000){
     *isKeypad=YES;
 
@@ -752,22 +805,26 @@ unsigned appleKeyCodeForWindowsKeyCode(unsigned wParam,unsigned lParam,BOOL *isK
     case VK_PA1: return kVK_UNMAPPED;
     case VK_OEM_CLEAR: return kVK_UNMAPPED;
    }
-// clang-format on
-    
-   return kVK_UNMAPPED;
+    // clang-format on
+
+    return kVK_UNMAPPED;
 }
 
-/* Windows does not use different scan codes for keypad keys, there is a seperate bit in lParam to distinguish this. YellowBox does not pass this extra bit of information on via NSEvent which is a real nuisance if you actually need it. This remaps the extended keys to the keyCode's used on NEXTSTEP/OPENSTEP.
+/* Windows does not use different scan codes for keypad keys, there is a
+seperate bit in lParam to distinguish this. YellowBox does not pass this extra
+bit of information on via NSEvent which is a real nuisance if you actually need
+it. This remaps the extended keys to the keyCode's used on NEXTSTEP/OPENSTEP.
 
-The values should be upgraded to something which is more generic to implement, perhaps passing the windows values through.
- 
+The values should be upgraded to something which is more generic to implement,
+perhaps passing the windows values through.
+
  */
 // FIX
--(unsigned)keyCodeForLParam:(LPARAM)lParam isKeypad:(BOOL *)isKeypad{
-   unsigned keyCode=(lParam>>16)&0xFF;
+- (unsigned) keyCodeForLParam: (LPARAM) lParam isKeypad: (BOOL *) isKeypad {
+    unsigned keyCode = (lParam >> 16) & 0xFF;
 
-   *isKeypad=NO;
-// clang-format off
+    *isKeypad = NO;
+    // clang-format off
    if(lParam&0x01000000){
     *isKeypad=YES;
 
@@ -792,70 +849,90 @@ The values should be upgraded to something which is more generic to implement, p
      case 0x1D: keyCode=0x60; break; // Right Control
     }
    }
-// clang-format on
-    
-   return keyCode;
+    // clang-format on
+
+    return keyCode;
 }
 
--(BOOL)postKeyboardMSG:(MSG)msg type:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned)modifierFlags window:(NSWindow *)window keyboardState:(BYTE *)keyboardState {
-    unichar        buffer[256],ignoringBuffer[256];
-    BOOL           isARepeat=NO;
-    int            bufferSize=0,ignoringBufferSize=0;
-    BYTE           *keyState=keyboardState;
-    
-    // The recommended way to properly handle unicode is to handle WM_CHAR events, generated by using TranslateMessage
-    // But to built the chars ignoring the modifiers, we need to use ToUnicode.
-    // Unfortunately, ToUnicode is modifying the character layout internal state machine, used to deal with dead keys
-    // So, for things that looks like shortcuts (ctrl is down, but not the alt key, used to compose some chars), we do all
-    // the processing at WM_KEYDOWN events, using ToUnicode to get both the "normal" chars, and the unmodified ones
-    // For other events, we call TranslateMessage, which is needed for proper IME support.
-    // (that means shortcuts without a "ctrl" modifier are probably not properly handled, as well as the
-    // charactersIgnoringModifiers property of NSEvent for non-shortcuts)
+- (BOOL) postKeyboardMSG: (MSG) msg
+                    type: (NSEventType) type
+                location: (NSPoint) location
+           modifierFlags: (unsigned) modifierFlags
+                  window: (NSWindow *) window
+           keyboardState: (BYTE *) keyboardState {
+    unichar buffer[256], ignoringBuffer[256];
+    BOOL isARepeat = NO;
+    int bufferSize = 0, ignoringBufferSize = 0;
+    BYTE *keyState = keyboardState;
+
+    // The recommended way to properly handle unicode is to handle WM_CHAR
+    // events, generated by using TranslateMessage But to built the chars
+    // ignoring the modifiers, we need to use ToUnicode. Unfortunately,
+    // ToUnicode is modifying the character layout internal state machine, used
+    // to deal with dead keys So, for things that looks like shortcuts (ctrl is
+    // down, but not the alt key, used to compose some chars), we do all the
+    // processing at WM_KEYDOWN events, using ToUnicode to get both the "normal"
+    // chars, and the unmodified ones For other events, we call
+    // TranslateMessage, which is needed for proper IME support. (that means
+    // shortcuts without a "ctrl" modifier are probably not properly handled, as
+    // well as the charactersIgnoringModifiers property of NSEvent for
+    // non-shortcuts)
     if (msg.message == WM_CHAR || msg.message == WM_SYSCHAR) {
         *buffer = msg.wParam;
         bufferSize = 1;
     } else {
-        BOOL isCtrlAlt = (modifierFlags & (NSCommandKeyMask | NSAlternateKeyMask)) == (NSCommandKeyMask | NSAlternateKeyMask);
+        BOOL isCtrlAlt =
+            (modifierFlags & (NSCommandKeyMask | NSAlternateKeyMask)) ==
+            (NSCommandKeyMask | NSAlternateKeyMask);
         BOOL isCtrl = (modifierFlags & NSCommandKeyMask) == NSCommandKeyMask;
         if (isCtrl == NO || isCtrlAlt == YES) {
             // Not a shortcut - use the normal char composing path
             TranslateMessage(&msg);
         } else {
             // Get the char corresponding to the key down
-            bufferSize = ToUnicode(msg.wParam,msg.lParam>>16,keyboardState,buffer,10,0);
-            
+            bufferSize = ToUnicode(msg.wParam, msg.lParam >> 16, keyboardState,
+                                   buffer, 10, 0);
+
             // Get the char without the modifiers
             BYTE kstate[256];
             memcpy(kstate, keyboardState, 256);
-            kstate[VK_CONTROL]=0x00;
-            kstate[VK_LCONTROL]=0x00;
-            kstate[VK_RCONTROL]=0x00;
-            kstate[VK_CAPITAL]=0x00;
-            
-            kstate[VK_MENU]=0x00;
-            kstate[VK_LMENU]=0x00;
-            kstate[VK_RMENU]=0x00;
-            ignoringBufferSize = ToUnicode(msg.wParam,msg.lParam>>16,kstate,ignoringBuffer,10,0);
-            // Empty the keyboard state machine until we eat all of the dead keys
-            while(ignoringBufferSize < 0) {
-                ignoringBufferSize = ToUnicode(msg.wParam,msg.lParam>>16,kstate,ignoringBuffer,10,0);
+            kstate[VK_CONTROL] = 0x00;
+            kstate[VK_LCONTROL] = 0x00;
+            kstate[VK_RCONTROL] = 0x00;
+            kstate[VK_CAPITAL] = 0x00;
+
+            kstate[VK_MENU] = 0x00;
+            kstate[VK_LMENU] = 0x00;
+            kstate[VK_RMENU] = 0x00;
+            ignoringBufferSize = ToUnicode(msg.wParam, msg.lParam >> 16, kstate,
+                                           ignoringBuffer, 10, 0);
+            // Empty the keyboard state machine until we eat all of the dead
+            // keys
+            while (ignoringBufferSize < 0) {
+                ignoringBufferSize = ToUnicode(msg.wParam, msg.lParam >> 16,
+                                               kstate, ignoringBuffer, 10, 0);
             }
             if (ignoringBufferSize > 0) {
-                NSString *str = [[[NSString alloc] initWithCharacters:ignoringBuffer length:ignoringBufferSize] autorelease];
-                [_ignoringModifiersString appendString:str];
+                NSString *str = [[[NSString alloc]
+                    initWithCharacters: ignoringBuffer
+                                length: ignoringBufferSize] autorelease];
+                [_ignoringModifiersString appendString: str];
             }
-            
-            // Calling to ToUnicode is changing the current logic state about dealing with dead keys so we need to put things
-            // back to the state it was
-            // see http://blogs.msdn.com/b/michkap/archive/2005/01/19/355870.aspx
-            ToUnicode(msg.wParam,msg.lParam>>16,keyboardState,ignoringBuffer,10,0);
+
+            // Calling to ToUnicode is changing the current logic state about
+            // dealing with dead keys so we need to put things back to the state
+            // it was see
+            // http://blogs.msdn.com/b/michkap/archive/2005/01/19/355870.aspx
+            ToUnicode(msg.wParam, msg.lParam >> 16, keyboardState,
+                      ignoringBuffer, 10, 0);
         }
     }
-    
+
     // Let's save the current keyCode
-    _keyCode=appleKeyCodeForWindowsKeyCode(msg.wParam,msg.lParam,&_isKeypad);
-    
-	if(bufferSize==0){
+    _keyCode =
+        appleKeyCodeForWindowsKeyCode(msg.wParam, msg.lParam, &_isKeypad);
+
+    if (bufferSize == 0) {
         // clang-format off
 		// Handle the special keys - we won't receive any char message from them
         switch(msg.wParam){
@@ -955,20 +1032,34 @@ The values should be upgraded to something which is more generic to implement, p
     }
     if (bufferSize > 0 || [_ignoringModifiersString length] > 0) {
         NSEvent *event;
-        BOOL     isKeypad;
-        
-        NSString *characters=(bufferSize>0)?[NSString stringWithCharacters:buffer length:bufferSize]:@"";
-        NSString *charactersIgnoringModifiers=_ignoringModifiersString;
+        BOOL isKeypad;
+
+        NSString *characters = (bufferSize > 0)
+                                   ? [NSString stringWithCharacters: buffer
+                                                             length: bufferSize]
+                                   : @"";
+        NSString *charactersIgnoringModifiers = _ignoringModifiersString;
         // Only send the event if we have something to send
         if (characters.length > 0 || charactersIgnoringModifiers.length > 0) {
             if (_ignoringModifiersString.length == 0) {
                 charactersIgnoringModifiers = characters;
             }
-            if(_isKeypad) {
-                modifierFlags|=NSNumericPadKeyMask;
+            if (_isKeypad) {
+                modifierFlags |= NSNumericPadKeyMask;
             }
-            event=[NSEvent keyEventWithType:type location:location modifierFlags:modifierFlags timestamp:[NSDate timeIntervalSinceReferenceDate] windowNumber:[window windowNumber] context:nil characters:characters charactersIgnoringModifiers:charactersIgnoringModifiers isARepeat:isARepeat keyCode:_keyCode];
-            [self postEvent:event atStart:NO];
+            event = [NSEvent
+                           keyEventWithType: type
+                                   location: location
+                              modifierFlags: modifierFlags
+                                  timestamp: [NSDate
+                                                 timeIntervalSinceReferenceDate]
+                               windowNumber: [window windowNumber]
+                                    context: nil
+                                 characters: characters
+                charactersIgnoringModifiers: charactersIgnoringModifiers
+                                  isARepeat: isARepeat
+                                    keyCode: _keyCode];
+            [self postEvent: event atStart: NO];
 
             [_ignoringModifiersString release];
             _ignoringModifiersString = [[NSMutableString alloc] init];
@@ -979,517 +1070,562 @@ The values should be upgraded to something which is more generic to implement, p
     return NO;
 }
 
--(BOOL)postMouseMSG:(MSG)msg type:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned)modifierFlags window:(NSWindow *)window {
-	NSEvent *event;
-/* Use mouseLocation to compute deltas, message coordinates are window based, and if the window is moving
-   with the mouse, things get messy
- */
-    NSPoint currentLocation=[self mouseLocation];
-    CGFloat deltaX=currentLocation.x-_pastLocation.x;
-    CGFloat deltaY=-(currentLocation.y-_pastLocation.y);
-    
-	if (type == NSMouseMoved) {
-		if (fabs(deltaX) < 1. && fabs(deltaY) < 1.) {
-			return YES;
-		}
-	}
-   event = [NSEvent mouseEventWithType:type location:location modifierFlags:modifierFlags window:window clickCount:_clickCount deltaX:deltaX deltaY:deltaY];
+- (BOOL) postMouseMSG: (MSG) msg
+                 type: (NSEventType) type
+             location: (NSPoint) location
+        modifierFlags: (unsigned) modifierFlags
+               window: (NSWindow *) window {
+    NSEvent *event;
+    /* Use mouseLocation to compute deltas, message coordinates are window
+       based, and if the window is moving with the mouse, things get messy
+     */
+    NSPoint currentLocation = [self mouseLocation];
+    CGFloat deltaX = currentLocation.x - _pastLocation.x;
+    CGFloat deltaY = -(currentLocation.y - _pastLocation.y);
+
+    if (type == NSMouseMoved) {
+        if (fabs(deltaX) < 1. && fabs(deltaY) < 1.) {
+            return YES;
+        }
+    }
+    event = [NSEvent mouseEventWithType: type
+                               location: location
+                          modifierFlags: modifierFlags
+                                 window: window
+                             clickCount: _clickCount
+                                 deltaX: deltaX
+                                 deltaY: deltaY];
 
     _pastLocation = currentLocation;
-    
-	[self postEvent:event atStart:NO];
-	
-	return YES;
-}
 
--(BOOL)postScrollWheelMSG:(MSG)msg type:(NSEventType)type location:(NSPoint)location modifierFlags:(unsigned)modifierFlags window:(NSWindow *)window {
-   NSEvent *event;
-    
-    CGFloat deltaX=0;
-    CGFloat deltaY=0;
-    if(msg.message==WM_MOUSEWHEEL) {
-        deltaY = ((CGFloat)GET_WHEEL_DELTA_WPARAM(msg.wParam));
-        deltaY /= 120.f; // deltaY comes in units of 120 (for fractional rotations - when all you have is an int..)
-    } else if(msg.message==WM_MOUSEHWHEEL) {
-        deltaX = ((CGFloat)GET_WHEEL_DELTA_WPARAM(msg.wParam));
-        deltaX /= 120.f; // deltaX comes in units of 120 (for fractional rotations - when all you have is an int..)
-    }
+    [self postEvent: event atStart: NO];
 
-    event=[NSEvent mouseEventWithType:type location:location modifierFlags:modifierFlags window:window clickCount:0 deltaX:deltaX deltaY:deltaY];
-    [self postEvent:event atStart:NO];
     return YES;
 }
 
--(unsigned)currentModifierFlagsWithKeyboardState:(BYTE *)keyboardState {
-   unsigned result=0;
-   BYTE    *keyState=keyboardState;
+- (BOOL) postScrollWheelMSG: (MSG) msg
+                       type: (NSEventType) type
+                   location: (NSPoint) location
+              modifierFlags: (unsigned) modifierFlags
+                     window: (NSWindow *) window {
+    NSEvent *event;
 
-   if(keyState==NULL)
+    CGFloat deltaX = 0;
+    CGFloat deltaY = 0;
+    if (msg.message == WM_MOUSEWHEEL) {
+        deltaY = ((CGFloat) GET_WHEEL_DELTA_WPARAM(msg.wParam));
+        deltaY /= 120.f; // deltaY comes in units of 120 (for fractional
+                         // rotations - when all you have is an int..)
+    } else if (msg.message == WM_MOUSEHWHEEL) {
+        deltaX = ((CGFloat) GET_WHEEL_DELTA_WPARAM(msg.wParam));
+        deltaX /= 120.f; // deltaX comes in units of 120 (for fractional
+                         // rotations - when all you have is an int..)
+    }
+
+    event = [NSEvent mouseEventWithType: type
+                               location: location
+                          modifierFlags: modifierFlags
+                                 window: window
+                             clickCount: 0
+                                 deltaX: deltaX
+                                 deltaY: deltaY];
+    [self postEvent: event atStart: NO];
+    return YES;
+}
+
+- (unsigned) currentModifierFlagsWithKeyboardState: (BYTE *) keyboardState {
+    unsigned result = 0;
+    BYTE *keyState = keyboardState;
+
+    if (keyState == NULL)
+        return result;
+
+    if (keyState[VK_LSHIFT] & 0x80)
+        result |= NSShiftKeyMask;
+    if (keyState[VK_RSHIFT] & 0x80)
+        result |= NSShiftKeyMask;
+
+    if (keyState[VK_CAPITAL] & 0x80)
+        result |= NSAlphaShiftKeyMask;
+
+    if (keyState[VK_LCONTROL] & 0x80)
+        result |= [self modifierForDefault: @"LeftControl": NSControlKeyMask];
+    if (keyState[VK_RCONTROL] & 0x80)
+        result |= [self modifierForDefault: @"RightControl": NSControlKeyMask];
+
+    if (keyState[VK_LMENU] & 0x80)
+        result |= [self modifierForDefault: @"LeftAlt": NSAlternateKeyMask];
+    if (keyState[VK_RMENU] & 0x80)
+        result |= [self modifierForDefault: @"RightAlt": NSAlternateKeyMask];
+
+    if (keyState[VK_NUMPAD0] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD1] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD2] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD3] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD4] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD5] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD6] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD7] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD8] & 0x80)
+        result |= NSNumericPadKeyMask;
+    if (keyState[VK_NUMPAD9] & 0x80)
+        result |= NSNumericPadKeyMask;
+
     return result;
-
-   if(keyState[VK_LSHIFT]&0x80)
-    result|=NSShiftKeyMask;
-   if(keyState[VK_RSHIFT]&0x80)
-    result|=NSShiftKeyMask;
-
-   if(keyState[VK_CAPITAL]&0x80)
-    result|=NSAlphaShiftKeyMask;
-
-   if(keyState[VK_LCONTROL]&0x80)
-    result|=[self modifierForDefault:@"LeftControl":NSControlKeyMask];
-   if(keyState[VK_RCONTROL]&0x80)
-    result|=[self modifierForDefault:@"RightControl":NSControlKeyMask];
-
-   if(keyState[VK_LMENU]&0x80)
-    result|=[self modifierForDefault:@"LeftAlt":NSAlternateKeyMask];
-   if(keyState[VK_RMENU]&0x80)
-    result|=[self modifierForDefault:@"RightAlt":NSAlternateKeyMask];
-
-
-   if(keyState[VK_NUMPAD0]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD1]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD2]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD3]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD4]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD5]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD6]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD7]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD8]&0x80)
-    result|=NSNumericPadKeyMask;
-   if(keyState[VK_NUMPAD9]&0x80)
-    result|=NSNumericPadKeyMask;
-
-   return result;
 }
 
--(NSUInteger)currentModifierFlags {
+- (NSUInteger) currentModifierFlags {
     BYTE keyState[256];
-    BYTE *keyboardState=NULL;
-    
-    if(GetKeyboardState(keyState))
-        keyboardState=keyState;
+    BYTE *keyboardState = NULL;
 
-    return [self currentModifierFlagsWithKeyboardState:keyboardState];
+    if (GetKeyboardState(keyState))
+        keyboardState = keyState;
+
+    return [self currentModifierFlagsWithKeyboardState: keyboardState];
 }
 
-NSArray *CGSOrderedWindowNumbers(){
-   NSMutableArray *result=[NSMutableArray array];
+NSArray *CGSOrderedWindowNumbers() {
+    NSMutableArray *result = [NSMutableArray array];
 
-   HWND check=GetTopWindow(NULL);
-   
-   while(check!=NULL){
-    Win32Window *platformWindow=GetProp(check,"Win32Window");
-    
-    if(platformWindow!=nil)
-     [result addObject:[NSNumber numberWithInteger:[platformWindow windowNumber]]];
+    HWND check = GetTopWindow(NULL);
 
-    check=GetNextWindow(check,GW_HWNDNEXT);
-   }
+    while (check != NULL) {
+        Win32Window *platformWindow = GetProp(check, "Win32Window");
 
-   return result;
-}
+        if (platformWindow != nil)
+            [result addObject: [NSNumber numberWithInteger: [platformWindow
+                                                                windowNumber]]];
 
-static HWND findWindowForScrollWheel(POINT point){
-   HWND check=GetTopWindow(NULL);
-   
-   while(check!=NULL){
-    RECT checkRect={0};
-
-    GetWindowRect(check,&checkRect);
-    
-    if(PtInRect(&checkRect,point)){
-     if((id)GetProp(check,"self")!=nil)
-      return check;
+        check = GetNextWindow(check, GW_HWNDNEXT);
     }
-    
-    check=GetNextWindow(check,GW_HWNDNEXT);
-   }
-   
-   return check;
+
+    return result;
 }
 
+static HWND findWindowForScrollWheel(POINT point) {
+    HWND check = GetTopWindow(NULL);
 
--(BOOL)postMSG:(MSG)msg keyboardState:(BYTE *)keyboardState {
-   NSEventType  type;
-   HWND         windowHandle=msg.hwnd;
-   id           platformWindow;
-   NSWindow    *window=nil;
-   POINT        deviceLocation;
-   NSPoint      location;
-   unsigned     modifierFlags;
-   DWORD        tickCount=GetTickCount();
-   int          lastClickCount=_clickCount;
+    while (check != NULL) {
+        RECT checkRect = {0};
 
-   deviceLocation.x=GET_X_LPARAM(msg.lParam);
-   deviceLocation.y=GET_Y_LPARAM(msg.lParam);
+        GetWindowRect(check, &checkRect);
 
-  if(msg.message==WM_MOUSEWHEEL || msg.message==WM_MOUSEHWHEEL) {
-// Scroll wheel events go to the window under the mouse regardless of key. Win32 set hwnd to the active window
-// So we look for the window under the mouse and use that for the event.
-    POINT pt={GET_X_LPARAM(msg.lParam),GET_Y_LPARAM(msg.lParam)};
-    RECT  r;
-    
-    GetWindowRect(windowHandle,&r);
-    pt.x+=r.left;
-    pt.y+=r.top;
-    
-    HWND scrollWheelWindow=findWindowForScrollWheel(pt);
-    
-    if(scrollWheelWindow!=NULL)
-     windowHandle=scrollWheelWindow;
-     
-    platformWindow=(id)GetProp(windowHandle,"Win32Window");
-   }
-   else {
-    platformWindow=(id)GetProp(msg.hwnd,"Win32Window");
-   }
-   
-   if([platformWindow respondsToSelector:@selector(appkitWindow)])
-    window=[platformWindow performSelector:@selector(appkitWindow)];
+        if (PtInRect(&checkRect, point)) {
+            if ((id) GetProp(check, "self") != nil)
+                return check;
+        }
 
-   if(![window isKindOfClass:[NSWindow class]])
-    window=nil;
+        check = GetNextWindow(check, GW_HWNDNEXT);
+    }
 
-   if(window==nil) // not one of our events
-    return NO;
+    return check;
+}
 
-   if(msg.message==WM_LBUTTONDBLCLK || msg.message==WM_RBUTTONDBLCLK){
-    if(msg.lParam==_lastPosition && _lastTickCount+GetDoubleClickTime()>=tickCount)
-      _clickCount=lastClickCount+1;
-    else
-      _clickCount=2;
-    _lastTickCount=tickCount;
-    _lastPosition=msg.lParam;
-   }
-   else if(msg.message==WM_LBUTTONDOWN || msg.message==WM_RBUTTONDOWN){
-    if(msg.lParam==_lastPosition && _lastTickCount+GetDoubleClickTime()>=tickCount)
-      _clickCount=lastClickCount+1;
-    else
-      _clickCount=1;
-    _lastTickCount=tickCount;
-    _lastPosition=msg.lParam;
-   }
-    switch(msg.message){
+- (BOOL) postMSG: (MSG) msg keyboardState: (BYTE *) keyboardState {
+    NSEventType type;
+    HWND windowHandle = msg.hwnd;
+    id platformWindow;
+    NSWindow *window = nil;
+    POINT deviceLocation;
+    NSPoint location;
+    unsigned modifierFlags;
+    DWORD tickCount = GetTickCount();
+    int lastClickCount = _clickCount;
 
-     case WM_CHAR:
-     case WM_SYSCHAR:
-     case WM_KEYDOWN:
-     case WM_SYSKEYDOWN:
-      type=NSKeyDown;
-      break;
+    deviceLocation.x = GET_X_LPARAM(msg.lParam);
+    deviceLocation.y = GET_Y_LPARAM(msg.lParam);
 
-     case WM_KEYUP:
-     case WM_SYSKEYUP:
-      type=NSKeyUp;
-      break;
+    if (msg.message == WM_MOUSEWHEEL || msg.message == WM_MOUSEHWHEEL) {
+        // Scroll wheel events go to the window under the mouse regardless of
+        // key. Win32 set hwnd to the active window So we look for the window
+        // under the mouse and use that for the event.
+        POINT pt = {GET_X_LPARAM(msg.lParam), GET_Y_LPARAM(msg.lParam)};
+        RECT r;
 
-     case WM_MOUSEMOVE:
-      [self _unhideCursorForMouseMove];
-      
-      if(msg.wParam&MK_LBUTTON)
-       type=NSLeftMouseDragged;
-      else if(msg.wParam&MK_RBUTTON)
-       type=NSRightMouseDragged;
-      else {
-       ReleaseCapture();
-       if(window!=nil && [window acceptsMouseMovedEvents]){
-        type=NSMouseMoved;
-       }
-       else {
+        GetWindowRect(windowHandle, &r);
+        pt.x += r.left;
+        pt.y += r.top;
+
+        HWND scrollWheelWindow = findWindowForScrollWheel(pt);
+
+        if (scrollWheelWindow != NULL)
+            windowHandle = scrollWheelWindow;
+
+        platformWindow = (id) GetProp(windowHandle, "Win32Window");
+    } else {
+        platformWindow = (id) GetProp(msg.hwnd, "Win32Window");
+    }
+
+    if ([platformWindow respondsToSelector: @selector(appkitWindow)])
+        window = [platformWindow performSelector: @selector(appkitWindow)];
+
+    if (![window isKindOfClass: [NSWindow class]])
+        window = nil;
+
+    if (window == nil) // not one of our events
+        return NO;
+
+    if (msg.message == WM_LBUTTONDBLCLK || msg.message == WM_RBUTTONDBLCLK) {
+        if (msg.lParam == _lastPosition &&
+            _lastTickCount + GetDoubleClickTime() >= tickCount)
+            _clickCount = lastClickCount + 1;
+        else
+            _clickCount = 2;
+        _lastTickCount = tickCount;
+        _lastPosition = msg.lParam;
+    } else if (msg.message == WM_LBUTTONDOWN || msg.message == WM_RBUTTONDOWN) {
+        if (msg.lParam == _lastPosition &&
+            _lastTickCount + GetDoubleClickTime() >= tickCount)
+            _clickCount = lastClickCount + 1;
+        else
+            _clickCount = 1;
+        _lastTickCount = tickCount;
+        _lastPosition = msg.lParam;
+    }
+    switch (msg.message) {
+
+    case WM_CHAR:
+    case WM_SYSCHAR:
+    case WM_KEYDOWN:
+    case WM_SYSKEYDOWN:
+        type = NSKeyDown;
+        break;
+
+    case WM_KEYUP:
+    case WM_SYSKEYUP:
+        type = NSKeyUp;
+        break;
+
+    case WM_MOUSEMOVE:
+        [self _unhideCursorForMouseMove];
+
+        if (msg.wParam & MK_LBUTTON)
+            type = NSLeftMouseDragged;
+        else if (msg.wParam & MK_RBUTTON)
+            type = NSRightMouseDragged;
+        else {
+            ReleaseCapture();
+            if (window != nil && [window acceptsMouseMovedEvents]) {
+                type = NSMouseMoved;
+            } else {
+                return YES;
+            }
+        }
+        break;
+
+    case WM_LBUTTONDOWN:
+    case WM_LBUTTONDBLCLK:
+        type = NSLeftMouseDown;
+        SetCapture([platformWindow windowHandle]);
+        break;
+
+    case WM_LBUTTONUP:
+        type = NSLeftMouseUp;
+        ReleaseCapture();
+        break;
+
+    case WM_RBUTTONDOWN:
+    case WM_RBUTTONDBLCLK:
+        type = NSRightMouseDown;
+        break;
+
+    case WM_RBUTTONUP:
+        type = NSRightMouseUp;
+        break;
+
+    case WM_MOUSEWHEEL:
+    case WM_MOUSEHWHEEL:
+        type = NSScrollWheel;
+        break;
+
+    case WM_NCMOUSEMOVE:
+    case WM_NCLBUTTONDOWN:
+    case WM_NCLBUTTONUP:
+    case WM_NCLBUTTONDBLCLK:
+    case WM_NCRBUTTONDOWN:
+    case WM_NCRBUTTONUP:
+    case WM_NCRBUTTONDBLCLK:
+    case WM_NCMBUTTONDOWN:
+    case WM_NCMBUTTONUP:
+    case WM_NCMBUTTONDBLCLK: {
+        Win32Event *cgEvent = [Win32Event eventWithMSG: msg];
+        NSEvent *event = [[[NSEvent_CoreGraphics alloc]
+            initWithCoreGraphicsEvent: cgEvent
+                               window: window] autorelease];
+        [self postEvent: event atStart: NO];
+    }
         return YES;
-       }
-      }
-      break;
 
-     case WM_LBUTTONDOWN:
-     case WM_LBUTTONDBLCLK:
-      type=NSLeftMouseDown;
-      SetCapture([platformWindow windowHandle]);
-      break;
-
-     case WM_LBUTTONUP:
-      type=NSLeftMouseUp;
-      ReleaseCapture();
-      break;
-
-     case WM_RBUTTONDOWN:
-     case WM_RBUTTONDBLCLK:
-      type=NSRightMouseDown;
-      break;
-
-     case WM_RBUTTONUP:
-      type=NSRightMouseUp;
-      break;
-
-     case WM_MOUSEWHEEL:
-     case WM_MOUSEHWHEEL:
-      type=NSScrollWheel;
-      break;
-
-     case WM_NCMOUSEMOVE:
-     case WM_NCLBUTTONDOWN:
-     case WM_NCLBUTTONUP:
-     case WM_NCLBUTTONDBLCLK:
-     case WM_NCRBUTTONDOWN:
-     case WM_NCRBUTTONUP:
-     case WM_NCRBUTTONDBLCLK:
-     case WM_NCMBUTTONDOWN:
-     case WM_NCMBUTTONUP:
-     case WM_NCMBUTTONDBLCLK:
-      {
-       Win32Event *cgEvent=[Win32Event eventWithMSG:msg];
-       NSEvent    *event=[[[NSEvent_CoreGraphics alloc] initWithCoreGraphicsEvent:cgEvent window:window] autorelease];
-       [self postEvent:event atStart:NO];
-      }
-      return YES;
-
-     default:
-      return NO;
+    default:
+        return NO;
     }
 
+    location.x = deviceLocation.x;
+    location.y = deviceLocation.y;
 
-    location.x=deviceLocation.x;
-    location.y=deviceLocation.y;
+    BOOL childWindow = NO;
 
-    BOOL childWindow=NO;
-    
-    if(msg.message==WM_MOUSEWHEEL || msg.message==WM_MOUSEHWHEEL) {
-            // WM_MOUSEWHEEL coordinates are on screen coordinates, others are in window
-            RECT frame={0};
-            
-            GetWindowRect([platformWindow windowHandle],&frame);
-            
-            location.x=location.x-frame.left;
-            location.y=location.y-frame.top;
-    }
-    else {
-        childWindow=(msg.hwnd!=[platformWindow windowHandle]);
-        
-        if(childWindow){
-            RECT child={0},parent={0};
-            
-            // There is no way to get a child's frame inside the parent, you have to get
-            // them both in screen coordinates and do a delta
-            // GetClientRect always returns 0,0 for top,left which makes it useless     
-            GetWindowRect(msg.hwnd,&child);
-            GetWindowRect([platformWindow windowHandle],&parent);
-            
-            location.x+=child.left-parent.left;
-            location.y+=child.top-parent.top;
+    if (msg.message == WM_MOUSEWHEEL || msg.message == WM_MOUSEHWHEEL) {
+        // WM_MOUSEWHEEL coordinates are on screen coordinates, others are in
+        // window
+        RECT frame = {0};
+
+        GetWindowRect([platformWindow windowHandle], &frame);
+
+        location.x = location.x - frame.left;
+        location.y = location.y - frame.top;
+    } else {
+        childWindow = (msg.hwnd != [platformWindow windowHandle]);
+
+        if (childWindow) {
+            RECT child = {0}, parent = {0};
+
+            // There is no way to get a child's frame inside the parent, you
+            // have to get them both in screen coordinates and do a delta
+            // GetClientRect always returns 0,0 for top,left which makes it
+            // useless
+            GetWindowRect(msg.hwnd, &child);
+            GetWindowRect([platformWindow windowHandle], &parent);
+
+            location.x += child.left - parent.left;
+            location.y += child.top - parent.top;
         }
     }
-    
-    [platformWindow adjustEventLocation:&location childWindow:childWindow];
-    
-    modifierFlags=[self currentModifierFlagsWithKeyboardState:keyboardState];
 
-    switch(type){
-     case NSLeftMouseDown:
-     case NSLeftMouseUp:
-     case NSRightMouseDown:
-     case NSRightMouseUp:
-     case NSMouseMoved:
-     case NSLeftMouseDragged:
-     case NSRightMouseDragged:
-     case NSMouseEntered:
-     case NSMouseExited:
-      return [self postMouseMSG:msg type:type location:location modifierFlags:modifierFlags window:window];
+    [platformWindow adjustEventLocation: &location childWindow: childWindow];
 
-     case NSKeyDown:
-     case NSKeyUp:
-     case NSFlagsChanged:
-      return [self postKeyboardMSG:msg type:type location:location modifierFlags:modifierFlags window:window keyboardState:keyboardState];
+    modifierFlags = [self currentModifierFlagsWithKeyboardState: keyboardState];
 
-     case NSScrollWheel:
-      return [self postScrollWheelMSG:msg type:type location:location modifierFlags:modifierFlags window:window];
+    switch (type) {
+    case NSLeftMouseDown:
+    case NSLeftMouseUp:
+    case NSRightMouseDown:
+    case NSRightMouseUp:
+    case NSMouseMoved:
+    case NSLeftMouseDragged:
+    case NSRightMouseDragged:
+    case NSMouseEntered:
+    case NSMouseExited:
+        return [self postMouseMSG: msg
+                             type: type
+                         location: location
+                    modifierFlags: modifierFlags
+                           window: window];
 
-     default:
-      return NO;
+    case NSKeyDown:
+    case NSKeyUp:
+    case NSFlagsChanged:
+        return [self postKeyboardMSG: msg
+                                type: type
+                            location: location
+                       modifierFlags: modifierFlags
+                              window: window
+                       keyboardState: keyboardState];
+
+    case NSScrollWheel:
+        return [self postScrollWheelMSG: msg
+                                   type: type
+                               location: location
+                          modifierFlags: modifierFlags
+                                 window: window];
+
+    default:
+        return NO;
     }
 
-   return NO;
+    return NO;
 }
 
--(void)beep {
-   MessageBeep(MB_OK);
+- (void) beep {
+    MessageBeep(MB_OK);
 }
 
-static int CALLBACK buildFamily(const const EXTLOGFONTW* logFont,const TEXTMETRICW* metrics,DWORD fontType,LPARAM lParam){
+static int CALLBACK buildFamily(const const EXTLOGFONTW *logFont,
+                                const TEXTMETRICW *metrics, DWORD fontType,
+                                LPARAM lParam) {
 
     //   NEWTEXTMETRICEX *textMetric=(NEWTEXTMETRICEX *)textMetric_old;
-   NSMutableSet *set=(NSMutableSet *)lParam;
-//   NSString     *name=[NSString stringWithCString:logFont->elfFullName];
+    NSMutableSet *set = (NSMutableSet *) lParam;
+    //   NSString     *name=[NSString stringWithCString:logFont->elfFullName];
     if (logFont && logFont->elfLogFont.lfFaceName) {
-        NSString    *name = [NSString stringWithFormat:@"%S", logFont->elfLogFont.lfFaceName];
-        // Font name starting with "@" are rotated versions of the font, for vertical rendering
-        // We don't want them - the are polluting our font list + they have the same PS name
-        // as the normal ones, leading to confusion in our font picking algo
-        if (name.length >= 1 && [name characterAtIndex:0] != '@') {
-            [set addObject:name];
+        NSString *name =
+            [NSString stringWithFormat: @"%S", logFont->elfLogFont.lfFaceName];
+        // Font name starting with "@" are rotated versions of the font, for
+        // vertical rendering We don't want them - the are polluting our font
+        // list + they have the same PS name as the normal ones, leading to
+        // confusion in our font picking algo
+        if (name.length >= 1 && [name characterAtIndex: 0] != '@') {
+            [set addObject: name];
         }
     }
-   return 1;
+    return 1;
 }
 
--(NSSet *)allFontFamilyNames {
-   NSMutableSet *result=[[[NSMutableSet alloc] init] autorelease];
-   HDC           dc=GetDC(NULL);
-   LOGFONTW logFont = { 0 };
-	
-   logFont.lfCharSet=DEFAULT_CHARSET;
-    
-   if(!EnumFontFamiliesExW(dc,&logFont,buildFamily,(LPARAM)result,0))
-        NSLog(@"EnumFontFamiliesExW failed %d",__LINE__);
-    
-   ReleaseDC(NULL,dc);
-   return result;
+- (NSSet *) allFontFamilyNames {
+    NSMutableSet *result = [[[NSMutableSet alloc] init] autorelease];
+    HDC dc = GetDC(NULL);
+    LOGFONTW logFont = {0};
+
+    logFont.lfCharSet = DEFAULT_CHARSET;
+
+    if (!EnumFontFamiliesExW(dc, &logFont, buildFamily, (LPARAM) result, 0))
+        NSLog(@"EnumFontFamiliesExW failed %d", __LINE__);
+
+    ReleaseDC(NULL, dc);
+    return result;
 }
 
-static NSFontMetric *fontMetricWithLogicalAndMetric(const ENUMLOGFONTEX *logFont,
-   const NEWTEXTMETRICEX *textMetric) {
-   NSSize size=NSMakeSize(logFont->elfLogFont.lfWidth,logFont->elfLogFont.lfHeight);
-   CGFloat  ascender=textMetric->ntmTm.tmAscent;
-   CGFloat  descender=-((CGFloat)textMetric->ntmTm.tmDescent);
+static NSFontMetric *
+fontMetricWithLogicalAndMetric(const ENUMLOGFONTEX *logFont,
+                               const NEWTEXTMETRICEX *textMetric) {
+    NSSize size =
+        NSMakeSize(logFont->elfLogFont.lfWidth, logFont->elfLogFont.lfHeight);
+    CGFloat ascender = textMetric->ntmTm.tmAscent;
+    CGFloat descender = -((CGFloat) textMetric->ntmTm.tmDescent);
 
-   return [[[NSFontMetric alloc]
-       initWithSize:size 
-           ascender:ascender
-          descender:descender] autorelease];
+    return [[[NSFontMetric alloc] initWithSize: size
+                                      ascender: ascender
+                                     descender: descender] autorelease];
 }
 
 static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
-   const TEXTMETRICA *textMetric_old,DWORD fontType,LPARAM lParam){
-   NSMutableDictionary *result=(NSMutableDictionary *)lParam;
-   LPENUMLOGFONTEX  logFont=(LPENUMLOGFONTEX)lofFont_old;
-   NEWTEXTMETRICEX *textMetric=(NEWTEXTMETRICEX *)textMetric_old;
-   NSString        *name=[NSString stringWithCString:(char *)(logFont->elfFullName)];
-   NSString        *traitName=[NSString stringWithCString:(char *)logFont->elfStyle];
-  // NSString       *encoding=[NSString stringWithCString:logFont->elfScript];
-   NSFontTypeface  *typeface=[result objectForKey:name];
+                                  const TEXTMETRICA *textMetric_old,
+                                  DWORD fontType, LPARAM lParam) {
+    NSMutableDictionary *result = (NSMutableDictionary *) lParam;
+    LPENUMLOGFONTEX logFont = (LPENUMLOGFONTEX) lofFont_old;
+    NEWTEXTMETRICEX *textMetric = (NEWTEXTMETRICEX *) textMetric_old;
+    NSString *name =
+        [NSString stringWithCString: (char *) (logFont->elfFullName)];
+    NSString *traitName =
+        [NSString stringWithCString: (char *) logFont->elfStyle];
+    // NSString       *encoding=[NSString stringWithCString:logFont->elfScript];
+    NSFontTypeface *typeface = [result objectForKey: name];
 
-   if(typeface==nil){
-    NSFontTraitMask traits=0;
+    if (typeface == nil) {
+        NSFontTraitMask traits = 0;
 
-    if(textMetric->ntmTm.ntmFlags&NTM_ITALIC)
-     traits|=NSItalicFontMask;
-    if(textMetric->ntmTm.ntmFlags&NTM_BOLD)
-     traits|=NSBoldFontMask;
+        if (textMetric->ntmTm.ntmFlags & NTM_ITALIC)
+            traits |= NSItalicFontMask;
+        if (textMetric->ntmTm.ntmFlags & NTM_BOLD)
+            traits |= NSBoldFontMask;
 
-	   NSString *psName = [O2Font postscriptNameForNativeName:name];
-	   NSString *displayName = [O2Font displayNameForPostscriptName:psName];
-	   typeface=[[[NSFontTypeface alloc] initWithName:psName 
-										  displayName:displayName 
-											traitName:traitName 
-											   traits:traits] autorelease];
+        NSString *psName = [O2Font postscriptNameForNativeName: name];
+        NSString *displayName = [O2Font displayNameForPostscriptName: psName];
+        typeface = [[[NSFontTypeface alloc] initWithName: psName
+                                             displayName: displayName
+                                               traitName: traitName
+                                                  traits: traits] autorelease];
 
-    [result setObject:typeface forKey:name];
-   }
+        [result setObject: typeface forKey: name];
+    }
 
-   [typeface addMetric:fontMetricWithLogicalAndMetric(logFont,textMetric)];
+    [typeface addMetric: fontMetricWithLogicalAndMetric(logFont, textMetric)];
 
-   return 1;
+    return 1;
 }
 
--(NSArray *)fontTypefacesForFamilyName:(NSString *)name {
-   NSMutableDictionary *result=[NSMutableDictionary dictionary];
-   HDC             dc=GetDC(NULL);
-   LOGFONT         logFont;
+- (NSArray *) fontTypefacesForFamilyName: (NSString *) name {
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    HDC dc = GetDC(NULL);
+    LOGFONT logFont;
 
-   logFont.lfCharSet=DEFAULT_CHARSET;
-   logFont.lfPitchAndFamily=0;
+    logFont.lfCharSet = DEFAULT_CHARSET;
+    logFont.lfPitchAndFamily = 0;
 
-   [name getCString:logFont.lfFaceName maxLength:LF_FACESIZE-1];
+    [name getCString: logFont.lfFaceName maxLength: LF_FACESIZE - 1];
 
-   if(!EnumFontFamiliesExA(dc,&logFont,buildTypeface,(LPARAM)result,0))
-    NSLog(@"EnumFontFamiliesExA failed %d",__LINE__);
+    if (!EnumFontFamiliesExA(dc, &logFont, buildTypeface, (LPARAM) result, 0))
+        NSLog(@"EnumFontFamiliesExA failed %d", __LINE__);
 
-   ReleaseDC(NULL,dc);
-   
-   return [result allValues];
+    ReleaseDC(NULL, dc);
+
+    return [result allValues];
 }
 
--(CGFloat)scrollerWidth {
-   return GetSystemMetrics(SM_CXHTHUMB);
+- (CGFloat) scrollerWidth {
+    return GetSystemMetrics(SM_CXHTHUMB);
 }
 
-#define PTS2THOUSANDS(x) ((x/72.f) * 1000.f)
+#define PTS2THOUSANDS(x) ((x / 72.f) * 1000.f)
 #define THOUSANDS2PTS(x) ((x / 1000.f) * 72.f)
 
--(int)runModalPageLayoutWithPrintInfo:(NSPrintInfo *)printInfo {
+- (int) runModalPageLayoutWithPrintInfo: (NSPrintInfo *) printInfo {
 
     PAGESETUPDLG setup;
 
-    setup.lStructSize=sizeof(PAGESETUPDLG);
-    setup.hwndOwner=[(Win32Window *)[[NSApp mainWindow] platformWindow] windowHandle];
-    setup.hDevMode=NULL;
-    setup.hDevNames=NULL;
-   setup.Flags=PSD_INTHOUSANDTHSOFINCHES;
-   setup.ptPaperSize.x = PTS2THOUSANDS([printInfo paperSize].width);
-   setup.ptPaperSize.y = PTS2THOUSANDS([printInfo paperSize].height);
-	setup.rtMargin.top = PTS2THOUSANDS([printInfo topMargin]);
-	setup.rtMargin.left = PTS2THOUSANDS([printInfo leftMargin]);
-	setup.rtMargin.right = PTS2THOUSANDS([printInfo rightMargin]);
-	setup.rtMargin.bottom = PTS2THOUSANDS([printInfo bottomMargin]);
+    setup.lStructSize = sizeof(PAGESETUPDLG);
+    setup.hwndOwner =
+        [(Win32Window *) [[NSApp mainWindow] platformWindow] windowHandle];
+    setup.hDevMode = NULL;
+    setup.hDevNames = NULL;
+    setup.Flags = PSD_INTHOUSANDTHSOFINCHES;
+    setup.ptPaperSize.x = PTS2THOUSANDS([printInfo paperSize].width);
+    setup.ptPaperSize.y = PTS2THOUSANDS([printInfo paperSize].height);
+    setup.rtMargin.top = PTS2THOUSANDS([printInfo topMargin]);
+    setup.rtMargin.left = PTS2THOUSANDS([printInfo leftMargin]);
+    setup.rtMargin.right = PTS2THOUSANDS([printInfo rightMargin]);
+    setup.rtMargin.bottom = PTS2THOUSANDS([printInfo bottomMargin]);
 
-   [self stopWaitCursor];
-   int check = PageSetupDlg(&setup);
-   [self startWaitCursor];
-	if (check == 0) {
-		return NSCancelButton;
-	}
-	else {
-		NSSize size = NSMakeSize(THOUSANDS2PTS(setup.ptPaperSize.x),
-								 THOUSANDS2PTS(setup.ptPaperSize.y));
-		[printInfo setPaperSize: size];
-		
-		[printInfo setTopMargin: THOUSANDS2PTS(setup.rtMargin.top)];
-		[printInfo setLeftMargin: THOUSANDS2PTS(setup.rtMargin.left)];
-		[printInfo setRightMargin: THOUSANDS2PTS(setup.rtMargin.right)];
-		[printInfo setBottomMargin: THOUSANDS2PTS(setup.rtMargin.bottom)];
-        
+    [self stopWaitCursor];
+    int check = PageSetupDlg(&setup);
+    [self startWaitCursor];
+    if (check == 0) {
+        return NSCancelButton;
+    } else {
+        NSSize size = NSMakeSize(THOUSANDS2PTS(setup.ptPaperSize.x),
+                                 THOUSANDS2PTS(setup.ptPaperSize.y));
+        [printInfo setPaperSize: size];
+
+        [printInfo setTopMargin: THOUSANDS2PTS(setup.rtMargin.top)];
+        [printInfo setLeftMargin: THOUSANDS2PTS(setup.rtMargin.left)];
+        [printInfo setRightMargin: THOUSANDS2PTS(setup.rtMargin.right)];
+        [printInfo setBottomMargin: THOUSANDS2PTS(setup.rtMargin.bottom)];
+
         HANDLE devMode = setup.hDevMode;
         LPDEVMODE lpDevMode = (LPDEVMODE) GlobalLock(devMode);
         if (lpDevMode && lpDevMode->dmFields & DM_ORIENTATION) {
             if (lpDevMode->dmOrientation == DMORIENT_PORTRAIT) {
-                [printInfo setOrientation:NSPortraitOrientation];
+                [printInfo setOrientation: NSPortraitOrientation];
             } else {
-                [printInfo setOrientation:NSLandscapeOrientation];
+                [printInfo setOrientation: NSLandscapeOrientation];
             }
         }
         GlobalUnlock(devMode);
-	}
-	return NSOKButton;
+    }
+    return NSOKButton;
 }
 
--(int)runModalPrintPanelWithPrintInfoDictionary:(NSMutableDictionary *)attributes {
-   NSView             *view=[attributes objectForKey:@"_NSView"];
-   PRINTDLG            printProperties;
-   int                 check;
+- (int) runModalPrintPanelWithPrintInfoDictionary:
+    (NSMutableDictionary *) attributes {
+    NSView *view = [attributes objectForKey: @"_NSView"];
+    PRINTDLG printProperties;
+    int check;
 
     PAGESETUPDLG setup;
     bzero(&setup, sizeof(setup));
-    
-    setup.lStructSize=sizeof(PAGESETUPDLG);
-    
+
+    setup.lStructSize = sizeof(PAGESETUPDLG);
+
     // Get the printer defaults
     setup.Flags = PSD_RETURNDEFAULT;
     PageSetupDlg(&setup);
-    
+
     // See http://support.microsoft.com/kb/193103/fr
     HANDLE devMode = setup.hDevMode;
-    
+
     LPDEVMODE lpDevMode = (LPDEVMODE) GlobalLock(devMode);
     // Force the orientation if the printer supports it.
     if (lpDevMode->dmFields & DM_ORIENTATION) {
-        if ([[attributes objectForKey:NSPrintOrientation] boolValue] == NSPortraitOrientation) {
+        if ([[attributes objectForKey: NSPrintOrientation] boolValue] ==
+            NSPortraitOrientation) {
             lpDevMode->dmOrientation = DMORIENT_PORTRAIT;
         } else {
             lpDevMode->dmOrientation = DMORIENT_LANDSCAPE;
@@ -1497,84 +1633,106 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
         lpDevMode->dmFields = DM_ORIENTATION;
     }
 
-   printProperties.lStructSize=sizeof(PRINTDLG);
-   printProperties.hwndOwner=[(Win32Window *)[[view window] platformWindow] windowHandle];
-   printProperties.hDevMode = devMode;
-   printProperties.hDevNames=NULL;
-   printProperties.hDC=NULL;
-   printProperties.Flags=PD_RETURNDC|PD_COLLATE;
+    printProperties.lStructSize = sizeof(PRINTDLG);
+    printProperties.hwndOwner =
+        [(Win32Window *) [[view window] platformWindow] windowHandle];
+    printProperties.hDevMode = devMode;
+    printProperties.hDevNames = NULL;
+    printProperties.hDC = NULL;
+    printProperties.Flags = PD_RETURNDC | PD_COLLATE;
 
-   printProperties.nFromPage=[[attributes objectForKey:NSPrintFirstPage] intValue]; 
-   printProperties.nToPage=[[attributes objectForKey:NSPrintLastPage] intValue]; 
-   printProperties.nMinPage=[[attributes objectForKey:NSPrintFirstPage] intValue]; 
-   printProperties.nMaxPage=[[attributes objectForKey:NSPrintLastPage] intValue];
-   printProperties.nCopies=[[attributes objectForKey:NSPrintCopies] intValue]; 
-   printProperties.hInstance=NULL; 
-   printProperties.lCustData=0; 
-   printProperties.lpfnPrintHook=NULL; 
-   printProperties.lpfnSetupHook=NULL; 
-   printProperties.lpPrintTemplateName=NULL; 
-   printProperties.lpSetupTemplateName=NULL; 
-   printProperties.hPrintTemplate=NULL; 
-   printProperties.hSetupTemplate=NULL; 
+    printProperties.nFromPage =
+        [[attributes objectForKey: NSPrintFirstPage] intValue];
+    printProperties.nToPage =
+        [[attributes objectForKey: NSPrintLastPage] intValue];
+    printProperties.nMinPage =
+        [[attributes objectForKey: NSPrintFirstPage] intValue];
+    printProperties.nMaxPage =
+        [[attributes objectForKey: NSPrintLastPage] intValue];
+    printProperties.nCopies =
+        [[attributes objectForKey: NSPrintCopies] intValue];
+    printProperties.hInstance = NULL;
+    printProperties.lCustData = 0;
+    printProperties.lpfnPrintHook = NULL;
+    printProperties.lpfnSetupHook = NULL;
+    printProperties.lpPrintTemplateName = NULL;
+    printProperties.lpSetupTemplateName = NULL;
+    printProperties.hPrintTemplate = NULL;
+    printProperties.hSetupTemplate = NULL;
 
-   [self stopWaitCursor];
-   check=PrintDlg(&printProperties);
-   [self startWaitCursor];
+    [self stopWaitCursor];
+    check = PrintDlg(&printProperties);
+    [self startWaitCursor];
 
     GlobalUnlock(devMode);
 
-   if(check==0)
-    return NSCancelButton;
-   else {
-    NSDictionary *auxiliaryInfo=[NSDictionary dictionaryWithObject:[attributes objectForKey:@"_title"] forKey:(id)kCGPDFContextTitle];
-    O2Context_gdi *context=[[[O2Context_gdi alloc] initWithPrinterDC:printProperties.hDC auxiliaryInfo:auxiliaryInfo] autorelease];
-    NSRect imageable;
-    
-    if([context getImageableRect:&imageable])
-	   [attributes setObject:[NSValue valueWithRect:imageable] forKey:@"_imageableRect"];
-     
-	   [attributes setObject:context forKey:@"_KGContext"];
-    
-	   [attributes setObject:[NSValue valueWithSize:[context pointSize]] forKey:NSPrintPaperSize];
-	   [attributes setObject:[NSNumber numberWithInt:printProperties.nFromPage] forKey:NSPrintFirstPage];
-	   [attributes setObject:[NSNumber numberWithInt:printProperties.nToPage] forKey:NSPrintLastPage];
+    if (check == 0)
+        return NSCancelButton;
+    else {
+        NSDictionary *auxiliaryInfo = [NSDictionary
+            dictionaryWithObject: [attributes objectForKey: @"_title"]
+                          forKey: (id) kCGPDFContextTitle];
+        O2Context_gdi *context = [[[O2Context_gdi alloc]
+            initWithPrinterDC: printProperties.hDC
+                auxiliaryInfo: auxiliaryInfo] autorelease];
+        NSRect imageable;
 
-    // It seems Windows is drawing relatively to the imageable area, not the paper area, like Cocoa does - so translate the context
-    // to make Cocotron happy
-    O2AffineTransform translation = O2AffineTransformMakeTranslation(-imageable.origin.x, -imageable.origin.y);
-    O2ContextConcatCTM(context, translation);
-   }
-     
-   return NSOKButton;
+        if ([context getImageableRect: &imageable])
+            [attributes setObject: [NSValue valueWithRect: imageable]
+                           forKey: @"_imageableRect"];
+
+        [attributes setObject: context forKey: @"_KGContext"];
+
+        [attributes setObject: [NSValue valueWithSize: [context pointSize]]
+                       forKey: NSPrintPaperSize];
+        [attributes
+            setObject: [NSNumber numberWithInt: printProperties.nFromPage]
+               forKey: NSPrintFirstPage];
+        [attributes setObject: [NSNumber numberWithInt: printProperties.nToPage]
+                       forKey: NSPrintLastPage];
+
+        // It seems Windows is drawing relatively to the imageable area, not the
+        // paper area, like Cocoa does - so translate the context to make
+        // Cocotron happy
+        O2AffineTransform translation = O2AffineTransformMakeTranslation(
+            -imageable.origin.x, -imageable.origin.y);
+        O2ContextConcatCTM(context, translation);
+    }
+
+    return NSOKButton;
 }
 
--(int)savePanel:(NSSavePanel *)savePanel runModalForDirectory:(NSString *)directory file:(NSString *)file {
-   return [savePanel _GetOpenFileName];
+- (int) savePanel: (NSSavePanel *) savePanel
+    runModalForDirectory: (NSString *) directory
+                    file: (NSString *) file {
+    return [savePanel _GetOpenFileName];
 }
 
--(int)openPanel:(NSOpenPanel *)openPanel runModalForDirectory:(NSString *)directory file:(NSString *)file types:(NSArray *)types {
-   if([openPanel canChooseDirectories])
-    return [openPanel _SHBrowseForFolder:directory];
-   else
-    return [openPanel _GetOpenFileNameForTypes:types];
+- (int) openPanel: (NSOpenPanel *) openPanel
+    runModalForDirectory: (NSString *) directory
+                    file: (NSString *) file
+                   types: (NSArray *) types {
+    if ([openPanel canChooseDirectories])
+        return [openPanel _SHBrowseForFolder: directory];
+    else
+        return [openPanel _GetOpenFileNameForTypes: types];
 }
 
--(CGFloat)primaryScreenHeight {
-   return GetSystemMetrics(SM_CYSCREEN);
+- (CGFloat) primaryScreenHeight {
+    return GetSystemMetrics(SM_CYSCREEN);
 }
 
--(NSPoint)mouseLocation {
-   POINT   winPoint;
-   NSPoint point;
+- (NSPoint) mouseLocation {
+    POINT winPoint;
+    NSPoint point;
 
-   GetCursorPos(&winPoint);
+    GetCursorPos(&winPoint);
 
-   point.x=winPoint.x;
-   point.y=winPoint.y;
-   point.y=[self primaryScreenHeight]-point.y;
+    point.x = winPoint.x;
+    point.y = winPoint.y;
+    point.y = [self primaryScreenHeight] - point.y;
 
-   return point;
+    return point;
 }
 
 @end

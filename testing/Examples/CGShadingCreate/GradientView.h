@@ -30,20 +30,20 @@
     IBOutlet NSSlider *_outerRadiusSlider;
 }
 
-- (IBAction)selectType:sender;
+- (IBAction) selectType: sender;
 
-- (IBAction)takeStartXFromSender:sender;
-- (IBAction)takeStartYFromSender:sender;
-- (IBAction)takeEndXFromSender:sender;
-- (IBAction)takeEndYFromSender:sender;
+- (IBAction) takeStartXFromSender: sender;
+- (IBAction) takeStartYFromSender: sender;
+- (IBAction) takeEndXFromSender: sender;
+- (IBAction) takeEndYFromSender: sender;
 
-- (IBAction)takeStartColorFromSender:sender;
-- (IBAction)takeEndColorFromSender:sender;
+- (IBAction) takeStartColorFromSender: sender;
+- (IBAction) takeEndColorFromSender: sender;
 
-- (IBAction)takeExtendStartFromSender:sender;
-- (IBAction)takeExtendEndFromSender:sender;
+- (IBAction) takeExtendStartFromSender: sender;
+- (IBAction) takeExtendEndFromSender: sender;
 
-- (IBAction)takeInnerRadiusFromSender:sender;
-- (IBAction)takeOuterRadiusFromSender:sender;
+- (IBAction) takeInnerRadiusFromSender: sender;
+- (IBAction) takeOuterRadiusFromSender: sender;
 
 @end

@@ -9,50 +9,40 @@
 
 #import "NSCondition_posix.h"
 
-
 @implementation NSCondition_posix
 
 - init;
 {
-	if ([super init] == nil) return nil;
-	
-	pthread_mutex_init( &mutex, 0 );
-	pthread_cond_init( &condition, 0 );
-	
-	return self;
+    if ([super init] == nil)
+        return nil;
+
+    pthread_mutex_init(&mutex, 0);
+    pthread_cond_init(&condition, 0);
+
+    return self;
 }
 
-- (void)dealloc;
+- (void) dealloc;
 {
-	pthread_cond_destroy( &condition );
-	pthread_mutex_destroy( &mutex );
-	[super dealloc];
+    pthread_cond_destroy(&condition);
+    pthread_mutex_destroy(&mutex);
+    [super dealloc];
 }
 
 - (void) lock;
-{
-	pthread_mutex_lock( &mutex );
-}
+{ pthread_mutex_lock(&mutex); }
 
 - (void) unlock;
-{
-	pthread_mutex_unlock( &mutex );
-}
+{ pthread_mutex_unlock(&mutex); }
 
 - (void) signal;
-{
-	pthread_cond_signal( &condition );
-}
+{ pthread_cond_signal(&condition); }
 
 - (void) broadcast;
-{
-	pthread_cond_broadcast( &condition );
-}
+{ pthread_cond_broadcast(&condition); }
 
 - (void) wait;
-{
-	pthread_cond_wait( &condition, &mutex );
-}
+{ pthread_cond_wait(&condition, &mutex); }
 
 @end
 #endif

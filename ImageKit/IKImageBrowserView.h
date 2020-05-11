@@ -21,7 +21,8 @@ IMAGEKIT_EXPORT NSString *const IKImageBrowserNSBitmapImageRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserQTMovieRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserQTMoviePathRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserQCCompositionRepresentationType;
-IMAGEKIT_EXPORT NSString *const IKImageBrowserQCCompositionPathRepresentationType;
+IMAGEKIT_EXPORT NSString
+    *const IKImageBrowserQCCompositionPathRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserQuickLookPathRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserIconRefPathRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserIconRefRepresentationType;
@@ -62,125 +63,136 @@ typedef enum {
     BOOL _canControlQuickLookPanel;
 }
 
-- initWithFrame:(NSRect)frame;
+- initWithFrame: (NSRect) frame;
 
 - delegate;
 - dataSource;
 
-- (NSSize)intercellSpacing;
+- (NSSize) intercellSpacing;
 
-- (BOOL)allowsDroppingOnItems;
-- (BOOL)allowsEmptySelection;
-- (BOOL)allowsMultipleSelection;
-- (BOOL)allowsReordering;
-- (BOOL)animates;
-- (BOOL)canControlQuickLookPanel;
-- (BOOL)constrainsToOriginalSize;
-- (NSSize)cellSize;
+- (BOOL) allowsDroppingOnItems;
+- (BOOL) allowsEmptySelection;
+- (BOOL) allowsMultipleSelection;
+- (BOOL) allowsReordering;
+- (BOOL) animates;
+- (BOOL) canControlQuickLookPanel;
+- (BOOL) constrainsToOriginalSize;
+- (NSSize) cellSize;
 
-- (NSUInteger)cellsStyleMask;
+- (NSUInteger) cellsStyleMask;
 
-- (CALayer *)backgroundLayer;
-- (CALayer *)foregroundLayer;
+- (CALayer *) backgroundLayer;
+- (CALayer *) foregroundLayer;
 
-- (void)setAllowsDroppingOnItems:(BOOL)value;
-- (void)setAllowsEmptySelection:(BOOL)value;
-- (void)setAllowsMultipleSelection:(BOOL)value;
-- (void)setAllowsReordering:(BOOL)value;
-- (void)setAnimates:(BOOL)value;
-- (void)setCanControlQuickLookPanel:(BOOL)value;
-- (void)setCellSize:(NSSize)value;
-- (void)setCellsStyleMask:(NSUInteger)value;
-- (void)setConstrainsToOriginalSize:(BOOL)value;
-- (void)setContentResizingMask:(NSUInteger)value;
+- (void) setAllowsDroppingOnItems: (BOOL) value;
+- (void) setAllowsEmptySelection: (BOOL) value;
+- (void) setAllowsMultipleSelection: (BOOL) value;
+- (void) setAllowsReordering: (BOOL) value;
+- (void) setAnimates: (BOOL) value;
+- (void) setCanControlQuickLookPanel: (BOOL) value;
+- (void) setCellSize: (NSSize) value;
+- (void) setCellsStyleMask: (NSUInteger) value;
+- (void) setConstrainsToOriginalSize: (BOOL) value;
+- (void) setContentResizingMask: (NSUInteger) value;
 
-- (void)setBackgroundLayer:(CALayer *)aLayer;
+- (void) setBackgroundLayer: (CALayer *) aLayer;
 
-- (void)setDataSource:source;
+- (void) setDataSource: source;
 
-- (void)setDelegate:delegate;
+- (void) setDelegate: delegate;
 
-- (void)setDraggingDestinationDelegate:delegate;
+- (void) setDraggingDestinationDelegate: delegate;
 
-- (void)setForegroundLayer:(CALayer *)layer;
+- (void) setForegroundLayer: (CALayer *) layer;
 
-- (void)setIntercellSpacing:(NSSize)value;
+- (void) setIntercellSpacing: (NSSize) value;
 
-- (IKImageBrowserCell *)cellForItemAtIndex:(NSUInteger)index;
+- (IKImageBrowserCell *) cellForItemAtIndex: (NSUInteger) index;
 
-- (void)collapseGroupAtIndex:(NSUInteger)index;
+- (void) collapseGroupAtIndex: (NSUInteger) index;
 
-- (NSIndexSet *)columnIndexesInRect:(NSRect)rect;
+- (NSIndexSet *) columnIndexesInRect: (NSRect) rect;
 
-- (NSUInteger)contentResizingMask;
+- (NSUInteger) contentResizingMask;
 
 - draggingDestinationDelegate;
 
-- (IKImageBrowserDropOperation)dropOperation;
+- (IKImageBrowserDropOperation) dropOperation;
 
-- (void)expandGroupAtIndex:(NSUInteger)index;
+- (void) expandGroupAtIndex: (NSUInteger) index;
 
-- (NSUInteger)indexAtLocationOfDroppedItem;
+- (NSUInteger) indexAtLocationOfDroppedItem;
 
-- (NSInteger)indexOfItemAtPoint:(NSPoint)point;
-- (BOOL)isGroupExpandedAtIndex:(NSUInteger)index;
+- (NSInteger) indexOfItemAtPoint: (NSPoint) point;
+- (BOOL) isGroupExpandedAtIndex: (NSUInteger) index;
 
-- (NSRect)itemFrameAtIndex:(NSInteger)index;
+- (NSRect) itemFrameAtIndex: (NSInteger) index;
 
-- (IKImageBrowserCell *)newCellForRepresentedItem:item;
+- (IKImageBrowserCell *) newCellForRepresentedItem: item;
 
-- (NSUInteger)numberOfRows;
-- (NSUInteger)numberOfColumns;
+- (NSUInteger) numberOfRows;
+- (NSUInteger) numberOfColumns;
 
-- (NSRect)rectOfColumn:(NSUInteger)column;
-- (NSRect)rectOfRow:(NSUInteger)rowIndex;
+- (NSRect) rectOfColumn: (NSUInteger) column;
+- (NSRect) rectOfRow: (NSUInteger) rowIndex;
 
-- (void)reloadData;
+- (void) reloadData;
 
-- (NSIndexSet *)rowIndexesInRect:(NSRect)rect;
+- (NSIndexSet *) rowIndexesInRect: (NSRect) rect;
 
-- (NSIndexSet *)selectionIndexes;
+- (NSIndexSet *) selectionIndexes;
 
-- (void)setSelectionIndexes:(NSIndexSet *)value byExtendingSelection:(BOOL)extendSelection;
+- (void) setSelectionIndexes: (NSIndexSet *) value
+        byExtendingSelection: (BOOL) extendSelection;
 
-- (void)scrollIndexToVisible:(NSInteger)index;
+- (void) scrollIndexToVisible: (NSInteger) index;
 
-- (NSIndexSet *)visibleItemIndexes;
+- (NSIndexSet *) visibleItemIndexes;
 
-- (float)zoomValue;
-- (void)setZoomValue:(float)value;
+- (float) zoomValue;
+- (void) setZoomValue: (float) value;
 
 @end
 
 @interface NSObject (IKImageBrowserItem)
-- (id)imageRepresentation;
-- (NSString *)imageRepresentationType;
-- (NSString *)imageSubtitle;
-- (NSString *)imageTitle;
-- (NSString *)imageUID;
-- (NSUInteger)imageVersion;
-- (BOOL)isSelectable;
+- (id) imageRepresentation;
+- (NSString *) imageRepresentationType;
+- (NSString *) imageSubtitle;
+- (NSString *) imageTitle;
+- (NSString *) imageUID;
+- (NSUInteger) imageVersion;
+- (BOOL) isSelectable;
 
 @end
 
 @interface NSObject (IKImageBrowserDelegate)
 
-- (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser;
+- (void) imageBrowserSelectionDidChange: (IKImageBrowserView *) browser;
 
-- (void)imageBrowser:(IKImageBrowserView *)browser backgroundWasRightClickedWithEvent:(NSEvent *)event;
-- (void)imageBrowser:(IKImageBrowserView *)browser cellWasRightClickedAtIndex:(NSUInteger)index withEvent:(NSEvent *)event;
-- (void)imageBrowser:(IKImageBrowserView *)browser cellWasDoubleClickedAtIndex:(NSUInteger)index;
+- (void) imageBrowser: (IKImageBrowserView *) browser
+    backgroundWasRightClickedWithEvent: (NSEvent *) event;
+- (void) imageBrowser: (IKImageBrowserView *) browser
+    cellWasRightClickedAtIndex: (NSUInteger) index
+                     withEvent: (NSEvent *) event;
+- (void) imageBrowser: (IKImageBrowserView *) browser
+    cellWasDoubleClickedAtIndex: (NSUInteger) index;
 @end
 
 @interface NSObject (IKImageBrowserDataSource)
 
-- (NSDictionary *)imageBrowser:(IKImageBrowserView *)browser groupAtIndex:(NSUInteger)index;
-- imageBrowser:(IKImageBrowserView *)browser itemAtIndex:(NSUInteger)index;
+- (NSDictionary *) imageBrowser: (IKImageBrowserView *) browser
+                   groupAtIndex: (NSUInteger) index;
+- imageBrowser: (IKImageBrowserView *) browser itemAtIndex: (NSUInteger) index;
 
-- (BOOL)imageBrowser:(IKImageBrowserView *)browser moveItemsAtIndexes:(NSIndexSet *)indexes toIndex:(NSUInteger)destinationIndex;
-- (void)imageBrowser:(IKImageBrowserView *)browser removeItemsAtIndexes:(NSIndexSet *)indexes;
-- (NSUInteger)imageBrowser:(IKImageBrowserView *)browser writeItemsAtIndexes:(NSIndexSet *)itemIndexes toPasteboard:(NSPasteboard *)pasteboard;
-- (NSUInteger)numberOfGroupsInImageBrowser:(IKImageBrowserView *)browser;
-- (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *)browser;
+- (BOOL) imageBrowser: (IKImageBrowserView *) browser
+    moveItemsAtIndexes: (NSIndexSet *) indexes
+               toIndex: (NSUInteger) destinationIndex;
+- (void) imageBrowser: (IKImageBrowserView *) browser
+    removeItemsAtIndexes: (NSIndexSet *) indexes;
+- (NSUInteger) imageBrowser: (IKImageBrowserView *) browser
+        writeItemsAtIndexes: (NSIndexSet *) itemIndexes
+               toPasteboard: (NSPasteboard *) pasteboard;
+- (NSUInteger) numberOfGroupsInImageBrowser: (IKImageBrowserView *) browser;
+- (NSUInteger) numberOfItemsInImageBrowser: (IKImageBrowserView *) browser;
 
 @end

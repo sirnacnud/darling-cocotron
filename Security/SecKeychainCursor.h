@@ -11,12 +11,14 @@
     int _index;
 }
 
-- initWithRegistryPath:(NSArray *)path itemClass:(SecItemClass)itemClass handle:(HKEY)handle;
+- initWithRegistryPath: (NSArray *) path
+             itemClass: (SecItemClass) itemClass
+                handle: (HKEY) handle;
 
-- (NSArray *)registryPath;
-- (SecItemClass)itemClass;
-- (HKEY)handle;
-- (int)index;
-- (void)incrementIndex;
+- (NSArray *) registryPath;
+- (SecItemClass) itemClass;
+- (HKEY) handle;
+- (int) index;
+- (void) incrementIndex;
 
 @end

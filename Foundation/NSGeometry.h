@@ -1,13 +1,24 @@
 /* Copyright (c) 2006-2007 Christopher J. W. Lloyd
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <Foundation/NSObject.h>
 #import <CoreFoundation/CFBase.h>
+#import <Foundation/NSObject.h>
 
 typedef CGPoint NSPoint;
 typedef CGSize NSSize;
@@ -19,12 +30,7 @@ typedef NSPoint *NSPointPointer;
 typedef NSSize *NSSizeArray;
 typedef NSSize *NSSizePointer;
 
-typedef enum {
-    NSMinXEdge,
-    NSMinYEdge,
-    NSMaxXEdge,
-    NSMaxYEdge
-} NSRectEdge;
+typedef enum { NSMinXEdge, NSMinYEdge, NSMaxXEdge, NSMaxYEdge } NSRectEdge;
 
 typedef NSRect *NSRectArray;
 typedef NSRect *NSRectPointer;
@@ -103,7 +109,9 @@ FOUNDATION_EXPORT NSRect NSIntegralRect(NSRect rect);
 FOUNDATION_EXPORT NSRect NSUnionRect(NSRect rect0, NSRect rect1);
 FOUNDATION_EXPORT NSRect NSIntersectionRect(NSRect rect0, NSRect rect1);
 
-FOUNDATION_EXPORT void NSDivideRect(NSRect rect, NSRect *parts, NSRect *remainder, CGFloat amount, NSRectEdge edge);
+FOUNDATION_EXPORT void NSDivideRect(NSRect rect, NSRect *parts,
+                                    NSRect *remainder, CGFloat amount,
+                                    NSRectEdge edge);
 
 FOUNDATION_EXPORT BOOL NSContainsRect(NSRect rect0, NSRect rect1);
 FOUNDATION_EXPORT BOOL NSIntersectsRect(NSRect rect0, NSRect rect1);

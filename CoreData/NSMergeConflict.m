@@ -18,17 +18,18 @@
 */
 
 #import <CoreData/NSMergeConflict.h>
-#import <Foundation/NSMethodSignature.h>
 #import <Foundation/NSInvocation.h>
+#import <Foundation/NSMethodSignature.h>
 
 @implementation NSMergeConflict
 
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+- (NSMethodSignature *) methodSignatureForSelector: (SEL) aSelector {
     return [NSMethodSignature signatureWithObjCTypes: "v@:"];
 }
 
-- (void)forwardInvocation:(NSInvocation *)anInvocation {
-    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+- (void) forwardInvocation: (NSInvocation *) anInvocation {
+    NSLog(@"Stub called: %@ in %@",
+          NSStringFromSelector([anInvocation selector]), [self class]);
 }
 
 @end

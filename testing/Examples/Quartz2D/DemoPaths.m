@@ -8,7 +8,6 @@
 
 #import "DemoPaths.h"
 
-
 @implementation DemoPaths
 
 @end

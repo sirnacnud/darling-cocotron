@@ -8,14 +8,14 @@
     PDFSelection *_selection;
 }
 
-+ (float)leftMargin;
-+ (float)rightMargin;
-+ (float)topMargin;
-+ (float)bottomMargin;
++ (float) leftMargin;
++ (float) rightMargin;
++ (float) topMargin;
++ (float) bottomMargin;
 
-- (PDFPage *)page;
-- (void)setPage:(PDFPage *)page;
+- (PDFPage *) page;
+- (void) setPage: (PDFPage *) page;
 
-- (void)setCurrentSelection:(PDFSelection *)selection;
+- (void) setCurrentSelection: (PDFSelection *) selection;
 
 @end

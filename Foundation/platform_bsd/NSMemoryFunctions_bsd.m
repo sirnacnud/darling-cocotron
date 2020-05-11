@@ -24,17 +24,16 @@
 
 #include <unistd.h>
 
-NSUInteger NSPageSize(void)
-{
-	return (NSUInteger)sysconf(_SC_PAGESIZE);
+NSUInteger NSPageSize(void) {
+    return (NSUInteger) sysconf(_SC_PAGESIZE);
 }
 
-NSUInteger NSRealMemoryAvailable(void) 
-{
+NSUInteger NSRealMemoryAvailable(void) {
 #ifdef FREEBSD
-// FIXME:
-   return 0;
+    // FIXME:
+    return 0;
 #else
-   return (NSUInteger)sysconf(_SC_AVPHYS_PAGES) * (NSUInteger)sysconf(_SC_PAGESIZE);
+    return (NSUInteger) sysconf(_SC_AVPHYS_PAGES) *
+           (NSUInteger) sysconf(_SC_PAGESIZE);
 #endif
 }

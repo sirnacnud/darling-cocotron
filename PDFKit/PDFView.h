@@ -20,15 +20,15 @@ typedef enum {
     id _documentView;
 }
 
-- (PDFDocument *)document;
-- (void)setDocument:(PDFDocument *)document;
+- (PDFDocument *) document;
+- (void) setDocument: (PDFDocument *) document;
 
-- (void)layoutDocumentView;
+- (void) layoutDocumentView;
 
-- (PDFSelection *)currentSelection;
-- (void)setCurrentSelection:(PDFSelection *)selection;
-- (void)scrollSelectionToVisible:sender;
+- (PDFSelection *) currentSelection;
+- (void) setCurrentSelection: (PDFSelection *) selection;
+- (void) scrollSelectionToVisible: sender;
 
-- (void)goToPage:(PDFPage *)page;
+- (void) goToPage: (PDFPage *) page;
 
 @end

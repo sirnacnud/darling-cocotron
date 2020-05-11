@@ -1,5 +1,5 @@
-#import <CoreFoundation/CoreFoundation.h>
 #import <CFNetwork/CFNetworkExport.h>
+#import <CoreFoundation/CoreFoundation.h>
 
 typedef struct __CFHost *CFHostRef;
 

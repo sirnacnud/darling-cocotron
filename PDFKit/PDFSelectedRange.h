@@ -8,9 +8,9 @@
     NSRange _range;
 }
 
-- initWithPage:(PDFPage *)page range:(NSRange)range;
+- initWithPage: (PDFPage *) page range: (NSRange) range;
 
-- (PDFPage *)page;
-- (NSRange)range;
+- (PDFPage *) page;
+- (NSRange) range;
 
 @end

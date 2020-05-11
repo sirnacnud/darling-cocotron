@@ -38,9 +38,9 @@
 
 #endif
 
+#import <sched.h>
 #import <stdint.h>
 #import <time.h>
-#import <sched.h>
 
 #ifndef ETIMEDOUT
 #define ETIMEDOUT 60

@@ -1,5 +1,5 @@
-#import <Foundation/NSObject.h>
 #import <Foundation/NSKeyValueObserving.h>
+#import <Foundation/NSObject.h>
 
 @class NSMutableDictionary;
 
@@ -14,19 +14,23 @@
     NSMutableDictionary *_changeDictionary;
 }
 
-- initWithObject:object observer:observer keyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
+- initWithObject: object
+        observer: observer
+         keyPath: (NSString *) keyPath
+         options: (NSKeyValueObservingOptions) options
+         context: (void *) context;
 
 - object;
 - observer;
-- (NSString *)keyPath;
-- (NSKeyValueObservingOptions)options;
-- (void *)context;
+- (NSString *) keyPath;
+- (NSKeyValueObservingOptions) options;
+- (void *) context;
 
-- (BOOL)willChangeAlreadyChanging;
-- (BOOL)didChangeAlreadyChanging;
+- (BOOL) willChangeAlreadyChanging;
+- (BOOL) didChangeAlreadyChanging;
 
-- (NSMutableDictionary *)changeDictionaryWithInfo:(NSDictionary *)info;
-- (NSMutableDictionary *)changeDictionary;
-- (void)clearChangeDictionary;
+- (NSMutableDictionary *) changeDictionaryWithInfo: (NSDictionary *) info;
+- (NSMutableDictionary *) changeDictionary;
+- (void) clearChangeDictionary;
 
 @end

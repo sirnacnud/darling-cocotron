@@ -1,4 +1,4 @@
-#import <Foundation/NSURLError.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSURLError.h>
 
-NSString * const NSURLErrorDomain=@"NSURLErrorDomain";
+NSString *const NSURLErrorDomain = @"NSURLErrorDomain";

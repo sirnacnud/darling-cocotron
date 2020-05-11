@@ -1,92 +1,130 @@
 /* Copyright (c) 2006-2007 Christopher J. W. Lloyd <cjwl@objc.net>
                  2009 Markus Hitter <mah@jump-ing.de>
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <AppKit/NSWindow.h>
-#import <AppKit/NSWindow-Private.h>
-#import <AppKit/NSThemeFrame.h>
-#import <AppKit/NSMainMenuView.h>
-#import <AppKit/NSSheetContext.h>
 #import <AppKit/NSApplication.h>
-#import <AppKit/NSScreen.h>
+#import <AppKit/NSColor.h>
+#import <AppKit/NSCursor.h>
+#import <AppKit/NSDisplay.h>
+#import <AppKit/NSDraggingManager.h>
 #import <AppKit/NSEvent.h>
 #import <AppKit/NSEvent_CoreGraphics.h>
-#import <AppKit/NSColor.h>
-#import <CoreGraphics/CGWindow.h>
-#import <ApplicationServices/ApplicationServices.h>
 #import <AppKit/NSGraphics.h>
+#import <AppKit/NSImage.h>
+#import <AppKit/NSMainMenuView.h>
 #import <AppKit/NSMenu.h>
 #import <AppKit/NSMenuItem.h>
 #import <AppKit/NSPanel.h>
-#import <AppKit/NSView.h>
-#import <AppKit/NSImage.h>
-#import <AppKit/NSDraggingManager.h>
-#import <AppKit/NSCursor.h>
-#import <AppKit/NSTextView.h>
-#import <AppKit/NSTrackingArea.h>
-#import <AppKit/NSToolbar.h>
-#import <AppKit/NSWindowAnimationContext.h>
-#import <AppKit/NSToolTipWindow.h>
-#import <AppKit/NSDisplay.h>
 #import <AppKit/NSRaise.h>
+#import <AppKit/NSScreen.h>
+#import <AppKit/NSSheetContext.h>
+#import <AppKit/NSTextView.h>
+#import <AppKit/NSThemeFrame.h>
+#import <AppKit/NSToolTipWindow.h>
+#import <AppKit/NSToolbar.h>
+#import <AppKit/NSTrackingArea.h>
+#import <AppKit/NSView.h>
+#import <AppKit/NSWindow-Private.h>
+#import <AppKit/NSWindow.h>
+#import <AppKit/NSWindowAnimationContext.h>
+#import <ApplicationServices/ApplicationServices.h>
+#import <CoreGraphics/CGWindow.h>
 
-const NSNotificationName NSWindowDidBecomeKeyNotification = @"NSWindowDidBecomeKeyNotification";
-const NSNotificationName NSWindowDidResignKeyNotification = @"NSWindowDidResignKeyNotification";
-const NSNotificationName NSWindowDidBecomeMainNotification = @"NSWindowDidBecomeMainNotification";
-const NSNotificationName NSWindowDidResignMainNotification = @"NSWindowDidResignMainNotification";
-const NSNotificationName NSWindowWillMiniaturizeNotification = @"NSWindowWillMiniaturizeNotification";
-const NSNotificationName NSWindowDidMiniaturizeNotification = @"NSWindowDidMiniaturizeNotification";
-const NSNotificationName NSWindowDidDeminiaturizeNotification = @"NSWindowDidDeminiaturizeNotification";
-const NSNotificationName NSWindowDidMoveNotification = @"NSWindowDidMoveNotification";
-const NSNotificationName NSWindowDidResizeNotification = @"NSWindowDidResizeNotification";
-const NSNotificationName NSWindowDidUpdateNotification = @"NSWindowDidUpdateNotification";
-const NSNotificationName NSWindowWillCloseNotification = @"NSWindowWillCloseNotification";
-const NSNotificationName NSWindowWillMoveNotification = @"NSWindowWillMoveNotification";
-const NSNotificationName NSWindowWillStartLiveResizeNotification = @"NSWindowWillStartLiveResizeNotification";
-const NSNotificationName NSWindowDidEndLiveResizeNotification = @"NSWindowDidEndLiveResizeNotification";
-const NSNotificationName NSWindowWillBeginSheetNotification = @"NSWindowWillBeginSheetNotification";
+const NSNotificationName NSWindowDidBecomeKeyNotification =
+    @"NSWindowDidBecomeKeyNotification";
+const NSNotificationName NSWindowDidResignKeyNotification =
+    @"NSWindowDidResignKeyNotification";
+const NSNotificationName NSWindowDidBecomeMainNotification =
+    @"NSWindowDidBecomeMainNotification";
+const NSNotificationName NSWindowDidResignMainNotification =
+    @"NSWindowDidResignMainNotification";
+const NSNotificationName NSWindowWillMiniaturizeNotification =
+    @"NSWindowWillMiniaturizeNotification";
+const NSNotificationName NSWindowDidMiniaturizeNotification =
+    @"NSWindowDidMiniaturizeNotification";
+const NSNotificationName NSWindowDidDeminiaturizeNotification =
+    @"NSWindowDidDeminiaturizeNotification";
+const NSNotificationName NSWindowDidMoveNotification =
+    @"NSWindowDidMoveNotification";
+const NSNotificationName NSWindowDidResizeNotification =
+    @"NSWindowDidResizeNotification";
+const NSNotificationName NSWindowDidUpdateNotification =
+    @"NSWindowDidUpdateNotification";
+const NSNotificationName NSWindowWillCloseNotification =
+    @"NSWindowWillCloseNotification";
+const NSNotificationName NSWindowWillMoveNotification =
+    @"NSWindowWillMoveNotification";
+const NSNotificationName NSWindowWillStartLiveResizeNotification =
+    @"NSWindowWillStartLiveResizeNotification";
+const NSNotificationName NSWindowDidEndLiveResizeNotification =
+    @"NSWindowDidEndLiveResizeNotification";
+const NSNotificationName NSWindowWillBeginSheetNotification =
+    @"NSWindowWillBeginSheetNotification";
 
-const NSNotificationName NSWindowWillAnimateNotification = @"NSWindowWillAnimateNotification";
-const NSNotificationName NSWindowAnimatingNotification = @"NSWindowAnimatingNotification";
-const NSNotificationName NSWindowDidAnimateNotification = @"NSWindowDidAnimateNotification";
+const NSNotificationName NSWindowWillAnimateNotification =
+    @"NSWindowWillAnimateNotification";
+const NSNotificationName NSWindowAnimatingNotification =
+    @"NSWindowAnimatingNotification";
+const NSNotificationName NSWindowDidAnimateNotification =
+    @"NSWindowDidAnimateNotification";
 
-const NSNotificationName NSWindowDidChangeScreenNotification = @"NSWindowDidChangeScreenNotification";
-const NSNotificationName NSWindowDidEndSheetNotification = @"NSWindowDidEndSheetNotification";
-const NSNotificationName NSWindowDidEnterFullScreenNotification = @"NSWindowDidEnterFullScreenNotification";
-const NSNotificationName NSWindowDidExitFullScreenNotification = @"NSWindowDidExitFullScreenNotification";
-const NSNotificationName NSWindowDidOrderOffScreenNotification = @"NSWindowDidOrderOffScreenNotification";
-const NSNotificationName NSWindowDidOrderOnScreenNotification = @"_NSWindowDidBecomeVisible";
-const NSNotificationName NSWindowWillEnterFullScreenNotification = @"NSWindowWillEnterFullScreenNotification";
-const NSNotificationName NSWindowWillExitFullScreenNotification = @"NSWindowWillExitFullScreenNotification";
-const NSNotificationName NSWindowDidExposeNotification = @"NSWindowDidExposeNotification";
+const NSNotificationName NSWindowDidChangeScreenNotification =
+    @"NSWindowDidChangeScreenNotification";
+const NSNotificationName NSWindowDidEndSheetNotification =
+    @"NSWindowDidEndSheetNotification";
+const NSNotificationName NSWindowDidEnterFullScreenNotification =
+    @"NSWindowDidEnterFullScreenNotification";
+const NSNotificationName NSWindowDidExitFullScreenNotification =
+    @"NSWindowDidExitFullScreenNotification";
+const NSNotificationName NSWindowDidOrderOffScreenNotification =
+    @"NSWindowDidOrderOffScreenNotification";
+const NSNotificationName NSWindowDidOrderOnScreenNotification =
+    @"_NSWindowDidBecomeVisible";
+const NSNotificationName NSWindowWillEnterFullScreenNotification =
+    @"NSWindowWillEnterFullScreenNotification";
+const NSNotificationName NSWindowWillExitFullScreenNotification =
+    @"NSWindowWillExitFullScreenNotification";
+const NSNotificationName NSWindowDidExposeNotification =
+    @"NSWindowDidExposeNotification";
 
 NSInteger NSBitsPerPixelFromDepth(NSWindowDepth depth) {
     switch (depth) {
-        case NSWindowDepthOnehundredtwentyeightBitRGB:
-            return 128;
-        case NSWindowDepthSixtyfourBitRGB:
-            return 64;
-        case NSWindowDepthTwentyfourBitRGB:
-            return 24;
+    case NSWindowDepthOnehundredtwentyeightBitRGB:
+        return 128;
+    case NSWindowDepthSixtyfourBitRGB:
+        return 64;
+    case NSWindowDepthTwentyfourBitRGB:
+        return 24;
     }
-    
+
     return 0;
 }
 
-@interface CGWindow(private)
-- (void)dirtyRect:(CGRect)rect;
+@interface CGWindow (private)
+- (void) dirtyRect: (CGRect) rect;
 @end
 
 @interface NSToolbar (NSToolbar_privateForWindow)
-- (void)_setWindow:(NSWindow *)window;
-- (NSView *)_view;
--(CGFloat)visibleHeight;
--(void)layoutFrameSizeWithWidth:(CGFloat)width;
+- (void) _setWindow: (NSWindow *) window;
+- (NSView *) _view;
+- (CGFloat) visibleHeight;
+- (void) layoutFrameSizeWithWidth: (CGFloat) width;
 @end
 
 @interface NSWindow ()
@@ -95,41 +133,43 @@ NSInteger NSBitsPerPixelFromDepth(NSWindowDepth depth) {
 
 @end
 
-@interface NSApplication(private)
--(void)_setMainWindow:(NSWindow *)window;
--(void)_setKeyWindow:(NSWindow *)window;
+@interface NSApplication (private)
+- (void) _setMainWindow: (NSWindow *) window;
+- (void) _setKeyWindow: (NSWindow *) window;
 @end
 
 @interface _NSKeyViewPosition : NSObject {
     NSView *_view;
-    NSRect  _rect;
+    NSRect _rect;
 }
 
-+(NSArray *)sortedKeyViewPositionsWithView:(NSView *)view;
++ (NSArray *) sortedKeyViewPositionsWithView: (NSView *) view;
 
--initWithView:(NSView *)view;
+- initWithView: (NSView *) view;
 
--(NSView *)view;
+- (NSView *) view;
 
--(NSComparisonResult)compareKeyViewPosition:(_NSKeyViewPosition *)other;
+- (NSComparisonResult) compareKeyViewPosition: (_NSKeyViewPosition *) other;
 
 @end
 
 @implementation _NSKeyViewPosition
 
-+(void)addKeyViewPositionsWithView:(NSView *)view toArray:(NSMutableArray *)array {
-    [array addObject:[[[_NSKeyViewPosition alloc] initWithView:view] autorelease]];
-    
-    for(NSView *child in [view subviews])
-        [self addKeyViewPositionsWithView:child toArray:array];
++ (void) addKeyViewPositionsWithView: (NSView *) view
+                             toArray: (NSMutableArray *) array {
+    [array addObject: [[[_NSKeyViewPosition alloc] initWithView: view]
+                          autorelease]];
+
+    for (NSView *child in [view subviews])
+        [self addKeyViewPositionsWithView: child toArray: array];
 }
 
-+(NSArray *)sortedKeyViewPositionsWithView:(NSView *)view {
-    NSMutableArray *result=[NSMutableArray array];
-    
-    [self addKeyViewPositionsWithView:view toArray:result];
-    [result sortUsingSelector:@selector(compareKeyViewPosition:)];
-    
++ (NSArray *) sortedKeyViewPositionsWithView: (NSView *) view {
+    NSMutableArray *result = [NSMutableArray array];
+
+    [self addKeyViewPositionsWithView: view toArray: result];
+    [result sortUsingSelector: @selector(compareKeyViewPosition:)];
+
     return result;
 }
 
@@ -139,18 +179,18 @@ NSInteger NSBitsPerPixelFromDepth(NSWindowDepth depth) {
     return self;
 }
 
--(NSView *)view {
+- (NSView *) view {
     return _view;
 }
 
--(NSComparisonResult)compareKeyViewPosition:(_NSKeyViewPosition *)other {
+- (NSComparisonResult) compareKeyViewPosition: (_NSKeyViewPosition *) other {
 
     // Sort by larger Y (cartesian coordinates)
-    if(NSMaxY(_rect)<NSMaxY(other->_rect))
+    if (NSMaxY(_rect) < NSMaxY(other->_rect))
         return NSOrderedDescending;
-    else {    
+    else {
         // Then sort by smaller X
-        if(NSMinX(_rect)<NSMinX(other->_rect))
+        if (NSMinX(_rect) < NSMinX(other->_rect))
             return NSOrderedAscending;
         else
             return NSOrderedDescending;
@@ -167,18 +207,22 @@ static BOOL _allowsAutomaticWindowTabbing;
     return 0;
 }
 
-/* This method is Cococtron specific and can be override by subclasses, do not change method name */
+/* This method is Cococtron specific and can be override by subclasses, do not
+ * change method name */
 + (BOOL) hasMainMenuForStyleMask: (NSWindowStyleMask) styleMask {
     return styleMask & NSTitledWindowMask;
 }
 
-/* This method is Cococtron specific and can be override by subclasses, do not change method name. */
+/* This method is Cococtron specific and can be override by subclasses, do not
+ * change method name. */
 - (BOOL) hasMainMenu {
     return [[self class] hasMainMenuForStyleMask: _styleMask];
 }
 
-+ (NSRect) frameRectForContentRect: (NSRect) contentRect styleMask: (NSWindowStyleMask) styleMask {
-    NSRect result = [[NSDisplay currentDisplay] outsetRect: contentRect forNativeWindowBorderWithStyle: styleMask];
++ (NSRect) frameRectForContentRect: (NSRect) contentRect
+                         styleMask: (NSWindowStyleMask) styleMask {
+    NSRect result = [[NSDisplay currentDisplay] outsetRect: contentRect
+                            forNativeWindowBorderWithStyle: styleMask];
 
     if ([self hasMainMenuForStyleMask: styleMask])
         result.size.height += [NSMainMenuView menuHeight];
@@ -186,8 +230,10 @@ static BOOL _allowsAutomaticWindowTabbing;
     return result;
 }
 
-+ (NSRect) contentRectForFrameRect: (NSRect) frameRect styleMask: (NSWindowStyleMask) styleMask {
-    NSRect result = [[NSDisplay currentDisplay] insetRect: frameRect forNativeWindowBorderWithStyle: styleMask];
++ (NSRect) contentRectForFrameRect: (NSRect) frameRect
+                         styleMask: (NSWindowStyleMask) styleMask {
+    NSRect result = [[NSDisplay currentDisplay] insetRect: frameRect
+                           forNativeWindowBorderWithStyle: styleMask];
 
     if ([self hasMainMenuForStyleMask: styleMask])
         result.size.height -= [NSMainMenuView menuHeight];
@@ -195,41 +241,44 @@ static BOOL _allowsAutomaticWindowTabbing;
     return result;
 }
 
-+ (CGFloat) minFrameWidthWithTitle: (NSString *) title styleMask: (NSWindowStyleMask) styleMask {
++ (CGFloat) minFrameWidthWithTitle: (NSString *) title
+                         styleMask: (NSWindowStyleMask) styleMask {
     NSUnimplementedMethod();
     return 0;
 }
 
-+(NSInteger)windowNumberAtPoint:(NSPoint)point belowWindowWithWindowNumber:(NSInteger)window {
-   NSUnimplementedMethod();
-   return 0;
++ (NSInteger) windowNumberAtPoint: (NSPoint) point
+      belowWindowWithWindowNumber: (NSInteger) window {
+    NSUnimplementedMethod();
+    return 0;
 }
 
-+(NSArray *)windowNumbersWithOptions:(NSWindowNumberListOptions)options {
-   NSUnimplementedMethod();
-   return nil;
-}
-
-+(void)removeFrameUsingName:(NSString *)name {
-   NSUnimplementedMethod();
-}
-
-+ (NSButton *) standardWindowButton: (NSWindowButton) button forStyleMask: (NSWindowStyleMask) styleMask {
++ (NSArray *) windowNumbersWithOptions: (NSWindowNumberListOptions) options {
     NSUnimplementedMethod();
     return nil;
 }
 
-+(void)menuChanged:(NSMenu *)menu {
-   NSUnimplementedMethod();
++ (void) removeFrameUsingName: (NSString *) name {
+    NSUnimplementedMethod();
 }
 
--(void)encodeWithCoder:(NSCoder *)coder {
-   NSUnimplementedMethod();
++ (NSButton *) standardWindowButton: (NSWindowButton) button
+                       forStyleMask: (NSWindowStyleMask) styleMask {
+    NSUnimplementedMethod();
+    return nil;
+}
+
++ (void) menuChanged: (NSMenu *) menu {
+    NSUnimplementedMethod();
+}
+
+- (void) encodeWithCoder: (NSCoder *) coder {
+    NSUnimplementedMethod();
 }
 
 // This is Apple private API
 + (Class) frameViewClassForStyleMask: (NSWindowStyleMask) styleMask {
-   return [NSThemeFrame class];
+    return [NSThemeFrame class];
 }
 
 - (instancetype) init {
@@ -242,15 +291,14 @@ static BOOL _allowsAutomaticWindowTabbing;
 - (instancetype) initWithCoder: (NSCoder *) coder {
     [NSException raise: NSInvalidArgumentException
                 format: @"-[%@ %s] is not implemented for coder %@",
-                 [self class], sel_getName(_cmd), coder];
-   return self;
+                        [self class], sel_getName(_cmd), coder];
+    return self;
 }
 
 - (instancetype) initWithContentRect: (NSRect) contentRect
                            styleMask: (NSWindowStyleMask) styleMask
                              backing: (NSBackingStoreType) backing
-                               defer: (BOOL) defer
-{
+                               defer: (BOOL) defer {
     // Make sure NSApplication is initialized.
     if (!NSApp) {
         [NSApplication sharedApplication];
@@ -275,35 +323,36 @@ static BOOL _allowsAutomaticWindowTabbing;
     _releaseWhenClosed = YES;
     _viewsNeedDisplay = YES;
     _flushNeeded = YES;
-    _resizeIncrements = NSMakeSize(1,1);
-    _contentResizeIncrements = NSMakeSize(1,1);
+    _resizeIncrements = NSMakeSize(1, 1);
+    _contentResizeIncrements = NSMakeSize(1, 1);
 
     _threadToContext = [[NSMutableDictionary alloc] init];
 
-    NSRect backgroundFrame = { NSZeroPoint, _frame.size };
-    _backgroundView = [[[[self class] frameViewClassForStyleMask: styleMask] alloc] initWithFrame: backgroundFrame];
+    NSRect backgroundFrame = {NSZeroPoint, _frame.size};
+    _backgroundView = [[[[self class] frameViewClassForStyleMask: styleMask]
+        alloc] initWithFrame: backgroundFrame];
     [_backgroundView setAutoresizesSubviews: YES];
-    [_backgroundView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+    [_backgroundView
+        setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
     [_backgroundView _setWindow: self];
     [_backgroundView setNextResponder: self];
 
     NSRect contentViewFrame = [self contentRectForFrameRect: backgroundFrame];
     _contentView = [[NSView alloc] initWithFrame: contentViewFrame];
     [_contentView setAutoresizesSubviews: YES];
-    [_contentView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+    [_contentView
+        setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
 
     if ([self hasMainMenu]) {
         NSRect menuFrame = NSMakeRect(
-            contentViewFrame.origin.x,
-            NSMaxY(contentViewFrame),
-            contentViewFrame.size.width,
-            [NSMainMenuView menuHeight]
-        );
+            contentViewFrame.origin.x, NSMaxY(contentViewFrame),
+            contentViewFrame.size.width, [NSMainMenuView menuHeight]);
 
         // We all need to share the main menu!
         _menu = [[NSApp mainMenu] retain];
 
-        _menuView = [[NSMainMenuView alloc] initWithFrame: menuFrame menu: _menu];
+        _menuView = [[NSMainMenuView alloc] initWithFrame: menuFrame
+                                                     menu: _menu];
         [_menuView setAutoresizingMask: NSViewWidthSizable | NSViewMinYMargin];
         [_backgroundView addSubview: _menuView];
     }
@@ -321,8 +370,7 @@ static BOOL _allowsAutomaticWindowTabbing;
                            styleMask: (NSWindowStyleMask) styleMask
                              backing: (NSBackingStoreType) backing
                                defer: (BOOL) defer
-                              screen: (NSScreen *) screen
-{
+                              screen: (NSScreen *) screen {
     // FIX, relocate contentRect
     return [self initWithContentRect: contentRect
                            styleMask: styleMask
@@ -336,7 +384,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
     [_childWindows release];
     [_title release];
     [_miniwindowTitle release];
@@ -374,15 +422,17 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 /*
-  There are issues when creating a Win32 handle on a non-main thread, so we always do it on the main thread
+  There are issues when creating a Win32 handle on a non-main thread, so we
+  always do it on the main thread
  */
 - (void) _createPlatformWindowOnMainThread {
-    if (_platformWindow != nil) return;
+    if (_platformWindow != nil)
+        return;
     _platformWindow = [[NSDisplay currentDisplay] newWindowWithDelegate: self];
 
-		[self _updatePlatformWindowTitle];
+    [self _updatePlatformWindowTitle];
 
-		[[NSDraggingManager draggingManager] registerWindow: self dragTypes: nil];
+    [[NSDraggingManager draggingManager] registerWindow: self dragTypes: nil];
 }
 
 - (CGContextRef) cgContext {
@@ -422,11 +472,11 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (NSDictionary *) deviceDescription {
     return @{
-        NSDeviceResolution: [NSValue valueWithSize: NSMakeSize(72.0, 72.0)],
-        NSDeviceSize: [NSValue valueWithSize: [self frame].size],
-        NSDeviceColorSpaceName: NSDeviceRGBColorSpace,
-        NSDeviceBitsPerSample: @8,
-        NSDeviceIsScreen: @YES
+        NSDeviceResolution : [NSValue valueWithSize: NSMakeSize(72.0, 72.0)],
+        NSDeviceSize : [NSValue valueWithSize: [self frame].size],
+        NSDeviceColorSpaceName : NSDeviceRGBColorSpace,
+        NSDeviceBitsPerSample : @8,
+        NSDeviceIsScreen : @YES
     };
 }
 
@@ -435,42 +485,42 @@ static BOOL _allowsAutomaticWindowTabbing;
     return NULL;
 }
 
--(BOOL)allowsConcurrentViewDrawing {
-   NSUnimplementedMethod();
-   return NO;
+- (BOOL) allowsConcurrentViewDrawing {
+    NSUnimplementedMethod();
+    return NO;
 }
 
--(void)setAllowsConcurrentViewDrawing:(BOOL)allows {
-   NSUnimplementedMethod();
+- (void) setAllowsConcurrentViewDrawing: (BOOL) allows {
+    NSUnimplementedMethod();
 }
 
--(NSView *)contentView {
-   return _contentView;
+- (NSView *) contentView {
+    return _contentView;
 }
 
--(id)delegate {
-   return _delegate;
+- (id) delegate {
+    return _delegate;
 }
 
--(NSString *)title {
-   return _title;
+- (NSString *) title {
+    return _title;
 }
 
--(NSString *)representedFilename {
-   return _representedFilename;
+- (NSString *) representedFilename {
+    return _representedFilename;
 }
 
--(NSURL *)representedURL {
-   NSUnimplementedMethod();
-   return nil;
+- (NSURL *) representedURL {
+    NSUnimplementedMethod();
+    return nil;
 }
 
 - (NSWindowLevel) level {
     return _level;
 }
 
--(NSRect)frame {
-   return _frame;
+- (NSRect) frame {
+    return _frame;
 }
 
 - (NSWindowStyleMask) styleMask {
@@ -481,185 +531,186 @@ static BOOL _allowsAutomaticWindowTabbing;
     return _backingType;
 }
 
--(NSWindowBackingLocation)preferredBackingLocation {
-   NSUnimplementedMethod();
-   return 0;
+- (NSWindowBackingLocation) preferredBackingLocation {
+    NSUnimplementedMethod();
+    return 0;
 }
 
--(void)setPreferredBackingLocation:(NSWindowBackingLocation)location {
-   NSUnimplementedMethod();
+- (void) setPreferredBackingLocation: (NSWindowBackingLocation) location {
+    NSUnimplementedMethod();
 }
 
--(NSWindowBackingLocation)backingLocation {
-   NSUnimplementedMethod();
-   return 0;
+- (NSWindowBackingLocation) backingLocation {
+    NSUnimplementedMethod();
+    return 0;
 }
 
--(NSSize)minSize {
-   return _minSize;
+- (NSSize) minSize {
+    return _minSize;
 }
 
--(NSSize)maxSize {
-   return _maxSize;
+- (NSSize) maxSize {
+    return _maxSize;
 }
 
--(NSSize)contentMinSize {
-   return _contentMinSize;
+- (NSSize) contentMinSize {
+    return _contentMinSize;
 }
 
--(NSSize)contentMaxSize {
-   return _contentMaxSize;
+- (NSSize) contentMaxSize {
+    return _contentMaxSize;
 }
 
--(BOOL)isOneShot {
-   return _isOneShot;
+- (BOOL) isOneShot {
+    return _isOneShot;
 }
 
--(BOOL)isOpaque {
-   return _isOpaque;
+- (BOOL) isOpaque {
+    return _isOpaque;
 }
 
--(BOOL)hasDynamicDepthLimit {
-   return _dynamicDepthLimit;
+- (BOOL) hasDynamicDepthLimit {
+    return _dynamicDepthLimit;
 }
 
--(BOOL)isReleasedWhenClosed {
-   return _releaseWhenClosed;
+- (BOOL) isReleasedWhenClosed {
+    return _releaseWhenClosed;
 }
 
--(BOOL)preventsApplicationTerminationWhenModal {
-   NSUnimplementedMethod();
-   return NO;
+- (BOOL) preventsApplicationTerminationWhenModal {
+    NSUnimplementedMethod();
+    return NO;
 }
 
--(void)setPreventsApplicationTerminationWhenModal:(BOOL)prevents {
-   NSUnimplementedMethod();
+- (void) setPreventsApplicationTerminationWhenModal: (BOOL) prevents {
+    NSUnimplementedMethod();
 }
 
--(BOOL)hidesOnDeactivate {
-   return _hidesOnDeactivate;
+- (BOOL) hidesOnDeactivate {
+    return _hidesOnDeactivate;
 }
 
--(BOOL)worksWhenModal {
-	// We do work when we're running a modal session
-	return (_sheetContext && [_sheetContext modalSession] != nil);
+- (BOOL) worksWhenModal {
+    // We do work when we're running a modal session
+    return (_sheetContext && [_sheetContext modalSession] != nil);
 }
 
--(BOOL)isSheet {
-  return (_styleMask&NSDocModalWindowMask)?YES:NO;
+- (BOOL) isSheet {
+    return (_styleMask & NSDocModalWindowMask) ? YES : NO;
 }
 
--(BOOL)acceptsMouseMovedEvents {
-   return _acceptsMouseMovedEvents;
+- (BOOL) acceptsMouseMovedEvents {
+    return _acceptsMouseMovedEvents;
 }
 
--(BOOL)isExcludedFromWindowsMenu {
-   return _excludedFromWindowsMenu;
+- (BOOL) isExcludedFromWindowsMenu {
+    return _excludedFromWindowsMenu;
 }
 
--(BOOL)isAutodisplay {
-   return _isAutodisplay;
+- (BOOL) isAutodisplay {
+    return _isAutodisplay;
 }
 
--(BOOL)isFlushWindowDisabled {
-   return _isFlushWindowDisabled;
+- (BOOL) isFlushWindowDisabled {
+    return _isFlushWindowDisabled;
 }
 
--(NSString *)frameAutosaveName {
-   return _autosaveFrameName;
+- (NSString *) frameAutosaveName {
+    return _autosaveFrameName;
 }
 
--(BOOL)hasShadow {
-   return _hasShadow;
+- (BOOL) hasShadow {
+    return _hasShadow;
 }
 
--(BOOL)ignoresMouseEvents {
-   return _ignoresMouseEvents;
+- (BOOL) ignoresMouseEvents {
+    return _ignoresMouseEvents;
 }
 
--(NSSize)aspectRatio {
-   return NSMakeSize(1.0,_resizeIncrements.height/_resizeIncrements.width);
+- (NSSize) aspectRatio {
+    return NSMakeSize(1.0, _resizeIncrements.height / _resizeIncrements.width);
 }
 
--(NSSize)contentAspectRatio {
-   return NSMakeSize(1.0,_contentResizeIncrements.height/_contentResizeIncrements.width);
+- (NSSize) contentAspectRatio {
+    return NSMakeSize(1.0, _contentResizeIncrements.height /
+                               _contentResizeIncrements.width);
 }
 
--(BOOL)autorecalculatesKeyViewLoop {
+- (BOOL) autorecalculatesKeyViewLoop {
     return _autorecalculatesKeyViewLoop;
 }
 
--(BOOL)canHide {
-   return _canHide;
+- (BOOL) canHide {
+    return _canHide;
 }
 
--(BOOL)canStoreColor {
-   return _canStoreColor;
+- (BOOL) canStoreColor {
+    return _canStoreColor;
 }
 
--(BOOL)showsResizeIndicator {
-   return _showsResizeIndicator;
+- (BOOL) showsResizeIndicator {
+    return _showsResizeIndicator;
 }
 
--(BOOL)showsToolbarButton {
-   return _showsToolbarButton;
+- (BOOL) showsToolbarButton {
+    return _showsToolbarButton;
 }
 
--(BOOL)displaysWhenScreenProfileChanges {
-   return _displaysWhenScreenProfileChanges;
+- (BOOL) displaysWhenScreenProfileChanges {
+    return _displaysWhenScreenProfileChanges;
 }
 
--(BOOL)isMovableByWindowBackground {
-   return _isMovableByWindowBackground;
+- (BOOL) isMovableByWindowBackground {
+    return _isMovableByWindowBackground;
 }
 
--(BOOL)allowsToolTipsWhenApplicationIsInactive {
-   return _allowsToolTipsWhenApplicationIsInactive;
+- (BOOL) allowsToolTipsWhenApplicationIsInactive {
+    return _allowsToolTipsWhenApplicationIsInactive;
 }
 
--(NSImage *)miniwindowImage {
-   return _miniwindowImage;
+- (NSImage *) miniwindowImage {
+    return _miniwindowImage;
 }
 
--(NSString *)miniwindowTitle {
-   return _miniwindowTitle;
+- (NSString *) miniwindowTitle {
+    return _miniwindowTitle;
 }
 
--(NSDockTile *)dockTile {
-   NSUnimplementedMethod();
-   return nil;
+- (NSDockTile *) dockTile {
+    NSUnimplementedMethod();
+    return nil;
 }
 
--(NSColor *)backgroundColor {
-   return _backgroundColor;
+- (NSColor *) backgroundColor {
+    return _backgroundColor;
 }
 
--(CGFloat)alphaValue {
-   return _alphaValue;
+- (CGFloat) alphaValue {
+    return _alphaValue;
 }
 
--(NSWindowDepth)depthLimit {
-   return 0;
+- (NSWindowDepth) depthLimit {
+    return 0;
 }
 
--(NSSize)resizeIncrements {
-   return _resizeIncrements;
+- (NSSize) resizeIncrements {
+    return _resizeIncrements;
 }
 
--(NSSize)contentResizeIncrements {
-   return _contentResizeIncrements;
+- (NSSize) contentResizeIncrements {
+    return _contentResizeIncrements;
 }
 
--(BOOL)preservesContentDuringLiveResize {
-   return NO;
+- (BOOL) preservesContentDuringLiveResize {
+    return NO;
 }
 
--(NSToolbar *)toolbar {
+- (NSToolbar *) toolbar {
     return _toolbar;
 }
 
--(NSView *)initialFirstResponder {
-   return _initialFirstResponder;
+- (NSView *) initialFirstResponder {
+    return _initialFirstResponder;
 }
 
 - (void) removeObserver: (NSNotificationName) name selector: (SEL) selector {
@@ -684,22 +735,25 @@ static BOOL _allowsAutomaticWindowTabbing;
         NSNotificationName name;
         SEL selector;
     } notes[] = {
-        { NSWindowDidBecomeKeyNotification, @selector(windowDidBecomeKey:) },
-        { NSWindowDidBecomeMainNotification, @selector(windowDidBecomeMain:) },
-        { NSWindowDidDeminiaturizeNotification, @selector(windowDidDeminiaturize:) },
-        { NSWindowDidMiniaturizeNotification, @selector(windowDidMiniaturize:) },
-        { NSWindowDidMoveNotification, @selector(windowDidMove:) },
-        { NSWindowDidResignKeyNotification, @selector(windowDidResignKey:) },
-        { NSWindowDidResignMainNotification, @selector(windowDidResignMain:) },
-        { NSWindowDidResizeNotification, @selector(windowDidResize:) },
-        { NSWindowWillStartLiveResizeNotification, @selector(windowWillStartLiveResize:) },
-        { NSWindowDidEndLiveResizeNotification, @selector(windowDidEndLiveResize:) },
-        { NSWindowDidUpdateNotification, @selector(windowDidUpdate:) },
-        { NSWindowWillCloseNotification, @selector(windowWillClose:) },
-        { NSWindowWillMiniaturizeNotification, @selector(windowWillMiniaturize:) },
-        { NSWindowWillMoveNotification, @selector(windowWillMove:) },
-        { nil, NULL }
-    };
+        {NSWindowDidBecomeKeyNotification, @selector(windowDidBecomeKey:)},
+        {NSWindowDidBecomeMainNotification, @selector(windowDidBecomeMain:)},
+        {NSWindowDidDeminiaturizeNotification,
+         @selector(windowDidDeminiaturize:)},
+        {NSWindowDidMiniaturizeNotification, @selector(windowDidMiniaturize:)},
+        {NSWindowDidMoveNotification, @selector(windowDidMove:)},
+        {NSWindowDidResignKeyNotification, @selector(windowDidResignKey:)},
+        {NSWindowDidResignMainNotification, @selector(windowDidResignMain:)},
+        {NSWindowDidResizeNotification, @selector(windowDidResize:)},
+        {NSWindowWillStartLiveResizeNotification,
+         @selector(windowWillStartLiveResize:)},
+        {NSWindowDidEndLiveResizeNotification,
+         @selector(windowDidEndLiveResize:)},
+        {NSWindowDidUpdateNotification, @selector(windowDidUpdate:)},
+        {NSWindowWillCloseNotification, @selector(windowWillClose:)},
+        {NSWindowWillMiniaturizeNotification,
+         @selector(windowWillMiniaturize:)},
+        {NSWindowWillMoveNotification, @selector(windowWillMove:)},
+        {nil, NULL}};
 
     if (_delegate != nil) {
         for (struct note *note = &notes[0]; note->name != nil; note++) {
@@ -800,24 +854,26 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) setFrame: (NSRect) frame display: (BOOL) display {
-   [self setFrame: frame display: display animate: NO];
+    [self setFrame: frame display: display animate: NO];
 }
 
 - (void) _animateWithContext: (NSWindowAnimationContext *) context {
     NSRect frame = [self frame];
-    NSDictionary *userInfo = @{ @"NSWindowAnimationContext": context };
+    NSDictionary *userInfo = @{@"NSWindowAnimationContext" : context};
 
     if (_animationContext == nil)
         _animationContext = [context retain];
 
     if (_animationContext != context)
         [NSException raise: NSInvalidArgumentException
-                    format: @"-[%@ %@]: attempt to animate frame while animation still in progress",
-                     [self class], NSStringFromSelector(_cmd)];
+                    format: @"-[%@ %@]: attempt to animate frame while "
+                            @"animation still in progress",
+                            [self class], NSStringFromSelector(_cmd)];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName: NSWindowWillAnimateNotification
-                                                        object: self
-                                                      userInfo: userInfo];
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName: NSWindowWillAnimateNotification
+                      object: self
+                    userInfo: userInfo];
 
     [context decrement];
 
@@ -826,23 +882,25 @@ static BOOL _allowsAutomaticWindowTabbing;
         frame.origin.y += [context stepRect].origin.y;
         frame.size.width += [context stepRect].size.width;
         frame.size.height += [context stepRect].size.height;
-    }
-    else
+    } else
         frame = [context targetRect];
 
     [self setFrame: frame display: [context display]];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName: NSWindowAnimatingNotification
-                                                        object: self
-                                                      userInfo: userInfo];
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName: NSWindowAnimatingNotification
+                      object: self
+                    userInfo: userInfo];
 
     if ([context stepCount] > 0) {
-        [self performSelector: _cmd withObject: context afterDelay: [context stepInterval]];
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] postNotificationName: NSWindowDidAnimateNotification
-                                                            object: self
-                                                          userInfo: userInfo];
+        [self performSelector: _cmd
+                   withObject: context
+                   afterDelay: [context stepInterval]];
+    } else {
+        [[NSNotificationCenter defaultCenter]
+            postNotificationName: NSWindowDidAnimateNotification
+                          object: self
+                        userInfo: userInfo];
 
         [_animationContext release];
         _animationContext = nil;
@@ -857,7 +915,9 @@ static BOOL _allowsAutomaticWindowTabbing;
     return _animationContext;
 }
 
-- (void) setFrame: (NSRect) newFrame display: (BOOL) display animate: (BOOL) animate  {
+- (void) setFrame: (NSRect) newFrame
+          display: (BOOL) display
+          animate: (BOOL) animate {
     BOOL didSize = !NSEqualSizes(newFrame.size, _frame.size);
     BOOL didMove = !NSEqualPoints(newFrame.origin, _frame.origin);
 
@@ -887,11 +947,12 @@ static BOOL _allowsAutomaticWindowTabbing;
 
     if (animate) {
         NSWindowAnimationContext *context;
-        context = [NSWindowAnimationContext contextToTransformWindow: self
-                                                           startRect: [self frame]
-                                                          targetRect: newFrame
-                                                          resizeTime: [self animationResizeTime: newFrame]
-                                                             display: display];
+        context = [NSWindowAnimationContext
+            contextToTransformWindow: self
+                           startRect: [self frame]
+                          targetRect: newFrame
+                          resizeTime: [self animationResizeTime: newFrame]
+                             display: display];
         [self _animateWithContext: context];
     }
 }
@@ -918,7 +979,7 @@ static BOOL _allowsAutomaticWindowTabbing;
     [self setFrame: frame display: NO];
 }
 
--(void) setMinSize: (NSSize) size {
+- (void) setMinSize: (NSSize) size {
     _minSize = size;
 }
 
@@ -935,56 +996,61 @@ static BOOL _allowsAutomaticWindowTabbing;
     _contentMaxSize = value;
 }
 
-- (void) setContentBorderThickness: (CGFloat) thickness forEdge: (NSRectEdge) edge {
-    // FIXME: should warn, but low priority cosmetic, so we dont, still needs to be implemented
+- (void) setContentBorderThickness: (CGFloat) thickness
+                           forEdge: (NSRectEdge) edge {
+    // FIXME: should warn, but low priority cosmetic, so we dont, still needs to
+    // be implemented
     //   NSUnimplementedMethod();
 }
 
--(void)setMovable:(BOOL)movable {
-   NSUnimplementedMethod();
+- (void) setMovable: (BOOL) movable {
+    NSUnimplementedMethod();
 }
 
--(void)setBackingType:(NSBackingStoreType)value {
-   _backingType=value;
-   NSUnimplementedMethod();
+- (void) setBackingType: (NSBackingStoreType) value {
+    _backingType = value;
+    NSUnimplementedMethod();
 }
 
--(void)setDynamicDepthLimit:(BOOL)value {
-   _dynamicDepthLimit=value;
+- (void) setDynamicDepthLimit: (BOOL) value {
+    _dynamicDepthLimit = value;
 }
 
--(void)setOneShot:(BOOL)flag {
-   _isOneShot=flag;
+- (void) setOneShot: (BOOL) flag {
+    _isOneShot = flag;
 }
 
--(void)setReleasedWhenClosed:(BOOL)flag {
-   _releaseWhenClosed=flag;
+- (void) setReleasedWhenClosed: (BOOL) flag {
+    _releaseWhenClosed = flag;
 }
 
--(void)setHidesOnDeactivate:(BOOL)flag {
-   _hidesOnDeactivate=flag;
+- (void) setHidesOnDeactivate: (BOOL) flag {
+    _hidesOnDeactivate = flag;
 }
 
--(void)setAcceptsMouseMovedEvents:(BOOL)flag {
-   _acceptsMouseMovedEvents=flag;
-   [_platformWindow syncDelegateProperties];
+- (void) setAcceptsMouseMovedEvents: (BOOL) flag {
+    _acceptsMouseMovedEvents = flag;
+    [_platformWindow syncDelegateProperties];
 }
 
--(void)setExcludedFromWindowsMenu:(BOOL)value {
-   _excludedFromWindowsMenu=value;
+- (void) setExcludedFromWindowsMenu: (BOOL) value {
+    _excludedFromWindowsMenu = value;
 }
 
--(void)setAutodisplay:(BOOL)value {
-   _isAutodisplay=value;
+- (void) setAutodisplay: (BOOL) value {
+    _isAutodisplay = value;
 }
 
--(void)setAutorecalculatesContentBorderThickness:(BOOL)automatic forEdge:(NSRectEdge)edge {
-// FIXME: should warn, but low priority cosmetic, so we dont, still needs to be implemented
-//   NSUnimplementedMethod();
+- (void) setAutorecalculatesContentBorderThickness: (BOOL) automatic
+                                           forEdge: (NSRectEdge) edge {
+    // FIXME: should warn, but low priority cosmetic, so we dont, still needs to
+    // be implemented
+    //   NSUnimplementedMethod();
 }
 
 - (BOOL) _isApplicationWindow {
-    return ![self isKindOfClass: [NSPanel class]] && [self isVisible] && ![self isExcludedFromWindowsMenu];
+    return ![self isKindOfClass: [NSPanel class]] && [self isVisible] &&
+           ![self isExcludedFromWindowsMenu];
 }
 
 - (void) setTitle: (NSString *) title {
@@ -1002,12 +1068,13 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) setTitleWithRepresentedFilename: (NSString *) filename {
-    [self setTitle: [NSString stringWithFormat:@"%@  --  %@",
-      [filename lastPathComponent],
-      [filename stringByDeletingLastPathComponent]]];
+    [self
+        setTitle: [NSString stringWithFormat:
+                                @"%@  --  %@", [filename lastPathComponent],
+                                [filename stringByDeletingLastPathComponent]]];
 
     if ([self _isApplicationWindow])
-       [NSApp changeWindowsItem: self title: filename filename: YES];
+        [NSApp changeWindowsItem: self title: filename filename: YES];
 }
 
 - (void) setContentView: (NSView *) view {
@@ -1026,31 +1093,32 @@ static BOOL _allowsAutomaticWindowTabbing;
     _initialFirstResponder = view;
 }
 
--(void)setMiniwindowImage:(NSImage *)image {
-   image=[image retain];
-   [_miniwindowImage release];
-   _miniwindowImage=image;
+- (void) setMiniwindowImage: (NSImage *) image {
+    image = [image retain];
+    [_miniwindowImage release];
+    _miniwindowImage = image;
 }
 
--(void)setMiniwindowTitle:(NSString *)title {
-   title=[title copy];
-   [_miniwindowTitle release];
-   _miniwindowTitle=title;
+- (void) setMiniwindowTitle: (NSString *) title {
+    title = [title copy];
+    [_miniwindowTitle release];
+    _miniwindowTitle = title;
 
-   [self _updatePlatformWindowTitle];
+    [self _updatePlatformWindowTitle];
 }
 
--(void)setBackgroundColor:(NSColor *)color {
-   if (color==nil) color = [NSColor windowBackgroundColor];
-   color=[color copy];
-   [_backgroundColor release];
-   _backgroundColor=color;
-   [_backgroundView setNeedsDisplay:YES];
+- (void) setBackgroundColor: (NSColor *) color {
+    if (color == nil)
+        color = [NSColor windowBackgroundColor];
+    color = [color copy];
+    [_backgroundColor release];
+    _backgroundColor = color;
+    [_backgroundView setNeedsDisplay: YES];
 }
 
--(void)setAlphaValue:(CGFloat)value {
-   _alphaValue=value;
-   [_platformWindow setAlphaValue:value];
+- (void) setAlphaValue: (CGFloat) value {
+    _alphaValue = value;
+    [_platformWindow setAlphaValue: value];
 }
 
 - (void) _toolbarSizeDidChangeFromOldHeight: (CGFloat) oldHeight {
@@ -1058,7 +1126,8 @@ static BOOL _allowsAutomaticWindowTabbing;
     NSAutoresizingMaskOptions mask = [[self contentView] autoresizingMask];
     NSRect frame = [self frame];
 
-    [_toolbar layoutFrameSizeWithWidth: NSWidth([[self _backgroundView] bounds])];
+    [_toolbar
+        layoutFrameSizeWithWidth: NSWidth([[self _backgroundView] bounds])];
     CGFloat newHeight = [_toolbar visibleHeight];
     CGFloat contentHeightDelta = newHeight - oldHeight;
 
@@ -1135,114 +1204,115 @@ static BOOL _allowsAutomaticWindowTabbing;
     _resizeIncrements.height = value.height / value.width;
 }
 
--(void)setHasShadow:(BOOL)value {
-   _hasShadow=value;
-   [_platformWindow setHasShadow:value];
+- (void) setHasShadow: (BOOL) value {
+    _hasShadow = value;
+    [_platformWindow setHasShadow: value];
 }
 
--(void)setIgnoresMouseEvents:(BOOL)value {
-   _ignoresMouseEvents=value;
+- (void) setIgnoresMouseEvents: (BOOL) value {
+    _ignoresMouseEvents = value;
 }
 
--(void)setAspectRatio:(NSSize)value {
-   _resizeIncrements.width=1.0;
-   _resizeIncrements.height=value.height/value.width;
+- (void) setAspectRatio: (NSSize) value {
+    _resizeIncrements.width = 1.0;
+    _resizeIncrements.height = value.height / value.width;
 }
 
--(void)setAutorecalculatesKeyViewLoop:(BOOL)value {
-    _autorecalculatesKeyViewLoop=value;
+- (void) setAutorecalculatesKeyViewLoop: (BOOL) value {
+    _autorecalculatesKeyViewLoop = value;
 }
 
--(void)setCanHide:(BOOL)value {
-   _canHide=value;
+- (void) setCanHide: (BOOL) value {
+    _canHide = value;
 }
 
--(void)setCanBecomeVisibleWithoutLogin:(BOOL)flag {
-//   NSUnimplementedMethod();
+- (void) setCanBecomeVisibleWithoutLogin: (BOOL) flag {
+    //   NSUnimplementedMethod();
 }
 
--(void)setCollectionBehavior:(NSWindowCollectionBehavior)behavior {
-   NSUnimplementedMethod();
+- (void) setCollectionBehavior: (NSWindowCollectionBehavior) behavior {
+    NSUnimplementedMethod();
 }
 
--(void)setLevel:(NSInteger)value {
-   _level=value;
-   [_platformWindow setLevel:_level];
+- (void) setLevel: (NSInteger) value {
+    _level = value;
+    [_platformWindow setLevel: _level];
 }
 
--(void)setOpaque:(BOOL)value {
-   _isOpaque=value;
-   [_platformWindow setOpaque:_isOpaque];
+- (void) setOpaque: (BOOL) value {
+    _isOpaque = value;
+    [_platformWindow setOpaque: _isOpaque];
 }
 
--(void)setParentWindow:(NSWindow *)value {
-   _parentWindow=value;
+- (void) setParentWindow: (NSWindow *) value {
+    _parentWindow = value;
 }
 
--(void)setPreservesContentDuringLiveResize:(BOOL)value {
-  // _preservesContentDuringLiveResize=value;
+- (void) setPreservesContentDuringLiveResize: (BOOL) value {
+    // _preservesContentDuringLiveResize=value;
 }
 
--(void)setRepresentedFilename:(NSString *)value {
-   value=[value copy];
-   [_representedFilename release];
-   _representedFilename=value;
+- (void) setRepresentedFilename: (NSString *) value {
+    value = [value copy];
+    [_representedFilename release];
+    _representedFilename = value;
 }
 
--(void)setRepresentedURL:(NSURL *)newURL {
-   NSUnimplementedMethod();
+- (void) setRepresentedURL: (NSURL *) newURL {
+    NSUnimplementedMethod();
 }
 
--(void)setResizeIncrements:(NSSize)value {
-   _resizeIncrements=value;
+- (void) setResizeIncrements: (NSSize) value {
+    _resizeIncrements = value;
 }
 
--(void)setShowsResizeIndicator:(BOOL)value {
-   _showsResizeIndicator=value;
-   NSUnimplementedMethod();
+- (void) setShowsResizeIndicator: (BOOL) value {
+    _showsResizeIndicator = value;
+    NSUnimplementedMethod();
 }
 
--(void)setShowsToolbarButton:(BOOL)value {
-  _showsToolbarButton=value;
-   NSUnimplementedMethod();
+- (void) setShowsToolbarButton: (BOOL) value {
+    _showsToolbarButton = value;
+    NSUnimplementedMethod();
 }
 
--(void)setContentResizeIncrements:(NSSize)value {
-   _contentResizeIncrements=value;
+- (void) setContentResizeIncrements: (NSSize) value {
+    _contentResizeIncrements = value;
 }
 
--(void)setDepthLimit:(NSWindowDepth)value {
-   NSUnimplementedMethod();
+- (void) setDepthLimit: (NSWindowDepth) value {
+    NSUnimplementedMethod();
 }
 
--(void)setDisplaysWhenScreenProfileChanges:(BOOL)value {
-   _displaysWhenScreenProfileChanges=value;
+- (void) setDisplaysWhenScreenProfileChanges: (BOOL) value {
+    _displaysWhenScreenProfileChanges = value;
 }
 
--(void)setMovableByWindowBackground:(BOOL)value {
-   _isMovableByWindowBackground=value;
+- (void) setMovableByWindowBackground: (BOOL) value {
+    _isMovableByWindowBackground = value;
 }
 
--(void)setAllowsToolTipsWhenApplicationIsInactive:(BOOL)value {
-   _allowsToolTipsWhenApplicationIsInactive=value;
+- (void) setAllowsToolTipsWhenApplicationIsInactive: (BOOL) value {
+    _allowsToolTipsWhenApplicationIsInactive = value;
 }
 
--(BOOL)autorecalculatesContentBorderThicknessForEdge:(NSRectEdge)edge {
-   NSUnimplementedMethod();
-   return NO;
+- (BOOL) autorecalculatesContentBorderThicknessForEdge: (NSRectEdge) edge {
+    NSUnimplementedMethod();
+    return NO;
 }
 
--(CGFloat)contentBorderThicknessForEdge:(NSRectEdge)edge {
-   NSUnimplementedMethod();
-   return 0.;
+- (CGFloat) contentBorderThicknessForEdge: (NSRectEdge) edge {
+    NSUnimplementedMethod();
+    return 0.;
 }
 
--(NSString *)_autosaveFrameKeyWithName:(NSString *)name {
-   return [NSString stringWithFormat:@"NSWindow frame %@ %@",name, NSStringFromRect([[self screen] frame])];
+- (NSString *) _autosaveFrameKeyWithName: (NSString *) name {
+    return [NSString stringWithFormat: @"NSWindow frame %@ %@", name,
+                                       NSStringFromRect([[self screen] frame])];
 }
 
--(BOOL)setFrameUsingName:(NSString *)name {
-   return [self setFrameUsingName:name force:NO];
+- (BOOL) setFrameUsingName: (NSString *) name {
+    return [self setFrameUsingName: name force: NO];
 }
 
 - (BOOL) setFrameUsingName: (NSString *) name force: (BOOL) force {
@@ -1256,18 +1326,18 @@ static BOOL _allowsAutomaticWindowTabbing;
     return YES;
 }
 
--(void)_setFrameAutosaveNameNoIO:(NSString *)name {
-   name=[name copy];
-   [_autosaveFrameName release];
-   _autosaveFrameName=name;
+- (void) _setFrameAutosaveNameNoIO: (NSString *) name {
+    name = [name copy];
+    [_autosaveFrameName release];
+    _autosaveFrameName = name;
 }
 
--(BOOL)setFrameAutosaveName:(NSString *)name {
-   [self _setFrameAutosaveNameNoIO:name];
+- (BOOL) setFrameAutosaveName: (NSString *) name {
+    [self _setFrameAutosaveNameNoIO: name];
 
-   [self setFrameUsingName:_autosaveFrameName];
-   [self saveFrameUsingName:_autosaveFrameName];
-   return YES;
+    [self setFrameUsingName: _autosaveFrameName];
+    [self saveFrameUsingName: _autosaveFrameName];
+    return YES;
 }
 
 - (void) postAwakeFromNib {
@@ -1284,7 +1354,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (void) saveFrameUsingName: (NSString *) name {
     if ([name length] > 0) {
-        NSString *key = [self _autosaveFrameKeyWithName:name];
+        NSString *key = [self _autosaveFrameKeyWithName: name];
         NSString *value = [self stringWithSavedFrame];
 
         [[NSUserDefaults standardUserDefaults] setObject: value forKey: key];
@@ -1296,7 +1366,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 
     if (!NSIsEmptyRect(rect)) {
         [self setFrame: rect display: YES];
-   }
+    }
 }
 
 - (NSString *) stringWithSavedFrame {
@@ -1308,8 +1378,8 @@ static BOOL _allowsAutomaticWindowTabbing;
     return 0;
 }
 
--(CGFloat)userSpaceScaleFactor {
-   return 1.0;
+- (CGFloat) userSpaceScaleFactor {
+    return 1.0;
 }
 
 - (NSResponder *) firstResponder {
@@ -1324,19 +1394,19 @@ static BOOL _allowsAutomaticWindowTabbing;
     return nil;
 }
 
--(NSButtonCell *)defaultButtonCell {
+- (NSButtonCell *) defaultButtonCell {
     return _defaultButtonCell;
 }
 
--(NSWindow *)attachedSheet {
-   return [_sheetContext sheet];
+- (NSWindow *) attachedSheet {
+    return [_sheetContext sheet];
 }
 
--(id)windowController {
-   return _windowController;
+- (id) windowController {
+    return _windowController;
 }
 
--(NSArray *)drawers {
+- (NSArray *) drawers {
     return _drawers;
 }
 
@@ -1355,7 +1425,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 
     for (NSScreen *screen in [NSScreen screens]) {
         NSRect intersect = NSIntersectionRect([screen frame], _frame);
-        if (intersect.size.width * intersect.size.height > mostRect.size.width * mostRect.size.height) {
+        if (intersect.size.width * intersect.size.height >
+            mostRect.size.width * mostRect.size.height) {
             mostRect = intersect;
             mostScreen = screen;
         }
@@ -1365,85 +1436,88 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (NSScreen *) deepestScreen {
-   NSUnimplementedMethod();
-   return 0;
+    NSUnimplementedMethod();
+    return 0;
 }
 
--(NSColorSpace *)colorSpace {
-   NSUnimplementedMethod();
-   return nil;
+- (NSColorSpace *) colorSpace {
+    NSUnimplementedMethod();
+    return nil;
 }
 
--(void)setColorSpace:(NSColorSpace *)newColorSpace {
-   NSUnimplementedMethod();
+- (void) setColorSpace: (NSColorSpace *) newColorSpace {
+    NSUnimplementedMethod();
 }
 
--(BOOL)isOnActiveSpace {
-   NSUnimplementedMethod();
-   return YES;
+- (BOOL) isOnActiveSpace {
+    NSUnimplementedMethod();
+    return YES;
 }
 
--(NSWindowSharingType)sharingType {
-   NSUnimplementedMethod();
-   return 0;
+- (NSWindowSharingType) sharingType {
+    NSUnimplementedMethod();
+    return 0;
 }
 
--(void)setSharingType:(NSWindowSharingType)type {
-   NSUnimplementedMethod();
+- (void) setSharingType: (NSWindowSharingType) type {
+    NSUnimplementedMethod();
 }
 
--(BOOL)isDocumentEdited {
-   return _isDocumentEdited;
+- (BOOL) isDocumentEdited {
+    return _isDocumentEdited;
 }
 
--(BOOL)isZoomed {
-	NSRect zoomedFrame = [self zoomedFrame];
-	return NSEqualRects( _frame, zoomedFrame );
+- (BOOL) isZoomed {
+    NSRect zoomedFrame = [self zoomedFrame];
+    return NSEqualRects(_frame, zoomedFrame);
 }
 
--(BOOL)isVisible {
-   return _isVisible;
+- (BOOL) isVisible {
+    return _isVisible;
 }
 
--(BOOL)isKeyWindow {
-   return ([NSApp keyWindow]==self)?YES:NO;
+- (BOOL) isKeyWindow {
+    return ([NSApp keyWindow] == self) ? YES : NO;
 }
 
--(BOOL)isMainWindow {
-   return ([NSApp mainWindow]==self)?YES:NO;
+- (BOOL) isMainWindow {
+    return ([NSApp mainWindow] == self) ? YES : NO;
 }
 
--(BOOL)isMiniaturized {
-   return [_platformWindow isMiniaturized];
+- (BOOL) isMiniaturized {
+    return [_platformWindow isMiniaturized];
 }
 
--(BOOL)isMovable {
-   NSUnimplementedMethod();
-   return NO;
+- (BOOL) isMovable {
+    NSUnimplementedMethod();
+    return NO;
 }
 
--(BOOL)inLiveResize {
-   return _isInLiveResize;
+- (BOOL) inLiveResize {
+    return _isInLiveResize;
 }
 
--(BOOL)canBecomeKeyWindow {
-	// The NSWindow implementation returns YES if the window has a title bar or a resize bar, or NO otherwise
-    return (_styleMask & (NSTitledWindowMask|NSResizableWindowMask)) != 0;
+- (BOOL) canBecomeKeyWindow {
+    // The NSWindow implementation returns YES if the window has a title bar or
+    // a resize bar, or NO otherwise
+    return (_styleMask & (NSTitledWindowMask | NSResizableWindowMask)) != 0;
 }
 
--(BOOL)canBecomeMainWindow {
-	// The NSWindow implementation returns YES if the window is visible and has a title bar or a resize mechanism. Otherwise it returns NO
-    return [self isVisible] && (_styleMask & (NSTitledWindowMask|NSResizableWindowMask));
+- (BOOL) canBecomeMainWindow {
+    // The NSWindow implementation returns YES if the window is visible and has
+    // a title bar or a resize mechanism. Otherwise it returns NO
+    return [self isVisible] &&
+           (_styleMask & (NSTitledWindowMask | NSResizableWindowMask));
 }
 
--(BOOL)canBecomeVisibleWithoutLogin {
-   NSUnimplementedMethod();
-   return NO;
+- (BOOL) canBecomeVisibleWithoutLogin {
+    NSUnimplementedMethod();
+    return NO;
 }
 
--(NSWindowCollectionBehavior)collectionBehavior {
-   NSUnimplementedMethod();
-   return 0;
+- (NSWindowCollectionBehavior) collectionBehavior {
+    NSUnimplementedMethod();
+    return 0;
 }
 
 - (NSPoint) convertBaseToScreen: (NSPoint) point {
@@ -1501,21 +1575,21 @@ static BOOL _allowsAutomaticWindowTabbing;
     if (!screen) {
         return rect;
     }
-   NSRect visRect = [screen visibleFrame];
+    NSRect visRect = [screen visibleFrame];
 
-   if (NSMaxX(rect) > NSMaxX(visRect)) {
-       rect.origin.x = NSMaxX(visRect) - rect.size.width;
-   }
-   if (NSMaxY(rect) > NSMaxY(visRect)) {
-       rect.origin.y = NSMaxY(visRect) - rect.size.height;
-   }
-   if (NSMinX(rect) < NSMinX(visRect)) {
-       rect.origin.x = NSMinX(visRect);
-   }
-   if (NSMinY(rect) < NSMinY(visRect)) {
-       rect.origin.y = NSMinY(visRect);
-   }
-   return rect;
+    if (NSMaxX(rect) > NSMaxX(visRect)) {
+        rect.origin.x = NSMaxX(visRect) - rect.size.width;
+    }
+    if (NSMaxY(rect) > NSMaxY(visRect)) {
+        rect.origin.y = NSMaxY(visRect) - rect.size.height;
+    }
+    if (NSMinX(rect) < NSMinX(visRect)) {
+        rect.origin.x = NSMinX(visRect);
+    }
+    if (NSMinY(rect) < NSMinY(visRect)) {
+        rect.origin.y = NSMinY(visRect);
+    }
+    return rect;
 }
 
 - (NSWindow *) parentWindow {
@@ -1526,7 +1600,8 @@ static BOOL _allowsAutomaticWindowTabbing;
     return _childWindows;
 }
 
-- (void) addChildWindow: (NSWindow *) child ordered: (NSWindowOrderingMode) ordered {
+- (void) addChildWindow: (NSWindow *) child
+                ordered: (NSWindowOrderingMode) ordered {
     if (_childWindows == nil) {
         _childWindows = [NSMutableArray new];
     }
@@ -1573,7 +1648,8 @@ static BOOL _allowsAutomaticWindowTabbing;
     if (_firstResponder == responder) {
         return YES;
     }
-    if ([responder isKindOfClass: [NSControl class]] && _firstResponder==[(NSControl *) responder currentEditor]) {
+    if ([responder isKindOfClass: [NSControl class]] &&
+        _firstResponder == [(NSControl *) responder currentEditor]) {
         return YES;
     }
 
@@ -1581,14 +1657,14 @@ static BOOL _allowsAutomaticWindowTabbing;
         return NO;
     }
 
-   _firstResponder = responder;
+    _firstResponder = responder;
 
-   if ([_firstResponder becomeFirstResponder]) {
-       return YES;
-   } else {
-       _firstResponder = self;
-       return NO;
-   }
+    if ([_firstResponder becomeFirstResponder]) {
+        return YES;
+    } else {
+        _firstResponder = self;
+        return NO;
+    }
 }
 
 - (void) makeKeyWindow {
@@ -1600,7 +1676,8 @@ static BOOL _allowsAutomaticWindowTabbing;
     _hasBeenOnScreen = YES;
 
     // Ref. http://www.cocoadev.com/index.pl?KeyViewLoopGuidelines
-    // If there is an initial first responder there is a manual key view loop and we don't calculate one
+    // If there is an initial first responder there is a manual key view loop
+    // and we don't calculate one
     if ([self initialFirstResponder] != nil) {
         [self makeFirstResponder: [self initialFirstResponder]];
     } else {
@@ -1615,7 +1692,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) makeMainWindow {
-   [self becomeMainWindow];
+    [self becomeMainWindow];
 }
 
 - (void) becomeKeyWindow {
@@ -1668,20 +1745,20 @@ static BOOL _allowsAutomaticWindowTabbing;
     return 0.20;
 }
 
--(void)selectNextKeyView:sender {
-   if([_firstResponder isKindOfClass:[NSView class]]){
-    NSView *view=(NSView *)_firstResponder;
+- (void) selectNextKeyView: sender {
+    if ([_firstResponder isKindOfClass: [NSView class]]) {
+        NSView *view = (NSView *) _firstResponder;
 
-    [self selectKeyViewFollowingView:view];
-   }
+        [self selectKeyViewFollowingView: view];
+    }
 }
 
--(void)selectPreviousKeyView:sender {
-   if([_firstResponder isKindOfClass:[NSView class]]){
-    NSView *view=(NSView *)_firstResponder;
+- (void) selectPreviousKeyView: sender {
+    if ([_firstResponder isKindOfClass: [NSView class]]) {
+        NSView *view = (NSView *) _firstResponder;
 
-    [self selectKeyViewPrecedingView:view];
-   }
+        [self selectKeyViewPrecedingView: view];
+    }
 }
 
 - (void) selectKeyViewFollowingView: (NSView *) view {
@@ -1696,13 +1773,14 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (void) recalculateKeyViewLoopIfNeeded {
     // _needsKeyViewLoop = NO;
-    NSArray<_NSKeyViewPosition *> *sorted = [_NSKeyViewPosition sortedKeyViewPositionsWithView: _contentView];
-    NSUInteger count=[sorted count];
+    NSArray<_NSKeyViewPosition *> *sorted =
+        [_NSKeyViewPosition sortedKeyViewPositionsWithView: _contentView];
+    NSUInteger count = [sorted count];
 
     for (NSUInteger i = 0; i < count; i++) {
         _NSKeyViewPosition *position = sorted[i];
         if (i + 1 < count) {
-            [[position view] setNextKeyView: [sorted[i+1] view]];
+            [[position view] setNextKeyView: [sorted[i + 1] view]];
         } else {
             [[position view] setNextKeyView: [sorted[0] view]];
         }
@@ -1715,23 +1793,25 @@ static BOOL _allowsAutomaticWindowTabbing;
     [self recalculateKeyViewLoopIfNeeded];
 }
 
--(NSSelectionDirection)keyViewSelectionDirection {
-   NSUnimplementedMethod();
-   return 0;
+- (NSSelectionDirection) keyViewSelectionDirection {
+    NSUnimplementedMethod();
+    return 0;
 }
 
-- (void)disableKeyEquivalentForDefaultButtonCell {
+- (void) disableKeyEquivalentForDefaultButtonCell {
     _defaultButtonCellKeyEquivalentDisabled = YES;
 }
 
-- (void)enableKeyEquivalentForDefaultButtonCell {
+- (void) enableKeyEquivalentForDefaultButtonCell {
     _defaultButtonCellKeyEquivalentDisabled = NO;
 }
 
 - (NSText *) fieldEditor: (BOOL) create forObject: (id) object {
     NSTextView *newFieldEditor = nil;
-    if ([_delegate respondsToSelector: @selector(windowWillReturnFieldEditor:toObject:)])
-        newFieldEditor = [_delegate windowWillReturnFieldEditor: self toObject: object];
+    if ([_delegate respondsToSelector: @selector(windowWillReturnFieldEditor:
+                                                                    toObject:)])
+        newFieldEditor = [_delegate windowWillReturnFieldEditor: self
+                                                       toObject: object];
 
     if (create && newFieldEditor == nil && _sharedFieldEditor == nil)
         newFieldEditor = _sharedFieldEditor = [[NSTextView alloc] init];
@@ -1745,7 +1825,8 @@ static BOOL _allowsAutomaticWindowTabbing;
         [_currentFieldEditor setHorizontallyResizable: NO];
         [_currentFieldEditor setVerticallyResizable: NO];
         [_currentFieldEditor setFieldEditor: YES];
-        [_currentFieldEditor setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+        [_currentFieldEditor
+            setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
     }
 
     return _currentFieldEditor;
@@ -1794,18 +1875,21 @@ static BOOL _allowsAutomaticWindowTabbing;
                       target: NSApp
                     argument: nil
                        order: 0
-                       modes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode]];
+                       modes: @[
+                           NSDefaultRunLoopMode, NSModalPanelRunLoopMode,
+                           NSEventTrackingRunLoopMode
+                       ]];
     _viewsNeedDisplay = viewsNeedDisplay;
 }
 
--(void)disableFlushWindow {
-   _flushDisabled++;
-   [_platformWindow disableFlushWindow];
+- (void) disableFlushWindow {
+    _flushDisabled++;
+    [_platformWindow disableFlushWindow];
 }
 
--(void)enableFlushWindow {
-   _flushDisabled--;
-   [_platformWindow enableFlushWindow];
+- (void) enableFlushWindow {
+    _flushDisabled--;
+    [_platformWindow enableFlushWindow];
 }
 
 - (void) flushWindow {
@@ -1817,8 +1901,9 @@ static BOOL _allowsAutomaticWindowTabbing;
     _flushNeeded = NO;
     BOOL doFlush = YES;
 
-    if ([self isOpaque] && [_contentView isKindOfClass: [NSOpenGLView class]] && [_contentView isOpaque]){
-        doFlush=NO;
+    if ([self isOpaque] && [_contentView isKindOfClass: [NSOpenGLView class]] &&
+        [_contentView isOpaque]) {
+        doFlush = NO;
     }
     if (doFlush) {
         [[self platformWindow] flushBuffer];
@@ -1832,7 +1917,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) displayIfNeeded {
-    if (![self isVisible] || [self isMiniaturized] || ![self viewsNeedDisplay]) {
+    if (![self isVisible] || [self isMiniaturized] ||
+        ![self viewsNeedDisplay]) {
         return;
     }
 
@@ -1886,40 +1972,40 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) invalidateShadow {
-   // Do nothing.
+    // Do nothing.
 }
 
--(void)cacheImageInRect:(NSRect)rect {
-   NSUnimplementedMethod();
+- (void) cacheImageInRect: (NSRect) rect {
+    NSUnimplementedMethod();
 }
 
--(void)restoreCachedImage {
-   NSUnimplementedMethod();
+- (void) restoreCachedImage {
+    NSUnimplementedMethod();
 }
 
--(void)discardCachedImage {
-   NSUnimplementedMethod();
+- (void) discardCachedImage {
+    NSUnimplementedMethod();
 }
 
--(BOOL)areCursorRectsEnabled {
-   return (_cursorRectsDisabled<=0)?YES:NO;
+- (BOOL) areCursorRectsEnabled {
+    return (_cursorRectsDisabled <= 0) ? YES : NO;
 }
 
--(void)disableCursorRects {
-   _cursorRectsDisabled++;
-   if(_cursorRectsDisabled==1)
+- (void) disableCursorRects {
+    _cursorRectsDisabled++;
+    if (_cursorRectsDisabled == 1)
+        [self _invalidateTrackingAreas];
+}
+
+- (void) enableCursorRects {
+    _cursorRectsDisabled--;
+    if (_cursorRectsDisabled == 0)
+        [self _invalidateTrackingAreas];
+}
+
+- (void) discardCursorRects {
+    [[self _backgroundView] discardCursorRects];
     [self _invalidateTrackingAreas];
-}
-
--(void)enableCursorRects {
-   _cursorRectsDisabled--;
-   if(_cursorRectsDisabled==0)
-    [self _invalidateTrackingAreas];
-}
-
--(void)discardCursorRects {
-   [[self _backgroundView] discardCursorRects];
-   [self _invalidateTrackingAreas];
 }
 
 // Apple docs say: "sends -resetCursorRects to every NSView object in the [...]
@@ -1962,7 +2048,8 @@ static BOOL _allowsAutomaticWindowTabbing;
         return;
     }
     NSInteger count;
-    BOOL toolTipsAllowed = [NSApp isActive] || [self allowsToolTipsWhenApplicationIsInactive];
+    BOOL toolTipsAllowed =
+        [NSApp isActive] || [self allowsToolTipsWhenApplicationIsInactive];
 
     NSMutableArray *collectedAreas = [[NSMutableArray alloc] init];
     [[self _backgroundView] _collectTrackingAreasForWindowInto: collectedAreas];
@@ -1972,21 +2059,22 @@ static BOOL _allowsAutomaticWindowTabbing;
     while (--count >= 0) {
         NSTrackingArea *area = _trackingAreas[count];
 
-        if (
-            (_cursorRectsDisabled > 0 && [area options] & NSTrackingCursorUpdate) ||
-            ([area _isToolTip] && !toolTipsAllowed)
-        ) {
+        if ((_cursorRectsDisabled > 0 &&
+             [area options] & NSTrackingCursorUpdate) ||
+            ([area _isToolTip] && !toolTipsAllowed)) {
             [_trackingAreas removeObjectAtIndex: count];
         }
     }
 
     if (!toolTipsAllowed) {
-        // We have to do this here as Area handling won't even recignize ToolTips now.
+        // We have to do this here as Area handling won't even recignize
+        // ToolTips now.
         NSToolTipWindow *toolTipWindow = [NSToolTipWindow sharedToolTipWindow];
 
-        [NSObject cancelPreviousPerformRequestsWithTarget: toolTipWindow
-                                                 selector: @selector(orderFront:)
-                                                   object: nil];
+        [NSObject
+            cancelPreviousPerformRequestsWithTarget: toolTipWindow
+                                           selector: @selector(orderFront:)
+                                             object: nil];
         [toolTipWindow orderOut: nil];
     }
 }
@@ -2005,13 +2093,15 @@ static BOOL _allowsAutomaticWindowTabbing;
     */
     [self orderOut: nil];
 
-   [_childWindows makeObjectsPerformSelector: @selector(_parentWindowDidClose:) withObject: self];
-   [_drawers makeObjectsPerformSelector: @selector(parentWindowDidClose:) withObject: self];
+    [_childWindows makeObjectsPerformSelector: @selector(_parentWindowDidClose:)
+                                   withObject: self];
+    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidClose:)
+                              withObject: self];
 
-   [self postNotificationName: NSWindowWillCloseNotification];
+    [self postNotificationName: NSWindowWillCloseNotification];
 
-   if (_releaseWhenClosed)
-       [self autorelease];
+    if (_releaseWhenClosed)
+        [self autorelease];
 }
 
 - (void) center {
@@ -2022,13 +2112,16 @@ static BOOL _allowsAutomaticWindowTabbing;
     NSRect screenFrame = [screen frame];
 
     NSRect frame = [self frame];
-    frame.origin.x = floor(screenFrame.origin.x + screenFrame.size.width / 2 - frame.size.width / 2);
-    frame.origin.y = floor(screenFrame.origin.y + screenFrame.size.height / 2 - frame.size.height / 2);
+    frame.origin.x = floor(screenFrame.origin.x + screenFrame.size.width / 2 -
+                           frame.size.width / 2);
+    frame.origin.y = floor(screenFrame.origin.y + screenFrame.size.height / 2 -
+                           frame.size.height / 2);
 
     [self setFrame: frame display: YES];
 }
 
-- (void) orderWindow: (NSWindowOrderingMode) place relativeTo: (NSInteger) relativeTo {
+- (void) orderWindow: (NSWindowOrderingMode) place
+          relativeTo: (NSInteger) relativeTo {
     // The move notifications are sent under unknown conditions around
     // orderFront: in the Apple AppKit, we do them all the time here until it's
     // figured out. I suspect it is a side effect of off-screen windows being at
@@ -2047,8 +2140,10 @@ static BOOL _allowsAutomaticWindowTabbing;
            further investigation is required.
         */
         [self displayIfNeeded];
-        // This is here since it would seem that doing this any earlier will not work.
-        if (![self isKindOfClass: [NSPanel class]] && ![self isExcludedFromWindowsMenu]) {
+        // This is here since it would seem that doing this any earlier will not
+        // work.
+        if (![self isKindOfClass: [NSPanel class]] &&
+            ![self isExcludedFromWindowsMenu]) {
             [NSApp changeWindowsItem: self title: _title filename: NO];
         }
         break;
@@ -2063,8 +2158,10 @@ static BOOL _allowsAutomaticWindowTabbing;
            further investigation is required.
         */
         [self displayIfNeeded];
-        // This is here since it would seem that doing this any earlier will not work.
-        if (![self isKindOfClass: [NSPanel class]] && ![self isExcludedFromWindowsMenu]) {
+        // This is here since it would seem that doing this any earlier will not
+        // work.
+        if (![self isKindOfClass: [NSPanel class]] &&
+            ![self isExcludedFromWindowsMenu]) {
             [NSApp changeWindowsItem: self title: _title filename: NO];
         }
         break;
@@ -2081,12 +2178,12 @@ static BOOL _allowsAutomaticWindowTabbing;
     [self postNotificationName: NSWindowDidMoveNotification];
 }
 
--(void)orderFrontRegardless {
-   NSUnimplementedMethod();
+- (void) orderFrontRegardless {
+    NSUnimplementedMethod();
 }
 
--(NSPoint)mouseLocationOutsideOfEventStream {
-   return [_platformWindow mouseLocationOutsideOfEventStream];
+- (NSPoint) mouseLocationOutsideOfEventStream {
+    return [_platformWindow mouseLocationOutsideOfEventStream];
 }
 
 - (NSEvent *) currentEvent {
@@ -2103,8 +2200,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 - (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
                           untilDate: (NSDate *) untilDate
                              inMode: (NSRunLoopMode) mode
-                            dequeue: (BOOL) dequeue
-{
+                            dequeue: (BOOL) dequeue {
     // This should get migrated down into event queue.
     [[self platformWindow] captureEvents];
 
@@ -2114,13 +2210,14 @@ static BOOL _allowsAutomaticWindowTabbing;
                                    untilDate: untilDate
                                       inMode: mode
                                      dequeue: dequeue];
-    } while(!(mask & NSEventMaskFromType([event type])));
+    } while (!(mask & NSEventMaskFromType([event type])));
 
     return event;
 }
 
-- (void) discardEventsMatchingMask: (NSEventMask) mask beforeEvent: (NSEvent *) event {
-   NSUnimplementedMethod();
+- (void) discardEventsMatchingMask: (NSEventMask) mask
+                       beforeEvent: (NSEvent *) event {
+    NSUnimplementedMethod();
 }
 
 - (void) sendEvent: (NSEvent *) event {
@@ -2135,19 +2232,18 @@ static BOOL _allowsAutomaticWindowTabbing;
         // really is. Could cause problems if custom views wanted to do
         // something while the palette is running; however they shouldn't be
         // doing that!
-        if (
-            [[self toolbar] customizationPaletteIsRunning] &&
-            (view == [[self toolbar] _view] || [[[[self toolbar] _view] subviews] containsObject: view])
-        ) {
+        if ([[self toolbar] customizationPaletteIsRunning] &&
+            (view == [[self toolbar] _view] ||
+             [[[[self toolbar] _view] subviews] containsObject: view])) {
             switch ([event type]) {
             case NSLeftMouseDown:
                 [[[self toolbar] _view] mouseDown: event];
                 break;
             case NSLeftMouseUp:
-                [[[self toolbar] _view] mouseUp:event];
+                [[[self toolbar] _view] mouseUp: event];
                 break;
             case NSLeftMouseDragged:
-                [[[self toolbar] _view] mouseDragged:event];
+                [[[self toolbar] _view] mouseDragged: event];
                 break;
             default:
                 break;
@@ -2155,7 +2251,8 @@ static BOOL _allowsAutomaticWindowTabbing;
             return;
         } else if ([event type] == NSPlatformSpecific) {
             // [self _setSheetOriginAndFront];
-            [_platformWindow sendEvent: [(NSEvent_CoreGraphics *) event coreGraphicsEvent]];
+            [_platformWindow
+                sendEvent: [(NSEvent_CoreGraphics *) event coreGraphicsEvent]];
             return;
         }
     }
@@ -2177,7 +2274,7 @@ static BOOL _allowsAutomaticWindowTabbing;
         [view mouseDown: event];
         _mouseDownLocationInWindow = [event locationInWindow];
         break;
-     }
+    }
 
     case NSLeftMouseUp:
         [[_backgroundView hitTest: _mouseDownLocationInWindow] mouseUp: event];
@@ -2186,11 +2283,13 @@ static BOOL _allowsAutomaticWindowTabbing;
 
     case NSRightMouseDown:
         _mouseDownLocationInWindow = [event locationInWindow];
-        [[_backgroundView hitTest: [event locationInWindow]] rightMouseDown: event];
+        [[_backgroundView hitTest: [event locationInWindow]]
+            rightMouseDown: event];
         break;
 
     case NSRightMouseUp:
-        [[_backgroundView hitTest: _mouseDownLocationInWindow] rightMouseUp: event];
+        [[_backgroundView hitTest: _mouseDownLocationInWindow]
+            rightMouseUp: event];
         _mouseDownLocationInWindow = NSMakePoint(NAN, NAN);
         break;
 
@@ -2200,25 +2299,29 @@ static BOOL _allowsAutomaticWindowTabbing;
         if (hit == nil) {
             [self mouseMoved: event];
         } else {
-            [hit mouseMoved:event];
+            [hit mouseMoved: event];
         }
         break;
     }
 
     case NSLeftMouseDragged:
-        [[_backgroundView hitTest: _mouseDownLocationInWindow] mouseDragged: event];
+        [[_backgroundView hitTest: _mouseDownLocationInWindow]
+            mouseDragged: event];
         break;
 
     case NSRightMouseDragged:
-        [[_backgroundView hitTest: _mouseDownLocationInWindow] rightMouseDragged: event];
+        [[_backgroundView hitTest: _mouseDownLocationInWindow]
+            rightMouseDragged: event];
         break;
 
     case NSMouseEntered:
-        [[_backgroundView hitTest: [event locationInWindow]] mouseEntered: event];
+        [[_backgroundView hitTest: [event locationInWindow]]
+            mouseEntered: event];
         break;
 
     case NSMouseExited:
-        [[_backgroundView hitTest: [event locationInWindow]] mouseExited: event];
+        [[_backgroundView hitTest: [event locationInWindow]]
+            mouseExited: event];
         break;
 
     case NSKeyDown:
@@ -2234,11 +2337,13 @@ static BOOL _allowsAutomaticWindowTabbing;
         break;
 
     case NSPlatformSpecific:
-        [_platformWindow sendEvent: [(NSEvent_CoreGraphics *) event coreGraphicsEvent]];
+        [_platformWindow
+            sendEvent: [(NSEvent_CoreGraphics *) event coreGraphicsEvent]];
         break;
 
     case NSScrollWheel:
-        [[_backgroundView hitTest: [event locationInWindow]] scrollWheel: event];
+        [[_backgroundView hitTest: [event locationInWindow]]
+            scrollWheel: event];
         break;
 
     case NSAppKitDefined:
@@ -2252,12 +2357,12 @@ static BOOL _allowsAutomaticWindowTabbing;
     }
     if (shouldValidateToolbarItems && [self toolbar]) {
         [NSObject cancelPreviousPerformRequestsWithTarget: [self toolbar]
-                                                 selector: @selector(validateVisibleItems)
+                                                 selector: @selector
+                                                 (validateVisibleItems)
                                                    object: nil];
         [[self toolbar] performSelector: @selector(validateVisibleItems)
                              withObject: nil
                              afterDelay: .5];
-
     }
 }
 
@@ -2282,37 +2387,41 @@ static BOOL _allowsAutomaticWindowTabbing;
     NSSize screenSize = [[self screen] frame].size;
     NSRect frame = [self frame];
 
-    if (frame.origin.x < 0.0 || screenSize.width  <= frame.origin.x + frame.size.width) {
+    if (frame.origin.x < 0.0 ||
+        screenSize.width <= frame.origin.x + frame.size.width) {
         frame.origin.x = 2.0;
         reposition = YES;
     }
 
-    if (frame.origin.y < 0.0 || screenSize.height <= frame.origin.y + frame.size.height) {
+    if (frame.origin.y < 0.0 ||
+        screenSize.height <= frame.origin.y + frame.size.height) {
         frame.origin.y = 2.0;
         reposition = YES;
     }
 
-   if (topLeftPoint.x != 0.0 && topLeftPoint.x + frame.size.width + 20.0 < screenSize.width) {
-       topLeftPoint.x += 18.0;
-       frame.origin.x = topLeftPoint.x;
-       reposition = YES;
-   } else {
-      topLeftPoint.x = frame.origin.x;
-   }
+    if (topLeftPoint.x != 0.0 &&
+        topLeftPoint.x + frame.size.width + 20.0 < screenSize.width) {
+        topLeftPoint.x += 18.0;
+        frame.origin.x = topLeftPoint.x;
+        reposition = YES;
+    } else {
+        topLeftPoint.x = frame.origin.x;
+    }
 
-   if (topLeftPoint.y != 0.0 && topLeftPoint.y - frame.size.height - 23.0 >= 0.0) {
-       topLeftPoint.y -= 21.0;
-       frame.origin.y = topLeftPoint.y - frame.size.height;
-       reposition = YES;
-   } else {
-      topLeftPoint.y = frame.origin.y + frame.size.height;
-   }
+    if (topLeftPoint.y != 0.0 &&
+        topLeftPoint.y - frame.size.height - 23.0 >= 0.0) {
+        topLeftPoint.y -= 21.0;
+        frame.origin.y = topLeftPoint.y - frame.size.height;
+        reposition = YES;
+    } else {
+        topLeftPoint.y = frame.origin.y + frame.size.height;
+    }
 
-   if (reposition) {
-      [self setFrame: frame display: YES];
-   }
+    if (reposition) {
+        [self setFrame: frame display: YES];
+    }
 
-   return topLeftPoint;
+    return topLeftPoint;
 }
 
 - (NSData *) dataWithEPSInsideRect: (NSRect) rect {
@@ -2338,26 +2447,27 @@ static BOOL _allowsAutomaticWindowTabbing;
              event: (NSEvent *) event
         pasteboard: (NSPasteboard *) pasteboard
             source: (id) source
-         slideBack: (BOOL) slideBack
-{
-   [[NSDraggingManager draggingManager] dragImage: image
-                                               at: location
-                                           offset: offset
-                                            event: event
-                                       pasteboard: pasteboard
-                                           source: source
-                                        slideBack: slideBack];
+         slideBack: (BOOL) slideBack {
+    [[NSDraggingManager draggingManager] dragImage: image
+                                                at: location
+                                            offset: offset
+                                             event: event
+                                        pasteboard: pasteboard
+                                            source: source
+                                         slideBack: slideBack];
 }
 
--validRequestorForSendType:(NSString *)sendType returnType:(NSString *)returnType {
-   NSUnimplementedMethod();
-   return nil;
+- validRequestorForSendType: (NSString *) sendType
+                 returnType: (NSString *) returnType {
+    NSUnimplementedMethod();
+    return nil;
 }
 
 - (void) update {
     [[self toolbar] validateVisibleItems];
-    [[NSNotificationCenter defaultCenter] postNotificationName: NSWindowDidUpdateNotification
-                                                        object: self];
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName: NSWindowDidUpdateNotification
+                      object: self];
 }
 
 - (void) makeKeyAndOrderFront: (id) sender {
@@ -2416,7 +2526,8 @@ static BOOL _allowsAutomaticWindowTabbing;
     if (document) {
         [document shouldCloseWindowController: _windowController
                                      delegate: self
-                          shouldCloseSelector: @selector(_document:shouldClose:contextInfo:)
+                          shouldCloseSelector: @selector(_document:
+                                                       shouldClose:contextInfo:)
                                   contextInfo: NULL];
     } else {
         // Clicking the close button on a Window generates a performClose:, in a
@@ -2426,17 +2537,15 @@ static BOOL _allowsAutomaticWindowTabbing;
         if ([NSApp modalWindow] == self) {
             [NSApp abortModal];
         } else {
-           [self close];
+            [self close];
         }
     }
-
 }
 
 - (void) _document: (NSDocument *) document
        shouldClose: (BOOL) shouldClose
-       contextInfo: (void *) context
-{
-  // Callback used by performClose:
+       contextInfo: (void *) context {
+    // Callback used by performClose:
     if (shouldClose) {
         [self close];
     }
@@ -2454,10 +2563,15 @@ static BOOL _allowsAutomaticWindowTabbing;
     NSScreen *screen = [self screen];
     NSRect zoomedFrame = [screen visibleFrame];
 
-    if ([_delegate respondsToSelector: @selector(windowWillUseStandardFrame:defaultFrame:)]) {
-        zoomedFrame = [_delegate windowWillUseStandardFrame: self defaultFrame: zoomedFrame];
-    } else if ([self respondsToSelector: @selector( windowWillUseStandardFrame:defaultFrame:)]) {
-        zoomedFrame = [(id<NSWindowDelegate>) self windowWillUseStandardFrame: self defaultFrame: zoomedFrame];
+    if ([_delegate respondsToSelector: @selector
+                   (windowWillUseStandardFrame:defaultFrame:)]) {
+        zoomedFrame = [_delegate windowWillUseStandardFrame: self
+                                               defaultFrame: zoomedFrame];
+    } else if ([self respondsToSelector: @selector
+                     (windowWillUseStandardFrame:defaultFrame:)]) {
+        zoomedFrame = [(id<NSWindowDelegate>) self
+            windowWillUseStandardFrame: self
+                          defaultFrame: zoomedFrame];
     }
     // zoomedFrame = [self constrainFrameRect: zoomedFrame toScreen: screen];
 
@@ -2480,10 +2594,13 @@ static BOOL _allowsAutomaticWindowTabbing;
     }
 
     BOOL shouldZoom = YES;
-    if ([_delegate respondsToSelector: @selector( windowShouldZoom:toFrame:)]) {
+    if ([_delegate respondsToSelector: @selector(windowShouldZoom:toFrame:)]) {
         shouldZoom = [_delegate windowShouldZoom: self toFrame: zoomedFrame];
-    } else if ([self respondsToSelector: @selector( windowShouldZoom:toFrame:)]) {
-        shouldZoom = [(id<NSWindowDelegate>) self windowShouldZoom: self toFrame: zoomedFrame];
+    } else if ([self respondsToSelector: @selector(windowShouldZoom:
+                                                            toFrame:)]) {
+        shouldZoom =
+            [(id<NSWindowDelegate>) self windowShouldZoom: self
+                                                  toFrame: zoomedFrame];
     }
 
     if (shouldZoom) {
@@ -2522,7 +2639,10 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (void) toggleToolbarShown: (id) sender {
     [_toolbar setVisible: ![_toolbar isVisible]];
-    [sender setTitle: [NSString stringWithFormat: @"%@ Toolbar", [_toolbar isVisible] ? @"Hide" : @"Show"]];
+    [sender
+        setTitle: [NSString stringWithFormat: @"%@ Toolbar",
+                                              [_toolbar isVisible] ? @"Hide"
+                                                                   : @"Show"]];
 }
 
 - (void) runToolbarCustomizationPalette: (id) sender {
@@ -2531,7 +2651,7 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (void) keyDown: (NSEvent *) event {
     if ([self performKeyEquivalent: event] == NO)
-        [self interpretKeyEvents:[NSArray arrayWithObject:event]];
+        [self interpretKeyEvents: [NSArray arrayWithObject: event]];
 }
 
 - (void) doCommandBySelector: (SEL) selector {
@@ -2556,21 +2676,22 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) _showForActivation {
-    if (_hiddenForDeactivate){
+    if (_hiddenForDeactivate) {
         _hiddenForDeactivate = NO;
         [[self platformWindow] showWindowForAppActivation: _frame];
     }
 }
 
 - (void) _hideForDeactivation {
-    if ([self hidesOnDeactivate] && [self isVisible] && ![self isMiniaturized]){
+    if ([self hidesOnDeactivate] && [self isVisible] &&
+        ![self isMiniaturized]) {
         _hiddenForDeactivate = YES;
         [[self platformWindow] hideWindowForAppDeactivation: _frame];
     }
 }
 
 - (void) _forcedHideForDeactivation {
-    if ([self isVisible]){
+    if ([self isVisible]) {
         _hiddenForDeactivate = YES;
         // _hiddenKeyWindow=[self isKeyWindow];
         [[self platformWindow] hideWindowForAppDeactivation: _frame];
@@ -2620,14 +2741,14 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) _hideMenuViewIfNeeded {
-   if ([self hasMainMenu] && _menuView!=nil && ![_menuView isHidden]) {
-       [_menuView setHidden: YES];
-       [self _resizeWithOldMenuViewSize: [_menuView frame].size];
-   }
+    if ([self hasMainMenu] && _menuView != nil && ![_menuView isHidden]) {
+        [_menuView setHidden: YES];
+        [self _resizeWithOldMenuViewSize: [_menuView frame].size];
+    }
 }
 
 - (void) _showMenuViewIfNeeded {
-    if ([self hasMainMenu] && _menuView!=nil && [_menuView isHidden]) {
+    if ([self hasMainMenu] && _menuView != nil && [_menuView isHidden]) {
         [_menuView setHidden: NO];
         [self _resizeWithOldMenuViewSize: NSZeroSize];
     }
@@ -2637,7 +2758,7 @@ static BOOL _allowsAutomaticWindowTabbing;
     if (_menuView != nil) {
         NSSize oldSize = [_menuView frame].size;
         [_menuView setMenu: menu];
-        [self _resizeWithOldMenuViewSize:oldSize];
+        [self _resizeWithOldMenuViewSize: oldSize];
     }
 
     [menu retain];
@@ -2646,79 +2767,80 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (NSMenu *) menu {
-   return _menu;
+    return _menu;
 }
 
 - (BOOL) _isActive {
-   return _isActive;
+    return _isActive;
 }
 
 - (void) _setVisible: (BOOL) visible {
-	_isVisible = visible;
+    _isVisible = visible;
 }
 
 // default NSDraggingDestination
--(NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
-   return NSDragOperationNone;
+- (NSDragOperation) draggingEntered: (id<NSDraggingInfo>) sender {
+    return NSDragOperationNone;
 }
 
--(NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender {
-   return [sender draggingSourceOperationMask];
+- (NSDragOperation) draggingUpdated: (id<NSDraggingInfo>) sender {
+    return [sender draggingSourceOperationMask];
 }
 
--(void)draggingExited:(id <NSDraggingInfo>)sender {
-   // do nothing
+- (void) draggingExited: (id<NSDraggingInfo>) sender {
+    // do nothing
 }
 
--(BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender {
-   return NO;
+- (BOOL) prepareForDragOperation: (id<NSDraggingInfo>) sender {
+    return NO;
 }
 
--(BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-   return NO;
+- (BOOL) performDragOperation: (id<NSDraggingInfo>) sender {
+    return NO;
 }
 
--(void)concludeDragOperation:(id <NSDraggingInfo>)sender {
-   // do nothing
+- (void) concludeDragOperation: (id<NSDraggingInfo>) sender {
+    // do nothing
 }
 
-
--(NSArray *)_draggedTypes {
-   return _draggedTypes;
+- (NSArray *) _draggedTypes {
+    return _draggedTypes;
 }
 
 - (void) _setSheetOrigin {
-   NSWindow *sheet = [_sheetContext sheet];
-   NSRect sheetFrame = [sheet frame];
-   NSRect frame = [self frame];
+    NSWindow *sheet = [_sheetContext sheet];
+    NSRect sheetFrame = [sheet frame];
+    NSRect frame = [self frame];
 
-   NSPoint origin;
-   origin.y = frame.origin.y + (frame.size.height - sheetFrame.size.height);
-   origin.x = frame.origin.x + floor((frame.size.width - sheetFrame.size.width) / 2);
+    NSPoint origin;
+    origin.y = frame.origin.y + (frame.size.height - sheetFrame.size.height);
+    origin.x =
+        frame.origin.x + floor((frame.size.width - sheetFrame.size.width) / 2);
 
-   if ([self toolbar] != nil) {
-       if (_menuView != nil)
-           origin.y -= [_menuView frame].size.height;
+    if ([self toolbar] != nil) {
+        if (_menuView != nil)
+            origin.y -= [_menuView frame].size.height;
 
-       origin.y -= [[[self toolbar] _view] frame].size.height;
+        origin.y -= [[[self toolbar] _view] frame].size.height;
 
-       // Depending on the final border types used on the toolbar and the
-       // sheets, the sheet placement sometimes looks better with a little
-       // "adjustment"....
-       origin.y++;
-   }
+        // Depending on the final border types used on the toolbar and the
+        // sheets, the sheet placement sometimes looks better with a little
+        // "adjustment"....
+        origin.y++;
+    }
 
-   [sheet setFrameOrigin: origin];
+    [sheet setFrameOrigin: origin];
 }
 
 - (void) _setSheetOriginAndFront {
     if (_sheetContext != nil) {
         [self _setSheetOrigin];
         [[_sheetContext sheet] orderFront: nil];
-   }
+    }
 }
 
-- (void) _attachSheetContextOrderFrontAndAnimate: (NSSheetContext *) sheetContext {
+- (void) _attachSheetContextOrderFrontAndAnimate:
+    (NSSheetContext *) sheetContext {
     NSWindow *sheet = [sheetContext sheet];
 
     if ([sheet styleMask] != NSDocModalWindowMask)
@@ -2727,7 +2849,8 @@ static BOOL _allowsAutomaticWindowTabbing;
     [_sheetContext autorelease];
     _sheetContext = [sheetContext retain];
 
-    [(NSThemeFrame *) [sheet _backgroundView] setWindowBorderType: NSWindowSheetBorderType];
+    [(NSThemeFrame *) [sheet _backgroundView]
+        setWindowBorderType: NSWindowSheetBorderType];
 
     [self _setSheetOrigin];
     NSRect sheetFrame = [sheet frame];
@@ -2770,13 +2893,15 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) platformWindowActivated: (CGWindow *) window
-                 displayIfNeeded: (BOOL) displayIfNeeded
-{
+                 displayIfNeeded: (BOOL) displayIfNeeded {
     [NSApp _windowWillBecomeActive: self];
 
     [self _setSheetOriginAndFront];
-    [_childWindows makeObjectsPerformSelector: @selector(_parentWindowDidActivate:) withObject: self];
-    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidActivate:) withObject: self];
+    [_childWindows
+        makeObjectsPerformSelector: @selector(_parentWindowDidActivate:)
+                        withObject: self];
+    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidActivate:)
+                              withObject: self];
 
     _isActive = YES;
     if ([self canBecomeKeyWindow]) {
@@ -2786,22 +2911,24 @@ static BOOL _allowsAutomaticWindowTabbing;
         [self becomeMainWindow];
     }
 
-   [_menuView setNeedsDisplay: YES];
-   if (displayIfNeeded) {
-       [self displayIfNeeded];
-   }
+    [_menuView setNeedsDisplay: YES];
+    if (displayIfNeeded) {
+        [self displayIfNeeded];
+    }
 
-   [NSApp _windowDidBecomeActive: self];
-   [NSApp updateWindows];
+    [NSApp _windowDidBecomeActive: self];
+    [NSApp updateWindows];
 }
 
 - (void) platformWindowDeactivated: (CGWindow *) window
-           checkForAppDeactivation: (BOOL) checkForAppDeactivation
-{
+           checkForAppDeactivation: (BOOL) checkForAppDeactivation {
     [NSApp _windowWillBecomeDeactive: self];
 
-    [_childWindows makeObjectsPerformSelector: @selector(_parentWindowDidDeactivate:) withObject: self];
-    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidDeactivate:) withObject: self];
+    [_childWindows
+        makeObjectsPerformSelector: @selector(_parentWindowDidDeactivate:)
+                        withObject: self];
+    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidDeactivate:)
+                              withObject: self];
 
     _isActive = NO;
 
@@ -2817,9 +2944,10 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (void) platformWindowDeminiaturized: (CGWindow *) window {
     [self _updatePlatformWindowTitle];
-    if (_sheetContext!=nil) {
-        [[_sheetContext sheet] orderWindow: NSWindowAbove relativeTo: [self windowNumber]];
-   }
+    if (_sheetContext != nil) {
+        [[_sheetContext sheet] orderWindow: NSWindowAbove
+                                relativeTo: [self windowNumber]];
+    }
     [self postNotificationName: NSWindowDidDeminiaturizeNotification];
     [NSApp updateWindows];
 }
@@ -2828,7 +2956,7 @@ static BOOL _allowsAutomaticWindowTabbing;
     _isActive = NO;
 
     [self _updatePlatformWindowTitle];
-    if (_sheetContext!=nil) {
+    if (_sheetContext != nil) {
         [[_sheetContext sheet] orderWindow: NSWindowOut relativeTo: 0];
     }
 
@@ -2842,48 +2970,54 @@ static BOOL _allowsAutomaticWindowTabbing;
         [self resignMainWindow];
     }
 
-    [_childWindows makeObjectsPerformSelector: @selector(_parentWindowDidMiniaturize:) withObject: self];
-    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidMiniaturize:) withObject: self];
+    [_childWindows
+        makeObjectsPerformSelector: @selector(_parentWindowDidMiniaturize:)
+                        withObject: self];
+    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidMiniaturize:)
+                              withObject: self];
 
     [NSApp updateWindows];
 }
 
 - (void) platformWindowExposed: (CGWindow *) window inRect: (NSRect) rect {
     NSValue *nsrect = [NSValue valueWithRect: rect];
-    NSDictionary *userInfo = @{ @"NSExposedRect": nsrect };
+    NSDictionary *userInfo = @{@"NSExposedRect" : nsrect};
 
-   [[NSNotificationCenter defaultCenter] postNotificationName: NSWindowDidExposeNotification
-                                                       object: self
-                                                     userInfo: userInfo];
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName: NSWindowDidExposeNotification
+                      object: self
+                    userInfo: userInfo];
 }
 
 - (void) platformWindow: (CGWindow *) window
            frameChanged: (NSRect) frame
-                didSize: (BOOL) didSize
-{
+                didSize: (BOOL) didSize {
     // Don't allow the platform window changes to violate our window size limits
     // (if we have them). Windows (for example) likes to make the platform
     // window very small so it fits in the task bar...
     if (!NSEqualSizes([self minSize], NSMakeSize(0, 0))) {
-       frame.size.width = MAX(NSWidth(frame), [self minSize].width);
-       frame.size.height = MAX(NSHeight(frame), [self minSize].height);
+        frame.size.width = MAX(NSWidth(frame), [self minSize].width);
+        frame.size.height = MAX(NSHeight(frame), [self minSize].height);
     }
 
     if (!NSEqualSizes([self maxSize], NSMakeSize(FLT_MAX, FLT_MAX))) {
-       frame.size.width = MIN(NSWidth(frame), [self maxSize].width);
-       frame.size.height = MIN(NSHeight(frame), [self maxSize].height);
+        frame.size.width = MIN(NSWidth(frame), [self maxSize].width);
+        frame.size.height = MIN(NSHeight(frame), [self maxSize].height);
     }
 
     // We don't want the miniaturized frame.
     if (![self isMiniaturized]) {
-        _frame=frame;
+        _frame = frame;
     }
 
     _makeSureIsOnAScreen = YES;
 
     [self _setSheetOriginAndFront];
-    [_childWindows makeObjectsPerformSelector: @selector(_parentWindowDidChangeFrame:) withObject: self];
-    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidChangeFrame:) withObject: self];
+    [_childWindows
+        makeObjectsPerformSelector: @selector(_parentWindowDidChangeFrame:)
+                        withObject: self];
+    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidChangeFrame:)
+                              withObject: self];
 
     if (didSize) {
         // Don't redraw everything unless we really have to.
@@ -2895,26 +3029,33 @@ static BOOL _allowsAutomaticWindowTabbing;
     } else {
         [self saveFrameUsingName: _autosaveFrameName];
         [self postNotificationName: NSWindowDidMoveNotification];
-   }
+    }
 }
 
 - (void) platformWindowExitMove: (CGWindow *) window {
     [self _setSheetOriginAndFront];
-    [_childWindows makeObjectsPerformSelector: @selector(_parentWindowDidExitMove:) withObject: self];
-    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidExitMove:) withObject: self];
+    [_childWindows
+        makeObjectsPerformSelector: @selector(_parentWindowDidExitMove:)
+                        withObject: self];
+    [_drawers makeObjectsPerformSelector: @selector(parentWindowDidExitMove:)
+                              withObject: self];
 }
 
-- (NSSize) platformWindow: (CGWindow *) window frameSizeWillChange: (NSSize) size {
+- (NSSize) platformWindow: (CGWindow *) window
+      frameSizeWillChange: (NSSize) size {
     if (_resizeIncrements.width != 1 || _resizeIncrements.height != 1) {
         NSSize vertical = size;
         NSSize horizontal = size;
 
-        vertical.width = vertical.height * (_resizeIncrements.width / _resizeIncrements.height);
-        horizontal.height = horizontal.width * (_resizeIncrements.height / _resizeIncrements.width);
-        if (vertical.width * vertical.height > horizontal.width * horizontal.height) {
-            size=vertical;
+        vertical.width = vertical.height *
+                         (_resizeIncrements.width / _resizeIncrements.height);
+        horizontal.height = horizontal.width * (_resizeIncrements.height /
+                                                _resizeIncrements.width);
+        if (vertical.width * vertical.height >
+            horizontal.width * horizontal.height) {
+            size = vertical;
         } else {
-            size=horizontal;
+            size = horizontal;
         }
     }
 
@@ -2978,7 +3119,6 @@ static BOOL _allowsAutomaticWindowTabbing;
     BOOL raiseToolTipWindow = NO;
     NSPoint mousePoint = [self mouseLocationOutsideOfEventStream];
 
-
     // This collects only the active ones.
     [self _resetTrackingAreas];
 
@@ -2988,15 +3128,18 @@ static BOOL _allowsAutomaticWindowTabbing;
         id owner = [area owner];
 
         if ([area _isToolTip]) {
-            NSToolTipWindow *toolTipWindow=[NSToolTipWindow sharedToolTipWindow];
+            NSToolTipWindow *toolTipWindow =
+                [NSToolTipWindow sharedToolTipWindow];
 
-            if(![self isKeyWindow] || [self _sheetContext] != nil) {
-                mouseIsInside=NO;
+            if (![self isKeyWindow] || [self _sheetContext] != nil) {
+                mouseIsInside = NO;
             }
 
-            if (mouseWasInside && !mouseIsInside && [toolTipWindow _trackingArea] == area) {
+            if (mouseWasInside && !mouseIsInside &&
+                [toolTipWindow _trackingArea] == area) {
                 [NSObject cancelPreviousPerformRequestsWithTarget: toolTipWindow
-                                                         selector: @selector(orderFront:)
+                                                         selector: @selector
+                                                         (orderFront:)
                                                            object: nil];
                 [toolTipWindow orderOut: nil];
             }
@@ -3004,15 +3147,18 @@ static BOOL _allowsAutomaticWindowTabbing;
                 // AllowsToolTipsWhenApplicationIsInactive
                 // is handled when rebuilding areas.
                 [NSObject cancelPreviousPerformRequestsWithTarget: toolTipWindow
-                                                         selector: @selector(orderFront:)
+                                                         selector: @selector
+                                                         (orderFront:)
                                                            object: nil];
                 [toolTipWindow orderOut: nil];
                 NSString *tooltip = nil;
 
-                if ([owner respondsToSelector: @selector(view:stringForToolTip:point:userData:)]) {
-                    NSPoint pt = [[area _view] convertPoint: mousePoint fromView: nil];
+                if ([owner respondsToSelector: @selector
+                           (view:stringForToolTip:point:userData:)]) {
+                    NSPoint pt = [[area _view] convertPoint: mousePoint
+                                                   fromView: nil];
                     tooltip = [owner view: [area _view]
-                                     stringForToolTip: area
+                         stringForToolTip: area
                                     point: pt
                                  userData: [area userInfo]];
                 } else {
@@ -3031,18 +3177,15 @@ static BOOL _allowsAutomaticWindowTabbing;
             NSTrackingAreaOptions options = [area options];
 
             // Options by view activation.
-            if (options&NSTrackingActiveAlways) {
-            } else if (options&NSTrackingActiveInActiveApp && ![NSApp isActive]) {
+            if (options & NSTrackingActiveAlways) {
+            } else if (options & NSTrackingActiveInActiveApp &&
+                       ![NSApp isActive]) {
                 mouseIsInside = NO;
-            } else if (
-                options & NSTrackingActiveInKeyWindow &&
-                (![self isKeyWindow] || [self _sheetContext] != nil)
-            ) {
+            } else if (options & NSTrackingActiveInKeyWindow &&
+                       (![self isKeyWindow] || [self _sheetContext] != nil)) {
                 mouseIsInside = NO;
-            } else if (
-                options & NSTrackingActiveWhenFirstResponder &&
-                [area _view] != [self firstResponder]
-            ) {
+            } else if (options & NSTrackingActiveWhenFirstResponder &&
+                       [area _view] != [self firstResponder]) {
                 mouseIsInside = NO;
             }
 
@@ -3050,35 +3193,36 @@ static BOOL _allowsAutomaticWindowTabbing;
                 // This does not do hit testing, it just checks if it's inside
                 // the visible rect, child views will cause the test to fail if
                 // they aren't tracking anything
-                NSPoint check = [[area _view] convertPoint: mousePoint fromView: nil];
+                NSPoint check = [[area _view] convertPoint: mousePoint
+                                                  fromView: nil];
 
-                if (!NSMouseInRect(check, [[area _view] visibleRect], [[area _view] isFlipped]))
+                if (!NSMouseInRect(check, [[area _view] visibleRect],
+                                   [[area _view] isFlipped]))
                     mouseIsInside = NO;
             }
 
-            //FIXME:
-            if (options&NSTrackingEnabledDuringMouseDrag) {
-                // NSLog(@"NSTrackingEnabledDuringMouseDrag handling unimplemented.");
+            // FIXME:
+            if (options & NSTrackingEnabledDuringMouseDrag) {
+                // NSLog(@"NSTrackingEnabledDuringMouseDrag handling
+                // unimplemented.");
             }
 
             // Send appropriate events.
-            if (options & NSTrackingMouseEnteredAndExited && !mouseWasInside && mouseIsInside) {
+            if (options & NSTrackingMouseEnteredAndExited && !mouseWasInside &&
+                mouseIsInside) {
                 [entered addObject: area];
             }
-            if (
-                options & (NSTrackingMouseEnteredAndExited | NSTrackingCursorUpdate) &&
-                mouseWasInside && !mouseIsInside
-            ) {
+            if (options & (NSTrackingMouseEnteredAndExited |
+                           NSTrackingCursorUpdate) &&
+                mouseWasInside && !mouseIsInside) {
                 [exited addObject: area];
             }
-            if (options & NSTrackingMouseMoved && [self acceptsMouseMovedEvents]) {
+            if (options & NSTrackingMouseMoved &&
+                [self acceptsMouseMovedEvents]) {
                 [moved addObject: area];
             }
-            if (
-                options & NSTrackingCursorUpdate &&
-                !mouseWasInside && mouseIsInside &&
-                !(options & NSTrackingActiveAlways)
-            ) {
+            if (options & NSTrackingCursorUpdate && !mouseWasInside &&
+                mouseIsInside && !(options & NSTrackingActiveAlways)) {
                 cursorIsSet = YES;
                 [update addObject: area];
             }
@@ -3103,15 +3247,16 @@ static BOOL _allowsAutomaticWindowTabbing;
         }
 
         if ([owner respondsToSelector: @selector(mouseExited:)]) {
-            NSEvent *event = [NSEvent enterExitEventWithType: NSMouseExited
-                                                    location: mousePoint
-                                               modifierFlags: [NSEvent modifierFlags]
-                                                   timestamp: [NSDate timeIntervalSinceReferenceDate]
-                                                windowNumber: [self windowNumber]
-                                                     context: [self graphicsContext]
-                                                 eventNumber: 0 // NSEvent currently ignores this.
-                                              trackingNumber: (NSInteger)check
-                                                    userData: [check userInfo]];
+            NSEvent *event = [NSEvent
+                enterExitEventWithType: NSMouseExited
+                              location: mousePoint
+                         modifierFlags: [NSEvent modifierFlags]
+                             timestamp: [NSDate timeIntervalSinceReferenceDate]
+                          windowNumber: [self windowNumber]
+                               context: [self graphicsContext]
+                           eventNumber: 0 // NSEvent currently ignores this.
+                        trackingNumber: (NSInteger) check
+                              userData: [check userInfo]];
             [owner mouseExited: event];
         }
     }
@@ -3120,15 +3265,16 @@ static BOOL _allowsAutomaticWindowTabbing;
         id owner = [check owner];
 
         if ([owner respondsToSelector: @selector(mouseEntered:)]) {
-            NSEvent *event = [NSEvent enterExitEventWithType: NSMouseEntered
-                                                    location: mousePoint
-                                               modifierFlags: [NSEvent modifierFlags]
-                                                   timestamp: [NSDate timeIntervalSinceReferenceDate]
-                                                windowNumber: [self windowNumber]
-                                                     context: [self graphicsContext]
-                                                 eventNumber: 0 // NSEvent currently ignores this.
-                                              trackingNumber: (NSInteger)check
-                                                    userData: [check userInfo]];
+            NSEvent *event = [NSEvent
+                enterExitEventWithType: NSMouseEntered
+                              location: mousePoint
+                         modifierFlags: [NSEvent modifierFlags]
+                             timestamp: [NSDate timeIntervalSinceReferenceDate]
+                          windowNumber: [self windowNumber]
+                               context: [self graphicsContext]
+                           eventNumber: 0 // NSEvent currently ignores this.
+                        trackingNumber: (NSInteger) check
+                              userData: [check userInfo]];
             [owner mouseEntered: event];
         }
     }
@@ -3137,15 +3283,16 @@ static BOOL _allowsAutomaticWindowTabbing;
         id owner = [check owner];
 
         if ([owner respondsToSelector: @selector(mouseMoved:)]) {
-            NSEvent *event = [NSEvent mouseEventWithType: NSMouseMoved
-                                                location: mousePoint
-                                           modifierFlags: [NSEvent modifierFlags]
-                                               timestamp: [NSDate timeIntervalSinceReferenceDate]
-                                            windowNumber: [self windowNumber]
-                                                 context: [self graphicsContext]
-                                             eventNumber: 0 // NSEvent currently ignores this.
-                                              clickCount: 0
-                                                pressure: 0.];
+            NSEvent *event = [NSEvent
+                mouseEventWithType: NSMouseMoved
+                          location: mousePoint
+                     modifierFlags: [NSEvent modifierFlags]
+                         timestamp: [NSDate timeIntervalSinceReferenceDate]
+                      windowNumber: [self windowNumber]
+                           context: [self graphicsContext]
+                       eventNumber: 0 // NSEvent currently ignores this.
+                        clickCount: 0
+                          pressure: 0.];
             [owner mouseMoved: event];
         }
     }
@@ -3154,38 +3301,43 @@ static BOOL _allowsAutomaticWindowTabbing;
         id owner = [check owner];
 
         if ([owner respondsToSelector: @selector(cursorUpdate:)]) {
-            NSEvent *event = [NSEvent enterExitEventWithType: NSCursorUpdate
-                                                    location: mousePoint
-                                               modifierFlags: [NSEvent modifierFlags]
-                                                   timestamp: [NSDate timeIntervalSinceReferenceDate]
-                                                windowNumber: [self windowNumber]
-                                                     context: [self graphicsContext]
-                                                 eventNumber: 0 // NSEvent currently ignores this.
-                                              trackingNumber: (NSInteger)check
-                                                    userData: [check userInfo]];
+            NSEvent *event = [NSEvent
+                enterExitEventWithType: NSCursorUpdate
+                              location: mousePoint
+                         modifierFlags: [NSEvent modifierFlags]
+                             timestamp: [NSDate timeIntervalSinceReferenceDate]
+                          windowNumber: [self windowNumber]
+                               context: [self graphicsContext]
+                           eventNumber: 0 // NSEvent currently ignores this.
+                        trackingNumber: (NSInteger) check
+                              userData: [check userInfo]];
             [owner cursorUpdate: event];
         }
     }
 
     if (raiseToolTipWindow) {
-        NSTimeInterval delay = (
-            (NSTimeInterval) [[NSUserDefaults standardUserDefaults] integerForKey: @"NSInitialToolTipDelay"]
-        ) / 1000.;
+        NSTimeInterval delay =
+            ((NSTimeInterval) [[NSUserDefaults standardUserDefaults]
+                integerForKey: @"NSInitialToolTipDelay"]) /
+            1000.;
 
         if (delay <= 0.) {
-            delay=2.;
+            delay = 2.;
         }
-        [[NSToolTipWindow sharedToolTipWindow] performSelector: @selector(orderFront:)
-                                                    withObject: nil
-                                                    afterDelay: delay];
+        [[NSToolTipWindow sharedToolTipWindow]
+            performSelector: @selector(orderFront:)
+                 withObject: nil
+                 afterDelay: delay];
     }
 
     if (!cursorIsSet) {
-        NSPoint check = [_contentView convertPoint: mousePoint fromView :nil];
+        NSPoint check = [_contentView convertPoint: mousePoint fromView: nil];
 
-    // We set the cursor to the current cursor if it is inside the content area,
-    // this will need to be changed if we're drawing out own window frame.
-        if (NSMouseInRect(check, [_contentView bounds], [_contentView isFlipped])) {
+        // We set the cursor to the current cursor if it is inside the content
+        // area, this will need to be changed if we're drawing out own window
+        // frame.
+        if (NSMouseInRect(check, [_contentView bounds],
+                          [_contentView isFlipped])) {
             if ([NSCursor currentCursor] == nil) {
                 [[NSCursor arrowCursor] set];
             } else {
@@ -3206,7 +3358,8 @@ static BOOL _allowsAutomaticWindowTabbing;
     // manager. Apple's documentation says this is the delegate's
     // responsibility, but that's not how it works in real life.
     if (_undoManager == nil) {
-        _undoManager = [[[[self windowController] document] undoManager] retain];
+        _undoManager =
+            [[[[self windowController] document] undoManager] retain];
     }
 
     //  If the delegate does not implement this method, the NSWindow creates an
@@ -3214,7 +3367,10 @@ static BOOL _allowsAutomaticWindowTabbing;
     //  duplication vs. NSDocument, but oh well..
     if (_undoManager == nil) {
         _undoManager = [[NSUndoManager alloc] init];
-        [_undoManager setRunLoopModes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode, NSEventTrackingRunLoopMode]];
+        [_undoManager setRunLoopModes: @[
+            NSDefaultRunLoopMode, NSModalPanelRunLoopMode,
+            NSEventTrackingRunLoopMode
+        ]];
     }
 
     return _undoManager;
@@ -3274,10 +3430,11 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (CGWindow *) platformWindow {
     if (_platformWindow == nil) {
-        [self performSelectorOnMainThread: @selector(_createPlatformWindowOnMainThread)
+        [self performSelectorOnMainThread: @selector
+              (_createPlatformWindowOnMainThread)
                                withObject: nil
                             waitUntilDone: YES
-                                    modes: @[NSDefaultRunLoopMode]];
+                                    modes: @[ NSDefaultRunLoopMode ]];
     }
 
     return _platformWindow;

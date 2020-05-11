@@ -19,14 +19,14 @@
 
 #import <QuartzCore/CAShapeLayer.h>
 
-NSString * const kCAFillRuleNonZero = @"non-zero";
-NSString * const kCAFillRuleEvenOdd = @"even-odd";
-NSString * const kCALineJoinMiter = @"miter";
-NSString * const kCALineJoinRound = @"round";
-NSString * const kCALineJoinBevel = @"bevel";
-NSString * const kCALineCapButt = @"butt";
-NSString * const kCALineCapRound = @"round";
-NSString * const kCALineCapSquare = @"square";
+NSString *const kCAFillRuleNonZero = @"non-zero";
+NSString *const kCAFillRuleEvenOdd = @"even-odd";
+NSString *const kCALineJoinMiter = @"miter";
+NSString *const kCALineJoinRound = @"round";
+NSString *const kCALineJoinBevel = @"bevel";
+NSString *const kCALineCapButt = @"butt";
+NSString *const kCALineCapRound = @"round";
+NSString *const kCALineCapSquare = @"square";
 
 @implementation CAShapeLayer
 @end

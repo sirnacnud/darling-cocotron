@@ -19,10 +19,10 @@
 
 #import <QuartzCore/CAScrollLayer.h>
 
-NSString * const kCAScrollNone = @"none";
-NSString * const kCAScrollVertically = @"vertically";
-NSString * const kCAScrollHorizontally = @"horizontally";
-NSString * const kCAScrollBoth = @"both";
+NSString *const kCAScrollNone = @"none";
+NSString *const kCAScrollVertically = @"vertically";
+NSString *const kCAScrollHorizontally = @"horizontally";
+NSString *const kCAScrollBoth = @"both";
 
 @implementation CAScrollLayer
 @end

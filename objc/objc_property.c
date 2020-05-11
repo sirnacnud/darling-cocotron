@@ -1,8 +1,8 @@
+#import <ctype.h>
 #import <objc/runtime.h>
-#import <string.h>
 #import <stddef.h>
 #import <stdlib.h>
-#import <ctype.h>
+#import <string.h>
 
 const char *property_getAttributes(objc_property_t property) {
     return property->attributes;

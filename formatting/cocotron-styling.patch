@@ -1,0 +1,20 @@
+--- llvm/clang/lib/Format/TokenAnnotator.cpp
++++ llvm/clang/lib/Format/TokenAnnotator.cpp
+@@ -2981,7 +2981,7 @@ bool TokenAnnotator::spaceRequiredBefore(const AnnotatedLine &Line,
+       // Don't space between ')' and <id> or ')' and 'new'. 'new' is not a
+       // keyword in Objective-C, and '+ (instancetype)new;' is a standard class
+       // method declaration.
+-      return false;
++      return true;
+   }
+   if (Line.Type == LT_ObjCProperty &&
+       (Right.is(tok::equal) || Left.is(tok::equal)))
+@@ -3005,6 +3005,8 @@ bool TokenAnnotator::spaceRequiredBefore(const AnnotatedLine &Line,
+   if (Right.is(TT_RangeBasedForLoopColon) &&
+       !Style.SpaceBeforeRangeBasedForLoopColon)
+     return false;
++  if (Left.is(tok::colon) && Left.Previous && Left.Previous->is(TT_SelectorName) && !(Right.is(TT_SelectorName) || Right.closesScope()))
++    return true;
+   if (Right.is(tok::colon)) {
+     if (Line.First->isOneOf(tok::kw_case, tok::kw_default) ||
+         !Right.getNextNonComment() || Right.getNextNonComment()->is(tok::semi))

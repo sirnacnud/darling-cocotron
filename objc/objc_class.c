@@ -6,16 +6,16 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import "objc_class.h"
-#import "objc_sel.h"
-#import "objc_protocol.h"
-#import "objc_malloc.h"
-#import "objc_log.h"
 #import "ObjCModule.h"
-#import <stdio.h>
 #import "objc_cache.h"
+#import "objc_lock.h"
+#import "objc_log.h"
+#import "objc_malloc.h"
+#import "objc_protocol.h"
+#import "objc_sel.h"
 #import <objc/deprecated.h>
 #import <objc/message.h>
-#import "objc_lock.h"
+#import <stdio.h>
 
 #ifdef SOLARIS
 #import <stdarg.h>

@@ -37,16 +37,17 @@ void __NSPopExceptionFrame(objc_exception_frame *frame) {
 static void defaultHandler(id exception) {
     __builtin_trap();
     fprintf(stderr, "*** Uncaught exception\n");
-    // fprintf(stderr,"*** Uncaught exception <%s> *** %s\n",[[exception name] cString],[[exception reason] cString]);
+    // fprintf(stderr,"*** Uncaught exception <%s> *** %s\n",[[exception name]
+    // cString],[[exception reason] cString]);
 }
 
 void _NSRaiseException(id exception) {
     objc_exception_frame *top = NSThreadCurrentHandler();
 
-    if(top == NULL) {
+    if (top == NULL) {
         NSUncaughtExceptionHandler *proc = NSGetUncaughtExceptionHandler();
 
-        if(proc == NULL)
+        if (proc == NULL)
             defaultHandler(exception);
         else
             proc(exception);
@@ -59,8 +60,8 @@ void _NSRaiseException(id exception) {
     }
 }
 
-// Enable that to put back original Cocotron behaviour, where every thread has its own default
-// uncaught handler
+// Enable that to put back original Cocotron behaviour, where every thread has
+// its own default uncaught handler
 //#define PER_THREAD_UNHANDLED_EXCEPTION_HANDLER
 
 #ifdef PER_THREAD_UNHANDLED_EXCEPTION_HANDLER
@@ -92,16 +93,16 @@ void __gnu_objc_personality_sj0() {
 }
 
 void objc_exception_try_enter(void *exceptionFrame) {
-    __NSPushExceptionFrame((objc_exception_frame *)exceptionFrame);
+    __NSPushExceptionFrame((objc_exception_frame *) exceptionFrame);
 }
 
 void objc_exception_try_exit(void *exceptionFrame) {
-    __NSPopExceptionFrame((objc_exception_frame *)exceptionFrame);
+    __NSPopExceptionFrame((objc_exception_frame *) exceptionFrame);
 }
 
 id objc_exception_extract(void *exceptionFrame) {
-    objc_exception_frame *frame = (objc_exception_frame *)exceptionFrame;
-    return (id)frame->exception;
+    objc_exception_frame *frame = (objc_exception_frame *) exceptionFrame;
+    return (id) frame->exception;
 }
 
 void objc_exception_throw(id exception) {
@@ -112,9 +113,9 @@ void objc_exception_throw(id exception) {
 static BOOL isKindOfClass(id object, Class kindOf) {
     Class class = object_getClass(object);
 
-    while(object_getClass((id)object_getClass((id) class)) != class) {
+    while (object_getClass((id) object_getClass((id) class)) != class) {
 
-        if(kindOf == class) {
+        if (kindOf == class) {
             return YES;
         }
 
