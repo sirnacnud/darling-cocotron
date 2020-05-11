@@ -13,8 +13,6 @@ cd llvm
 
 patch -p1 < ../cocotron-styling.patch
 
-exit 1
-
 mkdir build
 cd build
 
