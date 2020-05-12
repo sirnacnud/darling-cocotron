@@ -23,10 +23,14 @@
 #import <CoreGraphics/CGSConnection.h>
 #import <CoreGraphics/CGSWindow.h>
 #import <CoreGraphics/CGSSurface.h>
+#include <pthread.h>
 
 static NSMutableDictionary<NSNumber*, CGSConnection*>* g_connections = nil;
 static Boolean g_denyConnections = FALSE;
+
 static CGSConnectionID g_defaultConnection = -1;
+static pthread_mutex_t g_defaultConnectionMutex = PTHREAD_MUTEX_INITIALIZER;
+
 static _Atomic CGSConnectionID g_nextConnectionID = 1;
 static Class g_backendClass = nil;
 
@@ -94,6 +98,7 @@ static void _CGSLoadBackend(void)
 			break;
 		}
 	}
+	[backends release];
 }
 
 CGError CGSNewConnection(CGSDictionaryObj attribs, CGSConnectionID* connId)
@@ -111,35 +116,29 @@ CGError CGSNewConnection(CGSDictionaryObj attribs, CGSConnectionID* connId)
 	if (!g_backendClass)
 		return kCGErrorCannotComplete;
 	
-	if (g_backendClass)
-	{
-		CGSConnectionID newConnID = g_nextConnectionID++;
-		CGSConnection* conn = [[g_backendClass alloc] initWithConnectionID: newConnID];
+	CGSConnectionID newConnID = g_nextConnectionID++;
+	CGSConnection* conn = [[g_backendClass alloc] initWithConnectionID: newConnID];
 
-		if (conn != nil)
+	if (conn != nil)
+	{
+		*connId = newConnID;
+		@synchronized(g_connections)
 		{
-			*connId = newConnID;
-			@synchronized(g_connections)
-			{
-				[g_connections setObject: conn forKey: [NSNumber numberWithInt: newConnID]];
-			}
-			return kCGSErrorSuccess;
+			[g_connections setObject: conn forKey: [NSNumber numberWithInt: newConnID]];
 		}
-		else
-			return kCGErrorFailure;
+		[conn release];
+		return kCGSErrorSuccess;
 	}
 	else
-		return kCGErrorNoneAvailable;
+		return kCGErrorFailure;
 }
 
 CGSConnection* _CGSConnectionForID(CGSConnectionID connId)
 {
-	CGSConnection* rv;
 	@synchronized(g_connections)
 	{
-		rv = [g_connections objectForKey:[NSNumber numberWithInt: connId]];
+		return [g_connections objectForKey:[NSNumber numberWithInt: connId]];
 	}
-	return rv;
 }
 
 void* _CGSNativeDisplay(CGSConnectionID connId)
@@ -150,20 +149,12 @@ void* _CGSNativeDisplay(CGSConnectionID connId)
 void* _CGSNativeWindowForID(CGSConnectionID connId, CGSWindowID winId)
 {
 	CGSConnection* conn = _CGSConnectionForID(connId);
-	if (conn == nil)
-		return nil;
-	CGSWindow* window = [conn windowForId: winId];
-	if (window == nil)
-		return nil;
-	return [window nativeWindow];
+	return [[conn windowForId: winId] nativeWindow];
 }
 
 void* _CGSNativeWindowForSurfaceID(CGSConnectionID connId, CGSWindowID winId, CGSSurfaceID surfaceId)
 {
 	CGSConnection* conn = _CGSConnectionForID(connId);
-	if (conn == nil)
-		return nil;
-
 	return [[[conn windowForId: winId] surfaceForId: surfaceId] nativeWindow];
 }
 
@@ -189,7 +180,10 @@ CGSConnectionID CGSMainConnectionID(void)
 {
 	if (g_defaultConnection == -1)
 	{
-		CGSNewConnection(NULL, &g_defaultConnection);
+		pthread_mutex_lock(&g_defaultConnectionMutex);
+		if (g_defaultConnection == -1)
+			CGSNewConnection(NULL, &g_defaultConnection);
+		pthread_mutex_unlock(&g_defaultConnectionMutex);
 	}
 	return g_defaultConnection;
 }

@@ -44,12 +44,10 @@ const CFStringRef kCGSWindowTitle = CFSTR("WindowTitle");
 
 -(CGSSurface*) surfaceForId:(CGSSurfaceID) surfaceId
 {
-	CGSSurface* rv;
 	@synchronized(_surfaces)
 	{
-		rv = [_surfaces objectForKey: [NSNumber numberWithInt: surfaceId]];
+		return [_surfaces objectForKey: [NSNumber numberWithInt: surfaceId]];
 	}
-	return rv;
 }
 
 -(void) _surfaceInvalidated:(CGSSurfaceID) surfaceId

@@ -1,7 +1,7 @@
 /*
  This file is part of Darling.
 
- Copyright (C) 2019 Lubos Dolezel
+ Copyright (C) 2020 Lubos Dolezel
 
  Darling is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -16,11 +16,16 @@
  You should have received a copy of the GNU General Public License
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
+#ifndef CGEVENTTAP_INTERNAL_H
+#define CGEVENTTAP_INTERNAL_H
 
-#include <CoreGraphics/CGEvent.h>
-#include <stdio.h>
+extern void _CGEventTapDestroyed(CGEventTapLocation loc, mach_port_t mp);
 
-CGError CGPostMouseEvent(CGPoint mouseCursorPosition, boolean_t updateMouseCursorPosition, CGButtonCount buttonCount, boolean_t mouseButtonDown, ...)
+struct TapMachMessage
 {
-	printf("STUB CGPostMouseEvent called\n");
-}
+	mach_msg_header_t header;
+	CGEventTapProxy proxy;
+	CGEventRef event;
+};
+
+#endif

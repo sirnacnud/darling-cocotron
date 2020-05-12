@@ -34,12 +34,10 @@
 
 -(CGSWindow*) windowForId:(CGSWindowID)winId
 {
-	CGSWindow* rv;
 	@synchronized(_windows)
 	{
-		rv = [_windows objectForKey: [NSNumber numberWithInt: winId]];
+		return [_windows objectForKey: [NSNumber numberWithInt: winId]];
 	}
-	return rv;
 }
 
 -(void) _windowInvalidated: (CGSWindowID) winId

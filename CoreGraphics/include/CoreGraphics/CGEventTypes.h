@@ -23,7 +23,7 @@
 #include <CoreFoundation/CFBase.h>
 #include <CoreFoundation/CFAvailability.h>
 #include <CoreGraphics/CGBase.h>
-
+#include <CoreGraphics/CGRemoteOperation.h>
 
 typedef struct __CGEvent *CGEventRef;
 
@@ -233,5 +233,6 @@ enum {
 
 typedef uint32_t CGEventSourceKeyboardType;
 
+#define CGEventMaskBit(eventType) ((CGEventMask) 1 << (eventType))
 
 #endif

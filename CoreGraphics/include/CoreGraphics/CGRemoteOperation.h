@@ -19,12 +19,31 @@
 
 #ifndef CGREMOTEOPERATION_H
 #define CGREMOTEOPERATION_H
+#include <CoreGraphics/CGError.h>
+#include <stdint.h>
 
 typedef CGError CGEventErr;
 typedef uint32_t CGButtonCount;
 typedef uint32_t CGWheelCount;
 typedef uint16_t CGCharCode;
 typedef uint16_t CGKeyCode;
+
+typedef CF_OPTIONS(uint32_t, CGEventFilterMask)
+{
+	kCGEventFilterMaskPermitLocalMouseEvents = 0x00000001,
+	kCGEventFilterMaskPermitLocalKeyboardEvents = 0x00000002,
+	kCGEventFilterMaskPermitSystemDefinedEvents = 0x00000004
+};
+
+typedef CF_ENUM(uint32_t, CGEventSuppressionState)
+{
+	kCGEventSuppressionStateSuppressionInterval = 0,
+	kCGEventSuppressionStateRemoteMouseDrag,
+	kCGNumberOfEventSuppressionStates
+};
+
+#define kCGEventFilterMaskPermitAllEvents (kCGEventFilterMaskPermitLocalMouseEvents | kCGEventFilterMaskPermitLocalKeyboardEvents | kCGEventFilterMaskPermitSystemDefinedEvents)
+
 
 // TODO: All those deprecated functions
 

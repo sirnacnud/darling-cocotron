@@ -21,6 +21,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSDictionary.h>
 #include <CoreGraphics/CoreGraphicsPrivate.h>
+#include <CoreServices/UnicodeUtilities.h>
 #include <stdatomic.h>
 
 @class CGSWindow;
@@ -35,6 +36,9 @@
 -(CGSWindow*) windowForId:(CGSWindowID)winId;
 -(CGSWindow*) newWindow:(CGSRegionRef)region;
 -(CGError) destroyWindow:(CGSWindowID)winId;
+
+// Implementation should also emit kTISNotifySelectedKeyboardInputSourceChanged via NSDistributedNotificationCenter
+-(UCKeyboardLayout*) keyboardLayout:(uint32_t*)byteLength;
 
 +(BOOL) isAvailable;
 
