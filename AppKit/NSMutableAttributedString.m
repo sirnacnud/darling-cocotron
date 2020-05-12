@@ -40,11 +40,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     for (NSString *name in fontnameList) {
 
         NSCharacterSet *fontCharSet =
-            [sNameToCharacterSetCache objectForKey: name];
+                [sNameToCharacterSetCache objectForKey: name];
         if (fontCharSet == nil) {
             NSFont *fontCandidate =
-                [[NSFontManager sharedFontManager] convertFont: font
-                                                        toFace: name];
+                    [[NSFontManager sharedFontManager] convertFont: font
+                                                            toFace: name];
             fontCharSet = [fontCandidate coveredCharacterSet];
             if (fontCharSet != nil) {
                 // Cache the info
@@ -52,16 +52,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             } else {
                 // Cache some empty charset so we don't look for it again
                 [sNameToCharacterSetCache
-                    setObject: [NSCharacterSet
-                                   characterSetWithRange: NSMakeRange(0, 0)]
-                       forKey: name];
+                        setObject: [NSCharacterSet
+                                           characterSetWithRange: NSMakeRange(
+                                                                          0, 0)]
+                           forKey: name];
             }
         }
         if (fontCharSet) {
             if ([fontCharSet characterIsMember: c]) {
                 substitute =
-                    [[NSFontManager sharedFontManager] convertFont: font
-                                                            toFace: name];
+                        [[NSFontManager sharedFontManager] convertFont: font
+                                                                toFace: name];
             }
         }
         if (substitute) {
@@ -83,7 +84,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         static NSArray *sAllFonts = nil;
         if (sAllFonts == nil) {
             sAllFonts =
-                [[[NSFontManager sharedFontManager] availableFonts] retain];
+                    [[[NSFontManager sharedFontManager] availableFonts] retain];
         }
         bestFont = [self _bestFontForCharacter: c
                                       userFont: font
@@ -101,7 +102,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // Check that all of the chars in the range are supported by the font
     // attribute Else, change the font attribute to one supporting these chars
     NSCharacterSet *blankChars =
-        [NSCharacterSet whitespaceAndNewlineCharacterSet];
+            [NSCharacterSet whitespaceAndNewlineCharacterSet];
     NSCharacterSet *controlChars = [NSCharacterSet controlCharacterSet];
     while (location < limit) {
         NSRange effectiveRange;
@@ -131,14 +132,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                         }
                         if ([fontCharSet characterIsMember: charToTest] == NO) {
                             NSFont *substitute =
-                                [self _bestFontForCharacter: charToTest
-                                                   userFont: font];
+                                    [self _bestFontForCharacter: charToTest
+                                                       userFont: font];
                             if (substitute) {
                                 [self addAttribute: NSFontAttributeName
                                              value: substitute
                                              range: NSMakeRange(
-                                                        i + testRange.location,
-                                                        1)];
+                                                            i + testRange.location,
+                                                            1)];
                             }
                         }
                     }
@@ -179,9 +180,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     while (location < limit) {
         NSRange effectiveRange;
-        NSMutableDictionary *attributes =
-            [[[self attributesAtIndex: location effectiveRange: &effectiveRange]
-                mutableCopy] autorelease];
+        NSMutableDictionary *attributes = [[[self
+                attributesAtIndex: location
+                   effectiveRange: &effectiveRange] mutableCopy] autorelease];
         NSFont *font = NSFontAttributeInDictionary(attributes);
 
         font = [[NSFontManager sharedFontManager] convertFont: font

@@ -42,8 +42,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // comparison support
 - (NSComparisonResult) compare:
-    (NSIndexPath *) otherObject; // sorting an array of indexPaths using this
-                                 // comparison results in an array representing
-                                 // nodes in depth-first traversal order
+        (NSIndexPath *)
+                otherObject; // sorting an array of indexPaths using this
+                             // comparison results in an array representing
+                             // nodes in depth-first traversal order
 
 @end

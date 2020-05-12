@@ -62,9 +62,9 @@ static NSNotificationCenter *defaultCenter = nil;
 {
     @synchronized(self) {
         NSNotificationObserver *observer =
-            [[[NSNotificationObserver allocWithZone: [self zone]]
-                initWithObserver: anObserver
-                        selector: selector] autorelease];
+                [[[NSNotificationObserver allocWithZone: [self zone]]
+                        initWithObserver: anObserver
+                                selector: selector] autorelease];
         NSObjectToObservers *registry;
 
         if (name == nil)
@@ -74,7 +74,7 @@ static NSNotificationCenter *defaultCenter = nil;
 
             if (registry == nil) {
                 registry = [[[NSObjectToObservers allocWithZone: [self zone]]
-                    init] autorelease];
+                        init] autorelease];
                 [_nameToRegistry setObject: registry forKey: name];
             }
         }
@@ -102,8 +102,8 @@ static NSNotificationCenter *defaultCenter = nil;
 
         count = [removeRegistries count];
         while (--count >= 0)
-            [_nameToRegistry
-                removeObjectForKey: [removeRegistries objectAtIndex: count]];
+            [_nameToRegistry removeObjectForKey: [removeRegistries
+                                                         objectAtIndex: count]];
     }
 }
 
@@ -174,7 +174,7 @@ static inline void postNotification(NSNotificationCenter *self,
                      userInfo: (NSDictionary *) userInfo
 {
     NSNotification *note =
-        NSNotification_concreteNew(NULL, name, object, userInfo);
+            NSNotification_concreteNew(NULL, name, object, userInfo);
     postNotification(self, note);
     [note release];
 }

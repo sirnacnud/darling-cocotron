@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                               startRect: (NSRect) startRect
                                              targetRect: (NSRect) targetRect
                                              resizeTime:
-                                                 (NSTimeInterval) resizeTime
+                                                     (NSTimeInterval) resizeTime
                                                 display: (BOOL) display
 {
     NSRect deltaRect, stepRect;
@@ -53,12 +53,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
     return [[[NSWindowAnimationContext alloc]
-        initWithWindow: window
-            targetRect: targetRect
-              stepRect: stepRect
-             stepCount: stepCount
-          stepInterval: (resizeTime / FRAMES_PER_STEP)
-               display: display] autorelease];
+            initWithWindow: window
+                targetRect: targetRect
+                  stepRect: stepRect
+                 stepCount: stepCount
+              stepInterval: (resizeTime / FRAMES_PER_STEP)
+                   display: display] autorelease];
 }
 
 - (id) initWithWindow: (id) window
@@ -114,12 +114,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[%p] window: %@ targetRect: %@ stepRect: %@ "
-                          @"stepCount: %d stepInterval: %g display: %d",
-                          [self class], self, _window,
-                          NSStringFromRect(_targetRect),
-                          NSStringFromRect(_stepRect), _stepCount,
-                          _stepInterval, _display];
+            stringWithFormat: @"<%@[%p] window: %@ targetRect: %@ stepRect: %@ "
+                              @"stepCount: %d stepInterval: %g display: %d",
+                              [self class], self, _window,
+                              NSStringFromRect(_targetRect),
+                              NSStringFromRect(_stepRect), _stepCount,
+                              _stepInterval, _display];
 }
 
 @end

@@ -57,13 +57,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 {
     return [[(O2PDFString *) [self alloc] initWithBytesNoCopyNoFree: bytes
                                                              length: length]
-        autorelease];
+            autorelease];
 }
 
 + pdfObjectWithCString: (const char *) cString {
     return [[(O2PDFString *) [self alloc]
-        initWithBytes: (const unsigned char *) cString
-               length: strlen(cString)] autorelease];
+            initWithBytes: (const unsigned char *) cString
+                   length: strlen(cString)] autorelease];
 }
 
 + pdfObjectWithString: (NSString *) string {
@@ -71,7 +71,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     return [[(O2PDFString *) [self alloc] initWithBytes: [data bytes]
                                                  length: [data length]]
-        autorelease];
+            autorelease];
 }
 
 - (O2PDFObjectType) objectType {

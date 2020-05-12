@@ -51,11 +51,11 @@ static NSArray *error(NSArray *array, unichar *buffer, NSString *fmt, ...) {
 
 static NSArray *stringListFromBytes(const unichar unicode[], NSInteger length) {
     NSMutableArray *array =
-        [[NSMutableArray allocWithZone: NULL] initWithCapacity: 1024];
+            [[NSMutableArray allocWithZone: NULL] initWithCapacity: 1024];
     NSInteger index;
     NSUInteger bufferCount = 0, bufferCapacity = 2048;
-    unichar *buffer =
-        NSZoneMalloc(NSDefaultMallocZone(), bufferCapacity * sizeof(unichar));
+    unichar *buffer = NSZoneMalloc(NSDefaultMallocZone(),
+                                   bufferCapacity * sizeof(unichar));
 
     enum {
         STATE_WHITESPACE,
@@ -205,8 +205,8 @@ static NSArray *stringListFromBytes(const unichar unicode[], NSInteger length) {
             if (code == '\"') {
                 // We've found a key or value
                 NSString *string = [[NSString allocWithZone: NULL]
-                    initWithCharacters: buffer
-                                length: bufferCount];
+                        initWithCharacters: buffer
+                                    length: bufferCount];
 
                 // So save it off
                 [array addObject: string];
@@ -336,7 +336,7 @@ static NSArray *stringListFromBytes(const unichar unicode[], NSInteger length) {
 
 NSDictionary *NSDictionaryFromStringsFormatData(NSData *data) {
     NSArray *array =
-        stringListFromBytes((unichar *) [data bytes], [data length]);
+            stringListFromBytes((unichar *) [data bytes], [data length]);
     NSDictionary *dictionary;
     id *keys, *values;
     NSInteger i, count;
@@ -357,7 +357,7 @@ NSDictionary *NSDictionaryFromStringsFormatData(NSData *data) {
     dictionary = [[[NSDictionary allocWithZone: NULL] initWithObjects: values
                                                               forKeys: keys
                                                                 count: count]
-        autorelease];
+            autorelease];
 
     [array release];
 
@@ -374,7 +374,7 @@ NSDictionary *NSDictionaryFromStringsFormatFile(NSString *path) {
     NSDictionary *dictionary;
 
     if ((data = [[NSData allocWithZone: NULL]
-             initWithContentsOfMappedFile: path]) == nil)
+                 initWithContentsOfMappedFile: path]) == nil)
         return nil;
 
     dictionary = NSDictionaryFromStringsFormatData(data);

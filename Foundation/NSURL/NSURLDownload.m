@@ -78,26 +78,27 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) connection: (NSURLConnection *) connection
-    didFailWithError: (NSError *) error
+        didFailWithError: (NSError *) error
 {
     if ([_delegate respondsToSelector: @selector(download:didFailWithError:)])
         [_delegate download: self didFailWithError: error];
 }
 
 - (void) connection: (NSURLConnection *) connection
-    didReceiveAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge
+        didReceiveAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) challenge
 {
-    if ([_delegate respondsToSelector: @selector(download:
-                                           didReceiveAuthenticationChallenge:)])
+    if ([_delegate respondsToSelector: @selector
+                   (download:didReceiveAuthenticationChallenge:)])
         [_delegate download: self didReceiveAuthenticationChallenge: challenge];
 }
 
 - (void) connection: (NSURLConnection *) connection
-    didCancelAuthenticationChallenge: (NSURLAuthenticationChallenge *) challenge
+        didCancelAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) challenge
 {
-    if ([_delegate respondsToSelector: @selector(download:
-                                           didCancelAuthenticationChallenge:)])
+    if ([_delegate respondsToSelector: @selector
+                   (download:didCancelAuthenticationChallenge:)])
         [_delegate download: self didCancelAuthenticationChallenge: challenge];
 }
 
@@ -116,10 +117,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 tryThis = [check stringByDeletingPathExtension];
                 tryThis = [tryThis stringByAppendingFormat: @"-%d", i];
                 tryThis = [tryThis
-                    stringByAppendingPathExtension: [check pathExtension]];
+                        stringByAppendingPathExtension: [check pathExtension]];
 
                 if (![[NSFileManager defaultManager]
-                        fileExistsAtPath: tryThis]) {
+                            fileExistsAtPath: tryThis]) {
                     check = tryThis;
                     break;
                 }
@@ -130,23 +131,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _fileStream = [[NSOutputStream alloc] initToFileAtPath: check append: NO];
 
     if ([_delegate respondsToSelector: @selector(download:
-                                           didCreateDestination:)])
+                                               didCreateDestination:)])
         [_delegate download: self didCreateDestination: check];
 }
 
 - (void) connection: (NSURLConnection *) connection
-     didReceiveData: (NSData *) data
+        didReceiveData: (NSData *) data
 {
     [self _createFileStreamIfNeeded];
     [_fileStream write: [data bytes] maxLength: [data length]];
 
     if ([_delegate respondsToSelector: @selector(download:
-                                           didReceiveDataOfLength:)])
+                                               didReceiveDataOfLength:)])
         [_delegate download: self didReceiveDataOfLength: [data length]];
 }
 
 - (void) connection: (NSURLConnection *) connection
-    didReceiveResponse: (NSURLResponse *) response
+        didReceiveResponse: (NSURLResponse *) response
 {
     if ([_delegate respondsToSelector: @selector(download:didReceiveResponse:)])
         [_delegate download: self didReceiveResponse: response];
@@ -162,8 +163,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
               willSendRequest: (NSURLRequest *) request
              redirectResponse: (NSURLResponse *) response
 {
-    if ([_delegate respondsToSelector: @selector(download:
-                                           willSendRequest:redirectResponse:)])
+    if ([_delegate respondsToSelector: @selector
+                   (download:willSendRequest:redirectResponse:)])
         return [_delegate download: self
                    willSendRequest: request
                   redirectResponse: response];

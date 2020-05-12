@@ -61,13 +61,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (id) objectAtIndex: (NSUInteger) index;
 - (NSUInteger) count;
 - (void) addObserver: (NSObject *) observer
-    toObjectsAtIndexes: (NSIndexSet *) indexes
-            forKeyPath: (NSString *) keyPath
-               options: (NSKeyValueObservingOptions) options
-               context: (void *) context;
+        toObjectsAtIndexes: (NSIndexSet *) indexes
+                forKeyPath: (NSString *) keyPath
+                   options: (NSKeyValueObservingOptions) options
+                   context: (void *) context;
 - (void) removeObserver: (NSObject *) observer
-    fromObjectsAtIndexes: (NSIndexSet *) indexes
-              forKeyPath: (NSString *) keyPath;
+        fromObjectsAtIndexes: (NSIndexSet *) indexes
+                  forKeyPath: (NSString *) keyPath;
 - (void) notifyObserver: (_NSManagedProxy_observerInfo *) observerInfo;
 - (void) _refresh;
 - (id) objectValueForTableColumn: (NSTableColumn *) column;

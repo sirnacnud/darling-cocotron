@@ -37,9 +37,9 @@ typedef void (*O2BitmapContextReleaseDataCallback)(void *userInfo, void *data);
 - (O2Surface *) surface;
 
 O2ContextRef O2BitmapContextCreateWithData(
-    void *bytes, size_t width, size_t height, size_t bitsPerComponent,
-    size_t bytesPerRow, O2ColorSpaceRef colorSpace, O2BitmapInfo bitmapInfo,
-    O2BitmapContextReleaseDataCallback releaseCallback, void *releaseInfo);
+        void *bytes, size_t width, size_t height, size_t bitsPerComponent,
+        size_t bytesPerRow, O2ColorSpaceRef colorSpace, O2BitmapInfo bitmapInfo,
+        O2BitmapContextReleaseDataCallback releaseCallback, void *releaseInfo);
 
 O2ContextRef O2BitmapContextCreate(void *bytes, size_t width, size_t height,
                                    size_t bitsPerComponent, size_t bytesPerRow,
@@ -68,6 +68,6 @@ O2ImageRef O2BitmapContextCreateImage(O2ContextRef self);
                      colorSpace: (O2ColorSpaceRef) colorSpace
                      bitmapInfo: (O2BitmapInfo) bitmapInfo
                 releaseCallback:
-                    (O2BitmapContextReleaseDataCallback) releaseCallback
+                        (O2BitmapContextReleaseDataCallback) releaseCallback
                     releaseInfo: (void *) releaseInfo;
 @end

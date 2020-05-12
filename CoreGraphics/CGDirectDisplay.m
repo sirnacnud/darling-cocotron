@@ -38,9 +38,9 @@ static NSDisplay *currentDisplay(void) {
     Class cls = NSClassFromString(@"NSDisplay");
 
     if (!cls) {
-        if (dlopen(
-                "/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit",
-                RTLD_LAZY | RTLD_GLOBAL) != NULL)
+        if (dlopen("/System/Library/Frameworks/AppKit.framework/Versions/C/"
+                   "AppKit",
+                   RTLD_LAZY | RTLD_GLOBAL) != NULL)
             cls = NSClassFromString(@"NSDisplay");
     }
 
@@ -379,7 +379,7 @@ io_service_t CGDisplayIOServicePort(CGDirectDisplayID displayID) {
 
     // releases matching for us
     kern_return_t err =
-        IOServiceGetMatchingServices(kIOMasterPortDefault, matching, &iter);
+            IOServiceGetMatchingServices(kIOMasterPortDefault, matching, &iter);
     if (err)
         return 0;
 
@@ -394,7 +394,7 @@ io_service_t CGDisplayIOServicePort(CGDirectDisplayID displayID) {
         vendorIDRef = CFDictionaryGetValue(info, CFSTR(kDisplayVendorID));
         productIDRef = CFDictionaryGetValue(info, CFSTR(kDisplayProductID));
         serialNumberRef =
-            CFDictionaryGetValue(info, CFSTR(kDisplaySerialNumber));
+                CFDictionaryGetValue(info, CFSTR(kDisplaySerialNumber));
 
         if (!vendorIDRef || !productIDRef || !serialNumberRef) {
             CFRelease(info);
@@ -402,9 +402,9 @@ io_service_t CGDisplayIOServicePort(CGDirectDisplayID displayID) {
         }
 
         success =
-            CFNumberGetValue(vendorIDRef, kCFNumberCFIndexType, &vendorID);
-        success &=
-            CFNumberGetValue(productIDRef, kCFNumberCFIndexType, &productID);
+                CFNumberGetValue(vendorIDRef, kCFNumberCFIndexType, &vendorID);
+        success &= CFNumberGetValue(productIDRef, kCFNumberCFIndexType,
+                                    &productID);
         success &= CFNumberGetValue(serialNumberRef, kCFNumberCFIndexType,
                                     &serialNumber);
 
@@ -453,8 +453,8 @@ CGError CGAssociateMouseAndMouseCursorPosition(boolean_t connected) {
 }
 
 CFDictionaryRef CGDisplayBestModeForParametersAndRefreshRate(
-    CGDirectDisplayID display, size_t bitsPerPixel, size_t width, size_t height,
-    CGRefreshRate refreshRate, boolean_t *exactMatch)
+        CGDirectDisplayID display, size_t bitsPerPixel, size_t width,
+        size_t height, CGRefreshRate refreshRate, boolean_t *exactMatch)
 {
     return nil;
 }

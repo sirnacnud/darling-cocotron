@@ -84,7 +84,7 @@ static Win32RunningCopyPipe *_runningCopyPipe = nil;
 
     _event = CreateEvent(NULL, FALSE, FALSE, NULL);
     _eventMonitor =
-        [[NSHandleMonitor_win32 handleMonitorWithHandle: _event] retain];
+            [[NSHandleMonitor_win32 handleMonitorWithHandle: _event] retain];
     [_eventMonitor setDelegate: self];
     [_eventMonitor setCurrentActivity: Win32HandleSignaled];
     [[NSRunLoop currentRunLoop] addInputSource: _eventMonitor
@@ -108,24 +108,24 @@ static Win32RunningCopyPipe *_runningCopyPipe = nil;
 }
 
 + (NSString *) pipeName {
-    return
-        [NSString stringWithFormat: @"\\\\.\\pipe\\%@~V1~",
-                                    [[NSProcessInfo processInfo] processName]];
+    return [NSString
+            stringWithFormat: @"\\\\.\\pipe\\%@~V1~",
+                              [[NSProcessInfo processInfo] processName]];
 }
 
 + (BOOL) createRunningCopyPipe {
     if (_runningCopyPipe == nil) {
         HANDLE pipe = CreateNamedPipe(
-            [[self pipeName] cString],
-            PIPE_ACCESS_INBOUND | FILE_FLAG_OVERLAPPED,
-            PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT, 1, 8192,
-            8192, 0, NULL);
+                [[self pipeName] cString],
+                PIPE_ACCESS_INBOUND | FILE_FLAG_OVERLAPPED,
+                PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT, 1, 8192,
+                8192, 0, NULL);
 
         if (pipe == INVALID_HANDLE_VALUE)
             return NO;
 
         _runningCopyPipe =
-            [[Win32RunningCopyPipe alloc] initWithPipeHandle: pipe];
+                [[Win32RunningCopyPipe alloc] initWithPipeHandle: pipe];
         return YES;
     }
 
@@ -137,15 +137,15 @@ static Win32RunningCopyPipe *_runningCopyPipe = nil;
         NSArray *paths;
 
         if ([[NSUserDefaults standardUserDefaults]
-                stringForKey: @"NSUseRunningCopy"] != nil &&
+                    stringForKey: @"NSUseRunningCopy"] != nil &&
             ![[NSUserDefaults standardUserDefaults]
-                boolForKey: @"NSUseRunningCopy"]) {
+                    boolForKey: @"NSUseRunningCopy"]) {
 
             return;
         }
 
         id nsOpen =
-            [[NSUserDefaults standardUserDefaults] objectForKey: @"NSOpen"];
+                [[NSUserDefaults standardUserDefaults] objectForKey: @"NSOpen"];
 
         if ([nsOpen isKindOfClass: [NSString class]] && [nsOpen length]) {
             paths = [NSArray arrayWithObject: nsOpen];
@@ -156,8 +156,8 @@ static Win32RunningCopyPipe *_runningCopyPipe = nil;
         }
 
         HANDLE pipe =
-            CreateFile([[self pipeName] cString], GENERIC_WRITE,
-                       FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+                CreateFile([[self pipeName] cString], GENERIC_WRITE,
+                           FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
 
         if (pipe == INVALID_HANDLE_VALUE) {
             return;

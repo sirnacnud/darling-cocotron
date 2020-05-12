@@ -41,13 +41,13 @@ typedef enum {
 
 - initWithURL: (NSURL *) url;
 - initWithURL: (NSURL *) url
-        cachePolicy: (NSURLRequestCachePolicy) cachePolicy
-    timeoutInterval: (NSTimeInterval) timeout;
+            cachePolicy: (NSURLRequestCachePolicy) cachePolicy
+        timeoutInterval: (NSTimeInterval) timeout;
 
 + requestWithURL: (NSURL *) url;
 + requestWithURL: (NSURL *) url
-        cachePolicy: (NSURLRequestCachePolicy) cachePolicy
-    timeoutInterval: (NSTimeInterval) timeout;
+            cachePolicy: (NSURLRequestCachePolicy) cachePolicy
+        timeoutInterval: (NSTimeInterval) timeout;
 
 - (NSURL *) URL;
 - (NSURLRequestCachePolicy) cachePolicy;

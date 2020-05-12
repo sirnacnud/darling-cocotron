@@ -30,23 +30,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSSpellEngine.h>
 
 NSString *const NSSpellCheckerDidChangeAutomaticTextReplacementNotification =
-    @"NSSpellCheckerDidChangeAutomaticTextReplacementNotification";
+        @"NSSpellCheckerDidChangeAutomaticTextReplacementNotification";
 NSString *const NSSpellCheckerDidChangeAutomaticSpellingCorrectionNotification =
-    @"NSSpellCheckerDidChangeAutomaticSpellingCorrectionNotification";
+        @"NSSpellCheckerDidChangeAutomaticSpellingCorrectionNotification";
 
 NSString *const NSTextCheckingOrthographyKey = @"NSTextCheckingOrthographyKey";
 NSString *const NSTextCheckingQuotesKey = @"NSTextCheckingQuotesKey";
 NSString *const NSTextCheckingReplacementsKey =
-    @"NSTextCheckingReplacementsKey";
+        @"NSTextCheckingReplacementsKey";
 NSString *const NSTextCheckingReferenceDateKey =
-    @"NSTextCheckingReferenceDateKey";
+        @"NSTextCheckingReferenceDateKey";
 NSString *const NSTextCheckingReferenceTimeZoneKey =
-    @"NSTextCheckingReferenceTimeZoneKey";
+        @"NSTextCheckingReferenceTimeZoneKey";
 NSString *const NSTextCheckingDocumentURLKey = @"NSTextCheckingDocumentURLKey";
 NSString *const NSTextCheckingDocumentTitleKey =
-    @"NSTextCheckingDocumentTitleKey";
+        @"NSTextCheckingDocumentTitleKey";
 NSString *const NSTextCheckingDocumentAuthorKey =
-    @"NSTextCheckingDocumentAuthorKey";
+        @"NSTextCheckingDocumentAuthorKey";
 
 #define SPELLCHECK_DEBUG 0
 
@@ -103,7 +103,7 @@ static NSSpellChecker *shared = nil;
         }
 
         [availableLanguages
-            sortUsingSelector: @selector(caseInsensitiveCompare:)];
+                sortUsingSelector: @selector(caseInsensitiveCompare:)];
     }
 
     return availableLanguages;
@@ -152,8 +152,9 @@ static NSSpellChecker *shared = nil;
 - (NSSpellingViewController *) _spellingViewController {
     if (_spellingViewController == nil) {
         _spellingViewController = [[NSSpellingViewController alloc]
-            initWithNibName: @"NSSpellingViewController"
-                     bundle: [NSBundle bundleForClass: [NSSpellingViewController
+                initWithNibName: @"NSSpellingViewController"
+                         bundle: [NSBundle bundleForClass:
+                                                   [NSSpellingViewController
                                                            class]]];
     }
     return (NSSpellingViewController *) _spellingViewController;
@@ -166,18 +167,20 @@ static NSSpellChecker *shared = nil;
 
         NSView *view = [vc view];
         NSRect frame = [view frame];
-        _spellingPanel = [[NSPanel alloc]
-            initWithContentRect: frame
-                      styleMask: NSUtilityWindowMask | NSResizableWindowMask |
-                                 NSClosableWindowMask
-                        backing: NSBackingStoreBuffered
-                          defer: YES];
+        _spellingPanel =
+                [[NSPanel alloc] initWithContentRect: frame
+                                           styleMask: NSUtilityWindowMask |
+                                                      NSResizableWindowMask |
+                                                      NSClosableWindowMask
+                                             backing: NSBackingStoreBuffered
+                                               defer: YES];
 
         [_spellingPanel
-            setTitle: NSLocalizedStringFromTableInBundle(
-                          @"Spelling", nil,
-                          [NSBundle bundleForClass: [NSSpellChecker class]],
-                          @"The title of the spelling dialog")];
+                setTitle: NSLocalizedStringFromTableInBundle(
+                                  @"Spelling", nil,
+                                  [NSBundle bundleForClass: [NSSpellChecker
+                                                                    class]],
+                                  @"The title of the spelling dialog")];
         [view setFrameOrigin: NSMakePoint(0, 10)];
         [[_spellingPanel contentView] addSubview: view];
         [_spellingPanel setMinSize: frame.size];
@@ -218,7 +221,7 @@ static NSSpellChecker *shared = nil;
 }
 
 - (void) setSubstitutionsPanelAccessoryViewController:
-    (NSViewController *) viewController
+        (NSViewController *) viewController
 {
     NSUnimplementedMethod();
 }
@@ -236,13 +239,13 @@ static NSSpellChecker *shared = nil;
 - (NSRange) checkSpellingOfString: (NSString *) string
                        startingAt: (NSInteger) offset
 {
-    return
-        [self checkSpellingOfString: string
-                         startingAt: offset
-                           language: [[NSLocale currentLocale] localeIdentifier]
-                               wrap: NO
-             inSpellDocumentWithTag: 0
-                          wordCount: NULL];
+    return [self
+             checkSpellingOfString: string
+                        startingAt: offset
+                          language: [[NSLocale currentLocale] localeIdentifier]
+                              wrap: NO
+            inSpellDocumentWithTag: 0
+                         wordCount: NULL];
 }
 
 - (NSRange) checkSpellingOfString: (NSString *) string
@@ -261,23 +264,23 @@ static NSSpellChecker *shared = nil;
 
     if (language != nil) {
         NSDictionary *languageMap = [NSDictionary
-            dictionaryWithObject: [NSArray arrayWithObject: language]
-                          forKey: @"Latn"];
+                dictionaryWithObject: [NSArray arrayWithObject: language]
+                              forKey: @"Latn"];
         NSOrthography *orthography =
-            [NSOrthography orthographyWithDominantScript: @"Latn"
-                                             languageMap: languageMap];
+                [NSOrthography orthographyWithDominantScript: @"Latn"
+                                                 languageMap: languageMap];
 
         [options setObject: orthography forKey: NSTextCheckingOrthographyKey];
     }
 
-    NSArray *checking = [self
-                   checkString: string
-                         range: NSMakeRange(offset, [string length] - offset)
-                         types: NSTextCheckingTypeSpelling
-                       options: options
-        inSpellDocumentWithTag: tag
-                   orthography: NULL
-                     wordCount: wordCount];
+    NSArray *checking = [self checkString: string
+                                    range: NSMakeRange(offset,
+                                                       [string length] - offset)
+                                    types: NSTextCheckingTypeSpelling
+                                  options: options
+                   inSpellDocumentWithTag: tag
+                              orthography: NULL
+                                wordCount: wordCount];
 
     if ([checking count] == 0)
         return NSMakeRange(0, 0);
@@ -299,12 +302,12 @@ static NSSpellChecker *shared = nil;
 }
 
 - (NSArray *) checkString: (NSString *) string
-                     range: (NSRange) range
-                     types: (NSTextCheckingTypes) types
-                   options: (NSDictionary *) options
-    inSpellDocumentWithTag: (NSInteger) tag
-               orthography: (NSOrthography **) orthography
-                 wordCount: (NSInteger *) wordCount
+                         range: (NSRange) range
+                         types: (NSTextCheckingTypes) types
+                       options: (NSDictionary *) options
+        inSpellDocumentWithTag: (NSInteger) tag
+                   orthography: (NSOrthography **) orthography
+                     wordCount: (NSInteger *) wordCount
 {
     NSSpellEngine *spellEngine = [[self class] _currentSpellEngine];
 
@@ -324,12 +327,12 @@ static NSSpellChecker *shared = nil;
     NSString *substring = [string substringToIndex: NSMaxRange(range)];
 
     NSArray *results = [spellEngine
-        checkString: substring
-             offset: range.location
-              types: types
-            options: options
-        orthography: [options objectForKey: NSTextCheckingOrthographyKey]
-          wordCount: wordCount];
+            checkString: substring
+                 offset: range.location
+                  types: types
+                options: options
+            orthography: [options objectForKey: NSTextCheckingOrthographyKey]
+              wordCount: wordCount];
 
 #if DEBUG_CHECKSTRING
     NSLog(@"    substring: %@", substring);
@@ -349,9 +352,10 @@ static NSSpellChecker *shared = nil;
                               options: (NSDictionary *) options
                inSpellDocumentWithTag: (NSInteger) tag
                     completionHandler:
-                        (void (^)(NSInteger sequenceNumber, NSArray *results,
-                                  NSOrthography *orthography,
-                                  NSInteger wordCount)) completionHandler
+                            (void (^)(NSInteger sequenceNumber,
+                                      NSArray *results,
+                                      NSOrthography *orthography,
+                                      NSInteger wordCount)) completionHandler
 {
     NSUnimplementedMethod();
     return 0;
@@ -405,7 +409,7 @@ static NSSpellChecker *shared = nil;
 }
 
 - (void) setIgnoredWords: (NSArray *) ignoredWords
-    inSpellDocumentWithTag: (NSInteger) tag
+        inSpellDocumentWithTag: (NSInteger) tag
 {
     [[self _dataForDocumentTag: tag] setIgnoredWords: ignoredWords];
 }
@@ -481,14 +485,15 @@ static NSSpellChecker *shared = nil;
 
     if ([guesses count] == 0) {
         NSMenuItem *item = [result
-            addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                  @"< No Suggestions >", nil,
-                                  [NSBundle
-                                      bundleForClass: [NSSpellChecker class]],
-                                  @"Shown when there are no selections from "
-                                  @"the spell checker")
-                      action: NULL
-               keyEquivalent: @""];
+                addItemWithTitle:
+                        NSLocalizedStringFromTableInBundle(
+                                @"< No Suggestions >", nil,
+                                [NSBundle
+                                        bundleForClass: [NSSpellChecker class]],
+                                @"Shown when there are no selections from "
+                                @"the spell checker")
+                          action: NULL
+                   keyEquivalent: @""];
         [item setEnabled: NO];
     } else {
         for (NSString *guess in guesses)
@@ -516,8 +521,8 @@ static NSSpellChecker *shared = nil;
                     alternativeStrings: (NSArray *) alternativeStrings
                        forStringInRect: (NSRect) rect
                                   view: (NSView *) view
-                     completionHandler:
-                         (void (^)(NSString *acceptedString)) completionBlock
+                     completionHandler: (void (^)(NSString *acceptedString))
+                                                completionBlock
 {
     NSUnimplementedMethod();
 }
@@ -533,10 +538,10 @@ static NSSpellChecker *shared = nil;
 }
 
 - (void) recordResponse: (NSCorrectionResponse) response
-              toCorrection: (NSString *) correction
-                   forWord: (NSString *) word
-                  language: (NSString *) language
-    inSpellDocumentWithTag: (NSInteger) tag
+                  toCorrection: (NSString *) correction
+                       forWord: (NSString *) word
+                      language: (NSString *) language
+        inSpellDocumentWithTag: (NSInteger) tag
 {
     NSUnimplementedMethod();
 }

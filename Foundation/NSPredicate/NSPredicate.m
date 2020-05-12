@@ -125,9 +125,9 @@ static void raiseError(predicateScanner *scanner, NSString *format, ...) {
     va_end(arguments);
 
     [NSException
-         raise: NSInvalidArgumentException
-        format: @"Unable to parse the format string \"%@\", reason = %@",
-                scanner->original, reason];
+             raise: NSInvalidArgumentException
+            format: @"Unable to parse the format string \"%@\", reason = %@",
+                    scanner->original, reason];
 }
 
 static int classifyToken(NSString *token) {
@@ -244,8 +244,8 @@ static int scanToken(predicateScanner *scanner, id *token) {
 
     for (; scanner->position <= scanner->length; scanner->position++) {
         unichar code = (scanner->position < scanner->length)
-                           ? scanner->unicode[scanner->position]
-                           : 0xFFFF;
+                               ? scanner->unicode[scanner->position]
+                               : 0xFFFF;
 
         switch (state) {
 
@@ -365,8 +365,9 @@ static int scanToken(predicateScanner *scanner, id *token) {
 
             default:
                 *token = [NSString
-                    stringWithCharacters: scanner->unicode + tokenLocation
-                                  length: (scanner->position - tokenLocation)];
+                        stringWithCharacters: scanner->unicode + tokenLocation
+                                      length: (scanner->position -
+                                               tokenLocation)];
                 return identifyReservedWords ? classifyToken(*token)
                                              : predTokenIdentifier;
             }
@@ -505,8 +506,9 @@ static int scanToken(predicateScanner *scanner, id *token) {
                 currentExponent = currentExponent * 10 + (code - '0');
             else {
                 *token = [NSNumber
-                    numberWithDouble: currentSign * currentReal *
-                                      pow(10, exponentSign * currentExponent)];
+                        numberWithDouble: currentSign * currentReal *
+                                          pow(10,
+                                              exponentSign * currentExponent)];
                 return predTokenNumeric;
             }
             break;
@@ -527,12 +529,14 @@ static int scanToken(predicateScanner *scanner, id *token) {
             if (code == '\\') {
                 state = STATE_STRING_DOUBLE_ESCAPE;
                 buffer = [NSMutableString
-                    stringWithCharacters: scanner->unicode + tokenLocation
-                                  length: (scanner->position - tokenLocation)];
+                        stringWithCharacters: scanner->unicode + tokenLocation
+                                      length: (scanner->position -
+                                               tokenLocation)];
             } else if (code == '\"') {
                 *token = [NSString
-                    stringWithCharacters: scanner->unicode + tokenLocation
-                                  length: (scanner->position - tokenLocation)];
+                        stringWithCharacters: scanner->unicode + tokenLocation
+                                      length: (scanner->position -
+                                               tokenLocation)];
                 scanner->position++;
                 return predTokenString;
             }
@@ -575,8 +579,8 @@ static int scanToken(predicateScanner *scanner, id *token) {
                 state = STATE_STRING_DOUBLE_BUFFERED;
             } else {
                 scanner->position--;
-                [buffer
-                    appendFormat: @"x%C", scanner->unicode[scanner->position]];
+                [buffer appendFormat: @"x%C",
+                                      scanner->unicode[scanner->position]];
                 state = STATE_STRING_DOUBLE_BUFFERED;
             }
             break;
@@ -585,12 +589,14 @@ static int scanToken(predicateScanner *scanner, id *token) {
             if (code == '\\') {
                 state = STATE_STRING_SINGLE_ESCAPE;
                 buffer = [NSMutableString
-                    stringWithCharacters: scanner->unicode + tokenLocation
-                                  length: (scanner->position - tokenLocation)];
+                        stringWithCharacters: scanner->unicode + tokenLocation
+                                      length: (scanner->position -
+                                               tokenLocation)];
             } else if (code == '\'') {
                 *token = [NSString
-                    stringWithCharacters: scanner->unicode + tokenLocation
-                                  length: (scanner->position - tokenLocation)];
+                        stringWithCharacters: scanner->unicode + tokenLocation
+                                      length: (scanner->position -
+                                               tokenLocation)];
                 scanner->position++;
                 return predTokenString;
             }
@@ -633,8 +639,8 @@ static int scanToken(predicateScanner *scanner, id *token) {
                 state = STATE_STRING_SINGLE_BUFFERED;
             } else {
                 scanner->position--;
-                [buffer
-                    appendFormat: @"x%C", scanner->unicode[scanner->position]];
+                [buffer appendFormat: @"x%C",
+                                      scanner->unicode[scanner->position]];
                 state = STATE_STRING_SINGLE_BUFFERED;
             }
             break;
@@ -763,10 +769,10 @@ static NSExpression *nextFunctionExpression(predicateScanner *scanner,
 
 static id nextArgumentFromArray(predicateScanner *scanner) {
     if (scanner->nextArgument >= [scanner->argumentArray count])
-        raiseError(
-            scanner,
-            @"Insufficient arguments for conversion characters specified in "
-            @"format string"); // FIX, the string is actually the reason
+        raiseError(scanner,
+                   @"Insufficient arguments for conversion characters "
+                   @"specified in "
+                   @"format string"); // FIX, the string is actually the reason
 
     return [scanner->argumentArray objectAtIndex: scanner->nextArgument++];
 }
@@ -801,8 +807,8 @@ static id shortArgument(predicateScanner *scanner) {
 
 static id unsignedShortArgument(predicateScanner *scanner) {
     if (scanner->nextArgument < 0)
-        return
-            [NSNumber numberWithUnsignedShort: va_arg(scanner->arguments, int)];
+        return [NSNumber
+                numberWithUnsignedShort: va_arg(scanner->arguments, int)];
     else
         return nextArgumentFromArray(scanner);
 }
@@ -828,32 +834,32 @@ static id longArgument(predicateScanner *scanner) {
 static id longLongArgument(predicateScanner *scanner) {
     if (scanner->nextArgument < 0)
         return [NSNumber
-            numberWithLongLong: va_arg(scanner->arguments, long long)];
+                numberWithLongLong: va_arg(scanner->arguments, long long)];
     else
         return nextArgumentFromArray(scanner);
 }
 
 static id unsignedIntArgument(predicateScanner *scanner) {
     if (scanner->nextArgument < 0)
-        return [NSNumber
-            numberWithUnsignedInt: va_arg(scanner->arguments, unsigned int)];
+        return [NSNumber numberWithUnsignedInt: va_arg(scanner->arguments,
+                                                       unsigned int)];
     else
         return nextArgumentFromArray(scanner);
 }
 
 static id unsignedLongArgument(predicateScanner *scanner) {
     if (scanner->nextArgument < 0)
-        return [NSNumber
-            numberWithUnsignedLong: va_arg(scanner->arguments, unsigned long)];
+        return [NSNumber numberWithUnsignedLong: va_arg(scanner->arguments,
+                                                        unsigned long)];
     else
         return nextArgumentFromArray(scanner);
 }
 
 static id unsignedLongLongArgument(predicateScanner *scanner) {
     if (scanner->nextArgument < 0)
-        return
-            [NSNumber numberWithUnsignedLongLong: va_arg(scanner->arguments,
-                                                         unsigned long long)];
+        return [NSNumber
+                numberWithUnsignedLongLong: va_arg(scanner->arguments,
+                                                   unsigned long long)];
     else
         return nextArgumentFromArray(scanner);
 }
@@ -889,8 +895,8 @@ static NSExpression *nextFormatCharacter(predicateScanner *scanner) {
 
     for (; scanner->position <= scanner->length;) {
         unichar unicode = (scanner->position < scanner->length)
-                              ? scanner->unicode[scanner->position++]
-                              : 0xFFFF;
+                                  ? scanner->unicode[scanner->position++]
+                                  : 0xFFFF;
 
         switch (state) {
 
@@ -950,15 +956,15 @@ static NSExpression *nextFormatCharacter(predicateScanner *scanner) {
 
             case 'c':
                 return [NSExpression
-                    expressionForConstantValue: charArgument(scanner)];
+                        expressionForConstantValue: charArgument(scanner)];
 
             case 'C':
                 return [NSExpression
-                    expressionForConstantValue: unicharArgument(scanner)];
+                        expressionForConstantValue: unicharArgument(scanner)];
 
             case 's':
                 return [NSExpression
-                    expressionForConstantValue: cStringArgument(scanner)];
+                        expressionForConstantValue: cStringArgument(scanner)];
                 break;
 
             case 'f': {
@@ -988,18 +994,18 @@ static NSExpression *nextFormatCharacter(predicateScanner *scanner) {
 
             case 'p':
                 return [NSExpression
-                    expressionForConstantValue: objectArgument(scanner)];
+                        expressionForConstantValue: objectArgument(scanner)];
 
             case '@':
                 return [NSExpression
-                    expressionForConstantValue: objectArgument(scanner)];
+                        expressionForConstantValue: objectArgument(scanner)];
 
             case '%':
                 return [NSExpression expressionForConstantValue: @"%"];
 
             case 'K':
                 return [NSExpression
-                    expressionForKeyPath: objectArgument(scanner)];
+                        expressionForKeyPath: objectArgument(scanner)];
 
             default:
                 raiseError(scanner, @"Invalid format character %C", unicode);
@@ -1079,12 +1085,12 @@ static NSExpression *nextPrimaryExpression(predicateScanner *scanner) {
     case predToken_TRUE:
         skipToken(scanner);
         return [NSExpression
-            expressionForConstantValue: [NSNumber numberWithBool: YES]];
+                expressionForConstantValue: [NSNumber numberWithBool: YES]];
 
     case predToken_FALSE:
         skipToken(scanner);
         return [NSExpression
-            expressionForConstantValue: [NSNumber numberWithBool: NO]];
+                expressionForConstantValue: [NSNumber numberWithBool: NO]];
 
     case predToken_SELF:
         skipToken(scanner);
@@ -1124,9 +1130,10 @@ static NSExpression *nextKeypathExpression(predicateScanner *scanner) {
                 raiseError(scanner, @"Expecting expression after .");
 
             left = [NSExpression_operator
-                expressionForOperator: NSExpressionOperatorKeypath
-                            arguments: [NSArray
-                                           arrayWithObjects: left, right, nil]];
+                    expressionForOperator: NSExpressionOperatorKeypath
+                                arguments: [NSArray arrayWithObjects: left,
+                                                                      right,
+                                                                      nil]];
             break;
 
         case predTokenLeftBracket:
@@ -1136,30 +1143,30 @@ static NSExpression *nextKeypathExpression(predicateScanner *scanner) {
 
             case predToken_FIRST:
                 left = [NSExpression_operator
-                    expressionForOperator: NSExpressionOperatorIndexFirst
-                                arguments: [NSArray arrayWithObject: left]];
+                        expressionForOperator: NSExpressionOperatorIndexFirst
+                                    arguments: [NSArray arrayWithObject: left]];
                 break;
 
             case predToken_LAST:
                 left = [NSExpression_operator
-                    expressionForOperator: NSExpressionOperatorIndexLast
-                                arguments: [NSArray arrayWithObject: left]];
+                        expressionForOperator: NSExpressionOperatorIndexLast
+                                    arguments: [NSArray arrayWithObject: left]];
                 break;
 
             case predToken_SIZE:
                 left = [NSExpression_operator
-                    expressionForOperator: NSExpressionOperatorIndexSize
-                                arguments: [NSArray arrayWithObject: left]];
+                        expressionForOperator: NSExpressionOperatorIndexSize
+                                    arguments: [NSArray arrayWithObject: left]];
                 break;
 
             default:
                 if ((right = nextExpression(scanner)) == nil)
                     raiseError(scanner, @"Expecting expression after [");
                 left = [NSExpression_operator
-                    expressionForOperator: NSExpressionOperatorIndex
-                                arguments: [NSArray arrayWithObjects: left,
-                                                                      right,
-                                                                      nil]];
+                        expressionForOperator: NSExpressionOperatorIndex
+                                    arguments: [NSArray arrayWithObjects: left,
+                                                                          right,
+                                                                          nil]];
                 break;
             }
             expectTokenType(scanner, predTokenRightBracket);
@@ -1185,11 +1192,11 @@ static NSExpression *nextUnaryExpression(predicateScanner *scanner) {
             if ([(NSExpression_operator *) right expressionType] ==
                 (int) NSExpressionOperatorNegate)
                 return [[(NSExpression_operator *) right arguments]
-                    objectAtIndex: 0];
+                        objectAtIndex: 0];
         }
         return [NSExpression_operator
-            expressionForOperator: NSExpressionOperatorNegate
-                        arguments: [NSArray arrayWithObject: right]];
+                expressionForOperator: NSExpressionOperatorNegate
+                            arguments: [NSArray arrayWithObject: right]];
     }
 
     return nextKeypathExpression(scanner);
@@ -1206,9 +1213,10 @@ static NSExpression *nextExponentiationExpression(predicateScanner *scanner) {
             if ((right = nextUnaryExpression(scanner)) == nil)
                 raiseError(scanner, @"Expecting expression after **");
             left = [NSExpression_operator
-                expressionForOperator: NSExpressionOperatorExp
-                            arguments: [NSArray
-                                           arrayWithObjects: left, right, nil]];
+                    expressionForOperator: NSExpressionOperatorExp
+                                arguments: [NSArray arrayWithObjects: left,
+                                                                      right,
+                                                                      nil]];
             break;
 
         default:
@@ -1229,9 +1237,10 @@ static NSExpression *nextMultiplicativeExpression(predicateScanner *scanner) {
             if ((right = nextExponentiationExpression(scanner)) == nil)
                 raiseError(scanner, @"Expecting expression after *");
             left = [NSExpression_operator
-                expressionForOperator: NSExpressionOperatorMultiply
-                            arguments: [NSArray
-                                           arrayWithObjects: left, right, nil]];
+                    expressionForOperator: NSExpressionOperatorMultiply
+                                arguments: [NSArray arrayWithObjects: left,
+                                                                      right,
+                                                                      nil]];
             break;
 
         case predTokenSlash:
@@ -1239,9 +1248,10 @@ static NSExpression *nextMultiplicativeExpression(predicateScanner *scanner) {
             if ((right = nextExponentiationExpression(scanner)) == nil)
                 raiseError(scanner, @"Expecting expression after /");
             left = [NSExpression_operator
-                expressionForOperator: NSExpressionOperatorDivide
-                            arguments: [NSArray
-                                           arrayWithObjects: left, right, nil]];
+                    expressionForOperator: NSExpressionOperatorDivide
+                                arguments: [NSArray arrayWithObjects: left,
+                                                                      right,
+                                                                      nil]];
             break;
 
         default:
@@ -1262,9 +1272,10 @@ static NSExpression *nextAdditiveExpression(predicateScanner *scanner) {
             if ((right = nextMultiplicativeExpression(scanner)) == nil)
                 raiseError(scanner, @"Expecting expression after +");
             left = [NSExpression_operator
-                expressionForOperator: NSExpressionOperatorAdd
-                            arguments: [NSArray
-                                           arrayWithObjects: left, right, nil]];
+                    expressionForOperator: NSExpressionOperatorAdd
+                                arguments: [NSArray arrayWithObjects: left,
+                                                                      right,
+                                                                      nil]];
             break;
 
         case predTokenMinus:
@@ -1272,9 +1283,10 @@ static NSExpression *nextAdditiveExpression(predicateScanner *scanner) {
             if ((right = nextMultiplicativeExpression(scanner)) == nil)
                 raiseError(scanner, @"Expecting expression after -");
             left = [NSExpression_operator
-                expressionForOperator: NSExpressionOperatorSubtract
-                            arguments: [NSArray
-                                           arrayWithObjects: left, right, nil]];
+                    expressionForOperator: NSExpressionOperatorSubtract
+                                arguments: [NSArray arrayWithObjects: left,
+                                                                      right,
+                                                                      nil]];
             break;
 
         default:
@@ -1442,42 +1454,42 @@ static NSPredicate *nextComparisonPredicate(predicateScanner *scanner) {
             nextOperationOption(scanner, &options);
             right = nextExpression(scanner);
             result = [NSComparisonPredicate
-                predicateWithLeftExpression: left
-                            rightExpression: right
-                                   modifier: modifier
-                                       type: NSInPredicateOperatorType
-                                    options: options];
+                    predicateWithLeftExpression: left
+                                rightExpression: right
+                                       modifier: modifier
+                                           type: NSInPredicateOperatorType
+                                        options: options];
             break;
 
         case predToken_BETWEEN:
             skipToken(scanner);
             right = nextExpression(scanner); {
                 NSExpression *rightFirst = [NSExpression_operator
-                    expressionForOperator: NSExpressionOperatorIndexFirst
-                                arguments: [NSArray arrayWithObject: right]];
+                        expressionForOperator: NSExpressionOperatorIndexFirst
+                                    arguments: [NSArray
+                                                       arrayWithObject: right]];
                 NSPredicate *greaterOrEqual = [NSComparisonPredicate
-                    predicateWithLeftExpression: left
-                                rightExpression: rightFirst
-                                       modifier: NSDirectPredicateModifier
-                                           type:
-                                               NSGreaterThanOrEqualToPredicateOperatorType
-                                        options: 0];
+                        predicateWithLeftExpression: left
+                                    rightExpression: rightFirst
+                                           modifier: NSDirectPredicateModifier
+                                               type: NSGreaterThanOrEqualToPredicateOperatorType
+                                            options: 0];
 
                 NSExpression *rightLast = [NSExpression_operator
-                    expressionForOperator: NSExpressionOperatorIndexLast
-                                arguments: [NSArray arrayWithObject: right]];
+                        expressionForOperator: NSExpressionOperatorIndexLast
+                                    arguments: [NSArray
+                                                       arrayWithObject: right]];
                 NSPredicate *lessOrEqual = [NSComparisonPredicate
-                    predicateWithLeftExpression: left
-                                rightExpression: rightLast
-                                       modifier: NSDirectPredicateModifier
-                                           type:
-                                               NSLessThanOrEqualToPredicateOperatorType
-                                        options: 0];
+                        predicateWithLeftExpression: left
+                                    rightExpression: rightLast
+                                           modifier: NSDirectPredicateModifier
+                                               type: NSLessThanOrEqualToPredicateOperatorType
+                                            options: 0];
 
                 result = [NSCompoundPredicate
-                    andPredicateWithSubpredicates:
-                        [NSArray arrayWithObjects: greaterOrEqual, lessOrEqual,
-                                                   nil]];
+                        andPredicateWithSubpredicates:
+                                [NSArray arrayWithObjects: greaterOrEqual,
+                                                           lessOrEqual, nil]];
             }
             break;
 
@@ -1487,12 +1499,12 @@ static NSPredicate *nextComparisonPredicate(predicateScanner *scanner) {
             }
 
             right = nextExpression(scanner);
-            result =
-                [NSComparisonPredicate predicateWithLeftExpression: left
-                                                   rightExpression: right
-                                                          modifier: modifier
-                                                              type: type
-                                                           options: options];
+            result = [NSComparisonPredicate
+                    predicateWithLeftExpression: left
+                                rightExpression: right
+                                       modifier: modifier
+                                           type: type
+                                        options: options];
             break;
         }
 
@@ -1543,7 +1555,7 @@ static NSPredicate *nextUnaryPredicate(predicateScanner *scanner) {
             if ([(NSCompoundPredicate *) right compoundPredicateType] ==
                 NSNotPredicateType)
                 return [[(NSCompoundPredicate *) right subpredicates]
-                    objectAtIndex: 0];
+                        objectAtIndex: 0];
         }
 
         return [NSCompoundPredicate notPredicateWithSubpredicate: right];
@@ -1563,9 +1575,8 @@ static NSPredicate *nextConditionalAndPredicate(predicateScanner *scanner) {
             skipToken(scanner);
             right = nextUnaryPredicate(scanner);
             left = [NSCompoundPredicate
-                andPredicateWithSubpredicates: [NSArray arrayWithObjects: left,
-                                                                          right,
-                                                                          nil]];
+                    andPredicateWithSubpredicates:
+                            [NSArray arrayWithObjects: left, right, nil]];
             break;
 
         default:
@@ -1584,9 +1595,8 @@ static NSPredicate *nextConditionalOrPredicate(predicateScanner *scanner) {
             skipToken(scanner);
             right = nextConditionalAndPredicate(scanner);
             left = [NSCompoundPredicate
-                orPredicateWithSubpredicates: [NSArray arrayWithObjects: left,
-                                                                         right,
-                                                                         nil]];
+                    orPredicateWithSubpredicates:
+                            [NSArray arrayWithObjects: left, right, nil]];
             break;
 
         default:
@@ -1683,7 +1693,7 @@ static NSPredicate *nextTopLevelPredicate(predicateScanner *scanner) {
 
 + (NSPredicate *) predicateWithValue: (BOOL) value {
     return [[[NSPredicate_BOOL allocWithZone: NULL] initWithBool: value]
-        autorelease];
+            autorelease];
 }
 
 - (NSString *) predicateFormat {

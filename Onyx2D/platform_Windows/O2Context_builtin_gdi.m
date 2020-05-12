@@ -274,10 +274,10 @@ static void drawFreeTypeBitmap(O2Context_builtin_gdi *self, O2Surface *surface,
                                CGFloat fpy, O2Paint *paint)
 {
     drawGray8Stencil(
-        self, surface, fpx, fpy, paint, O2GlyphStencilGetCoverage(stencil),
-        O2GlyphStencilGetWidth(stencil), O2GlyphStencilGetWidth(stencil),
-        O2GlyphStencilGetHeight(stencil), O2GlyphStencilGetLeft(stencil),
-        O2GlyphStencilGetTop(stencil));
+            self, surface, fpx, fpy, paint, O2GlyphStencilGetCoverage(stencil),
+            O2GlyphStencilGetWidth(stencil), O2GlyphStencilGetWidth(stencil),
+            O2GlyphStencilGetHeight(stencil), O2GlyphStencilGetLeft(stencil),
+            O2GlyphStencilGetTop(stencil));
 }
 #endif
 
@@ -303,9 +303,9 @@ static inline void cacheStencilForGlyphIndex(O2Context_builtin_gdi *self,
         while (glyph >= self->_glyphCacheCount)
             self->_glyphCacheCount *= 2;
 
-        self->_glyphCache =
-            NSZoneRealloc(NULL, self->_glyphCache,
-                          sizeof(O2GlyphStencilRef) * self->_glyphCacheCount);
+        self->_glyphCache = NSZoneRealloc(NULL, self->_glyphCache,
+                                          sizeof(O2GlyphStencilRef) *
+                                                  self->_glyphCacheCount);
 
         for (; count < self->_glyphCacheCount; count++)
             self->_glyphCache[count] = NULL;
@@ -338,9 +338,9 @@ static inline void purgeGlyphCache(O2Context_builtin_gdi *self) {
     float scaleX = sqrt((Trm.a * Trm.a) + (Trm.c * Trm.c));
     float scaleY = sqrt((Trm.b * Trm.b) + (Trm.d * Trm.d));
     O2AffineTransform scalingTransform =
-        O2AffineTransformMakeScale(scaleX, scaleY);
+            O2AffineTransformMakeScale(scaleX, scaleY);
     O2Size fontSize = O2SizeApplyAffineTransform(
-        O2SizeMake(0, O2GStatePointSize(gState)), scalingTransform);
+            O2SizeMake(0, O2GStatePointSize(gState)), scalingTransform);
     int i;
     O2Size defaultAdvances[count];
 
@@ -497,9 +497,9 @@ static inline void purgeGlyphCache(O2Context_builtin_gdi *self) {
             // Rotate the font according to the current transform
             O2Float32 angle = atan2(-Trm.b, Trm.a);
             self->_gdiFont = [(O2Font_gdi *) font
-                createGDIFontSelectedInDC: context->_dc
-                                pointSize: ABS(fontSize.height)
-                                    angle: angle];
+                    createGDIFontSelectedInDC: context->_dc
+                                    pointSize: ABS(fontSize.height)
+                                        angle: angle];
         }
         SelectObject(context->_dc, [self->_gdiFont fontHandle]);
         SetTextColor(context->_dc, COLORREFFromColor(O2ContextFillColor(self)));
@@ -520,8 +520,8 @@ static inline void purgeGlyphCache(O2Context_builtin_gdi *self) {
         float previousEnd = lroundf(point.x);
         for (int i = 0; i < count; i++) {
             float delta =
-                O2SizeApplyAffineTransform(usedAdvances[i], Trm).width +
-                gState->_characterSpacing;
+                    O2SizeApplyAffineTransform(usedAdvances[i], Trm).width +
+                    gState->_characterSpacing;
             total += delta;
             dx[i] = lroundf(total - previousEnd);
             previousEnd += dx[i];
@@ -580,8 +580,9 @@ static inline void purgeGlyphCache(O2Context_builtin_gdi *self) {
                     continue;
                 }
                 stencil = O2GlyphStencilCreate(
-                    slot->bitmap.width, slot->bitmap.rows, slot->bitmap.buffer,
-                    slot->bitmap.width, slot->bitmap_left, slot->bitmap_top);
+                        slot->bitmap.width, slot->bitmap.rows,
+                        slot->bitmap.buffer, slot->bitmap.width,
+                        slot->bitmap_left, slot->bitmap_top);
                 cacheStencilForGlyphIndex(self, glyphs[i], stencil);
             }
 
@@ -591,8 +592,8 @@ static inline void purgeGlyphCache(O2Context_builtin_gdi *self) {
             if (advances != NULL)
                 point.x += O2SizeApplyAffineTransform(advances[i], Trm).width;
             else {
-                point.x +=
-                    O2SizeApplyAffineTransform(defaultAdvances[i], Trm).width;
+                point.x += O2SizeApplyAffineTransform(defaultAdvances[i], Trm)
+                                   .width;
                 //  point.x+=slot->advance.x >> 6;
             }
         }
@@ -617,7 +618,7 @@ static inline BOOL transformIsFlipped(O2AffineTransform matrix) {
 
 - (NSData *) captureBitmapInRect: (NSRect) rect {
     O2AffineTransform transformToDevice =
-        O2ContextGetUserSpaceToDeviceSpaceTransform(self);
+            O2ContextGetUserSpaceToDeviceSpaceTransform(self);
     NSPoint pt = O2PointApplyAffineTransform(rect.origin, transformToDevice);
     int width = rect.size.width;
     int height = rect.size.height;
@@ -663,12 +664,12 @@ static inline BOOL transformIsFlipped(O2AffineTransform matrix) {
     for (i = 3; i < bmSize; i += 4)
         ((char *) bmBits)[i] = 255; // set alpha value
     bmFileHeader.bfOffBits =
-        sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+            sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
     bmFileHeader.bfSize = bmFileHeader.bfOffBits + bmSize;
 
     NSMutableData *result =
-        [NSMutableData dataWithBytes: &bmFileHeader
-                              length: sizeof(BITMAPFILEHEADER)];
+            [NSMutableData dataWithBytes: &bmFileHeader
+                                  length: sizeof(BITMAPFILEHEADER)];
     [result appendBytes: &bmInfo.bmiHeader length: sizeof(BITMAPINFOHEADER)];
     [result appendBytes: bmBits length: bmSize];
 

@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSTask.h>
 
 NSString *const NSTaskDidTerminateNotification =
-    @"NSTaskDidTerminateNotification";
+        @"NSTaskDidTerminateNotification";
 
 @implementation NSTask
 
@@ -53,7 +53,7 @@ NSString *const NSTaskDidTerminateNotification =
         launchPath = nil;
         arguments = nil;
         currentDirectoryPath =
-            [[[NSFileManager defaultManager] currentDirectoryPath] copy];
+                [[[NSFileManager defaultManager] currentDirectoryPath] copy];
         standardInput = nil;
         standardOutput = nil;
         standardError = nil;
@@ -170,8 +170,8 @@ NSString *const NSTaskDidTerminateNotification =
 - (void) waitUntilExit {
     while ([self isRunning]) {
         [[NSRunLoop currentRunLoop]
-               runMode: NSDefaultRunLoopMode
-            beforeDate: [NSDate dateWithTimeIntervalSinceNow: 0.25]];
+                   runMode: NSDefaultRunLoopMode
+                beforeDate: [NSDate dateWithTimeIntervalSinceNow: 0.25]];
     }
 }
 

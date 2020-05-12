@@ -27,10 +27,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <CoreGraphics/CGSubWindow.h>
 
 @class NSView, NSEvent, NSColor, NSColorSpace, NSCursor, NSImage, NSScreen,
-    NSText, NSTextView, CGWindow, NSPasteboard, NSSheetContext, NSUndoManager,
-    NSButton, NSButtonCell, NSDrawer, NSDockTile, NSToolbar,
-    NSWindowAnimationContext, NSTrackingArea, NSThemeFrame, NSWindowController,
-    NSMenuItem, CARenderer;
+        NSText, NSTextView, CGWindow, NSPasteboard, NSSheetContext,
+        NSUndoManager, NSButton, NSButtonCell, NSDrawer, NSDockTile, NSToolbar,
+        NSWindowAnimationContext, NSTrackingArea, NSThemeFrame,
+        NSWindowController, NSMenuItem, CARenderer;
 @protocol NSWindowDelegate;
 
 // Old NSWindowStyleMask constants
@@ -253,7 +253,7 @@ APPKIT_EXPORT const NSNotificationName NSWindowDidExposeNotification;
 + (CGFloat) minFrameWidthWithTitle: (NSString *) title
                          styleMask: (NSWindowStyleMask) styleMask;
 + (NSInteger) windowNumberAtPoint: (NSPoint) point
-      belowWindowWithWindowNumber: (NSInteger) window;
+        belowWindowWithWindowNumber: (NSInteger) window;
 + (NSArray *) windowNumbersWithOptions: (NSWindowNumberListOptions) options;
 + (void) removeFrameUsingName: (NSString *) name;
 
@@ -582,8 +582,8 @@ APPKIT_EXPORT const NSNotificationName NSWindowDidExposeNotification;
 - (void) windowWillBeginSheet: (NSNotification *) note;
 - (void) windowDidEndSheet: (NSNotification *) note;
 - (NSRect) window: (NSWindow *) window
-    willPositionSheet: (NSWindow *) sheet
-            usingRect: (NSRect) rect;
+        willPositionSheet: (NSWindow *) sheet
+                usingRect: (NSRect) rect;
 
 - (void) windowDidChangeScreen: (NSNotification *) note;
 - (void) windowDidChangeScreenProfile: (NSNotification *) note;

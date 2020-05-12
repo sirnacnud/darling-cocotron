@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + (NSURLCredential *) credentialWithUser: (NSString *) user
                                 password: (NSString *) password
                              persistence:
-                                 (NSURLCredentialPersistence) persistence
+                                     (NSURLCredentialPersistence) persistence
 {
     return [[[self alloc] initWithUser: user
                               password: password
@@ -32,8 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithUser: (NSString *) user
-       password: (NSString *) password
-    persistence: (NSURLCredentialPersistence) persistence
+           password: (NSString *) password
+        persistence: (NSURLCredentialPersistence) persistence
 {
     _user = [user copy];
     _password = [password copy];

@@ -116,7 +116,7 @@ ONYX2D_STATIC int O2PaintReadResampledLowSpan_largb8u_PRE(O2Paint *selfX, int x,
 }
 
 ONYX2D_STATIC int O2PaintReadResampledLowSpanFloatTranslate_largb8u_PRE(
-    O2Paint *selfX, int x, int y, O2argb8u *span, int length)
+        O2Paint *selfX, int x, int y, O2argb8u *span, int length)
 {
     O2Paint_image *self = (O2Paint_image *) selfX;
 
@@ -267,12 +267,12 @@ ONYX2D_STATIC int stencil(O2Paint *selfX, int x, int y, O2argb32f *span,
 }
 
 - initWithImage: (O2Image *) image
-                    mask: (O2ImageRef) mask
-                    mode: (O2SurfaceMode) mode
-                   paint: (O2Paint *) paint
-    interpolationQuality: (O2InterpolationQuality) interpolationQuality
-          surfaceToImage: (O2AffineTransform) surfaceToImage
-           surfaceToMask: (O2AffineTransform) surfaceToMask
+                        mask: (O2ImageRef) mask
+                        mode: (O2SurfaceMode) mode
+                       paint: (O2Paint *) paint
+        interpolationQuality: (O2InterpolationQuality) interpolationQuality
+              surfaceToImage: (O2AffineTransform) surfaceToImage
+               surfaceToMask: (O2AffineTransform) surfaceToMask
 {
     bool integerTranslate = FALSE;
     bool floatTranslate = FALSE;
@@ -320,10 +320,10 @@ ONYX2D_STATIC int stencil(O2Paint *selfX, int x, int y, O2argb32f *span,
 
             if (integerTranslate)
                 _paint_largb8u_PRE =
-                    O2PaintReadIntegerTranslateSpan_largb8u_PRE;
+                        O2PaintReadIntegerTranslateSpan_largb8u_PRE;
             else if (floatTranslate)
                 _paint_largb8u_PRE =
-                    O2PaintReadResampledLowSpanFloatTranslate_largb8u_PRE;
+                        O2PaintReadResampledLowSpanFloatTranslate_largb8u_PRE;
             else
                 _paint_largb8u_PRE = O2PaintReadResampledLowSpan_largb8u_PRE;
 
@@ -334,7 +334,7 @@ ONYX2D_STATIC int stencil(O2Paint *selfX, int x, int y, O2argb32f *span,
         default:
             if (integerTranslate)
                 _paint_largb8u_PRE =
-                    O2PaintReadIntegerTranslateSpan_largb8u_PRE;
+                        O2PaintReadIntegerTranslateSpan_largb8u_PRE;
             else
                 _paint_largb8u_PRE = O2PaintReadResampledNoneSpan_largb8u_PRE;
             _paint_largb32f_PRE = O2PaintReadResampledNoneSpan_largb32f_PRE;

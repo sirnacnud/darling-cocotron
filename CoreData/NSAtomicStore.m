@@ -10,7 +10,7 @@
 @implementation NSAtomicStore
 
 - initWithPersistentStoreCoordinator:
-      (NSPersistentStoreCoordinator *) coordinator
+          (NSPersistentStoreCoordinator *) coordinator
                    configurationName: (NSString *) configurationName
                                  URL: (NSURL *) url
                              options: (NSDictionary *) options
@@ -59,26 +59,26 @@
 }
 
 - (NSAtomicStoreCacheNode *) cacheNodeForObjectID:
-    (NSManagedObjectID *) objectID
+        (NSManagedObjectID *) objectID
 {
     NSAtomicStoreCacheNode *result =
-        [_objectIDToCacheNode objectForKey: objectID];
+            [_objectIDToCacheNode objectForKey: objectID];
 
     return result;
 }
 
 - (NSAtomicStoreCacheNode *) newCacheNodeForManagedObject:
-    (NSManagedObject *) managedObject
+        (NSManagedObject *) managedObject
 {
     return [[NSAtomicStoreCacheNode alloc]
-        initWithObjectID: [managedObject objectID]];
+            initWithObjectID: [managedObject objectID]];
 }
 
 - (NSManagedObjectID *) objectIDForEntity: (NSEntityDescription *) entity
                           referenceObject: referenceObject
 {
     NSMutableDictionary *refTable =
-        [_objectIDTable objectForKey: [entity name]];
+            [_objectIDTable objectForKey: [entity name]];
 
     if (refTable == nil) {
         refTable = [NSMutableDictionary dictionary];
@@ -88,8 +88,8 @@
     NSManagedObjectID *result = [refTable objectForKey: referenceObject];
 
     if (result == nil) {
-        result =
-            [[[NSManagedObjectID alloc] initWithEntity: entity] autorelease];
+        result = [[[NSManagedObjectID alloc] initWithEntity: entity]
+                autorelease];
 
         [result setReferenceObject: referenceObject];
         [result setStoreIdentifier: [self identifier]];
@@ -104,7 +104,7 @@
 - (void) _uniqueObjectID: (NSManagedObjectID *) objectID {
     NSEntityDescription *entity = [objectID entity];
     NSMutableDictionary *refTable =
-        [_objectIDTable objectForKey: [entity name]];
+            [_objectIDTable objectForKey: [entity name]];
 
     if (refTable == nil) {
         refTable = [NSMutableDictionary dictionary];
@@ -129,7 +129,7 @@
 }
 
 - (void) updateCacheNode: (NSAtomicStoreCacheNode *) node
-       fromManagedObject: (NSManagedObject *) managedObject
+        fromManagedObject: (NSManagedObject *) managedObject
 {
     NSInvalidAbstractInvocation();
 }

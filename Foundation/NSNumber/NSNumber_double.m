@@ -50,7 +50,7 @@ NSNumber *NSNumber_doubleNew(NSZone *zone, double value) {
     NSNumber *result = NSNumber_doubleSpecial(value);
     if (result == nil) {
         NSNumber_double *self =
-            NSAllocateObject([NSNumber_double class], 0, zone);
+                NSAllocateObject([NSNumber_double class], 0, zone);
         if (self) {
             self->_type = kCFNumberDoubleType;
             self->_value = value;
@@ -183,37 +183,38 @@ typedef struct {
 } NSNumber_double_Def;
 
 static const NSNumber_double_Def kPositiveInfinityDef = {
-    &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, INFINITY};
+        &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, INFINITY};
 
 static const NSNumber_double_Def kNegativeInfinityDef = {
-    &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, -INFINITY};
+        &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType,
+        -INFINITY};
 
 static const NSNumber_double_Def kNaNDef = {
-    &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, NAN};
+        &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, NAN};
 
 static const NSNumber_double_Def kPositiveZeroDef = {
-    &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, 0.0};
+        &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, 0.0};
 
 static const NSNumber_double_Def kNegativeZeroDef = {
-    &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, -0.0};
+        &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, -0.0};
 
 static const NSNumber_double_Def kPositiveOneDef = {
-    &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, 1.0};
+        &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, 1.0};
 
 static const NSNumber_double_Def kNegativeOneDef = {
-    &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, -1.0};
+        &NS_CLASS_SYMBOL(NSNumber_double_const), kCFNumberDoubleType, -1.0};
 
 const CFNumberRef kCFNumberPositiveInfinity =
-    (CFNumberRef) &kPositiveInfinityDef;
+        (CFNumberRef) &kPositiveInfinityDef;
 const CFNumberRef kCFNumberNegativeInfinity =
-    (CFNumberRef) &kNegativeInfinityDef;
+        (CFNumberRef) &kNegativeInfinityDef;
 const CFNumberRef kCFNumberNaN = (CFNumberRef) &kNaNDef;
 
 NS_CONSTOBJ_DEF NSNumber *const kNSNumberPositiveZero =
-    (NSNumber *) &kPositiveZeroDef;
+        (NSNumber *) &kPositiveZeroDef;
 NS_CONSTOBJ_DEF NSNumber *const kNSNumberNegativeZero =
-    (NSNumber *) &kNegativeZeroDef;
+        (NSNumber *) &kNegativeZeroDef;
 NS_CONSTOBJ_DEF NSNumber *const kNSNumberPositiveOne =
-    (NSNumber *) &kPositiveOneDef;
+        (NSNumber *) &kPositiveOneDef;
 NS_CONSTOBJ_DEF NSNumber *const kNSNumberNegativeOne =
-    (NSNumber *) &kNegativeOneDef;
+        (NSNumber *) &kNegativeOneDef;

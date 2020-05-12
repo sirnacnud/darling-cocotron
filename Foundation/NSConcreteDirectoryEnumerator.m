@@ -37,8 +37,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSString *) description {
-    return [NSString
-        stringWithFormat: @"%@, to enumerate: %@", [super description], list];
+    return [NSString stringWithFormat: @"%@, to enumerate: %@",
+                                       [super description], list];
 }
 
 - (id) initWithPath: (NSString *) aPath {
@@ -72,20 +72,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             // Add all files in the directory to the list,
             // after making them relative to the lastFilePath:
             NSString *lastFilePathAbs =
-                [startPath stringByAppendingPathComponent: lastFilePath];
+                    [startPath stringByAppendingPathComponent: lastFilePath];
             NSArray *dirContent = [fm directoryContentsAtPath: lastFilePathAbs];
 
             if ([dirContent count]) {
                 NSEnumerator *dirContentEnumerator =
-                    [dirContent reverseObjectEnumerator];
+                        [dirContent reverseObjectEnumerator];
                 NSString *filename;
 
                 // NSLog(@"Found dir content of '%@' to be %@", lastFilePathAbs,
                 // dirContent);
 
                 while ((filename = [dirContentEnumerator nextObject])) {
-                    NSString *filePath =
-                        [lastFilePath stringByAppendingPathComponent: filename];
+                    NSString *filePath = [lastFilePath
+                            stringByAppendingPathComponent: filename];
                     [list insertObject: filePath atIndex: 0];
                 }
             }

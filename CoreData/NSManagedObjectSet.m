@@ -34,8 +34,8 @@
         return nil;
 
     return [[[NSManagedObjectSetEnumerator alloc]
-        initWithManagedObjectContext: _context
-                    objectEnumerator: state] autorelease];
+            initWithManagedObjectContext: _context
+                        objectEnumerator: state] autorelease];
 }
 
 @end

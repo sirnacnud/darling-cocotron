@@ -351,7 +351,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (_arrowPosition != NSPopUpNoArrow) {
         NSImage *arrowImage =
-            (_arrowPosition != NSPopUpNoArrow) ? [self arrowImage] : NULL;
+                (_arrowPosition != NSPopUpNoArrow) ? [self arrowImage] : NULL;
 
         if (arrowImage != nil) {
 
@@ -372,10 +372,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             }
             NSRect otherFrame = frame;
             NSSize arrowSize = [arrowImage size];
-            otherFrame.origin.x +=
-                otherFrame.size.width - (arrowSize.width + (4 - sizeFactor));
+            otherFrame.origin.x += otherFrame.size.width -
+                                   (arrowSize.width + (4 - sizeFactor));
             otherFrame.origin.y +=
-                (otherFrame.size.height - arrowSize.height) / 2;
+                    (otherFrame.size.height - arrowSize.height) / 2;
             otherFrame.size = arrowSize;
 
             result = NSInsetRect(otherFrame, sizeFactor, sizeFactor);
@@ -401,7 +401,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // Now draw the arrow
     if (_arrowPosition != NSPopUpNoArrow) {
         NSImage *arrowImage =
-            (_arrowPosition != NSPopUpNoArrow) ? [self arrowImage] : NULL;
+                (_arrowPosition != NSPopUpNoArrow) ? [self arrowImage] : NULL;
 
         if (arrowImage == NULL)
             return;
@@ -483,9 +483,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) cellFrame
-             ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) flag
+              inRect: (NSRect) cellFrame
+              ofView: (NSView *) controlView
+        untilMouseUp: (BOOL) flag
 {
     NSPoint origin = [controlView bounds].origin;
 
@@ -521,8 +521,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [menu update];
 
     NSPopUpWindow *window = [[NSPopUpWindow alloc]
-        initWithFrame: NSMakeRect(origin.x, origin.y, cellFrame.size.width,
-                                  cellFrame.size.height)];
+            initWithFrame: NSMakeRect(origin.x, origin.y, cellFrame.size.width,
+                                      cellFrame.size.height)];
     [window setPullsDown: _pullsDown];
     [window setMenu: menu];
     if ([self font] != nil)

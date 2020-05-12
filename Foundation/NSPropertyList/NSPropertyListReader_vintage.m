@@ -67,22 +67,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 static BOOL _NSPropertyListNameSet[128] = {
-    NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,
-    NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, // 0
-    NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,
-    NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, // 16
-    NO,  NO,  NO,  NO,  YES, NO,  NO,  NO,
-    NO,  NO,  NO,  NO,  NO,  NO,  YES, YES, // 32
-    YES, YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, NO,  NO,  NO,  NO,  NO,  NO, // 48
-    NO,  YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, YES, YES, YES, YES, YES, YES, // 64
-    YES, YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, YES, NO,  NO,  NO,  NO,  YES, // 80
-    NO,  YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, YES, YES, YES, YES, YES, YES, // 96
-    YES, YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, YES, NO,  NO,  NO,  NO,  NO, // 112
+        NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,
+        NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, // 0
+        NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,
+        NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, // 16
+        NO,  NO,  NO,  NO,  YES, NO,  NO,  NO,
+        NO,  NO,  NO,  NO,  NO,  NO,  YES, YES, // 32
+        YES, YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, NO,  NO,  NO,  NO,  NO,  NO, // 48
+        NO,  YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, YES, YES, YES, YES, YES, YES, // 64
+        YES, YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, YES, NO,  NO,  NO,  NO,  YES, // 80
+        NO,  YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, YES, YES, YES, YES, YES, YES, // 96
+        YES, YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, YES, NO,  NO,  NO,  NO,  NO, // 112
 };
 
 - (id) internalError: (id) class {
@@ -91,11 +91,10 @@ static BOOL _NSPropertyListNameSet[128] = {
     for (i = 0; i < _stackSize; i++)
         [_stack[i] release];
 
-    [NSException
-         raise: NSParseErrorException
-        format:
-            @"*** Parse error at position %d,line %d, expecting %@ on stack",
-            _index, _lineNumber, [class description]];
+    [NSException raise: NSParseErrorException
+                format: @"*** Parse error at position %d,line %d, expecting %@ "
+                        @"on stack",
+                        _index, _lineNumber, [class description]];
 
     return nil;
 }
@@ -157,8 +156,8 @@ static inline void appendByte(NSPropertyListReader_vintage *self, uint8_t c) {
     if (self->_dataBufferSize >= self->_dataBufferCapacity) {
         self->_dataBufferCapacity *= 2;
         self->_dataBuffer =
-            NSZoneRealloc(NULL, self->_dataBuffer,
-                          self->_dataBufferCapacity * sizeof(unichar));
+                NSZoneRealloc(NULL, self->_dataBuffer,
+                              self->_dataBufferCapacity * sizeof(unichar));
     }
     self->_dataBuffer[self->_dataBufferSize++] = c;
 }
@@ -350,8 +349,8 @@ static inline void appendByte(NSPropertyListReader_vintage *self, uint8_t c) {
                 appendCharacter(self, code);
             else {
                 NSString *string = [[NSString allocWithZone: NULL]
-                    initWithCharacters: _buffer
-                                length: _bufferSize];
+                        initWithCharacters: _buffer
+                                    length: _bufferSize];
                 pushObject(self, string);
                 _index--;
                 state = STATE_WHITESPACE;
@@ -570,7 +569,7 @@ static inline void appendByte(NSPropertyListReader_vintage *self, uint8_t c) {
 + (NSObject *) propertyListFromData: (NSData *) data {
     NSPropertyListReader_vintage *reader = [[self alloc] initWithData: data];
     NSObject *result =
-        [[[reader propertyListWithInfo: nil] retain] autorelease];
+            [[[reader propertyListWithInfo: nil] retain] autorelease];
 
     [reader release];
 

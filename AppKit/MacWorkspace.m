@@ -68,8 +68,8 @@
 
 - (BOOL) openFile: (NSString *) path withApplication: (NSString *) application {
     return [self openFile: path
-          withApplication: application
-            andDeactivate: YES];
+            withApplication: application
+              andDeactivate: YES];
 }
 
 - (BOOL) openTempFile: (NSString *) path {
@@ -86,8 +86,8 @@
 }
 
 - (BOOL) openFile: (NSString *) path
-    withApplication: (NSString *) application
-      andDeactivate: (BOOL) deactivate
+        withApplication: (NSString *) application
+          andDeactivate: (BOOL) deactivate
 {
     // TODO: call LSOpenFromURLSpec()
     NSUnimplementedMethod();
@@ -101,7 +101,7 @@
 }
 
 - (BOOL) selectFile: (NSString *) path
-    inFileViewerRootedAtPath: (NSString *) rootedAtPath
+        inFileViewerRootedAtPath: (NSString *) rootedAtPath
 {
     // TODO: call activateFileViewerSelectingURLs
     NSUnimplementedMethod();
@@ -273,8 +273,9 @@
 - (NSURL *) URLForApplicationWithBundleIdentifier: (NSString *) bundleIdentifier
 {
     CFURLRef url;
-    OSStatus status = LSFindApplicationForInfo(
-        kLSUnknownCreator, (CFStringRef) bundleIdentifier, NULL, NULL, &url);
+    OSStatus status = LSFindApplicationForInfo(kLSUnknownCreator,
+                                               (CFStringRef) bundleIdentifier,
+                                               NULL, NULL, &url);
 
     if (status != noErr)
         return nil;
@@ -293,7 +294,7 @@
 
     CFURLRef url;
     OSStatus status = LSFindApplicationForInfo(
-        kLSUnknownCreator, NULL, (CFStringRef) appName, NULL, &url);
+            kLSUnknownCreator, NULL, (CFStringRef) appName, NULL, &url);
 
     if (status != noErr)
         return nil;

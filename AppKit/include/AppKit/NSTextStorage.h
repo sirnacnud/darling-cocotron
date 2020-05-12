@@ -53,8 +53,8 @@ APPKIT_EXPORT NSString *const NSTextStorageDidProcessEditingNotification;
 - (void) processEditing;
 
 - (void) edited: (unsigned) editedMask
-             range: (NSRange) range
-    changeInLength: (int) delta;
+                 range: (NSRange) range
+        changeInLength: (int) delta;
 
 - (void) setFont: (NSFont *) font;
 

@@ -47,11 +47,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         _drawsBackground = [keyed decodeBoolForKey: @"NSDrawsBackground"];
         _backgroundColor =
-            [[keyed decodeObjectForKey: @"NSBackgroundColor"] retain];
+                [[keyed decodeObjectForKey: @"NSBackgroundColor"] retain];
         _textColor = [[keyed decodeObjectForKey: @"NSTextColor"] retain];
         _bezelStyle = [keyed decodeIntegerForKey: @"NSTextBezelStyle"];
         _placeholder =
-            [[keyed decodeObjectForKey: @"NSPlaceholderString"] retain];
+                [[keyed decodeObjectForKey: @"NSPlaceholderString"] retain];
     } else {
         NSInteger version = [coder versionForClassName: @"NSTextFieldCell"];
         NSLog(@"NSTextFieldCell version is %d\n", version);
@@ -83,9 +83,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 [self setBackgroundColor: [NSColor whiteColor]];
             } else {
                 _drawsBackground = TRUE;
-                [self setBackgroundColor: [NSColor
-                                              colorWithCalibratedWhite: bgcolor
-                                                                 alpha: 1.0]];
+                [self setBackgroundColor:
+                                [NSColor colorWithCalibratedWhite: bgcolor
+                                                            alpha: 1.0]];
             }
             [self setTextColor: [NSColor colorWithCalibratedWhite: fgcolor
                                                             alpha: 1.0]];
@@ -245,7 +245,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             return _objectValue;
         else {
             NSMutableAttributedString *result =
-                [[_objectValue mutableCopy] autorelease];
+                    [[_objectValue mutableCopy] autorelease];
 
             [result addAttribute: NSForegroundColorAttributeName
                            value: _textColor
@@ -256,8 +256,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     } else {
         NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
         NSMutableParagraphStyle *paraStyle =
-            [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
-                autorelease];
+                [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
+                        autorelease];
         NSFont *font = [self font];
 
         if (font != nil)
@@ -286,7 +286,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         return [[[NSAttributedString alloc] initWithString: [self stringValue]
                                                 attributes: attributes]
-            autorelease];
+                autorelease];
     }
 }
 
@@ -345,7 +345,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             drawValue = _placeholder;
         else if ([_placeholder isKindOfClass: [NSString class]]) {
             NSMutableAttributedString *placeString =
-                [[drawValue mutableCopy] autorelease];
+                    [[drawValue mutableCopy] autorelease];
             [[placeString mutableString] setString: _placeholder];
             [placeString addAttribute: NSForegroundColorAttributeName
                                 value: [NSColor disabledControlTextColor]
@@ -387,7 +387,7 @@ static void drawRoundedBezel(CGContextRef context, CGRect frame) {
 
         case NSTextFieldRoundedBezel:;
             CGContextRef context =
-                [[NSGraphicsContext currentContext] graphicsPort];
+                    [[NSGraphicsContext currentContext] graphicsPort];
             NSRect roundedFrame = frame;
 
             roundedFrame.size.height--;

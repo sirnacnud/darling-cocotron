@@ -103,8 +103,8 @@ int main(int argc, char **argv) {
     // performSelector: NSSelectorFromString(@"bar")]);
     SEL sel = @selector(iinvocation:test:method:);
     NSInvocation *i = [NSInvocation
-        invocationWithMethodSignature: [[Hello world]
-                                           methodSignatureForSelector: sel]];
+            invocationWithMethodSignature:
+                    [[Hello world] methodSignatureForSelector: sel]];
     // int r;
     long long r = 1;
     char a1 = 'x';

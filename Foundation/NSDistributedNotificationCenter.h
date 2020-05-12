@@ -29,7 +29,7 @@ FOUNDATION_EXPORT NSString *const NSLocalNotificationCenterType;
 + (NSDistributedNotificationCenter *) defaultCenter;
 
 + (NSDistributedNotificationCenter *) notificationCenterForType:
-    (NSString *) type;
+        (NSString *) type;
 
 - (BOOL) suspended;
 
@@ -40,10 +40,10 @@ FOUNDATION_EXPORT NSString *const NSLocalNotificationCenterType;
                 name: (NSString *) name
               object: (NSString *) object;
 - (void) addObserver: observer
-              selector: (SEL) selector
-                  name: (NSString *) name
-                object: (NSString *) object
-    suspensionBehavior: (NSNotificationSuspensionBehavior) behavior;
+                  selector: (SEL) selector
+                      name: (NSString *) name
+                    object: (NSString *) object
+        suspensionBehavior: (NSNotificationSuspensionBehavior) behavior;
 
 - (void) removeObserver: observer
                    name: (NSString *) name

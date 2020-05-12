@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSString (NSStringDrawing)
 
 - (void) drawAtPoint: (NSPoint) point
-      withAttributes: (NSDictionary *) attributes
+        withAttributes: (NSDictionary *) attributes
 {
     [[NSStringDrawer sharedStringDrawer] drawString: self
                                      withAttributes: attributes
@@ -71,8 +71,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSSize) size {
     return [[NSStringDrawer sharedStringDrawer]
-        sizeOfAttributedString: self
-                        inSize: NSZeroSize];
+            sizeOfAttributedString: self
+                            inSize: NSZeroSize];
 }
 
 - (void) drawWithRect: (NSRect) rect options: (NSStringDrawingOptions) options {

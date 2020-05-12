@@ -25,8 +25,8 @@ extern "C" {
 #endif
 
 @class O2Context, O2Color, O2Shading, O2Image, O2GState, O2MutablePath, O2Path,
-    O2Pattern, O2Layer, O2PDFPage, NSMutableArray, CGWindow, O2Surface,
-    NSDictionary, NSData, O2Font, O2Encoding, O2PDFCharWidths, O2ClipState;
+        O2Pattern, O2Layer, O2PDFPage, NSMutableArray, CGWindow, O2Surface,
+        NSDictionary, NSData, O2Font, O2Encoding, O2PDFCharWidths, O2ClipState;
 
 typedef O2Context *O2ContextRef;
 
@@ -337,7 +337,7 @@ void O2ContextSetShouldSmoothFonts(O2ContextRef self, BOOL yesOrNo);
 void O2ContextSetAllowsFontSmoothing(O2ContextRef self,
                                      BOOL allowsFontSmoothing);
 void O2ContextSetAllowsFontSubpixelQuantization(
-    O2ContextRef self, BOOL allowsFontSubpixelQuantization);
+        O2ContextRef self, BOOL allowsFontSubpixelQuantization);
 void O2ContextSetShouldSubpixelQuantizeFonts(O2ContextRef self,
                                              BOOL shouldSubpixelQuantizeFonts);
 void O2ContextSetLineWidth(O2ContextRef self, O2Float width);
@@ -347,7 +347,7 @@ void O2ContextSetMiterLimit(O2ContextRef self, O2Float miterLimit);
 void O2ContextSetLineDash(O2ContextRef self, O2Float phase,
                           const O2Float *lengths, NSUInteger count);
 void O2ContextSetAllowsFontSubpixelPositioning(
-    O2ContextRef self, BOOL allowsFontSubpixelPositioning);
+        O2ContextRef self, BOOL allowsFontSubpixelPositioning);
 void O2ContextSetShouldSubpixelPositionFonts(O2ContextRef self,
                                              BOOL shouldSubpixelPositionFonts);
 void O2ContextSetRenderingIntent(O2ContextRef self,

@@ -65,7 +65,7 @@ static unsigned char *stbi_jpeg_load_from_memory(const uint8_t const *buffer,
 #endif
     }
     int wantedPixelSize = cinfo.output_components = cinfo.out_color_components =
-        4;
+            4;
 
     jpeg_start_decompress(&cinfo);
     *x = cinfo.output_width;
@@ -76,7 +76,7 @@ static unsigned char *stbi_jpeg_load_from_memory(const uint8_t const *buffer,
 
     // Buffer for the final decompressed data
     unsigned char *outputImage =
-        (unsigned char *) malloc(bytesPerRow * cinfo.output_height);
+            (unsigned char *) malloc(bytesPerRow * cinfo.output_height);
     if (outputImage) {
 #ifdef JCS_ALPHA_EXTENSIONS
         // Scanline buffers pointers - they'll point directly to the final image
@@ -84,9 +84,9 @@ static unsigned char *stbi_jpeg_load_from_memory(const uint8_t const *buffer,
         JSAMPROW scanlineBuffer[cinfo.rec_outbuf_height];
 #else
         // Scanline buffers
-        JSAMPARRAY scanlineBuffer =
-            (*cinfo.mem->alloc_sarray)((j_common_ptr) &cinfo, JPOOL_IMAGE,
-                                       bytesPerRow, cinfo.rec_outbuf_height);
+        JSAMPARRAY scanlineBuffer = (*cinfo.mem->alloc_sarray)(
+                (j_common_ptr) &cinfo, JPOOL_IMAGE, bytesPerRow,
+                cinfo.rec_outbuf_height);
 #endif
 
         while (cinfo.output_scanline < cinfo.image_height) {
@@ -95,7 +95,7 @@ static unsigned char *stbi_jpeg_load_from_memory(const uint8_t const *buffer,
             // We'll decode directly into the final buffer
             for (int i = 0; i < cinfo.rec_outbuf_height; ++i) {
                 scanlineBuffer[i] =
-                    outputImage + (currentLine + i) * bytesPerRow;
+                        outputImage + (currentLine + i) * bytesPerRow;
             }
             jpeg_read_scanlines(&cinfo, scanlineBuffer,
                                 cinfo.rec_outbuf_height);
@@ -103,7 +103,7 @@ static unsigned char *stbi_jpeg_load_from_memory(const uint8_t const *buffer,
                 // Convert from CMYK to RGBA
                 for (int i = 0; i < cinfo.rec_outbuf_height; ++i) {
                     unsigned char *out =
-                        outputImage + (currentLine++) * bytesPerRow;
+                            outputImage + (currentLine++) * bytesPerRow;
                     for (int j = 0; j < cinfo.output_width; ++j) {
                         unsigned char c = out[0];
                         unsigned char m = out[1];
@@ -192,10 +192,10 @@ static unsigned char *stbi_jpeg_load_from_memory(const uint8_t const *buffer,
     _colorSpace = O2ColorSpaceCreateDeviceRGB();
     _bitmapInfo = kO2BitmapByteOrder32Big | kO2ImageAlphaPremultipliedLast;
 
-    _pixelData =
-        (CFDataRef) [[NSData alloc] initWithBytesNoCopy: bitmap
-                                                 length: _bytesPerRow * _height
-                                           freeWhenDone: YES];
+    _pixelData = (CFDataRef)
+            [[NSData alloc] initWithBytesNoCopy: bitmap
+                                         length: _bytesPerRow * _height
+                                   freeWhenDone: YES];
 
     return self;
 }

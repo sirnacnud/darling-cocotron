@@ -77,9 +77,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithFrame: (CGRect) frame
-      styleMask: (unsigned) styleMask
-        isPanel: (BOOL) isPanel
-    backingType: (CGSBackingStoreType) backingType;
+          styleMask: (unsigned) styleMask
+            isPanel: (BOOL) isPanel
+        backingType: (CGSBackingStoreType) backingType;
 
 - (void) setDelegate: delegate;
 - delegate;

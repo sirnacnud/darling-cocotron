@@ -34,9 +34,9 @@ enum {
 typedef NSString *NSToolbarItemIdentifier;
 
 APPKIT_EXPORT const NSToolbarItemIdentifier
-    NSToolbarCustomizeToolbarItemIdentifier;
+        NSToolbarCustomizeToolbarItemIdentifier;
 APPKIT_EXPORT const NSToolbarItemIdentifier
-    NSToolbarFlexibleSpaceItemIdentifier;
+        NSToolbarFlexibleSpaceItemIdentifier;
 APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarPrintItemIdentifier;
 APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarSeparatorItemIdentifier;
 APPKIT_EXPORT const NSToolbarItemIdentifier NSToolbarShowColorsItemIdentifier;

@@ -87,8 +87,8 @@ static void runBlock(NSMutableArray *stack, O2PDFBlock *block) {
                 if ([[stack lastObject] checkForType: kO2PDFObjectTypeInteger
                                                value: &value]) {
                     [stack removeLastObject];
-                    [stack
-                        addObject: [O2PDFObject_Real pdfObjectWithReal: value]];
+                    [stack addObject: [O2PDFObject_Real
+                                              pdfObjectWithReal: value]];
                 }
             } break;
 
@@ -172,7 +172,7 @@ static void runBlock(NSMutableArray *stack, O2PDFBlock *block) {
                 [stack removeLastObject];
 
                 [stack addObject: [O2PDFObject_Real
-                                      pdfObjectWithReal: num1 - num2]];
+                                          pdfObjectWithReal: num1 - num2]];
             } break;
 
             case O2PDFIdentifier_truncate:
@@ -542,7 +542,7 @@ static BOOL O2PDFScanCalculator(const char *bytes, NSUInteger length,
                 currentInt = currentInt * 10 + code - '0';
             else {
                 *objectp = [O2PDFObject_Integer
-                    pdfObjectWithInteger: currentSign * currentInt];
+                        pdfObjectWithInteger: currentSign * currentInt];
                 *lastPosition = position;
                 return YES;
             }
@@ -554,7 +554,7 @@ static BOOL O2PDFScanCalculator(const char *bytes, NSUInteger length,
                 currentFraction *= 0.1;
             } else {
                 *objectp = [O2PDFObject_Real
-                    pdfObjectWithReal: currentSign * currentReal];
+                        pdfObjectWithReal: currentSign * currentReal];
                 *lastPosition = position;
                 return YES;
             }
@@ -568,7 +568,7 @@ static BOOL O2PDFScanCalculator(const char *bytes, NSUInteger length,
                 const char *name = bytes + inlineLocation;
                 NSUInteger length = position - inlineLocation;
                 O2PDFIdentifier identifier =
-                    O2PostScriptClassifyIdentifier(name, length);
+                        O2PostScriptClassifyIdentifier(name, length);
 
                 if (identifier == O2PDFIdentifier_true)
                     *objectp = [O2PDFObject_Boolean pdfObjectWithTrue];
@@ -576,9 +576,9 @@ static BOOL O2PDFScanCalculator(const char *bytes, NSUInteger length,
                     *objectp = [O2PDFObject_Boolean pdfObjectWithFalse];
                 else
                     *objectp = [O2PDFObject_identifier
-                        pdfObjectWithIdentifier: identifier
-                                           name: name
-                                         length: length];
+                            pdfObjectWithIdentifier: identifier
+                                               name: name
+                                             length: length];
 
                 *lastPosition = position;
                 return YES;
@@ -663,8 +663,8 @@ static O2PDFBlock *O2PDFParseCalculator(const char *bytes, NSUInteger length,
 }
 
 - initWithDomain: (O2PDFArray *) domain
-           range: (O2PDFArray *) range
-      calculator: (NSData *) data
+             range: (O2PDFArray *) range
+        calculator: (NSData *) data
 {
     NSLog(@"INITIALIZE TYPE 4");
     if ([super initWithDomain: domain range: range] == nil)

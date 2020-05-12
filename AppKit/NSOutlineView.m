@@ -32,26 +32,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSKeyedArchiver.h>
 
 NSString *const NSOutlineViewItemWillExpandNotification =
-    @"NSOutlineViewItemWillExpandNotification";
+        @"NSOutlineViewItemWillExpandNotification";
 NSString *const NSOutlineViewItemDidExpandNotification =
-    @"NSOutlineViewItemDidExpandNotification";
+        @"NSOutlineViewItemDidExpandNotification";
 NSString *const NSOutlineViewItemWillCollapseNotification =
-    @"NSOutlineViewItemWillCollapseNotification";
+        @"NSOutlineViewItemWillCollapseNotification";
 NSString *const NSOutlineViewItemDidCollapseNotification =
-    @"NSOutlineViewItemDidCollapseNotification";
+        @"NSOutlineViewItemDidCollapseNotification";
 
 NSString *const NSOutlineViewColumnDidMoveNotification =
-    @"NSOutlineViewColumnDidMoveNotification";
+        @"NSOutlineViewColumnDidMoveNotification";
 NSString *const NSOutlineViewColumnDidResizeNotification =
-    @"NSOutlineViewColumnDidResizeNotification";
+        @"NSOutlineViewColumnDidResizeNotification";
 
 NSString *const NSOutlineViewSelectionDidChangeNotification =
-    @"NSOutlineViewSelectionDidChangeNotification";
+        @"NSOutlineViewSelectionDidChangeNotification";
 NSString *const NSOutlineViewSelectionIsChangingNotification =
-    @"NSOutlineViewSelectionIsChangingNotification";
+        @"NSOutlineViewSelectionIsChangingNotification";
 
 NSString *const NSOutlineViewDisclosureButtonKey =
-    @"NSOutlineViewDisclosureButtonKey";
+        @"NSOutlineViewDisclosureButtonKey";
 
 // We probably don't want this public, but NSOutlineView needs it, and it would
 // prove invaluable to other subclasses of NSTableView.
@@ -145,11 +145,11 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
         _itemToLevel = NSCreateMapTable(NSNonOwnedPointerOrNullMapKeyCallBacks,
                                         NSIntegerMapValueCallBacks, 0);
         _itemToExpansionState =
-            NSCreateMapTable(NSNonOwnedPointerOrNullMapKeyCallBacks,
-                             NSIntegerMapValueCallBacks, 0);
+                NSCreateMapTable(NSNonOwnedPointerOrNullMapKeyCallBacks,
+                                 NSIntegerMapValueCallBacks, 0);
         _itemToNumberOfChildren =
-            NSCreateMapTable(NSNonOwnedPointerOrNullMapKeyCallBacks,
-                             NSIntegerMapValueCallBacks, 0);
+                NSCreateMapTable(NSNonOwnedPointerOrNullMapKeyCallBacks,
+                                 NSIntegerMapValueCallBacks, 0);
 
         _markerCell = [[NSButtonCell alloc] initImageCell: nil];
         [_markerCell setBezelStyle: NSDisclosureBezelStyle];
@@ -183,10 +183,12 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
                                      NSNonOwnedPointerMapValueCallBacks, 0);
     _itemToLevel = NSCreateMapTable(NSNonOwnedPointerOrNullMapKeyCallBacks,
                                     NSIntegerMapValueCallBacks, 0);
-    _itemToExpansionState = NSCreateMapTable(
-        NSNonOwnedPointerOrNullMapKeyCallBacks, NSIntegerMapValueCallBacks, 0);
-    _itemToNumberOfChildren = NSCreateMapTable(
-        NSNonOwnedPointerOrNullMapKeyCallBacks, NSIntegerMapValueCallBacks, 0);
+    _itemToExpansionState =
+            NSCreateMapTable(NSNonOwnedPointerOrNullMapKeyCallBacks,
+                             NSIntegerMapValueCallBacks, 0);
+    _itemToNumberOfChildren =
+            NSCreateMapTable(NSNonOwnedPointerOrNullMapKeyCallBacks,
+                             NSIntegerMapValueCallBacks, 0);
 
     _markerCell = [[NSButtonCell alloc] initImageCell: nil];
     [_markerCell setBezelStyle: NSDisclosureBezelStyle];
@@ -298,17 +300,17 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
         return YES;
 
     if ([_delegate respondsToSelector: @selector(outlineView:
-                                            shouldExpandItem:)])
+                                               shouldExpandItem:)])
         if ([_delegate outlineView: self shouldExpandItem: item] == NO)
             expandThisItem = NO;
 
     if (expandThisItem) {
-        NSDictionary *userInfo =
-            [NSDictionary dictionaryWithObjectsAndKeys: item, @"NSObject", nil];
+        NSDictionary *userInfo = [NSDictionary
+                dictionaryWithObjectsAndKeys: item, @"NSObject", nil];
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSOutlineViewItemWillExpandNotification
-                          object: self
-                        userInfo: userInfo];
+                postNotificationName: NSOutlineViewItemWillExpandNotification
+                              object: self
+                            userInfo: userInfo];
 
         NSMapInsert(_itemToExpansionState, item, (void *) YES);
 
@@ -316,14 +318,14 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
         noteNumberOfRowsChanged = YES;
 
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSOutlineViewItemDidExpandNotification
-                          object: self
-                        userInfo: userInfo];
+                postNotificationName: NSOutlineViewItemDidExpandNotification
+                              object: self
+                            userInfo: userInfo];
     }
 
     if (expandChildren) {
-        int i,
-            numberOfChildren = numberOfChildrenOfItemAndReload(self, item, YES);
+        int i, numberOfChildren =
+                       numberOfChildrenOfItemAndReload(self, item, YES);
 
         for (i = 0; i < numberOfChildren; ++i) {
             id child = [_dataSource outlineView: self child: i ofItem: item];
@@ -340,15 +342,15 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
     if ([_dataSource respondsToSelector: @selector
                      (outlineView:objectValueForTableColumn:byItem:)])
         return [_dataSource outlineView: self
-              objectValueForTableColumn: column
-                                 byItem: item];
+                objectValueForTableColumn: column
+                                   byItem: item];
 
     // FIXME: Does it actually send this to the delegate too?
-    if ([_delegate respondsToSelector: @selector(outlineView:
-                                           objectValueForTableColumn:byItem:)])
+    if ([_delegate respondsToSelector: @selector
+                   (outlineView:objectValueForTableColumn:byItem:)])
         return [_delegate outlineView: self
-            objectValueForTableColumn: column
-                               byItem: item];
+                objectValueForTableColumn: column
+                                   byItem: item];
 
     return nil;
 }
@@ -408,17 +410,17 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
     BOOL collapseThisItem = YES;
 
     if ([_delegate respondsToSelector: @selector(outlineView:
-                                           shouldCollapseItem:)])
+                                               shouldCollapseItem:)])
         if ([_delegate outlineView: self shouldCollapseItem: item] == NO)
             collapseThisItem = NO;
 
     if (collapseThisItem) {
-        NSDictionary *userInfo =
-            [NSDictionary dictionaryWithObjectsAndKeys: item, @"NSObject", nil];
+        NSDictionary *userInfo = [NSDictionary
+                dictionaryWithObjectsAndKeys: item, @"NSObject", nil];
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSOutlineViewItemWillCollapseNotification
-                          object: self
-                        userInfo: userInfo];
+                postNotificationName: NSOutlineViewItemWillCollapseNotification
+                              object: self
+                            userInfo: userInfo];
 
         NSMapInsert(_itemToExpansionState, item, (void *) NO);
 
@@ -426,14 +428,14 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
         [self noteNumberOfRowsChanged];
 
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSOutlineViewItemDidCollapseNotification
-                          object: self
-                        userInfo: userInfo];
+                postNotificationName: NSOutlineViewItemDidCollapseNotification
+                              object: self
+                            userInfo: userInfo];
     }
 
     if (collapseChildren) {
-        NSInteger i,
-            numberOfChildren = numberOfChildrenOfItemAndReload(self, item, YES);
+        NSInteger i, numberOfChildren =
+                             numberOfChildrenOfItemAndReload(self, item, YES);
 
         for (i = 0; i < numberOfChildren; ++i) {
             id child = [_dataSource outlineView: self child: i ofItem: item];
@@ -497,7 +499,7 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
                                @selector(outlineView:isItemExpandable:),
                                @selector(outlineView:numberOfChildrenOfItem:),
                                @selector(outlineView:
-                                   objectValueForTableColumn:byItem:),
+                                       objectValueForTableColumn:byItem:),
                                NULL};
     NSInteger i;
 
@@ -505,9 +507,9 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
         if (dataSource != nil &&
             ![dataSource respondsToSelector: requiredSelectors[i]])
             [NSException
-                 raise: NSInternalInconsistencyException
-                format: @"NSOutlineView dataSource does not respond to %@",
-                        NSStringFromSelector(requiredSelectors[i])];
+                     raise: NSInternalInconsistencyException
+                    format: @"NSOutlineView dataSource does not respond to %@",
+                            NSStringFromSelector(requiredSelectors[i])];
 
     _dataSource = dataSource;
 }
@@ -557,7 +559,7 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
                                   NSHashTable *removeItems)
 {
     NSInteger i,
-        numberOfChildren = numberOfChildrenOfItemAndReload(self, item, YES);
+            numberOfChildren = numberOfChildrenOfItemAndReload(self, item, YES);
 
     for (i = 0; i < numberOfChildren; ++i) {
         id child = [self->_dataSource outlineView: self child: i ofItem: item];
@@ -582,7 +584,7 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
 - (void) loadRootItem {
     NSHashTable *removeItems =
-        NSCreateHashTable(NSNonOwnedPointerHashCallBacks, 0);
+            NSCreateHashTable(NSNonOwnedPointerHashCallBacks, 0);
 
     {
         NSMapEnumerator state = NSEnumerateMapTable(_itemToExpansionState);
@@ -611,7 +613,7 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
 - (NSRect) frameOfOutlineCellAtRow: (NSInteger) row {
     NSInteger column =
-        [_tableColumns indexOfObjectIdenticalTo: _outlineTableColumn];
+            [_tableColumns indexOfObjectIdenticalTo: _outlineTableColumn];
     NSRect result = [super frameOfCellAtColumn: column row: row];
     NSInteger level = [self levelForRow: row];
     CGFloat indentPixels = level * _indentationPerLevel;
@@ -639,7 +641,7 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
         CGFloat cellWidth;
 
         cellRect.origin.x +=
-            (indentPixels + _standardRowHeight) + _intercellSpacing.width;
+                (indentPixels + _standardRowHeight) + _intercellSpacing.width;
 
         // instead, give the delegate an opportunity to provide the cell width.
         // (i was keying on attributed string value width, but this broke when i
@@ -656,7 +658,7 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 #if 1
             // this is more NSTableView-ish behavior.
             cellWidth =
-                cellRect.size.width - (indentPixels + _standardRowHeight);
+                    cellRect.size.width - (indentPixels + _standardRowHeight);
 #else
             [dataCell setObjectValue: objectValue];
 
@@ -671,8 +673,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
             cellWidth += _editingCellPadding;
 
         cellRect.size.width =
-            MIN(cellWidth,
-                cellRect.size.width - (indentPixels + _standardRowHeight));
+                MIN(cellWidth,
+                    cellRect.size.width - (indentPixels + _standardRowHeight));
     }
 
     return cellRect;
@@ -683,8 +685,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
     if (tableColumn == _outlineTableColumn) {
         id objectValue =
-            [self _objectValueForTableColumn: tableColumn
-                                      byItem: [self itemAtRow: row]];
+                [self _objectValueForTableColumn: tableColumn
+                                          byItem: [self itemAtRow: row]];
 
         if (objectValue != nil)
             return [self _adjustedFrameOfCellAtColumn: column
@@ -733,8 +735,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
     }
 
     if (isItemExpanded(self, item)) {
-        NSInteger i,
-            numberOfChildren = numberOfChildrenOfItemAndReload(self, item, NO);
+        NSInteger i, numberOfChildren =
+                             numberOfChildrenOfItemAndReload(self, item, NO);
         id lastChild = nil;
 
         for (i = 0; i < numberOfChildren; i++) {
@@ -745,8 +747,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
         if (lastChild != nil) {
             NSRect rect = myFrame;
             NSRect lastChildRect =
-                [self frameOfCellAtColumn: column
-                                      row: [self rowForItem: lastChild]];
+                    [self frameOfCellAtColumn: column
+                                          row: [self rowForItem: lastChild]];
             CGFloat delta = lastChildRect.origin.y - myFrame.origin.y;
 
             // it is safe to assume that all rows are the same height.
@@ -788,9 +790,9 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
     if ([_delegate respondsToSelector: @selector
                    (outlineView:willDisplayCell:forTableColumn:item:)])
         [_delegate outlineView: self
-               willDisplayCell: result
-                forTableColumn: column
-                          item: [self itemAtRow: row]];
+                willDisplayCell: result
+                 forTableColumn: column
+                           item: [self itemAtRow: row]];
 
     return result;
 }
@@ -844,14 +846,14 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
                     else
                         [_markerCell setState: NSOffState];
 
-                    if ([_delegate
-                            respondsToSelector: @selector
-                            (outlineView:
-                                willDisplayOutlineCell:forTableColumn:item:)])
+                    if ([_delegate respondsToSelector: @selector
+                                   (outlineView:
+                                           willDisplayOutlineCell:forTableColumn
+                                                                 :item:)])
                         [_delegate outlineView: self
-                            willDisplayOutlineCell: _markerCell
-                                    forTableColumn: column
-                                              item: item];
+                                willDisplayOutlineCell: _markerCell
+                                        forTableColumn: column
+                                                  item: item];
 
                     [_markerCell setControlView: self];
                     [_markerCell drawWithFrame: outlineCellFrame inView: self];
@@ -894,16 +896,16 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 //
 - (BOOL) delegateShouldSelectTableColumn: (NSTableColumn *) tableColumn {
     if ([_delegate respondsToSelector: @selector(outlineView:
-                                           shouldSelectTableColumn:)])
+                                               shouldSelectTableColumn:)])
         return [_delegate outlineView: self
-              shouldSelectTableColumn: tableColumn];
+                shouldSelectTableColumn: tableColumn];
 
     return YES;
 }
 
 - (BOOL) delegateShouldSelectRow: (NSInteger) row {
     if ([_delegate respondsToSelector: @selector(outlineView:
-                                            shouldSelectItem:)])
+                                               shouldSelectItem:)])
         return [_delegate outlineView: self
                      shouldSelectItem: [self itemAtRow: row]];
 
@@ -914,7 +916,7 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
                                    row: (NSInteger) row
 {
     if ([_delegate respondsToSelector: @selector(outlineView:
-                                           shouldEditTableColumn:item:)])
+                                               shouldEditTableColumn:item:)])
         return [_delegate outlineView: self
                 shouldEditTableColumn: tableColumn
                                  item: [self itemAtRow: row]];
@@ -923,8 +925,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 }
 
 - (BOOL) delegateSelectionShouldChange {
-    if ([_delegate
-            respondsToSelector: @selector(selectionShouldChangeInOutlineView:)])
+    if ([_delegate respondsToSelector: @selector
+                   (selectionShouldChangeInOutlineView:)])
         return [_delegate selectionShouldChangeInOutlineView: self];
 
     return YES;
@@ -932,24 +934,25 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
 - (void) noteSelectionIsChanging {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSOutlineViewSelectionIsChangingNotification
-                      object: self];
+            postNotificationName: NSOutlineViewSelectionIsChangingNotification
+                          object: self];
 }
 
 - (void) noteSelectionDidChange {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSOutlineViewSelectionDidChangeNotification
-                      object: self];
+            postNotificationName: NSOutlineViewSelectionDidChangeNotification
+                          object: self];
 }
 
 - (void) noteColumnDidResizeWithOldWidth: (CGFloat) oldWidth {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSOutlineViewColumnDidResizeNotification
-                      object: self
-                    userInfo: [NSDictionary
-                                  dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithFloat: oldWidth],
-                                      @"NSOldWidth", nil]];
+            postNotificationName: NSOutlineViewColumnDidResizeNotification
+                          object: self
+                        userInfo: [NSDictionary
+                                          dictionaryWithObjectsAndKeys:
+                                                  [NSNumber numberWithFloat:
+                                                                    oldWidth],
+                                                  @"NSOldWidth", nil]];
 }
 
 - (BOOL) dataSourceCanSetObjectValue {
@@ -971,8 +974,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
                                        row: (NSInteger) row
 {
     return [_dataSource outlineView: self
-          objectValueForTableColumn: tableColumn
-                             byItem: [self itemAtRow: row]];
+            objectValueForTableColumn: tableColumn
+                               byItem: [self itemAtRow: row]];
 }
 
 - (void) _willDisplayCell: (NSCell *) cell
@@ -982,9 +985,9 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
     if ([_delegate respondsToSelector: @selector
                    (outlineView:willDisplayCell:forTableColumn:item:)])
         [_delegate outlineView: self
-               willDisplayCell: cell
-                forTableColumn: column
-                          item: [self itemAtRow: row]];
+                willDisplayCell: cell
+                 forTableColumn: column
+                           item: [self itemAtRow: row]];
 }
 
 @end

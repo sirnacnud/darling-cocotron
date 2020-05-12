@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSEnumerator *NSEnumerator_arrayNew(NSArray *array) {
     NSEnumerator_array *self =
-        NSAllocateObject([NSEnumerator_array class], 0, NULL);
+            NSAllocateObject([NSEnumerator_array class], 0, NULL);
     if (self) {
         self->_index = 0;
         self->_array = [array retain];

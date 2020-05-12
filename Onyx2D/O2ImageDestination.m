@@ -8,11 +8,11 @@
 // Using the same value as CoreGraphics - that's removing the needs for
 // conversion
 const CFStringRef kO2ImageDestinationLossyCompressionQuality =
-    (const CFStringRef) @"kCGImageDestinationLossyCompressionQuality";
+        (const CFStringRef) @"kCGImageDestinationLossyCompressionQuality";
 const CFStringRef kO2ImageDestinationBackgroundColor =
-    (const CFStringRef) @"kCGImageDestinationBackgroundColor";
+        (const CFStringRef) @"kCGImageDestinationBackgroundColor";
 const CFStringRef kO2ImageDestinationDPI =
-    (const CFStringRef) @"kCGImageDestinationDPI";
+        (const CFStringRef) @"kCGImageDestinationDPI";
 
 @interface _O2ImageDestination : O2ImageDestination
 @end
@@ -68,7 +68,7 @@ O2ImageDestinationRef O2ImageDestinationCreateWithData(CFMutableDataRef data,
 {
     O2DataConsumerRef consumer = O2DataConsumerCreateWithCFData(data);
     O2ImageDestinationRef self = O2ImageDestinationCreateWithDataConsumer(
-        consumer, type, imageCount, options);
+            consumer, type, imageCount, options);
     O2DataConsumerRelease(consumer);
     return self;
 }
@@ -79,7 +79,7 @@ O2ImageDestinationCreateWithDataConsumer(O2DataConsumerRef dataConsumer,
                                          CFDictionaryRef options)
 {
     O2ImageDestinationRef self =
-        NSAllocateObject([O2ImageDestination class], 0, NULL);
+            NSAllocateObject([O2ImageDestination class], 0, NULL);
 
     if (self) {
 
@@ -129,7 +129,7 @@ O2ImageDestinationRef O2ImageDestinationCreateWithURL(CFURLRef url,
 {
     O2DataConsumerRef consumer = O2DataConsumerCreateWithURL(url);
     O2ImageDestinationRef self = O2ImageDestinationCreateWithDataConsumer(
-        consumer, type, imageCount, options);
+            consumer, type, imageCount, options);
     O2DataConsumerRelease(consumer);
     return self;
 }
@@ -181,7 +181,7 @@ void O2ImageDestinationAddImageFromSource(O2ImageDestinationRef self,
                                           CFDictionaryRef properties)
 {
     O2ImageRef image =
-        O2ImageSourceCreateImageAtIndex(imageSource, index, NULL);
+            O2ImageSourceCreateImageAtIndex(imageSource, index, NULL);
     O2ImageDestinationAddImage(self, image, properties);
     O2ImageRelease(image);
 }

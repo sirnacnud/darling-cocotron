@@ -38,14 +38,14 @@ void O2ContextDefaultShowText(O2ContextRef self, const char *text,
 @implementation O2Context
 
 - initWithBytes: (void *) bytes
-               width: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-         bytesPerRow: (size_t) bytesPerRow
-          colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo
-     releaseCallback: (O2BitmapContextReleaseDataCallback) releaseCallback
-         releaseInfo: (void *) releaseInfo
+                   width: (size_t) width
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+             bytesPerRow: (size_t) bytesPerRow
+              colorSpace: (O2ColorSpaceRef) colorSpace
+              bitmapInfo: (O2BitmapInfo) bitmapInfo
+         releaseCallback: (O2BitmapContextReleaseDataCallback) releaseCallback
+             releaseInfo: (void *) releaseInfo
 {
     return nil;
 }
@@ -65,7 +65,7 @@ void O2ContextDefaultShowText(O2ContextRef self, const char *text,
     _textMatrix = O2AffineTransformIdentity;
     _showTextFunction = O2ContextDefaultShowText;
     _showGlyphsFunction = (O2ContextShowGlyphsFunction)
-        [self methodForSelector: @selector(showGlyphs:advances:count:)];
+            [self methodForSelector: @selector(showGlyphs:advances:count:)];
     return self;
 }
 
@@ -104,7 +104,7 @@ O2ColorRef O2ContextFillColor(O2ContextRef self) {
 
 - (void) setStrokeAlpha: (O2Float) alpha {
     O2ColorRef color =
-        O2ColorCreateCopyWithAlpha(O2ContextStrokeColor(self), alpha);
+            O2ColorCreateCopyWithAlpha(O2ContextStrokeColor(self), alpha);
     O2ContextSetStrokeColorWithColor(self, color);
     O2ColorRelease(color);
 }
@@ -131,7 +131,7 @@ O2ColorRef O2ContextFillColor(O2ContextRef self) {
 
 - (void) setFillAlpha: (O2Float) alpha {
     O2ColorRef color =
-        O2ColorCreateCopyWithAlpha(O2ContextFillColor(self), alpha);
+            O2ColorCreateCopyWithAlpha(O2ContextFillColor(self), alpha);
     O2ContextSetFillColorWithColor(self, color);
     O2ColorRelease(color);
 }
@@ -356,7 +356,7 @@ void O2ContextMoveToPoint(O2ContextRef self, O2Float x, O2Float y) {
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathMoveToPoint(self->_path, &ctm, x, y);
 }
@@ -366,7 +366,7 @@ void O2ContextAddLineToPoint(O2ContextRef self, O2Float x, O2Float y) {
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddLineToPoint(self->_path, &ctm, x, y);
 }
@@ -378,7 +378,7 @@ void O2ContextAddCurveToPoint(O2ContextRef self, O2Float cx1, O2Float cy1,
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddCurveToPoint(self->_path, &ctm, cx1, cy1, cx2, cy2, x, y);
 }
@@ -390,7 +390,7 @@ void O2ContextAddQuadCurveToPoint(O2ContextRef self, O2Float cx1, O2Float cy1,
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddQuadCurveToPoint(self->_path, &ctm, cx1, cy1, x, y);
 }
@@ -402,7 +402,7 @@ void O2ContextAddLines(O2ContextRef self, const O2Point *points,
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddLines(self->_path, &ctm, points, count);
 }
@@ -412,7 +412,7 @@ void O2ContextAddRect(O2ContextRef self, O2Rect rect) {
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddRect(self->_path, &ctm, rect);
 }
@@ -423,7 +423,7 @@ void O2ContextAddRects(O2ContextRef self, const O2Rect *rects, NSUInteger count)
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddRects(self->_path, &ctm, rects, count);
 }
@@ -435,7 +435,7 @@ void O2ContextAddArc(O2ContextRef self, O2Float x, O2Float y, O2Float radius,
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddArc(self->_path, &ctm, x, y, radius, startRadian, endRadian,
                  clockwise);
@@ -448,7 +448,7 @@ void O2ContextAddArcToPoint(O2ContextRef self, O2Float x1, O2Float y1,
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddArcToPoint(self->_path, &ctm, x1, y1, x2, y2, radius);
 }
@@ -458,7 +458,7 @@ void O2ContextAddEllipseInRect(O2ContextRef self, O2Rect rect) {
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddEllipseInRect(self->_path, &ctm, rect);
 }
@@ -468,7 +468,7 @@ void O2ContextAddPath(O2ContextRef self, O2PathRef path) {
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathAddPath(self->_path, &ctm, path);
 }
@@ -619,7 +619,7 @@ void O2ContextTranslateCTM(O2ContextRef self, O2Float translatex,
         return;
 
     O2ContextConcatCTM(
-        self, O2AffineTransformMakeTranslation(translatex, translatey));
+            self, O2AffineTransformMakeTranslation(translatex, translatey));
 }
 
 void O2ContextScaleCTM(O2ContextRef self, O2Float scalex, O2Float scaley) {
@@ -692,7 +692,7 @@ void O2ContextClipToRect(O2ContextRef self, O2Rect rect) {
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathReset(self->_path);
     O2PathAddRect(self->_path, &ctm, rect);
@@ -706,7 +706,7 @@ void O2ContextClipToRects(O2ContextRef self, const O2Rect *rects,
         return;
 
     O2AffineTransform ctm =
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self));
 
     O2PathReset(self->_path);
     O2PathAddRects(self->_path, &ctm, rects, count);
@@ -755,7 +755,7 @@ void O2ContextSetStrokeColor(O2ContextRef self, const O2Float *components) {
         return;
 
     O2ColorSpaceRef colorSpace =
-        O2ColorGetColorSpace(O2ContextStrokeColor(self));
+            O2ColorGetColorSpace(O2ContextStrokeColor(self));
     O2ColorRef color = O2ColorCreate(colorSpace, components);
 
     O2ContextSetStrokeColorWithColor(self, color);
@@ -1511,7 +1511,7 @@ void O2ContextSetAllowsFontSmoothing(O2ContextRef self,
 }
 
 void O2ContextSetAllowsFontSubpixelQuantization(
-    O2ContextRef self, BOOL allowsFontSubpixelQuantization)
+        O2ContextRef self, BOOL allowsFontSubpixelQuantization)
 {
     self->_allowsFontSubpixelQuantization = allowsFontSubpixelQuantization;
 }
@@ -1523,7 +1523,7 @@ void O2ContextSetShouldSubpixelQuantizeFonts(O2ContextRef self,
 }
 
 void O2ContextSetAllowsFontSubpixelPositioning(
-    O2ContextRef self, BOOL allowsFontSubpixelPositioning)
+        O2ContextRef self, BOOL allowsFontSubpixelPositioning)
 {
     self->_allowsFontSubpixelPositioning = allowsFontSubpixelPositioning;
 }

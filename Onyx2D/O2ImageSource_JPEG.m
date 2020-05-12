@@ -45,7 +45,7 @@ createImageDecoderWithDataProvider(O2DataProviderRef dataProvider)
 {
 #ifdef LIBJPEG_PRESENT
     return [[O2ImageDecoder_JPEG_libjpeg alloc]
-        initWithDataProvider: dataProvider];
+            initWithDataProvider: dataProvider];
 #else
     return [[O2ImageDecoder_JPEG_stb alloc] initWithDataProvider: dataProvider];
 #endif
@@ -53,9 +53,9 @@ createImageDecoderWithDataProvider(O2DataProviderRef dataProvider)
 
 NSData *O2DCTDecode(NSData *data, size_t *pBytesPerRow) {
     O2DataProviderRef dataProvider =
-        O2DataProviderCreateWithCFData((CFDataRef) data);
+            O2DataProviderCreateWithCFData((CFDataRef) data);
     O2ImageDecoderRef decoder =
-        createImageDecoderWithDataProvider(dataProvider);
+            createImageDecoderWithDataProvider(dataProvider);
     CFDataRef result = O2ImageDecoderCreatePixelData(decoder);
 
     if (pBytesPerRow != NULL) {
@@ -115,8 +115,8 @@ NSData *O2DCTDecode(NSData *data, size_t *pBytesPerRow) {
     const unsigned char *data = CFDataGetBytePtr(_jpg);
     unsigned long length = CFDataGetLength(_jpg);
     O2EXIFDecoder *exif =
-        [[[O2EXIFDecoder alloc] initWithBytes: data
-                                       length: length] autorelease];
+            [[[O2EXIFDecoder alloc] initWithBytes: data
+                                           length: length] autorelease];
     return (CFDictionaryRef)[[exif tags] copy];
 }
 
@@ -127,18 +127,18 @@ NSData *O2DCTDecode(NSData *data, size_t *pBytesPerRow) {
     O2DataProviderRef provider = O2ImageDecoderCreatePixelDataProvider(decoder);
 
     O2Image *image = [[O2Image alloc]
-           initWithWidth: O2ImageDecoderGetWidth(decoder)
-                  height: O2ImageDecoderGetHeight(decoder)
-        bitsPerComponent: O2ImageDecoderGetBitsPerComponent(decoder)
-            bitsPerPixel: O2ImageDecoderGetBitsPerPixel(decoder)
-             bytesPerRow: O2ImageDecoderGetBytesPerRow(decoder)
-              colorSpace: O2ImageDecoderGetColorSpace(decoder)
-              bitmapInfo: O2ImageDecoderGetBitmapInfo(decoder)
-                 decoder: decoder
-                provider: provider
-                  decode: NULL
-             interpolate: NO
-         renderingIntent: kO2RenderingIntentDefault];
+               initWithWidth: O2ImageDecoderGetWidth(decoder)
+                      height: O2ImageDecoderGetHeight(decoder)
+            bitsPerComponent: O2ImageDecoderGetBitsPerComponent(decoder)
+                bitsPerPixel: O2ImageDecoderGetBitsPerPixel(decoder)
+                 bytesPerRow: O2ImageDecoderGetBytesPerRow(decoder)
+                  colorSpace: O2ImageDecoderGetColorSpace(decoder)
+                  bitmapInfo: O2ImageDecoderGetBitmapInfo(decoder)
+                     decoder: decoder
+                    provider: provider
+                      decode: NULL
+                 interpolate: NO
+             renderingIntent: kO2RenderingIntentDefault];
 
     O2DataProviderRelease(provider);
     [decoder release];

@@ -75,11 +75,11 @@ void waitForTaskChildProcess() {
                         [task taskFinished];
 
                         [[NSNotificationCenter defaultCenter]
-                            postNotification:
-                                [NSNotification
-                                    notificationWithName:
-                                        NSTaskDidTerminateNotification
-                                                  object: task]];
+                                postNotification:
+                                        [NSNotification
+                                                notificationWithName:
+                                                        NSTaskDidTerminateNotification
+                                                              object: task]];
                         [task release];
                     }
                 }
@@ -170,8 +170,8 @@ void childSignalHandler(int sig) {
             if ([standardInput isKindOfClass: [NSFileHandle class]]) {
                 fd = [(NSFileHandle_posix *) standardInput fileDescriptor];
             } else {
-                fd =
-                    [(NSFileHandle_posix *) [standardInput fileHandleForReading]
+                fd = [(NSFileHandle_posix *)
+                                [standardInput fileHandleForReading]
                         fileDescriptor];
             }
             dup2(fd, STDIN_FILENO);
@@ -185,9 +185,9 @@ void childSignalHandler(int sig) {
             if ([standardOutput isKindOfClass: [NSFileHandle class]]) {
                 fd = [(NSFileHandle_posix *) standardOutput fileDescriptor];
             } else {
-                fd = [(
-                    NSFileHandle_posix *) [standardOutput fileHandleForWriting]
-                    fileDescriptor];
+                fd = [(NSFileHandle_posix *)
+                                [standardOutput fileHandleForWriting]
+                        fileDescriptor];
             }
             dup2(fd, STDOUT_FILENO);
         } else {
@@ -200,8 +200,8 @@ void childSignalHandler(int sig) {
             if ([standardError isKindOfClass: [NSFileHandle class]]) {
                 fd = [(NSFileHandle_posix *) standardError fileDescriptor];
             } else {
-                fd =
-                    [(NSFileHandle_posix *) [standardError fileHandleForWriting]
+                fd = [(NSFileHandle_posix *)
+                                [standardError fileHandleForWriting]
                         fileDescriptor];
             }
             dup2(fd, STDERR_FILENO);

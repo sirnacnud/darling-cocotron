@@ -96,8 +96,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) encodeReal: (NSNumber *) number {
     [_data appendBytes: "<real>" length: 6];
-    [self _encodeString: [NSString
-                             stringWithFormat: @"%.16f", [number doubleValue]]];
+    [self _encodeString: [NSString stringWithFormat: @"%.16f",
+                                                     [number doubleValue]]];
     [_data appendBytes: "</real>\n" length: 8];
 }
 
@@ -164,8 +164,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) encodeDictionary: (NSDictionary *) dictionary
                    indent: (NSInteger) indent
 {
-    NSArray *allKeys =
-        [[dictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
+    NSArray *allKeys = [[dictionary allKeys]
+            sortedArrayUsingSelector: @selector(compare:)];
 
     NSUInteger i, count = [allKeys count];
 
@@ -188,7 +188,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) encodeData: (NSData *) data indent: (NSInteger) indent {
     static const char b64[] =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     NSUInteger y, n;
     const NSUInteger len = [data length];
@@ -199,7 +199,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     indent++;
 
     const NSUInteger numRows =
-        1 + len / 45; // 60 chars per output row -> 45 input bytes per row
+            1 + len / 45; // 60 chars per output row -> 45 input bytes per row
     uint8_t srcBuf[48];
     uint8_t dstBuf[64];
 
@@ -220,18 +220,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         int x;
         for (x = 0; x < rowSrcLen; x += 3) {
             const NSInteger blockLen =
-                (x + 3 < rowSrcLen) ? 3 : (rowSrcLen - x);
+                    (x + 3 < rowSrcLen) ? 3 : (rowSrcLen - x);
 
             // base64 encode
             outBuf[0] = b64[inBuf[0] >> 2];
             outBuf[1] =
-                b64[((inBuf[0] & 0x03) << 4) | ((inBuf[1] & 0xf0) >> 4)];
-            outBuf[2] =
-                (unsigned char) (blockLen > 1)
-                    ? b64[((inBuf[1] & 0x0f) << 2) | ((inBuf[2] & 0xc0) >> 6)]
-                    : '=';
+                    b64[((inBuf[0] & 0x03) << 4) | ((inBuf[1] & 0xf0) >> 4)];
+            outBuf[2] = (unsigned char) (blockLen > 1)
+                                ? b64[((inBuf[1] & 0x0f) << 2) |
+                                      ((inBuf[2] & 0xc0) >> 6)]
+                                : '=';
             outBuf[3] =
-                (unsigned char) (blockLen > 2) ? b64[inBuf[2] & 0x3f] : '=';
+                    (unsigned char) (blockLen > 2) ? b64[inBuf[2] & 0x3f] : '=';
             inBuf += 3;
             outBuf += 4;
         }
@@ -264,9 +264,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSData *) dataForRootObject: (id) object {
     const char header[] =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-        "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" "
-        "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n";
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" "
+            "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n";
     [_data appendBytes: header length: strlen(header)];
 
     [_data appendBytes: "<plist version=\"1.0\">\n" length: 22];

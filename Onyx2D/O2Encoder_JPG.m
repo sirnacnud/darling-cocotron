@@ -52,7 +52,7 @@ void O2JPGEncoderWriteImage(O2JPGEncoderRef self, O2ImageRef image,
     jpeg_set_defaults(&cinfo);
 
     NSNumber *dpi =
-        [properties objectForKey: (NSString *) kO2ImageDestinationDPI];
+            [properties objectForKey: (NSString *) kO2ImageDestinationDPI];
     if (dpi) {
         int dpiValue = [dpi intValue];
         cinfo.density_unit = 1;     /* DPI */
@@ -61,7 +61,8 @@ void O2JPGEncoderWriteImage(O2JPGEncoderRef self, O2ImageRef image,
     }
 
     NSNumber *compression = [properties
-        objectForKey: (NSString *) kO2ImageDestinationLossyCompressionQuality];
+            objectForKey: (NSString *)
+                                  kO2ImageDestinationLossyCompressionQuality];
     if (compression) {
         jpeg_set_quality(&cinfo, 100 * [compression floatValue], TRUE);
     }

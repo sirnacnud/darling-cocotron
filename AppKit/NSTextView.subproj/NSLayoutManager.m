@@ -84,7 +84,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
                                                     NSRange *effectiveRange)
 {
     NSGlyphFragment *result =
-        NSRangeEntryAtIndex(self->_glyphFragments, index, effectiveRange);
+            NSRangeEntryAtIndex(self->_glyphFragments, index, effectiveRange);
 
     if (result == NULL) {
         // That can happens in normal cases, so we don't want to crash or log
@@ -102,8 +102,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
         // The text storage owns the layout manager (and text view can own the
         // storage) Retaining it here would create a retain cycle.
-        _textStorage =
-            [[[keyed decodeObjectForKey: @"NSTextStorage"] retain] autorelease];
+        _textStorage = [[[keyed decodeObjectForKey: @"NSTextStorage"] retain]
+                autorelease];
 
         _rangeToTemporaryAttributes = NSCreateRangeToCopiedObjectEntries(0);
         NSRangeEntryInsert(_rangeToTemporaryAttributes,
@@ -115,8 +115,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
         _delegate = [keyed decodeObjectForKey: @"NSDelegate"];
         _textContainers = [NSMutableArray new];
         [_textContainers
-            addObjectsFromArray: [keyed
-                                     decodeObjectForKey: @"NSTextContainers"]];
+                addObjectsFromArray:
+                        [keyed decodeObjectForKey: @"NSTextContainers"]];
         _glyphFragments = NSCreateRangeToOwnedPointerEntries(2);
         _invalidFragments = NSCreateRangeToOwnedPointerEntries(2);
         _layoutInvalid = YES;
@@ -258,8 +258,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 }
 
 - (void) insertGlyph: (NSGlyph) glyph
-        atGlyphIndex: (NSUInteger) glyphIndex
-      characterIndex: (NSUInteger) characterIndex
+          atGlyphIndex: (NSUInteger) glyphIndex
+        characterIndex: (NSUInteger) characterIndex
 {
 }
 
@@ -302,8 +302,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
     NSRange characterRange = [self characterRangeForGlyphRange: glyphRange
                                               actualGlyphRange: NULL];
     NSDictionary *attributes =
-        [_textStorage attributesAtIndex: characterRange.location
-                         effectiveRange: NULL];
+            [_textStorage attributesAtIndex: characterRange.location
+                             effectiveRange: NULL];
 
     return NSFontAttributeInDictionary(attributes);
 }
@@ -324,8 +324,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
     [[_textStorage string] getCharacters: buffer range: characterRange];
     [font getGlyphs: glyphs
-        forCharacters: buffer
-               length: characterRange.length];
+            forCharacters: buffer
+                   length: characterRange.length];
 
 #if DEBUG_getGlyphs_range
     NSLog(@"returning %u", glyphRange.length);
@@ -446,7 +446,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
 - (NSTextContainer *) textContainerForGlyphAtIndex: (NSUInteger) glyphIndex
                                     effectiveRange:
-                                        (NSRangePointer) effectiveGlyphRange
+                                            (NSRangePointer) effectiveGlyphRange
 {
 
 #if DEBUG_LM_LAYOUT
@@ -457,7 +457,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
     [self validateGlyphsAndLayoutForGlyphRange: NSMakeRange(glyphIndex, 1)];
     NSGlyphFragment *fragment =
-        fragmentAtGlyphIndex(self, glyphIndex, effectiveGlyphRange);
+            fragmentAtGlyphIndex(self, glyphIndex, effectiveGlyphRange);
     if (fragment == NULL) {
 
 #if DEBUG_textContainerForGlyphAtIndex_effectiveRange
@@ -469,7 +469,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
     if (effectiveGlyphRange) {
         *effectiveGlyphRange =
-            [self _currentGlyphRangeForTextContainer: fragment->container];
+                [self _currentGlyphRangeForTextContainer: fragment->container];
     }
 
 #if DEBUG_textContainerForGlyphAtIndex_effectiveRange
@@ -490,7 +490,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 #endif
 
     NSGlyphFragment *fragment =
-        fragmentAtGlyphIndex(self, glyphIndex, effectiveGlyphRange);
+            fragmentAtGlyphIndex(self, glyphIndex, effectiveGlyphRange);
 
     if (fragment == NULL) {
 
@@ -535,7 +535,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
 - (NSRect) lineFragmentUsedRectForGlyphAtIndex: (NSUInteger) glyphIndex
                                 effectiveRange:
-                                    (NSRangePointer) effectiveGlyphRange
+                                        (NSRangePointer) effectiveGlyphRange
 {
 
 #if DEBUG_LM_LAYOUT
@@ -545,7 +545,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 #endif
 
     NSGlyphFragment *fragment =
-        fragmentAtGlyphIndex(self, glyphIndex, effectiveGlyphRange);
+            fragmentAtGlyphIndex(self, glyphIndex, effectiveGlyphRange);
 
     if (fragment == NULL) {
 
@@ -588,16 +588,16 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
         if ([_delegate respondsToSelector: @selector
                        (layoutManager:
-                           didCompleteLayoutForTextContainer:atEnd:)]) {
+                               didCompleteLayoutForTextContainer:atEnd:)]) {
 
             NSTextContainer *container = [_textContainers lastObject];
             NSRange containerRange =
-                [self _currentGlyphRangeForTextContainer: container];
+                    [self _currentGlyphRangeForTextContainer: container];
             BOOL finished =
-                NSMaxRange(containerRange) >= NSMaxRange(glyphRange);
+                    NSMaxRange(containerRange) >= NSMaxRange(glyphRange);
             [_delegate layoutManager: self
-                didCompleteLayoutForTextContainer: container
-                                            atEnd: finished];
+                    didCompleteLayoutForTextContainer: container
+                                                atEnd: finished];
 
 #if DEBUG_validateGlyphsAndLayoutForGlyphRange
             NSLog(@"informed delegate with layoutManager: %p "
@@ -632,7 +632,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
     // Validate everything - we should at least validate everything up to this
     // container
     [self validateGlyphsAndLayoutForGlyphRange: NSMakeRange(
-                                                    0, [self numberOfGlyphs])];
+                                                        0,
+                                                        [self numberOfGlyphs])];
 }
 
 - (NSRect) usedRectForTextContainer: (NSTextContainer *) container {
@@ -654,8 +655,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
         NSRange range;
         NSGlyphFragment *fragment;
 
-        while (
-            NSNextRangeEnumeratorEntry(&state, &range, (void **) &fragment)) {
+        while (NSNextRangeEnumeratorEntry(&state, &range,
+                                          (void **) &fragment)) {
             if (fragment->container == container) {
                 NSRect rect = fragment->usedRect;
 #if DEBUG_usedRectForTextContainer
@@ -942,10 +943,10 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 }
 
 - (void) textStorage: (NSTextStorage *) storage
-              edited: (NSUInteger) editedMask
-               range: (NSRange) range
-      changeInLength: (NSInteger) changeInLength
-    invalidatedRange: (NSRange) invalidateRange
+                  edited: (NSUInteger) editedMask
+                   range: (NSRange) range
+          changeInLength: (NSInteger) changeInLength
+        invalidatedRange: (NSRange) invalidateRange
 {
 
 #if DEBUG_LM_LAYOUT
@@ -1015,8 +1016,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 }
 
 - (NSUInteger) glyphIndexForPoint: (NSPoint) point
-                   inTextContainer: (NSTextContainer *) container
-    fractionOfDistanceThroughGlyph: (CGFloat *) fraction
+                       inTextContainer: (NSTextContainer *) container
+        fractionOfDistanceThroughGlyph: (CGFloat *) fraction
 {
 
 #if DEBUG_LM_LAYOUT
@@ -1029,7 +1030,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
     NSUInteger endOfFragment = 0;
     NSUInteger result =
-        NSMaxRange([self glyphRangeForTextContainer: container]);
+            NSMaxRange([self glyphRangeForTextContainer: container]);
     NSRange range;
     NSGlyphFragment *fragment;
     NSRangeEnumerator state;
@@ -1046,7 +1047,7 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
                 // if we're at the end of a line we want to back up before the
                 // newline This is a very ugly way to do it
                 if ([[_textStorage string]
-                        characterAtIndex: endOfFragment - 1] == '\n') {
+                            characterAtIndex: endOfFragment - 1] == '\n') {
 #if DEBUG_glyphIndexForPoint_inTextContainer_fractionOfDistanceThroughGlyph
                     NSLog(@"backing up before the newline");
 #endif
@@ -1154,13 +1155,13 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
     CGFloat fraction;
 
     return [self glyphIndexForPoint: point
-                       inTextContainer: container
-        fractionOfDistanceThroughGlyph: &fraction];
+                           inTextContainer: container
+            fractionOfDistanceThroughGlyph: &fraction];
 }
 
 - (CGFloat) fractionOfDistanceThroughGlyphForPoint: (NSPoint) point
                                    inTextContainer:
-                                       (NSTextContainer *) container
+                                           (NSTextContainer *) container
 {
 
 #if DEBUG_LM_LAYOUT
@@ -1172,8 +1173,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
     CGFloat fraction;
 
     [self glyphIndexForPoint: point
-                       inTextContainer: container
-        fractionOfDistanceThroughGlyph: &fraction];
+                           inTextContainer: container
+            fractionOfDistanceThroughGlyph: &fraction];
 
     return fraction;
 }
@@ -1250,8 +1251,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
         NSRange range;
         NSGlyphFragment *fragment;
 
-        while (
-            NSNextRangeEnumeratorEntry(&state, &range, (void **) &fragment)) {
+        while (NSNextRangeEnumeratorEntry(&state, &range,
+                                          (void **) &fragment)) {
             if (fragment->container == container) {
                 NSRect check = fragment->rect;
 
@@ -1274,7 +1275,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
 - (NSRange) glyphRangeForBoundingRectWithoutAdditionalLayout: (NSRect) bounds
                                              inTextContainer:
-                                                 (NSTextContainer *) container
+                                                     (NSTextContainer *)
+                                                             container
 {
     return NSMakeRange(0, 0);
 }
@@ -1318,8 +1320,9 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     if (self->_rectCacheCount >= self->_rectCacheCapacity) {
         self->_rectCacheCapacity *= 2;
-        self->_rectCache = NSZoneRealloc(
-            NULL, self->_rectCache, sizeof(NSRect) * self->_rectCacheCapacity);
+        self->_rectCache =
+                NSZoneRealloc(NULL, self->_rectCache,
+                              sizeof(NSRect) * self->_rectCacheCapacity);
     }
 
     self->_rectCache[self->_rectCacheCount++] = rect;
@@ -1341,14 +1344,14 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 #endif
 
     NSRange remainder =
-        (selGlyphRange.location == NSNotFound) ? glyphRange : selGlyphRange;
+            (selGlyphRange.location == NSNotFound) ? glyphRange : selGlyphRange;
 
     _rectCacheCount = 0;
     do {
         NSRange range;
         // Get the fragment to the range to process
         NSGlyphFragment *fragment =
-            fragmentAtGlyphIndex(self, remainder.location, &range);
+                fragmentAtGlyphIndex(self, remainder.location, &range);
 
         if (fragment == NULL) {
 
@@ -1400,9 +1403,9 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                             glyph = NSNullGlyph;
 
                         advance = [font positionOfGlyph: glyph
-                                        precededByGlyph: previousGlyph
-                                              isNominal: &ignore]
-                                      .x;
+                                          precededByGlyph: previousGlyph
+                                                isNominal: &ignore]
+                                          .x;
                         if (range.location + i <= intersect.location) {
                             // Not yet part of intersect - advance the fill rect
                             // origin
@@ -1418,7 +1421,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                         // We want the full end of fragment, so grow the width
                         // to the end of the fragment rect
                         fill.size.width =
-                            NSMaxX(fragment->rect) - fill.origin.x;
+                                NSMaxX(fragment->rect) - fill.origin.x;
                     }
                 } else {
                     // Start from the right
@@ -1430,9 +1433,9 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                             glyph = NSNullGlyph;
 
                         advance = [font positionOfGlyph: glyph
-                                        precededByGlyph: previousGlyph
-                                              isNominal: &ignore]
-                                      .x;
+                                          precededByGlyph: previousGlyph
+                                                isNominal: &ignore]
+                                          .x;
                         if (range.location + i <= intersect.location) {
                             // Not yet part of intersect - advance the fill rect
                             // origin to the left
@@ -1535,12 +1538,12 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 #define DEBUG_LM_DRAWING 0
 
 - (void) showPackedGlyphs: (char *) glyphs
-                   length: (NSUInteger) length
-               glyphRange: (NSRange) glyphRange
-                  atPoint: (NSPoint) point
-                     font: (NSFont *) font
-                    color: (NSColor *) color
-       printingAdjustment: (NSSize) printingAdjustment
+                    length: (NSUInteger) length
+                glyphRange: (NSRange) glyphRange
+                   atPoint: (NSPoint) point
+                      font: (NSFont *) font
+                     color: (NSColor *) color
+        printingAdjustment: (NSSize) printingAdjustment
 {
 
 #if DEBUG_LM_DRAWING
@@ -1583,7 +1586,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 
     NSTextView *textView = [self textViewForBeginningOfSelection];
     NSColor *selectedColor = [[textView selectedTextAttributes]
-        objectForKey: NSBackgroundColorAttributeName];
+            objectForKey: NSBackgroundColorAttributeName];
     NSRange range;
     NSRect *rectArray;
     NSUInteger i, rectCount = 0;
@@ -1628,8 +1631,8 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 
     glyphRange = [self validateGlyphsAndLayoutForGlyphRange: glyphRange]; {
         NSTextContainer *container =
-            [self textContainerForGlyphAtIndex: glyphRange.location
-                                effectiveRange: &glyphRange];
+                [self textContainerForGlyphAtIndex: glyphRange.location
+                                    effectiveRange: &glyphRange];
         if (container == nil) {
             return;
         }
@@ -1639,13 +1642,13 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
         NSUInteger limit = NSMaxRange(characterRange);
         BOOL isFlipped = [[NSGraphicsContext currentContext] isFlipped];
         CGFloat usedHeight =
-            [self usedRectForTextContainer: container].size.height;
+                [self usedRectForTextContainer: container].size.height;
 
         while (location < limit) {
             NSRange effectiveRange;
             NSDictionary *attributes =
-                [_textStorage attributesAtIndex: location
-                                 effectiveRange: &effectiveRange];
+                    [_textStorage attributesAtIndex: location
+                                     effectiveRange: &effectiveRange];
             // Make sure the effectiveRange doesn't take us backwards!
             NSInteger reduction = location - effectiveRange.location;
             effectiveRange.location = location;
@@ -1659,9 +1662,10 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                  continueSearch && tempOffset < NSMaxRange(effectiveRange);
                  tempOffset++) {
                 NSRange tempEffectiveRange = NSMakeRange(0, 0);
-                NSDictionary *tempAttrs = [self
-                    temporaryAttributesAtCharacterIndex: tempOffset
-                                         effectiveRange: &tempEffectiveRange];
+                NSDictionary *tempAttrs =
+                        [self temporaryAttributesAtCharacterIndex: tempOffset
+                                                   effectiveRange:
+                                                           &tempEffectiveRange];
                 if (NSEqualRanges(effectiveRange, tempEffectiveRange)) {
                     // Things are lined up nicely - we can just use the
                     // effectiveRange as is
@@ -1674,7 +1678,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                             // cut effectiveRange down so it ends at the start
                             // of the temp range
                             effectiveRange.length =
-                                tempOffset - effectiveRange.location;
+                                    tempOffset - effectiveRange.location;
                             continueSearch = NO;
                         } else if (tempEffectiveRange.length <
                                    effectiveRange.length) {
@@ -1689,42 +1693,43 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
             }
 
             NSRange tempEffectiveRange = NSMakeRange(0, 0);
-            NSDictionary *tempAttrs =
-                [self temporaryAttributesAtCharacterIndex: location
-                                           effectiveRange: &tempEffectiveRange];
+            NSDictionary *tempAttrs = [self
+                    temporaryAttributesAtCharacterIndex: location
+                                         effectiveRange: &tempEffectiveRange];
             if ([tempAttrs count] > 0) {
                 // Merge in the temporary attributes
                 BOOL checkTemporaryAttributesUsage = [_delegate
-                    respondsToSelector: @selector
-                    (layoutManager:
-                        shouldUseTemporaryAttributes:forDrawingToScreen
-                                                    :atCharacterIndex
-                                                    :effectiveRange:)];
+                        respondsToSelector: @selector
+                        (layoutManager:
+                                shouldUseTemporaryAttributes:forDrawingToScreen
+                                                            :atCharacterIndex
+                                                            :effectiveRange:)];
                 if (checkTemporaryAttributesUsage) {
                     tempAttrs = [_delegate layoutManager: self
                             shouldUseTemporaryAttributes: tempAttrs
-                                      forDrawingToScreen: [[NSGraphicsContext
-                                                              currentContext]
-                                                              isDrawingToScreen]
+                                      forDrawingToScreen:
+                                              [[NSGraphicsContext
+                                                      currentContext]
+                                                      isDrawingToScreen]
                                         atCharacterIndex: location
                                           effectiveRange: NULL];
                 }
                 NSMutableDictionary *dict =
-                    [[attributes mutableCopy] autorelease];
+                        [[attributes mutableCopy] autorelease];
                 [dict addEntriesFromDictionary: tempAttrs];
                 attributes = dict;
             }
 
             NSColor *color =
-                [attributes objectForKey: NSBackgroundColorAttributeName];
+                    [attributes objectForKey: NSBackgroundColorAttributeName];
 
             effectiveRange =
-                NSIntersectionRange(characterRange, effectiveRange);
+                    NSIntersectionRange(characterRange, effectiveRange);
 
             if (color != nil) {
                 NSUInteger i, rectCount;
-                NSRect *rects =
-                    [self rectArrayForCharacterRange: effectiveRange
+                NSRect *rects = [self
+                          rectArrayForCharacterRange: effectiveRange
                         withinSelectedCharacterRange: NSMakeRange(NSNotFound, 0)
                                      inTextContainer: container
                                            rectCount: &rectCount];
@@ -1736,7 +1741,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 
                     if (!isFlipped)
                         fill.origin.y =
-                            usedHeight - (fill.origin.y + fill.size.height);
+                                usedHeight - (fill.origin.y + fill.size.height);
 
                     fill.origin.x += origin.x;
                     fill.origin.y += origin.y;
@@ -1759,12 +1764,13 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                     containerOrigin: (NSPoint) containerOrigin
 {
 #if DEBUG_LM_DRAWING
-    NSLog(
-        @"drawUnderlineForGlyphRange: %@ underlineType: %@ baselineOffset: %f "
-        @"lineFragmentRect: %@ lineFragmentGlyphRange: %@ containerOrigin: %@",
-        NSStringFromRange(glyphRange), underlineVal, baselineOffset,
-        NSStringFromRect(lineRect), NSStringFromRange(lineGlyphRange),
-        NSStringFromPoint(containerOrigin));
+    NSLog(@"drawUnderlineForGlyphRange: %@ underlineType: %@ baselineOffset: "
+          @"%f "
+          @"lineFragmentRect: %@ lineFragmentGlyphRange: %@ containerOrigin: "
+          @"%@",
+          NSStringFromRange(glyphRange), underlineVal, baselineOffset,
+          NSStringFromRect(lineRect), NSStringFromRange(lineGlyphRange),
+          NSStringFromPoint(containerOrigin));
 #define DEBUG_LM_DRAWUNDERLINEFORGLYPHRANGE 0
 #endif
 
@@ -1773,8 +1779,8 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                                               actualGlyphRange: NULL];
     BOOL isFlipped = [[NSGraphicsContext currentContext] isFlipped];
     NSTextContainer *container =
-        [self textContainerForGlyphAtIndex: glyphRange.location
-                            effectiveRange: NULL];
+            [self textContainerForGlyphAtIndex: glyphRange.location
+                                effectiveRange: NULL];
 
     NSRect *rects = [self rectArrayForCharacterRange: characterRange
                         withinSelectedCharacterRange: NSMakeRange(NSNotFound, 0)
@@ -1803,34 +1809,35 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 
         fill.origin.x += origin.x;
         fill.origin.y +=
-            origin.y + baselineOffset -
-            .5; // .5 so it's better aligned on pixels - looks sharper
+                origin.y + baselineOffset -
+                .5; // .5 so it's better aligned on pixels - looks sharper
         [path moveToPoint: fill.origin];
         CGFloat width = fill.size.width;
         [path relativeLineToPoint: NSMakePoint(width, 0)];
     }
 
     NSDictionary *attributes =
-        [_textStorage attributesAtIndex: characterRange.location
-                         effectiveRange: NULL];
+            [_textStorage attributesAtIndex: characterRange.location
+                             effectiveRange: NULL];
     // Don't forget the temporary attributes
     NSDictionary *tmpAttrs =
-        [self temporaryAttributesAtCharacterIndex: characterRange.location
-                                   effectiveRange: NULL];
+            [self temporaryAttributesAtCharacterIndex: characterRange.location
+                                       effectiveRange: NULL];
     if ([tmpAttrs count] > 0) {
         BOOL checkTemporaryAttributesUsage = [_delegate
-            respondsToSelector: @selector
-            (layoutManager:
-                shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex
-                                            :effectiveRange:)];
+                respondsToSelector: @selector
+                (layoutManager:
+                        shouldUseTemporaryAttributes:forDrawingToScreen
+                                                    :atCharacterIndex
+                                                    :effectiveRange:)];
         if (checkTemporaryAttributesUsage) {
             tmpAttrs = [_delegate layoutManager: self
-                   shouldUseTemporaryAttributes: tmpAttrs
-                             forDrawingToScreen: [[NSGraphicsContext
-                                                     currentContext]
-                                                     isDrawingToScreen]
-                               atCharacterIndex: characterRange.location
-                                 effectiveRange: NULL];
+                    shouldUseTemporaryAttributes: tmpAttrs
+                              forDrawingToScreen: [[NSGraphicsContext
+                                                          currentContext]
+                                                          isDrawingToScreen]
+                                atCharacterIndex: characterRange.location
+                                  effectiveRange: NULL];
         }
         NSMutableDictionary *dict = [[attributes mutableCopy] autorelease];
         [dict addEntriesFromDictionary: tmpAttrs];
@@ -1838,11 +1845,11 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     }
 
     NSColor *underlineColor =
-        [attributes objectForKey: NSUnderlineColorAttributeName];
+            [attributes objectForKey: NSUnderlineColorAttributeName];
     if (underlineColor == nil) {
         // Default to foreground color attribute...
         underlineColor =
-            [attributes objectForKey: NSForegroundColorAttributeName];
+                [attributes objectForKey: NSForegroundColorAttributeName];
         if (underlineColor == nil) {
             // ... and to black if still no luck
             underlineColor = [NSColor blackColor];
@@ -1853,10 +1860,10 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 }
 
 - (void) underlineGlyphRange: (NSRange) glyphRange
-               underlineType: (NSInteger) underlineVal
-            lineFragmentRect: (NSRect) lineRect
-      lineFragmentGlyphRange: (NSRange) lineGlyphRange
-             containerOrigin: (NSPoint) containerOrigin
+                 underlineType: (NSInteger) underlineVal
+              lineFragmentRect: (NSRect) lineRect
+        lineFragmentGlyphRange: (NSRange) lineGlyphRange
+               containerOrigin: (NSPoint) containerOrigin
 {
     // A full implementation would honor options like breaking the underline for
     // whitespace.
@@ -1890,8 +1897,8 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                                               actualGlyphRange: NULL];
     BOOL isFlipped = [[NSGraphicsContext currentContext] isFlipped];
     NSTextContainer *container =
-        [self textContainerForGlyphAtIndex: glyphRange.location
-                            effectiveRange: NULL];
+            [self textContainerForGlyphAtIndex: glyphRange.location
+                                effectiveRange: NULL];
     NSRect *rects = [self rectArrayForCharacterRange: characterRange
                         withinSelectedCharacterRange: NSMakeRange(NSNotFound, 0)
                                      inTextContainer: container
@@ -1924,10 +1931,10 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     }
 
     NSDictionary *attributes =
-        [_textStorage attributesAtIndex: characterRange.location
-                         effectiveRange: NULL];
+            [_textStorage attributesAtIndex: characterRange.location
+                             effectiveRange: NULL];
     NSColor *underlineColor =
-        [attributes objectForKey: NSUnderlineColorAttributeName];
+            [attributes objectForKey: NSUnderlineColorAttributeName];
     if (underlineColor == nil) {
         underlineColor = [NSColor blackColor];
     }
@@ -2003,7 +2010,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 - (NSColor *) _selectedColor {
     NSTextView *textView = [self textViewForBeginningOfSelection];
     NSColor *selectedColor = [[textView selectedTextAttributes]
-        objectForKey: NSForegroundColorAttributeName];
+            objectForKey: NSForegroundColorAttributeName];
 
     if (selectedColor == nil) {
         selectedColor = [NSColor selectedTextColor];
@@ -2012,12 +2019,12 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 }
 
 - (void) _drawGlyphs: (NSGlyph *) glyphs
-              length: (NSUInteger) length
-               range: (NSRange) range
-             atPoint: (NSPoint) point
-         inContainer: (NSTextContainer *) container
-      withAttributes: (NSDictionary *) attributes
-              origin: (NSPoint) origin
+                length: (NSUInteger) length
+                 range: (NSRange) range
+               atPoint: (NSPoint) point
+           inContainer: (NSTextContainer *) container
+        withAttributes: (NSDictionary *) attributes
+                origin: (NSPoint) origin
 {
 #if DEBUG_LM_DRAWING
     NSLog(@"_drawGlyphs: %p length: %d range: %@ atPoint: %@ inContainer: %p "
@@ -2034,54 +2041,54 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     char packedGlyphs[length * 2]; // Specs says length*4+1 but needed buffer
                                    // size is at max length*2 on Cocotron
     NSInteger packedGlyphsLength = NSConvertGlyphsToPackedGlyphs(
-        glyphs, length, NSNativeShortGlyphPacking, packedGlyphs);
+            glyphs, length, NSNativeShortGlyphPacking, packedGlyphs);
     [self showPackedGlyphs: packedGlyphs
-                    length: packedGlyphsLength
-                glyphRange: range
-                   atPoint: point
-                      font: font
-                     color: color
-        printingAdjustment: NSZeroSize];
+                        length: packedGlyphsLength
+                    glyphRange: range
+                       atPoint: point
+                          font: font
+                         color: color
+            printingAdjustment: NSZeroSize];
 
     NSRange glyphRange = range;
 
     // Next take a look at the overprinting options
-    BOOL underline =
-        [[attributes objectForKey: NSUnderlineStyleAttributeName] boolValue];
+    BOOL underline = [[attributes objectForKey: NSUnderlineStyleAttributeName]
+            boolValue];
     BOOL strikeThru = [[attributes
-        objectForKey: NSStrikethroughStyleAttributeName] boolValue];
+            objectForKey: NSStrikethroughStyleAttributeName] boolValue];
 
     if (underline || strikeThru) {
         NSRange lineGlyphRange;
         NSRect lineRect =
-            [self lineFragmentRectForGlyphAtIndex: glyphRange.location
-                                   effectiveRange: &lineGlyphRange];
+                [self lineFragmentRectForGlyphAtIndex: glyphRange.location
+                                       effectiveRange: &lineGlyphRange];
 
         if (underline) {
             [self underlineGlyphRange: glyphRange
-                         underlineType: NSUnderlineStyleThick
-                      lineFragmentRect: lineRect
-                lineFragmentGlyphRange: lineGlyphRange
-                       containerOrigin: origin];
+                             underlineType: NSUnderlineStyleThick
+                          lineFragmentRect: lineRect
+                    lineFragmentGlyphRange: lineGlyphRange
+                           containerOrigin: origin];
         }
 
         if (strikeThru) {
             // Make sure we've got a good strikeThru color
-            NSColor *strikeThruColor =
-                [attributes objectForKey: NSStrikethroughColorAttributeName];
+            NSColor *strikeThruColor = [attributes
+                    objectForKey: NSStrikethroughColorAttributeName];
             if (strikeThruColor == nil) {
                 strikeThruColor = [NSColor blackColor];
             }
             [self strikethroughGlyphRange: glyphRange
-                        strikethroughType: NSUnderlineStyleThick
-                         lineFragmentRect: lineRect
-                   lineFragmentGlyphRange: lineGlyphRange
-                          containerOrigin: origin];
+                         strikethroughType: NSUnderlineStyleThick
+                          lineFragmentRect: lineRect
+                    lineFragmentGlyphRange: lineGlyphRange
+                           containerOrigin: origin];
         }
     }
 
     NSNumber *spellingState =
-        [attributes objectForKey: NSSpellingStateAttributeName];
+            [attributes objectForKey: NSSpellingStateAttributeName];
     if (spellingState != nil) {
         [self drawSpellingState: spellingState
                      glyphRange: glyphRange
@@ -2108,9 +2115,9 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     NSTextView *textView = [self textViewForBeginningOfSelection];
 
     [cell drawWithFrame: frame
-                 inView: textView
-         characterIndex: index
-          layoutManager: self];
+                    inView: textView
+            characterIndex: index
+             layoutManager: self];
 }
 
 - (CGFloat) _drawGlyphsForSubGlyphRange: (NSRange) range
@@ -2137,7 +2144,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     NSColor *selectedColor = [self _selectedColor];
 
     NSRange selectedRange =
-        (textView == nil) ? NSMakeRange(0, 0) : [textView selectedRange];
+            (textView == nil) ? NSMakeRange(0, 0) : [textView selectedRange];
 
     NSRange characterRange = [self characterRangeForGlyphRange: range
                                               actualGlyphRange: NULL];
@@ -2147,7 +2154,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     NSColor *color = NSForegroundColorAttributeInDictionary(attributes);
 
     NSTextAttachment *attachment =
-        [attributes objectForKey: NSAttachmentAttributeName];
+            [attributes objectForKey: NSAttachmentAttributeName];
 
     // Get the location of the fragment
     NSPoint point = fragment->location;
@@ -2168,8 +2175,8 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     if (attachment != nil) {
         // Draw the attachment at the calculated point
         [self _drawAttachment: attachment
-             atCharacterIndex: characterRange.location
-                      atPoint: point];
+                atCharacterIndex: characterRange.location
+                         atPoint: point];
 
     } else {
 
@@ -2195,9 +2202,9 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
             if (ltor == NO) {
                 // Mirror the selection since the glyphs order is Right-to-Left
                 NSUInteger distanceToEnd =
-                    NSMaxRange(characterRange) - NSMaxRange(intersectRange);
+                        NSMaxRange(characterRange) - NSMaxRange(intersectRange);
                 intersectRange.location =
-                    characterRange.location + distanceToEnd;
+                        characterRange.location + distanceToEnd;
             }
 
             NSGlyph previousGlyph = NSNullGlyph;
@@ -2212,8 +2219,8 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                 NSUInteger length = 0;
                 BOOL showGlyphs = NO;
 
-                NSGlyph glyph =
-                    (location < NSMaxRange(range)) ? glyphs[i] : NSNullGlyph;
+                NSGlyph glyph = (location < NSMaxRange(range)) ? glyphs[i]
+                                                               : NSNullGlyph;
 
                 // Glyph is invisible so just translate it to a Null glyph
                 if (glyph == NSControlGlyph) {
@@ -2267,22 +2274,22 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                 // Make sure we keep track of how many points we've used with
                 // each one
                 partWidth += [font positionOfGlyph: glyph
-                                   precededByGlyph: previousGlyph
-                                         isNominal: &ignore]
-                                 .x;
+                                     precededByGlyph: previousGlyph
+                                           isNominal: &ignore]
+                                     .x;
 
                 if (showGlyphs) {
                     // Show the range of glyphs specifed by offset and length
                     NSRange subRange =
-                        NSMakeRange(range.location + offset, length);
+                            NSMakeRange(range.location + offset, length);
 
                     [self _drawGlyphs: glyphs + offset
-                                length: length
-                                 range: subRange
-                               atPoint: point
-                           inContainer: container
-                        withAttributes: attributes
-                                origin: origin];
+                                    length: length
+                                     range: subRange
+                                   atPoint: point
+                               inContainer: container
+                            withAttributes: attributes
+                                    origin: origin];
 
                     // And make sure we know where we are witin the fragment.
                     point.x += partWidth;
@@ -2308,19 +2315,19 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                     glyph = NSNullGlyph;
                 }
                 partWidth += [font positionOfGlyph: glyph
-                                   precededByGlyph: previousGlyph
-                                         isNominal: &ignore]
-                                 .x;
+                                     precededByGlyph: previousGlyph
+                                           isNominal: &ignore]
+                                     .x;
                 previousGlyph = glyph;
             }
 
             [self _drawGlyphs: glyphs
-                        length: glyphsLength
-                         range: range
-                       atPoint: point
-                   inContainer: container
-                withAttributes: attributes
-                        origin: origin];
+                            length: glyphsLength
+                             range: range
+                           atPoint: point
+                       inContainer: container
+                    withAttributes: attributes
+                            origin: origin];
             point.x += partWidth;
         }
     }
@@ -2342,13 +2349,13 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 
     NSTextView *textView = [self textViewForBeginningOfSelection];
     NSRange selectedRange =
-        (textView == nil) ? NSMakeRange(0, 0) : [textView selectedRange];
+            (textView == nil) ? NSMakeRange(0, 0) : [textView selectedRange];
 
     glyphRange = [self validateGlyphsAndLayoutForGlyphRange: glyphRange];
 
     NSTextContainer *container =
-        [self textContainerForGlyphAtIndex: glyphRange.location
-                            effectiveRange: NULL];
+            [self textContainerForGlyphAtIndex: glyphRange.location
+                                effectiveRange: NULL];
     if (container == nil) {
         // Not sure if this is ever a good thing - but it's certainly a bad
         // thing and if there's no container within which to layout - we're
@@ -2361,11 +2368,12 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     NSRange range;
     NSGlyphFragment *fragment;
 
-    BOOL checkTemporaryAttributesUsage = [_delegate
-        respondsToSelector: @selector
-        (layoutManager:
-            shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex
-                                        :effectiveRange:)];
+    BOOL checkTemporaryAttributesUsage =
+            [_delegate respondsToSelector: @selector
+                       (layoutManager:
+                               shouldUseTemporaryAttributes:forDrawingToScreen
+                                                           :atCharacterIndex
+                                                           :effectiveRange:)];
 
     // Iterate over the glyph fragments (which identify runs of common
     // attributes)
@@ -2385,12 +2393,12 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
             // because we know we're within a glyph fragment which means that
             // the character range and attributes are already limited correctly.
             NSRange characterRange =
-                [self characterRangeForGlyphRange: intersect
-                                 actualGlyphRange: NULL];
+                    [self characterRangeForGlyphRange: intersect
+                                     actualGlyphRange: NULL];
 
             NSDictionary *attributes =
-                [_textStorage attributesAtIndex: characterRange.location
-                                 effectiveRange: NULL];
+                    [_textStorage attributesAtIndex: characterRange.location
+                                     effectiveRange: NULL];
 
 #if DEBUG_LM_DRAWGLYPHSFORGLYPHRANGE
             NSLog(@"    characterRange: %@", NSStringFromRange(characterRange));
@@ -2424,8 +2432,8 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
             if (tempAttributesInRange) {
                 NSRange tempRange;
                 NSDictionary *tmpAttrs = [self
-                    temporaryAttributesAtCharacterIndex: tempAttributesIndex
-                                         effectiveRange: &tempRange];
+                        temporaryAttributesAtCharacterIndex: tempAttributesIndex
+                                             effectiveRange: &tempRange];
                 NSLog(@"     temporaryAttributes: %@", tmpAttrs);
             }
 #endif
@@ -2447,72 +2455,73 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                     // Make sure we don't go beyond the remaining range of the
                     // current fragment
                     NSRange remainingRange = NSMakeRange(
-                        charIndex, NSMaxRange(characterRange) - charIndex);
+                            charIndex, NSMaxRange(characterRange) - charIndex);
                     if (NSRangeEntryAtIndex(_rangeToTemporaryAttributes,
                                             charIndex, &tempRange) != nil &&
                         NSIntersectionRange(remainingRange, tempRange).length >
-                            0) {
+                                0) {
 
                         if (length > 0) {
                             // draw the glyphs that we've encountered so far (if
                             // any)
                             NSRange subRange = NSMakeRange(offset, length);
                             subRange =
-                                [self glyphRangeForCharacterRange: subRange
-                                             actualCharacterRange: NULL];
-                            glyphXOffset =
-                                [self _drawGlyphsForSubGlyphRange: subRange
-                                                      forFragment: fragment
-                                                          atPoint: origin
-                                                  subRangeXOffset: glyphXOffset
-                                                      inContainer: container
-                                                   withAttributes: attributes
-                                                       usedHeight: usedHeight];
+                                    [self glyphRangeForCharacterRange: subRange
+                                                 actualCharacterRange: NULL];
+                            glyphXOffset = [self
+                                    _drawGlyphsForSubGlyphRange: subRange
+                                                    forFragment: fragment
+                                                        atPoint: origin
+                                                subRangeXOffset: glyphXOffset
+                                                    inContainer: container
+                                                 withAttributes: attributes
+                                                     usedHeight: usedHeight];
                         }
 
                         NSDictionary *tempAttrs = [self
-                            temporaryAttributesAtCharacterIndex: charIndex
-                                                 effectiveRange: &tempRange];
+                                temporaryAttributesAtCharacterIndex: charIndex
+                                                     effectiveRange: &
+                                                                     tempRange];
 
                         if (checkTemporaryAttributesUsage) {
                             tempAttrs = [_delegate layoutManager: self
                                     shouldUseTemporaryAttributes: tempAttrs
                                               forDrawingToScreen:
-                                                  [[NSGraphicsContext
-                                                      currentContext]
-                                                      isDrawingToScreen]
+                                                      [[NSGraphicsContext
+                                                              currentContext]
+                                                              isDrawingToScreen]
                                                 atCharacterIndex: charIndex
                                                   effectiveRange: &tempRange];
                         }
 
                         tempRange =
-                            NSIntersectionRange(remainingRange, tempRange);
+                                NSIntersectionRange(remainingRange, tempRange);
 
                         // Merge the temp attributes with the permanent
                         // attributes
                         NSMutableDictionary *mergedAttrs =
-                            [[attributes mutableCopy] autorelease];
+                                [[attributes mutableCopy] autorelease];
                         [mergedAttrs addEntriesFromDictionary: tempAttrs];
 
                         NSRange tempGlyphRange =
-                            [self glyphRangeForCharacterRange: tempRange
-                                         actualCharacterRange: NULL];
+                                [self glyphRangeForCharacterRange: tempRange
+                                             actualCharacterRange: NULL];
 
-                        glyphXOffset =
-                            [self _drawGlyphsForSubGlyphRange: tempGlyphRange
-                                                  forFragment: fragment
-                                                      atPoint: origin
-                                              subRangeXOffset: glyphXOffset
-                                                  inContainer: container
-                                               withAttributes: mergedAttrs
-                                                   usedHeight: usedHeight];
+                        glyphXOffset = [self
+                                _drawGlyphsForSubGlyphRange: tempGlyphRange
+                                                forFragment: fragment
+                                                    atPoint: origin
+                                            subRangeXOffset: glyphXOffset
+                                                inContainer: container
+                                             withAttributes: mergedAttrs
+                                                 usedHeight: usedHeight];
 
                         // And reset ready for the next run
                         offset = NSMaxRange(tempRange);
                         charIndex =
-                            offset -
-                            1; // Make sure we leap over the temp range (one off
-                               // to accommodate the auto-increment)
+                                offset -
+                                1; // Make sure we leap over the temp range (one
+                                   // off to accommodate the auto-increment)
 
                         length = -1; // accommodate the auto-increment
                     }
@@ -2560,7 +2569,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                           actualCharacterRange: NULL];
 
     fragment =
-        NSRangeEntryAtIndex(self->_glyphFragments, result.location, NULL);
+            NSRangeEntryAtIndex(self->_glyphFragments, result.location, NULL);
     if (fragment == NULL)
         return result;
 
@@ -2568,8 +2577,8 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 
     i = result.location;
     j = result.location;
-    while (
-        (fragment = NSRangeEntryAtIndex(self->_glyphFragments, i - 1, NULL))) {
+    while ((fragment =
+                    NSRangeEntryAtIndex(self->_glyphFragments, i - 1, NULL))) {
         if (fragment->location.y != origin)
             break;
         result.location = i;
@@ -2599,9 +2608,9 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     return [font defaultLineHeightForFont];
 }
 
-- (NSDictionary *) temporaryAttributesAtCharacterIndex: (NSUInteger) charIndex
-                                        effectiveRange:
-                                            (NSRangePointer) effectiveCharRange
+- (NSDictionary *)
+        temporaryAttributesAtCharacterIndex: (NSUInteger) charIndex
+                             effectiveRange: (NSRangePointer) effectiveCharRange
 {
     NSDictionary *result;
 
@@ -2635,7 +2644,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     } else if (charRange.length > 0) {
         // Make sure we don't go beyond the actual text storage range
         NSRange intersect = NSIntersectionRange(
-            NSMakeRange(0, [_textStorage length]), charRange);
+                NSMakeRange(0, [_textStorage length]), charRange);
 
         NSRangeEntriesDivideAndConquer(_rangeToTemporaryAttributes, intersect);
         NSRangeEntryInsert(_rangeToTemporaryAttributes, intersect, attrs);
@@ -2658,17 +2667,17 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     while (location < limit) {
         NSRange effectiveRange;
         NSMutableDictionary *modify =
-            [[[self temporaryAttributesAtCharacterIndex: location
-                                         effectiveRange: &effectiveRange]
-                mutableCopy] autorelease];
+                [[[self temporaryAttributesAtCharacterIndex: location
+                                             effectiveRange: &effectiveRange]
+                        mutableCopy] autorelease];
         NSRange replace;
 
         [modify addEntriesFromDictionary: attrs];
 
         replace.location = MAX(location, effectiveRange.location);
         replace.length =
-            MIN(NSMaxRange(charRange), NSMaxRange(effectiveRange)) -
-            replace.location;
+                MIN(NSMaxRange(charRange), NSMaxRange(effectiveRange)) -
+                replace.location;
 
         [self setTemporaryAttributes: modify forCharacterRange: replace];
 
@@ -2697,13 +2706,14 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     while (location < limit) {
         NSRange effectiveRange;
         NSDictionary *check =
-            [self temporaryAttributesAtCharacterIndex: location
-                                       effectiveRange: &effectiveRange];
+                [self temporaryAttributesAtCharacterIndex: location
+                                           effectiveRange: &effectiveRange];
         NSRange replace;
 
         replace.location = location;
         replace.length =
-            MIN(NSMaxRange(charRange), NSMaxRange(effectiveRange)) - location;
+                MIN(NSMaxRange(charRange), NSMaxRange(effectiveRange)) -
+                location;
 
         if ([check objectForKey: attrName] != nil) {
             NSMutableDictionary *modify = [[check mutableCopy] autorelease];
@@ -2723,13 +2733,13 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 {
     return [[self temporaryAttributesAtCharacterIndex: location
                                        effectiveRange: range]
-        objectForKey: attrName];
+            objectForKey: attrName];
 }
 
 - (id) temporaryAttribute: (NSString *) attrName
-         atCharacterIndex: (NSUInteger) location
-    longestEffectiveRange: (NSRangePointer) range
-                  inRange: (NSRange) rangeLimit
+             atCharacterIndex: (NSUInteger) location
+        longestEffectiveRange: (NSRangePointer) range
+                      inRange: (NSRange) rangeLimit
 {
     id result = [self temporaryAttribute: attrName
                         atCharacterIndex: location
@@ -2781,9 +2791,9 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
         // Check if we can expand it before the found range
         NSRange effectiveRange;
         while (range->location > rangeLimit.location) {
-            id attr =
-                [self temporaryAttributesAtCharacterIndex: range->location - 1
-                                           effectiveRange: &effectiveRange];
+            id attr = [self
+                    temporaryAttributesAtCharacterIndex: range->location - 1
+                                         effectiveRange: &effectiveRange];
             if (attr == result || [attr isEqual: result]) {
                 // Expand the found range location
                 range->length = NSMaxRange(*range) - effectiveRange.location;
@@ -2794,9 +2804,9 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
         }
         // Check if we can expand it after the found range
         while (NSMaxRange(*range) < NSMaxRange(rangeLimit)) {
-            id attr =
-                [self temporaryAttributesAtCharacterIndex: NSMaxRange(*range)
-                                           effectiveRange: &effectiveRange];
+            id attr = [self
+                    temporaryAttributesAtCharacterIndex: NSMaxRange(*range)
+                                         effectiveRange: &effectiveRange];
             if (attr == result || [attr isEqual: result]) {
                 // Expand the found range length
                 range->length = NSMaxRange(effectiveRange) - range->location;
@@ -2826,7 +2836,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     NSMutableArray *markers = [NSMutableArray array];
 
     CGFloat delta =
-        view.textContainer.lineFragmentPadding + view.textContainerOrigin.x;
+            view.textContainer.lineFragmentPadding + view.textContainerOrigin.x;
 
     // Add the margins markers
 #if 0
@@ -2852,23 +2862,23 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
         switch (textTab.tabStopType) {
         case NSLeftTabStopType:
             marker = [NSRulerMarker
-                leftTabMarkerWithRulerView: ruler
-                                  location: textTab.location + delta];
+                    leftTabMarkerWithRulerView: ruler
+                                      location: textTab.location + delta];
             break;
         case NSRightTabStopType:
             marker = [NSRulerMarker
-                rightTabMarkerWithRulerView: ruler
-                                   location: textTab.location + delta];
+                    rightTabMarkerWithRulerView: ruler
+                                       location: textTab.location + delta];
             break;
         case NSCenterTabStopType:
             marker = [NSRulerMarker
-                centerTabMarkerWithRulerView: ruler
-                                    location: textTab.location + delta];
+                    centerTabMarkerWithRulerView: ruler
+                                        location: textTab.location + delta];
             break;
         case NSDecimalTabStopType:
             marker = [NSRulerMarker
-                decimalTabMarkerWithRulerView: ruler
-                                     location: textTab.location + delta];
+                    decimalTabMarkerWithRulerView: ruler
+                                         location: textTab.location + delta];
             break;
         default:
             break;

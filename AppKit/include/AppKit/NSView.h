@@ -27,8 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <ApplicationServices/ApplicationServices.h>
 
 @class NSWindow, NSMenu, NSMenuItem, NSCursor, NSClipView, NSPasteboard,
-    NSTextInputContext, NSImage, NSBitmapImageRep, NSScrollView, NSTrackingArea,
-    NSShadow, NSScreen, CALayer, CIFilter, CALayerContext;
+        NSTextInputContext, NSImage, NSBitmapImageRep, NSScrollView,
+        NSTrackingArea, NSShadow, NSScreen, CALayer, CIFilter, CALayerContext;
 
 // See Cocoa Event Handling Guide : Using Tracking-Area Objects : Compatibility
 // Issues
@@ -229,7 +229,7 @@ APPKIT_EXPORT const NSNotificationName NSViewGlobalFrameDidChangeNotification;
 - (void) replaceSubview: (NSView *) oldView with: (NSView *) newView;
 - (void) setSubviews: (NSArray *) newSubviews;
 - (void) sortSubviewsUsingFunction:
-             (NSComparisonResult (*)(id, id, void *)) compareFunction
+                 (NSComparisonResult (*)(id, id, void *)) compareFunction
                            context: (void *) context;
 - (void) didAddSubview: (NSView *) subview;
 - (void) willRemoveSubview: (NSView *) subview;
@@ -319,7 +319,7 @@ APPKIT_EXPORT const NSNotificationName NSViewGlobalFrameDidChangeNotification;
 - (void) setLayerContentsPlacement: (NSViewLayerContentsPlacement) newPlacement;
 - (NSViewLayerContentsRedrawPolicy) layerContentsRedrawPolicy;
 - (void) setLayerContentsRedrawPolicy:
-    (NSViewLayerContentsRedrawPolicy) newPolicy;
+        (NSViewLayerContentsRedrawPolicy) newPolicy;
 - (CALayer *) makeBackingLayer;
 
 - (NSArray *) backgroundFilters;
@@ -446,7 +446,7 @@ APPKIT_EXPORT const NSNotificationName NSViewGlobalFrameDidChangeNotification;
 
 @interface NSObject (NSView_toolTipOwner)
 - (NSString *) view: (NSView *) view
-    stringForToolTip: (NSToolTipTag) tag
-               point: (NSPoint) point
-            userData: (void *) data;
+        stringForToolTip: (NSToolTipTag) tag
+                   point: (NSPoint) point
+                userData: (void *) data;
 @end

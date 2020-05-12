@@ -47,7 +47,7 @@ typedef struct SecKeychainAttributeInfo {
 
 // objc for now
 @class SecKeychainItem, SecKeychainSearch, SecAccess, SecKeychain,
-    SecTrustedApplication;
+        SecTrustedApplication;
 
 typedef SecKeychainItem *SecKeychainItemRef;
 typedef SecKeychainSearch *SecKeychainSearchRef;
@@ -79,42 +79,44 @@ enum {
 enum { errSecItemNotFound = -25300 };
 
 SECURITY_EXPORT OSStatus SecKeychainFindGenericPassword(
-    CFTypeRef keychainOrArray, UInt32 serviceNameLength,
-    const char *serviceName, UInt32 accountNameLength, const char *accountName,
-    UInt32 *passwordLength, void **passwordData, SecKeychainItemRef *itemRef);
-SECURITY_EXPORT OSStatus SecKeychainAddGenericPassword(
-    SecKeychainRef keychain, UInt32 serviceNameLength, const char *serviceName,
-    UInt32 accountNameLength, const char *accountName, UInt32 passwordLength,
-    void *passwordData, SecKeychainItemRef *itemRef);
+        CFTypeRef keychainOrArray, UInt32 serviceNameLength,
+        const char *serviceName, UInt32 accountNameLength,
+        const char *accountName, UInt32 *passwordLength, void **passwordData,
+        SecKeychainItemRef *itemRef);
+SECURITY_EXPORT OSStatus
+SecKeychainAddGenericPassword(SecKeychainRef keychain, UInt32 serviceNameLength,
+                              const char *serviceName, UInt32 accountNameLength,
+                              const char *accountName, UInt32 passwordLength,
+                              void *passwordData, SecKeychainItemRef *itemRef);
 
 SECURITY_EXPORT OSStatus SecKeychainSearchCreateFromAttributes(
-    CFTypeRef keychainOrArray, SecItemClass itemClass,
-    const SecKeychainAttributeList *attributeList,
-    SecKeychainSearchRef *resultSearch);
+        CFTypeRef keychainOrArray, SecItemClass itemClass,
+        const SecKeychainAttributeList *attributeList,
+        SecKeychainSearchRef *resultSearch);
 SECURITY_EXPORT OSStatus SecKeychainSearchCopyNext(
-    SecKeychainSearchRef search, SecKeychainItemRef *resultItem);
+        SecKeychainSearchRef search, SecKeychainItemRef *resultItem);
 
 SECURITY_EXPORT OSStatus SecKeychainItemCopyAttributesAndData(
-    SecKeychainItemRef item, SecKeychainAttributeInfo *info,
-    SecItemClass *itemClass, SecKeychainAttributeList **attributeList,
-    UInt32 *length, void **resultBytes);
+        SecKeychainItemRef item, SecKeychainAttributeInfo *info,
+        SecItemClass *itemClass, SecKeychainAttributeList **attributeList,
+        UInt32 *length, void **resultBytes);
 SECURITY_EXPORT OSStatus SecKeychainItemModifyAttributesAndData(
-    SecKeychainItemRef item, const SecKeychainAttributeList *attributeList,
-    UInt32 length, const void *bytes);
+        SecKeychainItemRef item, const SecKeychainAttributeList *attributeList,
+        UInt32 length, const void *bytes);
 SECURITY_EXPORT OSStatus SecKeychainItemFreeAttributesAndData(
-    SecKeychainAttributeList *attributeList, void *data);
+        SecKeychainAttributeList *attributeList, void *data);
 SECURITY_EXPORT OSStatus
 SecKeychainItemFreeContent(SecKeychainAttributeList *attributeList, void *data);
 
 SECURITY_EXPORT OSStatus SecTrustedApplicationCreateFromPath(
-    const char *path, SecTrustedApplicationRef *resultApplication);
+        const char *path, SecTrustedApplicationRef *resultApplication);
 SECURITY_EXPORT OSStatus SecAccessCreate(CFStringRef descriptor,
                                          CFArrayRef trustedlist,
                                          SecAccessRef *resultAccess);
 SECURITY_EXPORT OSStatus SecKeychainItemCreateFromContent(
-    SecItemClass itemClass, SecKeychainAttributeList *attributeList,
-    UInt32 length, const void *bytes, SecKeychainRef keychain,
-    SecAccessRef initialAccess, SecKeychainItemRef *resultItem);
+        SecItemClass itemClass, SecKeychainAttributeList *attributeList,
+        UInt32 length, const void *bytes, SecKeychainRef keychain,
+        SecAccessRef initialAccess, SecKeychainItemRef *resultItem);
 SECURITY_EXPORT OSStatus SecKeychainItemDelete(SecKeychainItemRef item);
 
 // Internal, do not use

@@ -10,7 +10,7 @@
     _capacityOfCharacters = 128;
     _characters = NSZoneMalloc(NULL, sizeof(unichar) * _capacityOfCharacters);
     _characterRects =
-        NSZoneMalloc(NULL, sizeof(NSRect) * _capacityOfCharacters);
+            NSZoneMalloc(NULL, sizeof(NSRect) * _capacityOfCharacters);
 
     return self;
 }
@@ -72,8 +72,8 @@
     for (i = 0; i < count; i++) {
         _characters[_numberOfCharacters] = unicode[i];
         _characterRects[_numberOfCharacters] =
-            NSMakeRect(rects[i].origin.x, rects[i].origin.y,
-                       rects[i].size.width, rects[i].size.height);
+                NSMakeRect(rects[i].origin.x, rects[i].origin.y,
+                           rects[i].size.width, rects[i].size.height);
         _numberOfCharacters++;
     }
 }

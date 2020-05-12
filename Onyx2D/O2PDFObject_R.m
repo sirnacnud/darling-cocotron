@@ -25,8 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation O2PDFObject_R
 
 - initWithNumber: (O2PDFInteger) number
-      generation: (O2PDFInteger) generation
-            xref: (O2PDFxref *) xref
+        generation: (O2PDFInteger) generation
+              xref: (O2PDFxref *) xref
 {
     _number = number;
     _generation = generation;

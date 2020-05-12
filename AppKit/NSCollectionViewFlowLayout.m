@@ -20,6 +20,6 @@
 #import <AppKit/NSCollectionViewFlowLayout.h>
 
 NSString *const NSCollectionElementKindSectionHeader =
-    @"UICollectionElementKindSectionHeader";
+        @"UICollectionElementKindSectionHeader";
 NSString *const NSCollectionElementKindSectionFooter =
-    @"UICollectionElementKindSectionFooter";
+        @"UICollectionElementKindSectionFooter";

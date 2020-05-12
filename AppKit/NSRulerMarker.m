@@ -140,16 +140,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         location = [_ruler convertPoint: location
                                fromView: [_ruler clientView]];
     } else {
-        location =
-            [_ruler convertPoint: location
-                        fromView: [[_ruler enclosingScrollView] documentView]];
+        location = [_ruler
+                convertPoint: location
+                    fromView: [[_ruler enclosingScrollView] documentView]];
     }
 
     if ([_ruler orientation] == NSHorizontalRuler) {
         rect.origin.x += location.x;
     } else {
         rect.origin.y +=
-            location.y; // how does a flipped system affect this? hm
+                location.y; // how does a flipped system affect this? hm
     }
     rect.origin.x -= _imageOrigin.x;
     rect.origin.y -= _imageOrigin.y;
@@ -183,7 +183,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
     point = [_ruler convertPoint: point toView: trackedView];
     CGFloat newLocation =
-        [_ruler orientation] == NSHorizontalRuler ? point.x : point.y;
+            [_ruler orientation] == NSHorizontalRuler ? point.x : point.y;
 
     return newLocation;
 }
@@ -194,12 +194,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _isPinned = YES;
 
     if ([[_ruler clientView] respondsToSelector: @selector(rulerView:
-                                                     shouldAddMarker:)])
+                                                         shouldAddMarker:)])
         if ([[_ruler clientView] rulerView: _ruler shouldAddMarker: self] == NO)
             return NO;
 
     BOOL respondToShouldAddMarker = [[_ruler clientView]
-        respondsToSelector: @selector(rulerView:shouldAddMarker:)];
+            respondsToSelector: @selector(rulerView:shouldAddMarker:)];
     _isDragging = YES;
     do {
         point = [_ruler convertPoint: [event locationInWindow] fromView: nil];
@@ -228,8 +228,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [_ruler unlockFocus];
         [[_ruler window] flushWindow];
 
-        event = [[_ruler window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[_ruler window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                        NSLeftMouseDraggedMask];
     } while ([event type] != NSLeftMouseUp);
     _isDragging = NO;
 
@@ -238,7 +238,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [_ruler addMarker: self];
 
         if ([[_ruler clientView] respondsToSelector: @selector(rulerView:
-                                                            didAddMarker:)])
+                                                             didAddMarker:)])
             [[_ruler clientView] rulerView: _ruler didAddMarker: self];
 
         return YES;
@@ -253,13 +253,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                 fromView: nil];
     _isPinned = YES;
     if ([[_ruler clientView] respondsToSelector: @selector(rulerView:
-                                                     shouldMoveMarker:)])
+                                                         shouldMoveMarker:)])
         if ([[_ruler clientView] rulerView: _ruler
                           shouldMoveMarker: self] == NO)
             return NO;
 
     BOOL respondToShouldRemoveMarker = [[_ruler clientView]
-        respondsToSelector: @selector(rulerView:shouldRemoveMarker:)];
+            respondsToSelector: @selector(rulerView:shouldRemoveMarker:)];
     _isDragging = YES;
     do {
         if ([self isMovable]) {
@@ -279,14 +279,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             if ([[_ruler clientView] respondsToSelector: @selector
                                      (rulerView:willMoveMarker:toLocation:)]) {
                 _markerLocation =
-                    [[_ruler clientView] rulerView: _ruler
-                                    willMoveMarker: self
-                                        toLocation: _markerLocation];
+                        [[_ruler clientView] rulerView: _ruler
+                                        willMoveMarker: self
+                                            toLocation: _markerLocation];
             }
             [_ruler setNeedsDisplay: YES];
         }
-        event = [[_ruler window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[_ruler window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                        NSLeftMouseDraggedMask];
     } while ([event type] != NSLeftMouseUp);
     _isDragging = NO;
 
@@ -294,12 +294,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     BOOL removed = NO;
     if (_isPinned == NO) {
         [[self retain]
-            autorelease]; // Be sure we survive the removal until we're done
+                autorelease]; // Be sure we survive the removal until we're done
         [_ruler removeMarker: self];
         removed = YES;
 
         if ([[_ruler clientView] respondsToSelector: @selector(rulerView:
-                                                         didRemoveMarker:)])
+                                                             didRemoveMarker:)])
             [[_ruler clientView] rulerView: _ruler didRemoveMarker: self];
     }
     _isPinned = YES;
@@ -307,7 +307,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         // Call didMoveMarker only after the dragging is done - that's what
         // Cocoa is doing
         if ([[_ruler clientView] respondsToSelector: @selector(rulerView:
-                                                           didMoveMarker:)]) {
+                                                             didMoveMarker:)]) {
             [[_ruler clientView] rulerView: _ruler didMoveMarker: self];
         }
     }

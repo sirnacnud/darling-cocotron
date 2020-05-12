@@ -82,18 +82,18 @@ FOUNDATION_EXPORT const NSMapTableKeyCallBacks NSIntegerMapKeyCallBacks;
 FOUNDATION_EXPORT const NSMapTableValueCallBacks NSIntegerMapValueCallBacks;
 FOUNDATION_EXPORT const NSMapTableKeyCallBacks NSNonOwnedPointerMapKeyCallBacks;
 FOUNDATION_EXPORT const NSMapTableValueCallBacks
-    NSNonOwnedPointerMapValueCallBacks;
+        NSNonOwnedPointerMapValueCallBacks;
 FOUNDATION_EXPORT const NSMapTableKeyCallBacks
-    NSNonOwnedPointerOrNullMapKeyCallBacks;
+        NSNonOwnedPointerOrNullMapKeyCallBacks;
 FOUNDATION_EXPORT const NSMapTableKeyCallBacks
-    NSNonRetainedObjectMapKeyCallBacks;
+        NSNonRetainedObjectMapKeyCallBacks;
 FOUNDATION_EXPORT const NSMapTableValueCallBacks
-    NSNonRetainedObjectMapValueCallBacks;
+        NSNonRetainedObjectMapValueCallBacks;
 FOUNDATION_EXPORT const NSMapTableKeyCallBacks NSObjectMapKeyCallBacks;
 FOUNDATION_EXPORT const NSMapTableValueCallBacks NSObjectMapValueCallBacks;
 FOUNDATION_EXPORT const NSMapTableKeyCallBacks NSOwnedPointerMapKeyCallBacks;
 FOUNDATION_EXPORT const NSMapTableValueCallBacks
-    NSOwnedPointerMapValueCallBacks;
+        NSOwnedPointerMapValueCallBacks;
 
 FOUNDATION_EXPORT NSMapTable *
 NSCreateMapTable(NSMapTableKeyCallBacks keyCallBacks,

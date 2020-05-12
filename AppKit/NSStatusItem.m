@@ -71,10 +71,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     case WM_RBUTTONUP:
         NSLog(@"Clicked Contextual");
         [[NSNotificationCenter defaultCenter]
-            addObserver: self
-               selector: @selector(processCommandEvent:)
-                   name: @"WIN32_WM_COMMAND"
-                 object: nil];
+                addObserver: self
+                   selector: @selector(processCommandEvent:)
+                       name: @"WIN32_WM_COMMAND"
+                     object: nil];
         [self _showContextMenu];
         break;
     case WM_LBUTTONUP:
@@ -142,14 +142,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(
-        NULL, width, height, 8, 0, colorSpace,
-        kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+            NULL, width, height, 8, 0, colorSpace,
+            kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
     CGColorSpaceRelease(colorSpace);
 
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     NSGraphicsContext *graphicsContext =
-        [NSGraphicsContext graphicsContextWithGraphicsPort: context
-                                                   flipped: NO];
+            [NSGraphicsContext graphicsContextWithGraphicsPort: context
+                                                       flipped: NO];
 
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext: graphicsContext];

@@ -39,34 +39,34 @@ static NSDictionary *sScrollerButtonAttributes = nil;
     if (sNormalMenuTextAttributes == nil) {
         NSFont *menuFont = [NSFont menuFontOfSize: 0];
         sNormalMenuTextAttributes = [[NSDictionary
-            dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
-                                          [NSColor menuItemTextColor],
-                                          NSForegroundColorAttributeName, nil]
-            retain];
+                dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
+                                              [NSColor menuItemTextColor],
+                                              NSForegroundColorAttributeName,
+                                              nil] retain];
         sSelectedMenuTextAttributes = [[NSDictionary
-            dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
-                                          [NSColor selectedMenuItemTextColor],
-                                          NSForegroundColorAttributeName, nil]
-            retain];
+                dictionaryWithObjectsAndKeys:
+                        menuFont, NSFontAttributeName,
+                        [NSColor selectedMenuItemTextColor],
+                        NSForegroundColorAttributeName, nil] retain];
 
         sDimmedMenuTextAttributes = [[NSDictionary
-            dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
-                                          [NSColor grayColor],
-                                          NSForegroundColorAttributeName, nil]
-            retain];
+                dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
+                                              [NSColor grayColor],
+                                              NSForegroundColorAttributeName,
+                                              nil] retain];
 
         sDimmedMenuTextShadowAttributes = [[NSDictionary
-            dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
-                                          [NSColor whiteColor],
-                                          NSForegroundColorAttributeName, nil]
-            retain];
+                dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
+                                              [NSColor whiteColor],
+                                              NSForegroundColorAttributeName,
+                                              nil] retain];
 
         sScrollerButtonAttributes = [[NSDictionary
-            dictionaryWithObjectsAndKeys: [NSFont labelFontOfSize: 8],
-                                          NSFontAttributeName,
-                                          [NSColor grayColor],
-                                          NSForegroundColorAttributeName, nil]
-            retain];
+                dictionaryWithObjectsAndKeys: [NSFont labelFontOfSize: 8],
+                                              NSFontAttributeName,
+                                              [NSColor grayColor],
+                                              NSForegroundColorAttributeName,
+                                              nil] retain];
     }
 }
 
@@ -94,7 +94,7 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
     if (sBranchArrow == nil)
         sBranchArrow = [[NSInterfacePartAttributedString alloc]
-            initWithMarlettCharacter: 0x34];
+                initWithMarlettCharacter: 0x34];
     return sBranchArrow;
 }
 
@@ -103,7 +103,7 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
     if (sCheckMark == nil)
         sCheckMark = [[NSInterfacePartAttributedString alloc]
-            initWithMarlettCharacter: 0x61];
+                initWithMarlettCharacter: 0x61];
     return sCheckMark;
 }
 
@@ -189,9 +189,9 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 }
 
 - (CGFloat) menuBarHeight {
-    NSDictionary *attributes =
-        [NSDictionary dictionaryWithObjectsAndKeys: [NSFont menuFontOfSize: 0],
-                                                    NSFontAttributeName, nil];
+    NSDictionary *attributes = [NSDictionary
+            dictionaryWithObjectsAndKeys: [NSFont menuFontOfSize: 0],
+                                          NSFontAttributeName, nil];
     CGFloat result = [@"Menu" sizeWithAttributes: attributes].height;
 
     result += 2; // border top/bottom margin
@@ -238,7 +238,7 @@ static NSDictionary *sScrollerButtonAttributes = nil;
     if (enabled) {
         if (selected) {
             [string drawInRect: rect
-                withAttributes: sSelectedMenuTextAttributes];
+                    withAttributes: sSelectedMenuTextAttributes];
         } else {
             [string drawInRect: rect withAttributes: sNormalMenuTextAttributes];
         }
@@ -248,7 +248,7 @@ static NSDictionary *sScrollerButtonAttributes = nil;
             offsetRect.origin.x += 1;
             offsetRect.origin.y += 1;
             [string drawInRect: offsetRect
-                withAttributes: sDimmedMenuTextShadowAttributes];
+                    withAttributes: sDimmedMenuTextShadowAttributes];
         }
         [string drawInRect: rect withAttributes: sDimmedMenuTextAttributes];
     }
@@ -277,21 +277,22 @@ static NSDictionary *sScrollerButtonAttributes = nil;
     if (enabled) {
         if (!selected) {
             [mutableString
-                addAttributes:
-                    [NSDictionary
-                        dictionaryWithObject: [NSColor menuItemTextColor]
-                                      forKey: NSForegroundColorAttributeName]
-                        range: range];
+                    addAttributes:
+                            [NSDictionary
+                                    dictionaryWithObject:
+                                            [NSColor menuItemTextColor]
+                                                  forKey: NSForegroundColorAttributeName]
+                            range: range];
         }
         [mutableString drawInRect: rect];
     } else {
         if (!selected) {
             [mutableString
-                addAttributes:
-                    [NSDictionary
-                        dictionaryWithObject: [NSColor grayColor]
-                                      forKey: NSForegroundColorAttributeName]
-                        range: range];
+                    addAttributes:
+                            [NSDictionary
+                                    dictionaryWithObject: [NSColor grayColor]
+                                                  forKey: NSForegroundColorAttributeName]
+                            range: range];
             NSRect offsetRect = rect;
             offsetRect.origin.x += 1;
             offsetRect.origin.y += 1;
@@ -315,11 +316,11 @@ static NSDictionary *sScrollerButtonAttributes = nil;
     else
         color = [NSColor disabledControlTextColor];
 
-    checkMark =
-        [[NSInterfacePartAttributedString alloc] initWithCharacter: 0x61
-                                                          fontName: @"Marlett"
-                                                         pointSize: 10
-                                                             color: color];
+    checkMark = [[NSInterfacePartAttributedString alloc]
+            initWithCharacter: 0x61
+                     fontName: @"Marlett"
+                    pointSize: 10
+                        color: color];
     rect.origin.x += margins.left;
     rect.origin.y += margins.top;
 
@@ -545,8 +546,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
     NSRect blockRect = progressRect;
     int numBlocks;
 
-    numBlocks =
-        (animation * progressRect.size.width) / (BLOCK_WIDTH + BLOCK_SPACING);
+    numBlocks = (animation * progressRect.size.width) /
+                (BLOCK_WIDTH + BLOCK_SPACING);
 
     if (numBlocks > 0)
         numBlocks++;
@@ -581,7 +582,7 @@ static NSDictionary *sScrollerButtonAttributes = nil;
     int numBlocks;
 
     numBlocks =
-        (value * progressRect.size.width) / (BLOCK_WIDTH + BLOCK_SPACING);
+            (value * progressRect.size.width) / (BLOCK_WIDTH + BLOCK_SPACING);
 
     if (numBlocks > 0)
         numBlocks++;
@@ -622,11 +623,11 @@ static NSDictionary *sScrollerButtonAttributes = nil;
        arrow=[[[class alloc] initWithMarlettCharacter:code] autorelease];
     */
     NSString *arrow =
-        vertical ? (upOrLeft ? @"▲" : @"▼") : (upOrLeft ? @"◀" : @"▶");
+            vertical ? (upOrLeft ? @"▲" : @"▼") : (upOrLeft ? @"◀" : @"▶");
 
     if (!NSIsEmptyRect(rect)) {
         NSSize arrowSize =
-            [arrow sizeWithAttributes: sScrollerButtonAttributes];
+                [arrow sizeWithAttributes: sScrollerButtonAttributes];
 
         if (pressed)
             [self drawPushButtonPressedInRect: rect];
@@ -639,7 +640,7 @@ static NSDictionary *sScrollerButtonAttributes = nil;
             point.x += floor((rect.size.width - arrowSize.width) / 2);
             point.y += floor((rect.size.height - arrowSize.height) / 2);
             [arrow drawAtPoint: point
-                withAttributes: sScrollerButtonAttributes];
+                    withAttributes: sScrollerButtonAttributes];
         }
     }
 }
@@ -734,10 +735,10 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
     if (enabled)
         arrow = [[[NSInterfacePartAttributedString alloc]
-            initWithMarlettCharacter: code] autorelease];
+                initWithMarlettCharacter: code] autorelease];
     else
         arrow = [[[NSInterfacePartDisabledAttributedString alloc]
-            initWithMarlettCharacter: code] autorelease];
+                initWithMarlettCharacter: code] autorelease];
 
     if (highlighted)
         NSDrawWhiteBezel(rect, clipRect);

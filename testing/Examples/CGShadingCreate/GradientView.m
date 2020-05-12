@@ -67,16 +67,16 @@ void evaluate(void *info, const float *in, float *output) {
 
     if ([_shadingType selectedTag] == 0)
         shading =
-            CGShadingCreateAxial(CGColorSpaceCreateDeviceRGB(),
-                                 CGPointMake(_startPoint.x, _startPoint.y),
-                                 CGPointMake(_endPoint.x, _endPoint.y),
-                                 function, _extendStart, _extendEnd);
+                CGShadingCreateAxial(CGColorSpaceCreateDeviceRGB(),
+                                     CGPointMake(_startPoint.x, _startPoint.y),
+                                     CGPointMake(_endPoint.x, _endPoint.y),
+                                     function, _extendStart, _extendEnd);
     else
         shading = CGShadingCreateRadial(
-            CGColorSpaceCreateDeviceRGB(),
-            CGPointMake(_startPoint.x, _startPoint.y), _startRadius,
-            CGPointMake(_endPoint.x, _endPoint.y), _endRadius, function,
-            _extendStart, _extendEnd);
+                CGColorSpaceCreateDeviceRGB(),
+                CGPointMake(_startPoint.x, _startPoint.y), _startRadius,
+                CGPointMake(_endPoint.x, _endPoint.y), _endRadius, function,
+                _extendStart, _extendEnd);
 
     CGContextDrawShading(context, shading);
 
@@ -95,8 +95,8 @@ void evaluate(void *info, const float *in, float *output) {
 
         [self updatePointFields];
         [self setNeedsDisplay: YES];
-        event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
     } while ([event type] != NSLeftMouseUp);
 
     _mouseFirst = !_mouseFirst;
@@ -127,16 +127,16 @@ void evaluate(void *info, const float *in, float *output) {
 }
 
 - (IBAction) takeStartColorFromSender: sender {
-    NSColor *color =
-        [[sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+    NSColor *color = [[sender color]
+            colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 
     [color getRed: _C0 green: _C0 + 1 blue: _C0 + 2 alpha: _C0 + 3];
     [self setNeedsDisplay: YES];
 }
 
 - (IBAction) takeEndColorFromSender: sender {
-    NSColor *color =
-        [[sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+    NSColor *color = [[sender color]
+            colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 
     [color getRed: _C1 green: _C1 + 1 blue: _C1 + 2 alpha: _C1 + 3];
     [self setNeedsDisplay: YES];

@@ -33,7 +33,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSDictionary *modifierMapping = @{@"NSModifierFlagMapping" : map};
 
         [[NSUserDefaults standardUserDefaults]
-            registerDefaults: modifierMapping];
+                registerDefaults: modifierMapping];
     }
 }
 
@@ -83,11 +83,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
     // None of the backends can be used.
-    [NSException
-         raise: NSWindowServerCommunicationException
-        format:
-            @"Failed to connect to a window server. Available backends are: %@",
-            backends];
+    [NSException raise: NSWindowServerCommunicationException
+                format: @"Failed to connect to a window server. Available "
+                        @"backends are: %@",
+                        backends];
 
     [backends release];
     return nil;
@@ -225,7 +224,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                    standard: (NSEventModifierFlags) standard
 {
     NSDictionary *modmap = [[NSUserDefaults standardUserDefaults]
-        dictionaryForKey: @"NSModifierFlagMapping"];
+            dictionaryForKey: @"NSModifierFlagMapping"];
     NSString *remap = modmap[key];
 
     if ([remap isEqualToString: @"Command"])
@@ -263,7 +262,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (int) runModalPrintPanelWithPrintInfoDictionary:
-    (NSMutableDictionary *) attributes
+        (NSMutableDictionary *) attributes
 {
     NSInvalidAbstractInvocation();
     return 0;
@@ -271,7 +270,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (CGContextRef) graphicsPortForPrintOperationWithView: (NSView *) view
                                              printInfo:
-                                                 (NSPrintInfo *) printInfo
+                                                     (NSPrintInfo *) printInfo
                                              pageRange: (NSRange) pageRange
 {
     NSInvalidAbstractInvocation();
@@ -283,17 +282,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (int) savePanel: (NSSavePanel *) savePanel
-    runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file
+        runModalForDirectory: (NSString *) directory
+                        file: (NSString *) file
 {
     NSInvalidAbstractInvocation();
     return 0;
 }
 
 - (int) openPanel: (NSOpenPanel *) openPanel
-    runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file
-                   types: (NSArray *) types
+        runModalForDirectory: (NSString *) directory
+                        file: (NSString *) file
+                       types: (NSArray *) types
 {
     NSInvalidAbstractInvocation();
     return 0;
@@ -315,14 +314,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (CGRect) insetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask
+        forNativeWindowBorderWithStyle: (NSUInteger) styleMask
 {
     NSInvalidAbstractInvocation();
     return frame;
 }
 
 - (CGRect) outsetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask
+        forNativeWindowBorderWithStyle: (NSUInteger) styleMask
 {
     NSInvalidAbstractInvocation();
     return frame;

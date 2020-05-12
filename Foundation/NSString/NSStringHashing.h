@@ -41,7 +41,7 @@ static inline NSUInteger NSStringHashASCII(const char *buffer,
 
     for (i = 0; i < length; i++)
         result =
-            ((result << 5) + result) + (NSUInteger)(buffer[i]); // hash*33+c
+                ((result << 5) + result) + (NSUInteger)(buffer[i]); // hash*33+c
 
     return result;
 }
@@ -51,7 +51,7 @@ static inline NSUInteger NSStringHashZeroTerminatedASCII(const char *buffer) {
 
     for (i = 0; buffer[i] != '\0'; i++)
         result =
-            ((result << 5) + result) + (NSUInteger)(buffer[i]); // hash*33+c
+                ((result << 5) + result) + (NSUInteger)(buffer[i]); // hash*33+c
 
     return result;
 }

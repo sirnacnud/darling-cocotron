@@ -13,7 +13,7 @@
                      colorSpace: (O2ColorSpaceRef) colorSpace
                      bitmapInfo: (O2BitmapInfo) bitmapInfo
                 releaseCallback:
-                    (O2BitmapContextReleaseDataCallback) releaseCallback
+                        (O2BitmapContextReleaseDataCallback) releaseCallback
                     releaseInfo: (void *) releaseInfo
 {
 
@@ -123,13 +123,13 @@ static void renderFreeTypeBitmap(O2Context_builtin_FT *self, O2Surface *surface,
 
         // We're going to advance these pointers as we move along this row.
         unsigned char *coverage =
-            bitmap->buffer + (curY - y) * fullWidth + (curX - x);
+                bitmap->buffer + (curY - y) * fullWidth + (curX - x);
         O2argb8u *src = srcBuffer;
         O2argb8u *dst = dstBuffer;
 
         // Try to get direct access to the surface data.
-        O2argb8u *direct =
-            surface->_read_argb8u(surface, curX, curY, dst, remainingLength);
+        O2argb8u *direct = surface->_read_argb8u(surface, curX, curY, dst,
+                                                 remainingLength);
         // If that succeeded, write there directly with no temporary buffer.
         if (direct != NULL)
             dst = direct;
@@ -183,9 +183,9 @@ static void renderFreeTypeBitmap(O2Context_builtin_FT *self, O2Surface *surface,
     O2Float scaleX = sqrt((Trm.a * Trm.a) + (Trm.c * Trm.c));
     O2Float scaleY = sqrt((Trm.b * Trm.b) + (Trm.d * Trm.d));
     O2AffineTransform scalingTransform =
-        O2AffineTransformMakeScale(scaleX, scaleY);
+            O2AffineTransformMakeScale(scaleX, scaleY);
     O2Size fontSize = O2SizeApplyAffineTransform(
-        O2SizeMake(0, O2GStatePointSize(gState)), scalingTransform);
+            O2SizeMake(0, O2GStatePointSize(gState)), scalingTransform);
 
     [self establishFontStateInDeviceIfDirty];
 
@@ -204,7 +204,7 @@ static void renderFreeTypeBitmap(O2Context_builtin_FT *self, O2Surface *surface,
     FT_GlyphSlot slot = face->glyph;
 
     if ((ftError =
-             FT_Set_Char_Size(face, 0, fontSize.height * 64, 72.0, 72.0))) {
+                 FT_Set_Char_Size(face, 0, fontSize.height * 64, 72.0, 72.0))) {
         NSLog(@"FT_Set_Char_Size returned %d", ftError);
         O2SurfaceUnlock(_surface);
         return;

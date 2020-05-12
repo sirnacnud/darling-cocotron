@@ -28,7 +28,7 @@ NSString *NSString_unicodePtrNewNoCopy(NSZone *zone, const unichar *unicode,
                                        NSUInteger length, BOOL freeWhenDone)
 {
     NSString_unicodePtr *self =
-        NSAllocateObject([NSString_unicodePtr class], 0, zone);
+            NSAllocateObject([NSString_unicodePtr class], 0, zone);
 
     if (self) {
         self->_length = length;

@@ -73,12 +73,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - mutableCopy {
     return [[NSMutableAttributedString allocWithZone: NULL]
-        initWithAttributedString: self];
+            initWithAttributedString: self];
 }
 
 - mutableCopyWithZone: (NSZone *) zone {
     return [[NSMutableAttributedString allocWithZone: zone]
-        initWithAttributedString: self];
+            initWithAttributedString: self];
 }
 
 - (BOOL) isEqualToAttributedString: (NSAttributedString *) other {
@@ -146,17 +146,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - attribute: (NSString *) name
-           atIndex: (NSUInteger) location
-    effectiveRange: (NSRange *) range
+               atIndex: (NSUInteger) location
+        effectiveRange: (NSRange *) range
 {
     return [[self attributesAtIndex: location
                      effectiveRange: range] objectForKey: name];
 }
 
 - attribute: (NSString *) name
-                  atIndex: (NSUInteger) location
-    longestEffectiveRange: (NSRange *) range
-                  inRange: (NSRange) inRange
+                      atIndex: (NSUInteger) location
+        longestEffectiveRange: (NSRange *) range
+                      inRange: (NSRange) inRange
 {
     NSUnimplementedMethod();
     return nil;
@@ -164,7 +164,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSAttributedString *) attributedSubstringFromRange: (NSRange) range {
     NSMutableAttributedString *result =
-        [[[NSMutableAttributedString allocWithZone: NULL] init] autorelease];
+            [[[NSMutableAttributedString allocWithZone: NULL] init]
+                    autorelease];
     NSUInteger location = range.location;
     NSUInteger limit = MIN(NSMaxRange(range), [self length]);
 
@@ -183,7 +184,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         appendedRange.location = [result length];
         appendedRange.length = effectiveRange.length;
         [[result mutableString]
-            appendString: [[self string] substringWithRange: effectiveRange]];
+                appendString: [[self string]
+                                      substringWithRange: effectiveRange]];
         [result setAttributes: attributes range: appendedRange];
 
         location = NSMaxRange(effectiveRange);

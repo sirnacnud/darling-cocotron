@@ -38,8 +38,8 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
         }
     } else {
         for (i = 0; i < self->_C0Count; i++) {
-            output[i] =
-                self->_C0[i] + pow(x, self->_N) * (self->_C1[i] - self->_C0[i]);
+            output[i] = self->_C0[i] +
+                        pow(x, self->_N) * (self->_C1[i] - self->_C0[i]);
         }
     }
 }

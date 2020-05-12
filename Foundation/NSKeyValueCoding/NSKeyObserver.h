@@ -13,9 +13,9 @@
 }
 
 - initWithObject: object
-                key: (NSString *) key
-    keyPathObserver: (NSKeyPathObserver *) keyPathObserver
-         restOfPath: (NSString *) restOfPath;
+                    key: (NSString *) key
+        keyPathObserver: (NSKeyPathObserver *) keyPathObserver
+             restOfPath: (NSString *) restOfPath;
 
 - (BOOL) isValid;
 - (void) invalidate;

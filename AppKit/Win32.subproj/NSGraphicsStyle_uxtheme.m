@@ -56,7 +56,7 @@ static BOOL isThemeActive() {
 
 HANDLE openThemeData(HWND window, LPCWSTR classList) {
     WINAPI HANDLE (*function)(HWND, LPCWSTR) =
-        functionWithName("OpenThemeData");
+            functionWithName("OpenThemeData");
 
     if (function == NULL)
         return NULL;
@@ -95,7 +95,7 @@ static BOOL getThemeInt(HTHEME theme, int partId, int stateId, int propId,
                         int *val)
 {
     WINAPI HRESULT (*function)(HTHEME, int, int, int, int *) =
-        functionWithName("GetThemeInt");
+            functionWithName("GetThemeInt");
 
     NSLog(@"getThemeInt = %p", function);
     if (function == NULL)
@@ -113,7 +113,7 @@ static BOOL getThemeMargins(HTHEME theme, HDC dc, int partId, int stateId,
                             int propId, LPCRECT prc, MARGINS *margins)
 {
     WINAPI HRESULT (*function)(HTHEME, HDC, int, int, int, LPCRECT, MARGINS *) =
-        functionWithName("GetThemeMargins");
+            functionWithName("GetThemeMargins");
 
     if (function == NULL)
         return NO;
@@ -131,7 +131,7 @@ static BOOL drawThemeBackground(HTHEME theme, HDC dc, int partId, int stateId,
 {
     WINAPI HRESULT (*function)(HTHEME, HDC, int, int, const RECT *,
                                const RECT *) =
-        functionWithName("DrawThemeBackground");
+            functionWithName("DrawThemeBackground");
 
     if (function == NULL)
         return NO;
@@ -177,15 +177,15 @@ static NSDictionary *sDimmedMenuTextAttributes = nil;
     if (sNormalMenuTextAttributes == nil) {
         NSFont *menuFont = [NSFont menuFontOfSize: 0];
         sNormalMenuTextAttributes = [[NSDictionary
-            dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
-                                          [NSColor menuItemTextColor],
-                                          NSForegroundColorAttributeName, nil]
-            retain];
+                dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
+                                              [NSColor menuItemTextColor],
+                                              NSForegroundColorAttributeName,
+                                              nil] retain];
         sDimmedMenuTextAttributes = [[NSDictionary
-            dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
-                                          [NSColor grayColor],
-                                          NSForegroundColorAttributeName, nil]
-            retain];
+                dictionaryWithObjectsAndKeys: menuFont, NSFontAttributeName,
+                                              [NSColor grayColor],
+                                              NSForegroundColorAttributeName,
+                                              nil] retain];
     }
 }
 
@@ -219,7 +219,7 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     RECT result;
     NSPoint point1 = O2PointApplyAffineTransform(rect.origin, matrix);
     NSPoint point2 = O2PointApplyAffineTransform(
-        NSMakePoint(NSMaxX(rect), NSMaxY(rect)), matrix);
+            NSMakePoint(NSMaxX(rect), NSMaxY(rect)), matrix);
 
     if (point2.y < point1.y) {
         CGFloat temp = point2.y;
@@ -250,7 +250,7 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
     if ([context respondsToSelector: @selector(deviceContext)]) {
         O2DeviceContext_gdi *result =
-            [context performSelector: @selector(deviceContext)];
+                [context performSelector: @selector(deviceContext)];
 
         if ([result isKindOfClass: [O2DeviceContext_gdi class]])
             return result;
@@ -607,17 +607,17 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawMenuSeparatorInRect: (NSRect) rect {
     if (![self drawPartId: /*MENU_POPUPSEPARATOR*/ 15
-                  stateId: MS_NORMAL
-              uxthClassId: uxthMENU
-                   inRect: rect])
+                    stateId: MS_NORMAL
+                uxthClassId: uxthMENU
+                     inRect: rect])
         [super drawMenuSeparatorInRect: rect];
 }
 
 - (void) drawMenuGutterInRect: (NSRect) rect {
     if (![self drawPartId: /*MENU_POPUPGUTTER*/ 13
-                  stateId: 1
-              uxthClassId: uxthMENU
-                   inRect: rect])
+                    stateId: 1
+                uxthClassId: uxthMENU
+                     inRect: rect])
         [super drawMenuGutterInRect: rect];
 }
 
@@ -634,9 +634,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
         state = selected ? /*MBI_DISABLEDHOT*/ 5 : /*MBI_DISABLED*/ 4;
 
     if (![self drawPartId: /*MENU_POPUPCHECKBACKGROUND*/ 12
-                  stateId: state
-              uxthClassId: uxthMENU
-                   inRect: rect])
+                    stateId: state
+                uxthClassId: uxthMENU
+                     inRect: rect])
         [super drawMenuCheckmarkInRect: rect
                                enabled: enabled
                               selected: selected];
@@ -647,9 +647,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     themeRect.size.width -= (margins.left + margins.right);
     themeRect.size.height -= (margins.top + margins.bottom);
     if (![self drawPartId: /*MENU_POPUPCHECK*/ 11
-                  stateId: state
-              uxthClassId: uxthMENU
-                   inRect: themeRect])
+                    stateId: state
+                uxthClassId: uxthMENU
+                     inRect: themeRect])
         [super drawMenuCheckmarkInRect: rect
                                enabled: enabled
                               selected: selected];
@@ -677,10 +677,10 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
         rect.size.width -= (margins.left + margins.right);
         rect.size.height -= (margins.top + margins.bottom);
 
-        rect.origin.y +=
-            (rect.size.height -
-             [string sizeWithAttributes: sNormalMenuTextAttributes].height) /
-            2;
+        rect.origin.y += (rect.size.height -
+                          [string sizeWithAttributes: sNormalMenuTextAttributes]
+                                  .height) /
+                         2;
 
         if (enabled) {
             [string drawInRect: rect withAttributes: sNormalMenuTextAttributes];
@@ -709,9 +709,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     themeRect.size.height -= (margins.top + margins.bottom);
 
     if (![self drawPartId: /*MENU_POPUPSUBMENU*/ 16
-                  stateId: state
-              uxthClassId: uxthMENU
-                   inRect: themeRect])
+                    stateId: state
+                uxthClassId: uxthMENU
+                     inRect: themeRect])
         [super drawMenuBranchArrowInRect: rect
                                  enabled: enabled
                                 selected: selected];
@@ -722,23 +722,23 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     SetBkColor([deviceContext dc], RGB(251, 245, 55));
 
     if (![self drawPartId: /*MENU_POPUPITEM*/ 14
-                  stateId: enabled ? /*MPI_HOT*/ 2 : /*MPI_DISABLEDHOT*/ 4
-              uxthClassId: uxthMENU
-                   inRect: rect])
+                    stateId: enabled ? /*MPI_HOT*/ 2 : /*MPI_DISABLEDHOT*/ 4
+                uxthClassId: uxthMENU
+                     inRect: rect])
         [super drawMenuSelectionInRect: rect enabled: enabled];
 }
 
 - (void) drawMenuWindowBackgroundInRect: (NSRect) rect {
     if (![self drawPartId: /*MENU_POPUPBACKGROUND*/ 9
-                  stateId: 0
-              uxthClassId: uxthMENU
-                   inRect: rect])
+                    stateId: 0
+                uxthClassId: uxthMENU
+                     inRect: rect])
         [super drawMenuWindowBackgroundInRect: rect];
     else
         [self drawPartId: /*MENU_POPUPBORDERS*/ 10
-                 stateId: 0
-             uxthClassId: uxthMENU
-                  inRect: rect];
+                    stateId: 0
+                uxthClassId: uxthMENU
+                     inRect: rect];
 }
 
 - (void) drawMenuBarItemBorderInRect: (NSRect) rect
@@ -750,9 +750,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
         state = selected ? /*MBI_PUSHED*/ 3 : /*MBI_HOT*/ 2;
 
     if (![self drawPartId: /*MENU_BARITEM*/ 8
-                  stateId: state
-              uxthClassId: uxthMENU
-                   inRect: rect])
+                    stateId: state
+                uxthClassId: uxthMENU
+                     inRect: rect])
         [super drawMenuBarItemBorderInRect: rect
                                      hover: hovering
                                   selected: selected];
@@ -760,9 +760,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawMenuBarBackgroundInRect: (NSRect) rect {
     if (![self drawPartId: /*MENU_BARBACKGROUND*/ 7
-                  stateId: 1
-              uxthClassId: uxthMENU
-                   inRect: rect])
+                    stateId: 1
+                uxthClassId: uxthMENU
+                     inRect: rect])
         [super drawMenuBarBackgroundInRect: rect];
 }
 
@@ -785,10 +785,10 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 }
 
 - (BOOL) getPartId: (int *) partId
-           stateId: (int *) stateId
-    forButtonImage: (NSImage *) image
-           enabled: (BOOL) enabled
-             mixed: (BOOL) mixed
+               stateId: (int *) stateId
+        forButtonImage: (NSImage *) image
+               enabled: (BOOL) enabled
+                 mixed: (BOOL) mixed
 {
     BOOL valid = NO;
 
@@ -820,16 +820,16 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     int partId, stateId;
 
     if ([self getPartId: &partId
-                   stateId: &stateId
-            forButtonImage: image
-                   enabled: enabled
-                     mixed: mixed]) {
+                       stateId: &stateId
+                forButtonImage: image
+                       enabled: enabled
+                         mixed: mixed]) {
         NSSize result;
 
         if ([self sizeOfPartId: partId
-                       stateId: stateId
-                   uxthClassId: uxthBUTTON
-                          size: &result])
+                        stateId: stateId
+                    uxthClassId: uxthBUTTON
+                           size: &result])
             return result;
     }
 
@@ -844,10 +844,10 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     int partId, stateId;
 
     if ([self getPartId: &partId
-                   stateId: &stateId
-            forButtonImage: image
-                   enabled: enabled
-                     mixed: mixed])
+                       stateId: &stateId
+                forButtonImage: image
+                       enabled: enabled
+                         mixed: mixed])
         if ([self drawButtonPartId: partId stateId: stateId inRect: rect])
             return;
 
@@ -876,9 +876,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawOutlineViewBranchInRect: (NSRect) rect expanded: (BOOL) expanded {
     if (![self drawPartId: TVP_GLYPH
-                  stateId: expanded ? GLPS_OPENED : GLPS_CLOSED
-              uxthClassId: uxthTREEVIEW
-                   inRect: rect])
+                    stateId: expanded ? GLPS_OPENED : GLPS_CLOSED
+                uxthClassId: uxthTREEVIEW
+                     inRect: rect])
         [super drawOutlineViewBranchInRect: rect expanded: expanded];
 }
 
@@ -888,9 +888,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 {
     if (bezeled) {
         if ([self drawPartId: PP_BAR
-                     stateId: 0
-                 uxthClassId: uxthPROGRESS
-                      inRect: rect])
+                        stateId: 0
+                    uxthClassId: uxthPROGRESS
+                         inRect: rect])
             return NSInsetRect(rect, 3, 3);
     }
 
@@ -905,9 +905,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawProgressIndicatorChunk: (NSRect) rect {
     [self drawPartId: PP_CHUNK
-             stateId: 0
-         uxthClassId: uxthPROGRESS
-              inRect: rect];
+                stateId: 0
+            uxthClassId: uxthPROGRESS
+                 inRect: rect];
 }
 
 @end
@@ -939,9 +939,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     }
 
     if (![self drawPartId: SBP_ARROWBTN
-                  stateId: stateId
-              uxthClassId: uxthSCROLLBAR
-                   inRect: rect])
+                    stateId: stateId
+                uxthClassId: uxthSCROLLBAR
+                     inRect: rect])
         [super drawScrollerButtonInRect: rect
                                 enabled: enabled
                                 pressed: pressed
@@ -954,17 +954,17 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                       highlight: (BOOL) highlight
 {
     if (![self drawPartId: vertical ? SBP_THUMBBTNVERT : SBP_THUMBBTNHORZ
-                  stateId: highlight ? SCRBS_PRESSED : SCRBS_NORMAL
-              uxthClassId: uxthSCROLLBAR
-                   inRect: rect])
+                    stateId: highlight ? SCRBS_PRESSED : SCRBS_NORMAL
+                uxthClassId: uxthSCROLLBAR
+                     inRect: rect])
         [super drawScrollerKnobInRect: rect
                              vertical: vertical
                             highlight: highlight];
 
     [self drawPartId: vertical ? SBP_GRIPPERVERT : SBP_GRIPPERHORZ
-             stateId: 0
-         uxthClassId: uxthSCROLLBAR
-              inRect: rect];
+                stateId: 0
+            uxthClassId: uxthSCROLLBAR
+                 inRect: rect];
 }
 
 - (void) drawScrollerTrackInRect: (NSRect) rect
@@ -972,13 +972,13 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                         upOrLeft: (BOOL) upOrLeft
 {
     int partId = vertical
-                     ? (upOrLeft ? SBP_UPPERTRACKVERT : SBP_LOWERTRACKVERT)
-                     : (upOrLeft ? SBP_UPPERTRACKHORZ : SBP_LOWERTRACKHORZ);
+                         ? (upOrLeft ? SBP_UPPERTRACKVERT : SBP_LOWERTRACKVERT)
+                         : (upOrLeft ? SBP_UPPERTRACKHORZ : SBP_LOWERTRACKHORZ);
 
     if (![self drawPartId: partId
-                  stateId: SCRBS_NORMAL
-              uxthClassId: uxthSCROLLBAR
-                   inRect: rect])
+                    stateId: SCRBS_NORMAL
+                uxthClassId: uxthSCROLLBAR
+                     inRect: rect])
         [super drawScrollerTrackInRect: rect
                               vertical: vertical
                               upOrLeft: upOrLeft];
@@ -994,9 +994,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     rect.origin.y -= 1.0;
     rect.size.height += 1.0;
     if (![self drawPartId: HP_HEADERITEM
-                  stateId: highlighted ? HIS_PRESSED : HIS_NORMAL
-              uxthClassId: uxthHEADER
-                   inRect: rect])
+                    stateId: highlighted ? HIS_PRESSED : HIS_NORMAL
+                uxthClassId: uxthHEADER
+                     inRect: rect])
         [super drawTableViewHeaderInRect: rect highlighted: highlighted];
 }
 
@@ -1004,9 +1004,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     rect.origin.y -= 1.0;
     rect.size.height += 1.0;
     if (![self drawPartId: HP_HEADERITEM
-                  stateId: HIS_NORMAL
-              uxthClassId: uxthHEADER
-                   inRect: rect])
+                    stateId: HIS_NORMAL
+                uxthClassId: uxthHEADER
+                     inRect: rect])
         [super drawTableViewCornerInRect: rect];
 }
 
@@ -1020,10 +1020,10 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                           pressed: (BOOL) pressed
 {
     if (![self drawPartId: CP_DROPDOWNBUTTON
-                  stateId: enabled ? (pressed ? CBXS_PRESSED : CBXS_NORMAL)
-                                   : CBXS_DISABLED
-              uxthClassId: uxthCOMBOBOX
-                   inRect: rect])
+                    stateId: enabled ? (pressed ? CBXS_PRESSED : CBXS_NORMAL)
+                                     : CBXS_DISABLED
+                uxthClassId: uxthCOMBOBOX
+                     inRect: rect])
         [super drawComboBoxButtonInRect: rect
                                 enabled: (BOOL) enabled
                                bordered: bordered
@@ -1059,9 +1059,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     }
 
     if (![self drawPartId: partId
-                  stateId: highlighted ? TUS_PRESSED : TUS_NORMAL
-              uxthClassId: uxthTRACKBAR
-                   inRect: rect])
+                    stateId: highlighted ? TUS_PRESSED : TUS_NORMAL
+                uxthClassId: uxthTRACKBAR
+                     inRect: rect])
         [super drawSliderKnobInRect: rect
                            vertical: vertical
                         highlighted: highlighted
@@ -1086,9 +1086,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
     }
 
     if (![self drawPartId: vertical ? TKP_TRACKVERT : TKP_TRACK
-                  stateId: TRS_NORMAL
-              uxthClassId: uxthTRACKBAR
-                   inRect: thin])
+                    stateId: TRS_NORMAL
+                uxthClassId: uxthTRACKBAR
+                     inRect: thin])
         [super drawSliderTrackInRect: rect
                             vertical: vertical
                         hasTickMarks: hasTickMarks];
@@ -1105,9 +1105,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                        upNotDown: (BOOL) upNotDown
 {
     if (![self drawPartId: upNotDown ? SPNP_UP : SPNP_DOWN
-                  stateId: enabled ? DNS_NORMAL : DNS_DISABLED
-              uxthClassId: uxthSPIN
-                   inRect: rect])
+                    stateId: enabled ? DNS_NORMAL : DNS_DISABLED
+                uxthClassId: uxthSPIN
+                     inRect: rect])
         [super drawStepperButtonInRect: rect
                               clipRect: (NSRect) clipRect
                                enabled: enabled
@@ -1130,9 +1130,9 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
         rect.origin.y -= 2;
 
     if (![self drawPartId: TABP_TABITEM
-                  stateId: selected ? TIS_SELECTED : TIS_NORMAL
-              uxthClassId: uxthTAB
-                   inRect: rect])
+                    stateId: selected ? TIS_SELECTED : TIS_NORMAL
+                uxthClassId: uxthTAB
+                     inRect: rect])
         [super drawTabInRect: rect
                     clipRect: clipRect
                        color: color
@@ -1141,17 +1141,17 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawTabPaneInRect: (NSRect) rect {
     if (![self drawPartId: TABP_PANE
-                  stateId: TIS_NORMAL
-              uxthClassId: uxthTAB
-                   inRect: rect])
+                    stateId: TIS_NORMAL
+                uxthClassId: uxthTAB
+                     inRect: rect])
         [super drawTabPaneInRect: rect];
 }
 
 - (void) drawTabViewBackgroundInRect: (NSRect) rect {
     if (![self drawPartId: TABP_BODY
-                  stateId: TIS_NORMAL
-              uxthClassId: uxthTAB
-                   inRect: rect])
+                    stateId: TIS_NORMAL
+                uxthClassId: uxthTAB
+                     inRect: rect])
         [super drawTabPaneInRect: rect];
 }
 
@@ -1163,25 +1163,25 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                     bezeledNotLine: (BOOL) bezeledNotLine
 {
     if (![self drawPartId: EP_EDITTEXT
-                  stateId: ETS_NORMAL
-              uxthClassId: uxthEDIT
-                   inRect: rect])
+                    stateId: ETS_NORMAL
+                uxthClassId: uxthEDIT
+                     inRect: rect])
         [super drawTextFieldBorderInRect: rect bezeledNotLine: bezeledNotLine];
 }
 
 - (void) drawBoxWithBezelInRect: (NSRect) rect clipRect: (NSRect) clipRect {
     if (![self drawPartId: BP_GROUPBOX
-                  stateId: GBS_NORMAL
-              uxthClassId: uxthBUTTON
-                   inRect: rect])
+                    stateId: GBS_NORMAL
+                uxthClassId: uxthBUTTON
+                     inRect: rect])
         [super drawBoxWithBezelInRect: rect clipRect: clipRect];
 }
 
 - (void) drawBoxWithGrooveInRect: (NSRect) rect clipRect: (NSRect) clipRect {
     if (![self drawPartId: BP_GROUPBOX
-                  stateId: GBS_NORMAL
-              uxthClassId: uxthBUTTON
-                   inRect: rect])
+                    stateId: GBS_NORMAL
+                uxthClassId: uxthBUTTON
+                     inRect: rect])
         [super drawBoxWithGrooveInRect: rect clipRect: clipRect];
 }
 

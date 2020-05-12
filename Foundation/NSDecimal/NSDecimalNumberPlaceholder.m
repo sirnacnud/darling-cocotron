@@ -22,7 +22,7 @@
     //   NSUnimplementedMethod();
     [self dealloc];
     return (NSDecimalNumberPlaceholder *) [[NSNumber alloc]
-        initWithInteger: 0]; // NSNumber is implemented
+            initWithInteger: 0]; // NSNumber is implemented
 }
 
 @end

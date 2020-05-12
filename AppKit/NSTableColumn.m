@@ -84,10 +84,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@ 0x%08lx identifier: \"%@\" headerCell: %@ "
-                          @"dataCell: %@ width: %f minWidth: %f maxWidth: %f>",
-                          [self class], self, _identifier, _headerCell,
-                          _dataCell, _width, _minWidth, _maxWidth];
+            stringWithFormat:
+                    @"<%@ 0x%08lx identifier: \"%@\" headerCell: %@ "
+                    @"dataCell: %@ width: %f minWidth: %f maxWidth: %f>",
+                    [self class], self, _identifier, _headerCell, _dataCell,
+                    _width, _minWidth, _maxWidth];
 }
 
 - (id) identifier {

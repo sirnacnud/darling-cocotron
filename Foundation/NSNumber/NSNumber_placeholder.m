@@ -43,7 +43,7 @@ static NSNumber_placeholder *sSharedInstance;
 + (void) initialize {
     if (self == objc_lookUpClass("NSNumber_placeholder"))
         sSharedInstance =
-            NSAllocateObject([NSNumber_placeholder class], 0, NULL);
+                NSAllocateObject([NSNumber_placeholder class], 0, NULL);
 }
 
 + _sharedInstance {

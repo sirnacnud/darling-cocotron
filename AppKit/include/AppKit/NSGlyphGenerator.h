@@ -27,9 +27,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSAttributedString *) attributedString;
 
 - (void) insertGlyphs: (const NSGlyph *) glyphs
-                     length: (NSUInteger) length
-    forStartingGlyphAtIndex: (NSUInteger) glyphIndex
-             characterIndex: (NSUInteger) characterIndex;
+                         length: (NSUInteger) length
+        forStartingGlyphAtIndex: (NSUInteger) glyphIndex
+                 characterIndex: (NSUInteger) characterIndex;
 
 - (void) setIntAttribute: (NSInteger) intAttribute
                    value: (NSInteger) value

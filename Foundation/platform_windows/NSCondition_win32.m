@@ -67,8 +67,8 @@
     NSCooperativeThreadWaiting();
 
     LONG newWaitersCount = InterlockedDecrement(&waitersCount);
-    BOOL lastWaiter =
-        (result == WAIT_OBJECT_0 + Event_Broadcast) && (0 == newWaitersCount);
+    BOOL lastWaiter = (result == WAIT_OBJECT_0 + Event_Broadcast) &&
+                      (0 == newWaitersCount);
 
     if (lastWaiter)
         ResetEvent(events[Event_Broadcast]);

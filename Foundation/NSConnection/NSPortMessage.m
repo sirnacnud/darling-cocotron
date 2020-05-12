@@ -24,8 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSPortMessage
 
 - initWithSendPort: (NSPort *) sendPort
-       receivePort: (NSPort *) receivePort
-        components: (NSArray *) components
+        receivePort: (NSPort *) receivePort
+         components: (NSArray *) components
 {
     _sendPort = [sendPort retain];
     _receivePort = [receivePort retain];

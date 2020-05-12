@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSNumber *NSNumber_unsignedShortNew(NSZone *zone, unsigned short value) {
     NSNumber_unsignedShort *self =
-        NSAllocateObject([NSNumber_unsignedShort class], 0, zone);
+            NSAllocateObject([NSNumber_unsignedShort class], 0, zone);
     if (self) {
         self->_type = kCFNumberShortType;
         self->_value = value;

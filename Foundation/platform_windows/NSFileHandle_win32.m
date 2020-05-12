@@ -63,8 +63,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + fileHandleForReadingAtPath: (NSString *) path {
     HANDLE handle =
-        CreateFileW([path fileSystemRepresentationW], GENERIC_READ, 0, NULL,
-                    OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+            CreateFileW([path fileSystemRepresentationW], GENERIC_READ, 0, NULL,
+                        OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
     if (handle == NULL)
         return nil;
@@ -75,8 +75,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + fileHandleForWritingAtPath: (NSString *) path {
     HANDLE handle =
-        CreateFileW([path fileSystemRepresentationW], GENERIC_WRITE, 0, NULL,
-                    OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+            CreateFileW([path fileSystemRepresentationW], GENERIC_WRITE, 0,
+                        NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
     if (handle == NULL)
         return nil;
@@ -104,20 +104,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + fileHandleWithStandardInput {
     return [[[self allocWithZone: NULL]
-        initWithHandle: GetStdHandle(STD_INPUT_HANDLE)
-        closeOnDealloc: NO] autorelease];
+            initWithHandle: GetStdHandle(STD_INPUT_HANDLE)
+            closeOnDealloc: NO] autorelease];
 }
 
 + fileHandleWithStandardOutput {
     return [[[self allocWithZone: NULL]
-        initWithHandle: GetStdHandle(STD_OUTPUT_HANDLE)
-        closeOnDealloc: NO] autorelease];
+            initWithHandle: GetStdHandle(STD_OUTPUT_HANDLE)
+            closeOnDealloc: NO] autorelease];
 }
 
 + fileHandleWithStandardError {
     return [[[self allocWithZone: NULL]
-        initWithHandle: GetStdHandle(STD_ERROR_HANDLE)
-        closeOnDealloc: NO] autorelease];
+            initWithHandle: GetStdHandle(STD_ERROR_HANDLE)
+            closeOnDealloc: NO] autorelease];
 }
 
 - (HANDLE) fileHandle {
@@ -142,7 +142,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     li.QuadPart = 0;
 
     li.LowPart =
-        SetFilePointer(_handle, li.LowPart, &li.HighPart, FILE_CURRENT);
+            SetFilePointer(_handle, li.LowPart, &li.HighPart, FILE_CURRENT);
 
     if (li.LowPart == INVALID_SET_FILE_POINTER && GetLastError() != NO_ERROR)
         [NSException raise: NSInvalidArgumentException
@@ -195,9 +195,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     DWORD error;
     LPVOID lpMsgBuf;
 
-    while (
-        GetLastError() != ERROR_BROKEN_PIPE &&
-        ReadFile(_handle, [result mutableBytes] + sum, B, &readLength, NULL)) {
+    while (GetLastError() != ERROR_BROKEN_PIPE &&
+           ReadFile(_handle, [result mutableBytes] + sum, B, &readLength,
+                    NULL)) {
         //[result appendBytes:buffer length:readLength];
         sum += readLength;
         [result increaseLengthBy: B];
@@ -208,8 +208,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     error = GetLastError();
     if (error != ERROR_BROKEN_PIPE) {
         FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
-                          FORMAT_MESSAGE_FROM_SYSTEM |
-                          FORMAT_MESSAGE_IGNORE_INSERTS,
+                              FORMAT_MESSAGE_FROM_SYSTEM |
+                              FORMAT_MESSAGE_IGNORE_INSERTS,
                       NULL, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
                       (LPTSTR) &lpMsgBuf, 0, NULL);
         NSRaiseException(NSFileHandleOperationException, self, _cmd,
@@ -236,8 +236,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 break;
             } else {
                 FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
-                                  FORMAT_MESSAGE_FROM_SYSTEM |
-                                  FORMAT_MESSAGE_IGNORE_INSERTS,
+                                      FORMAT_MESSAGE_FROM_SYSTEM |
+                                      FORMAT_MESSAGE_IGNORE_INSERTS,
                               NULL, error,
                               MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
                               (LPTSTR) &lpMsgBuf, 0, NULL);
@@ -281,13 +281,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSDictionary *userInfo;
     NSNotification *note;
 
-    userInfo =
-        [NSDictionary dictionaryWithObject: data
-                                    forKey: NSFileHandleNotificationDataItem];
+    userInfo = [NSDictionary
+            dictionaryWithObject: data
+                          forKey: NSFileHandleNotificationDataItem];
     note = [NSNotification
-        notificationWithName: NSFileHandleReadCompletionNotification
-                      object: self
-                    userInfo: userInfo];
+            notificationWithName: NSFileHandleReadCompletionNotification
+                          object: self
+                        userInfo: userInfo];
 
     [_background detach];
     _background = nil;
@@ -301,8 +301,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     format: @"file handle has background activity already"];
 
     _background =
-        [NSReadInBackground_win32 readInBackgroundWithFileHandle: self
-                                                           modes: modes];
+            [NSReadInBackground_win32 readInBackgroundWithFileHandle: self
+                                                               modes: modes];
 }
 
 @end

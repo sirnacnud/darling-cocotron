@@ -38,9 +38,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + (NSImage *) defaultMarkerImage;
 
 - initWithRulerView: (NSRulerView *) ruler
-     markerLocation: (CGFloat) location
-              image: (NSImage *) image
-        imageOrigin: (NSPoint) point;
+        markerLocation: (CGFloat) location
+                 image: (NSImage *) image
+           imageOrigin: (NSPoint) point;
 
 - (NSRulerView *) ruler;
 - (CGFloat) markerLocation;

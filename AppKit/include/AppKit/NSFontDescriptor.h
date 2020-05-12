@@ -73,13 +73,13 @@ APPKIT_EXPORT const NSFontWeight NSFontWeightRegular;
 - (NSFontSymbolicTraits) symbolicTraits;
 
 - (NSFontDescriptor *) fontDescriptorByAddingAttributes:
-    (NSDictionary *) attributes;
+        (NSDictionary *) attributes;
 - (NSFontDescriptor *) fontDescriptorWithFace: (NSString *) face;
 - (NSFontDescriptor *) fontDescriptorWithFamily: (NSString *) family;
 - (NSFontDescriptor *) fontDescriptorWithMatrix: (NSAffineTransform *) matrix;
 - (NSFontDescriptor *) fontDescriptorWithSize: (CGFloat) pointSize;
 - (NSFontDescriptor *) fontDescriptorWithSymbolicTraits:
-    (NSFontSymbolicTraits) traits;
+        (NSFontSymbolicTraits) traits;
 
 - (NSArray *) matchingFontDescriptorsWithMandatoryKeys: (NSSet *) keys;
 - (NSFontDescriptor *) matchingFontDescriptorWithMandatoryKeys: (NSSet *) keys;

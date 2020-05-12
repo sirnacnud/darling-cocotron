@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @class NSSet, NSMutableSet, NSNotification, NSUndoManager, NSMapTable;
 @class NSManagedObject, NSManagedObjectID, NSFetchRequest, NSPersistentStore,
-    NSPersistentStoreCoordinator;
+        NSPersistentStoreCoordinator;
 
 COREDATA_EXPORT NSString *const NSManagedObjectContextWillSaveNotification;
 COREDATA_EXPORT NSString *const NSManagedObjectContextDidSaveNotification;
@@ -114,7 +114,7 @@ COREDATA_EXPORT NSString *const NSPersistentStoreSaveConflictsErrorKey;
                                 error: (NSError **) error;
 - (BOOL) save: (NSError **) error;
 - (void) mergeChangesFromContextDidSaveNotification:
-    (NSNotification *) notification;
+        (NSNotification *) notification;
 
 - (BOOL) commitEditing;
 - (void) commitEditingWithDelegate: (id) delegate

@@ -32,7 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                               startRect: (NSRect) startRect
                                              targetRect: (NSRect) targetRect
                                              resizeTime:
-                                                 (NSTimeInterval) resizeTime
+                                                     (NSTimeInterval) resizeTime
                                                 display: (BOOL) display;
 
 - (id) initWithWindow: (id) window

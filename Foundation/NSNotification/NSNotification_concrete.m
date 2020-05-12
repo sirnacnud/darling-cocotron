@@ -31,7 +31,7 @@ NSNotification_concrete *NSNotification_concreteNew(NSZone *zone,
                                                     NSDictionary *userInfo)
 {
     NSNotification_concrete *self =
-        NSAllocateObject([NSNotification_concrete class], 0, zone);
+            NSAllocateObject([NSNotification_concrete class], 0, zone);
     if (self) {
         self->_name = [name copyWithZone: zone];
         self->_object = [object retain];
@@ -41,8 +41,8 @@ NSNotification_concrete *NSNotification_concreteNew(NSZone *zone,
 }
 
 - initWithName: (NSString *) name
-        object: object
-      userInfo: (NSDictionary *) userInfo
+          object: object
+        userInfo: (NSDictionary *) userInfo
 {
     _name = [name copy];
     _object = [object retain];

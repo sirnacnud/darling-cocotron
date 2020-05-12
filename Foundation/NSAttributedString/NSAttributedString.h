@@ -39,12 +39,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                              inRange: (NSRange) inRange;
 
 - attribute: (NSString *) name
-           atIndex: (NSUInteger) location
-    effectiveRange: (NSRange *) range;
+               atIndex: (NSUInteger) location
+        effectiveRange: (NSRange *) range;
 - attribute: (NSString *) name
-                  atIndex: (NSUInteger) location
-    longestEffectiveRange: (NSRange *) range
-                  inRange: (NSRange) inRange;
+                      atIndex: (NSUInteger) location
+        longestEffectiveRange: (NSRange *) range
+                      inRange: (NSRange) inRange;
 
 - (NSAttributedString *) attributedSubstringFromRange: (NSRange) range;
 

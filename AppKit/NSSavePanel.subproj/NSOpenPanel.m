@@ -32,8 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _filenames = [NSArray new];
     [_dialogTitle release];
     _dialogTitle = [NSLocalizedStringFromTableInBundle(
-        @"Open", nil, [NSBundle bundleForClass: [NSOpenPanel class]],
-        @"The title of the open panel") copy];
+            @"Open", nil, [NSBundle bundleForClass: [NSOpenPanel class]],
+            @"The title of the open panel") copy];
     _allowsMultipleSelection = NO;
     _canChooseDirectories = NO;
     _canChooseFiles = YES;
@@ -50,10 +50,10 @@ static NSOpenPanel *_newPanel = nil;
 + (NSSavePanel *) openPanel {
     if ([[NSDisplay currentDisplay] implementsCustomPanelForClass: self]) {
         _newPanel = [[self alloc]
-            initWithContentRect: NSMakeRect(0, 0, 1, 1)
-                      styleMask: NSTitledWindowMask | NSResizableWindowMask
-                        backing: NSBackingStoreBuffered
-                          defer: YES];
+                initWithContentRect: NSMakeRect(0, 0, 1, 1)
+                          styleMask: NSTitledWindowMask | NSResizableWindowMask
+                            backing: NSBackingStoreBuffered
+                              defer: YES];
     } else {
         [NSBundle loadNibNamed: @"NSOpenPanel" owner: self];
     }
@@ -121,7 +121,7 @@ static NSOpenPanel *_newPanel = nil;
 - (NSInteger) runModal {
     NSInteger res;
     if ([[NSDisplay currentDisplay]
-            implementsCustomPanelForClass: [self class]]) {
+                implementsCustomPanelForClass: [self class]]) {
         res = [[NSDisplay currentDisplay] openPanel: self
                                runModalForDirectory: [self directory]
                                                file: [self filename]
@@ -176,18 +176,20 @@ static NSOpenPanel *_newPanel = nil;
                     contextInfo: (void *) contextInfo
 {
     id inv = [NSInvocation
-        invocationWithMethodSignature:
-            [self
-                methodSignatureForSelector: @selector
-                (_background_beginSheetForDirectory:
-                                               file:types:modalForWindow
-                                                   :modalDelegate:didEndSelector
-                                                   :contextInfo:)]];
+            invocationWithMethodSignature:
+                    [self methodSignatureForSelector: @selector
+                            (_background_beginSheetForDirectory:
+                                                           file:types
+                                                               :modalForWindow
+                                                               :modalDelegate
+                                                               :didEndSelector
+                                                               :contextInfo:)]];
     [inv setTarget: self];
     [inv setSelector: @selector
-         (_background_beginSheetForDirectory:
-                                        file:types:modalForWindow:modalDelegate
-                                            :didEndSelector:contextInfo:)];
+            (_background_beginSheetForDirectory:
+                                           file:types:modalForWindow
+                                               :modalDelegate:didEndSelector
+                                               :contextInfo:)];
     [inv setArgument: &path atIndex: 2];
     [inv setArgument: &name atIndex: 3];
     [inv setArgument: &fileTypes atIndex: 4];
@@ -210,10 +212,11 @@ static NSOpenPanel *_newPanel = nil;
     id pool = [NSAutoreleasePool new];
     int ret = [self runModalForDirectory: path file: name types: fileTypes];
 
-    id inv = [NSInvocation invocationWithMethodSignature:
-                               [self methodSignatureForSelector: @selector
-                                     (_selector_savePanelDidEnd:
-                                                     returnCode:contextInfo:)]];
+    id inv = [NSInvocation
+            invocationWithMethodSignature:
+                    [self methodSignatureForSelector: @selector
+                            (_selector_savePanelDidEnd:
+                                            returnCode:contextInfo:)]];
 
     [inv setTarget: modalDelegate];
     [inv setSelector: didEndSelector];

@@ -30,14 +30,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSArray *) keyBindingPaths {
     return [NSArray
-        arrayWithObjects: [[NSBundle
-                              bundleForClass: [NSKeyboardBindingManager class]]
-                              pathForResource: @"StandardKeyBindings"
-                                       ofType: @"keyBindings"],
-                          [[NSBundle mainBundle]
-                              pathForResource: @"KeyBindings"
-                                       ofType: @"keyBindings"],
-                          nil];
+            arrayWithObjects: [[NSBundle
+                                      bundleForClass: [NSKeyboardBindingManager
+                                                              class]]
+                                      pathForResource: @"StandardKeyBindings"
+                                               ofType: @"keyBindings"],
+                              [[NSBundle mainBundle]
+                                      pathForResource: @"KeyBindings"
+                                               ofType: @"keyBindings"],
+                              nil];
 }
 
 + (NSKeyboardBindingManager *) defaultKeyBindingManager {
@@ -50,11 +51,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         for (i = 0; i < count; ++i) {
             NSString *path = [paths objectAtIndex: i];
             NSDictionary *keyBindingDictionary =
-                [NSDictionary dictionaryWithContentsOfFile: path];
+                    [NSDictionary dictionaryWithContentsOfFile: path];
 
             if (keyBindingDictionary != nil) {
                 NSKeyboardBindingManager *manager =
-                    [[self alloc] initWithDictionary: keyBindingDictionary];
+                        [[self alloc] initWithDictionary: keyBindingDictionary];
 
                 [manager setNextKeyBindingManager: firstKeyBindingManager];
                 firstKeyBindingManager = manager;
@@ -105,11 +106,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSString *key = [allKeys objectAtIndex: i];
         id value = [dict objectForKey: key];
         NSMutableArray *keyComponents =
-            [[[key componentsSeparatedByString: @","] mutableCopy] autorelease];
+                [[[key componentsSeparatedByString: @","] mutableCopy]
+                        autorelease];
         unsigned short hexCode;
         unsigned modifierMask = 0, hexInt = 0;
         NSScanner *scanner =
-            [NSScanner scannerWithString: [keyComponents lastObject]];
+                [NSScanner scannerWithString: [keyComponents lastObject]];
 
         [scanner scanHexInt: &hexInt];
         hexCode = hexInt;
@@ -123,10 +125,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         // we can change this later to support multi-character unicode
         keyBinding = [NSKeyboardBinding
-            keyBindingWithString: [NSString stringWithCharacters: &hexCode
-                                                          length: 1]
-                    modifierMask: modifierMask
-                   selectorNames: value];
+                keyBindingWithString: [NSString stringWithCharacters: &hexCode
+                                                              length: 1]
+                        modifierMask: modifierMask
+                       selectorNames: value];
 
         [keyBindings addObject: keyBinding];
     }
@@ -139,7 +141,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     _dictionary = [dictionary retain];
     _keyBindings = [[NSKeyboardBindingManager
-        keyBindingsFromDictionary: _dictionary] retain];
+            keyBindingsFromDictionary: _dictionary] retain];
 
     return self;
 }

@@ -23,8 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSObject.h>
 
 @class NSString, NSMutableArray, NSArray, NSDictionary, NSNotification,
-    NSMutableDictionary, NSWindow, NSView, NSToolbarItem, NSToolbarView,
-    NSToolbarCustomizationPalette;
+        NSMutableDictionary, NSWindow, NSView, NSToolbarItem, NSToolbarView,
+        NSToolbarCustomizationPalette;
 
 typedef enum {
     NSToolbarSizeModeDefault,
@@ -114,8 +114,8 @@ typedef NSString *NSToolbarIdentifier;
 
 @optional
 - (NSToolbarItem *) toolbar: (NSToolbar *) toolbar
-        itemForItemIdentifier: (NSToolbarItemIdentifier) identifier
-    willBeInsertedIntoToolbar: (BOOL) flag;
+            itemForItemIdentifier: (NSToolbarItemIdentifier) identifier
+        willBeInsertedIntoToolbar: (BOOL) flag;
 
 - (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar;
 - (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar;

@@ -85,11 +85,11 @@ static void evaluate(void *info, const CGFloat *in, CGFloat *output) {
         colors._C1[3] = endComponents[3];
 
         CGFunctionRef function =
-            CGFunctionCreate(&colors, 1, domain, 4, range, &callbacks);
+                CGFunctionCreate(&colors, 1, domain, 4, range, &callbacks);
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGShadingRef shading = CGShadingCreateAxial(
-            colorSpace, CGPointMake([startVector X], [startVector Y]),
-            CGPointMake([endVector X], [endVector Y]), function, NO, NO);
+                colorSpace, CGPointMake([startVector X], [startVector Y]),
+                CGPointMake([endVector X], [endVector Y]), function, NO, NO);
 
         CGContextSaveGState(_cgContext);
         CGContextTranslateCTM(_cgContext, inRect.origin.x, inRect.origin.y);

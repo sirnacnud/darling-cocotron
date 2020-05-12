@@ -63,6 +63,7 @@ UseTab: Never
 Language: ObjC
 BasedOnStyle: LLVM
 IndentWidth: 4
+ContinuationIndentWidth: 8
 UseTab: Never
 SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: true

@@ -72,8 +72,8 @@ static void CGPathConverter(void *info, const CGPathElement *element) {
 
     case kCGPathElementAddCurveToPoint:
         [bezier curveToPoint: *(CGPoint *) &element->points[2]
-               controlPoint1: *(CGPoint *) &element->points[0]
-               controlPoint2: *(CGPoint *) &element->points[1]];
+                controlPoint1: *(CGPoint *) &element->points[0]
+                controlPoint2: *(CGPoint *) &element->points[1]];
         break;
 
     case kCGPathElementCloseSubpath:
@@ -515,27 +515,27 @@ static int numberOfPointsForOperator(int op) {
             || ((fromPoint.y > point.y) &&
                 (toPoint.y <= point.y))) { // a downward crossing
             // compute the actual edge-ray intersect x-coordinate
-            CGFloat vt =
-                (CGFloat)(point.y - fromPoint.y) / (toPoint.y - fromPoint.y);
+            CGFloat vt = (CGFloat)(point.y - fromPoint.y) /
+                         (toPoint.y - fromPoint.y);
             if (point.x <
                 fromPoint.x +
-                    vt * (toPoint.x - fromPoint.x)) // point.x < intersect
+                        vt * (toPoint.x - fromPoint.x)) // point.x < intersect
                 ++count; // a valid crossing of y=point.y right of point.x
         }
     } else {
         // Subdivide the bezier path and test both subpaths - adapted from the
         // flatten path code
         CGPoint sub1_start = fromPoint;
-        CGPoint sub1_cp1 =
-            CGPointMake((fromPoint.x + tan1.x) / 2, (fromPoint.y + tan1.y) / 2);
+        CGPoint sub1_cp1 = CGPointMake((fromPoint.x + tan1.x) / 2,
+                                       (fromPoint.y + tan1.y) / 2);
         CGPoint T = CGPointMake((tan1.x + tan2.x) / 2, (tan1.y + tan2.y) / 2);
         CGPoint sub1_cp2 =
-            CGPointMake((sub1_cp1.x + T.x) / 2, (sub1_cp1.y + T.y) / 2);
+                CGPointMake((sub1_cp1.x + T.x) / 2, (sub1_cp1.y + T.y) / 2);
         CGPoint sub2_end = toPoint;
         CGPoint sub2_cp2 =
-            CGPointMake((tan2.x + toPoint.x) / 2, (tan2.y + toPoint.y) / 2);
+                CGPointMake((tan2.x + toPoint.x) / 2, (tan2.y + toPoint.y) / 2);
         CGPoint sub2_cp1 =
-            CGPointMake((T.x + sub2_cp2.x) / 2, (T.y + sub2_cp2.y) / 2);
+                CGPointMake((T.x + sub2_cp2.x) / 2, (T.y + sub2_cp2.y) / 2);
         CGPoint sub2_start = CGPointMake((sub1_cp2.x + sub2_cp1.x) / 2,
                                          (sub1_cp2.y + sub2_cp1.y) / 2);
         CGPoint sub1_end = sub2_start;
@@ -592,9 +592,10 @@ static int numberOfPointsForOperator(int op) {
                 // compute the actual edge-ray intersect x-coordinate
                 CGFloat vt = (CGFloat)(point.y - currentPoint.y) /
                              (toPoint.y - currentPoint.y);
-                if (point.x < currentPoint.x +
-                                  vt * (toPoint.x -
-                                        currentPoint.x)) // point.x < intersect
+                if (point.x <
+                    currentPoint.x +
+                            vt * (toPoint.x -
+                                  currentPoint.x)) // point.x < intersect
                     ++cn; // a valid crossing of y=point.y right of point.x
             }
             currentPoint = toPoint;
@@ -619,9 +620,10 @@ static int numberOfPointsForOperator(int op) {
                 // compute the actual edge-ray intersect x-coordinate
                 CGFloat vt = (CGFloat)(point.y - currentPoint.y) /
                              (toPoint.y - currentPoint.y);
-                if (point.x < currentPoint.x +
-                                  vt * (toPoint.x -
-                                        currentPoint.x)) // point.x < intersect
+                if (point.x <
+                    currentPoint.x +
+                            vt * (toPoint.x -
+                                  currentPoint.x)) // point.x < intersect
                     ++cn; // a valid crossing of y=point.y right of point.x
             }
             currentPoint = startPoint;
@@ -658,7 +660,7 @@ static inline void expandOperatorCapacity(NSBezierPath *self, unsigned delta) {
         self->_capacityOfElements = self->_numberOfElements + delta;
         self->_capacityOfElements = (self->_capacityOfElements / 32 + 1) * 32;
         self->_elements =
-            NSZoneRealloc(NULL, self->_elements, self->_capacityOfElements);
+                NSZoneRealloc(NULL, self->_elements, self->_capacityOfElements);
     }
 }
 
@@ -667,7 +669,7 @@ static inline void expandPointCapacity(NSBezierPath *self, unsigned delta) {
         self->_capacityOfPoints = self->_numberOfPoints + delta;
         self->_capacityOfPoints = (self->_capacityOfPoints / 64 + 1) * 64;
         self->_points = NSZoneRealloc(
-            NULL, self->_points, self->_capacityOfPoints * sizeof(CGPoint));
+                NULL, self->_points, self->_capacityOfPoints * sizeof(CGPoint));
     }
 }
 
@@ -777,8 +779,8 @@ static void cgApplier(void *info, const CGPathElement *element) {
 
     case kCGPathElementAddCurveToPoint:
         [self curveToPoint: element->points[2]
-             controlPoint1: element->points[0]
-             controlPoint2: element->points[1]];
+                controlPoint1: element->points[0]
+                controlPoint2: element->points[1]];
         break;
 
     case kCGPathElementCloseSubpath:
@@ -801,8 +803,8 @@ static void cgArcApply(void *info, const CGPathElement *element) {
 
     case kCGPathElementAddCurveToPoint:
         [self curveToPoint: element->points[2]
-             controlPoint1: element->points[0]
-             controlPoint2: element->points[1]];
+                controlPoint1: element->points[0]
+                controlPoint2: element->points[1]];
         break;
 
     default:
@@ -828,8 +830,8 @@ static void cgArcFromApply(void *info, const CGPathElement *element) {
 
     case kCGPathElementAddCurveToPoint:
         [self curveToPoint: element->points[2]
-             controlPoint1: element->points[0]
-             controlPoint2: element->points[1]];
+                controlPoint1: element->points[0]
+                controlPoint2: element->points[1]];
         break;
 
     default:
@@ -870,18 +872,21 @@ static void cgArcFromApply(void *info, const CGPathElement *element) {
 {
     [self moveToPoint: NSMakePoint(rect.origin.x + radius, NSMaxY(rect))];
     [self appendBezierPathWithArcWithCenter: NSMakePoint(
-                                                 rect.origin.x +
-                                                     rect.size.width - radius,
-                                                 rect.origin.y +
-                                                     rect.size.height - radius)
+                                                     rect.origin.x +
+                                                             rect.size.width -
+                                                             radius,
+                                                     rect.origin.y +
+                                                             rect.size.height -
+                                                             radius)
                                      radius: radius
                                  startAngle: 90
                                    endAngle: 0.0f
                                   clockwise: YES];
-    [self appendBezierPathWithArcWithCenter: NSMakePoint(rect.origin.x +
+    [self appendBezierPathWithArcWithCenter: NSMakePoint(
+                                                     rect.origin.x +
                                                              rect.size.width -
                                                              radius,
-                                                         rect.origin.y + radius)
+                                                     rect.origin.y + radius)
                                      radius: radius
                                  startAngle: 360.0f
                                    endAngle: 270
@@ -892,8 +897,9 @@ static void cgArcFromApply(void *info, const CGPathElement *element) {
                                  startAngle: 270
                                    endAngle: 180
                                   clockwise: YES];
-    [self appendBezierPathWithArcWithCenter: NSMakePoint(rect.origin.x + radius,
-                                                         rect.origin.y +
+    [self appendBezierPathWithArcWithCenter: NSMakePoint(
+                                                     rect.origin.x + radius,
+                                                     rect.origin.y +
                                                              rect.size.height -
                                                              radius)
                                      radius: radius
@@ -938,14 +944,14 @@ static inline CGFloat degreesToRadians(CGFloat degrees) {
     NSString *fontName = [font fontName];
     CGFontRef cgFont = CGFontCreateWithFontName((CFStringRef) fontName);
     if (cgFont) {
-        CTFontRef fontRef =
-            CTFontCreateWithGraphicsFont(cgFont, [font pointSize], NULL, NULL);
+        CTFontRef fontRef = CTFontCreateWithGraphicsFont(
+                cgFont, [font pointSize], NULL, NULL);
         if (fontRef) {
             CGPathRef glyphPath =
-                CTFontCreatePathForGlyph(fontRef, glyph, NULL);
+                    CTFontCreatePathForGlyph(fontRef, glyph, NULL);
             if (glyphPath) {
                 NSBezierPath *path =
-                    [NSBezierPath bezierPathWithCGPath: glyphPath];
+                        [NSBezierPath bezierPathWithCGPath: glyphPath];
 
                 // Translate the path to the current point
                 CGPoint currentPoint = [self currentPoint];
@@ -1052,16 +1058,16 @@ static NSUInteger doFlattenBezierCurve(CGFloat desiredFlatness, CGPoint start,
         // Subdivide the curve - Hearn & Baker Computer Graphics pp460-461
         CGPoint sub1_start = start;
         CGPoint sub1_cp1 =
-            CGPointMake((start.x + cp1.x) / 2, (start.y + cp1.y) / 2);
+                CGPointMake((start.x + cp1.x) / 2, (start.y + cp1.y) / 2);
         CGPoint T = CGPointMake((cp1.x + cp2.x) / 2, (cp1.y + cp2.y) / 2);
         CGPoint sub1_cp2 =
-            CGPointMake((sub1_cp1.x + T.x) / 2, (sub1_cp1.y + T.y) / 2);
+                CGPointMake((sub1_cp1.x + T.x) / 2, (sub1_cp1.y + T.y) / 2);
 
         CGPoint sub2_end = end;
         CGPoint sub2_cp2 =
-            CGPointMake((cp2.x + end.x) / 2, (cp2.y + end.y) / 2);
+                CGPointMake((cp2.x + end.x) / 2, (cp2.y + end.y) / 2);
         CGPoint sub2_cp1 =
-            CGPointMake((T.x + sub2_cp2.x) / 2, (T.y + sub2_cp2.y) / 2);
+                CGPointMake((T.x + sub2_cp2.x) / 2, (T.y + sub2_cp2.y) / 2);
         CGPoint sub2_start = CGPointMake((sub1_cp2.x + sub2_cp1.x) / 2,
                                          (sub1_cp2.y + sub2_cp1.y) / 2);
         CGPoint sub1_end = sub2_start;
@@ -1159,7 +1165,8 @@ static NSUInteger flattenBezierCurve(CGFloat desiredFlatness, CGPoint start,
                 // Find the previous start of a path
                 for (j = i - 1; j >= 0; j--) {
                     NSBezierPathElement type =
-                        [self elementAtIndex: j associatedPoints: prevPoints];
+                            [self elementAtIndex: j
+                                    associatedPoints: prevPoints];
                     if (type == NSMoveToBezierPathElement) {
                         nextPoint = prevPoints[0];
                         break;
@@ -1215,8 +1222,8 @@ static NSUInteger flattenBezierCurve(CGFloat desiredFlatness, CGPoint start,
             break;
         case NSCurveToBezierPathElement:
             [path curveToPoint: nextPoint
-                 controlPoint1: pts[1]
-                 controlPoint2: pts[0]];
+                    controlPoint1: pts[1]
+                    controlPoint2: pts[0]];
             break;
         case NSClosePathBezierPathElement:
             if (i != 0) {

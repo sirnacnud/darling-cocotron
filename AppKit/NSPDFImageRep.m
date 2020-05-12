@@ -46,7 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _pdf = [data retain];
     _currentPage = 0;
     CGDataProviderRef provider =
-        CGDataProviderCreateWithCFData((CFDataRef) _pdf);
+            CGDataProviderCreateWithCFData((CFDataRef) _pdf);
     _document = CGPDFDocumentCreateWithProvider(provider);
     CGDataProviderRelease(provider);
     return self;
@@ -126,7 +126,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     CGContextSaveGState(context);
 
     CGAffineTransform xform =
-        CGPDFPageGetDrawingTransform(page, kCGPDFMediaBox, rect, 0, NO);
+            CGPDFPageGetDrawingTransform(page, kCGPDFMediaBox, rect, 0, NO);
 
     CGContextConcatCTM(context, xform);
     CGContextDrawPDFPage(context, page);

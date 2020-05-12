@@ -54,6 +54,6 @@ typedef enum {
 
 // private
 - (NSExpression *) _expressionWithSubstitutionVariables:
-    (NSDictionary *) variables;
+        (NSDictionary *) variables;
 
 @end

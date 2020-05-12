@@ -99,22 +99,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     // subtracts menu height but not toolbar height
     NSRect contentFrame = [[[self window] class]
-        contentRectForFrameRect: [self bounds]
-                      styleMask: [[self window] styleMask]];
+            contentRectForFrameRect: [self bounds]
+                          styleMask: [[self window] styleMask]];
 
     // If the class thinks there is a menu but the instance does not want an
     // instance we need to add the menu height back to the content view as
     // contentRectForFrameRect subtracts it
 
     if ([[[self window] class]
-            hasMainMenuForStyleMask: [[self window] styleMask]]) {
+                hasMainMenuForStyleMask: [[self window] styleMask]]) {
         if (![[self window] hasMainMenu])
             contentFrame.size.height += [NSMainMenuView menuHeight];
     }
 
     NSRect menuFrame = (menuView != nil) ? [menuView frame] : NSZeroRect;
     NSRect toolbarFrame =
-        (toolbarView != nil) ? [toolbarView frame] : NSZeroRect;
+            (toolbarView != nil) ? [toolbarView frame] : NSZeroRect;
 
     menuFrame.origin.y = NSMaxY(contentFrame);
     menuFrame.origin.x = contentFrame.origin.x;
@@ -138,13 +138,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     NSPoint origin = [[self window] frame].origin;
     NSPoint firstLocation =
-        [[self window] convertBaseToScreen: [event locationInWindow]];
+            [[self window] convertBaseToScreen: [event locationInWindow]];
     do {
-        event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
 
         NSPoint delta =
-            [[self window] convertBaseToScreen: [event locationInWindow]];
+                [[self window] convertBaseToScreen: [event locationInWindow]];
 
         delta.x -= firstLocation.x;
         delta.y -= firstLocation.y;

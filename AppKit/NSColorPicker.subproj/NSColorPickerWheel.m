@@ -21,9 +21,9 @@
     color = [color colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 
     [color getHue: &hue
-        saturation: &saturation
-        brightness: &brightness
-             alpha: &alpha];
+            saturation: &saturation
+            brightness: &brightness
+                 alpha: &alpha];
 
     [_wheelView setHue: hue * 360];
     [_wheelView setSaturation: saturation * 100];
@@ -47,10 +47,11 @@
 {
 
     [[self colorPanel]
-        setColor: [NSColor colorWithCalibratedHue: hue / 360.0
-                                       saturation: saturation / 100.0
-                                       brightness: brightness / 100.0
-                                            alpha: [[self colorPanel] alpha]]];
+            setColor: [NSColor colorWithCalibratedHue: hue / 360.0
+                                           saturation: saturation / 100.0
+                                           brightness: brightness / 100.0
+                                                alpha: [[self colorPanel]
+                                                               alpha]]];
 }
 
 - (void) setColor: (NSColor *) color {

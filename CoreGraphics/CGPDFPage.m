@@ -44,5 +44,5 @@ CGAffineTransform CGPDFPageGetDrawingTransform(CGPDFPageRef self, CGPDFBox box,
                                                bool preserveAspectRatio)
 {
     return CGAffineTransformFromO2(O2PDFPageGetDrawingTransform(
-        self, box, rect, clockwiseDegrees, preserveAspectRatio));
+            self, box, rect, clockwiseDegrees, preserveAspectRatio));
 }

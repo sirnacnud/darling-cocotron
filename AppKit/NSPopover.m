@@ -2,9 +2,9 @@
 
 // DUMMY
 const NSString *NSPopoverDidCloseNotification =
-    @"NSPopoverDidCloseNotification";
+        @"NSPopoverDidCloseNotification";
 const NSString *NSPopoverWillCloseNotification =
-    @"NSPopoverWillCloseNotification";
+        @"NSPopoverWillCloseNotification";
 
 @interface NSPopover : NSObject
 @end

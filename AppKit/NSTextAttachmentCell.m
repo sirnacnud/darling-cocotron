@@ -61,19 +61,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
-              inRect: (NSRect) rect
-              ofView: (NSView *) view
-    atCharacterIndex: (unsigned) characterIndex
-        untilMouseUp: (BOOL) untilMouseUp
+                  inRect: (NSRect) rect
+                  ofView: (NSView *) view
+        atCharacterIndex: (unsigned) characterIndex
+            untilMouseUp: (BOOL) untilMouseUp
 {
     NSUnimplementedMethod();
     return NO;
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) rect
-             ofView: (NSView *) view
-       untilMouseUp: (BOOL) untilMouseUp
+              inRect: (NSRect) rect
+              ofView: (NSView *) view
+        untilMouseUp: (BOOL) untilMouseUp
 {
     NSUnimplementedMethod();
     return NO;

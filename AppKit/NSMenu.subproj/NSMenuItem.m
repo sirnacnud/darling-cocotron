@@ -58,7 +58,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [self setTarget: target];
 
         [self setKeyEquivalentModifierMask:
-                  [keyed decodeIntForKey: @"NSKeyEquivModMask"]];
+                        [keyed decodeIntForKey: @"NSKeyEquivModMask"]];
         [self setSubmenu: [keyed decodeObjectForKey: @"NSSubmenu"]];
         _tag = [keyed decodeIntForKey: @"NSTag"];
         _hidden = [keyed decodeBoolForKey: @"NSIsHidden"];
@@ -77,8 +77,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithTitle: (NSString *) title
-           action: (SEL) action
-    keyEquivalent: (NSString *) keyEquivalent
+               action: (SEL) action
+        keyEquivalent: (NSString *) keyEquivalent
 {
     _title = [title copy];
     _target = nil;
@@ -327,7 +327,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) _scanModifierMapFor: (NSString *) key longForm: (BOOL) longForm {
     NSDictionary *modmap = [[NSUserDefaults standardUserDefaults]
-        dictionaryForKey: @"NSModifierFlagMapping"];
+            dictionaryForKey: @"NSModifierFlagMapping"];
 
     if ([[modmap objectForKey: @"LeftControl"] isEqual: key])
         return longForm ? @"LCtrl+" : @"Ctrl+";
@@ -357,9 +357,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSString *keyName;
     NSString *command = nil, *alt = nil;
     if (![_keyEquivalent
-            isEqualToString: lowercaseKey]) // [key
-                                            // isEqualToString:uppercaseKey]
-                                            // doesn't work for numbers
+                isEqualToString: lowercaseKey]) // [key
+                                                // isEqualToString:uppercaseKey]
+                                                // doesn't work for numbers
         result = @"Shift+";
 
     if (_keyEquivalentModifierMask & NSCommandKeyMask)
@@ -390,11 +390,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSString *) description {
-    return [NSString
-        stringWithFormat: @"<%@[0x%x]: title: %@ action: %@ hasSubmenu: %@>",
-                          [self class], self, [self title],
-                          NSStringFromSelector(_action),
-                          ([self hasSubmenu] ? @"YES" : @"NO")];
+    return [NSString stringWithFormat:
+                             @"<%@[0x%x]: title: %@ action: %@ hasSubmenu: %@>",
+                             [self class], self, [self title],
+                             NSStringFromSelector(_action),
+                             ([self hasSubmenu] ? @"YES" : @"NO")];
 }
 
 @end

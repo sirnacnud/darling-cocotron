@@ -120,16 +120,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (_eventInputSource != nil) {
         waitResult =
-            [_eventInputSource waitForEventsAndMultipleObjects: objectList
-                                                         count: objectCount
-                                                  milliseconds: msec];
+                [_eventInputSource waitForEventsAndMultipleObjects: objectList
+                                                             count: objectCount
+                                                      milliseconds: msec];
     } else {
         if (objectCount == 0) {
             Win32ThreadSleepForTimeInterval(interval);
             waitResult = WAIT_TIMEOUT;
         } else {
-            waitResult =
-                WaitForMultipleObjects(objectCount, objectList, FALSE, msec);
+            waitResult = WaitForMultipleObjects(objectCount, objectList, FALSE,
+                                                msec);
         }
     }
 
@@ -145,7 +145,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         (waitResult < WAIT_OBJECT_0 + objectCount)) {
         DWORD index = waitResult - WAIT_OBJECT_0;
         NSHandleMonitor_win32 *result =
-            [self monitorWithHandle: objectList[index]];
+                [self monitorWithHandle: objectList[index]];
 
         [result setCurrentActivity: Win32HandleSignaled];
         return result;
@@ -155,7 +155,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         waitResult < (WAIT_ABANDONED_0 + objectCount)) {
         DWORD index = waitResult - WAIT_ABANDONED_0;
         NSHandleMonitor_win32 *result =
-            [self monitorWithHandle: objectList[index]];
+                [self monitorWithHandle: objectList[index]];
 
         [result setCurrentActivity: Win32HandleAbandoned];
         return result;
@@ -168,7 +168,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if ([[self validInputSources] count] > 0) {
         NSHandleMonitor_win32 *monitor =
-            [self waitForHandleActivityBeforeDate: date mode: mode];
+                [self waitForHandleActivityBeforeDate: date mode: mode];
 
         [monitor notifyDelegateOfCurrentActivity];
 

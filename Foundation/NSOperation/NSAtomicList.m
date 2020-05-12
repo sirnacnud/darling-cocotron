@@ -43,8 +43,8 @@ void NSAtomicListInsert(NSAtomicListRef *listPtr, void *elt) {
 
     do {
         node->next = *listPtr;
-    } while (
-        !OSAtomicCompareAndSwapPtrBarrier(node->next, node, (void **) listPtr));
+    } while (!OSAtomicCompareAndSwapPtrBarrier(node->next, node,
+                                               (void **) listPtr));
 }
 
 NSAtomicListRef NSAtomicListSteal(NSAtomicListRef *listPtr) {

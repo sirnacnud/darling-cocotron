@@ -43,16 +43,16 @@ NSImageName const NSImageNameColumnViewTemplate = @"NSColumnViewTemplate";
 NSImageName const NSImageNameComputer = @"NSComputer";
 NSImageName const NSImageNameDotMac = @"NSDotMac";
 NSImageName const NSImageNameEnterFullScreenTemplate =
-    @"NSEnterFullScreenTemplate";
+        @"NSEnterFullScreenTemplate";
 NSImageName const NSImageNameEveryone = @"NSEveryone";
 NSImageName const NSImageNameExitFullScreenTemplate =
-    @"NSExitFullScreenTemplate";
+        @"NSExitFullScreenTemplate";
 NSImageName const NSImageNameFlowViewTemplate = @"NSFlowViewTemplate";
 NSImageName const NSImageNameFolder = @"NSFolder";
 NSImageName const NSImageNameFolderBurnable = @"NSFolderBurnable";
 NSImageName const NSImageNameFolderSmart = @"NSFolderSmart";
 NSImageName const NSImageNameFollowLinkFreestandingTemplate =
-    @"NSFollowLinkFreestandingTemplate";
+        @"NSFollowLinkFreestandingTemplate";
 NSImageName const NSImageNameFontPanel = @"NSFontPanel";
 NSImageName const NSImageNameGoLeftTemplate = @"NSGoLeftTemplate";
 NSImageName const NSImageNameGoRightTemplate = @"NSGoRightTemplate";
@@ -61,14 +61,14 @@ NSImageName const NSImageNameIChatTheaterTemplate = @"NSIChatTheaterTemplate";
 NSImageName const NSImageNameIconViewTemplate = @"NSIconViewTemplate";
 NSImageName const NSImageNameInfo = @"NSInfo";
 NSImageName const NSImageNameInvalidDataFreestandingTemplate =
-    @"NSInvalidDataFreestandingTemplate";
+        @"NSInvalidDataFreestandingTemplate";
 NSImageName const NSImageNameLeftFacingTriangleTemplate =
-    @"NSLeftFacingTriangleTemplate";
+        @"NSLeftFacingTriangleTemplate";
 NSImageName const NSImageNameListViewTemplate = @"NSListViewTemplate";
 NSImageName const NSImageNameLockLockedTemplate = @"NSLockLockedTemplate";
 NSImageName const NSImageNameLockUnlockedTemplate = @"NSLockUnlockedTemplate";
 NSImageName const NSImageNameMenuMixedStateTemplate =
-    @"NSMenuMixedStateTemplate";
+        @"NSMenuMixedStateTemplate";
 NSImageName const NSImageNameMenuOnStateTemplate = @"NSMenuOnStateTemplate";
 NSImageName const NSImageNameMobileMe = @"NSMobileMe";
 NSImageName const NSImageNameMultipleDocuments = @"NSMultipleDocuments";
@@ -77,23 +77,23 @@ NSImageName const NSImageNamePathTemplate = @"NSPathTemplate";
 NSImageName const NSImageNamePreferencesGeneral = @"NSPreferencesGeneral";
 NSImageName const NSImageNameQuickLookTemplate = @"NSQuickLookTemplate";
 NSImageName const NSImageNameRefreshFreestandingTemplate =
-    @"NSRefreshFreestandingTemplate";
+        @"NSRefreshFreestandingTemplate";
 NSImageName const NSImageNameRefreshTemplate = @"NSRefreshTemplate";
 NSImageName const NSImageNameRemoveTemplate = @"NSRemoveTemplate";
 NSImageName const NSImageNameRevealFreestandingTemplate =
-    @"NSRevealFreestandingTemplate";
+        @"NSRevealFreestandingTemplate";
 NSImageName const NSImageNameRightFacingTriangleTemplate =
-    @"NSRightFacingTriangleTemplate";
+        @"NSRightFacingTriangleTemplate";
 NSImageName const NSImageNameShareTemplate = @"NSShareTemplate";
 NSImageName const NSImageNameSlideshowTemplate = @"NSSlideshowTemplate";
 NSImageName const NSImageNameSmartBadgeTemplate = @"NSSmartBadgeTemplate";
 NSImageName const NSImageNameStatusAvailable = @"NSStatusAvailable";
 NSImageName const NSImageNameStatusNone = @"NSStatusNone";
 NSImageName const NSImageNameStatusPartiallyAvailable =
-    @"NSStatusPartiallyAvailable";
+        @"NSStatusPartiallyAvailable";
 NSImageName const NSImageNameStatusUnavailable = @"NSStatusUnavailable";
 NSImageName const NSImageNameStopProgressFreestandingTemplate =
-    @"NSStopProgressFreestandingTemplate";
+        @"NSStopProgressFreestandingTemplate";
 NSImageName const NSImageNameStopProgressTemplate = @"NSStopProgressTemplate";
 NSImageName const NSImageNameTrashEmpty = @"NSTrashEmpty";
 NSImageName const NSImageNameTrashFull = @"NSTrashFull";
@@ -104,11 +104,11 @@ NSImageName const NSImageNameUserGuest = @"NSUserGuest";
 NSImageName const NSImageNameGoBackTemplate = @"NSGoBackTemplate";
 NSImageName const NSImageNameGoForwardTemplate = @"NSGoForwardTemplate";
 NSImageName const NSImageNameTouchBarDeleteTemplate =
-    @"NSTouchBarDeleteTemplate";
+        @"NSTouchBarDeleteTemplate";
 NSImageName const NSImageNameTouchBarPauseTemplate = @"NSTouchBarPauseTemplate";
 NSImageName const NSImageNameTouchBarPlayTemplate = @"NSTouchBarPlayTemplate";
 NSImageName const NSImageNameTouchBarRecordStopTemplate =
-    @"NSTouchBarRecordStopTemplate";
+        @"NSTouchBarRecordStopTemplate";
 
 // Private class used so the context knows the flipped status of a locked image
 // 10.4 does something like that - probably for more than just getting the
@@ -143,7 +143,7 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
     for (i = 0; i < count; i++)
         [result addObjectsFromArray: [[allClasses objectAtIndex: i]
-                                         imageUnfilteredFileTypes]];
+                                             imageUnfilteredFileTypes]];
 
     return result;
 }
@@ -159,28 +159,29 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
     for (i = 0; i < count; i++)
         [result addObjectsFromArray: [[allClasses objectAtIndex: i]
-                                         imageUnfilteredPasteboardTypes]];
+                                             imageUnfilteredPasteboardTypes]];
 
     return result;
 }
 
 + (BOOL) canInitWithPasteboard: (NSPasteboard *) pasteboard {
     NSString *available = [pasteboard
-        availableTypeFromArray: [self imageUnfilteredPasteboardTypes]];
+            availableTypeFromArray: [self imageUnfilteredPasteboardTypes]];
 
     return (available != nil) ? YES : NO;
 }
 
 + (NSArray *) _checkBundles {
     return [NSArray
-        arrayWithObjects: [NSBundle mainBundle], // Check the main bundle first
-                                                 // according to the doc
-                          [NSBundle bundleForClass: self], nil];
+            arrayWithObjects: [NSBundle
+                                      mainBundle], // Check the main bundle
+                                                   // first according to the doc
+                              [NSBundle bundleForClass: self], nil];
 }
 
 + (NSMutableDictionary *) allImages {
     NSMutableDictionary *result = [[[NSThread currentThread] threadDictionary]
-        objectForKey: @"__allImages"];
+            objectForKey: @"__allImages"];
 
     if (result == nil) {
         result = [NSMutableDictionary dictionary];
@@ -206,7 +207,7 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
             if (path != nil) {
                 image = [[[NSImage alloc] initWithContentsOfFile: path]
-                    autorelease];
+                        autorelease];
                 [image setName: name];
                 if (image) {
                     break;
@@ -228,8 +229,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
         NSUInteger length;
         const unsigned char *tiff =
-            [keyed decodeBytesForKey: @"NSTIFFRepresentation"
-                      returnedLength: &length];
+                [keyed decodeBytesForKey: @"NSTIFFRepresentation"
+                          returnedLength: &length];
         NSBitmapImageRep *rep;
 
         if (tiff == NULL) {
@@ -238,7 +239,7 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
         }
 
         rep = [NSBitmapImageRep
-            imageRepWithData: [NSData dataWithBytes: tiff length: length]];
+                imageRepWithData: [NSData dataWithBytes: tiff length: length]];
         if (rep == nil) {
             [self release];
             return nil;
@@ -277,8 +278,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
                               withObject: data];
     else if ([repClass respondsToSelector: @selector(imageRepWithData:)]) {
         NSImageRep *rep =
-            [repClass performSelector: @selector(imageRepWithData:)
-                           withObject: data];
+                [repClass performSelector: @selector(imageRepWithData:)
+                               withObject: data];
 
         if (rep != nil)
             reps = [NSArray arrayWithObject: rep];
@@ -328,8 +329,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
 - initWithCGImage: (CGImageRef) cgImage size: (NSSize) size; {
     if (self = [self initWithSize: size]) {
-        NSBitmapImageRep *rep =
-            [[[NSBitmapImageRep alloc] initWithCGImage: cgImage] autorelease];
+        NSBitmapImageRep *rep = [[[NSBitmapImageRep alloc]
+                initWithCGImage: cgImage] autorelease];
         [_representations addObject: rep];
     }
     return self;
@@ -337,8 +338,9 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
 - initWithPasteboard: (NSPasteboard *) pasteboard {
 
-    NSString *available = [pasteboard
-        availableTypeFromArray: [[self class] imageUnfilteredPasteboardTypes]];
+    NSString *available =
+            [pasteboard availableTypeFromArray:
+                                [[self class] imageUnfilteredPasteboardTypes]];
     NSData *data = [pasteboard dataForType: available];
     if (data == nil) {
         [self release];
@@ -556,10 +558,10 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
     }
 
     NSCachedImageRep *cached =
-        [[NSCachedImageRep alloc] initWithSize: [self size]
-                                         depth: 0
-                                      separate: _isCachedSeparately
-                                         alpha: YES];
+            [[NSCachedImageRep alloc] initWithSize: [self size]
+                                             depth: 0
+                                          separate: _isCachedSeparately
+                                             alpha: YES];
     [self addRepresentation: cached];
     [cached release];
     return cached;
@@ -580,8 +582,9 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 }
 
 - (NSImageRep *)
-    _bestUncachedFallbackCachedRepresentationForDevice: (NSDictionary *) device
-                                                  size: (NSSize) size
+        _bestUncachedFallbackCachedRepresentationForDevice:
+                (NSDictionary *) device
+                                                      size: (NSSize) size
 {
     int i, count = [_representations count];
     NSImageRep *best = nil;
@@ -646,7 +649,7 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
     if ([device objectForKey: NSDeviceIsScreen] != nil) {
         NSImageRep *uncached =
-            [self _bestUncachedRepresentationForDevice: device];
+                [self _bestUncachedRepresentationForDevice: device];
         NSImageCacheMode caching = _cacheMode;
 
         if (caching == NSImageCacheDefault) {
@@ -668,13 +671,14 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
         case NSImageCacheBySize:
             if ([[uncached colorSpaceName]
-                    isEqual: [device objectForKey: NSDeviceColorSpaceName]]) {
+                        isEqual: [device objectForKey:
+                                                 NSDeviceColorSpaceName]]) {
                 NSSize size = [self size];
 
                 if ((size.width == [uncached pixelsWide]) &&
                     (size.height == [uncached pixelsHigh])) {
-                    int deviceBPS =
-                        [[device objectForKey: NSDeviceBitsPerSample] intValue];
+                    int deviceBPS = [[device
+                            objectForKey: NSDeviceBitsPerSample] intValue];
 
                     if (deviceBPS == [uncached bitsPerSample])
                         return uncached;
@@ -741,7 +745,7 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
             NSRect r = {.origin = NSZeroPoint, .size = check.size};
             [self lockFocus];
             NSBitmapImageRep *image =
-                [[NSBitmapImageRep alloc] initWithFocusedViewRect: r];
+                    [[NSBitmapImageRep alloc] initWithFocusedViewRect: r];
             [self unlockFocus];
 
             [bitmaps addObject: image];
@@ -749,16 +753,16 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
         } else {
             NSSize size = [check size];
             NSBitmapImageRep *image = [[NSBitmapImageRep alloc]
-                initWithBitmapDataPlanes: NULL
-                              pixelsWide: size.width
-                              pixelsHigh: size.height
-                           bitsPerSample: 8
-                         samplesPerPixel: 4
-                                hasAlpha: YES
-                                isPlanar: NO
-                          colorSpaceName: NSDeviceRGBColorSpace
-                             bytesPerRow: 0
-                            bitsPerPixel: 32];
+                    initWithBitmapDataPlanes: NULL
+                                  pixelsWide: size.width
+                                  pixelsHigh: size.height
+                               bitsPerSample: 8
+                             samplesPerPixel: 4
+                                    hasAlpha: YES
+                                    isPlanar: NO
+                              colorSpaceName: NSDeviceRGBColorSpace
+                                 bytesPerRow: 0
+                                bitsPerPixel: 32];
 
             [self lockFocusOnRepresentation: image];
             // we should probably use -draw here but not all reps implement it,
@@ -811,12 +815,12 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
     if ([representation isKindOfClass: [NSCachedImageRep class]])
         context = [NSGraphicsContext
-            graphicsContextWithWindow: [(NSCachedImageRep *)
-                                               representation window]];
+                graphicsContextWithWindow: [(NSCachedImageRep *) representation
+                                                   window]];
     else if ([representation isKindOfClass: [NSBitmapImageRep class]])
         context = [NSGraphicsContext
-            graphicsContextWithBitmapImageRep: (NSBitmapImageRep *)
-                                                   representation];
+                graphicsContextWithBitmapImageRep: (NSBitmapImageRep *)
+                                                           representation];
 
     if (context == nil) {
         [NSException raise: NSInvalidArgumentException
@@ -835,7 +839,7 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
     // Some fake view, just so the context knows if it's flipped or not
     NSView *view = [[[NSImageCacheView alloc] initWithFlipped: [self isFlipped]]
-        autorelease];
+            autorelease];
     [[context focusStack] addObject: self];
 
     if ([self isFlipped]) {
@@ -904,9 +908,9 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
     }
 
     [self drawInRect: rect
-            fromRect: source
-           operation: operation
-            fraction: fraction];
+             fromRect: source
+            operation: operation
+             fraction: fraction];
     CGContextRestoreGState(context);
 }
 
@@ -945,9 +949,9 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
     NSSize size = [self size];
 
     [self drawInRect: NSMakeRect(point.x, point.y, size.width, size.height)
-            fromRect: source
-           operation: operation
-            fraction: fraction];
+             fromRect: source
+            operation: operation
+             fraction: fraction];
 }
 
 - (void) drawInRect: (NSRect) rect
@@ -958,15 +962,15 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
     // Keep a lid on any intermediate allocations while producing caches
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
-    NSImageRep *any =
-        [[[self _bestUncachedFallbackCachedRepresentationForDevice: nil
-                                                              size: rect.size]
+    NSImageRep *any = [[[self
+            _bestUncachedFallbackCachedRepresentationForDevice: nil
+                                                          size: rect.size]
             retain] autorelease];
     NSImageRep *cachedRep = nil;
     CGContextRef context;
     NSRect fullRect = {.origin = NSZeroPoint, .size = self.size};
     BOOL drawFullImage =
-        (NSIsEmptyRect(source) || NSEqualRects(source, fullRect));
+            (NSIsEmptyRect(source) || NSEqualRects(source, fullRect));
     BOOL canCache = drawFullImage && !_isFlipped;
 
     if (canCache) {
@@ -987,11 +991,11 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
         // Create a cached image rep to hold our image
         NSCachedImageRep *cached =
-            [[[NSCachedImageRep alloc] initWithSize: cachedSize
-                                              depth: 0
-                                           separate: YES
-                                              alpha: YES]
-                autorelease]; // remember that pool we created earlier
+                [[[NSCachedImageRep alloc] initWithSize: cachedSize
+                                                  depth: 0
+                                               separate: YES
+                                                  alpha: YES]
+                        autorelease]; // remember that pool we created earlier
 
         // a non-nil object passed here means we need to manually add the rep
         [self lockFocusOnRepresentation: cached];
@@ -1037,9 +1041,9 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
             // fraction
             uint8_t bytes[1] = {MIN(MAX(0, fraction * 255), 255)};
             CGDataProviderRef provider =
-                CGDataProviderCreateWithData(NULL, bytes, 1, NULL);
+                    CGDataProviderCreateWithData(NULL, bytes, 1, NULL);
             CGImageRef mask =
-                CGImageMaskCreate(1, 1, 8, 8, 1, provider, NULL, NO);
+                    CGImageMaskCreate(1, 1, 8, 8, 1, provider, NULL, NO);
 
             CGContextClipToMask(context, rect, mask);
             CGImageRelease(mask);
@@ -1060,11 +1064,11 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 - (NSString *) description {
     NSSize size = [self size];
 
-    return
-        [NSString stringWithFormat:
-                      @"<%@[%p] name: %@ size: { %f, %f } representations: %@>",
-                      [self class], self, _name, size.width, size.height,
-                      _representations];
+    return [NSString
+            stringWithFormat:
+                    @"<%@[%p] name: %@ size: { %f, %f } representations: %@>",
+                    [self class], self, _name, size.width, size.height,
+                    _representations];
 }
 
 @end

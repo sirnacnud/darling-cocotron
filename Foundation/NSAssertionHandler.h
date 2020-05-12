@@ -27,24 +27,25 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     do {                                                                       \
         if (!(condition)) {                                                    \
             [[NSAssertionHandler currentHandler]                               \
-                handleFailureInMethod: _cmd                                    \
-                               object: self                                    \
-                                 file: [NSString                               \
-                                           stringWithUTF8String: __FILE__]     \
-                           lineNumber: __LINE__                                \
-                          description: (desc), ##__VA_ARGS__];                 \
+                    handleFailureInMethod: _cmd                                \
+                                   object: self                                \
+                                     file: [NSString stringWithUTF8String:     \
+                                                             __FILE__]         \
+                               lineNumber: __LINE__                            \
+                              description: (desc), ##__VA_ARGS__];             \
         }                                                                      \
     } while (0)
 #define _NSCAssertBody(condition, desc, ...)                                   \
     do {                                                                       \
         if (!(condition)) {                                                    \
             [[NSAssertionHandler currentHandler]                               \
-                handleFailureInFunction:                                       \
-                    [NSString stringWithUTF8String: __PRETTY_FUNCTION__]       \
-                                   file: [NSString                             \
-                                             stringWithUTF8String: __FILE__]   \
-                             lineNumber: __LINE__                              \
-                            description: (desc), ##__VA_ARGS__];               \
+                    handleFailureInFunction:                                   \
+                            [NSString                                          \
+                                    stringWithUTF8String: __PRETTY_FUNCTION__] \
+                                       file: [NSString stringWithUTF8String:   \
+                                                               __FILE__]       \
+                                 lineNumber: __LINE__                          \
+                                description: (desc), ##__VA_ARGS__];           \
         }                                                                      \
     } while (0)
 #endif // NS_BLOCK_ASSERTIONS

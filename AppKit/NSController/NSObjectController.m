@@ -33,19 +33,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSObjectController
 + (void) initialize {
     [self setKeys: [NSArray arrayWithObjects: @"editable", nil]
-        triggerChangeNotificationsForDependentKey: @"canAdd"];
+            triggerChangeNotificationsForDependentKey: @"canAdd"];
     [self setKeys: [NSArray arrayWithObjects: @"editable", nil]
-        triggerChangeNotificationsForDependentKey: @"canInsert"];
+            triggerChangeNotificationsForDependentKey: @"canInsert"];
     [self setKeys: [NSArray arrayWithObjects: @"editable", @"selection", nil]
-        triggerChangeNotificationsForDependentKey: @"canRemove"];
+            triggerChangeNotificationsForDependentKey: @"canRemove"];
     [self setKeys: [NSArray arrayWithObjects: @"content", nil]
-        triggerChangeNotificationsForDependentKey: @"contentObject"];
+            triggerChangeNotificationsForDependentKey: @"contentObject"];
 }
 
 - (id) init {
     if ((self = [super init])) {
         _selection =
-            [[NSControllerSelectionProxy alloc] initWithController: self];
+                [[NSControllerSelectionProxy alloc] initWithController: self];
     }
     return self;
 }
@@ -59,7 +59,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         _observedKeys = [[NSCountedSet alloc] init];
         _selection =
-            [[NSControllerSelectionProxy alloc] initWithController: self];
+                [[NSControllerSelectionProxy alloc] initWithController: self];
     }
 
     return self;
@@ -69,17 +69,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if ((self = [super init])) {
 
         _objectClassName =
-            [[coder decodeObjectForKey: @"NSObjectClassName"] copy];
+                [[coder decodeObjectForKey: @"NSObjectClassName"] copy];
         if (_objectClassName == nil)
             _objectClassName = @"NSMutableDictionary";
 
         _editable = [coder decodeBoolForKey: @"NSEditable"];
         _automaticallyPreparesContent =
-            [coder decodeBoolForKey: @"NSAutomaticallyPreparesContent"];
+                [coder decodeBoolForKey: @"NSAutomaticallyPreparesContent"];
 
         _observedKeys = [[NSCountedSet alloc] init];
         _selection =
-            [[NSControllerSelectionProxy alloc] initWithController: self];
+                [[NSControllerSelectionProxy alloc] initWithController: self];
     }
     return self;
 }

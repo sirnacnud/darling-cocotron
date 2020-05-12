@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSEnumerator_set *NSEnumerator_setNew(NSZone *zone, id set, NSSetTable *table) {
     NSEnumerator_set *self =
-        NSAllocateObject([NSEnumerator_set class], 0, zone);
+            NSAllocateObject([NSEnumerator_set class], 0, zone);
     if (self) {
         self->_set = [set retain];
         self->_table = table;

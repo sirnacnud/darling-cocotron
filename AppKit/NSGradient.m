@@ -73,9 +73,9 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
     for (componentIndex = 0; componentIndex < self->_numberOfComponents;
          componentIndex++) {
         output[componentIndex] =
-            (components[startColorIndex][componentIndex] +
-             (ratio * (components[endColorIndex][componentIndex] -
-                       components[startColorIndex][componentIndex])));
+                (components[startColorIndex][componentIndex] +
+                 (ratio * (components[endColorIndex][componentIndex] -
+                           components[startColorIndex][componentIndex])));
     }
 }
 
@@ -83,7 +83,7 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
             endingColor: (NSColor *) endingColor
 {
     NSArray *colors =
-        [NSArray arrayWithObjects: startingColor, endingColor, nil];
+            [NSArray arrayWithObjects: startingColor, endingColor, nil];
     CGFloat locations[2] = {0.0, 1.0};
 
     return [self initWithColors: colors
@@ -129,8 +129,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 }
 
 - initWithColors: (NSArray *) colors
-     atLocations: (const CGFloat *) locations
-      colorSpace: (NSColorSpace *) colorSpace
+        atLocations: (const CGFloat *) locations
+         colorSpace: (NSColorSpace *) colorSpace
 {
     _colorSpace = [[NSColorSpace deviceRGBColorSpace] retain];
     _numberOfColors = [colors count];
@@ -145,7 +145,7 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 
         color = [color colorUsingColorSpaceName: NSDeviceRGBColorSpace];
         _components[i] =
-            NSZoneMalloc(NULL, sizeof(CGFloat) * _numberOfComponents);
+                NSZoneMalloc(NULL, sizeof(CGFloat) * _numberOfComponents);
         [color getComponents: _components[i]];
 
         _locations[i] = locations[i];
@@ -174,8 +174,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 {
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     CGFunctionCallbacks callbacks = {0, evaluate, NULL};
-    CGFunctionRef function =
-        CGFunctionCreate(self, 1, NULL, _numberOfComponents, NULL, &callbacks);
+    CGFunctionRef function = CGFunctionCreate(
+            self, 1, NULL, _numberOfComponents, NULL, &callbacks);
     CGColorSpaceRef colorSpace = [_colorSpace CGColorSpace];
     CGShadingRef shading = CGShadingCreateAxial(colorSpace, startingPoint,
                                                 endingPoint, function, NO, NO);
@@ -257,7 +257,7 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 }
 
 - (void) drawInBezierPath: (NSBezierPath *) path
-    relativeCenterPosition: (NSPoint) center
+        relativeCenterPosition: (NSPoint) center
 {
     NSUnimplementedMethod();
 }

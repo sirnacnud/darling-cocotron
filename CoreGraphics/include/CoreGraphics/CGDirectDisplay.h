@@ -34,19 +34,19 @@ CGGetActiveDisplayList(uint32_t maxDisplays, CGDirectDisplayID *activeDisplays,
                        uint32_t *displayCount);
 
 COREGRAPHICS_EXPORT CGError CGGetDisplaysWithOpenGLDisplayMask(
-    CGOpenGLDisplayMask mask, uint32_t maxDisplays, CGDirectDisplayID *displays,
-    uint32_t *matchingDisplayCount);
+        CGOpenGLDisplayMask mask, uint32_t maxDisplays,
+        CGDirectDisplayID *displays, uint32_t *matchingDisplayCount);
 
 COREGRAPHICS_EXPORT CGDirectDisplayID
 CGOpenGLDisplayMaskToDisplayID(CGOpenGLDisplayMask mask);
 
 COREGRAPHICS_EXPORT CGError CGGetDisplaysWithPoint(
-    CGPoint point, uint32_t maxDisplays, CGDirectDisplayID *displays,
-    uint32_t *matchingDisplayCount);
+        CGPoint point, uint32_t maxDisplays, CGDirectDisplayID *displays,
+        uint32_t *matchingDisplayCount);
 
 COREGRAPHICS_EXPORT CGError CGGetDisplaysWithRect(
-    CGRect rect, uint32_t maxDisplays, CGDirectDisplayID *displays,
-    uint32_t *matchingDisplayCount);
+        CGRect rect, uint32_t maxDisplays, CGDirectDisplayID *displays,
+        uint32_t *matchingDisplayCount);
 
 COREGRAPHICS_EXPORT size_t CGDisplayPixelsHigh(CGDirectDisplayID display);
 COREGRAPHICS_EXPORT size_t CGDisplayPixelsWide(CGDirectDisplayID display);

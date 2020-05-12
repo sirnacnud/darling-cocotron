@@ -68,7 +68,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (int) declareTypes: (NSArray *) types owner: (id) owner {
     Win32TypesAndOwner *typesAndOwner =
-        [Win32TypesAndOwner typesAndOwnerWithTypes: types owner: owner];
+            [Win32TypesAndOwner typesAndOwnerWithTypes: types owner: owner];
 
     [self incrementChangeCount];
     [_typesAndOwners removeAllObjects];
@@ -80,7 +80,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (int) addTypes: (NSArray *) types owner: (id) owner {
     Win32TypesAndOwner *typesAndOwner =
-        [Win32TypesAndOwner typesAndOwnerWithTypes: types owner: owner];
+            [Win32TypesAndOwner typesAndOwnerWithTypes: types owner: owner];
 
     [self incrementChangeCount];
     // Add the new types to the pasteboard and remove existing data for it
@@ -95,8 +95,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     int i, count = [_typesAndOwners count];
 
     for (i = 0; i < count; i++)
-        [result
-            addObjectsFromArray: [[_typesAndOwners objectAtIndex: i] types]];
+        [result addObjectsFromArray: [[_typesAndOwners objectAtIndex: i]
+                                             types]];
 
     return result;
 }

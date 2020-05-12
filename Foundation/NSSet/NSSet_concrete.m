@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 NSSet *NSSet_concreteNew(NSZone *zone, id *objects, NSUInteger count) {
     NSUInteger i, capacity = NSSetTableRoundCount(count);
     NSSet_concrete *self = NSAllocateObject(
-        [NSSet_concrete class], sizeof(NSSetBucket *) * capacity, zone);
+            [NSSet_concrete class], sizeof(NSSetBucket *) * capacity, zone);
     if (self) {
         self->_table.count = 0;
         self->_table.numBuckets = capacity;

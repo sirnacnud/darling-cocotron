@@ -41,12 +41,12 @@ FOUNDATION_EXPORT NSString *const NSInconsistentArchiveException;
 
 + (void) raise: (NSString *) name format: (NSString *) format, ...;
 + (void) raise: (NSString *) name
-        format: (NSString *) format
-     arguments: (va_list) arguments;
+           format: (NSString *) format
+        arguments: (va_list) arguments;
 
 - initWithName: (NSString *) name
-        reason: (NSString *) reason
-      userInfo: (NSDictionary *) userInfo;
+          reason: (NSString *) reason
+        userInfo: (NSDictionary *) userInfo;
 
 + (NSException *) exceptionWithName: (NSString *) name
                              reason: (NSString *) reason

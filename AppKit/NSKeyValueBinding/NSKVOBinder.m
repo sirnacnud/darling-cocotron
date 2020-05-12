@@ -52,11 +52,11 @@ static void *NSKVOBinderChangeContext;
 - (void) stopObservingChanges {
     @try {
         if (_isObserving) {
-            NSBindingDebugLog(
-                kNSBindingDebugLogLevel2,
-                @"stop observing binding between %@.%@ alias %@ and %@.%@ (%@)",
-                [_source className], _binding, _bindingPath,
-                [_destination className], _keyPath, self);
+            NSBindingDebugLog(kNSBindingDebugLogLevel2,
+                              @"stop observing binding between %@.%@ alias %@ "
+                              @"and %@.%@ (%@)",
+                              [_source className], _binding, _bindingPath,
+                              [_destination className], _keyPath, self);
             [super stopObservingChanges];
             [_destination removeObserver: self forKeyPath: _keyPath];
             _isObserving = NO;
@@ -119,8 +119,8 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
             valueIndex--;
             if (code == '@') {
                 NSString *string = (valueIndex < valueCount)
-                                       ? [values[valueIndex] description]
-                                       : @"";
+                                           ? [values[valueIndex] description]
+                                           : @"";
                 NSInteger s, stringLength = [string length];
 
                 while (resultCount + stringLength >= resultCapacity) {
@@ -153,16 +153,17 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
 
 - (void) writeDestinationToSource {
     NSArray *peersIncludingSelf = [self peerBinders];
-    NSInteger i,
-        count = (peersIncludingSelf == nil) ? 1 : [peersIncludingSelf count];
+    NSInteger i, count = (peersIncludingSelf == nil)
+                                 ? 1
+                                 : [peersIncludingSelf count];
     id allBinders[count];
     id allValues[count];
     BOOL isEditable = YES;
     BOOL containsPlaceholder = NO;
 
     if (count > 1)
-        peersIncludingSelf =
-            [peersIncludingSelf sortedArrayUsingSelector: @selector(compare:)];
+        peersIncludingSelf = [peersIncludingSelf
+                sortedArrayUsingSelector: @selector(compare:)];
 
     if (peersIncludingSelf == nil)
         allBinders[0] = self;
@@ -195,8 +196,8 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
         allValues[i] = dstValue;
     }
 
-    NSString *pattern =
-        [[allBinders[0] options] objectForKey: NSDisplayPatternBindingOption];
+    NSString *pattern = [[allBinders[0] options]
+            objectForKey: NSDisplayPatternBindingOption];
     id value;
 
     if (pattern != nil) {
@@ -248,8 +249,8 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
     BOOL isValidKeyPath = YES;
     id currentValue = nil;
     id bindingPath =
-        [allBinders[0] bindingPath]; // We want the real one - not "xxxx2" fake
-                                     // path from non-main peers
+            [allBinders[0] bindingPath]; // We want the real one - not "xxxx2"
+                                         // fake path from non-main peers
     @try {
         currentValue = [_source valueForKeyPath: bindingPath];
     } @catch (id ex) {
@@ -279,9 +280,10 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
                 } @catch (id ex) {
                     if (isValidKeyPath == NO ||
                         [currentValue
-                            isEqualTo: [NSNumber numberWithBool: NO]] == NO) {
+                                isEqualTo: [NSNumber numberWithBool: NO]] ==
+                                NO) {
                         [_source setValue: [NSNumber numberWithBool: NO]
-                               forKeyPath: bindingPath];
+                                forKeyPath: bindingPath];
                     }
                 }
             } else {
@@ -301,9 +303,9 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
 
     } else {
         NSBindingDebugLog(
-            kNSBindingDebugLogLevel2,
-            @"skipping setting value on _source: %@ forKeyPath: %@", _source,
-            bindingPath);
+                kNSBindingDebugLogLevel2,
+                @"skipping setting value on _source: %@ forKeyPath: %@",
+                _source, bindingPath);
     }
 
     if ([self conditionallySetsEditable])
@@ -326,9 +328,9 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
                         context: (void *) context
 {
     NSBindingDebugLog(
-        kNSBindingDebugLogLevel1,
-        @"keyPath: %@\n   object: %@\n   change: %@\n    context: %p", kp,
-        object, change, context);
+            kNSBindingDebugLogLevel1,
+            @"keyPath: %@\n   object: %@\n   change: %@\n    context: %p", kp,
+            object, change, context);
 
     // We want changes to propogate one way so we stop observing for both our
     // handling and super's, otherwise our change will generate a change for the

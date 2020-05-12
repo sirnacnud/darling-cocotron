@@ -103,9 +103,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         if (errorp != NULL) {
             NSDictionary *userInfo = [NSDictionary
-                dictionaryWithObject:
-                    [NSString stringWithFormat: @"Could not open file %@", path]
-                              forKey: NSLocalizedDescriptionKey];
+                    dictionaryWithObject:
+                            [NSString
+                                    stringWithFormat: @"Could not open file %@",
+                                                      path]
+                                  forKey: NSLocalizedDescriptionKey];
 
             *errorp = [NSError errorWithDomain: NSURLErrorDomain
                                           code: NSURLErrorCannotOpenFile
@@ -132,9 +134,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             NSURLResponse *response = nil;
 
             NSData *data = [NSURLConnection
-                sendSynchronousRequest: [NSURLRequest requestWithURL: url]
-                     returningResponse: &response
-                                 error: &error];
+                    sendSynchronousRequest: [NSURLRequest requestWithURL: url]
+                         returningResponse: &response
+                                     error: &error];
             if (data == nil) {
                 if (errorp != NULL) {
                     *errorp = error;
@@ -148,10 +150,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
             if (errorp != NULL) {
                 NSDictionary *userInfo = [NSDictionary
-                    dictionaryWithObject:
-                        [NSString
-                            stringWithFormat: @"Could not open url %@", url]
-                                  forKey: NSLocalizedDescriptionKey];
+                        dictionaryWithObject:
+                                [NSString stringWithFormat:
+                                                  @"Could not open url %@", url]
+                                      forKey: NSLocalizedDescriptionKey];
 
                 *errorp = [NSError errorWithDomain: NSURLErrorDomain
                                               code: NSURLErrorBadURL
@@ -211,13 +213,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [[[self allocWithZone: NULL] initWithBytesNoCopy: bytes
                                                      length: length
                                                freeWhenDone: freeWhenDone]
-        autorelease];
+            autorelease];
 }
 
 + dataWithBytesNoCopy: (void *) bytes length: (NSUInteger) length {
-    return
-        [[[self allocWithZone: NULL] initWithBytesNoCopy: bytes
-                                                  length: length] autorelease];
+    return [[[self allocWithZone: NULL] initWithBytesNoCopy: bytes
+                                                     length: length]
+            autorelease];
 }
 
 + dataWithBytes: (const void *) bytes length: (NSUInteger) length {
@@ -226,24 +228,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + dataWithData: (NSData *) data {
-    return
-        [[[self allocWithZone: NULL] initWithBytes: [data bytes]
-                                            length: [data length]] autorelease];
+    return [[[self allocWithZone: NULL] initWithBytes: [data bytes]
+                                               length: [data length]]
+            autorelease];
 }
 
 + dataWithContentsOfFile: (NSString *) path {
-    return
-        [[[self allocWithZone: NULL] initWithContentsOfFile: path] autorelease];
+    return [[[self allocWithZone: NULL] initWithContentsOfFile: path]
+            autorelease];
 }
 
 + dataWithContentsOfMappedFile: (NSString *) path {
     return [[[self allocWithZone: NULL] initWithContentsOfMappedFile: path]
-        autorelease];
+            autorelease];
 }
 
 + dataWithContentsOfURL: (NSURL *) url {
-    return
-        [[[self allocWithZone: NULL] initWithContentsOfURL: url] autorelease];
+    return [[[self allocWithZone: NULL] initWithContentsOfURL: url]
+            autorelease];
 }
 
 + dataWithContentsOfFile: (NSString *) path
@@ -385,7 +387,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSUInteger pos = 0, i;
     char *cString;
     NSString *string = NSAutorelease(NSString_cStringNewWithCapacity(
-        NULL, 1 + length * 2 + (length / 4) + 1, &cString));
+            NULL, 1 + length * 2 + (length / 4) + 1, &cString));
 
     cString[pos++] = '<';
     for (i = 0; i < length;) {

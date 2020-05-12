@@ -28,10 +28,10 @@
 - (void) dealloc {
     if ([_observationProxies count] > 0)
         [NSException
-             raise: NSInvalidArgumentException
-            format: @"_NSControllerArray still being observed by %@ on %@",
-                    [[_observationProxies objectAtIndex: 0] observer],
-                    [[_observationProxies objectAtIndex: 0] keyPath]];
+                 raise: NSInvalidArgumentException
+                format: @"_NSControllerArray still being observed by %@ on %@",
+                        [[_observationProxies objectAtIndex: 0] observer],
+                        [[_observationProxies objectAtIndex: 0] keyPath]];
 
     [_observationProxies release];
     [_array release];
@@ -46,9 +46,9 @@
 {
     // init the proxy
     _NSObservationProxy *proxy =
-        [[_NSObservationProxy alloc] initWithKeyPath: keyPath
-                                            observer: observer
-                                              object: self];
+            [[_NSObservationProxy alloc] initWithKeyPath: keyPath
+                                                observer: observer
+                                                  object: self];
 
     proxy->_options = options;
     proxy->_context = context;
@@ -61,7 +61,7 @@
         idxs = _roi;
     else
         idxs = [NSIndexSet
-            indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
+                indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
 
     // is this an operator?
     if ([keyPath hasPrefix: @"@"]) {
@@ -78,25 +78,25 @@
         // for that path
         keyPath = rest;
         idxs = [NSIndexSet
-            indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
+                indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
     }
 
     // add observer proxy for all relevant indexes
     if ([_array count] && keyPath) {
         [_array addObserver: proxy
-            toObjectsAtIndexes: idxs
-                    forKeyPath: keyPath
-                       options: options
-                       context: context];
+                toObjectsAtIndexes: idxs
+                        forKeyPath: keyPath
+                           options: options
+                           context: context];
     }
 }
 
 - (void) removeObserver: (id) observer forKeyPath: (NSString *) keyPath {
     // find the proxy again
     _NSObservationProxy *proxy =
-        [[_NSObservationProxy alloc] initWithKeyPath: keyPath
-                                            observer: observer
-                                              object: self];
+            [[_NSObservationProxy alloc] initWithKeyPath: keyPath
+                                                observer: observer
+                                                  object: self];
     int idx = [_observationProxies indexOfObject: proxy];
     [proxy release];
     proxy = [[[_observationProxies objectAtIndex: idx] retain] autorelease];
@@ -109,7 +109,7 @@
         idxs = _roi;
     else
         idxs = [NSIndexSet
-            indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
+                indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
 
     // operator?
     if ([keyPath hasPrefix: @"@"]) {
@@ -121,12 +121,12 @@
         // remove dependent key path from all children
         keyPath = rest;
         idxs = [NSIndexSet
-            indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
+                indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
     }
     if ([_array count] && keyPath) {
         [_array removeObserver: proxy
-            fromObjectsAtIndexes: idxs
-                      forKeyPath: keyPath];
+                fromObjectsAtIndexes: idxs
+                          forKeyPath: keyPath];
     }
 }
 
@@ -144,15 +144,15 @@
             // if dependencies: observe these in any case
             if (rest)
                 [obj addObserver: proxy
-                      forKeyPath: rest
-                         options: [proxy options]
-                         context: [proxy context]];
+                        forKeyPath: rest
+                           options: [proxy options]
+                           context: [proxy context]];
         } else if (!_roi) {
             // only observe if no ROI
             [obj addObserver: proxy
-                  forKeyPath: keyPath
-                     options: [proxy options]
-                     context: [proxy context]];
+                    forKeyPath: keyPath
+                       options: [proxy options]
+                       context: [proxy context]];
         }
     }
 
@@ -222,18 +222,18 @@
                 [old removeObserver: proxy forKeyPath: [proxy keyPath]];
 
                 [obj addObserver: proxy
-                      forKeyPath: rest
-                         options: [proxy options]
-                         context: [proxy context]];
+                        forKeyPath: rest
+                           options: [proxy options]
+                           context: [proxy context]];
             }
         } else {
             if (!_roi || [_roi containsIndex: idx]) {
                 [old removeObserver: proxy forKeyPath: [proxy keyPath]];
 
                 [obj addObserver: proxy
-                      forKeyPath: [proxy keyPath]
-                         options: [proxy options]
-                         context: [proxy context]];
+                        forKeyPath: [proxy keyPath]
+                           options: [proxy options]
+                           context: [proxy context]];
             }
         }
     }
@@ -262,9 +262,9 @@
 
         for (_NSObservationProxy *proxy in proxies) {
             [self addObserver: [proxy observer]
-                   forKeyPath: [proxy keyPath]
-                      options: [proxy options]
-                      context: [proxy context]];
+                    forKeyPath: [proxy keyPath]
+                       options: [proxy options]
+                       context: [proxy context]];
         }
 
         [proxies release];

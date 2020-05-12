@@ -108,43 +108,43 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         startupInfo.hStdInput = GetStdHandle(STD_INPUT_HANDLE);
     else if ([standardInput isKindOfClass: [NSPipe class]])
         startupInfo.hStdInput =
-            [(NSFileHandle_win32 *) [standardInput fileHandleForReading]
-                fileHandle];
+                [(NSFileHandle_win32 *) [standardInput fileHandleForReading]
+                        fileHandle];
     else
         startupInfo.hStdInput = [standardInput fileHandle];
 
     SetHandleInformation(
-        [(NSFileHandle_win32 *) [standardInput fileHandleForWriting]
-            fileHandle],
-        HANDLE_FLAG_INHERIT, 0);
+            [(NSFileHandle_win32 *) [standardInput fileHandleForWriting]
+                    fileHandle],
+            HANDLE_FLAG_INHERIT, 0);
 
     if (standardOutput == nil)
         startupInfo.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
     else if ([standardOutput isKindOfClass: [NSPipe class]])
         startupInfo.hStdOutput =
-            [(NSFileHandle_win32 *) [standardOutput fileHandleForWriting]
-                fileHandle];
+                [(NSFileHandle_win32 *) [standardOutput fileHandleForWriting]
+                        fileHandle];
     else
         startupInfo.hStdOutput = [standardOutput fileHandle];
 
     SetHandleInformation(
-        [(NSFileHandle_win32 *) [standardOutput fileHandleForReading]
-            fileHandle],
-        HANDLE_FLAG_INHERIT, 0);
+            [(NSFileHandle_win32 *) [standardOutput fileHandleForReading]
+                    fileHandle],
+            HANDLE_FLAG_INHERIT, 0);
 
     if (standardError == nil)
         startupInfo.hStdError = GetStdHandle(STD_ERROR_HANDLE);
     else if ([standardError isKindOfClass: [NSPipe class]])
         startupInfo.hStdError =
-            [(NSFileHandle_win32 *) [standardError fileHandleForWriting]
-                fileHandle];
+                [(NSFileHandle_win32 *) [standardError fileHandleForWriting]
+                        fileHandle];
     else
         startupInfo.hStdError = [standardError fileHandle];
 
     SetHandleInformation(
-        [(NSFileHandle_win32 *) [standardError fileHandleForReading]
-            fileHandle],
-        HANDLE_FLAG_INHERIT, 0);
+            [(NSFileHandle_win32 *) [standardError fileHandleForReading]
+                    fileHandle],
+            HANDLE_FLAG_INHERIT, 0);
 
     ZeroMemory(&_processInfo, sizeof(_processInfo));
 
@@ -153,9 +153,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         // alloc enough space for environment
         // maybe a better solution is with realloc
         cenv = NSZoneMalloc(
-            NULL,
-            [[[environment description]
-                dataUsingEncoding: [NSString defaultCStringEncoding]] length]);
+                NULL,
+                [[[environment description]
+                        dataUsingEncoding: [NSString defaultCStringEncoding]]
+                        length]);
         cenvp = cenv;
 
         NSString *key;
@@ -191,12 +192,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         if ([launchPath length] > 0) {
             launchPathStr = (char *) [launchPath fileSystemRepresentation];
         }
-        [NSException
-             raise: NSInvalidArgumentException
-            format:
-                @"CreateProcess(\"%s\", \"%s\", \"%s\") failed with error: %d",
-                launchPathStr, [[self _argumentsData] bytes],
-                [currentDirectoryPath fileSystemRepresentation], lastError];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"CreateProcess(\"%s\", \"%s\", \"%s\") failed "
+                            @"with error: %d",
+                            launchPathStr, [[self _argumentsData] bytes],
+                            [currentDirectoryPath fileSystemRepresentation],
+                            lastError];
         return;
     }
     if (cenv) {
@@ -211,7 +212,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [[standardError fileHandleForWriting] closeFile];
 
     _monitor = [[NSHandleMonitor_win32 allocWithZone: NULL]
-        initWithHandle: _processInfo.hProcess];
+            initWithHandle: _processInfo.hProcess];
     [_monitor setDelegate: self];
     [[NSRunLoop currentRunLoop] addInputSource: _monitor
                                        forMode: NSDefaultRunLoopMode];
@@ -245,8 +246,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if (_exitCode != STILL_ACTIVE) {
         [self finalizeProcess];
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSTaskDidTerminateNotification
-                          object: self];
+                postNotificationName: NSTaskDidTerminateNotification
+                              object: self];
     }
 }
 
@@ -256,8 +257,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     [self finalizeProcess];
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSTaskDidTerminateNotification
-                      object: self];
+            postNotificationName: NSTaskDidTerminateNotification
+                          object: self];
 }
 
 - (int) processIdentifier {

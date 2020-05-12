@@ -59,8 +59,8 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 @implementation NSBundle (NSNibLoading)
 
 + (BOOL) loadNibFile: (NSString *) path
-    externalNameTable: (NSDictionary *) nameTable
-             withZone: (NSZone *) zone
+        externalNameTable: (NSDictionary *) nameTable
+                 withZone: (NSZone *) zone
 {
 
     NIBDEBUG(@"+ loadNibFile: '%@' externalNameTable: withZone:", path);
@@ -69,7 +69,7 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     NSNib *nib = [[[NSNib allocWithZone: zone] initWithContentsOfFile: path]
-        autorelease];
+            autorelease];
 
     BOOL result = [nib instantiateNibWithExternalNameTable: nameTable];
     [pool release];
@@ -91,8 +91,8 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 }
 
 - (BOOL) loadNibFile: (NSString *) fileName
-    externalNameTable: (NSDictionary *) nameTable
-             withZone: (NSZone *) zone
+        externalNameTable: (NSDictionary *) nameTable
+                 withZone: (NSZone *) zone
 {
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
 
@@ -105,7 +105,7 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
         name = [name stringByDeletingPathExtension];
         NSBundle *bundle = self;
         NSString *platformName = [name
-            stringByAppendingFormat: @"-%@", NSPlatformResourceNameSuffix];
+                stringByAppendingFormat: @"-%@", NSPlatformResourceNameSuffix];
 
         path = [bundle pathForResource: platformName ofType: @"nib"];
         if (path == nil)
@@ -127,7 +127,7 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
     [NSBundle pushNibLoadingBundle: self];
 
     NSNib *nib = [[[NSNib allocWithZone: zone] initWithContentsOfFile: path]
-        autorelease];
+            autorelease];
 
     BOOL result = [nib instantiateNibWithExternalNameTable: nameTable];
     [pool release];
@@ -139,8 +139,8 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 }
 
 - (BOOL) loadNibNamed: (NSString *) name
-                owner: (id) owner
-      topLevelObjects: (NSArray **) topLevelObjects
+                  owner: (id) owner
+        topLevelObjects: (NSArray **) topLevelObjects
 {
     [NSBundle pushNibPath: [self pathForResource: name ofType: @"nib"]];
     [NSBundle pushNibLoadingBundle: self];
@@ -189,9 +189,9 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 }
 
 + (BOOL) _loadNibFile: (id) file
-    externalNameTable: (id) tableName
-              options: (id) options
-             withZone: (struct _NSZone *) zone
+        externalNameTable: (id) tableName
+                  options: (id) options
+                 withZone: (struct _NSZone *) zone
 {
     // TODO: work with options
     return [NSBundle loadNibFile: file
@@ -200,9 +200,9 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 }
 
 - (BOOL) loadNibFile: (id) file
-    externalNameTable: (id) tableName
-              options: (id) options
-             withZone: (struct _NSZone *) zone
+        externalNameTable: (id) tableName
+                  options: (id) options
+                 withZone: (struct _NSZone *) zone
 {
     // TODO: work with options
     return [self loadNibFile: file externalNameTable: tableName withZone: zone];

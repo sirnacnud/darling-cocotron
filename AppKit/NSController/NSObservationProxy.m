@@ -101,8 +101,8 @@ void NSStringKVCSplitOnDot(NSString *self, NSString **before, NSString **after)
 }
 
 - (NSString *) description {
-    return
-        [NSString stringWithFormat: @"observation proxy for %@ on key path %@",
-                                    _observer, _keyPath];
+    return [NSString
+            stringWithFormat: @"observation proxy for %@ on key path %@",
+                              _observer, _keyPath];
 }
 @end

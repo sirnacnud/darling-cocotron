@@ -26,8 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithName: (NSString *) name
-        object: object
-      userInfo: (NSDictionary *) userInfo;
+          object: object
+        userInfo: (NSDictionary *) userInfo;
 
 @end
 

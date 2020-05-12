@@ -71,7 +71,7 @@ typedef enum {
 - (NSTextBlockValueType) contentWidthValueType;
 - (CGFloat) valueForDimension: (NSTextBlockDimension) dimension;
 - (NSTextBlockValueType) valueTypeForDimension:
-    (NSTextBlockDimension) dimension;
+        (NSTextBlockDimension) dimension;
 - (CGFloat) widthForLayer: (NSTextBlockLayer) layer edge: (NSRectEdge) edge;
 - (NSTextBlockValueType) widthValueTypeForLayer: (NSTextBlockLayer) layer
                                            edge: (NSRectEdge) edge;
@@ -82,8 +82,8 @@ typedef enum {
 - (void) setVerticalAlignment: (NSTextBlockVerticalAlignment) alignment;
 - (void) setContentWidth: (CGFloat) width type: (NSTextBlockValueType) type;
 - (void) setValue: (CGFloat) value
-             type: (NSTextBlockValueType) type
-     forDimension: (NSTextBlockDimension) dimension;
+                type: (NSTextBlockValueType) type
+        forDimension: (NSTextBlockDimension) dimension;
 - (void) setWidth: (CGFloat) value
              type: (NSTextBlockValueType) type
          forLayer: (NSTextBlockLayer) layer;

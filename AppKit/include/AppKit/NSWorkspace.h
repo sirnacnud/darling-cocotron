@@ -35,13 +35,13 @@ APPKIT_EXPORT NSString *const NSWorkspaceLaunchConfigurationArchitecture;
 
 APPKIT_EXPORT NSString *const NSWorkspaceActiveSpaceDidChangeNotification;
 APPKIT_EXPORT const NSNotificationName
-    NSWorkspaceDidDeactivateApplicationNotification;
+        NSWorkspaceDidDeactivateApplicationNotification;
 APPKIT_EXPORT NSString *const NSWorkspaceDidLaunchApplicationNotification;
 APPKIT_EXPORT NSString *const NSWorkspaceDidTerminateApplicationNotification;
 APPKIT_EXPORT const NSNotificationName
-    NSWorkspaceSessionDidBecomeActiveNotification;
+        NSWorkspaceSessionDidBecomeActiveNotification;
 APPKIT_EXPORT const NSNotificationName
-    NSWorkspaceSessionDidResignActiveNotification;
+        NSWorkspaceSessionDidResignActiveNotification;
 
 typedef NSUInteger NSWorkspaceIconCreationOptions;
 
@@ -71,12 +71,12 @@ typedef NSUInteger NSWorkspaceIconCreationOptions;
                at: (NSPoint) point
            inView: (NSView *) view;
 - (BOOL) openFile: (NSString *) path
-    withApplication: (NSString *) application
-      andDeactivate: (BOOL) deactivate;
+        withApplication: (NSString *) application
+          andDeactivate: (BOOL) deactivate;
 - (BOOL) openURL: (NSURL *) url;
 
 - (BOOL) selectFile: (NSString *) path
-    inFileViewerRootedAtPath: (NSString *) rootedAtPath;
+        inFileViewerRootedAtPath: (NSString *) rootedAtPath;
 - (void) slideImage: (NSImage *) image from: (NSPoint) from to: (NSPoint) to;
 - (BOOL) performFileOperation: (NSString *) operation
                        source: (NSString *) source
@@ -130,7 +130,7 @@ typedef NSUInteger NSWorkspaceIconCreationOptions;
          options: (NSWorkspaceIconCreationOptions) options;
 - (void) activateFileViewerSelectingURLs: (NSArray<NSURL *> *) fileURLs;
 - (NSURL *) URLForApplicationWithBundleIdentifier:
-    (NSString *) bundleIdentifier;
+        (NSString *) bundleIdentifier;
 - (NSString *) fullPathForApplication: (NSString *) appName;
 
 @end

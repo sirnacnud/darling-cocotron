@@ -49,7 +49,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) connection: (NSURLConnection *) connection
-     didReceiveData: (NSData *) data
+        didReceiveData: (NSData *) data
 {
 }
 
@@ -58,7 +58,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) connection: (NSURLConnection *) connection
-    didFailWithError: (NSError *) error
+        didFailWithError: (NSError *) error
 {
     _isRunning = NO;
     _error = [error retain];

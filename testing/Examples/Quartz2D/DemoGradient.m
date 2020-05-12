@@ -36,17 +36,17 @@ void blackToGreen(void *info, const float *in, float *output) {
     CGFunctionCallbacks axialCallbacks = {0, blackToRed, NULL};
     CGFunctionCallbacks radialCallbacks = {0, blackToGreen, NULL};
     CGFunctionRef axialFunction =
-        CGFunctionCreate(self, 1, domain, 4, range, &axialCallbacks);
+            CGFunctionCreate(self, 1, domain, 4, range, &axialCallbacks);
     CGFunctionRef radialFunction =
-        CGFunctionCreate(self, 1, domain, 4, range, &radialCallbacks);
+            CGFunctionCreate(self, 1, domain, 4, range, &radialCallbacks);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 
     CGShadingRef axial =
-        CGShadingCreateAxial(colorSpace, CGPointMake(0, 0), CGPointMake(1, 1),
-                             axialFunction, YES, YES);
+            CGShadingCreateAxial(colorSpace, CGPointMake(0, 0),
+                                 CGPointMake(1, 1), axialFunction, YES, YES);
     CGShadingRef radial = CGShadingCreateRadial(
-        colorSpace, CGPointMake(0.5, 0.75), 0, CGPointMake(0.5, 0.5), 0.3,
-        radialFunction, YES, YES);
+            colorSpace, CGPointMake(0.5, 0.75), 0, CGPointMake(0.5, 0.5), 0.3,
+            radialFunction, YES, YES);
 
     CGContextDrawShading(context, axial);
     CGContextDrawShading(context, radial);

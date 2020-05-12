@@ -71,7 +71,7 @@
             }
 
             if ((baseColorSpace = [O2ColorSpace
-                     createColorSpaceFromPDFObject: baseObject]) == NULL) {
+                         createColorSpaceFromPDFObject: baseObject]) == NULL) {
                 NSLog(@"Indexed color space invalid base %@", baseObject);
                 return nil;
             }
@@ -86,7 +86,7 @@
                 return nil;
             }
             baseNumberOfComponents =
-                O2ColorSpaceGetNumberOfComponents(baseColorSpace);
+                    O2ColorSpaceGetNumberOfComponents(baseColorSpace);
             tableSize = baseNumberOfComponents * (hival + 1);
 
             if ([colorSpaceArray getStringAtIndex: 3 value: &tableString]) {
@@ -96,10 +96,10 @@
                     return nil;
                 }
                 return [[O2ColorSpace_indexed alloc]
-                    initWithColorSpace: baseColorSpace
-                                 hival: hival
-                                 bytes: (const unsigned char *)
-                                            [tableString bytes]];
+                        initWithColorSpace: baseColorSpace
+                                     hival: hival
+                                     bytes: (const unsigned char *)
+                                                    [tableString bytes]];
             } else if ([colorSpaceArray getStreamAtIndex: 3
                                                    value: &tableStream]) {
                 NSData *data = [tableStream data];
@@ -110,9 +110,10 @@
                     return nil;
                 }
                 return [[O2ColorSpace_indexed alloc]
-                    initWithColorSpace: baseColorSpace
-                                 hival: hival
-                                 bytes: (const unsigned char *) [data bytes]];
+                        initWithColorSpace: baseColorSpace
+                                     hival: hival
+                                     bytes: (const unsigned char *)
+                                                    [data bytes]];
             } else {
                 NSLog(@"indexed color space table invalid");
             }
@@ -175,7 +176,7 @@
             }
 
             O2ColorSpaceRef alternateSpace =
-                [self createColorSpaceFromPDFObject: alternateDictionary];
+                    [self createColorSpaceFromPDFObject: alternateDictionary];
 
             if (alternateSpace == NULL)
                 O2PDFError(__FILE__, __LINE__,
@@ -185,11 +186,11 @@
 
             if ([tintObject objectType] == kO2PDFObjectTypeDictionary)
                 tintFunction = [O2Function
-                    createFunctionWithDictionary: (O2PDFDictionary *)
-                                                      tintObject];
+                        createFunctionWithDictionary: (O2PDFDictionary *)
+                                                              tintObject];
             else if ([tintObject objectType] == kO2PDFObjectTypeStream)
                 tintFunction = [O2Function
-                    createFunctionWithStream: (O2PDFStream *) tintObject];
+                        createFunctionWithStream: (O2PDFStream *) tintObject];
             else
                 O2PDFError(__FILE__, __LINE__, @"tintFunction unknown type %d",
                            [tintObject objectType]);
@@ -231,7 +232,7 @@
             }
 
             O2ColorSpaceRef alternateSpace =
-                [self createColorSpaceFromPDFObject: alternateDictionary];
+                    [self createColorSpaceFromPDFObject: alternateDictionary];
             if (alternateSpace == NULL)
                 O2PDFError(__FILE__, __LINE__,
                            @"unable to intiialize alternateSpace");
@@ -240,11 +241,11 @@
 
             if ([tintObject objectType] == kO2PDFObjectTypeDictionary)
                 tintFunction = [O2Function
-                    createFunctionWithDictionary: (O2PDFDictionary *)
-                                                      tintObject];
+                        createFunctionWithDictionary: (O2PDFDictionary *)
+                                                              tintObject];
             else if ([tintObject objectType] == kO2PDFObjectTypeStream)
                 tintFunction = [O2Function
-                    createFunctionWithStream: (O2PDFStream *) tintObject];
+                        createFunctionWithStream: (O2PDFStream *) tintObject];
             else
                 O2PDFError(__FILE__, __LINE__, @"tintFunction unknown type %d",
                            [tintObject objectType]);

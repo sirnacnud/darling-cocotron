@@ -32,7 +32,7 @@ enum {
     NSTextCheckingAllSystemTypes = 0xffffffffULL,
     NSTextCheckingAllCustomTypes = 0xffffffffULL << 32,
     NSTextCheckingAllTypes =
-        (NSTextCheckingAllSystemTypes | NSTextCheckingAllCustomTypes),
+            (NSTextCheckingAllSystemTypes | NSTextCheckingAllCustomTypes),
 };
 typedef uint64_t NSTextCheckingTypes;
 
@@ -43,34 +43,34 @@ typedef uint64_t NSTextCheckingTypes;
 }
 
 + (NSTextCheckingResult *) addressCheckingResultWithRange: (NSRange) range
-                                               components:
-                                                   (NSDictionary *) components;
+                                               components: (NSDictionary *)
+                                                                   components;
 + (NSTextCheckingResult *) correctionCheckingResultWithRange: (NSRange) range
                                            replacementString:
-                                               (NSString *) replacement;
+                                                   (NSString *) replacement;
 + (NSTextCheckingResult *) dashCheckingResultWithRange: (NSRange) range
                                      replacementString:
-                                         (NSString *) replacement;
+                                             (NSString *) replacement;
 + (NSTextCheckingResult *) dateCheckingResultWithRange: (NSRange) range
                                                   date: (NSDate *) date;
 + (NSTextCheckingResult *) dateCheckingResultWithRange: (NSRange) range
                                                   date: (NSDate *) date
                                               timeZone: (NSTimeZone *) timeZone
                                               duration:
-                                                  (NSTimeInterval) duration;
+                                                      (NSTimeInterval) duration;
 + (NSTextCheckingResult *) grammarCheckingResultWithRange: (NSRange) range
                                                   details: (NSArray *) details;
 + (NSTextCheckingResult *) linkCheckingResultWithRange: (NSRange) range
                                                    URL: (NSURL *) url;
-+ (NSTextCheckingResult *) orthographyCheckingResultWithRange: (NSRange) range
-                                                  orthography: (NSOrthography *)
-                                                                   orthography;
++ (NSTextCheckingResult *)
+        orthographyCheckingResultWithRange: (NSRange) range
+                               orthography: (NSOrthography *) orthography;
 + (NSTextCheckingResult *) quoteCheckingResultWithRange: (NSRange) range
                                       replacementString:
-                                          (NSString *) replacement;
+                                              (NSString *) replacement;
 + (NSTextCheckingResult *) replacementCheckingResultWithRange: (NSRange) range
                                             replacementString:
-                                                (NSString *) replacement;
+                                                    (NSString *) replacement;
 + (NSTextCheckingResult *) spellCheckingResultWithRange: (NSRange) range;
 
 @property(readonly) NSDictionary *addressComponents;

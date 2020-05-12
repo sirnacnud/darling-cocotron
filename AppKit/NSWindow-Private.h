@@ -49,7 +49,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) _removeTrackingRect: (NSTrackingRectTag) tag;
 - (void) _removeAllToolTips;
 - (void) _attachSheetContextOrderFrontAndAnimate:
-    (NSSheetContext *) sheetContext;
+        (NSSheetContext *) sheetContext;
 - (void) _setSheetContext: (NSSheetContext *) sheetContext;
 - (NSSheetContext *) _sheetContext;
 - (void) _detachSheetContextAnimateAndOrderOut;

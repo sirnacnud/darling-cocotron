@@ -215,18 +215,18 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
     int x;
     for (x = 0; x < [files count]; x++) {
         [paths addObject: [basePath stringByAppendingPathComponent:
-                                        [files objectAtIndex: x]]];
+                                            [files objectAtIndex: x]]];
     }
 
     for (x = 0; x < [files count]; x++) {
         BOOL isDir = NO;
         NSString *newPath =
-            [path stringByAppendingPathComponent: [files objectAtIndex: x]];
+                [path stringByAppendingPathComponent: [files objectAtIndex: x]];
         [self fileExistsAtPath: newPath isDirectory: &isDir];
         if (isDir)
             [self _subpathsAtPath: newPath
                          basePath: [basePath stringByAppendingPathComponent:
-                                                 [files objectAtIndex: x]]
+                                                     [files objectAtIndex: x]]
                             paths: paths];
     }
 }
@@ -264,7 +264,7 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 
 - (NSDirectoryEnumerator *) enumeratorAtPath: (NSString *) path {
     return [[[NSConcreteDirectoryEnumerator alloc] initWithPath: path]
-        autorelease];
+            autorelease];
 }
 
 - (BOOL) createDirectoryAtPath: (NSString *) path
@@ -275,9 +275,9 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 }
 
 - (BOOL) createDirectoryAtPath: (NSString *) path
-    withIntermediateDirectories: (BOOL) intermediates
-                     attributes: (NSDictionary *) attributes
-                          error: (NSError **) error
+        withIntermediateDirectories: (BOOL) intermediates
+                         attributes: (NSDictionary *) attributes
+                              error: (NSError **) error
 {
     BOOL result = YES;
     BOOL isDirectory = NO;
@@ -286,8 +286,10 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
         int i, count = [components count];
         for (i = 1; i <= count && result; i++) {
             NSString *makePath = [NSString
-                pathWithComponents: [components
-                                        subarrayWithRange: NSMakeRange(0, i)]];
+                    pathWithComponents: [components
+                                                subarrayWithRange: NSMakeRange(
+                                                                           0,
+                                                                           i)]];
             if (![self fileExistsAtPath: makePath isDirectory: &isDirectory]) {
                 result = [self createDirectoryAtPath: makePath
                                           attributes: attributes];
@@ -301,14 +303,14 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 }
 
 - (BOOL) createDirectoryAtURL: (NSURL *) url
-    withIntermediateDirectories: (BOOL) intermediates
-                     attributes: (NSDictionary *) attributes
-                          error: (NSError **) error
+        withIntermediateDirectories: (BOOL) intermediates
+                         attributes: (NSDictionary *) attributes
+                              error: (NSError **) error
 {
     return [self createDirectoryAtPath: [url path]
-           withIntermediateDirectories: intermediates
-                            attributes: attributes
-                                 error: error];
+            withIntermediateDirectories: intermediates
+                             attributes: attributes
+                                  error: error];
 }
 
 - (BOOL) createSymbolicLinkAtPath: (NSString *) path

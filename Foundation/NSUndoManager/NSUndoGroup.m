@@ -77,9 +77,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[0x%lx] parentGroup: %@, %d invocations>",
-                          [self class], self, _parentGroup,
-                          [_invocations count]];
+            stringWithFormat: @"<%@[0x%lx] parentGroup: %@, %d invocations>",
+                              [self class], self, _parentGroup,
+                              [_invocations count]];
 }
 
 @end

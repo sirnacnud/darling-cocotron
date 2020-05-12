@@ -33,8 +33,8 @@
 }
 
 + (NSTextCheckingResult *) addressCheckingResultWithRange: (NSRange) range
-                                               components:
-                                                   (NSDictionary *) components
+                                               components: (NSDictionary *)
+                                                                   components
 {
     NSUnimplementedMethod();
     return nil;
@@ -42,7 +42,7 @@
 
 + (NSTextCheckingResult *) correctionCheckingResultWithRange: (NSRange) range
                                            replacementString:
-                                               (NSString *) replacement
+                                                   (NSString *) replacement
 {
     NSUnimplementedMethod();
     return nil;
@@ -66,7 +66,7 @@
                                                   date: (NSDate *) date
                                               timeZone: (NSTimeZone *) timeZone
                                               duration:
-                                                  (NSTimeInterval) duration
+                                                      (NSTimeInterval) duration
 {
     NSUnimplementedMethod();
     return nil;
@@ -86,9 +86,9 @@
     return nil;
 }
 
-+ (NSTextCheckingResult *) orthographyCheckingResultWithRange: (NSRange) range
-                                                  orthography: (NSOrthography *)
-                                                                   orthography
++ (NSTextCheckingResult *)
+        orthographyCheckingResultWithRange: (NSRange) range
+                               orthography: (NSOrthography *) orthography
 {
     NSUnimplementedMethod();
     return nil;
@@ -96,7 +96,7 @@
 
 + (NSTextCheckingResult *) quoteCheckingResultWithRange: (NSRange) range
                                       replacementString:
-                                          (NSString *) replacement
+                                              (NSString *) replacement
 {
     NSUnimplementedMethod();
     return nil;
@@ -104,7 +104,7 @@
 
 + (NSTextCheckingResult *) replacementCheckingResultWithRange: (NSRange) range
                                             replacementString:
-                                                (NSString *) replacement
+                                                    (NSString *) replacement
 {
     NSUnimplementedMethod();
     return nil;

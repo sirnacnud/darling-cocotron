@@ -2,5 +2,5 @@
 
 @interface NSManagedObject (private)
 - initWithObjectID: (NSManagedObjectID *) objectID
-    managedObjectContext: (NSManagedObjectContext *) context;
+        managedObjectContext: (NSManagedObjectContext *) context;
 @end

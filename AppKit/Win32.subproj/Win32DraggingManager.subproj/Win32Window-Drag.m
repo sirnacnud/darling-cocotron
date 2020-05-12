@@ -37,10 +37,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             [sessionReceiver isKindOfClass: [NSView class]]) {
 
             if ([receiver isDescendantOf: sessionReceiver] &&
-                [session pasteboardTypesIntersectTypes: [sessionReceiver
-                                                            _draggedTypes]] &&
-                ![sessionReceiver
-                    pasteboardTypesIntersectTypes: [receiver _draggedTypes]]) {
+                [session pasteboardTypesIntersectTypes:
+                                 [sessionReceiver _draggedTypes]] &&
+                ![sessionReceiver pasteboardTypesIntersectTypes:
+                                          [receiver _draggedTypes]]) {
 
                 receiver = [session receiver];
             }

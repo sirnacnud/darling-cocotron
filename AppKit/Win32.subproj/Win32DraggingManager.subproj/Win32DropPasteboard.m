@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithIDataObject: (IDataObject *) dataObject {
     _dataClient =
-        [[Win32IDataObjectClient alloc] initWithIDataObject: dataObject];
+            [[Win32IDataObjectClient alloc] initWithIDataObject: dataObject];
     return self;
 }
 
@@ -41,9 +41,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if ([type isEqualToString: NSFilenamesPboardType]) {
         NSString *error = nil;
         NSData *result = [NSPropertyListSerialization
-            dataFromPropertyList: [_dataClient filenames]
-                          format: NSPropertyListXMLFormat_v1_0
-                errorDescription: &error];
+                dataFromPropertyList: [_dataClient filenames]
+                              format: NSPropertyListXMLFormat_v1_0
+                    errorDescription: &error];
         if (error) {
             NSLog(@"Error: %@", error);
             [error release];

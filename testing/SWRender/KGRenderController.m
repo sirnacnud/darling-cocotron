@@ -92,14 +92,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (_cgContext != nil) {
         provider = CGDataProviderCreateWithData(
-            NULL, [_cgContext bytes],
-            [_cgContext bytesPerRow] * [_cgContext pixelsHigh], NULL);
+                NULL, [_cgContext bytes],
+                [_cgContext bytesPerRow] * [_cgContext pixelsHigh], NULL);
         image = CGImageCreate(
-            [_cgContext pixelsWide], [_cgContext pixelsHigh],
-            [_cgContext bitsPerComponent], [_cgContext bitsPerPixel],
-            [_cgContext bytesPerRow], CGColorSpaceCreateDeviceRGB(),
-            [_cgContext bitmapInfo], provider, NULL, NO,
-            kCGRenderingIntentDefault);
+                [_cgContext pixelsWide], [_cgContext pixelsHigh],
+                [_cgContext bitsPerComponent], [_cgContext bitsPerPixel],
+                [_cgContext bytesPerRow], CGColorSpaceCreateDeviceRGB(),
+                [_cgContext bitmapInfo], provider, NULL, NO,
+                kCGRenderingIntentDefault);
         CGDataProviderRelease(provider);
         [_cgView setImageRef: image];
         CGImageRelease(image);
@@ -107,14 +107,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (_kgContext != nil) {
         provider = CGDataProviderCreateWithData(
-            NULL, [_kgContext bytes],
-            [_kgContext bytesPerRow] * [_kgContext pixelsHigh], NULL);
+                NULL, [_kgContext bytes],
+                [_kgContext bytesPerRow] * [_kgContext pixelsHigh], NULL);
         image = CGImageCreate(
-            [_kgContext pixelsWide], [_kgContext pixelsHigh],
-            [_kgContext bitsPerComponent], [_kgContext bitsPerPixel],
-            [_kgContext bytesPerRow], CGColorSpaceCreateDeviceRGB(),
-            [_kgContext bitmapInfo], provider, NULL, NO,
-            kCGRenderingIntentDefault);
+                [_kgContext pixelsWide], [_kgContext pixelsHigh],
+                [_kgContext bitsPerComponent], [_kgContext bitsPerPixel],
+                [_kgContext bytesPerRow], CGColorSpaceCreateDeviceRGB(),
+                [_kgContext bitmapInfo], provider, NULL, NO,
+                kCGRenderingIntentDefault);
         CGDataProviderRelease(provider);
         [_kgView setImageRef: image];
         CGImageRelease(image);
@@ -124,8 +124,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         unsigned char *cgData = [_cgContext bytes];
         unsigned char *kgData = [_kgContext bytes];
 
-        NSMutableData *diffData = [NSMutableData
-            dataWithLength: [_kgContext bytesPerRow] * [_kgContext pixelsHigh]];
+        NSMutableData *diffData =
+                [NSMutableData dataWithLength: [_kgContext bytesPerRow] *
+                                               [_kgContext pixelsHigh]];
         char *diff = [diffData mutableBytes];
 
         int i, max = [_kgContext bytesPerRow] * [_kgContext pixelsHigh];
@@ -140,13 +141,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 diff[i] = (d1 != d2) ? ABS(d1 - d2) : 00;
         }
         CGDataProviderRef provider =
-            CGDataProviderCreateWithCFData((CFDataRef) diffData);
+                CGDataProviderCreateWithCFData((CFDataRef) diffData);
         CGImageRef diffImage = CGImageCreate(
-            [_cgContext pixelsWide], [_cgContext pixelsHigh],
-            [_cgContext bitsPerComponent], [_cgContext bitsPerPixel],
-            [_cgContext bytesPerRow], CGColorSpaceCreateDeviceRGB(),
-            [_kgContext bitmapInfo], provider, NULL, NO,
-            kCGRenderingIntentDefault);
+                [_cgContext pixelsWide], [_cgContext pixelsHigh],
+                [_cgContext bitsPerComponent], [_cgContext bitsPerPixel],
+                [_cgContext bytesPerRow], CGColorSpaceCreateDeviceRGB(),
+                [_kgContext bitmapInfo], provider, NULL, NO,
+                kCGRenderingIntentDefault);
         [_diffView setImageRef: diffImage];
         CGDataProviderRelease(provider);
         CGImageRelease(diffImage);
@@ -333,8 +334,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) selectInterpolationQuality: sender {
-    [self
-        setInterpolationQuality: (CGInterpolationQuality)[sender selectedTag]];
+    [self setInterpolationQuality: (CGInterpolationQuality)
+                                           [sender selectedTag]];
     [self setNeedsDisplay];
 }
 
@@ -374,20 +375,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) outlineView: (NSOutlineView *) outlineView
-    isItemExpandable: (id) item
+        isItemExpandable: (id) item
 {
     return [item isEqual: @"expand"];
 }
 
 - (NSInteger) outlineView: (NSOutlineView *) outlineView
-    numberOfChildrenOfItem: (id) item
+        numberOfChildrenOfItem: (id) item
 {
     return 10;
 }
 
 - (id) outlineView: (NSOutlineView *) outlineView
-    objectValueForTableColumn: (NSTableColumn *) tableColumn
-                       byItem: (id) item
+        objectValueForTableColumn: (NSTableColumn *) tableColumn
+                           byItem: (id) item
 {
     return @"bar";
 }

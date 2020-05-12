@@ -47,13 +47,13 @@ static inline uint8_t *bitmapBytes(NSCharacterSet *self) {
     BOOL(*method)
     () = (void *) [self methodForSelector: @selector(characterIsMember:)];
     uint8_t *bitmap =
-        NSZoneMalloc(NULL, sizeof(uint8_t) * NSBitmapCharacterSetSize);
+            NSZoneMalloc(NULL, sizeof(uint8_t) * NSBitmapCharacterSetSize);
     uint32_t code;
 
     for (code = 0; code <= 0xFFFF; code++)
         bitmapEnable(
-            bitmap, code,
-            method(self, @selector(characterIsMember:), (unichar) code));
+                bitmap, code,
+                method(self, @selector(characterIsMember:), (unichar) code));
 
     return bitmap;
 }

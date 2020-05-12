@@ -52,20 +52,20 @@ NSString *const NSDeviceBitsPerSample = @"NSDeviceBitsPerSample";
 
 static inline CGBlendMode blendModeForCompositeOp(NSCompositingOperation op) {
     static CGBlendMode table[] = {
-        kCGBlendModeClear,
-        kCGBlendModeCopy,
-        kCGBlendModeNormal,
-        kCGBlendModeSourceIn,
-        kCGBlendModeSourceOut,
-        kCGBlendModeSourceAtop,
-        kCGBlendModeDestinationOver,
-        kCGBlendModeDestinationIn,
-        kCGBlendModeDestinationOut,
-        kCGBlendModeDestinationAtop,
-        kCGBlendModeXOR,
-        kCGBlendModePlusDarker,
-        kCGBlendModeNormal, // FIXME: highlight
-        kCGBlendModePlusLighter,
+            kCGBlendModeClear,
+            kCGBlendModeCopy,
+            kCGBlendModeNormal,
+            kCGBlendModeSourceIn,
+            kCGBlendModeSourceOut,
+            kCGBlendModeSourceAtop,
+            kCGBlendModeDestinationOver,
+            kCGBlendModeDestinationIn,
+            kCGBlendModeDestinationOut,
+            kCGBlendModeDestinationAtop,
+            kCGBlendModeXOR,
+            kCGBlendModePlusDarker,
+            kCGBlendModeNormal, // FIXME: highlight
+            kCGBlendModePlusLighter,
     };
 
     if (op < NSCompositeClear || op > NSCompositePlusLighter)

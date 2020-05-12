@@ -31,7 +31,7 @@
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@ %x> { %@ }", [self class], self, _objects];
+            stringWithFormat: @"<%@ %x> { %@ }", [self class], self, _objects];
 }
 
 @end

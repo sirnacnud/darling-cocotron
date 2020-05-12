@@ -74,7 +74,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + setWithObject: object {
     if (self == [NSMutableSet class])
         return NSAutorelease(
-            NSMutableSet_concreteNewWithObjects(NULL, &object, 1));
+                NSMutableSet_concreteNewWithObjects(NULL, &object, 1));
 
     return [[[self allocWithZone: NULL] initWithObjects: &object
                                                   count: 1] autorelease];
@@ -102,7 +102,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (self == [NSMutableSet class]) {
         return NSAutorelease(
-            NSMutableSet_concreteNewWithObjects(NULL, objects, count));
+                NSMutableSet_concreteNewWithObjects(NULL, objects, count));
     }
 
     return [[[self allocWithZone: NULL] initWithObjects: objects
@@ -118,8 +118,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if (self == [NSMutableSet class])
         return NSAutorelease(NSMutableSet_concreteNew(NULL, capacity));
 
-    return
-        [[[self allocWithZone: NULL] initWithCapacity: capacity] autorelease];
+    return [[[self allocWithZone: NULL] initWithCapacity: capacity]
+            autorelease];
 }
 
 - (void) addObject: object {

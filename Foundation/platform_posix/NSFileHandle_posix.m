@@ -77,8 +77,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static int descriptorForPath(NSString *path, int modes) {
     NSDictionary *fileAttributes =
-        [[NSFileManager defaultManager] fileAttributesAtPath: path
-                                                traverseLink: YES];
+            [[NSFileManager defaultManager] fileAttributesAtPath: path
+                                                    traverseLink: YES];
 
     if (fileAttributes == nil)
         return -1;
@@ -114,8 +114,8 @@ static int descriptorForPath(NSString *path, int modes) {
     if (fd == -1)
         return nil;
 
-    return
-        [[[self allocWithZone: NULL] initWithFileDescriptor: fd] autorelease];
+    return [[[self allocWithZone: NULL] initWithFileDescriptor: fd]
+            autorelease];
 }
 
 + fileHandleForWritingAtPath: (NSString *) path {
@@ -124,8 +124,8 @@ static int descriptorForPath(NSString *path, int modes) {
     if (fd == -1)
         return nil;
 
-    return
-        [[[self allocWithZone: NULL] initWithFileDescriptor: fd] autorelease];
+    return [[[self allocWithZone: NULL] initWithFileDescriptor: fd]
+            autorelease];
 }
 
 + fileHandleForUpdatingAtPath: (NSString *) path {
@@ -134,8 +134,8 @@ static int descriptorForPath(NSString *path, int modes) {
     if (fd == -1)
         return nil;
 
-    return
-        [[[self allocWithZone: NULL] initWithFileDescriptor: fd] autorelease];
+    return [[[self allocWithZone: NULL] initWithFileDescriptor: fd]
+            autorelease];
 }
 
 + fileHandleWithNullDevice {
@@ -143,21 +143,21 @@ static int descriptorForPath(NSString *path, int modes) {
 }
 
 + fileHandleWithStandardInput {
-    return
-        [[[self allocWithZone: NULL] initWithFileDescriptor: STDIN_FILENO
-                                             closeOnDealloc: NO] autorelease];
+    return [[[self allocWithZone: NULL] initWithFileDescriptor: STDIN_FILENO
+                                                closeOnDealloc: NO]
+            autorelease];
 }
 
 + fileHandleWithStandardOutput {
-    return
-        [[[self allocWithZone: NULL] initWithFileDescriptor: STDOUT_FILENO
-                                             closeOnDealloc: NO] autorelease];
+    return [[[self allocWithZone: NULL] initWithFileDescriptor: STDOUT_FILENO
+                                                closeOnDealloc: NO]
+            autorelease];
 }
 
 + fileHandleWithStandardError {
-    return
-        [[[self allocWithZone: NULL] initWithFileDescriptor: STDERR_FILENO
-                                             closeOnDealloc: NO] autorelease];
+    return [[[self allocWithZone: NULL] initWithFileDescriptor: STDERR_FILENO
+                                                closeOnDealloc: NO]
+            autorelease];
 }
 
 /*
@@ -328,10 +328,10 @@ CONFORMING TO
                              // it
                 [self setNonBlocking: YES];
                 if (count > 0) {
-                    count =
-                        read(_fileDescriptor,
-                             &((char *) [mutableData mutableBytes])[length + 1],
-                             4096 - 1);
+                    count = read(
+                            _fileDescriptor,
+                            &((char *) [mutableData mutableBytes])[length + 1],
+                            4096 - 1);
                     if (count > 0) {
                         count += 1;
                     } else {
@@ -387,8 +387,8 @@ CONFORMING TO
 
     for (i = 0; i < count; ++i)
         [[NSRunLoop currentRunLoop]
-            removeInputSource: _inputSource
-                      forMode: [_backgroundModes objectAtIndex: i]];
+                removeInputSource: _inputSource
+                          forMode: [_backgroundModes objectAtIndex: i]];
 
     // we never actually retain the monitor, the run loop does--so we don't need
     // to release it.
@@ -401,13 +401,13 @@ CONFORMING TO
     NSInteger i, count = [modes count];
 
     if (_inputSource != nil)
-        [NSException
-             raise: NSInternalInconsistencyException
-            format: @"%@ already has background activity", [self description]];
+        [NSException raise: NSInternalInconsistencyException
+                    format: @"%@ already has background activity",
+                            [self description]];
 
     _inputSource = [NSSelectInputSource
-        socketInputSourceWithSocket:
-            [NSSocket_bsd socketWithDescriptor: _fileDescriptor]];
+            socketInputSourceWithSocket:
+                    [NSSocket_bsd socketWithDescriptor: _fileDescriptor]];
     [_inputSource setSelectEventMask: NSSelectReadEvent];
     [_inputSource setDelegate: self];
     _backgroundModes = [modes retain];
@@ -428,8 +428,8 @@ CONFORMING TO
     accept(_fileDescriptor, (struct sockaddr *) &addr, &len);
 
     NSNotification *note = [NSNotification
-        notificationWithName: NSFileHandleConnectionAcceptedNotification
-                      object: self];
+            notificationWithName: NSFileHandleConnectionAcceptedNotification
+                          object: self];
     [[NSNotificationCenter defaultCenter] postNotification: note];
 
     [pool drain];
@@ -451,13 +451,13 @@ CONFORMING TO
 
     [self cancelBackgroundMonitoring];
 
-    userInfo =
-        [NSDictionary dictionaryWithObject: availableData
-                                    forKey: NSFileHandleNotificationDataItem];
+    userInfo = [NSDictionary
+            dictionaryWithObject: availableData
+                          forKey: NSFileHandleNotificationDataItem];
     note = [NSNotification
-        notificationWithName: NSFileHandleReadCompletionNotification
-                      object: self
-                    userInfo: userInfo];
+            notificationWithName: NSFileHandleReadCompletionNotification
+                          object: self
+                        userInfo: userInfo];
 
     [[NSNotificationCenter defaultCenter] postNotification: note];
 }

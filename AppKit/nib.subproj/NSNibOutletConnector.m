@@ -24,9 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) establishConnection {
     NSString *methodName = [NSString
-        stringWithFormat: @"set%@%@:",
-                          [[_label substringToIndex: 1] uppercaseString],
-                          [_label substringFromIndex: 1]];
+            stringWithFormat: @"set%@%@:",
+                              [[_label substringToIndex: 1] uppercaseString],
+                              [_label substringFromIndex: 1]];
     SEL selector = NSSelectorFromString(methodName);
 
     if (selector != NULL)

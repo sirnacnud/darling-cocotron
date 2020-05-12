@@ -9,7 +9,7 @@ void CGLBufferData(GLenum target, GLsizeiptr size, const GLvoid *data,
                    GLenum usage)
 {
     PFNGLBUFFERDATAPROC function =
-        (PFNGLBUFFERDATAPROC) wglGetProcAddress("glBufferData");
+            (PFNGLBUFFERDATAPROC) wglGetProcAddress("glBufferData");
 
     if (function == NULL) {
         if (NSDebugEnabled)
@@ -22,7 +22,7 @@ void CGLBufferData(GLenum target, GLsizeiptr size, const GLvoid *data,
 
 void CGLGenBuffers(GLsizei n, GLuint *buffers) {
     PFNGLGENBUFFERSPROC function =
-        (PFNGLGENBUFFERSPROC) wglGetProcAddress("glGenBuffers");
+            (PFNGLGENBUFFERSPROC) wglGetProcAddress("glGenBuffers");
 
     if (function == NULL) {
         if (NSDebugEnabled)
@@ -34,7 +34,7 @@ void CGLGenBuffers(GLsizei n, GLuint *buffers) {
 
 void CGLDeleteBuffers(GLsizei n, const GLuint *buffers) {
     PFNGLDELETEBUFFERSPROC function =
-        (PFNGLDELETEBUFFERSPROC) wglGetProcAddress("glDeleteBuffers");
+            (PFNGLDELETEBUFFERSPROC) wglGetProcAddress("glDeleteBuffers");
 
     if (function == NULL) {
         if (NSDebugEnabled)
@@ -46,7 +46,7 @@ void CGLDeleteBuffers(GLsizei n, const GLuint *buffers) {
 
 void CGLBindBuffer(GLenum target, GLuint buffer) {
     PFNGLBINDBUFFERPROC function =
-        (PFNGLBINDBUFFERPROC) wglGetProcAddress("glBindBuffer");
+            (PFNGLBINDBUFFERPROC) wglGetProcAddress("glBindBuffer");
 
     if (function == NULL) {
         if (NSDebugEnabled)
@@ -59,7 +59,7 @@ void CGLBindBuffer(GLenum target, GLuint buffer) {
 
 void *CGLMapBuffer(GLenum target, GLenum access) {
     PFNGLMAPBUFFERPROC function =
-        (PFNGLMAPBUFFERPROC) wglGetProcAddress("glMapBuffer");
+            (PFNGLMAPBUFFERPROC) wglGetProcAddress("glMapBuffer");
 
     if (function == NULL) {
         if (NSDebugEnabled)
@@ -72,7 +72,7 @@ void *CGLMapBuffer(GLenum target, GLenum access) {
 
 CGL_EXPORT GLboolean CGLUnmapBuffer(GLenum target) {
     PFNGLUNMAPBUFFERPROC function =
-        (PFNGLUNMAPBUFFERPROC) wglGetProcAddress("glUnmapBuffer");
+            (PFNGLUNMAPBUFFERPROC) wglGetProcAddress("glUnmapBuffer");
 
     if (function == NULL) {
         if (NSDebugEnabled)
@@ -87,7 +87,7 @@ void CGLBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size,
                       const GLvoid *data)
 {
     PFNGLBUFFERSUBDATAPROC function =
-        (PFNGLBUFFERSUBDATAPROC) wglGetProcAddress("glBufferSubData");
+            (PFNGLBUFFERSUBDATAPROC) wglGetProcAddress("glBufferSubData");
 
     if (function == NULL) {
         if (NSDebugEnabled)

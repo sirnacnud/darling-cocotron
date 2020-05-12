@@ -94,8 +94,8 @@ static NSMutableArray *_registeredClasses = nil;
 }
 
 - initWithRequest: (NSURLRequest *) request
-    cachedResponse: (NSCachedURLResponse *) response
-            client: (id<NSURLProtocolClient>) client
+        cachedResponse: (NSCachedURLResponse *) response
+                client: (id<NSURLProtocolClient>) client
 {
     _request = [request retain];
     _cachedResponse = [response retain];

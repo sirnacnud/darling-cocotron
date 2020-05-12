@@ -52,18 +52,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSRulerView
 
 + (void) registerUnitWithName: (NSString *) name
-                    abbreviation: (NSString *) abbreviation
-    unitToPointsConversionFactor: (CGFloat) conversionFactor
-                     stepUpCycle: (NSArray *) stepUpCycle
-                   stepDownCycle: (NSArray *) stepDownCycle
+                        abbreviation: (NSString *) abbreviation
+        unitToPointsConversionFactor: (CGFloat) conversionFactor
+                         stepUpCycle: (NSArray *) stepUpCycle
+                       stepDownCycle: (NSArray *) stepDownCycle
 {
     [NSMeasurementUnit
-        registerUnit: [NSMeasurementUnit
-                          measurementUnitWithName: name
-                                     abbreviation: abbreviation
-                                    pointsPerUnit: conversionFactor
-                                      stepUpCycle: stepUpCycle
-                                    stepDownCycle: stepDownCycle]];
+            registerUnit: [NSMeasurementUnit
+                                  measurementUnitWithName: name
+                                             abbreviation: abbreviation
+                                            pointsPerUnit: conversionFactor
+                                              stepUpCycle: stepUpCycle
+                                            stepDownCycle: stepDownCycle]];
 }
 
 - (id) initWithFrame: (NSRect) frame {
@@ -91,7 +91,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _orientation = orientation;
 
     _measurementUnit =
-        [[NSMeasurementUnit measurementUnitNamed: @"Inches"] retain];
+            [[NSMeasurementUnit measurementUnitNamed: @"Inches"] retain];
 
     // Don't invoke the setters - they trigger tiling which can cause recursion
     // if the scrollview is creating the ruler
@@ -159,7 +159,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             if ([[_markers objectAtIndex: i] thicknessRequiredInRuler] >
                 _thicknessForMarkers)
                 _thicknessForMarkers =
-                    [[_markers objectAtIndex: i] thicknessRequiredInRuler];
+                        [[_markers objectAtIndex: i] thicknessRequiredInRuler];
     }
 
     return _thicknessForMarkers;
@@ -235,7 +235,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setMeasurementUnits: (NSString *) unitName {
     [_measurementUnit release];
     _measurementUnit =
-        [[NSMeasurementUnit measurementUnitNamed: unitName] retain];
+            [[NSMeasurementUnit measurementUnitNamed: unitName] retain];
 
     [self invalidateHashMarks];
     [[self enclosingScrollView] tile];
@@ -270,7 +270,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) trackMarker: (NSRulerMarker *) marker
-      withMouseEvent: (NSEvent *) event
+        withMouseEvent: (NSEvent *) event
 {
     NSPoint point = [self convertPoint: [event locationInWindow] fromView: nil];
 
@@ -297,7 +297,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         }
     }
     if ([_clientView respondsToSelector: @selector(rulerView:
-                                             handleMouseDown:)]) {
+                                                 handleMouseDown:)]) {
         [_clientView rulerView: self handleMouseDown: event];
     }
 }
@@ -321,16 +321,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSDictionary *) attributesForLabel {
-    NSMutableParagraphStyle *style =
-        [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+    NSMutableParagraphStyle *style = [[[NSParagraphStyle defaultParagraphStyle]
+            mutableCopy] autorelease];
 
     [style setLineBreakMode: NSLineBreakByClipping];
     [style setAlignment: NSLeftTextAlignment];
 
     return [NSDictionary
-        dictionaryWithObjectsAndKeys: [NSFont systemFontOfSize: 10.0],
-                                      NSFontAttributeName, style,
-                                      NSParagraphStyleAttributeName, nil];
+            dictionaryWithObjectsAndKeys: [NSFont systemFontOfSize: 10.0],
+                                          NSFontAttributeName, style,
+                                          NSParagraphStyleAttributeName, nil];
 }
 
 - (void) drawHashMarksAndLabelsInRect: (NSRect) dirtyRect {
@@ -366,12 +366,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                                         : frame.size.height);
     int i, count = ceil(length / (pointsPerUnit * scale));
     NSMutableArray *cycles =
-        [[[_measurementUnit stepDownCycle] mutableCopy] autorelease];
+            [[[_measurementUnit stepDownCycle] mutableCopy] autorelease];
     CGFloat extraThickness = 0;
     BOOL scrollViewHasOtherRuler =
-        (_orientation == NSHorizontalRuler
-             ? [[self enclosingScrollView] hasVerticalRuler]
-             : [[self enclosingScrollView] hasHorizontalRuler]);
+            (_orientation == NSHorizontalRuler
+                     ? [[self enclosingScrollView] hasVerticalRuler]
+                     : [[self enclosingScrollView] hasHorizontalRuler]);
 
     if ([_markers count] > 0)
         extraThickness += [self reservedThicknessForMarkers];
@@ -422,7 +422,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             textOrigin.x += LABEL_TEXT_SECONDARY_OFFSET;
         }
         [label drawAtPoint: textOrigin
-            withAttributes: [self attributesForLabel]];
+                withAttributes: [self attributesForLabel]];
 
         if (_orientation == NSHorizontalRuler) {
             frame.origin.x += pointsPerUnit * scale;
@@ -505,16 +505,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     for (i = 0; i < count; ++i) {
         if (_orientation == NSHorizontalRuler) {
             rect.origin.x =
-                [[_rulerlineLocations objectAtIndex: i] doubleValue] + 0.5;
+                    [[_rulerlineLocations objectAtIndex: i] doubleValue] + 0.5;
             [NSBezierPath
-                strokeLineFromPoint: NSMakePoint(NSMinX(rect), NSMinY(rect))
-                            toPoint: NSMakePoint(NSMinX(rect), NSMaxY(rect))];
+                    strokeLineFromPoint: NSMakePoint(NSMinX(rect), NSMinY(rect))
+                                toPoint: NSMakePoint(NSMinX(rect),
+                                                     NSMaxY(rect))];
         } else {
             rect.origin.y =
-                [[_rulerlineLocations objectAtIndex: i] doubleValue] + 0.5;
+                    [[_rulerlineLocations objectAtIndex: i] doubleValue] + 0.5;
             [NSBezierPath
-                strokeLineFromPoint: NSMakePoint(NSMinX(rect), NSMinY(rect))
-                            toPoint: NSMakePoint(NSMaxX(rect), NSMinY(rect))];
+                    strokeLineFromPoint: NSMakePoint(NSMinX(rect), NSMinY(rect))
+                                toPoint: NSMakePoint(NSMaxX(rect),
+                                                     NSMinY(rect))];
         }
     }
 }

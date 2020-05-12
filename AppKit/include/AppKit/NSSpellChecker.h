@@ -23,12 +23,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSTextCheckingResult.h>
 
 @class NSView, NSMenu, NSViewController, NSPanel, NSMutableDictionary,
-    NSMutableSet;
+        NSMutableSet;
 
 APPKIT_EXPORT NSString
-    *const NSSpellCheckerDidChangeAutomaticTextReplacementNotification;
+        *const NSSpellCheckerDidChangeAutomaticTextReplacementNotification;
 APPKIT_EXPORT NSString
-    *const NSSpellCheckerDidChangeAutomaticSpellingCorrectionNotification;
+        *const NSSpellCheckerDidChangeAutomaticSpellingCorrectionNotification;
 
 APPKIT_EXPORT NSString *const NSTextCheckingOrthographyKey;
 APPKIT_EXPORT NSString *const NSTextCheckingQuotesKey;
@@ -95,7 +95,7 @@ typedef NSInteger NSCorrectionResponse;
 - (void) setAccessoryView: (NSView *) view;
 - (NSViewController *) substitutionsPanelAccessoryViewController;
 - (void) setSubstitutionsPanelAccessoryViewController:
-    (NSViewController *) viewController;
+        (NSViewController *) viewController;
 
 #pragma mark -
 #pragma mark Checking Strings for Spelling and Grammar
@@ -117,12 +117,12 @@ typedef NSInteger NSCorrectionResponse;
           inSpellDocumentWithTag: (NSInteger) documentTag
                          details: (NSArray **) outDetails;
 - (NSArray *) checkString: (NSString *) string
-                     range: (NSRange) range
-                     types: (NSTextCheckingTypes) types
-                   options: (NSDictionary *) options
-    inSpellDocumentWithTag: (NSInteger) tag
-               orthography: (NSOrthography **) orthography
-                 wordCount: (NSInteger *) wordCount;
+                         range: (NSRange) range
+                         types: (NSTextCheckingTypes) types
+                       options: (NSDictionary *) options
+        inSpellDocumentWithTag: (NSInteger) tag
+                   orthography: (NSOrthography **) orthography
+                     wordCount: (NSInteger *) wordCount;
 
 #ifdef NS_BLOCKS
 - (NSInteger) requestCheckingOfString: (NSString *) stringToCheck
@@ -131,9 +131,10 @@ typedef NSInteger NSCorrectionResponse;
                               options: (NSDictionary *) options
                inSpellDocumentWithTag: (NSInteger) tag
                     completionHandler:
-                        (void (^)(NSInteger sequenceNumber, NSArray *results,
-                                  NSOrthography *orthography,
-                                  NSInteger wordCount)) completionHandler;
+                            (void (^)(NSInteger sequenceNumber,
+                                      NSArray *results,
+                                      NSOrthography *orthography,
+                                      NSInteger wordCount)) completionHandler;
 #endif
 
 - (NSArray *) guessesForWordRange: (NSRange) range
@@ -148,7 +149,7 @@ typedef NSInteger NSCorrectionResponse;
 - (void) closeSpellDocumentWithTag: (NSInteger) tag;
 - (void) ignoreWord: (NSString *) word inSpellDocumentWithTag: (NSInteger) tag;
 - (void) setIgnoredWords: (NSArray *) ignoredWords
-    inSpellDocumentWithTag: (NSInteger) tag;
+        inSpellDocumentWithTag: (NSInteger) tag;
 - (NSArray *) ignoredWordsInSpellDocumentWithTag: (NSInteger) tag;
 - (void) setWordFieldStringValue: (NSString *) string;
 - (void) updateSpellingPanelWithMisspelledWord: (NSString *) word;
@@ -186,16 +187,16 @@ typedef NSInteger NSCorrectionResponse;
                     alternativeStrings: (NSArray *) alternativeStrings
                        forStringInRect: (NSRect) rect
                                   view: (NSView *) view
-                     completionHandler:
-                         (void (^)(NSString *acceptedString)) completionBlock;
+                     completionHandler: (void (^)(NSString *acceptedString))
+                                                completionBlock;
 #endif
 
 - (void) dismissCorrectionIndicatorForView: (NSView *) view;
 - (void) recordResponse: (NSCorrectionResponse) response
-              toCorrection: (NSString *) correction
-                   forWord: (NSString *) word
-                  language: (NSString *) language
-    inSpellDocumentWithTag: (NSInteger) tag;
+                  toCorrection: (NSString *) correction
+                       forWord: (NSString *) word
+                      language: (NSString *) language
+        inSpellDocumentWithTag: (NSInteger) tag;
 
 #pragma mark -
 #pragma mark Automatic Text Replacement

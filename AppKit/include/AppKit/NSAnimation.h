@@ -71,7 +71,7 @@ APPKIT_EXPORT NSString *NSAnimationTriggerOrderOut;
 }
 
 - initWithDuration: (NSTimeInterval) duration
-    animationCurve: (NSAnimationCurve) curve;
+        animationCurve: (NSAnimationCurve) curve;
 
 - (NSTimeInterval) duration;
 - (NSAnimationCurve) animationCurve;
@@ -112,9 +112,9 @@ APPKIT_EXPORT NSString *NSAnimationTriggerOrderOut;
 @interface NSObject (NSAnimationDelegate)
 - (BOOL) animationShouldStart: (NSAnimation *) animation;
 - (float) animation: (NSAnimation *) animation
-    valueForProgress: (NSAnimationProgress) progress;
+        valueForProgress: (NSAnimationProgress) progress;
 - (void) animation: (NSAnimation *) animation
-    didReachProgressMark: (NSAnimationProgress) progress;
+        didReachProgressMark: (NSAnimationProgress) progress;
 - (void) animationDidEnd: (NSAnimation *) animation;
 - (void) animationDidStop: (NSAnimation *) animation;
 @end

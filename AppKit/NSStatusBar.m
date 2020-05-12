@@ -42,10 +42,10 @@ static NSStatusBar *_statusBar = nil;
     if (self) {
         _statusItems = [[NSMutableArray alloc] init];
         [[NSNotificationCenter defaultCenter]
-            addObserver: self
-               selector: @selector(handleApplicationClose)
-                   name: @"NSApplicationWillTerminateNotification"
-                 object: nil];
+                addObserver: self
+                   selector: @selector(handleApplicationClose)
+                       name: @"NSApplicationWillTerminateNotification"
+                     object: nil];
     }
     return self;
 }
@@ -114,10 +114,10 @@ static NSStatusBar *_statusBar = nil;
 - (Win32Window *) fakeWindow {
     if (!_fakeWindow) {
         _fakeWindow = [[Win32Window alloc]
-            initWithFrame: CGRectMake(0, 0, 1, 1)
-                styleMask: (unsigned) NSBorderlessWindowMask
-                  isPanel: NO
-              backingType: CGSBackingStoreRetained];
+                initWithFrame: CGRectMake(0, 0, 1, 1)
+                    styleMask: (unsigned) NSBorderlessWindowMask
+                      isPanel: NO
+                  backingType: CGSBackingStoreRetained];
     }
     [_fakeWindow makeTransparent];
     [_fakeWindow showWindowWithoutActivation];

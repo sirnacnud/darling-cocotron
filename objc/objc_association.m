@@ -89,7 +89,7 @@ void AssociationTableInsert(AssociationTable *table, id key,
 
         table->nBuckets = newSize;
         table->buckets =
-            calloc(table->nBuckets, sizeof(AssociationHashBucket *));
+                calloc(table->nBuckets, sizeof(AssociationHashBucket *));
 
         // Get all of the existing buckets and place them into the new list
         for (i = 0; i < nBuckets; i++) {
@@ -185,8 +185,8 @@ void AssociationTableRemove(AssociationTable *table, id key) {
                                 releaseTableSize *= 2;
                             }
                             objectsToRelease =
-                                realloc(objectsToRelease,
-                                        sizeof(id) * releaseTableSize);
+                                    realloc(objectsToRelease,
+                                            sizeof(id) * releaseTableSize);
                         }
                         objectsToRelease[releaseCount++] = e->object;
                         break;
@@ -238,16 +238,16 @@ void objc_setAssociatedObject(id object, const void *key, id value,
     }
 
     AssociationObjectEntry *objectTable =
-        AssociationTableGet(associationTable, object);
+            AssociationTableGet(associationTable, object);
     if (objectTable == NULL) {
-        objectTable =
-            calloc(sizeof(AssociationObjectEntry), AssociationObjectEntrySize);
+        objectTable = calloc(sizeof(AssociationObjectEntry),
+                             AssociationObjectEntrySize);
         AssociationTableInsert(associationTable, object, objectTable);
     }
 
     uintptr_t index = HASHPTR(key) % AssociationObjectEntrySize;
     AssociationObjectEntry *entry =
-        ((AssociationObjectEntry *) objectTable) + index;
+            ((AssociationObjectEntry *) objectTable) + index;
     if (entry->object == nil) {
         entry->policy = policy;
         entry->key = key;
@@ -339,7 +339,7 @@ id objc_getAssociatedObject(id object, const void *key) {
     AssociationSpinLockLock(&AssociationLock);
 
     AssociationObjectEntry *objectTable =
-        AssociationTableGet(associationTable, object);
+            AssociationTableGet(associationTable, object);
     if (objectTable == NULL) {
         AssociationSpinLockUnlock(&AssociationLock);
         return nil;
@@ -347,7 +347,7 @@ id objc_getAssociatedObject(id object, const void *key) {
 
     uintptr_t index = HASHPTR(key) % AssociationObjectEntrySize;
     AssociationObjectEntry *entry =
-        ((AssociationObjectEntry *) objectTable) + index;
+            ((AssociationObjectEntry *) objectTable) + index;
     while (entry) {
         if (entry->key == key) {
             break;

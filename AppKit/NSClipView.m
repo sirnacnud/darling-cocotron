@@ -45,15 +45,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         if (_docView != nil)
             [[NSNotificationCenter defaultCenter]
-                addObserver: self
-                   selector: @selector(viewFrameChanged:)
-                       name: NSViewFrameDidChangeNotification
-                     object: _docView];
+                    addObserver: self
+                       selector: @selector(viewFrameChanged:)
+                           name: NSViewFrameDidChangeNotification
+                         object: _docView];
         [[NSNotificationCenter defaultCenter]
-            addObserver: self
-               selector: @selector(viewBoundsChanged:)
-                   name: NSViewBoundsDidChangeNotification
-                 object: _docView];
+                addObserver: self
+                   selector: @selector(viewBoundsChanged:)
+                       name: NSViewBoundsDidChangeNotification
+                     object: _docView];
     } else {
         [NSException raise: NSInvalidArgumentException
                     format: @"-[%@ %s] is not implemented for coder %@",
@@ -121,13 +121,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setDocumentView: (NSView *) view {
     if (_docView != nil) {
         [[NSNotificationCenter defaultCenter]
-            removeObserver: self
-                      name: NSViewFrameDidChangeNotification
-                    object: _docView];
+                removeObserver: self
+                          name: NSViewFrameDidChangeNotification
+                        object: _docView];
         [[NSNotificationCenter defaultCenter]
-            removeObserver: self
-                      name: NSViewBoundsDidChangeNotification
-                    object: _docView];
+                removeObserver: self
+                          name: NSViewBoundsDidChangeNotification
+                        object: _docView];
     }
 
     [_docView removeFromSuperview];
@@ -140,15 +140,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (_docView != nil) {
         [[NSNotificationCenter defaultCenter]
-            addObserver: self
-               selector: @selector(viewFrameChanged:)
-                   name: NSViewFrameDidChangeNotification
-                 object: _docView];
+                addObserver: self
+                   selector: @selector(viewFrameChanged:)
+                       name: NSViewFrameDidChangeNotification
+                     object: _docView];
         [[NSNotificationCenter defaultCenter]
-            addObserver: self
-               selector: @selector(viewBoundsChanged:)
-                   name: NSViewBoundsDidChangeNotification
-                 object: _docView];
+                addObserver: self
+                   selector: @selector(viewBoundsChanged:)
+                       name: NSViewBoundsDidChangeNotification
+                     object: _docView];
     }
 }
 

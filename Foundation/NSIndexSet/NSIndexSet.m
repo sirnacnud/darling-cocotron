@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + indexSetWithIndexesInRange: (NSRange) range {
     return [[[self allocWithZone: NULL] initWithIndexesInRange: range]
-        autorelease];
+            autorelease];
 }
 
 + indexSetWithIndex: (NSUInteger) index {
@@ -211,8 +211,8 @@ static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
 }
 
 - (NSUInteger) indexGreaterThanIndex: (NSUInteger) index {
-    NSUInteger first =
-        positionOfRangeGreaterThanOrEqualToLocation(_ranges, _length, index);
+    NSUInteger first = positionOfRangeGreaterThanOrEqualToLocation(
+            _ranges, _length, index);
 
     if (first == NSNotFound)
         return NSNotFound;
@@ -231,8 +231,8 @@ static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
 }
 
 - (NSUInteger) indexGreaterThanOrEqualToIndex: (NSUInteger) index {
-    NSUInteger first =
-        positionOfRangeGreaterThanOrEqualToLocation(_ranges, _length, index);
+    NSUInteger first = positionOfRangeGreaterThanOrEqualToLocation(
+            _ranges, _length, index);
 
     if (first == NSNotFound)
         return NSNotFound;
@@ -252,7 +252,7 @@ static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
 
 - (NSUInteger) indexLessThanIndex: (NSUInteger) index {
     NSInteger first =
-        positionOfRangeLessThanOrEqualToLocation(_ranges, _length, index);
+            positionOfRangeLessThanOrEqualToLocation(_ranges, _length, index);
 
     if (index == 0)
         return NSNotFound;
@@ -274,7 +274,7 @@ static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
 
 - (NSUInteger) indexLessThanOrEqualToIndex: (NSUInteger) index {
     NSInteger first =
-        positionOfRangeLessThanOrEqualToLocation(_ranges, _length, index);
+            positionOfRangeLessThanOrEqualToLocation(_ranges, _length, index);
 
     if (first == NSNotFound)
         return NSNotFound;
@@ -287,7 +287,7 @@ static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
 
 - (BOOL) intersectsIndexesInRange: (NSRange) range {
     NSUInteger first = positionOfRangeGreaterThanOrEqualToLocation(
-        _ranges, _length, range.location);
+            _ranges, _length, range.location);
 
     if (first == NSNotFound)
         return NO;
@@ -335,8 +335,8 @@ static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
         const uint8_t *rangebytes = [keyed decodeBytesForKey: @"ranges"
                                               returnedLength: &length];
         NSRange *ranges = (NSRange *) rangebytes;
-        _ranges = NSZoneMalloc([self zone], sizeof(NSRange) *
-                                                ((_length == 0) ? 1 : _length));
+        _ranges = NSZoneMalloc(
+                [self zone], sizeof(NSRange) * ((_length == 0) ? 1 : _length));
         for (i = 0; i < _length; i++)
             _ranges[i] = ranges[i];
     } else {
@@ -344,10 +344,10 @@ static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
         NSUInteger length;
         int i;
         const uint8_t *rangebytes =
-            [coder decodeBytesWithReturnedLength: &length];
+                [coder decodeBytesWithReturnedLength: &length];
         NSRange *ranges = (NSRange *) rangebytes;
-        _ranges = NSZoneMalloc([self zone], sizeof(NSRange) *
-                                                ((_length == 0) ? 1 : _length));
+        _ranges = NSZoneMalloc(
+                [self zone], sizeof(NSRange) * ((_length == 0) ? 1 : _length));
         for (i = 0; i < _length; i++)
             _ranges[i] = ranges[i];
     }

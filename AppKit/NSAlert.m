@@ -45,8 +45,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _style = NSWarningAlertStyle;
     _icon = [[NSImage imageNamed: @"NSAlertPanelExclamation"] retain];
     _messageText = [NSLocalizedStringFromTableInBundle(
-        @"Alert", nil, [NSBundle bundleForClass: [NSAlert class]],
-        @"Default message text for NSAlert") copy];
+            @"Alert", nil, [NSBundle bundleForClass: [NSAlert class]],
+            @"Default message text for NSAlert") copy];
     _informativeText = @"";
     _accessoryView = nil;
     _showsHelp = NO;
@@ -60,10 +60,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _suppressionButton = [[NSButton alloc] init];
     //  [_suppressionButton setButtonType:NSSwitchButton];
     [_suppressionButton
-        setTitle: NSLocalizedStringFromTableInBundle(
-                      @"Do not show this message again", nil,
-                      [NSBundle bundleForClass: [NSAlert class]],
-                      @"Default NSAlert supression button title")];
+            setTitle: NSLocalizedStringFromTableInBundle(
+                              @"Do not show this message again", nil,
+                              [NSBundle bundleForClass: [NSAlert class]],
+                              @"Default NSAlert supression button title")];
     _needsLayout = YES;
     return self;
 }
@@ -83,11 +83,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + (NSAlert *) alertWithError: (NSError *) error {
     NSArray *titles = [error localizedRecoveryOptions];
     NSString *defaultTitle =
-        ([titles count] > 0) ? [titles objectAtIndex: 0] : nil;
+            ([titles count] > 0) ? [titles objectAtIndex: 0] : nil;
     NSString *alternateTitle =
-        ([titles count] > 1) ? [titles objectAtIndex: 1] : nil;
+            ([titles count] > 1) ? [titles objectAtIndex: 1] : nil;
     NSString *otherTitle =
-        ([titles count] > 2) ? [titles objectAtIndex: 2] : nil;
+            ([titles count] > 2) ? [titles objectAtIndex: 2] : nil;
 
     NSAlert *result = [[[self alloc] init] autorelease];
 
@@ -112,8 +112,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     va_start(arguments, format);
 
     informativeText =
-        [[[NSString alloc] initWithFormat: format
-                                arguments: arguments] autorelease];
+            [[[NSString alloc] initWithFormat: format
+                                    arguments: arguments] autorelease];
 
     NSAlert *result = [[[self alloc] init] autorelease];
 
@@ -121,8 +121,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [result setInformativeText: informativeText];
     if (defaultTitle == nil)
         defaultTitle = NSLocalizedStringFromTableInBundle(
-            @"OK", nil, [NSBundle bundleForClass: [NSAlert class]],
-            @"Default button title for NSAlert");
+                @"OK", nil, [NSBundle bundleForClass: [NSAlert class]],
+                @"Default button title for NSAlert");
     [result addButtonWithTitle: defaultTitle];
     if (alternateTitle != nil)
         [result addButtonWithTitle: alternateTitle];
@@ -273,21 +273,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSStringDrawer *drawer = [NSStringDrawer sharedStringDrawer];
     NSSize iconSize = (_icon != nil) ? [_icon size] : NSZeroSize;
     NSDictionary *messageAttributes = [NSDictionary
-        dictionaryWithObjectsAndKeys: [NSFont boldSystemFontOfSize: 0],
-                                      NSFontAttributeName, nil];
+            dictionaryWithObjectsAndKeys: [NSFont boldSystemFontOfSize: 0],
+                                          NSFontAttributeName, nil];
     NSSize messageSize = NSZeroSize;
     NSDictionary *informativeAttributes = [NSDictionary
-        dictionaryWithObjectsAndKeys: [NSFont systemFontOfSize: 0],
-                                      NSFontAttributeName, nil];
+            dictionaryWithObjectsAndKeys: [NSFont systemFontOfSize: 0],
+                                          NSFontAttributeName, nil];
     NSSize informativeSize = NSZeroSize;
     CGFloat messageInformativeGap = 0.;
     NSDictionary *suppressionAttributes = [NSDictionary
-        dictionaryWithObjectsAndKeys: [NSFont systemFontOfSize: 0],
-                                      NSFontAttributeName, nil];
+            dictionaryWithObjectsAndKeys: [NSFont systemFontOfSize: 0],
+                                          NSFontAttributeName, nil];
     NSSize supressionSize = NSZeroSize;
     CGFloat informativeSuppressionGap = 0.;
     NSSize accessorySize =
-        (_accessoryView != nil) ? [_accessoryView frame].size : NSZeroSize;
+            (_accessoryView != nil) ? [_accessoryView frame].size : NSZeroSize;
     CGFloat suppressionAccessoryGap = 0.;
     NSSize mainSize = NSZeroSize;
     NSSize panelSize = NSZeroSize;
@@ -303,7 +303,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSSize size = [drawer sizeOfAttributedString: title inSize: NSZeroSize];
 
         okCancelButtonSize.width =
-            MAX(size.width + BUTTON_MARGIN * 2, okCancelButtonSize.width);
+                MAX(size.width + BUTTON_MARGIN * 2, okCancelButtonSize.width);
         okCancelButtonSize.height = MAX(size.height, okCancelButtonSize.height);
     }
 
@@ -316,7 +316,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSSize size = [drawer sizeOfAttributedString: title inSize: NSZeroSize];
 
         otherButtonSize.width =
-            MAX(size.width + BUTTON_MARGIN * 2, otherButtonSize.width);
+                MAX(size.width + BUTTON_MARGIN * 2, otherButtonSize.width);
         otherButtonSize.height = MAX(size.height, otherButtonSize.height);
     }
 
@@ -328,7 +328,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         allButtonsSize.width += [button frame].size.width;
         allButtonsSize.height =
-            MAX(allButtonsSize.height, [button frame].size.height);
+                MAX(allButtonsSize.height, [button frame].size.height);
 
         allButtonsSize.width += INTERBUTTON_GAP;
         if (i == 1)
@@ -406,11 +406,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         frame.origin.y = panelSize.height - TOP_MARGIN - messageSize.height;
         frame.size = messageSize;
         textField = [[[NSTextField alloc] initWithFrame: frame] autorelease];
-        [textField
-            setAttributedStringValue: [[[NSAttributedString alloc]
-                                          initWithString: _messageText
-                                              attributes: messageAttributes]
-                                          autorelease]];
+        [textField setAttributedStringValue:
+                           [[[NSAttributedString alloc]
+                                   initWithString: _messageText
+                                       attributes: messageAttributes]
+                                   autorelease]];
         [textField setEditable: NO];
         [textField setSelectable: YES];
         [textField setBordered: NO];
@@ -426,10 +426,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                          messageInformativeGap - informativeSize.height;
         frame.size = informativeSize;
         textField = [[[NSTextField alloc] initWithFrame: frame] autorelease];
-        [textField setStringValue: [[[NSAttributedString alloc]
-                                       initWithString: _informativeText
-                                           attributes: informativeAttributes]
-                                       autorelease]];
+        [textField
+                setStringValue: [[[NSAttributedString alloc]
+                                        initWithString: _informativeText
+                                            attributes: informativeAttributes]
+                                        autorelease]];
         [textField setEditable: NO];
         [textField setSelectable: YES];
         [textField setBordered: NO];
@@ -491,11 +492,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // manual layout
     if (_needsLayout) {
         if ([_buttons count] == 0) {
-            [self addButtonWithTitle: NSLocalizedStringFromTableInBundle(
-                                          @"OK", nil,
-                                          [NSBundle
-                                              bundleForClass: [NSAlert class]],
-                                          @"Default button title for NSAlert")];
+            [self addButtonWithTitle:
+                            NSLocalizedStringFromTableInBundle(
+                                    @"OK", nil,
+                                    [NSBundle bundleForClass: [NSAlert class]],
+                                    @"Default button title for NSAlert")];
         }
 
         [self layout];
@@ -509,7 +510,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     typedef void (*alertDidEnd)(id, SEL, NSAlert *, int, void *);
     if (_sheetDidEnd) {
         alertDidEnd endFunction =
-            (alertDidEnd) [_sheetDelegate methodForSelector: _sheetDidEnd];
+                (alertDidEnd) [_sheetDelegate methodForSelector: _sheetDidEnd];
 
         endFunction(_sheetDelegate, _sheetDidEnd, self, returnCode,
                     contextInfo);
@@ -530,10 +531,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     [self retain];
     [NSApp beginSheet: _window
-        modalForWindow: window
-         modalDelegate: self
-        didEndSelector: @selector(sheetDidEnd:returnCode:contextInfo:)
-           contextInfo: info];
+            modalForWindow: window
+             modalDelegate: self
+            didEndSelector: @selector(sheetDidEnd:returnCode:contextInfo:)
+               contextInfo: info];
 }
 
 - (NSInteger) runModal {

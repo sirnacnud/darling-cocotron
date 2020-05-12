@@ -331,14 +331,14 @@ static void invocation_closure(ffi_cif *cif, void *result, void **args,
         if (!_closureInfo) {
             NSInteger i, numArgs = [self numberOfArguments];
             ffi_type **arg_type =
-                NSZoneCalloc(NULL, sizeof(ffi_type *), numArgs);
+                    NSZoneCalloc(NULL, sizeof(ffi_type *), numArgs);
 
             ffi_type *ret_type =
-                signature_to_ffi_return_type([self methodReturnType]);
+                    signature_to_ffi_return_type([self methodReturnType]);
 
             for (i = 0; i < numArgs; i++) {
                 arg_type[i] =
-                    signature_to_ffi_type([self getArgumentTypeAtIndex: i]);
+                        signature_to_ffi_type([self getArgumentTypeAtIndex: i]);
             }
 
             _closureInfo = NSZoneCalloc(NULL, sizeof(ffi_cif), 1);
@@ -385,8 +385,8 @@ static void invocation_closure(ffi_cif *cif, void *result, void **args,
     }
 
 #if defined(GCC_RUNTIME_3) || defined(APPLE_RUNTIME_4)
-    IMP imp =
-        class_getMethodImplementation(object_getClass(target), [self selector]);
+    IMP imp = class_getMethodImplementation(object_getClass(target),
+                                            [self selector]);
 #else
     IMP imp = objc_msg_lookup(target, [self selector]);
 #endif

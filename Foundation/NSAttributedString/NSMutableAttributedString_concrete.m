@@ -91,8 +91,8 @@ static NSUInteger decodeFromData(NSData *data, NSUInteger offset,
         } else {
             // we've got an array to work through
             NSMutableAttributedString *attrStr =
-                [[[NSMutableAttributedString alloc] initWithString: string]
-                    autorelease];
+                    [[[NSMutableAttributedString alloc] initWithString: string]
+                            autorelease];
             NSData *data = [keyed decodeObjectForKey: @"NSAttributeInfo"];
             NSArray *attributesArray = attributes;
             NSUInteger offset = 0;
@@ -128,13 +128,13 @@ static NSUInteger decodeFromData(NSData *data, NSUInteger offset,
             [keyed encodeObject: dict forKey: @"NSAttributes"];
         } else {
             NSMutableArray *attributesArray =
-                [NSMutableArray arrayWithCapacity: 10];
+                    [NSMutableArray arrayWithCapacity: 10];
             // we've got more than one set of attributes so we have to encode
             // more data
             NSUInteger count = NSCountRangeEntries(_rangeToAttributes);
             NSMutableData *data = [NSMutableData dataWithCapacity: count * 4];
             NSRangeEnumerator enumerator =
-                NSRangeEntryEnumerator(_rangeToAttributes);
+                    NSRangeEntryEnumerator(_rangeToAttributes);
             NSDictionary *attributes = nil;
             int i = 0;
             while (NSNextRangeEnumeratorEntry(&enumerator, &range,
@@ -218,9 +218,9 @@ static NSUInteger decodeFromData(NSData *data, NSUInteger offset,
 }
 
 - (NSMutableString *) mutableString {
-    return
-        [[[NSMutableString_proxyToMutableAttributedString allocWithZone: NULL]
-            initWithMutableAttributedString: self] autorelease];
+    return [[[NSMutableString_proxyToMutableAttributedString
+            allocWithZone: NULL] initWithMutableAttributedString: self]
+            autorelease];
 }
 
 - (void) fixAttributesAfterEditingRange: (NSRange) range {

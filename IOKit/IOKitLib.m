@@ -20,8 +20,8 @@ static NSData *PrimaryEthernetMAC() {
         if (check->Type == MIB_IF_TYPE_ETHERNET) {
             if (check->AddressLength == 6) {
                 NSData *result =
-                    [[NSData alloc] initWithBytes: check->Address
-                                           length: check->AddressLength];
+                        [[NSData alloc] initWithBytes: check->Address
+                                               length: check->AddressLength];
                 return result;
             }
         }
@@ -118,8 +118,8 @@ const mach_port_t kIOMasterPortDefault = 0;
 
 CFMutableDictionaryRef IOServiceMatching(const char *name) {
     return [NSMutableDictionary
-        dictionaryWithObject: [NSString stringWithCString: name]
-                      forKey: CFSTR(kIOProviderClassKey)];
+            dictionaryWithObject: [NSString stringWithCString: name]
+                          forKey: CFSTR(kIOProviderClassKey)];
 }
 
 io_service_t IOServiceGetMatchingService(mach_port_t masterPort,
@@ -142,13 +142,13 @@ kern_return_t IOServiceGetMatchingServices(mach_port_t masterPort,
 
     if ([type isEqual: @"IOEthernetInterface"]) {
         NSDictionary *propertyMatch =
-            [matching objectForKey: CFSTR(kIOPropertyMatchKey)];
+                [matching objectForKey: CFSTR(kIOPropertyMatchKey)];
         NSNumber *isPrimary =
-            [propertyMatch objectForKey: CFSTR(kIOPrimaryInterface)];
+                [propertyMatch objectForKey: CFSTR(kIOPrimaryInterface)];
 
         if ([isPrimary boolValue]) {
             [result addObject: [[[IOEthernetInterface alloc] initPrimary]
-                                   autorelease]];
+                                       autorelease]];
         }
     }
 

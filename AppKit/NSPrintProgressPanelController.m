@@ -16,7 +16,7 @@
 
 + (NSPrintProgressPanelController *) printProgressPanelController {
     return [[[NSPrintProgressPanelController alloc]
-        initWithWindowNibName: @"NSPrintProgressPanel"] autorelease];
+            initWithWindowNibName: @"NSPrintProgressPanel"] autorelease];
 }
 
 - (void) windowDidLoad {

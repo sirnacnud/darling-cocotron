@@ -48,12 +48,12 @@ extern id objc_msgSend(id self, SEL op, ...);
         didInit = YES;
 
         struct objc_method_list *list =
-            calloc(sizeof(struct objc_method_list) +
-                       NUM_SELECTORS * sizeof(struct objc_method),
-                   1);
+                calloc(sizeof(struct objc_method_list) +
+                               NUM_SELECTORS * sizeof(struct objc_method),
+                       1);
         list->method_count = NUM_SELECTORS;
         Method torture =
-            class_getInstanceMethod([self class], @selector(_torture_));
+                class_getInstanceMethod([self class], @selector(_torture_));
 
         for (int currentMethod = 0; currentMethod < NUM_SELECTORS;
              currentMethod++) {

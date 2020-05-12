@@ -18,8 +18,9 @@
 - init {
     _inputSourceSet = [[NSHandleMonitorSet_win32 alloc] init];
     _asyncInputSourceSets = [[NSArray alloc]
-        initWithObjects: [[[NSSelectInputSourceSet alloc] init] autorelease],
-                         nil];
+            initWithObjects: [[[NSSelectInputSourceSet alloc] init]
+                                     autorelease],
+                             nil];
     _timers = [NSMutableArray new];
     _cancelSource = [[NSCancelInputSource_win32 alloc] init];
     [self addInputSource: _cancelSource];

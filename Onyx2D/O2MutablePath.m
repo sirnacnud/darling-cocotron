@@ -102,9 +102,9 @@ O2MutablePathRef O2PathCreateMutable(void) {
 }
 
 - initWithOperators: (unsigned char *) elements
-    numberOfElements: (size_t) numberOfElements
-              points: (O2Point *) points
-      numberOfPoints: (size_t) numberOfPoints
+        numberOfElements: (size_t) numberOfElements
+                  points: (O2Point *) points
+          numberOfPoints: (size_t) numberOfPoints
 {
     O2PathInitWithOperators(self, elements, numberOfElements, points,
                             numberOfPoints);
@@ -131,7 +131,7 @@ static inline void expandOperatorCapacity(O2MutablePath *self, size_t delta) {
             self->_capacityOfElements *= 2;
 
         self->_elements =
-            NSZoneRealloc(NULL, self->_elements, self->_capacityOfElements);
+                NSZoneRealloc(NULL, self->_elements, self->_capacityOfElements);
     }
 }
 
@@ -143,7 +143,7 @@ static inline void expandPointCapacity(O2MutablePath *self, size_t delta) {
             self->_capacityOfPoints *= 2;
 
         self->_points = NSZoneRealloc(
-            NULL, self->_points, self->_capacityOfPoints * sizeof(O2Point));
+                NULL, self->_points, self->_capacityOfPoints * sizeof(O2Point));
     }
 }
 
@@ -213,7 +213,7 @@ void O2PathAddQuadCurveToPoint(O2MutablePathRef self,
     expandOperatorCapacity(self, 1);
     expandPointCapacity(self, 2);
     self->_elements[self->_numberOfElements++] =
-        kO2PathElementAddQuadCurveToPoint;
+            kO2PathElementAddQuadCurveToPoint;
     self->_points[self->_numberOfPoints++] = cp1;
     self->_points[self->_numberOfPoints++] = endPoint;
 }
@@ -305,9 +305,9 @@ void O2PathAddArc(O2MutablePathRef self, const O2AffineTransform *matrix,
 
         for (i = 0; i < 4; i++) {
             points[pointsIndex].x =
-                x + (XY[i * 2] * c - XY[i * 2 + 1] * s) * radiusx;
+                    x + (XY[i * 2] * c - XY[i * 2 + 1] * s) * radiusx;
             points[pointsIndex].y =
-                y + (XY[i * 2] * s + XY[i * 2 + 1] * c) * radiusy;
+                    y + (XY[i * 2] * s + XY[i * 2 + 1] * c) * radiusy;
             pointsIndex++;
         }
     }
@@ -477,7 +477,7 @@ void O2PathAddPath(O2MutablePathRef self, const O2AffineTransform *matrix,
     } else {
         for (i = 0; i < pointCount; i++)
             self->_points[self->_numberOfPoints++] =
-                O2PointApplyAffineTransform(points[i], *matrix);
+                    O2PointApplyAffineTransform(points[i], *matrix);
     }
 }
 
@@ -487,7 +487,7 @@ void O2PathApplyTransform(O2MutablePathRef self, const O2AffineTransform matrix)
 
     for (i = 0; i < self->_numberOfPoints; i++)
         self->_points[i] =
-            O2PointApplyAffineTransform(self->_points[i], matrix);
+                O2PointApplyAffineTransform(self->_points[i], matrix);
 }
 
 @end

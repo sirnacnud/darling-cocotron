@@ -32,7 +32,7 @@
     documentRect.size = [_scrollView contentSize];
     _documentView = [[PDFDocumentView alloc] initWithFrame: documentRect];
     [_documentView
-        setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+            setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
     [_scrollView setDocumentView: _documentView];
 
     [self addSubview: _scrollView];

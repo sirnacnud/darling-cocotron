@@ -66,8 +66,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     CGFloat labelHeight = [_toolbarItem _labelSize].height;
     rect.size.height -= labelHeight;
     rect.origin.y +=
-        labelHeight +
-        4; // 4 is Cocotron magic padding (see NSToolbarItem drawInRect:
+            labelHeight +
+            4; // 4 is Cocotron magic padding (see NSToolbarItem drawInRect:
     return rect;
 }
 
@@ -112,31 +112,33 @@ const CGFloat kEdgeThickness = 2.f;
 
 - (void) drawRect: (NSRect) rect {
     if ([[_toolbarItem itemIdentifier]
-            isEqual: [[_toolbarItem toolbar] selectedItemIdentifier]]) {
+                isEqual: [[_toolbarItem toolbar] selectedItemIdentifier]]) {
 
         NSArray *colors = [NSArray
-            arrayWithObjects: [NSColor colorWithCalibratedWhite: kFillGrayLevel
-                                                          alpha: 0],
-                              [NSColor colorWithCalibratedWhite: kFillGrayLevel
-                                                          alpha: 0.5],
-                              [NSColor colorWithCalibratedWhite: kFillGrayLevel
-                                                          alpha: 1],
-                              [NSColor colorWithCalibratedWhite: kFillGrayLevel
-                                                          alpha: 0.0],
-                              nil];
+                arrayWithObjects:
+                        [NSColor colorWithCalibratedWhite: kFillGrayLevel
+                                                    alpha: 0],
+                        [NSColor colorWithCalibratedWhite: kFillGrayLevel
+                                                    alpha: 0.5],
+                        [NSColor colorWithCalibratedWhite: kFillGrayLevel
+                                                    alpha: 1],
+                        [NSColor colorWithCalibratedWhite: kFillGrayLevel
+                                                    alpha: 0.0],
+                        nil];
         NSGradient *gradient =
-            [[[NSGradient alloc] initWithColors: colors] autorelease];
+                [[[NSGradient alloc] initWithColors: colors] autorelease];
         [gradient drawInRect: [self bounds] angle: 270];
 
         // fill the edges
         colors = [NSArray
-            arrayWithObjects: [NSColor colorWithCalibratedWhite: kEdgeGrayLevel
-                                                          alpha: 0],
-                              [NSColor colorWithCalibratedWhite: kEdgeGrayLevel
-                                                          alpha: 1],
-                              [NSColor colorWithCalibratedWhite: kEdgeGrayLevel
-                                                          alpha: 0.0],
-                              nil];
+                arrayWithObjects:
+                        [NSColor colorWithCalibratedWhite: kEdgeGrayLevel
+                                                    alpha: 0],
+                        [NSColor colorWithCalibratedWhite: kEdgeGrayLevel
+                                                    alpha: 1],
+                        [NSColor colorWithCalibratedWhite: kEdgeGrayLevel
+                                                    alpha: 0.0],
+                        nil];
         gradient = [[[NSGradient alloc] initWithColors: colors] autorelease];
         NSRect edgeRect = [self bounds];
         edgeRect.size.width = kEdgeThickness;
@@ -160,14 +162,14 @@ const CGFloat kEdgeThickness = 2.f;
         _isHighlighted = NSMouseInRect(point, [self bounds], [self isFlipped]);
 
         [self setNeedsDisplay: YES];
-        event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
     } while ([event type] != NSLeftMouseUp);
 
     if (_isHighlighted) {
         _isHighlighted = NO;
         [[_toolbarItem toolbar]
-            didSelectToolbarItem: [_toolbarItem itemIdentifier]];
+                didSelectToolbarItem: [_toolbarItem itemIdentifier]];
         [NSApp sendAction: [_toolbarItem action]
                        to: [_toolbarItem target]
                      from: _toolbarItem];

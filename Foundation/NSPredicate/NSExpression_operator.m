@@ -118,14 +118,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSExpression *) _expressionWithSubstitutionVariables:
-    (NSDictionary *) variables
+        (NSDictionary *) variables
 {
     NSMutableArray *array = [NSMutableArray array];
     NSInteger i, count = [_arguments count];
 
     for (i = 0; i < count; i++)
         [array addObject: [[_arguments objectAtIndex: i]
-                              _expressionWithSubstitutionVariables: variables]];
+                                  _expressionWithSubstitutionVariables:
+                                          variables]];
 
     return [NSExpression_operator expressionForOperator: _operator
                                               arguments: array];

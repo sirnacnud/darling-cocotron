@@ -56,7 +56,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                               error: (NSError **) errorp
 {
     NSURLConnectionState *state =
-        [[[NSURLConnectionState alloc] init] autorelease];
+            [[[NSURLConnectionState alloc] init] autorelease];
     NSURLConnection *connection = [[self alloc] initWithRequest: request
                                                        delegate: state];
 
@@ -116,17 +116,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithRequest: (NSURLRequest *) request
-            delegate: delegate
-    startImmediately: (BOOL) startLoading
+                delegate: delegate
+        startImmediately: (BOOL) startLoading
 {
     _request = [request copy];
     Class cls = [NSURLProtocol _URLProtocolClassForRequest: request];
 
     if ((_protocol = [[cls alloc]
-             initWithRequest: _request
-              cachedResponse: [[NSURLCache sharedURLCache]
-                                  cachedResponseForRequest: _request]
-                      client: self]) == nil) {
+                 initWithRequest: _request
+                  cachedResponse: [[NSURLCache sharedURLCache]
+                                          cachedResponseForRequest: _request]
+                          client: self]) == nil) {
         [self dealloc];
         return nil;
     }
@@ -175,20 +175,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    wasRedirectedToRequest: (NSURLRequest *) request
-          redirectResponse: (NSURLResponse *) redirect
+        wasRedirectedToRequest: (NSURLRequest *) request
+              redirectResponse: (NSURLResponse *) redirect
 {
 #if DEBUG
     NSLog(@"wasRedirectedToRequest: %@", request);
 #endif
     [_delegate connection: self
-          willSendRequest: request
-         redirectResponse: redirect];
+             willSendRequest: request
+            redirectResponse: redirect];
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didReceiveAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge
+        didReceiveAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) challenge
 {
 #if DEBUG
     NSLog(@"didReceiveAuthenticationChallenge: %@", challenge);
@@ -197,7 +197,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didCancelAuthenticationChallenge: (NSURLAuthenticationChallenge *) challenge
+        didCancelAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) challenge
 {
 #if DEBUG
     NSLog(@"didCancelAuthenticationChallenge: %@", challenge);
@@ -206,8 +207,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didReceiveResponse: (NSURLResponse *) response
-    cacheStoragePolicy: (NSURLCacheStoragePolicy) policy
+        didReceiveResponse: (NSURLResponse *) response
+        cacheStoragePolicy: (NSURLCacheStoragePolicy) policy
 {
 #if DEBUG
     NSLog(@"didReceiveResponse: %@", response);
@@ -216,12 +217,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _storagePolicy = policy;
 
     if ([_delegate respondsToSelector: @selector(connection:
-                                           didReceiveResponse:)])
+                                               didReceiveResponse:)])
         [_delegate connection: self didReceiveResponse: response];
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    cachedResponseIsValid: (NSCachedURLResponse *) cachedResponse
+        cachedResponseIsValid: (NSCachedURLResponse *) cachedResponse
 {
 #if DEBUG
     NSLog(@"cachedResponseIsValid: %@", cachedResponse);
@@ -234,8 +235,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #if DEBUG
     NSString *str =
-        [[[NSString alloc] initWithData: data
-                               encoding: NSUTF8StringEncoding] autorelease];
+            [[[NSString alloc] initWithData: data
+                                   encoding: NSUTF8StringEncoding] autorelease];
     NSLog(@"didLoadData: %@", str);
 #endif
 
@@ -248,7 +249,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didFailWithError: (NSError *) error
+        didFailWithError: (NSError *) error
 {
 #if DEBUG
     NSLog(@"didFailWithError: %@", error);
@@ -270,13 +271,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [[NSURLCache sharedURLCache] removeCachedResponseForRequest: _request];
     } else {
         NSCachedURLResponse *cachedResponse =
-            [[NSCachedURLResponse alloc] initWithResponse: _response
-                                                     data: _mutableData
-                                                 userInfo: nil
-                                            storagePolicy: _storagePolicy];
+                [[NSCachedURLResponse alloc] initWithResponse: _response
+                                                         data: _mutableData
+                                                     userInfo: nil
+                                                storagePolicy: _storagePolicy];
 
         if ([_delegate respondsToSelector: @selector(connection:
-                                               willCacheResponse:)])
+                                                   willCacheResponse:)])
             cachedResponse = [_delegate connection: self
                                  willCacheResponse: cachedResponse];
 

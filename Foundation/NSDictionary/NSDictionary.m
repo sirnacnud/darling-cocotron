@@ -127,7 +127,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithContentsOfFile: (NSString *) path {
     NSDictionary *contents =
-        [NSPropertyListReader dictionaryWithContentsOfFile: path];
+            [NSPropertyListReader dictionaryWithContentsOfFile: path];
 
     if (contents == nil) {
         [self dealloc];
@@ -205,10 +205,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     va_end(arguments);
 
-    return
-        [[[self allocWithZone: NULL] initWithObjects: objects
-                                             forKeys: keys
-                                               count: count / 2] autorelease];
+    return [[[self allocWithZone: NULL] initWithObjects: objects
+                                                forKeys: keys
+                                                  count: count / 2]
+            autorelease];
 }
 
 + dictionaryWithObject: object forKey: key {
@@ -218,13 +218,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + dictionaryWithContentsOfFile: (NSString *) path {
-    return
-        [[[self allocWithZone: NULL] initWithContentsOfFile: path] autorelease];
+    return [[[self allocWithZone: NULL] initWithContentsOfFile: path]
+            autorelease];
 }
 
 + dictionaryWithContentsOfURL: (NSURL *) url {
-    return
-        [[[self allocWithZone: NULL] initWithContentsOfURL: url] autorelease];
+    return [[[self allocWithZone: NULL] initWithContentsOfURL: url]
+            autorelease];
 }
 
 - copy {
@@ -310,7 +310,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSEnumerator *) objectEnumerator {
     return [[[NSEnumerator_dictionaryObjects allocWithZone: NULL]
-        initWithDictionary: self] autorelease];
+            initWithDictionary: self] autorelease];
 }
 
 - (void) getObjects: (id *) objects andKeys: (id *) keys {

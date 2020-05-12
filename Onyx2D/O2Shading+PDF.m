@@ -242,7 +242,7 @@ O2Shading *radialShading(O2PDFDictionary *dictionary,
     }
 
     if ((colorSpace = [O2ColorSpace
-             createColorSpaceFromPDFObject: colorSpaceObject]) == nil)
+                 createColorSpaceFromPDFObject: colorSpaceObject]) == nil)
         return nil;
 
     switch (shadingType) {

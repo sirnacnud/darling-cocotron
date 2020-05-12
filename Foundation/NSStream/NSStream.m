@@ -24,24 +24,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSStream.h>
 
 NSString *const NSStreamDataWrittenToMemoryStreamKey =
-    @"kCFStreamPropertyDataWritten";
+        @"kCFStreamPropertyDataWritten";
 NSString *const NSStreamFileCurrentOffsetKey =
-    @"kCFStreamPropertyFileCurrentOffset";
+        @"kCFStreamPropertyFileCurrentOffset";
 
 /************* These values are also in CFStream, keep in sync */
 
 NSString *const NSStreamSocketSecurityLevelKey = @"kCFStreamSSLLevel";
 
 NSString *const NSStreamSocketSecurityLevelNone =
-    @"kCFStreamSocketSecurityLevelNone";
+        @"kCFStreamSocketSecurityLevelNone";
 NSString *const NSStreamSocketSecurityLevelSSLv2 =
-    @"kCFStreamSocketSecurityLevelSSLv2";
+        @"kCFStreamSocketSecurityLevelSSLv2";
 NSString *const NSStreamSocketSecurityLevelSSLv3 =
-    @"kCFStreamSocketSecurityLevelSSLv3";
+        @"kCFStreamSocketSecurityLevelSSLv3";
 NSString *const NSStreamSocketSecurityLevelTLSv1 =
-    @"kCFStreamSocketSecurityLevelTLSv1";
+        @"kCFStreamSocketSecurityLevelTLSv1";
 NSString *const NSStreamSocketSecurityLevelNegotiatedSSL =
-    @"kCFStreamSocketSecurityLevelNegotiatedSSL";
+        @"kCFStreamSocketSecurityLevelNegotiatedSSL";
 
 @implementation NSStream
 
@@ -66,12 +66,12 @@ NSString *const NSStreamSocketSecurityLevelNegotiatedSSL =
 
     if (inputStreamp)
         *inputStreamp = input = [[[NSInputStream_socket alloc]
-            initWithSocket: socket
-              streamStatus: NSStreamStatusNotOpen] autorelease];
+                initWithSocket: socket
+                  streamStatus: NSStreamStatusNotOpen] autorelease];
     if (outputStreamp)
         *outputStreamp = output = [[[NSOutputStream_socket alloc]
-            initWithSocket: socket
-              streamStatus: NSStreamStatusNotOpen] autorelease];
+                initWithSocket: socket
+                  streamStatus: NSStreamStatusNotOpen] autorelease];
 }
 
 - delegate {

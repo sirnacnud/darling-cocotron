@@ -44,15 +44,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         unsigned flags = [keyed decodeIntForKey: @"NSTvFlags"];
 
         _items = [[NSMutableArray alloc]
-            initWithArray: [keyed decodeObjectForKey: @"NSTabViewItems"]];
+                initWithArray: [keyed decodeObjectForKey: @"NSTabViewItems"]];
         _selectedItem = [keyed decodeObjectForKey: @"NSSelectedTabViewItem"];
         _allowsTruncatedLabels =
-            [keyed decodeBoolForKey: @"NSAllowTruncatedLabels"];
+                [keyed decodeBoolForKey: @"NSAllowTruncatedLabels"];
         _drawsBackground = [keyed decodeBoolForKey: @"NSDrawsBackground"];
         _controlSize = (flags & 0x18000000) >> 27;
         if (_font == nil)
-            _font =
-                [[NSFont boldSystemFontOfSize: 13 - _controlSize * 2] retain];
+            _font = [[NSFont boldSystemFontOfSize: 13 - _controlSize * 2]
+                    retain];
         _type = (flags & 0x7);
 
         switch (_type) {
@@ -135,11 +135,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             break;
 
         finalSize =
-            [[_items objectAtIndex: 0] sizeOfLabel: _allowsTruncatedLabels];
+                [[_items objectAtIndex: 0] sizeOfLabel: _allowsTruncatedLabels];
         for (i = 1; i < count; ++i)
-            finalSize.width +=
-                [[_items objectAtIndex: i] sizeOfLabel: _allowsTruncatedLabels]
-                    .width;
+            finalSize.width += [[_items objectAtIndex: i]
+                                       sizeOfLabel: _allowsTruncatedLabels]
+                                       .width;
 
         return finalSize;
     }
@@ -289,7 +289,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     for (i = 0; i < count; ++i)
         if ([[(NSTabViewItem *) [_items objectAtIndex: i] identifier]
-                isEqual: identifier])
+                    isEqual: identifier])
             return i;
 
     return NSNotFound;
@@ -384,13 +384,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         BOOL selectItem = YES;
 
         if ([_delegate respondsToSelector: @selector(tabView:
-                                               shouldSelectTabViewItem:)])
+                                                   shouldSelectTabViewItem:)])
             selectItem = [_delegate tabView: self
                     shouldSelectTabViewItem: item];
 
         if (selectItem) {
             if ([_delegate respondsToSelector: @selector(tabView:
-                                                   willSelectTabViewItem:)])
+                                                       willSelectTabViewItem:)])
                 [_delegate tabView: self willSelectTabViewItem: item];
 
             [[_selectedItem view] removeFromSuperview];
@@ -403,10 +403,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
             if ([item initialFirstResponder])
                 [[self window]
-                    makeFirstResponder: [item initialFirstResponder]];
+                        makeFirstResponder: [item initialFirstResponder]];
 
             if ([_delegate respondsToSelector: @selector(tabView:
-                                                   didSelectTabViewItem:)])
+                                                       didSelectTabViewItem:)])
                 [_delegate tabView: self didSelectTabViewItem: item];
         }
         // Since we're not opaque, we need to redraw the superview too
@@ -421,7 +421,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) selectTabViewItemWithIdentifier: identifier {
     [self selectTabViewItemAtIndex:
-              [self indexOfTabViewItemWithIdentifier: identifier]];
+                    [self indexOfTabViewItemWithIdentifier: identifier]];
 }
 
 - (void) selectFirstTabViewItem: sender {
@@ -437,9 +437,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if ([sender respondsToSelector: @selector(indexOfSelectedItem)])
         [self selectTabViewItemAtIndex: [sender indexOfSelectedItem]];
     else if ([sender isKindOfClass: [NSMatrix class]])
-        [self selectTabViewItemAtIndex: [[sender cells]
-                                            indexOfObject: [sender
-                                                               selectedCell]]];
+        [self selectTabViewItemAtIndex:
+                        [[sender cells] indexOfObject: [sender selectedCell]]];
 }
 
 - (NSRect) rectForItemBorderAtIndex: (unsigned) index {
@@ -536,9 +535,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         // Shouldn't the view machinery do this automatically?? it might now
         [[self superview] setNeedsDisplay: YES];
         do {
-            event =
-                [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
-                                                      NSLeftMouseDraggedMask];
+            event = [[self window]
+                    nextEventMatchingMask: NSLeftMouseUpMask |
+                                           NSLeftMouseDraggedMask];
         } while ([event type] != NSLeftMouseUp);
 
         [_selectedItem setTabState: NSSelectedTab];

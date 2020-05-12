@@ -24,8 +24,8 @@ typedef enum {
 O2ClipPhase *O2ClipPhaseInitWithNonZeroPath(O2ClipPhase *self, O2Path *path);
 - initWithEOPath: (O2Path *) path;
 - initWithMask: (O2Image *) mask
-          rect: (O2Rect) rect
-     transform: (O2AffineTransform) transform;
+             rect: (O2Rect) rect
+        transform: (O2AffineTransform) transform;
 
 O2ClipPhaseType O2ClipPhasePhaseType(O2ClipPhase *self);
 id O2ClipPhaseObject(O2ClipPhase *self);

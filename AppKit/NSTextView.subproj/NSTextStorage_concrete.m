@@ -120,8 +120,10 @@ static inline void setAttributes(NSTextStorage_concrete *self,
     NSRangeEntriesVerify(self->_rangeToAttributes, [self length]);
 }
 
-static inline void replaceCharactersInRangeWithAttributedString(
-    NSTextStorage_concrete *self, NSRange replaced, NSAttributedString *other)
+static inline void
+replaceCharactersInRangeWithAttributedString(NSTextStorage_concrete *self,
+                                             NSRange replaced,
+                                             NSAttributedString *other)
 {
     NSString *string = [other string];
     unsigned location = 0;
@@ -132,8 +134,8 @@ static inline void replaceCharactersInRangeWithAttributedString(
         NSRange effectiveRange;
         NSDictionary *attributes = [other attributesAtIndex: location
                                              effectiveRange: &effectiveRange];
-        NSRange range =
-            NSMakeRange(replaced.location + location, effectiveRange.length);
+        NSRange range = NSMakeRange(replaced.location + location,
+                                    effectiveRange.length);
 
         setAttributes(self, attributes, range);
 
@@ -147,8 +149,8 @@ static inline void replaceCharactersInRangeWithAttributedString(
     }
 
     [self edited: NSTextStorageEditedAttributes | NSTextStorageEditedCharacters
-                 range: replaced
-        changeInLength: delta];
+                     range: replaced
+            changeInLength: delta];
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
@@ -156,8 +158,8 @@ static inline void replaceCharactersInRangeWithAttributedString(
 {
     int delta = replaceCharactersInRangeWithString(self, range, string);
     [self edited: NSTextStorageEditedAttributes | NSTextStorageEditedCharacters
-                 range: range
-        changeInLength: delta];
+                     range: range
+            changeInLength: delta];
 }
 
 - (void) setAttributes: (NSDictionary *) attributes range: (NSRange) range {
@@ -174,13 +176,13 @@ static inline void replaceCharactersInRangeWithAttributedString(
 - (void) setAttributedString: (NSAttributedString *) attributedString {
     [self beginEditing];
     replaceCharactersInRangeWithAttributedString(
-        self, NSMakeRange(0, [self length]), attributedString);
+            self, NSMakeRange(0, [self length]), attributedString);
     [self endEditing];
 }
 
 - (NSMutableString *) mutableString {
-    return
-        [[[NSClassFromString(@"NSMutableStringProxyForMutableAttributedString")
+    return [[[NSClassFromString(
+            @"NSMutableStringProxyForMutableAttributedString")
             allocWithZone: NULL]
             performSelector: @selector(initWithMutableAttributedString:)
                  withObject: self] autorelease];

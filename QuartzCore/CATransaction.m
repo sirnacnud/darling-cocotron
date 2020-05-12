@@ -6,12 +6,12 @@
 #import <QuartzCore/CATransaction.h>
 
 NSString *const kCATransactionAnimationDuration =
-    @"kCATransactionAnimationDuration";
+        @"kCATransactionAnimationDuration";
 NSString *const kCATransactionDisableActions = @"kCATransactionDisableActions";
 NSString *const kCATransactionAnimationTimingFunction =
-    @"kCATransactionAnimationTimingFunction";
+        @"kCATransactionAnimationTimingFunction";
 NSString *const kCATransactionCompletionBlock =
-    @"kCATransactionCompletionBlock";
+        @"kCATransactionCompletionBlock";
 
 @implementation CATransaction
 
@@ -43,11 +43,12 @@ static CATransactionGroup *createImplicitTransactionGroupIfNeeded() {
 
         [transactionStack() addObject: check];
         [[NSRunLoop currentRunLoop]
-            performSelector: @selector(commit)
-                     target: [CATransaction class]
-                   argument: nil
-                      order: 0
-                      modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+                performSelector: @selector(commit)
+                         target: [CATransaction class]
+                       argument: nil
+                          order: 0
+                          modes: [NSArray arrayWithObject:
+                                                  NSDefaultRunLoopMode]];
     }
 
     return check;

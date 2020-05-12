@@ -50,7 +50,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         for (NSString *path in moms) {
             NSURL *url = [NSURL fileURLWithPath: path];
             NSManagedObjectModel *model =
-                [[NSManagedObjectModel alloc] initWithContentsOfURL: url];
+                    [[NSManagedObjectModel alloc] initWithContentsOfURL: url];
 
             if (model == nil)
                 NSLog(@"-[%@ initWithContentsOfURL:] failed. url=%@", self,
@@ -82,9 +82,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [_entities setObject: entity forKey: [[entity name] uppercaseString]];
 
     _fetchRequestTemplates =
-        [[coder decodeObjectForKey: @"NSFetchRequestTemplates"] retain];
+            [[coder decodeObjectForKey: @"NSFetchRequestTemplates"] retain];
     _versionIdentifiers =
-        [[coder decodeObjectForKey: @"NSVersionIdentifiers"] retain];
+            [[coder decodeObjectForKey: @"NSVersionIdentifiers"] retain];
 
     return self;
 }
@@ -98,7 +98,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         return nil;
 
     NSKeyedUnarchiver *unarchiver =
-        [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
+            [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
     NSManagedObjectModel *result = [unarchiver decodeObjectForKey: @"root"];
 
     [unarchiver release];
@@ -143,7 +143,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setEntities: (NSArray *) entities
-    forConfiguration: (NSString *) configuration
+        forConfiguration: (NSString *) configuration
 {
     [_configurations setObject: entities forKey: configuration];
 }
@@ -154,7 +154,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSFetchRequest *) fetchRequestFromTemplateWithName: (NSString *) name
                                 substitutionVariables:
-                                    (NSDictionary *) variables
+                                        (NSDictionary *) variables
 {
     NSUnimplementedMethod();
 }

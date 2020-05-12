@@ -39,7 +39,7 @@ O2ClipMask *O2ClipStateIntegralMask(O2ClipState *self);
 - (void) addNonZeroWindingPath: (O2Path *) path;
 - (void) addEvenOddWindingPath: (O2Path *) path;
 - (void) addMask: (O2Image *) image
-          inRect: (O2Rect) rect
-       transform: (O2AffineTransform) transform;
+           inRect: (O2Rect) rect
+        transform: (O2AffineTransform) transform;
 
 @end

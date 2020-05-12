@@ -25,16 +25,16 @@ NSString *const NSAppearanceNameLightContent = @"NSAppearanceNameLightContent";
 NSString *const NSAppearanceNameVibrantDark = @"NSAppearanceNameVibrantDark";
 NSString *const NSAppearanceNameVibrantLight = @"NSAppearanceNameVibrantLight";
 NSString *const NSAppearanceNameAccessibilityHighContrastAqua =
-    @"NSAppearanceNameAccessibilityAqua";
+        @"NSAppearanceNameAccessibilityAqua";
 NSString *const NSAppearanceNameAccessibilityHighContrastDarkAqua =
-    @"NSAppearanceNameAccessibilityDarkAqua";
+        @"NSAppearanceNameAccessibilityDarkAqua";
 NSString *const NSAppearanceNameAccessibilityHighContrastVibrantLight =
-    @"NSAppearanceNameAccessibilityVibrantLight";
+        @"NSAppearanceNameAccessibilityVibrantLight";
 NSString *const NSAppearanceNameAccessibilityHighContrastVibrantDark =
-    @"NSAppearanceNameAccessibilityVibrantDark";
+        @"NSAppearanceNameAccessibilityVibrantDark";
 
 NSString *const NSAppearanceNameControlStrip =
-    @"NSAppearanceNameControlStrip"; // Undocumented
+        @"NSAppearanceNameControlStrip"; // Undocumented
 
 @implementation NSAppearance
 

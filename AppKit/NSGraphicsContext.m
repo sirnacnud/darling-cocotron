@@ -61,8 +61,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _isDrawingToScreen = CGContextIsBitmapContext(context);
     _isFlipped = flipped;
     _deviceDescription =
-        [[NSDictionary dictionaryWithObject: [NSNumber numberWithBool: NO]
-                                     forKey: NSDeviceIsScreen] copy];
+            [[NSDictionary dictionaryWithObject: [NSNumber numberWithBool: NO]
+                                         forKey: NSDeviceIsScreen] copy];
     _shouldAntialias = YES;
     _renderingIntent = NSColorRenderingIntentDefault;
     _compOperation = NSCompositeSourceOver;
@@ -78,9 +78,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
     _graphicsPort = CGBitmapContextCreate(
-        [imageRep bitmapData], [imageRep pixelsWide], [imageRep pixelsHigh],
-        [imageRep bitsPerSample], [imageRep bytesPerRow], colorSpace,
-        [imageRep CGBitmapInfo]);
+            [imageRep bitmapData], [imageRep pixelsWide], [imageRep pixelsHigh],
+            [imageRep bitsPerSample], [imageRep bytesPerRow], colorSpace,
+            [imageRep CGBitmapInfo]);
 
     if (_graphicsPort == nil) {
         [self dealloc];
@@ -91,8 +91,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _isDrawingToScreen = YES;
     _isFlipped = NO;
     _deviceDescription =
-        [[NSDictionary dictionaryWithObject: [NSNumber numberWithBool: YES]
-                                     forKey: NSDeviceIsScreen] copy];
+            [[NSDictionary dictionaryWithObject: [NSNumber numberWithBool: YES]
+                                         forKey: NSDeviceIsScreen] copy];
     return self;
 }
 
@@ -117,7 +117,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSGraphicsContext *) graphicsContextWithBitmapImageRep:
-    (NSBitmapImageRep *) imageRep
+        (NSBitmapImageRep *) imageRep
 {
     return [[[self alloc] initWithBitmapImageRep: imageRep] autorelease];
 }
@@ -233,20 +233,20 @@ NSMutableArray *NSCurrentFocusStack() {
 
 - (void) setCompositingOperation: (NSCompositingOperation) value {
     CGBlendMode blendMode[] = {
-        kCGBlendModeClear,
-        kCGBlendModeCopy,
-        kCGBlendModeNormal,
-        kCGBlendModeSourceIn,
-        kCGBlendModeSourceOut,
-        kCGBlendModeSourceAtop,
-        kCGBlendModeDestinationOver,
-        kCGBlendModeDestinationIn,
-        kCGBlendModeDestinationOut,
-        kCGBlendModeDestinationAtop,
-        kCGBlendModeXOR,
-        kCGBlendModePlusDarker,
-        kCGBlendModeNormal,
-        kCGBlendModePlusLighter,
+            kCGBlendModeClear,
+            kCGBlendModeCopy,
+            kCGBlendModeNormal,
+            kCGBlendModeSourceIn,
+            kCGBlendModeSourceOut,
+            kCGBlendModeSourceAtop,
+            kCGBlendModeDestinationOver,
+            kCGBlendModeDestinationIn,
+            kCGBlendModeDestinationOut,
+            kCGBlendModeDestinationAtop,
+            kCGBlendModeXOR,
+            kCGBlendModePlusDarker,
+            kCGBlendModeNormal,
+            kCGBlendModePlusLighter,
     };
     if (value < NSCompositeClear || value > NSCompositePlusLighter)
         return;

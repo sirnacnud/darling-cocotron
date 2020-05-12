@@ -30,27 +30,27 @@
 - (void) clear;
 
 - (void) drawPath: (CGPathRef) path
-             drawingMode: (CGPathDrawingMode) drawingMode
-               blendMode: (CGBlendMode) blendMode
-    interpolationQuality: (CGInterpolationQuality) interpolationQuality
-               fillColor: (NSColor *) fillColor
-             strokeColor: (NSColor *) strokeColor
-               lineWidth: (float) lineWidth
-                 lineCap: (CGLineCap) lineCap
-                lineJoin: (CGLineJoin) lineJoin
-              miterLimit: (float) miterLimit
-               dashPhase: (float) dashPhase
-        dashLengthsCount: (unsigned) dashLengthsCount
-             dashLengths: (float *) dashLengths
-                flatness: (float) flatness
-               transform: (CGAffineTransform) xform
-               antialias: (BOOL) antialias;
+                 drawingMode: (CGPathDrawingMode) drawingMode
+                   blendMode: (CGBlendMode) blendMode
+        interpolationQuality: (CGInterpolationQuality) interpolationQuality
+                   fillColor: (NSColor *) fillColor
+                 strokeColor: (NSColor *) strokeColor
+                   lineWidth: (float) lineWidth
+                     lineCap: (CGLineCap) lineCap
+                    lineJoin: (CGLineJoin) lineJoin
+                  miterLimit: (float) miterLimit
+                   dashPhase: (float) dashPhase
+            dashLengthsCount: (unsigned) dashLengthsCount
+                 dashLengths: (float *) dashLengths
+                    flatness: (float) flatness
+                   transform: (CGAffineTransform) xform
+                   antialias: (BOOL) antialias;
 
 - (void) drawBitmapImageRep: (NSBitmapImageRep *) imageRep
-                  antialias: (BOOL) antialias
-       interpolationQuality: (CGInterpolationQuality) interpolationQuality
-                  blendMode: (CGBlendMode) blendMode
-                  fillColor: (NSColor *) fillColor
-                  transform: (CGAffineTransform) xform;
+                   antialias: (BOOL) antialias
+        interpolationQuality: (CGInterpolationQuality) interpolationQuality
+                   blendMode: (CGBlendMode) blendMode
+                   fillColor: (NSColor *) fillColor
+                   transform: (CGAffineTransform) xform;
 
 @end

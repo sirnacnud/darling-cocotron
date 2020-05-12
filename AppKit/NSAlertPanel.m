@@ -36,11 +36,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #define BUTTON_MARGIN 8
 
 - initWithTitle: (NSString *) title
-            message: (NSString *) message
-      defaultButton: (NSString *) defaultTitle
-    alternateButton: (NSString *) alternateTitle
-        otherButton: (NSString *) otherTitle
-              sheet: (BOOL) sheet
+                message: (NSString *) message
+          defaultButton: (NSString *) defaultTitle
+        alternateButton: (NSString *) alternateTitle
+            otherButton: (NSString *) otherTitle
+                  sheet: (BOOL) sheet
 {
     NSImage *image = [NSImage imageNamed: @"NSAlertPanelExclamation"];
     NSSize imageSize = [image size];
@@ -58,7 +58,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (defaultTitle == nil)
         defaultTitle = NSLocalizedStringFromTableInBundle(
-            @"OK", nil, [NSBundle bundleForClass: [NSAlertPanel class]], @"");
+                @"OK", nil, [NSBundle bundleForClass: [NSAlertPanel class]],
+                @"");
 
     defaultSize = [drawer sizeOfString: defaultTitle
                         withAttributes: nil
@@ -122,24 +123,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     contentRect.origin = NSZeroPoint;
     contentRect.size = panelSize;
 
-    self = [self
-        initWithContentRect: contentRect
-                  styleMask: sheet ? NSDocModalWindowMask
-                                   : NSTitledWindowMask | NSClosableWindowMask
-                    backing: NSBackingStoreBuffered
-                      defer: NO];
+    self = [self initWithContentRect: contentRect
+                           styleMask: sheet ? NSDocModalWindowMask
+                                            : NSTitledWindowMask |
+                                                      NSClosableWindowMask
+                             backing: NSBackingStoreBuffered
+                               defer: NO];
 
     if ([title length] == 0)
         title = NSLocalizedStringFromTableInBundle(
-            @"Alert", nil, [NSBundle bundleForClass: [NSAlertPanel class]],
-            @"Alert panel title");
+                @"Alert", nil, [NSBundle bundleForClass: [NSAlertPanel class]],
+                @"Alert panel title");
 
     [self setTitle: title];
     [self setLevel: NSModalPanelWindowLevel];
 
     viewFrame.origin.y = BOTTOM_MARGIN;
     viewFrame.origin.x =
-        LEFT_MARGIN + floor((panelSize.width - buttonTotalWidth) / 2);
+            LEFT_MARGIN + floor((panelSize.width - buttonTotalWidth) / 2);
     viewFrame.size.width = buttonWidth;
     viewFrame.size.height = buttonHeight;
     _defaultButton = [[[NSButton alloc] initWithFrame: viewFrame] autorelease];
@@ -156,7 +157,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         viewFrame.size.width = buttonWidth;
         viewFrame.size.height = buttonHeight;
         _alternateButton =
-            [[[NSButton alloc] initWithFrame: viewFrame] autorelease];
+                [[[NSButton alloc] initWithFrame: viewFrame] autorelease];
         [_alternateButton setTitle: alternateTitle];
         [_alternateButton setTarget: self];
         [_alternateButton setAction: @selector(alternateButton:)];
@@ -170,7 +171,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         viewFrame.size.width = buttonWidth;
         viewFrame.size.height = buttonHeight;
         _otherButton =
-            [[[NSButton alloc] initWithFrame: viewFrame] autorelease];
+                [[[NSButton alloc] initWithFrame: viewFrame] autorelease];
         [_otherButton setTitle: otherTitle];
         [_otherButton setTarget: self];
         [_otherButton setAction: @selector(otherButton:)];
@@ -194,8 +195,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     viewFrame.origin.y -= messageSize.height - imageSize.height;
     viewFrame.size = messageSize;
     viewFrame.size.width +=
-        6; // TextField's like to shrink the title area a bit - so make sure it
-           // doesn't make it too small for the message!
+            6; // TextField's like to shrink the title area a bit - so make sure
+               // it doesn't make it too small for the message!
     _messageText = [[[NSTextField alloc] initWithFrame: viewFrame] autorelease];
     [_messageText setStringValue: message];
     [_messageText setSelectable: YES];

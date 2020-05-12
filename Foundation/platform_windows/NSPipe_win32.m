@@ -45,11 +45,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
     _fileHandleForReading =
-        [[NSFileHandle_win32 alloc] initWithHandle: readHandle
-                                    closeOnDealloc: YES];
+            [[NSFileHandle_win32 alloc] initWithHandle: readHandle
+                                        closeOnDealloc: YES];
     _fileHandleForWriting =
-        [[NSFileHandle_win32 alloc] initWithHandle: writeHandle
-                                    closeOnDealloc: YES];
+            [[NSFileHandle_win32 alloc] initWithHandle: writeHandle
+                                        closeOnDealloc: YES];
 
     return self;
 }

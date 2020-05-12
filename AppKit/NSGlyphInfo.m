@@ -37,10 +37,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [super dealloc];
 }
 
-+ (NSGlyphInfo *) glyphInfoWithCharacterIdentifier: (NSUInteger) identifier
-                                        collection:
-                                            (NSCharacterCollection) collection
-                                        baseString: (NSString *) baseString
++ (NSGlyphInfo *)
+        glyphInfoWithCharacterIdentifier: (NSUInteger) identifier
+                              collection: (NSCharacterCollection) collection
+                              baseString: (NSString *) baseString
 {
     NSUnimplementedMethod();
     return nil;

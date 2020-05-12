@@ -29,9 +29,9 @@ APPKIT_EXPORT NSString *const NSAppearanceNameVibrantLight;
 APPKIT_EXPORT NSString *const NSAppearanceNameAccessibilityHighContrastAqua;
 APPKIT_EXPORT NSString *const NSAppearanceNameAccessibilityHighContrastDarkAqua;
 APPKIT_EXPORT NSString
-    *const NSAppearanceNameAccessibilityHighContrastVibrantLight;
+        *const NSAppearanceNameAccessibilityHighContrastVibrantLight;
 APPKIT_EXPORT NSString
-    *const NSAppearanceNameAccessibilityHighContrastVibrantDark;
+        *const NSAppearanceNameAccessibilityHighContrastVibrantDark;
 
 APPKIT_EXPORT NSString *const NSAppearanceNameControlStrip; // Undocumented
 

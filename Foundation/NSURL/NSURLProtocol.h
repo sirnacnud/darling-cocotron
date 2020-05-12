@@ -20,27 +20,27 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSURLCache.h>
 
 @class NSURLProtocol, NSURLRequest, NSURLResponse, NSURLAuthenticationChallenge,
-    NSCachedURLResponse, NSData, NSError, NSMutableURLRequest;
+        NSCachedURLResponse, NSData, NSError, NSMutableURLRequest;
 
 @protocol NSURLProtocolClient
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    wasRedirectedToRequest: (NSURLRequest *) request
-          redirectResponse: (NSURLResponse *) redirect;
+        wasRedirectedToRequest: (NSURLRequest *) request
+              redirectResponse: (NSURLResponse *) redirect;
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didReceiveAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge;
+        didReceiveAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) challenge;
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didCancelAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge;
+        didCancelAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) challenge;
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didReceiveResponse: (NSURLResponse *) response
-    cacheStoragePolicy: (NSURLCacheStoragePolicy) policy;
+        didReceiveResponse: (NSURLResponse *) response
+        cacheStoragePolicy: (NSURLCacheStoragePolicy) policy;
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    cachedResponseIsValid: (NSCachedURLResponse *) response;
+        cachedResponseIsValid: (NSCachedURLResponse *) response;
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
          didLoadData: (NSData *) data;
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didFailWithError: (NSError *) error;
+        didFailWithError: (NSError *) error;
 - (void) URLProtocolDidFinishLoading: (NSURLProtocol *) urlProtocol;
 @end
 
@@ -66,8 +66,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                         toRequest: (NSURLRequest *) other;
 
 - initWithRequest: (NSURLRequest *) request
-    cachedResponse: (NSCachedURLResponse *) response
-            client: (id<NSURLProtocolClient>) client;
+        cachedResponse: (NSCachedURLResponse *) response
+                client: (id<NSURLProtocolClient>) client;
 
 - (NSURLRequest *) request;
 - (NSCachedURLResponse *) cachedResponse;

@@ -62,8 +62,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithStream: (O2PDFStream *) stream
-       resources: (O2PDFDictionary *) resources
-          parent: (O2PDFContentStream *) parent
+        resources: (O2PDFDictionary *) resources
+           parent: (O2PDFContentStream *) parent
 {
     NSArray *array = [NSArray arrayWithObject: stream];
 

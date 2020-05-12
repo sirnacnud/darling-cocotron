@@ -29,10 +29,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithTitle: (NSString *) title
-            message: (NSString *) message
-      defaultButton: (NSString *) defaulteTitle
-    alternateButton: (NSString *) alternateTitle
-        otherButton: (NSString *) otherTitle
-              sheet: (BOOL) sheet;
+                message: (NSString *) message
+          defaultButton: (NSString *) defaulteTitle
+        alternateButton: (NSString *) alternateTitle
+            otherButton: (NSString *) otherTitle
+                  sheet: (BOOL) sheet;
 
 @end

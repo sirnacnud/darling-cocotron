@@ -32,8 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) getObjectValue: (id *) object
-              forString: (NSString *) string
-       errorDescription: (NSString **) error
+               forString: (NSString *) string
+        errorDescription: (NSString **) error
 {
     NSInvalidAbstractInvocation();
     return NO;
@@ -51,7 +51,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSAttributedString *) attributedStringForObjectValue: (id) object
                                   withDefaultAttributes:
-                                      (NSDictionary *) attributes
+                                          (NSDictionary *) attributes
 {
     NSInvalidAbstractInvocation();
     return nil;

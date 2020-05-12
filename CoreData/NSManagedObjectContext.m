@@ -32,9 +32,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSUndoManager.h>
 
 NSString *const NSManagedObjectContextWillSaveNotification =
-    @"NSManagedObjectContextWillSaveNotification";
+        @"NSManagedObjectContextWillSaveNotification";
 NSString *const NSManagedObjectContextDidSaveNotification =
-    @"NSManagedObjectContextDidSaveNotification";
+        @"NSManagedObjectContextDidSaveNotification";
 
 NSString *const NSInsertedObjectsKey = @"NSInsertedObjectsKey";
 NSString *const NSUpdatedObjectsKey = @"NSUpdatedObjectsKey";
@@ -59,8 +59,8 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
     _updatedObjects = [[NSMutableSet alloc] init];
     _deletedObjects = [[NSMutableSet alloc] init];
 
-    _objectIdToObject =
-        NSCreateMapTable(NSObjectMapKeyCallBacks, NSObjectMapValueCallBacks, 0);
+    _objectIdToObject = NSCreateMapTable(NSObjectMapKeyCallBacks,
+                                         NSObjectMapValueCallBacks, 0);
     _requestedProcessPendingChanges = NO;
     return self;
 }
@@ -100,7 +100,7 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 
 - (void) persistentStoresDidChange: (NSNotification *) note {
     NSArray *stores =
-        [[note userInfo] objectForKey: NSRemovedPersistentStoresKey];
+            [[note userInfo] objectForKey: NSRemovedPersistentStoresKey];
 
     for (NSPersistentStore *store in stores) {
         NSArray *allObjects = NSAllMapTableValues(_objectIdToObject);
@@ -129,10 +129,9 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 - (void) setPersistentStoreCoordinator: (NSPersistentStoreCoordinator *) value {
     if (_storeCoordinator != nil)
         [[NSNotificationCenter defaultCenter]
-            removeObserver: self
-                      name:
-                          NSPersistentStoreCoordinatorStoresDidChangeNotification
-                    object: _storeCoordinator];
+                removeObserver: self
+                          name: NSPersistentStoreCoordinatorStoresDidChangeNotification
+                        object: _storeCoordinator];
 
     value = [value retain];
     [_storeCoordinator release];
@@ -140,10 +139,10 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 
     if (_storeCoordinator != nil)
         [[NSNotificationCenter defaultCenter]
-            addObserver: self
-               selector: @selector(persistentStoresDidChange:)
-                   name: NSPersistentStoreCoordinatorStoresDidChangeNotification
-                 object: _storeCoordinator];
+                addObserver: self
+                   selector: @selector(persistentStoresDidChange:)
+                       name: NSPersistentStoreCoordinatorStoresDidChangeNotification
+                     object: _storeCoordinator];
 }
 
 - (void) setUndoManager: (NSUndoManager *) value {
@@ -225,10 +224,10 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 }
 
 - (NSAtomicStoreCacheNode *) _cacheNodeForObjectID:
-    (NSManagedObjectID *) objectID
+        (NSManagedObjectID *) objectID
 {
     NSAtomicStore *store = (NSAtomicStore *) [_storeCoordinator
-        _persistentStoreForObjectID: objectID];
+            _persistentStoreForObjectID: objectID];
 
     return [store cacheNodeForObjectID: objectID];
 }
@@ -282,8 +281,8 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 
         if ([entity _isKindOfEntity: [fetchRequest entity]]) {
             if (![_deletedObjects containsObject: check]) {
-                if ([affectedStores
-                        containsObject: [[check objectID] persistentStore]]) {
+                if ([affectedStores containsObject: [[check objectID]
+                                                            persistentStore]]) {
                     [resultSet addObject: check];
                 }
             }
@@ -308,7 +307,7 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
     }
 
     NSMutableArray *result =
-        [NSMutableArray arrayWithArray: [resultSet allObjects]];
+            [NSMutableArray arrayWithArray: [resultSet allObjects]];
 
     NSPredicate *p = [fetchRequest predicate];
 
@@ -328,7 +327,7 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 
 - (void) insertObject: (NSManagedObject *) object {
     NSPersistentStore *store =
-        [_storeCoordinator _persistentStoreForObject: object];
+            [_storeCoordinator _persistentStoreForObject: object];
 
     [[object objectID] setStoreIdentifier: [store identifier]];
     [[object objectID] setPersistentStore: store];
@@ -374,12 +373,12 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
     if (!_requestedProcessPendingChanges) {
 
         NSRunLoop *runLoop = [NSRunLoop mainRunLoop];
-        [runLoop
-            performSelector: @selector(_processPendingChangesForRequest)
-                     target: self
-                   argument: nil
-                      order: 0
-                      modes: [NSArray arrayWithObject: NSRunLoopCommonModes]];
+        [runLoop performSelector: @selector(_processPendingChangesForRequest)
+                          target: self
+                        argument: nil
+                           order: 0
+                           modes: [NSArray arrayWithObject:
+                                                   NSRunLoopCommonModes]];
         _requestedProcessPendingChanges = YES;
     }
 }
@@ -390,10 +389,10 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 
 - (void) processPendingChanges {
     if (_requestedProcessPendingChanges) {
-        [[NSRunLoop mainRunLoop]
-            cancelPerformSelector: @selector(_processPendingChangesForRequest)
-                           target: self
-                         argument: nil];
+        [[NSRunLoop mainRunLoop] cancelPerformSelector: @selector
+                                 (_processPendingChangesForRequest)
+                                                target: self
+                                              argument: nil];
     }
 
     [self _processPendingChanges];
@@ -434,10 +433,10 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 
                 if (storeIdentifier != nil)
                     store = (NSAtomicStore *) [_storeCoordinator
-                        _persistentStoreWithIdentifier: storeIdentifier];
+                            _persistentStoreWithIdentifier: storeIdentifier];
                 else {
                     store = (NSAtomicStore *) [_storeCoordinator
-                        _persistentStoreForObject: check];
+                            _persistentStoreForObject: check];
                     [checkID setStoreIdentifier: [store identifier]];
                 }
 
@@ -446,7 +445,7 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 #endif
 
             id referenceObject =
-                [store newReferenceObjectForManagedObject: check];
+                    [store newReferenceObjectForManagedObject: check];
 
             [checkID setReferenceObject: referenceObject];
 
@@ -466,15 +465,15 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
     NSMutableSet *affectedStores = [NSMutableSet set];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSManagedObjectContextWillSaveNotification
-                      object: self];
+            postNotificationName: NSManagedObjectContextWillSaveNotification
+                          object: self];
 
     // delete cache nodes
     for (NSManagedObject *deleted in _deletedObjects) {
         NSAtomicStore *store = (NSAtomicStore *) [_storeCoordinator
-            _persistentStoreForObject: deleted];
+                _persistentStoreForObject: deleted];
         NSAtomicStoreCacheNode *node =
-            [store cacheNodeForObjectID: [deleted objectID]];
+                [store cacheNodeForObjectID: [deleted objectID]];
 
         [store willRemoveCacheNodes: [NSSet setWithObject: node]];
 
@@ -495,19 +494,19 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
                      forKey: NSLocalizedDescriptionKey];
 
         if (errorp != NULL)
-            *errorp =
-                [NSError errorWithDomain: NSCocoaErrorDomain
-                                    code: NSPersistentStoreIncompleteSaveError
-                                userInfo: userInfo];
+            *errorp = [NSError
+                    errorWithDomain: NSCocoaErrorDomain
+                               code: NSPersistentStoreIncompleteSaveError
+                           userInfo: userInfo];
 
         return NO;
     }
 
     for (NSManagedObject *inserted in _insertedObjects) {
         NSAtomicStore *store = (NSAtomicStore *) [_storeCoordinator
-            _persistentStoreForObject: inserted];
+                _persistentStoreForObject: inserted];
         NSAtomicStoreCacheNode *node =
-            [store newCacheNodeForManagedObject: inserted];
+                [store newCacheNodeForManagedObject: inserted];
 
         [store addCacheNodes: [NSSet setWithObject: node]];
 
@@ -518,9 +517,9 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 
     for (NSManagedObject *updated in _updatedObjects) {
         NSAtomicStore *store = (NSAtomicStore *) [_storeCoordinator
-            _persistentStoreForObject: updated];
+                _persistentStoreForObject: updated];
         NSAtomicStoreCacheNode *node =
-            [store cacheNodeForObjectID: [updated objectID]];
+                [store cacheNodeForObjectID: [updated objectID]];
 
         [store updateCacheNode: node fromManagedObject: updated];
 
@@ -541,8 +540,8 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
     }
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSManagedObjectContextDidSaveNotification
-                      object: self];
+            postNotificationName: NSManagedObjectContextDidSaveNotification
+                          object: self];
 
     if ([errors count] == 0)
         return YES;
@@ -563,7 +562,7 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 }
 
 - (void) mergeChangesFromContextDidSaveNotification:
-    (NSNotification *) notification
+        (NSNotification *) notification
 {
     NSUnimplementedMethod();
 }

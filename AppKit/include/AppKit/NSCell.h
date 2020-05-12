@@ -263,9 +263,9 @@ enum {
                inView: (NSView *) view
             mouseIsUp: (BOOL) flag;
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) frame
-             ofView: (NSView *) view
-       untilMouseUp: (BOOL) flag;
+              inRect: (NSRect) frame
+              ofView: (NSView *) view
+        untilMouseUp: (BOOL) flag;
 
 - (NSText *) setUpFieldEditorAttributes: (NSText *) editor;
 

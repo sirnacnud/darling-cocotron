@@ -31,7 +31,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
  */
 - (BOOL) processInputImmediately {
     BOOL hadPeriodic =
-        [[Win32Display currentDisplay] containsAndRemovePeriodicEvents];
+            [[Win32Display currentDisplay] containsAndRemovePeriodicEvents];
     MSG msg;
 
     if (PeekMessageW(&msg, NULL, 0, 0, PM_REMOVE)) {
@@ -44,11 +44,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             keyboardState = keyState;
 
         if (![(Win32Display *) [Win32Display currentDisplay]
-                      postMSG: msg
-                keyboardState: keyboardState]) {
+                          postMSG: msg
+                    keyboardState: keyboardState]) {
             Win32Event *cgEvent = [Win32Event eventWithMSG: msg];
             NSEvent *event = [[[NSEvent_CoreGraphics alloc]
-                initWithDisplayEvent: cgEvent] autorelease];
+                    initWithDisplayEvent: cgEvent] autorelease];
 
             [[Win32Display currentDisplay] postEvent: event atStart: NO];
         }
@@ -59,10 +59,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (hadPeriodic) {
         NSEvent *event =
-            [[[NSEvent_periodic alloc] initWithType: NSPeriodic
-                                           location: NSMakePoint(0, 0)
-                                      modifierFlags: 0
-                                             window: nil] autorelease];
+                [[[NSEvent_periodic alloc] initWithType: NSPeriodic
+                                               location: NSMakePoint(0, 0)
+                                          modifierFlags: 0
+                                                 window: nil] autorelease];
 
         [[Win32Display currentDisplay] postEvent: event atStart: NO];
     }

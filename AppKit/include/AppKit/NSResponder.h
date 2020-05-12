@@ -51,10 +51,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSError *) willPresentError: (NSError *) error;
 - (BOOL) presentError: (NSError *) error;
 - (void) presentError: (NSError *) error
-        modalForWindow: (NSWindow *) window
-              delegate: delegate
-    didPresentSelector: (SEL) selector
-           contextInfo: (void *) info;
+            modalForWindow: (NSWindow *) window
+                  delegate: delegate
+        didPresentSelector: (SEL) selector
+               contextInfo: (void *) info;
 
 - (void) keyUp: (NSEvent *) event;
 - (void) keyDown: (NSEvent *) event;
@@ -169,6 +169,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) moveToEndOfDocumentAndModifySelection: sender; // n.b.:
 - (void) moveToBeginningOfDocumentAndModifySelection:
-    sender; // these aren't in OSX (can't hurt)
+        sender; // these aren't in OSX (can't hurt)
 
 @end

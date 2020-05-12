@@ -42,7 +42,7 @@ NSString *const NSLocaleExemplarCharacterSet = @"NSLocaleExemplarCharacterSet";
 NSString *const NSLocaleCollationIdentifier = @"NSLocaleCollationIdentifier";
 
 NSString *const NSCurrentLocaleDidChangeNotification =
-    @"NSCurrentLocaleDidChangeNotification";
+        @"NSCurrentLocaleDidChangeNotification";
 
 BOOL NSCurrentLocaleIsMetric();
 
@@ -58,7 +58,7 @@ static NSLocale *_sharedCurrentLocale = nil;
 + systemLocale {
     if (_sharedSystemLocale == nil)
         _sharedSystemLocale =
-            [[NSLocale alloc] initWithLocaleIdentifier: @"en_US"];
+                [[NSLocale alloc] initWithLocaleIdentifier: @"en_US"];
     return _sharedSystemLocale;
 }
 
@@ -67,14 +67,14 @@ static NSLocale *_sharedCurrentLocale = nil;
         NSString *localeIdentifier;
 
         if ([self respondsToSelector: @selector
-                  (_platformCurrentLocaleIdentifier)])
-            localeIdentifier = [self
-                performSelector: @selector(_platformCurrentLocaleIdentifier)];
+                    (_platformCurrentLocaleIdentifier)])
+            localeIdentifier = [self performSelector: @selector
+                                     (_platformCurrentLocaleIdentifier)];
         else
             localeIdentifier = @"en_US";
 
         _sharedCurrentLocale =
-            [[NSLocale alloc] initWithLocaleIdentifier: localeIdentifier];
+                [[NSLocale alloc] initWithLocaleIdentifier: localeIdentifier];
     }
     return _sharedCurrentLocale;
 }
@@ -101,14 +101,14 @@ static NSLocale *_sharedCurrentLocale = nil;
 
 + (NSDictionary *) componentsFromLocaleIdentifier: (NSString *) identifier {
     if ([identifier
-            isEqualToString: [[NSLocale currentLocale] localeIdentifier]])
+                isEqualToString: [[NSLocale currentLocale] localeIdentifier]])
         return [_sharedCurrentLocale _locale];
-    else if ([identifier
-                 isEqualToString: [[NSLocale systemLocale] localeIdentifier]])
+    else if ([identifier isEqualToString: [[NSLocale systemLocale]
+                                                  localeIdentifier]])
         return [_sharedSystemLocale _locale];
     else
         return [[[[NSLocale alloc] initWithLocaleIdentifier: identifier]
-            autorelease] _locale];
+                autorelease] _locale];
     return 0;
 }
 
@@ -155,18 +155,18 @@ static NSLocale *_sharedCurrentLocale = nil;
     }
 
     NSMutableDictionary *localeInfo = [NSMutableDictionary
-        dictionaryWithObjectsAndKeys: identifier, NSLocaleIdentifier, language,
-                                      NSLocaleLanguageCode, country,
-                                      NSLocaleCountryCode, nil];
+            dictionaryWithObjectsAndKeys: identifier, NSLocaleIdentifier,
+                                          language, NSLocaleLanguageCode,
+                                          country, NSLocaleCountryCode, nil];
 
     if ([[self class] respondsToSelector: @selector
                       (_platformLocaleAdditionalDescriptionForIdentifier:)]) {
         // Use any platform specific method to fill the locale info if one is
         // defined
-        NSDictionary *info =
-            [[self class] performSelector: @selector
-                          (_platformLocaleAdditionalDescriptionForIdentifier:)
-                               withObject: identifier];
+        NSDictionary *info = [[self class]
+                performSelector: @selector
+                (_platformLocaleAdditionalDescriptionForIdentifier:)
+                     withObject: identifier];
         [localeInfo addEntriesFromDictionary: info];
     } else {
         // Else use setlocale & localeconv to try to get some locale info
@@ -179,21 +179,21 @@ static NSLocale *_sharedCurrentLocale = nil;
         // FIXME: This is wrong in that it is using the current locales value,
         // not the identified one
         NSNumber *usesMetric =
-            [NSNumber numberWithBool: NSCurrentLocaleIsMetric()];
+                [NSNumber numberWithBool: NSCurrentLocaleIsMetric()];
 
         [localeInfo
-            setObject: [NSString stringWithUTF8String: conv->decimal_point]
-               forKey: NSLocaleDecimalSeparator];
-        [localeInfo
-            setObject: [NSString stringWithUTF8String: conv->currency_symbol]
-               forKey: NSLocaleCurrencySymbol];
+                setObject: [NSString stringWithUTF8String: conv->decimal_point]
+                   forKey: NSLocaleDecimalSeparator];
+        [localeInfo setObject: [NSString stringWithUTF8String: conv->
+                                                               currency_symbol]
+                       forKey: NSLocaleCurrencySymbol];
         [localeInfo setObject: usesMetric forKey: NSLocaleUsesMetricSystem];
 
         // Restore the initial locale
         setlocale(LC_ALL, currentLocale);
     }
     _locale =
-        [[NSDictionary allocWithZone: NULL] initWithDictionary: localeInfo];
+            [[NSDictionary allocWithZone: NULL] initWithDictionary: localeInfo];
     return self;
 }
 
@@ -225,7 +225,7 @@ static NSLocale *_sharedCurrentLocale = nil;
 }
 
 - (NSString *) description {
-    return
-        [NSString stringWithFormat: @"<%@:%p %@>", [self class], self, _locale];
+    return [NSString
+            stringWithFormat: @"<%@:%p %@>", [self class], self, _locale];
 }
 @end

@@ -41,7 +41,7 @@ NSRangeEntries *NSCreateRangeToOwnedPointerEntries(NSUInteger capacity) {
     result->capacity = (capacity < 4) ? 4 : capacity;
     result->count = 0;
     result->entries =
-        NSZoneMalloc(NULL, sizeof(NSRangeEntry) * result->capacity);
+            NSZoneMalloc(NULL, sizeof(NSRangeEntry) * result->capacity);
     result->objects = NO;
 
     return result;
@@ -166,8 +166,8 @@ void NSRangeEntryInsert(NSRangeEntries *self, NSRange range, void *value) {
                 // one
                 if (range.length == 0 ||
                     [(id)(self->entries[insertAt - 1].value) isEqual: value]) {
-                    range =
-                        NSUnionRange(self->entries[insertAt - 1].range, range);
+                    range = NSUnionRange(self->entries[insertAt - 1].range,
+                                         range);
                     self->entries[insertAt - 1].range = range;
                     merged = YES;
                 }
@@ -230,7 +230,8 @@ void *NSRangeEntryAtIndex(NSRangeEntries *self, NSUInteger location,
                 if (effectiveRangep != NULL) {
                     effectiveRangep->location = NSMaxRange(check);
                     effectiveRangep->length =
-                        self->entries[next].range.location - NSMaxRange(check);
+                            self->entries[next].range.location -
+                            NSMaxRange(check);
                 }
                 return NULL;
             }
@@ -247,9 +248,9 @@ void *NSRangeEntryAtIndex(NSRangeEntries *self, NSUInteger location,
             } else if (location >= NSMaxRange(self->entries[prev].range)) {
                 if (effectiveRangep != NULL) {
                     effectiveRangep->location =
-                        NSMaxRange(self->entries[prev].range);
+                            NSMaxRange(self->entries[prev].range);
                     effectiveRangep->length =
-                        check.location - effectiveRangep->location;
+                            check.location - effectiveRangep->location;
                 }
                 return NULL;
             }
@@ -340,14 +341,14 @@ void NSRangeEntriesExpandAndWipe(NSRangeEntries *self, NSRange range,
                 removeEntryAtIndex(self, count);
             else
                 self->entries[count].range =
-                    NSMakeRange(max + delta, NSMaxRange(check) - max);
+                        NSMakeRange(max + delta, NSMaxRange(check) - max);
         } else if (check.location == range.location) {
             if (delta < 0 && -delta >= check.length)
                 removeEntryAtIndex(self, count);
             else if (useAttributes == useFirst) {
                 self->entries[count].range.length =
-                    MAX(max + delta, NSMaxRange(check) + delta) -
-                    check.location;
+                        MAX(max + delta, NSMaxRange(check) + delta) -
+                        check.location;
                 useAttributes = useNone;
             }
         } else if (check.location < range.location) {
@@ -357,10 +358,10 @@ void NSRangeEntriesExpandAndWipe(NSRangeEntries *self, NSRange range,
                 self->entries[count].range.length += delta;
             else if (useAttributes == useBefore || useAttributes == useFirst)
                 self->entries[count].range.length =
-                    (max + delta) - check.location;
+                        (max + delta) - check.location;
             else
                 self->entries[count].range.length =
-                    range.location - check.location;
+                        range.location - check.location;
         }
     }
 }
@@ -397,7 +398,7 @@ void NSRangeEntriesDivideAndConquer(NSRangeEntries *self, NSRange range) {
                 }
                 // Shorten the entry to make room for the added one
                 self->entries[count].range.length =
-                    range.location - check.location;
+                        range.location - check.location;
             }
         }
     }

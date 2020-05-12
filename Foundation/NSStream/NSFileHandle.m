@@ -24,24 +24,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSSocket.h>
 
 NSString *const NSFileHandleConnectionAcceptedNotification =
-    @"NSFileHandleConnectionAcceptedNotification";
+        @"NSFileHandleConnectionAcceptedNotification";
 NSString *const NSFileHandleDataAvailableNotification =
-    @"NSFileHandleDataAvailableNotification";
+        @"NSFileHandleDataAvailableNotification";
 NSString *const NSFileHandleReadCompletionNotification =
-    @"NSFileHandleReadCompletionNotification";
+        @"NSFileHandleReadCompletionNotification";
 NSString *const NSFileHandleReadToEndOfFileCompletionNotification =
-    @"NSFileHandleReadToEndOfFileCompletionNotification";
+        @"NSFileHandleReadToEndOfFileCompletionNotification";
 
 NSString *const NSFileHandleNotificationDataItem =
-    @"NSFileHandleNotificationDataItem";
+        @"NSFileHandleNotificationDataItem";
 NSString *const NSFileHandleNotificationFileHandleItem =
-    @"NSFileHandleNotificationFileHandleItem";
+        @"NSFileHandleNotificationFileHandleItem";
 
 NSString *const NSFileHandleNotificationMonitorModes =
-    @"NSFileHandleNotificationMonitorModes";
+        @"NSFileHandleNotificationMonitorModes";
 
 NSString *const NSFileHandleOperationException =
-    @"NSFileHandleOperationException";
+        @"NSFileHandleOperationException";
 
 @interface NSFileHandle (ImplementedInPlatform)
 + (Class) concreteSubclass;
@@ -92,7 +92,7 @@ NSString *const NSFileHandleOperationException =
           closeOnDealloc: (BOOL) closeOnDealloc
 {
     NSSocket *socket =
-        [[[NSSocket alloc] initWithFileDescriptor: descriptor] autorelease];
+            [[[NSSocket alloc] initWithFileDescriptor: descriptor] autorelease];
 
     [self dealloc];
     if (socket == nil)
@@ -158,7 +158,7 @@ NSString *const NSFileHandleOperationException =
 
 - (void) readInBackgroundAndNotify {
     [self readInBackgroundAndNotifyForModes:
-              [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+                    [NSArray arrayWithObject: NSDefaultRunLoopMode]];
 }
 
 - (void) readToEndOfFileInBackgroundAndNotifyForModes: (NSArray *) modes {
@@ -167,7 +167,7 @@ NSString *const NSFileHandleOperationException =
 
 - (void) readToEndOfFileInBackgroundAndNotify {
     [self readToEndOfFileInBackgroundAndNotifyForModes:
-              [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+                    [NSArray arrayWithObject: NSDefaultRunLoopMode]];
 }
 
 - (void) acceptConnectionInBackgroundAndNotifyForModes: (NSArray *) modes {
@@ -176,7 +176,7 @@ NSString *const NSFileHandleOperationException =
 
 - (void) acceptConnectionInBackgroundAndNotify {
     [self acceptConnectionInBackgroundAndNotifyForModes:
-              [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+                    [NSArray arrayWithObject: NSDefaultRunLoopMode]];
 }
 
 - (void) waitForDataInBackgroundAndNotifyForModes: (NSArray *) modes {
@@ -185,7 +185,7 @@ NSString *const NSFileHandleOperationException =
 
 - (void) waitForDataInBackgroundAndNotify {
     [self waitForDataInBackgroundAndNotifyForModes:
-              [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+                    [NSArray arrayWithObject: NSDefaultRunLoopMode]];
 }
 
 @end

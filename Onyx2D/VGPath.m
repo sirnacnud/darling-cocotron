@@ -322,10 +322,10 @@ static O2Point circularLerp(O2Point t0, O2Point t1, O2Float ratio) {
     self->_vertexCount = 0;
     self->_vertexCapacity = 2;
     self->_vertices =
-        NSZoneMalloc(NULL, self->_vertexCapacity * sizeof(Vertex));
+            NSZoneMalloc(NULL, self->_vertexCapacity * sizeof(Vertex));
     self->_segmentToVertexCapacity = 2;
     self->_segmentToVertex = NSZoneMalloc(NULL, self->_segmentToVertexCapacity *
-                                                    sizeof(VertexIndex));
+                                                        sizeof(VertexIndex));
     return self;
 }
 
@@ -353,8 +353,8 @@ int VGPathCountNumCoordinates(const uint8_t *segments, int numSegments) {
     int coordinates = 0;
     int i;
     for (i = 0; i < numSegments; i++)
-        coordinates +=
-            O2PathElementTypeToNumCoordinates((O2PathElementType) segments[i]);
+        coordinates += O2PathElementTypeToNumCoordinates(
+                (O2PathElementType) segments[i]);
 
     return coordinates;
 }
@@ -372,7 +372,7 @@ void VGPathFill(VGPath *self, O2AffineTransform pathToSurface,
 
     for (i = 0; i < self->_vertexCount; i++) {
         O2Point p1 = O2PointApplyAffineTransform(
-            self->_vertices[i].userPosition, pathToSurface);
+                self->_vertices[i].userPosition, pathToSurface);
 
         if (!(self->_vertices[i].flags & START_SEGMENT)) {
             // in the middle of a segment
@@ -412,7 +412,7 @@ void VGPathInterpolateStroke(O2AffineTransform pathToSurface,
     const O2Float tessellationAngle = 5.0f;
 
     O2Float angle = RI_RAD_TO_DEG((O2Float) acos(
-                        RI_CLAMP(Vector2Dot(v0.t, v1.t), -1.0f, 1.0f))) /
+                            RI_CLAMP(Vector2Dot(v0.t, v1.t), -1.0f, 1.0f))) /
                     tessellationAngle;
     int samples = RI_INT_MAX((int) ceil(angle), 1);
 
@@ -430,10 +430,10 @@ void VGPathInterpolateStroke(O2AffineTransform pathToSurface,
         O2Point v0p = O2PointApplyAffineTransform(v0.p, pathToSurface);
         O2Point v1p = O2PointApplyAffineTransform(v1.p, pathToSurface);
         O2Point n = O2PointApplyAffineTransformNoTranslate(
-            Vector2MultiplyByFloat(
-                Vector2Normalize(Vector2PerpendicularCCW(v1.t)),
-                strokeWidth * 0.5f),
-            pathToSurface);
+                Vector2MultiplyByFloat(
+                        Vector2Normalize(Vector2PerpendicularCCW(v1.t)),
+                        strokeWidth * 0.5f),
+                pathToSurface);
 
         O2Point npccw = Vector2Add(v0p, n);
         O2Point npcw = Vector2Subtract(v0p, n);
@@ -487,24 +487,24 @@ void VGPathInterpolateStroke(O2AffineTransform pathToSurface,
         for (j = 0; j < samples; j++) {
             O2Float t = (O2Float)(j + 1) / (O2Float) samples;
             O2Point position =
-                Vector2Add(Vector2MultiplyByFloat(v0.p, (1.0f - t)),
-                           Vector2MultiplyByFloat(v1.p, t));
+                    Vector2Add(Vector2MultiplyByFloat(v0.p, (1.0f - t)),
+                               Vector2MultiplyByFloat(v1.p, t));
             O2Point tangent = circularLerp(v0.t, v1.t, t);
             O2Point n = Vector2MultiplyByFloat(
-                Vector2Normalize(Vector2PerpendicularCCW(tangent)),
-                strokeWidth * 0.5f);
+                    Vector2Normalize(Vector2PerpendicularCCW(tangent)),
+                    strokeWidth * 0.5f);
 
             if (j == samples - 1)
                 position = v1.p;
 
-            O2Point npccw =
-                O2PointApplyAffineTransform(Vector2Add(prev, n), pathToSurface);
+            O2Point npccw = O2PointApplyAffineTransform(Vector2Add(prev, n),
+                                                        pathToSurface);
             O2Point npcw = O2PointApplyAffineTransform(Vector2Subtract(prev, n),
                                                        pathToSurface);
             O2Point nnccw = O2PointApplyAffineTransform(Vector2Add(position, n),
                                                         pathToSurface);
             O2Point nncw = O2PointApplyAffineTransform(
-                Vector2Subtract(position, n), pathToSurface);
+                    Vector2Subtract(position, n), pathToSurface);
 
             O2DContextAddEdge(context, npccw, nnccw);
             O2DContextAddEdge(context, nnccw, nncw);
@@ -578,17 +578,17 @@ void VGPathDoCap(O2AffineTransform pathToSurface, O2Context_builtin *context,
 #if 1
             O2Point vp = O2PointApplyAffineTransform(v.p, pathToSurface);
             O2Point next = O2PointApplyAffineTransformNoTranslate(
-                Vector2MultiplyByFloat(circularLerpWithDirection(u0, u1, t),
-                                       strokeWidth * 0.5f),
-                pathToSurface);
+                    Vector2MultiplyByFloat(circularLerpWithDirection(u0, u1, t),
+                                           strokeWidth * 0.5f),
+                    pathToSurface);
 
             next = Vector2Add(vp, next);
 
 #else
             O2Point next = Vector2Add(
-                v.p,
-                Vector2MultiplyByFloat(circularLerpWithDirection(u0, u1, t),
-                                       strokeWidth * 0.5f));
+                    v.p,
+                    Vector2MultiplyByFloat(circularLerpWithDirection(u0, u1, t),
+                                           strokeWidth * 0.5f));
             next = O2PointApplyAffineTransform(next, pathToSurface);
 #endif
 
@@ -606,7 +606,7 @@ void VGPathDoCap(O2AffineTransform pathToSurface, O2Context_builtin *context,
         O2Point vccw = O2PointApplyAffineTransform(v.ccw, pathToSurface);
         O2Point vcw = O2PointApplyAffineTransform(v.cw, pathToSurface);
         O2Point strokeRadius = O2PointApplyAffineTransformNoTranslate(
-            Vector2MultiplyByFloat(t, strokeWidth * 0.5f), pathToSurface);
+                Vector2MultiplyByFloat(t, strokeWidth * 0.5f), pathToSurface);
 
         O2Point ccws = Vector2Add(vccw, strokeRadius);
         O2Point cws = Vector2Add(vcw, strokeRadius);
@@ -662,7 +662,7 @@ void VGPathDoJoin(O2AffineTransform pathToSurface, O2Context_builtin *context,
     switch (joinStyle) {
     case kO2LineJoinMiter: {
         O2Float theta = (O2Float) acos(
-            RI_CLAMP(Vector2Dot(v0.t, Vector2Negate(v1.t)), -1.0f, 1.0f));
+                RI_CLAMP(Vector2Dot(v0.t, Vector2Negate(v1.t)), -1.0f, 1.0f));
         O2Float miterLengthPerStrokeWidth = 1.0f / (O2Float) sin(theta * 0.5f);
         if (miterLengthPerStrokeWidth < miterLimit) { // miter
             O2Float l = (O2Float) cos(theta * 0.5f) *
@@ -670,8 +670,8 @@ void VGPathDoJoin(O2AffineTransform pathToSurface, O2Context_builtin *context,
             l = RI_MIN(l, RI_FLOAT_MAX); // force finite
 
             O2Point c = Vector2Add(
-                m, O2PointApplyAffineTransformNoTranslate(
-                       Vector2MultiplyByFloat(v0.t, l), pathToSurface));
+                    m, O2PointApplyAffineTransformNoTranslate(
+                               Vector2MultiplyByFloat(v0.t, l), pathToSurface));
 
             O2DContextAddEdge(context, s, c);
             O2DContextAddEdge(context, c, e);
@@ -690,7 +690,7 @@ void VGPathDoJoin(O2AffineTransform pathToSurface, O2Context_builtin *context,
 
         O2Point prev = s;
         O2Float angle = RI_RAD_TO_DEG((O2Float) acos(
-                            RI_CLAMP(Vector2Dot(st, et), -1.0f, 1.0f))) /
+                                RI_CLAMP(Vector2Dot(st, et), -1.0f, 1.0f))) /
                         tessellationAngle;
         int samples = (int) ceil(angle);
         if (samples) {
@@ -699,16 +699,17 @@ void VGPathDoJoin(O2AffineTransform pathToSurface, O2Context_builtin *context,
             int j;
             for (j = 1; j < samples; j++) {
                 O2Point position = O2PointApplyAffineTransform(
-                    Vector2Add(Vector2MultiplyByFloat(v0.p, (1.0f - t)),
-                               Vector2MultiplyByFloat(v1.p, t)),
-                    pathToSurface);
+                        Vector2Add(Vector2MultiplyByFloat(v0.p, (1.0f - t)),
+                                   Vector2MultiplyByFloat(v1.p, t)),
+                        pathToSurface);
                 O2Point tangent = circularLerpWithDirection(st, et, t);
 
                 O2Point strokeRadius = O2PointApplyAffineTransformNoTranslate(
-                    Vector2MultiplyByFloat(
-                        Vector2Normalize(Vector2Perpendicular(tangent, cw)),
-                        strokeWidth * 0.5f),
-                    pathToSurface);
+                        Vector2MultiplyByFloat(
+                                Vector2Normalize(
+                                        Vector2Perpendicular(tangent, cw)),
+                                strokeWidth * 0.5f),
+                        pathToSurface);
                 O2Point next = Vector2Add(position, strokeRadius);
 
                 O2DContextAddEdge(context, prev, next);
@@ -775,13 +776,15 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
             v1.t = v.userTangent;
 
             v1.ccw = Vector2Add(
-                v1.p, Vector2MultiplyByFloat(
-                          Vector2Normalize(Vector2PerpendicularCCW(v1.t)),
-                          strokeWidth * 0.5f));
+                    v1.p,
+                    Vector2MultiplyByFloat(
+                            Vector2Normalize(Vector2PerpendicularCCW(v1.t)),
+                            strokeWidth * 0.5f));
             v1.cw = Vector2Add(
-                v1.p, Vector2MultiplyByFloat(
-                          Vector2Normalize(Vector2PerpendicularCW(v1.t)),
-                          strokeWidth * 0.5f));
+                    v1.p,
+                    Vector2MultiplyByFloat(
+                            Vector2Normalize(Vector2PerpendicularCW(v1.t)),
+                            strokeWidth * 0.5f));
             v1.pathLength = v.pathLength;
             v1.flags = v.flags;
 
@@ -833,19 +836,20 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
             v1.t = v.userTangent;
             RI_ASSERT(!Vector2IsZero(v1.t)); // don't allow zero tangents
             v1.ccw = Vector2Add(
-                v1.p, Vector2MultiplyByFloat(
-                          Vector2Normalize(Vector2PerpendicularCCW(v1.t)),
-                          strokeWidth * 0.5f));
+                    v1.p,
+                    Vector2MultiplyByFloat(
+                            Vector2Normalize(Vector2PerpendicularCCW(v1.t)),
+                            strokeWidth * 0.5f));
             v1.cw = Vector2Add(
-                v1.p, Vector2MultiplyByFloat(
-                          Vector2Normalize(Vector2PerpendicularCW(v1.t)),
-                          strokeWidth * 0.5f));
+                    v1.p,
+                    Vector2MultiplyByFloat(
+                            Vector2Normalize(Vector2PerpendicularCW(v1.t)),
+                            strokeWidth * 0.5f));
             v1.pathLength = v.pathLength;
             v1.flags = v.flags;
-            v1.inDash =
-                dashing ? inDash
-                        : YES; // NOTE: for other than START_SEGMENT vertices
-                               // inDash will be updated after dashing
+            v1.inDash = dashing ? inDash : YES; // NOTE: for other than
+                                                // START_SEGMENT vertices inDash
+                                                // will be updated after dashing
 
             // process the vertex event
             if (v.flags & START_SEGMENT) {
@@ -860,7 +864,7 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
                             for (;;) {
                                 O2Float prevDash = nextDash;
                                 nextDash =
-                                    prevDash + RI_MAX(dashPattern[d], 0.0f);
+                                        prevDash + RI_MAX(dashPattern[d], 0.0f);
                                 if (nextDash >= v1.pathLength)
                                     break;
 
@@ -904,8 +908,8 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
                       IMPLICIT_CLOSE_SUBPATH)) { // normal segment, do stroking
                     if (dashing) {
                         StrokeVertex prevDashVertex =
-                            v0; // dashing of the segment starts from the
-                                // previous vertex
+                                v0; // dashing of the segment starts from the
+                                    // previous vertex
 
                         if (nextDash + 10000.0f * dashPatternLength <
                             v1.pathLength)
@@ -917,31 +921,34 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
                         // their starting point to this segment already in order
                         // to generate a join
                         int numDashStops = 0;
-                        while (
-                            nextDash < v1.pathLength ||
-                            (nextDash <= v1.pathLength &&
-                             dashPattern[(d + 1) % dashPatternSize] == 0.0f)) {
+                        while (nextDash < v1.pathLength ||
+                               (nextDash <= v1.pathLength &&
+                                dashPattern[(d + 1) % dashPatternSize] ==
+                                        0.0f)) {
                             O2Float edgeLength = v1.pathLength - v0.pathLength;
                             O2Float ratio = 0.0f;
                             if (edgeLength > 0.0f)
                                 ratio = (nextDash - v0.pathLength) / edgeLength;
                             StrokeVertex nextDashVertex = StrokeVertexInit();
                             nextDashVertex.p = Vector2Add(
-                                Vector2MultiplyByFloat(v0.p, (1.0f - ratio)),
-                                Vector2MultiplyByFloat(v1.p, ratio));
+                                    Vector2MultiplyByFloat(v0.p,
+                                                           (1.0f - ratio)),
+                                    Vector2MultiplyByFloat(v1.p, ratio));
                             nextDashVertex.t = circularLerp(v0.t, v1.t, ratio);
                             nextDashVertex.ccw = Vector2Add(
-                                nextDashVertex.p,
-                                Vector2MultiplyByFloat(
-                                    Vector2Normalize(Vector2PerpendicularCCW(
-                                        nextDashVertex.t)),
-                                    strokeWidth * 0.5f));
+                                    nextDashVertex.p,
+                                    Vector2MultiplyByFloat(
+                                            Vector2Normalize(
+                                                    Vector2PerpendicularCCW(
+                                                            nextDashVertex.t)),
+                                            strokeWidth * 0.5f));
                             nextDashVertex.cw = Vector2Add(
-                                nextDashVertex.p,
-                                Vector2MultiplyByFloat(
-                                    Vector2Normalize(Vector2PerpendicularCW(
-                                        nextDashVertex.t)),
-                                    strokeWidth * 0.5f));
+                                    nextDashVertex.p,
+                                    Vector2MultiplyByFloat(
+                                            Vector2Normalize(
+                                                    Vector2PerpendicularCW(
+                                                            nextDashVertex.t)),
+                                            strokeWidth * 0.5f));
 
                             if (inDash) { // stroke from prevDashVertex ->
                                           // nextDashVertex
@@ -958,8 +965,8 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
                                                 strokeWidth, capStyle);
                                 }
                                 VGPathInterpolateStroke(
-                                    pathToSurface, context, prevDashVertex,
-                                    nextDashVertex, strokeWidth);
+                                        pathToSurface, context, prevDashVertex,
+                                        nextDashVertex, strokeWidth);
                                 VGPathDoCap(pathToSurface, context,
                                             nextDashVertex, strokeWidth,
                                             capStyle); // end cap
@@ -1064,18 +1071,19 @@ void VGPathGetPointAlong(VGPath *self, int startIndex, int numSegments,
     RI_ASSERT(startVertex >= 0 && startVertex < self->_vertexCount);
     RI_ASSERT(endVertex >= 0 && endVertex < self->_vertexCount);
 
-    distance += self->_vertices[startVertex]
+    distance +=
+            self->_vertices[startVertex]
                     .pathLength; // map distance to the range of the whole path
 
     if (distance <= self->_vertices[startVertex]
-                        .pathLength) { // return the first point of the path
+                            .pathLength) { // return the first point of the path
         *p = self->_vertices[startVertex].userPosition;
         *t = self->_vertices[startVertex].userTangent;
         return;
     }
 
     if (distance >= self->_vertices[endVertex]
-                        .pathLength) { // return the last point of the path
+                            .pathLength) { // return the last point of the path
         *p = self->_vertices[endVertex].userPosition;
         *t = self->_vertices[endVertex].userTangent;
         return;
@@ -1095,25 +1103,25 @@ void VGPathGetPointAlong(VGPath *self, int startIndex, int numSegments,
 
         if (distance >= self->_vertices[start].pathLength &&
             distance <
-                self->_vertices[end]
-                    .pathLength) { // segment contains the queried distance
+                    self->_vertices[end].pathLength) { // segment contains the
+                                                       // queried distance
             int i;
             for (i = start; i < end; i++) {
                 Vertex v0 = self->_vertices[i];
                 Vertex v1 = self->_vertices[i + 1];
                 if (distance >= v0.pathLength &&
                     distance <
-                        v1.pathLength) { // segment found, interpolate linearly
-                                         // between its end points
+                            v1.pathLength) { // segment found, interpolate
+                                             // linearly between its end points
                     O2Float edgeLength = v1.pathLength - v0.pathLength;
                     RI_ASSERT(edgeLength > 0.0f);
                     O2Float r = (distance - v0.pathLength) / edgeLength;
                     *p = Vector2Add(
-                        Vector2MultiplyByFloat(v0.userPosition, (1.0f - r)),
-                        Vector2MultiplyByFloat(v1.userPosition, r));
+                            Vector2MultiplyByFloat(v0.userPosition, (1.0f - r)),
+                            Vector2MultiplyByFloat(v1.userPosition, r));
                     *t = Vector2Add(
-                        Vector2MultiplyByFloat(v0.userTangent, (1.0f - r)),
-                        Vector2MultiplyByFloat(v1.userTangent, r));
+                            Vector2MultiplyByFloat(v0.userTangent, (1.0f - r)),
+                            Vector2MultiplyByFloat(v1.userTangent, r));
                     return;
                 }
             }
@@ -1221,7 +1229,7 @@ void VGPathAddVertex(VGPath *self, O2Point p, O2Point t, O2Float pathLength,
     if (self->_vertexCount + 1 > self->_vertexCapacity) {
         self->_vertexCapacity *= 2;
         self->_vertices = (Vertex *) NSZoneRealloc(
-            NULL, self->_vertices, self->_vertexCapacity * sizeof(Vertex));
+                NULL, self->_vertices, self->_vertexCapacity * sizeof(Vertex));
     }
     self->_vertices[self->_vertexCount++] = v;
 
@@ -1283,9 +1291,9 @@ void VGPathAddEndPath(VGPath *self, O2Point p0, O2Point p1,
     O2Point t = Vector2Normalize(Vector2Subtract(p1, p0));
     if (Vector2IsZero(t))
         t = self->_vertices[self->_vertexCount - 1]
-                .userTangent; // if the segment is zero-length, use the tangent
-                              // of the last segment end point so that proper
-                              // join will be generated
+                    .userTangent; // if the segment is zero-length, use the
+                                  // tangent of the last segment end point so
+                                  // that proper join will be generated
     RI_ASSERT(!Vector2IsZero(t));
 
     VGPathAddEdge(self, p0, p1, t, t, flags | START_SEGMENT,
@@ -1351,13 +1359,13 @@ BOOL VGPathAddQuadTo(VGPath *self, O2Point p0, O2Point p1, O2Point p2,
         O2Float t = (O2Float) i / (O2Float) segments;
         O2Float u = 1.0f - t;
         O2Point pn =
-            Vector2Add(Vector2Add(Vector2MultiplyByFloat(p0, u * u),
-                                  Vector2MultiplyByFloat(p1, 2.0f * t * u)),
-                       Vector2MultiplyByFloat(p2, t * t));
+                Vector2Add(Vector2Add(Vector2MultiplyByFloat(p0, u * u),
+                                      Vector2MultiplyByFloat(p1, 2.0f * t * u)),
+                           Vector2MultiplyByFloat(p2, t * t));
         O2Point tn = Vector2Add(
-            Vector2Add(Vector2MultiplyByFloat(p0, (-1.0f + t)),
-                       Vector2MultiplyByFloat(p1, (1.0f - 2.0f * t))),
-            Vector2MultiplyByFloat(p2, t));
+                Vector2Add(Vector2MultiplyByFloat(p0, (-1.0f + t)),
+                           Vector2MultiplyByFloat(p1, (1.0f - 2.0f * t))),
+                Vector2MultiplyByFloat(p2, t));
         tn = Vector2Normalize(tn);
         if (Vector2IsZero(tn))
             tn = tp;
@@ -1462,17 +1470,19 @@ BOOL VGPathAddCubicTo(VGPath *self, O2Point p0, O2Point p1, O2Point p2,
         O2Float t = (O2Float) i / (O2Float) segments;
         O2Float u = 1.0f - t;
         O2Point pn = Vector2Add(
-            Vector2Add(Vector2Add(Vector2MultiplyByFloat(p0, u * u * u),
-                                  Vector2MultiplyByFloat(p1, 3.0f * t * u * u)),
-                       Vector2MultiplyByFloat(p2, 3.0f * t * t * u)),
-            Vector2MultiplyByFloat(p3, t * t * t));
+                Vector2Add(Vector2Add(Vector2MultiplyByFloat(p0, u * u * u),
+                                      Vector2MultiplyByFloat(p1,
+                                                             3.0f * t * u * u)),
+                           Vector2MultiplyByFloat(p2, 3.0f * t * t * u)),
+                Vector2MultiplyByFloat(p3, t * t * t));
         O2Point tn = Vector2Add(
-            Vector2Add(Vector2Add(Vector2MultiplyByFloat(
-                                      p0, (-1.0f + 2.0f * t - t * t)),
-                                  Vector2MultiplyByFloat(
-                                      p1, (1.0f - 4.0f * t + 3.0f * t * t))),
-                       Vector2MultiplyByFloat(p2, (2.0f * t - 3.0f * t * t))),
-            Vector2MultiplyByFloat(p3, t * t));
+                Vector2Add(
+                        Vector2Add(Vector2MultiplyByFloat(
+                                           p0, (-1.0f + 2.0f * t - t * t)),
+                                   Vector2MultiplyByFloat(p1, (1.0f - 4.0f * t +
+                                                               3.0f * t * t))),
+                        Vector2MultiplyByFloat(p2, (2.0f * t - 3.0f * t * t))),
+                Vector2MultiplyByFloat(p3, t * t));
         tn = Vector2Normalize(tn);
         if (Vector2IsZero(tn))
             tn = tp;
@@ -1509,18 +1519,19 @@ void VGPathTessellateIfNeeded(VGPath *self) {
         if (self->_segmentToVertexCapacity < numberOfElements) {
             self->_segmentToVertexCapacity = numberOfElements;
             self->_segmentToVertex = NSZoneRealloc(
-                NULL, self->_segmentToVertex,
-                self->_segmentToVertexCapacity * sizeof(VertexIndex));
+                    NULL, self->_segmentToVertex,
+                    self->_segmentToVertexCapacity * sizeof(VertexIndex));
         }
 
         int coordIndex = 0;
         O2Point s = O2PointMake(0, 0); // the beginning of the current subpath
         O2Point o = O2PointMake(0, 0); // the last point of the previous segment
         O2Point p = O2PointMake(
-            0,
-            0); // the last internal control point of the previous segment,
-                // if the segment was a (regular or smooth) quadratic or cubic
-                // Bezier, or else the last point of the previous segment
+                0,
+                0); // the last internal control point of the previous segment,
+                    // if the segment was a (regular or smooth) quadratic or
+                    // cubic Bezier, or else the last point of the previous
+                    // segment
 
         // tessellate the path segments
         coordIndex = 0;
@@ -1602,7 +1613,7 @@ void VGPathTessellateIfNeeded(VGPath *self) {
             } else { // segment didn't produce vertices (zero-length segment).
                      // Ignore it.
                 self->_segmentToVertex[i].start =
-                    self->_segmentToVertex[i].end = self->_vertexCount - 1;
+                        self->_segmentToVertex[i].end = self->_vertexCount - 1;
             }
             prevSegment = segment;
             coordIndex += coords;

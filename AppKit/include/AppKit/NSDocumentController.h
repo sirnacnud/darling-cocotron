@@ -60,9 +60,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                          ofType: (NSString *) type
                           error: (NSError **) error;
 - makeDocumentForURL: (NSURL *) url
-    withContentsOfURL: (NSURL *) contentsURL
-               ofType: (NSString *) type
-                error: (NSError **) error;
+        withContentsOfURL: (NSURL *) contentsURL
+                   ofType: (NSString *) type
+                    error: (NSError **) error;
 - makeUntitledDocumentOfType: (NSString *) type;
 
 - openUntitledDocumentOfType: (NSString *) type display: (BOOL) display;
@@ -89,10 +89,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSError *) willPresentError: (NSError *) error;
 - (BOOL) presentError: (NSError *) error;
 - (void) presentError: (NSError *) error
-        modalForWindow: (NSWindow *) window
-              delegate: delegate
-    didPresentSelector: (SEL) selector
-           contextInfo: (void *) info;
+            modalForWindow: (NSWindow *) window
+                  delegate: delegate
+        didPresentSelector: (SEL) selector
+               contextInfo: (void *) info;
 
 - (int) runModalOpenPanel: (NSOpenPanel *) openPanel
                  forTypes: (NSArray *) extensions;

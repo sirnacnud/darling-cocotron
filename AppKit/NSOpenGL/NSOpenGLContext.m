@@ -32,7 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static inline NSOpenGLContext *_currentContext() {
     return (NSOpenGLContext *) NSThreadSharedInstanceDoNotCreate(
-        @"NSOpenGLContext");
+            @"NSOpenGLContext");
 }
 
 static void _setCurrentContext(NSOpenGLContext *context) {
@@ -54,7 +54,7 @@ static inline void _clearCurrentContext() {
 }
 
 - initWithFormat: (NSOpenGLPixelFormat *) pixelFormat
-    shareContext: (NSOpenGLContext *) shareContext
+        shareContext: (NSOpenGLContext *) shareContext
 {
     CGLError error;
 
@@ -69,8 +69,8 @@ static inline void _clearCurrentContext() {
 
     _pixelFormat = [pixelFormat retain];
     if ((error = CGLCreateContext(
-             [_pixelFormat CGLPixelFormatObj], [shareContext CGLContextObj],
-             (CGLContextObj *) &_glContext)) != kCGLNoError)
+                 [_pixelFormat CGLPixelFormatObj], [shareContext CGLContextObj],
+                 (CGLContextObj *) &_glContext)) != kCGLNoError)
         NSLog(@"CGLCreateContext failed with %d in %s %d", error, __FILE__,
               __LINE__);
 
@@ -118,13 +118,13 @@ static inline void _clearCurrentContext() {
 }
 
 - (void) getValues: (GLint *) vals
-      forParameter: (NSOpenGLContextParameter) parameter
+        forParameter: (NSOpenGLContextParameter) parameter
 {
     CGLGetParameter(_glContext, parameter, vals);
 }
 
 - (void) setValues: (const GLint *) vals
-      forParameter: (NSOpenGLContextParameter) parameter
+        forParameter: (NSOpenGLContextParameter) parameter
 {
     CGLSetParameter(_glContext, parameter, vals);
 }
@@ -173,7 +173,7 @@ static inline void _clearCurrentContext() {
                         waitUntilDone: YES];
 
     if ((error = CGLContextMakeCurrentAndAttachToWindow(
-             _glContext, _cglWindow)) != kCGLNoError)
+                 _glContext, _cglWindow)) != kCGLNoError)
         NSLog(@"CGLSetCurrentContext failed with %d in %s %d", error, __FILE__,
               __LINE__);
 
@@ -222,9 +222,9 @@ static inline void _clearCurrentContext() {
 }
 
 - (void) setPixelBuffer: (NSOpenGLPixelBuffer *) pixelBuffer
-             cubeMapFace: (unsigned long) cubeMapFace
-              mipMapLeve: (long) mipMapLevel
-    currentVirtualScreen: (int) screen
+                 cubeMapFace: (unsigned long) cubeMapFace
+                  mipMapLeve: (long) mipMapLevel
+        currentVirtualScreen: (int) screen
 {
     NSUnimplementedMethod();
 }

@@ -32,7 +32,7 @@ static void OBJCRaiseException(const char *name, const char *format, ...) {
 
 @interface NSInvocation (private)
 + (NSInvocation *) invocationWithMethodSignature:
-                       (NSMethodSignature *) signature
+                           (NSMethodSignature *) signature
                                        arguments: (void *) arguments;
 @end
 
@@ -52,14 +52,14 @@ void NSObjCForwardInvocation(void *returnValue, id object, SEL selector,
                              va_list arguments)
 {
     NSMethodSignature *signature =
-        [object methodSignatureForSelector: selector];
+            [object methodSignatureForSelector: selector];
 
     if (signature == nil)
         [object doesNotRecognizeSelector: selector];
     else {
         NSInvocation *invocation =
-            [NSInvocation invocationWithMethodSignature: signature
-                                              arguments: arguments];
+                [NSInvocation invocationWithMethodSignature: signature
+                                                  arguments: arguments];
 
         [object forwardInvocation: invocation];
         [invocation getReturnValue: returnValue];
@@ -119,7 +119,7 @@ id objc_msgForward(id object, SEL message, ...) {
     unsigned *frame;
 
     if ((method = class_getInstanceMethod(
-             class, @selector(_frameLengthForSelector:))) == NULL) {
+                 class, @selector(_frameLengthForSelector:))) == NULL) {
         OBJCRaiseException("OBJCDoesNotRecognizeSelector", "%c[%s %s(%d)]",
                            class_isMetaClass(class) ? '+' : '-',
                            class_getName(class), sel_getName(message), message);
@@ -136,7 +136,7 @@ id objc_msgForward(id object, SEL message, ...) {
     }
 
     if ((method = class_getInstanceMethod(
-             class, @selector(forwardSelector:arguments:))) != NULL) {
+                 class, @selector(forwardSelector:arguments:))) != NULL) {
         imp = method_getImplementation(method);
 
         return imp(object, @selector(forwardSelector:arguments:), message,
@@ -160,7 +160,7 @@ id objc_msgForward(id object, SEL message, ...) {
     void *arguments = &object;
 
     if ((method = class_getInstanceMethod(
-             class, @selector(forwardSelector:arguments:))) != NULL) {
+                 class, @selector(forwardSelector:arguments:))) != NULL) {
         IMP imp = method_getImplementation(method);
 
         return imp(object, @selector(forwardSelector:arguments:), message,

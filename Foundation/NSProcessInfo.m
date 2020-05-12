@@ -116,27 +116,27 @@ const char *const *NSProcessInfoArgv = NULL;
         return [NSString stringWithFormat: @"Windows 8 %@", servicePack];
         break;
     case -62:
-        return
-            [NSString stringWithFormat: @"Windows Server 2012 %@", servicePack];
+        return [NSString
+                stringWithFormat: @"Windows Server 2012 %@", servicePack];
         break;
     case 61:
         return [NSString stringWithFormat: @"Windows 7 %@", servicePack];
         break;
     case -61:
         return [NSString
-            stringWithFormat: @"Windows Server 2008 R2 %@", servicePack];
+                stringWithFormat: @"Windows Server 2008 R2 %@", servicePack];
         break;
     case 60:
         return [NSString stringWithFormat: @"Windows Vista %@", servicePack];
         break;
     case -60:
         return [NSString
-            stringWithFormat: @"Windows Server 2003 R2 %@", servicePack];
+                stringWithFormat: @"Windows Server 2003 R2 %@", servicePack];
         break;
     case 52:
         return [NSString
-            stringWithFormat: @"Windows XP Professional x64 Edition %@",
-                              servicePack];
+                stringWithFormat: @"Windows XP Professional x64 Edition %@",
+                                  servicePack];
         break;
     case 51:
         return [NSString stringWithFormat: @"Windows XP %@", servicePack];
@@ -175,7 +175,7 @@ const char *const *NSProcessInfoArgv = NULL;
 
         if ([arguments count] > 0)
             _processName = [[[[[self arguments] objectAtIndex: 0]
-                lastPathComponent] stringByDeletingPathExtension] retain];
+                    lastPathComponent] stringByDeletingPathExtension] retain];
 
         if (_processName == nil) {
             _processName = @"";

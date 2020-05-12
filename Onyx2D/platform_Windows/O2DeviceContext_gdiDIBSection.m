@@ -23,9 +23,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation O2DeviceContext_gdiDIBSection
 
 - initWithWidth: (size_t) width
-           height: (size_t) height
-    deviceContext: (O2DeviceContext_gdi *) compatible
-     bitsPerPixel: (int) bpp
+               height: (size_t) height
+        deviceContext: (O2DeviceContext_gdi *) compatible
+         bitsPerPixel: (int) bpp
 {
     HDC compatibleDC = (compatible != nil) ? [compatible dc] : GetDC(NULL);
 
@@ -83,8 +83,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initGray8WithWidth: (size_t) width
-              height: (size_t) height
-       deviceContext: (O2DeviceContext_gdi *) compatible
+               height: (size_t) height
+        deviceContext: (O2DeviceContext_gdi *) compatible
 {
     HDC compatibleDC = (compatible != nil) ? [compatible dc] : GetDC(NULL);
 

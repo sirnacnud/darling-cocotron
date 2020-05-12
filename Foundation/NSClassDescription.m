@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSRaise.h>
 
 NSString *const NSClassDescriptionNeededForClassNotification =
-    @"NSClassDescriptionNeededForClassNotification";
+        @"NSClassDescriptionNeededForClassNotification";
 
 @implementation NSClassDescription
 
@@ -36,9 +36,9 @@ static NSMutableDictionary *classDescriptionCache = nil;
         result = [classDescriptionCache objectForKey: NSStringFromClass(class)];
         if (!result) {
             [[NSNotificationCenter defaultCenter]
-                postNotificationName:
-                    NSClassDescriptionNeededForClassNotification
-                              object: class];
+                    postNotificationName:
+                            NSClassDescriptionNeededForClassNotification
+                                  object: class];
         }
         result = [classDescriptionCache objectForKey: NSStringFromClass(class)];
     }

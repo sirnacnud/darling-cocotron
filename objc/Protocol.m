@@ -66,7 +66,7 @@ void OBJCRegisterProtocol(OBJCProtocolTemplate *template) {
 }
 
 - (struct objc_method_description *) descriptionForInstanceMethod:
-    (SEL) selector
+        (SEL) selector
 {
     struct objc_protocol_list *list;
     unsigned i;

@@ -47,17 +47,17 @@ void OBJCRegisterModule_Darwin(const char *name) {
         }
 #ifdef __LP64__
         const struct mach_header_64 *head =
-            (struct mach_header_64 *) _dyld_get_image_header(i);
+                (struct mach_header_64 *) _dyld_get_image_header(i);
 
         uint64_t size;
-        char *section =
-            getsectdatafromheader_64(head, "__OBJC", "__message_refs", &size);
+        char *section = getsectdatafromheader_64(head, "__OBJC",
+                                                 "__message_refs", &size);
 #else
         const struct mach_header *head = _dyld_get_image_header(i);
 
         uint32_t size;
         char *section =
-            getsectdatafromheader(head, "__OBJC", "__message_refs", &size);
+                getsectdatafromheader(head, "__OBJC", "__message_refs", &size);
 #endif
         section += _dyld_get_image_vmaddr_slide(i);
 
@@ -89,11 +89,11 @@ void OBJCRegisterModule_Darwin(const char *name) {
 
 #ifdef __LP64__
         const struct mach_header_64 *head =
-            (struct mach_header_64 *) _dyld_get_image_header(i);
+                (struct mach_header_64 *) _dyld_get_image_header(i);
 
         uint64_t size = 0;
-        section =
-            getsectdatafromheader_64(head, "__OBJC", "__module_info", &size);
+        section = getsectdatafromheader_64(head, "__OBJC", "__module_info",
+                                           &size);
 #else
         const struct mach_header *head = _dyld_get_image_header(i);
 
@@ -128,17 +128,17 @@ void OBJCRegisterModule_Darwin(const char *name) {
         }
 #ifdef __LP64__
         const struct mach_header_64 *head =
-            (struct mach_header_64 *) _dyld_get_image_header(i);
+                (struct mach_header_64 *) _dyld_get_image_header(i);
 
         uint64_t size = 0;
         char *section =
-            getsectdatafromheader_64(head, "__OBJC", "__cls_refs", &size);
+                getsectdatafromheader_64(head, "__OBJC", "__cls_refs", &size);
 #else
         const struct mach_header *head = _dyld_get_image_header(i);
 
         uint32_t size = 0;
         char *section =
-            getsectdatafromheader(head, "__OBJC", "__cls_refs", &size);
+                getsectdatafromheader(head, "__OBJC", "__cls_refs", &size);
 #endif
         typeof(size) nrefs = size / sizeof(struct objc_class *);
 
@@ -148,7 +148,7 @@ void OBJCRegisterModule_Darwin(const char *name) {
         long j;
         for (j = 0; j < nrefs; j++) {
             const char *aref =
-                (const char *) refs[j]; // yes these are strings !
+                    (const char *) refs[j]; // yes these are strings !
 
             Class c = objc_lookUpClass(aref);
             if (c) {

@@ -63,7 +63,7 @@ void O2PaintRadialGradient(O2Paint_radialGradient *self, O2Float *g,
 
     O2Point p = O2PointMake(x, y);
     p = Vector2Subtract(
-        O2PointApplyAffineTransform(p, self->m_surfaceToPaintMatrix), O);
+            O2PointApplyAffineTransform(p, self->m_surfaceToPaintMatrix), O);
 
     O2Point f = self->_startPoint;
     f = Vector2Subtract(f, O);
@@ -153,11 +153,11 @@ ONYX2D_STATIC int radial_span_largb32f_PRE(O2Paint *selfX, int x, int y,
 }
 
 - initWithShading: (O2Shading *) shading
-    deviceTransform: (O2AffineTransform) deviceTransform
+        deviceTransform: (O2AffineTransform) deviceTransform
 {
     [super initWithShading: shading
-           deviceTransform: deviceTransform
-           numberOfSamples: 1024];
+            deviceTransform: deviceTransform
+            numberOfSamples: 1024];
     _paint_largb8u_PRE = radial_span_largb8u_PRE;
     _paint_largb32f_PRE = radial_span_largb32f_PRE;
     _startRadius = [shading startRadius];

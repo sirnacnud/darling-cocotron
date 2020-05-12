@@ -49,7 +49,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // private
 NSNotificationName _NSColorWellDidBecomeExclusiveNotification =
-    @"_NSColorWellDidBecomeExclusiveNotification";
+        @"_NSColorWellDidBecomeExclusiveNotification";
 
 - (void) encodeWithCoder: (NSCoder *) coder {
     NSUnimplementedMethod();
@@ -81,15 +81,15 @@ NSNotificationName _NSColorWellDidBecomeExclusiveNotification =
     _color = [[NSColor whiteColor] copy];
 
     [[NSNotificationCenter defaultCenter]
-        addObserver: self
-           selector: @selector(colorPanelWillClose:)
-               name: NSWindowWillCloseNotification
-             object: [NSColorPanel sharedColorPanel]];
+            addObserver: self
+               selector: @selector(colorPanelWillClose:)
+                   name: NSWindowWillCloseNotification
+                 object: [NSColorPanel sharedColorPanel]];
     [[NSNotificationCenter defaultCenter]
-        addObserver: self
-           selector: @selector(colorWellDidBecomeExclusive:)
-               name: _NSColorWellDidBecomeExclusiveNotification
-             object: nil];
+            addObserver: self
+               selector: @selector(colorWellDidBecomeExclusive:)
+                   name: _NSColorWellDidBecomeExclusiveNotification
+                 object: nil];
 
     [self registerForDraggedTypes: @[ NSColorPboardType ]];
 
@@ -99,15 +99,15 @@ NSNotificationName _NSColorWellDidBecomeExclusiveNotification =
 - (void) awakeFromNib {
     // this should be moved the nib initWithCoder:
     [[NSNotificationCenter defaultCenter]
-        addObserver: self
-           selector: @selector(colorPanelWillClose:)
-               name: NSWindowWillCloseNotification
-             object: [NSColorPanel sharedColorPanel]];
+            addObserver: self
+               selector: @selector(colorPanelWillClose:)
+                   name: NSWindowWillCloseNotification
+                 object: [NSColorPanel sharedColorPanel]];
     [[NSNotificationCenter defaultCenter]
-        addObserver: self
-           selector: @selector(colorWellDidBecomeExclusive:)
-               name: _NSColorWellDidBecomeExclusiveNotification
-             object: nil];
+            addObserver: self
+               selector: @selector(colorWellDidBecomeExclusive:)
+                   name: _NSColorWellDidBecomeExclusiveNotification
+                 object: nil];
     [self registerForDraggedTypes: @[ NSColorPboardType ]];
 }
 
@@ -196,20 +196,20 @@ NSNotificationName _NSColorWellDidBecomeExclusiveNotification =
 
     if (exclusive) {
         NSNotification *notification = [NSNotification
-            notificationWithName: _NSColorWellDidBecomeExclusiveNotification
-                          object: self];
+                notificationWithName: _NSColorWellDidBecomeExclusiveNotification
+                              object: self];
 
         [[NSNotificationQueue defaultQueue]
-            enqueueNotification: notification
-                   postingStyle: NSPostNow
-                   coalesceMask: NSNotificationCoalescingOnName
-                       forModes: nil];
+                enqueueNotification: notification
+                       postingStyle: NSPostNow
+                       coalesceMask: NSNotificationCoalescingOnName
+                           forModes: nil];
     }
     [[NSNotificationCenter defaultCenter]
-        addObserver: self
-           selector: @selector(changeColorWhenActive:)
-               name: NSColorPanelColorDidChangeNotification
-             object: [NSColorPanel sharedColorPanel]];
+            addObserver: self
+               selector: @selector(changeColorWhenActive:)
+                   name: NSColorPanelColorDidChangeNotification
+                 object: [NSColorPanel sharedColorPanel]];
 
     // Update the color panel with our color.
     [[NSColorPanel sharedColorPanel] setColor: [self color]];
@@ -225,9 +225,9 @@ NSNotificationName _NSColorWellDidBecomeExclusiveNotification =
 
     _isActive = NO;
     [[NSNotificationCenter defaultCenter]
-        removeObserver: self
-                  name: NSColorPanelColorDidChangeNotification
-                object: [NSColorPanel sharedColorPanel]];
+            removeObserver: self
+                      name: NSColorPanelColorDidChangeNotification
+                    object: [NSColorPanel sharedColorPanel]];
     [self setNeedsDisplay: YES];
 }
 
@@ -284,8 +284,8 @@ NSNotificationName _NSColorWellDidBecomeExclusiveNotification =
         BOOL wasActive = [self isActive];
         NSPoint point = [self convertPoint: [event locationInWindow]
                                   fromView: nil];
-        BOOL mouseInBorder =
-            !NSMouseInRect(point, NSInsetRect(_bounds, 8, 8), [self isFlipped]);
+        BOOL mouseInBorder = !NSMouseInRect(point, NSInsetRect(_bounds, 8, 8),
+                                            [self isFlipped]);
         BOOL canStartDrag = !mouseInBorder;
         if (mouseInBorder) {
             // Toggle the initial state.
@@ -297,12 +297,12 @@ NSNotificationName _NSColorWellDidBecomeExclusiveNotification =
 
         BOOL shouldStartDrag = NO;
         do {
-            event =
-                [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
-                                                      NSLeftMouseDraggedMask];
+            event = [[self window]
+                    nextEventMatchingMask: NSLeftMouseUpMask |
+                                           NSLeftMouseDraggedMask];
             point = [self convertPoint: [event locationInWindow] fromView: nil];
             BOOL mouseInBounds =
-                NSMouseInRect(point, _bounds, [self isFlipped]);
+                    NSMouseInRect(point, _bounds, [self isFlipped]);
             if ([event type] == NSLeftMouseDragged) {
                 if (canStartDrag) {
                     // Get dragging the color.

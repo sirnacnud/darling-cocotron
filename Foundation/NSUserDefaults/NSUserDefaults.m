@@ -46,7 +46,7 @@ NSString *const NSShortWeekDayNameArray = @"NSShortWeekDayNameArray";
 NSString *const NSShortMonthNameArray = @"NSShortMonthNameArray";
 
 NSString *const NSUserDefaultsDidChangeNotification =
-    @"NSUserDefaultsDidChangeNotification";
+        @"NSUserDefaultsDidChangeNotification";
 
 @implementation NSUserDefaults
 
@@ -73,7 +73,7 @@ NSString *const NSUserDefaultsDidChangeNotification =
         pval = val;
         NS_ENDHANDLER
 
-            [reg setObject: pval forKey: key];
+                [reg setObject: pval forKey: key];
     }
 
     [_domains setObject: reg forKey: NSArgumentDomain];
@@ -81,8 +81,8 @@ NSString *const NSUserDefaultsDidChangeNotification =
 
 - (void) registerFoundationDefaults {
     NSString *path = [[NSBundle bundleForClass: [self class]]
-        pathForResource: @"NSUserDefaults"
-                 ofType: @"plist"];
+            pathForResource: @"NSUserDefaults"
+                     ofType: @"plist"];
     NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile: path];
 
     if (plist == nil)
@@ -90,7 +90,7 @@ NSString *const NSUserDefaultsDidChangeNotification =
                "path=%s, bundle at %s",
                path == nil ? "" : [path UTF8String],
                [[[NSBundle bundleForClass: [self class]] resourcePath]
-                   UTF8String]);
+                       UTF8String]);
     else
         [_domains setObject: plist forKey: @"Foundation"];
 }
@@ -111,11 +111,11 @@ NSString *const NSUserDefaultsDidChangeNotification =
 
     if (name == nil)
         name = [NSString
-            stringWithFormat: @"noid.%@",
-                              [[NSProcessInfo processInfo] processName]];
+                stringWithFormat: @"noid.%@",
+                                  [[NSProcessInfo processInfo] processName]];
 
     domain = [[[NSPlatform currentPlatform] persistantDomainClass]
-        persistantDomainWithName: name];
+            persistantDomainWithName: name];
 
     [_domains setObject: domain
                  forKey: [[NSProcessInfo processInfo] processName]];
@@ -125,10 +125,10 @@ NSString *const NSUserDefaultsDidChangeNotification =
 - init {
     _domains = [NSMutableDictionary new];
     _searchList = [[NSArray allocWithZone: NULL]
-        initWithObjects: NSArgumentDomain,
-                         [[NSProcessInfo processInfo] processName],
-                         NSGlobalDomain, NSRegistrationDomain, @"Foundation",
-                         nil];
+            initWithObjects: NSArgumentDomain,
+                             [[NSProcessInfo processInfo] processName],
+                             NSGlobalDomain, NSRegistrationDomain,
+                             @"Foundation", nil];
 
     [[NSProcessInfo processInfo] environment];
 
@@ -194,7 +194,7 @@ static NSUserDefaults *stdUserDefaults = nil;
 
         for (i = 0; i < count; i++) {
             NSDictionary *domain =
-                [_domains objectForKey: [_searchList objectAtIndex: i]];
+                    [_domains objectForKey: [_searchList objectAtIndex: i]];
             NSEnumerator *state = [domain keyEnumerator];
             id key;
 
@@ -225,7 +225,7 @@ static NSUserDefaults *stdUserDefaults = nil;
 - (void) registerDefaults: (NSDictionary *) values {
     @synchronized(self) {
         [[_domains objectForKey: NSRegistrationDomain]
-            addEntriesFromDictionary: values];
+                addEntriesFromDictionary: values];
     }
 }
 
@@ -246,7 +246,7 @@ static NSUserDefaults *stdUserDefaults = nil;
 - (NSDictionary *) persistentDomainForName: (NSString *) name {
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     NSPersistantDomain *domain = [[[NSPlatform currentPlatform]
-        persistantDomainClass] persistantDomainWithName: name];
+            persistantDomainClass] persistantDomainWithName: name];
     NSArray *allKeys = [domain allKeys];
     NSInteger i, count = [allKeys count];
 
@@ -286,8 +286,8 @@ static NSUserDefaults *stdUserDefaults = nil;
 - (NSMutableDictionary *) persistantDomain {
     NSMutableDictionary *dict = nil;
     @synchronized(self) {
-        dict =
-            [_domains objectForKey: [[NSProcessInfo processInfo] processName]];
+        dict = [_domains
+                objectForKey: [[NSProcessInfo processInfo] processName]];
         [[dict retain] autorelease];
     }
     return dict;
@@ -299,7 +299,7 @@ static NSUserDefaults *stdUserDefaults = nil;
 
         for (i = 0; i < count; i++) {
             NSDictionary *domain =
-                [_domains objectForKey: [_searchList objectAtIndex: i]];
+                    [_domains objectForKey: [_searchList objectAtIndex: i]];
             id object = [domain objectForKey: defaultName];
 
             if (object != nil)
@@ -320,8 +320,8 @@ static NSUserDefaults *stdUserDefaults = nil;
     NSString *string = [self objectForKey: defaultName];
 
     return [string isKindOfClass: objc_lookUpClass("NSString")]
-               ? string
-               : (NSString *) nil;
+                   ? string
+                   : (NSString *) nil;
 }
 
 - (NSArray *) arrayForKey: (NSString *) defaultName {
@@ -335,8 +335,8 @@ static NSUserDefaults *stdUserDefaults = nil;
     NSDictionary *dictionary = [self objectForKey: defaultName];
 
     return [dictionary isKindOfClass: objc_lookUpClass("NSDictionary")]
-               ? dictionary
-               : (NSDictionary *) nil;
+                   ? dictionary
+                   : (NSDictionary *) nil;
 }
 
 - (NSArray *) stringArrayForKey: (NSString *) defaultName {
@@ -349,7 +349,7 @@ static NSUserDefaults *stdUserDefaults = nil;
     count = [array count];
     while (--count >= 0)
         if (![[array objectAtIndex: count]
-                isKindOfClass: objc_lookUpClass("NSString")])
+                    isKindOfClass: objc_lookUpClass("NSString")])
             return nil;
 
     return array;
@@ -369,30 +369,30 @@ static NSUserDefaults *stdUserDefaults = nil;
     id number = [self objectForKey: defaultName];
 
     return [number isKindOfClass: objc_lookUpClass("NSString")]
-               ? [(NSString *) number intValue]
-               : ([number isKindOfClass: objc_lookUpClass("NSNumber")]
-                      ? [(NSNumber *) number intValue]
-                      : 0);
+                   ? [(NSString *) number intValue]
+                   : ([number isKindOfClass: objc_lookUpClass("NSNumber")]
+                              ? [(NSNumber *) number intValue]
+                              : 0);
 }
 
 - (float) floatForKey: (NSString *) defaultName {
     id number = [self objectForKey: defaultName];
 
     return [number isKindOfClass: objc_lookUpClass("NSString")]
-               ? [(NSString *) number floatValue]
-               : ([number isKindOfClass: objc_lookUpClass("NSNumber")]
-                      ? [(NSNumber *) number floatValue]
-                      : 0.0);
+                   ? [(NSString *) number floatValue]
+                   : ([number isKindOfClass: objc_lookUpClass("NSNumber")]
+                              ? [(NSNumber *) number floatValue]
+                              : 0.0);
 }
 
 - (double) doubleForKey: (NSString *) defaultName {
     id number = [self objectForKey: defaultName];
 
     return [number isKindOfClass: objc_lookUpClass("NSString")]
-               ? [(NSString *) number doubleValue]
-               : ([number isKindOfClass: objc_lookUpClass("NSNumber")]
-                      ? [(NSNumber *) number doubleValue]
-                      : 0.0);
+                   ? [(NSString *) number doubleValue]
+                   : ([number isKindOfClass: objc_lookUpClass("NSNumber")]
+                              ? [(NSNumber *) number doubleValue]
+                              : 0.0);
 }
 
 - (void) setObject: value forKey: (NSString *) key {
@@ -401,7 +401,7 @@ static NSUserDefaults *stdUserDefaults = nil;
         // the registered one Cocoa does that - even if the method documentation
         // says nothing about it
         if ([value isEqual: [[_domains objectForKey: NSRegistrationDomain]
-                                objectForKey: key]]) {
+                                    objectForKey: key]]) {
             value = nil;
         }
         if (value) {
@@ -413,8 +413,8 @@ static NSUserDefaults *stdUserDefaults = nil;
         _dictionaryRep = nil;
 
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSUserDefaultsDidChangeNotification
-                          object: self];
+                postNotificationName: NSUserDefaultsDidChangeNotification
+                              object: self];
     }
 }
 
@@ -439,8 +439,8 @@ static NSUserDefaults *stdUserDefaults = nil;
         [[self persistantDomain] removeObjectForKey: key];
 
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSUserDefaultsDidChangeNotification
-                          object: self];
+                postNotificationName: NSUserDefaultsDidChangeNotification
+                              object: self];
     }
 }
 

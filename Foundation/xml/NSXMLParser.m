@@ -135,7 +135,7 @@ enum {
 
 - (void) ignoreableWhitespace: (NSString *) string {
     if ([_delegate respondsToSelector: @selector(parser:
-                                           foundIgnorableWhitespace:)])
+                                               foundIgnorableWhitespace:)])
         [_delegate parser: self foundIgnorableWhitespace: string];
 }
 
@@ -166,12 +166,13 @@ enum {
 
     if ([_delegate respondsToSelector: @selector
                    (parser:
-                       didStartElement:namespaceURI:qualifiedName:attributes:)])
+                           didStartElement:namespaceURI:qualifiedName:attributes
+                                          :)])
         [_delegate parser: self
-            didStartElement: elementName
-               namespaceURI: nil
-              qualifiedName: nil
-                 attributes: _currentAttributes];
+                didStartElement: elementName
+                   namespaceURI: nil
+                  qualifiedName: nil
+                     attributes: _currentAttributes];
 
     [_currentAttributes release];
     _currentAttributes = nil;
@@ -180,9 +181,9 @@ enum {
 - (void) didEndElement {
     NSString *elementName = [_elementNameStack lastObject];
     [_delegate parser: self
-        didEndElement: elementName
-         namespaceURI: nil
-        qualifiedName: nil];
+            didEndElement: elementName
+             namespaceURI: nil
+            qualifiedName: nil];
     [_elementNameStack removeLastObject];
 }
 

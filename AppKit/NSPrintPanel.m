@@ -24,7 +24,7 @@
 
     [self updateFromPrintInfo];
     result = [[NSDisplay currentDisplay]
-        runModalPrintPanelWithPrintInfoDictionary: _attributes];
+            runModalPrintPanelWithPrintInfoDictionary: _attributes];
     if (result == NSOKButton)
         [self finalWritePrintInfo];
 
@@ -33,7 +33,7 @@
 
 - (void) updateFromPrintInfo {
     NSDictionary *source =
-        [[[NSPrintOperation currentOperation] printInfo] dictionary];
+            [[[NSPrintOperation currentOperation] printInfo] dictionary];
 
     [_attributes release];
     _attributes = [source mutableCopy];
@@ -41,7 +41,7 @@
 
 - (void) finalWritePrintInfo {
     NSMutableDictionary *destination =
-        [[[NSPrintOperation currentOperation] printInfo] dictionary];
+            [[[NSPrintOperation currentOperation] printInfo] dictionary];
 
     [destination addEntriesFromDictionary: _attributes];
 }
@@ -49,6 +49,6 @@
 @end
 
 NSString *const NSPrintPanelAccessorySummaryItemNameKey =
-    @"NSPrintPanelAccessorySummaryItemName";
+        @"NSPrintPanelAccessorySummaryItemName";
 NSString *const NSPrintPanelAccessorySummaryItemDescriptionKey =
-    @"NSPrintPanelAccessorySummaryItemDescription";
+        @"NSPrintPanelAccessorySummaryItemDescription";

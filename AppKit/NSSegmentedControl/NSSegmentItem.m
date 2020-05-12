@@ -43,9 +43,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (id) description {
-    return
-        [NSString stringWithFormat: @"%@ - %@ (%f) [%d]", [super description],
-                                    _label, _width, _tag];
+    return [NSString stringWithFormat: @"%@ - %@ (%f) [%d]",
+                                       [super description], _label, _width,
+                                       _tag];
 }
 
 - (void) dealloc {

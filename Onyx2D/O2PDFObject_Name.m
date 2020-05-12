@@ -38,9 +38,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + pdfObjectWithBytes: (const char *) bytes length: (unsigned) length {
-    return
-        [[(O2PDFObject_Name *) [self alloc] initWithBytes: bytes
-                                                   length: length] autorelease];
+    return [[(O2PDFObject_Name *) [self alloc] initWithBytes: bytes
+                                                      length: length]
+            autorelease];
 }
 
 + pdfObjectWithCString: (const char *) cString {

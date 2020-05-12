@@ -20,7 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSXMLNode.h>
 
 @class NSXMLNode, NSArray, NSError, NSDictionary, NSMutableDictionary,
-    NSMutableArray;
+        NSMutableArray;
 
 @interface NSXMLElement : NSXMLNode <NSCopying> {
     NSMutableDictionary *_attributes;

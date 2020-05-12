@@ -34,7 +34,7 @@
 }
 
 - initWithImage: (O2Image *) image
-    surfaceToPaintTransform: (O2AffineTransform) xform
-                      phase: (O2Size) phase;
+        surfaceToPaintTransform: (O2AffineTransform) xform
+                          phase: (O2Size) phase;
 
 @end

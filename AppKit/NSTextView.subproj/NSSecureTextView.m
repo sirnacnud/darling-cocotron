@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithFrame: (NSRect) frame {
     NSLayoutManager *removeManager;
     NSSecureLayoutManager *secureManager =
-        [[NSSecureLayoutManager new] autorelease];
+            [[NSSecureLayoutManager new] autorelease];
 
     [super initWithFrame: frame];
 

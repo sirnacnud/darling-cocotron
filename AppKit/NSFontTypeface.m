@@ -24,9 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSFontTypeface
 
 - initWithName: (NSString *) name
-    displayName: (NSString *) displayName
-      traitName: (NSString *) traitName
-         traits: (NSFontTraitMask) traits
+        displayName: (NSString *) displayName
+          traitName: (NSString *) traitName
+             traits: (NSFontTraitMask) traits
 {
     _name = [name copy];
     _displayName = [displayName copy];
@@ -37,8 +37,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithName: (NSString *) name
-     traitName: (NSString *) traitName
-        traits: (NSFontTraitMask) traits
+        traitName: (NSString *) traitName
+           traits: (NSFontTraitMask) traits
 {
     return [self initWithName: name
                   displayName: name

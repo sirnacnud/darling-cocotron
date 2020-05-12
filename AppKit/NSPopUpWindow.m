@@ -30,7 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _releaseWhenClosed = YES;
 
     _view = [[NSPopUpView alloc]
-        initWithFrame: NSMakeRect(0, 0, frame.size.width, frame.size.height)];
+            initWithFrame: NSMakeRect(0, 0, frame.size.width,
+                                      frame.size.height)];
     [[self contentView] addSubview: _view];
 
     return self;
@@ -65,7 +66,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     frame = [self frame];
     frame.size = size;
     frame.origin.y -=
-        (size.height - selectedRect.origin.y) - selectedRect.size.height;
+            (size.height - selectedRect.origin.y) - selectedRect.size.height;
     [self setFrame: frame display: NO];
 
     [_view setFrameSize: size];

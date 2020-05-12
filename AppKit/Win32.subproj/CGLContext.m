@@ -262,9 +262,9 @@ static int resizeBackingIfNeeded(CGLContextObj context) {
         GLint h = context->h;
 
         adjustFrameInParent(
-            context,
-            [CGWindow windowWithWindowNumber: context->parentWindowNumber], &x,
-            &y, &w, &h);
+                context,
+                [CGWindow windowWithWindowNumber: context->parentWindowNumber],
+                &x, &y, &w, &h);
 
         MoveWindow(context->window, x, y, w, h, NO);
     } else {
@@ -417,7 +417,7 @@ static void pfdFromPixelFormat(PIXELFORMATDESCRIPTOR *pfd,
 
 static BOOL contextHasPbufferExtension(CGLContextObj context) {
     const char *extensions =
-        opengl_wglGetExtensionsStringARB(context->windowDC);
+            opengl_wglGetExtensionsStringARB(context->windowDC);
 
     // NSLog(@"extensions=%s",extensions);
 
@@ -506,7 +506,7 @@ CGL_EXPORT CGLError CGLCreateContext(CGLPixelFormatObj pixelFormat,
                                      CGLContextObj *resultp)
 {
     CGLContextObj context =
-        NSZoneCalloc(NULL, 1, sizeof(struct _CGLContextObj));
+            NSZoneCalloc(NULL, 1, sizeof(struct _CGLContextObj));
     PIXELFORMATDESCRIPTOR pfd;
     int pfIndex;
 
@@ -524,13 +524,13 @@ CGL_EXPORT CGLError CGLCreateContext(CGLPixelFormatObj pixelFormat,
     context->forceChildWindow = TRUE;
 
     context->parent =
-        CreateWindowEx(WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE, "CGLWindow", "",
-                       WS_POPUP | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, 0, 0, 10,
-                       10, NULL, NULL, GetModuleHandle(NULL), NULL);
+            CreateWindowEx(WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE, "CGLWindow", "",
+                           WS_POPUP | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, 0, 0,
+                           10, 10, NULL, NULL, GetModuleHandle(NULL), NULL);
     context->window = CreateWindowEx(
-        WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE, "CGLWindow", "",
-        WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, 0, 0, context->w,
-        context->h, context->parent, NULL, GetModuleHandle(NULL), NULL);
+            WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE, "CGLWindow", "",
+            WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, 0, 0, context->w,
+            context->h, context->parent, NULL, GetModuleHandle(NULL), NULL);
 
     context->windowDC = GetDC(context->window);
 
@@ -559,7 +559,7 @@ CGL_EXPORT CGLError CGLCreateContext(CGLPixelFormatObj pixelFormat,
     context->opacity = 1;
 
     context->overlay = [[CGLPixelSurface alloc]
-        initWithSize: O2SizeMake(context->w, context->h)];
+            initWithSize: O2SizeMake(context->w, context->h)];
     [context->overlay setOpaque: YES];
 
     *resultp = context;
@@ -589,7 +589,7 @@ CGL_EXPORT void CGLReleaseContext(CGLContextObj context) {
     if (context->retainCount == 0) {
 
         [[CGWindow windowWithWindowNumber: context->parentWindowNumber]
-            removeCGLContext: context];
+                removeCGLContext: context];
 
         if (CGLGetCurrentContext() == context)
             CGLSetCurrentContext(NULL);
@@ -638,7 +638,7 @@ CGL_EXPORT CGLError CGLUnlockContext(CGLContextObj context) {
 
 static BOOL usesChildWindow(CGLContextObj context) {
     Win32Window *parentWindow =
-        [CGWindow windowWithWindowNumber: context->parentWindowNumber];
+            [CGWindow windowWithWindowNumber: context->parentWindowNumber];
 
     if (parentWindow == nil)
         return NO;
@@ -664,8 +664,8 @@ static void reflectChildWindowState(CGLContextObj context, GLint force) {
         if (!context->inParent || force) {
             context->inParent = TRUE;
 
-            Win32Window *parentWindow =
-                [CGWindow windowWithWindowNumber: context->parentWindowNumber];
+            Win32Window *parentWindow = [CGWindow
+                    windowWithWindowNumber: context->parentWindowNumber];
 
             SetParent(context->window, [parentWindow windowHandle]);
             SetProp(context->window, "parent", [parentWindow windowHandle]);
@@ -703,7 +703,7 @@ CGL_EXPORT CGLError CGLSetParameter(CGLContextObj context,
 
     case kCGLCPSurfaceBackingSize:;
         BOOL sizeChanged =
-            (context->w != value[0] || context->h != value[1]) ? YES : NO;
+                (context->w != value[0] || context->h != value[1]) ? YES : NO;
 
         if (sizeChanged) {
             context->w = value[0];
@@ -724,7 +724,7 @@ CGL_EXPORT CGLError CGLSetParameter(CGLContextObj context,
 
     case kCGLCPSurfaceBackingOrigin:;
         BOOL originChanged =
-            (context->x != value[0] || context->y != value[1]) ? YES : NO;
+                (context->x != value[0] || context->y != value[1]) ? YES : NO;
 
         if (originChanged) {
             context->x = value[0];
@@ -740,10 +740,10 @@ CGL_EXPORT CGLError CGLSetParameter(CGLContextObj context,
 
         if (didChange) {
             [[CGWindow windowWithWindowNumber: context->parentWindowNumber]
-                removeCGLContext: context];
+                    removeCGLContext: context];
             context->parentWindowNumber = value[0];
             [[CGWindow windowWithWindowNumber: context->parentWindowNumber]
-                addCGLContext: context];
+                    addCGLContext: context];
         }
         reflectChildWindowState(context, didChange);
     } break;
@@ -806,7 +806,7 @@ CGL_EXPORT CGLError CGLCopyPixelsFromSurface(O2Surface_DIBSection *srcSurface,
 {
 
     O2Surface_DIBSection *dstSurface =
-        (O2Surface_DIBSection *) [destination->overlay validSurface];
+            (O2Surface_DIBSection *) [destination->overlay validSurface];
     BLENDFUNCTION blend;
 
     blend.BlendOp = AC_SRC_OVER;
@@ -854,9 +854,9 @@ CGL_EXPORT CGLError CGLCopyPixels(CGLContextObj source,
     CGLPixelSurface *overlay = source->overlay;
 
     O2Surface_DIBSection *dstSurface =
-        (O2Surface_DIBSection *) [destination->overlay validSurface];
+            (O2Surface_DIBSection *) [destination->overlay validSurface];
     O2Surface_DIBSection *srcSurface =
-        (O2Surface_DIBSection *) [overlay validSurface];
+            (O2Surface_DIBSection *) [overlay validSurface];
 
     if (srcSurface == nil)
         return kCGLNoError;
@@ -887,7 +887,7 @@ CGLError CGLFlushDrawable(CGLContextObj context) {
             NSLog(@"SwapBuffers failed, error = %d", GetLastError());
     } else {
         Win32Window *parentWindow =
-            [CGWindow windowWithWindowNumber: context->parentWindowNumber];
+                [CGWindow windowWithWindowNumber: context->parentWindowNumber];
 
         [parentWindow flushCGLContext: context];
     }
@@ -1094,14 +1094,14 @@ CGLError CGLSetPBuffer(CGLContextObj context, CGLPBufferObj pbuffer,
     }
 
     const int attributes[] = {
-        WGL_TEXTURE_FORMAT_ARB,
-        WGL_TEXTURE_RGBA_ARB, // p-buffer will have RBA texture format
-        WGL_TEXTURE_TARGET_ARB, WGL_TEXTURE_2D_ARB,
-        0}; // Of texture target will be GL_TEXTURE_2D
+            WGL_TEXTURE_FORMAT_ARB,
+            WGL_TEXTURE_RGBA_ARB, // p-buffer will have RBA texture format
+            WGL_TEXTURE_TARGET_ARB, WGL_TEXTURE_2D_ARB,
+            0}; // Of texture target will be GL_TEXTURE_2D
 
-    pbuffer->pBuffer =
-        opengl_wglCreatePbufferARB(CGLGetWindowDC(context), piFormats[0],
-                                   pbuffer->width, pbuffer->height, attributes);
+    pbuffer->pBuffer = opengl_wglCreatePbufferARB(CGLGetWindowDC(context),
+                                                  piFormats[0], pbuffer->width,
+                                                  pbuffer->height, attributes);
     reportGLErrorIfNeeded(__PRETTY_FUNCTION__, __LINE__);
     pbuffer->dc = opengl_wglGetPbufferDCARB(pbuffer->pBuffer);
     reportGLErrorIfNeeded(__PRETTY_FUNCTION__, __LINE__);

@@ -29,7 +29,7 @@ along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 
     NSMutableDictionary<NSPasteboardType, NSData *> *_typeToData;
     NSMutableDictionary<NSPasteboardType, id<NSPasteboardTypeOwner>>
-        *_typeToOwner;
+            *_typeToOwner;
     NSInteger _changeCount;
 
     Atom _receivingProperty;

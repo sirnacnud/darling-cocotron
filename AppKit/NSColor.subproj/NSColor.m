@@ -52,7 +52,7 @@ static int NSColor_ignoresAlpha = -1;
             [self getRed: &r green: &g blue: &b alpha: &a];
             [coder encodeInt: 1 forKey: @"NSColorSpace"];
             NSString *string =
-                [NSString stringWithFormat: @"%f %f %f %f", r, g, b, a];
+                    [NSString stringWithFormat: @"%f %f %f %f", r, g, b, a];
             NSData *data = [string dataUsingEncoding: NSASCIIStringEncoding];
             [coder encodeBytes: [data bytes]
                         length: [data length]
@@ -63,7 +63,7 @@ static int NSColor_ignoresAlpha = -1;
             [self getRed: &r green: &g blue: &b alpha: &a];
             [coder encodeInt: 2 forKey: @"NSColorSpace"];
             NSString *string =
-                [NSString stringWithFormat: @"%f %f %f %f", r, g, b, a];
+                    [NSString stringWithFormat: @"%f %f %f %f", r, g, b, a];
             NSData *data = [string dataUsingEncoding: NSASCIIStringEncoding];
             [coder encodeBytes: [data bytes]
                         length: [data length]
@@ -93,8 +93,8 @@ static int NSColor_ignoresAlpha = -1;
 
             [self getCyan: &c magenta: &m yellow: &y black: &k alpha: &a];
             [coder encodeInt: 5 forKey: @"NSColorSpace"];
-            NSString *string =
-                [NSString stringWithFormat: @"%f %f %f %f %f", c, m, y, k, a];
+            NSString *string = [NSString
+                    stringWithFormat: @"%f %f %f %f %f", c, m, y, k, a];
             NSData *data = [string dataUsingEncoding: NSASCIIStringEncoding];
             [coder encodeBytes: [data bytes]
                         length: [data length]
@@ -142,9 +142,9 @@ static int NSColor_ignoresAlpha = -1;
             const uint8_t *rgb = [keyed decodeBytesForKey: @"NSRGB"
                                            returnedLength: &length];
             NSString *string = [[[NSString alloc]
-                initWithBytes: rgb
-                       length: length
-                     encoding: NSUTF8StringEncoding] autorelease];
+                    initWithBytes: rgb
+                           length: length
+                         encoding: NSUTF8StringEncoding] autorelease];
             NSArray *components = [string componentsSeparatedByString: @" "];
             int count = [components count];
 
@@ -181,9 +181,9 @@ static int NSColor_ignoresAlpha = -1;
             const uint8_t *white = [keyed decodeBytesForKey: @"NSWhite"
                                              returnedLength: &length];
             NSString *string = [[[NSString alloc]
-                initWithBytes: white
-                       length: length
-                     encoding: NSUTF8StringEncoding] autorelease];
+                    initWithBytes: white
+                           length: length
+                         encoding: NSUTF8StringEncoding] autorelease];
             NSArray *components = [string componentsSeparatedByString: @" "];
             int count = [components count];
 
@@ -215,9 +215,9 @@ static int NSColor_ignoresAlpha = -1;
             const uint8_t *cmyk = [keyed decodeBytesForKey: @"NSCMYK"
                                             returnedLength: &length];
             NSString *string = [[[NSString alloc]
-                initWithBytes: cmyk
-                       length: length - 1
-                     encoding: NSUTF8StringEncoding] autorelease];
+                    initWithBytes: cmyk
+                           length: length - 1
+                         encoding: NSUTF8StringEncoding] autorelease];
             NSArray *components = [string componentsSeparatedByString: @" "];
             int count = [components count];
 
@@ -633,8 +633,8 @@ static void drawPattern(void *info, CGContextRef cgContext) {
     NSImage *image = (NSImage *) info;
     NSSize size = [image size];
     NSGraphicsContext *context =
-        [NSGraphicsContext graphicsContextWithGraphicsPort: cgContext
-                                                   flipped: NO];
+            [NSGraphicsContext graphicsContextWithGraphicsPort: cgContext
+                                                       flipped: NO];
 
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext: context];
@@ -654,17 +654,17 @@ static void releasePatternInfo(void *info) {
     CGPatternCallbacks callbacks = {0, drawPattern, releasePatternInfo};
     [image retain];
     CGPatternRef pattern =
-        CGPatternCreate(image, CGRectMake(0, 0, size.width, size.height),
-                        CGAffineTransformIdentity, size.width, size.height,
-                        kCGPatternTilingNoDistortion, YES, &callbacks);
+            CGPatternCreate(image, CGRectMake(0, 0, size.width, size.height),
+                            CGAffineTransformIdentity, size.width, size.height,
+                            kCGPatternTilingNoDistortion, YES, &callbacks);
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGFloat components[4] = {1, 1, 1, 1};
     CGColorRef cgColor =
-        CGColorCreateWithPattern(colorSpace, pattern, components);
+            CGColorCreateWithPattern(colorSpace, pattern, components);
 
     NSColor *result = [[[NSColor_CGColor alloc]
-        initWithColorRef: cgColor
-               spaceName: NSPatternColorSpace] autorelease];
+            initWithColorRef: cgColor
+                   spaceName: NSPatternColorSpace] autorelease];
 
     CGColorRelease(cgColor);
     CGColorSpaceRelease(colorSpace);
@@ -700,9 +700,9 @@ static void releasePatternInfo(void *info) {
 }
 
 - (void) getHue: (CGFloat *) hue
-     saturation: (CGFloat *) saturation
-     brightness: (CGFloat *) brightness
-          alpha: (CGFloat *) alpha
+        saturation: (CGFloat *) saturation
+        brightness: (CGFloat *) brightness
+             alpha: (CGFloat *) alpha
 {
     NSInvalidAbstractInvocation();
 }
@@ -828,9 +828,9 @@ static void releasePatternInfo(void *info) {
                                ofColor: (NSColor *) color
 {
     NSColor *primary =
-        [color colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+            [color colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
     NSColor *secondary =
-        [self colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+            [self colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 
     if (primary == nil || secondary == nil)
         return nil;
@@ -899,10 +899,11 @@ static void releasePatternInfo(void *info) {
         @synchronized(self) {
             if (NSColor_ignoresAlpha == -1)
                 NSColor_ignoresAlpha =
-                    [[[NSUserDefaults standardUserDefaults]
-                        objectForKey: @"NSIgnoreAlpha"]
-                        compare: @"NO"
-                        options: NSCaseInsensitiveSearch] != NSOrderedSame;
+                        [[[NSUserDefaults standardUserDefaults]
+                                objectForKey: @"NSIgnoreAlpha"]
+                                compare: @"NO"
+                                options: NSCaseInsensitiveSearch] !=
+                        NSOrderedSame;
         }
     }
 

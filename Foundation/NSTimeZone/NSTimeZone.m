@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #include <stdio.h>
 
 NSString *const NSSystemTimeZoneDidChangeNotification =
-    @"NSSystemTimeZoneDidChangeNotification";
+        @"NSSystemTimeZoneDidChangeNotification";
 
 static NSTimeZone *_systemTimeZone = nil;
 static NSTimeZone *_defaultTimeZone = nil;
@@ -56,7 +56,7 @@ static NSTimeZone *_localTimeZone = nil;
 + (NSTimeZone *) systemTimeZone {
     if (_systemTimeZone == nil) {
         _systemTimeZone = [[[[NSPlatform currentPlatform] timeZoneClass]
-            systemTimeZone] retain];
+                systemTimeZone] retain];
     }
 
     return _systemTimeZone;
@@ -97,10 +97,10 @@ static NSTimeZone *_localTimeZone = nil;
     static NSDictionary *_abbreviationDictionary = nil;
     if (_abbreviationDictionary == nil) {
         NSString *pathToPlist = [[NSBundle bundleForClass: self]
-            pathForResource: @"NSTimeZoneAbbreviations"
-                     ofType: @"plist"];
+                pathForResource: @"NSTimeZoneAbbreviations"
+                         ofType: @"plist"];
         _abbreviationDictionary = [[NSDictionary allocWithZone: NULL]
-            initWithContentsOfFile: pathToPlist];
+                initWithContentsOfFile: pathToPlist];
     }
 
     return _abbreviationDictionary;
@@ -126,12 +126,12 @@ static NSTimeZone *_localTimeZone = nil;
 
 + (NSTimeZone *) timeZoneForSecondsFromGMT: (NSInteger) seconds {
     return [[[NSTimeZone_absolute allocWithZone: NULL]
-        initWithSecondsFromGMT: seconds] autorelease];
+            initWithSecondsFromGMT: seconds] autorelease];
 }
 
 + (NSTimeZone *) timeZoneWithAbbreviation: (NSString *) abbreviation {
     NSString *fullName =
-        [[self abbreviationDictionary] objectForKey: abbreviation];
+            [[self abbreviationDictionary] objectForKey: abbreviation];
 
     if (fullName != nil)
         return [self timeZoneWithName: fullName];

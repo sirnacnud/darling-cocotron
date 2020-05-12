@@ -68,8 +68,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
     return ([types firstObjectCommonWithArray: [self _draggedTypes]] != nil)
-               ? (id) self
-               : nil;
+                   ? (id) self
+                   : nil;
 }
 
 @end

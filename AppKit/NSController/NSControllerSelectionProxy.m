@@ -50,7 +50,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (id) observableSelection {
     if (!_observableSelection)
         _observableSelection = [[_NSControllerArray alloc]
-            initWithArray: [_controller selectedObjects]];
+                initWithArray: [_controller selectedObjects]];
     return _observableSelection;
 }
 
@@ -62,12 +62,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_observableSelection release];
 
     if ([_observationProxies count] > 0)
-        [NSException
-             raise: NSInvalidArgumentException
-            format:
-                @"NSControllerSelectionProxy still being observed by %@ on %@",
-                [[_observationProxies objectAtIndex: 0] observer],
-                [[_observationProxies objectAtIndex: 0] keyPath]];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"NSControllerSelectionProxy still being observed "
+                            @"by %@ on %@",
+                            [[_observationProxies objectAtIndex: 0] observer],
+                            [[_observationProxies objectAtIndex: 0] keyPath]];
 
     [_observationProxies release];
     [super dealloc];
@@ -79,10 +78,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSArray *selectedObjects = [_controller selectedObjects];
     for (id obj in selectedObjects) {
         [obj addObserver: self
-              forKeyPath: key
-                 options: NSKeyValueObservingOptionOld |
-                          NSKeyValueObservingOptionNew
-                 context: nil];
+                forKeyPath: key
+                   options: NSKeyValueObservingOptionOld |
+                            NSKeyValueObservingOptionNew
+                   context: nil];
     }
 }
 
@@ -109,7 +108,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         // Get all selected objects property values, swizzling nil values with
         // the nilMarker
         NSMutableArray *allValues =
-            [NSMutableArray arrayWithCapacity: [selectedObjects count]];
+                [NSMutableArray arrayWithCapacity: [selectedObjects count]];
         id en = [selectedObjects objectEnumerator];
         id obj;
         while ((obj = [en nextObject])) {
@@ -192,10 +191,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     for (id obj in selectedObjects) {
         for (id key in _cachedKeysForKVO) {
             [obj addObserver: self
-                  forKeyPath: key
-                     options: NSKeyValueObservingOptionOld |
-                              NSKeyValueObservingOptionNew
-                     context: nil];
+                    forKeyPath: key
+                       options: NSKeyValueObservingOptionOld |
+                                NSKeyValueObservingOptionNew
+                       context: nil];
         }
     }
 }
@@ -251,7 +250,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     // Pass the change on up to those observing the proxy
     if ([[change objectForKey: NSKeyValueChangeNotificationIsPriorKey]
-            boolValue] == YES) {
+                boolValue] == YES) {
         [self willChangeValueForKey: keyPath];
     } else {
         [self didChangeValueForKey: keyPath];
@@ -264,9 +263,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
              context: (void *) context
 {
     _NSObservationProxy *proxy =
-        [[_NSObservationProxy alloc] initWithKeyPath: keyPath
-                                            observer: observer
-                                              object: self];
+            [[_NSObservationProxy alloc] initWithKeyPath: keyPath
+                                                observer: observer
+                                                  object: self];
     [proxy setNotifyObject: YES];
     [_observationProxies addObject: proxy];
 
@@ -282,9 +281,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
              forKeyPath: (NSString *) keyPath
 {
     _NSObservationProxy *proxy =
-        [[_NSObservationProxy alloc] initWithKeyPath: keyPath
-                                            observer: observer
-                                              object: self];
+            [[_NSObservationProxy alloc] initWithKeyPath: keyPath
+                                                observer: observer
+                                                  object: self];
     NSInteger idx = [_observationProxies indexOfObject: proxy];
     if (idx == NSNotFound) {
     }
@@ -293,8 +292,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (idx != NSNotFound) {
         [[self observableSelection]
-            removeObserver: [_observationProxies objectAtIndex: idx]
-                forKeyPath: keyPath];
+                removeObserver: [_observationProxies objectAtIndex: idx]
+                    forKeyPath: keyPath];
         [_observationProxies removeObjectAtIndex: idx];
     }
 }

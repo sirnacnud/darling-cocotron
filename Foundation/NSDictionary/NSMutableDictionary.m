@@ -59,8 +59,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + dictionaryWithCapacity: (NSUInteger) capacity {
-    return
-        [[[self allocWithZone: NULL] initWithCapacity: capacity] autorelease];
+    return [[[self allocWithZone: NULL] initWithCapacity: capacity]
+            autorelease];
 }
 
 - (void) setObject: object forKey: aKey {

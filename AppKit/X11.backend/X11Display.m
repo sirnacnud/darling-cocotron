@@ -92,8 +92,9 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
         _fileDescriptor = ConnectionNumber(_display);
 #ifndef DARLING
         _inputSource = [[NSSelectInputSource
-            socketInputSourceWithSocket:
-                [NSSocket_bsd socketWithDescriptor: _fileDescriptor]] retain];
+                socketInputSourceWithSocket:
+                        [NSSocket_bsd socketWithDescriptor: _fileDescriptor]]
+                retain];
         [_inputSource setDelegate: self];
         [_inputSource setSelectEventMask: NSSelectReadEvent];
 #else
@@ -106,10 +107,10 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
                                    .release = NULL,
                                    .copyDescription = NULL};
         _cfSocket = CFSocketCreateWithNative(
-            kCFAllocatorDefault, _fileDescriptor, kCFSocketReadCallBack,
-            socketCallback, &context);
+                kCFAllocatorDefault, _fileDescriptor, kCFSocketReadCallBack,
+                socketCallback, &context);
         _source =
-            CFSocketCreateRunLoopSource(kCFAllocatorDefault, _cfSocket, 0);
+                CFSocketCreateRunLoopSource(kCFAllocatorDefault, _cfSocket, 0);
         CFRunLoopAddSource(CFRunLoopGetMain(), _source, kCFRunLoopCommonModes);
 
         CGLRegisterNativeDisplay(_display);
@@ -158,24 +159,24 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
 
         screen = XRRGetScreenResources(_display, DefaultRootWindow(_display));
         NSMutableArray<NSScreen *> *retval =
-            [NSMutableArray arrayWithCapacity: screen->noutput];
+                [NSMutableArray arrayWithCapacity: screen->noutput];
 
         Atom edidAtom = XInternAtom(_display, "EDID", FALSE);
 
         for (int i = 0; i < screen->noutput; i++) {
             XRROutputInfo *oinfo =
-                XRRGetOutputInfo(_display, screen, screen->outputs[i]);
+                    XRRGetOutputInfo(_display, screen, screen->outputs[i]);
             NSScreen *nsscreen;
 
             if (oinfo->crtc) {
                 XRRCrtcInfo *crtc =
-                    XRRGetCrtcInfo(_display, screen, oinfo->crtc);
+                        XRRGetCrtcInfo(_display, screen, oinfo->crtc);
                 NSRect frame =
-                    NSMakeRect(crtc->x, crtc->y, crtc->width, crtc->height);
+                        NSMakeRect(crtc->x, crtc->y, crtc->width, crtc->height);
 
                 nsscreen =
-                    [[[NSScreen alloc] initWithFrame: frame
-                                        visibleFrame: frame] autorelease];
+                        [[[NSScreen alloc] initWithFrame: frame
+                                            visibleFrame: frame] autorelease];
 
                 Atom actualType;
                 unsigned long nitems, bytesAfter;
@@ -193,9 +194,9 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
 
                 XRRFreeCrtcInfo(crtc);
             } else {
-                nsscreen =
-                    [[[NSScreen alloc] initWithFrame: NSZeroRect
-                                        visibleFrame: NSZeroRect] autorelease];
+                nsscreen = [[[NSScreen alloc] initWithFrame: NSZeroRect
+                                               visibleFrame: NSZeroRect]
+                        autorelease];
             }
             [nsscreen setCgDirectDisplayID: (i + 1)];
 
@@ -208,13 +209,13 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
 
         return [NSArray arrayWithArray: retval];
     } else {
-        NSRect frame =
-            NSMakeRect(0, 0, DisplayWidth(_display, DefaultScreen(_display)),
-                       DisplayHeight(_display, DefaultScreen(_display)));
-        return
-            [NSArray arrayWithObject: [[[NSScreen alloc] initWithFrame: frame
-                                                          visibleFrame: frame]
-                                          autorelease]];
+        NSRect frame = NSMakeRect(
+                0, 0, DisplayWidth(_display, DefaultScreen(_display)),
+                DisplayHeight(_display, DefaultScreen(_display)));
+        return [NSArray
+                arrayWithObject: [[[NSScreen alloc] initWithFrame: frame
+                                                     visibleFrame: frame]
+                                         autorelease]];
     }
 }
 
@@ -222,8 +223,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
     double rate = 0;
 
     if (mi->hTotal && mi->vTotal)
-        rate =
-            (double) mi->dotClock / ((double) mi->hTotal * (double) mi->vTotal);
+        rate = (double) mi->dotClock /
+               ((double) mi->hTotal * (double) mi->vTotal);
 
     return @{
         @"Width" : @(mi->width),
@@ -236,7 +237,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 - (NSArray *) modesForScreen: (int) screenIndex {
     int eventBase, errorBase;
     const int defaultDepth =
-        XDefaultDepthOfScreen(XDefaultScreenOfDisplay(_display));
+            XDefaultDepthOfScreen(XDefaultScreenOfDisplay(_display));
 
     if (!XRRQueryExtension(_display, &eventBase, &errorBase)) {
         Screen *defaultScreen = XDefaultScreenOfDisplay(_display);
@@ -247,18 +248,18 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         } ];
     } else {
         XRRScreenResources *screen =
-            XRRGetScreenResources(_display, DefaultRootWindow(_display));
+                XRRGetScreenResources(_display, DefaultRootWindow(_display));
 
         if (screenIndex < 0 || screenIndex >= screen->noutput) {
             XRRFreeScreenResources(screen);
             return nil;
         }
 
-        XRROutputInfo *oinfo =
-            XRRGetOutputInfo(_display, screen, screen->outputs[screenIndex]);
+        XRROutputInfo *oinfo = XRRGetOutputInfo(_display, screen,
+                                                screen->outputs[screenIndex]);
 
         NSMutableArray<NSDictionary *> *retval =
-            [NSMutableArray arrayWithCapacity: oinfo->nmode];
+                [NSMutableArray arrayWithCapacity: oinfo->nmode];
 
         for (int i = 0; i < oinfo->nmode; i++) {
             XRRModeInfo *mode = NULL;
@@ -298,15 +299,15 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 
     if (XRRQueryExtension(_display, &eventBase, &errorBase)) {
         XRRScreenResources *screen =
-            XRRGetScreenResources(_display, DefaultRootWindow(_display));
+                XRRGetScreenResources(_display, DefaultRootWindow(_display));
 
         if (screenIndex < 0 || screenIndex >= screen->noutput) {
             XRRFreeScreenResources(screen);
             return dict;
         }
 
-        XRROutputInfo *oinfo =
-            XRRGetOutputInfo(_display, screen, screen->outputs[screenIndex]);
+        XRROutputInfo *oinfo = XRRGetOutputInfo(_display, screen,
+                                                screen->outputs[screenIndex]);
 
         if (oinfo->crtc) {
             XRRCrtcInfo *crtc = XRRGetCrtcInfo(_display, screen, oinfo->crtc);
@@ -314,9 +315,9 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
             for (int i = 0; i < screen->nmode; i++) {
                 if (screen->modes[i].id == crtc->mode) {
                     const int defaultDepth = XDefaultDepthOfScreen(
-                        XDefaultScreenOfDisplay(_display));
-                    dict =
-                        modeInfoToDictionary(&screen->modes[i], defaultDepth);
+                            XDefaultScreenOfDisplay(_display));
+                    dict = modeInfoToDictionary(&screen->modes[i],
+                                                defaultDepth);
 
                     break;
                 }
@@ -365,7 +366,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         return;
 
     XkbDescPtr desc =
-        XkbGetKeyboard(_display, XkbAllComponentsMask, XkbUseCoreKbd);
+            XkbGetKeyboard(_display, XkbAllComponentsMask, XkbUseCoreKbd);
     if (!desc)
         return;
 
@@ -427,7 +428,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         group = state.group;
 
     struct MyLayout *layout =
-        (struct MyLayout *) malloc(sizeof(struct MyLayout));
+            (struct MyLayout *) malloc(sizeof(struct MyLayout));
 
     layout->layout.keyLayoutHeaderFormat = kUCKeyLayoutHeaderFormat;
     layout->layout.keyLayoutDataVersion = 0;
@@ -437,12 +438,12 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
     memset(layout->layout.keyboardTypeList, 0, sizeof(UCKeyboardTypeHeader));
 
     layout->layout.keyboardTypeList[0].keyModifiersToTableNumOffset =
-        offsetof(struct MyLayout, modifierVariants);
+            offsetof(struct MyLayout, modifierVariants);
     layout->layout.keyboardTypeList[0].keyToCharTableIndexOffset =
-        offsetof(struct MyLayout, tableIndex);
+            offsetof(struct MyLayout, tableIndex);
 
     layout->modifierVariants.keyModifiersToTableNumFormat =
-        kUCKeyModifiersToTableNumFormat;
+            kUCKeyModifiersToTableNumFormat;
     layout->modifierVariants.defaultTableNum = 0;
     layout->modifierVariants.modifiersCount = 3;
     layout->modifierVariants.tableNum[0] = 0;
@@ -453,9 +454,9 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
     layout->tableIndex.keyToCharTableSize = 128;
     layout->tableIndex.keyToCharTableCount = 2;
     layout->tableIndex.keyToCharTableOffsets[0] =
-        offsetof(struct MyLayout, table1);
+            offsetof(struct MyLayout, table1);
     layout->tableIndex.keyToCharTableOffsets[1] =
-        offsetof(struct MyLayout, table2);
+            offsetof(struct MyLayout, table2);
 
     for (int shift = 0; shift <= 1; shift++) {
         UCKeyOutput *outTable = (shift == 0) ? layout->table1 : layout->table2;
@@ -645,8 +646,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         FcChar8 *family;
         if (FcPatternGetString(set->fonts[i], FC_FAMILY, 0, &family) ==
             FcResultMatch) {
-            [ret addObject: [NSString
-                                stringWithUTF8String: (const char *) family]];
+            [ret addObject: [NSString stringWithUTF8String: (const char *)
+                                                                    family]];
         }
     }
 
@@ -682,7 +683,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 }
 
 - (NSArray<NSFontTypeface *> *) fontTypefacesForFamilyName:
-    (NSString *) familyName
+        (NSString *) familyName
 {
     familyName = [self substituteFamilyName: familyName];
     if (familyName == nil) {
@@ -702,10 +703,10 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         FcPattern *p = set->fonts[i];
         if (FcPatternGetString(p, FC_STYLE, 0, &typeface) == FcResultMatch) {
             NSString *traitName =
-                [NSString stringWithUTF8String: (const char *) typeface];
+                    [NSString stringWithUTF8String: (const char *) typeface];
             FcChar8 *pattern = FcNameUnparse(p);
             NSString *name =
-                [NSString stringWithUTF8String: (const char *) pattern];
+                    [NSString stringWithUTF8String: (const char *) pattern];
             FcStrFree(pattern);
 
             NSFontTraitMask traits = 0;
@@ -735,9 +736,9 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
                 traits |= NSExpandedFontMask;
 
             NSFontTypeface *face =
-                [[NSFontTypeface alloc] initWithName: name
-                                           traitName: traitName
-                                              traits: traits];
+                    [[NSFontTypeface alloc] initWithName: name
+                                               traitName: traitName
+                                                  traits: traits];
             [ret addObject: face];
             [face release];
         }
@@ -763,7 +764,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 }
 
 - (int) runModalPrintPanelWithPrintInfoDictionary:
-    (NSMutableDictionary *) attributes
+        (NSMutableDictionary *) attributes
 {
     NSUnimplementedMethod();
     return 0;
@@ -778,17 +779,17 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 }
 
 - (int) savePanel: (NSSavePanel *) savePanel
-    runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file
+        runModalForDirectory: (NSString *) directory
+                        file: (NSString *) file
 {
     NSUnimplementedMethod();
     return 0;
 }
 
 - (int) openPanel: (NSOpenPanel *) openPanel
-    runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file
-                   types: (NSArray *) types
+        runModalForDirectory: (NSString *) directory
+                        file: (NSString *) file
+                       types: (NSArray *) types
 {
     NSUnimplementedMethod();
     return 0;
@@ -809,12 +810,12 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 - (void) setWindow: (id) window forID: (XID) i {
     if (window)
         [_windowsByID
-            setObject: window
-               forKey: [NSNumber numberWithUnsignedLong: (unsigned long) i]];
+                setObject: window
+                   forKey: [NSNumber
+                                   numberWithUnsignedLong: (unsigned long) i]];
     else
-        [_windowsByID
-            removeObjectForKey: [NSNumber
-                                    numberWithUnsignedLong: (unsigned long) i]];
+        [_windowsByID removeObjectForKey: [NSNumber numberWithUnsignedLong:
+                                                            (unsigned long) i]];
 }
 
 - (id) windowForID: (XID) i {
@@ -887,22 +888,22 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
     case KeyPress:
     case KeyRelease:;
         NSEventModifierFlags modifierFlags =
-            [self modifierFlagsForState: ev->xkey.state];
+                [self modifierFlagsForState: ev->xkey.state];
         char buf[4] = {0};
 
         XLookupString((XKeyEvent *) ev, buf, 4, NULL, NULL);
         id str = [[NSString alloc] initWithCString: buf
                                           encoding: NSISOLatin1StringEncoding];
         NSPoint pos =
-            [window transformPoint: NSMakePoint(ev->xkey.x, ev->xkey.y)];
+                [window transformPoint: NSMakePoint(ev->xkey.x, ev->xkey.y)];
 
         id strIg = [str lowercaseString];
         if (ev->xkey.state) {
             ev->xkey.state = 0;
             XLookupString((XKeyEvent *) ev, buf, 4, NULL, NULL);
-            strIg =
-                [[NSString alloc] initWithCString: buf
-                                         encoding: NSISOLatin1StringEncoding];
+            strIg = [[NSString alloc]
+                    initWithCString: buf
+                           encoding: NSISOLatin1StringEncoding];
         }
 
         // If there's an app that uses constants from HIToolbox/Events.h (e.g.
@@ -936,8 +937,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         }
         lastClickTimeStamp = now;
 
-        pos =
-            [window transformPoint: NSMakePoint(ev->xbutton.x, ev->xbutton.y)];
+        pos = [window
+                transformPoint: NSMakePoint(ev->xbutton.x, ev->xbutton.y)];
 
         switch (ev->xbutton.button) {
         case Button1:
@@ -955,20 +956,21 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         }
 
         event = [NSEvent
-            mouseEventWithType: type
-                      location: pos
-                 modifierFlags: [self modifierFlagsForState: ev->xbutton.state]
-                        window: delegate
-                    clickCount: clickCount
-                        deltaX: 0.0
-                        deltaY: 0.0];
+                mouseEventWithType: type
+                          location: pos
+                     modifierFlags: [self modifierFlagsForState: ev->xbutton
+                                                                         .state]
+                            window: delegate
+                        clickCount: clickCount
+                            deltaX: 0.0
+                            deltaY: 0.0];
         [(NSEvent_mouse *) event _setButtonNumber: ev->xbutton.button];
         [self postEvent: event atStart: NO];
         break;
 
     case ButtonRelease:
-        pos =
-            [window transformPoint: NSMakePoint(ev->xbutton.x, ev->xbutton.y)];
+        pos = [window
+                transformPoint: NSMakePoint(ev->xbutton.x, ev->xbutton.y)];
 
         CGFloat deltaY = 0.0;
 
@@ -992,13 +994,14 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         }
 
         event = [NSEvent
-            mouseEventWithType: type
-                      location: pos
-                 modifierFlags: [self modifierFlagsForState: ev->xbutton.state]
-                        window: delegate
-                    clickCount: clickCount
-                        deltaX: 0.0
-                        deltaY: deltaY];
+                mouseEventWithType: type
+                          location: pos
+                     modifierFlags: [self modifierFlagsForState: ev->xbutton
+                                                                         .state]
+                            window: delegate
+                        clickCount: clickCount
+                            deltaX: 0.0
+                            deltaY: deltaY];
         [event _setButtonNumber: ev->xbutton.button];
         [self postEvent: event atStart: NO];
         break;
@@ -1010,7 +1013,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 
             CGPoint lastMotionPos = [window mouseLocationOutsideOfEventStream];
             pos = [window
-                transformPoint: NSMakePoint(ev->xmotion.x, ev->xmotion.y)];
+                    transformPoint: NSMakePoint(ev->xmotion.x, ev->xmotion.y)];
 
             CGFloat deltaX = pos.x - lastMotionPos.x;
             CGFloat deltaY = pos.y - lastMotionPos.y;
@@ -1051,14 +1054,14 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
                 break;
 
             event = [NSEvent
-                mouseEventWithType: type
-                          location: pos
-                     modifierFlags: [self modifierFlagsForState: ev->xmotion
-                                                                     .state]
-                            window: delegate
-                        clickCount: 1
-                            deltaX: deltaX
-                            deltaY: deltaY];
+                    mouseEventWithType: type
+                              location: pos
+                         modifierFlags:
+                                 [self modifierFlagsForState: ev->xmotion.state]
+                                window: delegate
+                            clickCount: 1
+                                deltaX: deltaX
+                                deltaY: deltaY];
             [self postEvent: event atStart: NO];
             [self discardEventsMatchingMask: NSLeftMouseDraggedMask
                                 beforeEvent: event];
@@ -1071,7 +1074,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         NSLog(@"EnterNotify");
         if (!_cursorGrabbed)
             [window setLastKnownCursorPosition:
-                        [window transformPoint: NSMakePoint(ev->xcrossing.x,
+                            [window transformPoint: NSMakePoint(
+                                                            ev->xcrossing.x,
                                                             ev->xcrossing.y)]];
         break;
 
@@ -1110,7 +1114,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
                                  ev->xexpose.width, ev->xexpose.height);
 
         rect.origin.y =
-            [window frame].size.height - rect.origin.y - rect.size.height;
+                [window frame].size.height - rect.origin.y - rect.size.height;
         // rect=NSInsetRect(rect, -10, -10);
         // [_backingContext addToDirtyRect:rect];
         if (ev->xexpose.count == 0)
@@ -1215,7 +1219,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
     case ClientMessage:
         if (ev->xclient.format == 32 &&
             ev->xclient.data.l[0] ==
-                XInternAtom(_display, "WM_DELETE_WINDOW", False))
+                    XInternAtom(_display, "WM_DELETE_WINDOW", False))
             [delegate platformWindowWillClose: window];
         break;
 
@@ -1272,7 +1276,7 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top,
 }
 
 - (CGRect) insetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask
+        forNativeWindowBorderWithStyle: (NSUInteger) styleMask
 {
     CGFloat top, left, bottom, right;
 
@@ -1287,7 +1291,7 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top,
 }
 
 - (CGRect) outsetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask
+        forNativeWindowBorderWithStyle: (NSUInteger) styleMask
 {
     CGFloat top, left, bottom, right;
 
@@ -1330,10 +1334,10 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top,
             // frame.origin.x, frame.origin.y, frame.size.width,
             // frame.size.height);
             CGPoint ptGlobal =
-                NSMakePoint(frame.size.width / 2.0 + frame.origin.x,
-                            frame.size.height / 2.0 + frame.origin.y);
-            CGPoint ptLocal =
-                NSMakePoint(frame.size.width / 2.0, frame.size.height / 2.0);
+                    NSMakePoint(frame.size.width / 2.0 + frame.origin.x,
+                                frame.size.height / 2.0 + frame.origin.y);
+            CGPoint ptLocal = NSMakePoint(frame.size.width / 2.0,
+                                          frame.size.height / 2.0);
 
             // NSLog(@"setting last known pos in window to x=%f, y=%f\n",
             // ptLocal.x, ptLocal.y);

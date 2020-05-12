@@ -285,7 +285,7 @@ static WORD PaletteSize(VOID FAR *pv) {
             // happening somewhere.
             formatEtc.cfFormat = RegisterClipboardFormat([type cString]);
             hresult =
-                _dataObject->lpVtbl->QueryGetData(_dataObject, &formatEtc);
+                    _dataObject->lpVtbl->QueryGetData(_dataObject, &formatEtc);
         }
     }
 
@@ -326,8 +326,9 @@ static WORD PaletteSize(VOID FAR *pv) {
             // the DIB into a CGImage and return a TIFF representation of it
             CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
             CGContextRef ctx = CGBitmapContextCreate(
-                NULL, w, h, 8, 4 * w, colorspace,
-                kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+                    NULL, w, h, 8, 4 * w, colorspace,
+                    kCGBitmapByteOrder32Little |
+                            kCGImageAlphaPremultipliedFirst);
             CGColorSpaceRelease(colorspace);
             // Contexts created on the Win32 platform are supposed to have a
             // "dc" method
@@ -346,7 +347,7 @@ static WORD PaletteSize(VOID FAR *pv) {
                 CGImageRef image = CGBitmapContextCreateImage(ctx);
                 if (image) {
                     imageRep = [[[NSBitmapImageRep alloc]
-                        initWithCGImage: image] autorelease];
+                            initWithCGImage: image] autorelease];
                     CGImageRelease(image);
                 }
             }
@@ -381,19 +382,19 @@ static WORD PaletteSize(VOID FAR *pv) {
                 if (bytes[0] == 0xFE && bytes[1] == 0xFF) {
                     copyData = NO;
                     bytes = (uint8_t *) NSUnicodeFromBytesUTF16BigEndian(
-                        bytes + 2, byteLength - 2, &byteLength);
+                            bytes + 2, byteLength - 2, &byteLength);
                     byteLength *= 2;
                 } else if (bytes[0] == 0xFF && bytes[1] == 0xFE) {
                     copyData = NO;
                     bytes = (uint8_t *) NSUnicodeFromBytesUTF16LittleEndian(
-                        bytes + 2, byteLength - 2, &byteLength);
+                            bytes + 2, byteLength - 2, &byteLength);
                     byteLength *= 2;
                 }
             }
             if (copyData) {
                 copyData = NO;
                 bytes = (uint8_t *) NSUnicodeFromBytesUTF16BigEndian(
-                    bytes, byteLength, &byteLength);
+                        bytes, byteLength, &byteLength);
                 byteLength *= 2;
             }
         }
@@ -413,8 +414,8 @@ static WORD PaletteSize(VOID FAR *pv) {
 
     case TYMED_ISTREAM: { // pstm
         Win32IStreamClient *stream =
-            [[Win32IStreamClient alloc] initWithIStream: storageMedium.pstm
-                                                release: NO];
+                [[Win32IStreamClient alloc] initWithIStream: storageMedium.pstm
+                                                    release: NO];
 
         result = [stream readDataToEndOfFile];
 

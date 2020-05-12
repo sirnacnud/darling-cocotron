@@ -31,10 +31,10 @@
     if (self) {
         _context = [[NSManagedObjectContext alloc] init];
         NSManagedObjectModel *model =
-            [[NSManagedObjectModel alloc] initWithName: [self className]];
+                [[NSManagedObjectModel alloc] initWithName: [self className]];
         NSPersistentStoreCoordinator *coordinator =
-            [[NSPersistentStoreCoordinator alloc]
-                initWithManagedObjectModel: model];
+                [[NSPersistentStoreCoordinator alloc]
+                        initWithManagedObjectModel: model];
         [_context setPersistentStoreCoordinator: coordinator];
     }
     return self;
@@ -54,7 +54,7 @@
 }
 
 - (void) setManagedObjectContext:
-    (NSManagedObjectContext *) managedObjectContext
+        (NSManagedObjectContext *) managedObjectContext
 {
     NSUnimplementedMethod();
 }
@@ -63,7 +63,7 @@
                                             ofType: (NSString *) fileType
                                 modelConfiguration: (NSString *) configuration
                                       storeOptions:
-                                          (NSDictionary *) storeOptions
+                                              (NSDictionary *) storeOptions
                                              error: (NSError **) error
 {
     NSUnimplementedMethod();
@@ -109,10 +109,10 @@
 }
 
 - (BOOL) writeToURL: (NSURL *) absoluteURL
-                 ofType: (NSString *) typeName
-       forSaveOperation: (NSSaveOperationType) saveOperation
-    originalContentsURL: (NSURL *) absoluteOriginalContentsURL
-                  error: (NSError **) error
+                     ofType: (NSString *) typeName
+           forSaveOperation: (NSSaveOperationType) saveOperation
+        originalContentsURL: (NSURL *) absoluteOriginalContentsURL
+                      error: (NSError **) error
 {
     NSUnimplementedMethod();
     return NO;

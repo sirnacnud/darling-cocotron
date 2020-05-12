@@ -61,9 +61,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         if (flags & 0x80000000)
             _mode = NSHighlightModeMatrix;
         _backgroundColor =
-            [[keyed decodeObjectForKey: @"NSBackgroundColor"] retain];
+                [[keyed decodeObjectForKey: @"NSBackgroundColor"] retain];
         _cellBackgroundColor =
-            [[keyed decodeObjectForKey: @"NSCellBackgroundColor"] retain];
+                [[keyed decodeObjectForKey: @"NSCellBackgroundColor"] retain];
         name = [keyed decodeObjectForKey: @"NSCellClass"];
         if ((_cellClass = NSClassFromString(name)) == Nil) {
             if (name) {
@@ -74,10 +74,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         }
         _prototype = [[keyed decodeObjectForKey: @"NSProtoCell"] retain];
         _cells = [[NSMutableArray alloc]
-            initWithArray: [keyed decodeObjectForKey: @"NSCells"]];
+                initWithArray: [keyed decodeObjectForKey: @"NSCells"]];
         id selectedCell = [keyed decodeObjectForKey: @"NSSelectedCell"];
-        if ((_selectedIndex =
-                 [_cells indexOfObjectIdenticalTo: selectedCell]) != NSNotFound)
+        if ((_selectedIndex = [_cells
+                     indexOfObjectIdenticalTo: selectedCell]) != NSNotFound)
             [self selectCell: selectedCell];
         else
             _selectedIndex = -1;
@@ -111,10 +111,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithFrame: (NSRect) frame
-               mode: (NSMatrixMode) mode
-          prototype: (NSCell *) prototype
-       numberOfRows: (NSInteger) rows
-    numberOfColumns: (NSInteger) columns
+                   mode: (NSMatrixMode) mode
+              prototype: (NSCell *) prototype
+           numberOfRows: (NSInteger) rows
+        numberOfColumns: (NSInteger) columns
 {
     NSInteger i;
 
@@ -131,10 +131,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithFrame: (NSRect) frame
-               mode: (NSMatrixMode) mode
-          cellClass: (Class) cls
-       numberOfRows: (NSInteger) rows
-    numberOfColumns: (NSInteger) columns
+                   mode: (NSMatrixMode) mode
+              cellClass: (Class) cls
+           numberOfRows: (NSInteger) rows
+        numberOfColumns: (NSInteger) columns
 {
     NSInteger i;
 
@@ -183,9 +183,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 _cellSize.width = frame.size.width;
             else
                 _cellSize.width =
-                    (frame.size.width -
-                     (_numberOfColumns - 1) * _intercellSpacing.width) /
-                    _numberOfColumns;
+                        (frame.size.width -
+                         (_numberOfColumns - 1) * _intercellSpacing.width) /
+                        _numberOfColumns;
         }
 
         if (_autoresizingMask & NSViewHeightSizable) {
@@ -193,9 +193,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 _cellSize.height = frame.size.height;
             else
                 _cellSize.height =
-                    (frame.size.height -
-                     (_numberOfRows - 1) * _intercellSpacing.height) /
-                    _numberOfRows;
+                        (frame.size.height -
+                         (_numberOfRows - 1) * _intercellSpacing.height) /
+                        _numberOfRows;
         }
     }
 }
@@ -301,7 +301,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSRect result;
 
     result.origin.x =
-        column * _cellSize.width + column * _intercellSpacing.width;
+            column * _cellSize.width + column * _intercellSpacing.width;
     result.origin.y = row * _cellSize.height + row * _intercellSpacing.height;
     result.size = _cellSize;
 
@@ -324,8 +324,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) getRow: (NSInteger *) row
-         column: (NSInteger *) column
-       forPoint: (NSPoint) point
+          column: (NSInteger *) column
+        forPoint: (NSPoint) point
 {
     NSRect cellFrame;
 
@@ -453,13 +453,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     struct {
         SEL selector;
         NSString *name;
-    } notes[] = {
-        {@selector(controlTextDidBeginEditing:),
-         NSControlTextDidBeginEditingNotification},
-        {@selector(controlTextDidChange:), NSControlTextDidChangeNotification},
-        {@selector(controlTextDidEndEditing:),
-         NSControlTextDidEndEditingNotification},
-        {NULL, nil}};
+    } notes[] = {{@selector(controlTextDidBeginEditing:),
+                  NSControlTextDidBeginEditingNotification},
+                 {@selector(controlTextDidChange:),
+                  NSControlTextDidChangeNotification},
+                 {@selector(controlTextDidEndEditing:),
+                  NSControlTextDidEndEditingNotification},
+                 {NULL, nil}};
     NSInteger i;
 
     if (_delegate != nil)
@@ -1053,9 +1053,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             [cell setState: nextState];
 
             if ([cell trackMouse: lastMouse
-                          inRect: cellFrame
-                          ofView: self
-                    untilMouseUp: NO]) {
+                              inRect: cellFrame
+                              ofView: self
+                        untilMouseUp: NO]) {
                 _selectedIndex = [_cells indexOfObjectIdenticalTo: cell];
                 _keyCellIndex = _selectedIndex;
                 [cell highlight: NO withFrame: cellFrame inView: self];
@@ -1098,7 +1098,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSPoint point = [self convertPoint: [lastMouse locationInWindow]
                                   fromView: nil];
         NSInteger row, column, minSelRow, maxSelRow, minSelColumn, maxSelColumn,
-            r, c;
+                r, c;
 
         [[self superview] autoscroll: lastMouse];
 
@@ -1128,10 +1128,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     if ([cell isEnabled]) {
                         NSRect cellFrame = [self cellFrameAtRow: r column: c];
                         BOOL inSelection =
-                            (r >= minSelRow && r <= maxSelRow &&
-                             c >= minSelColumn && c <= maxSelColumn);
+                                (r >= minSelRow && r <= maxSelRow &&
+                                 c >= minSelColumn && c <= maxSelColumn);
                         BOOL highlight =
-                            inSelection ? firstHighlight : !firstHighlight;
+                                inSelection ? firstHighlight : !firstHighlight;
 
                         [cell setState: highlight ? NSOnState : NSOffState];
                         [cell setHighlighted: highlight];
@@ -1172,9 +1172,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSRect cellFrame = [self cellFrameAtRow: row column: column];
 
         if ([cell trackMouse: event
-                      inRect: cellFrame
-                      ofView: self
-                untilMouseUp: YES]) {
+                          inRect: cellFrame
+                          ofView: self
+                    untilMouseUp: YES]) {
             [cell setState: [cell nextState]];
             [self selectCell: cell];
         }

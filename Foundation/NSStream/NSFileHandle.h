@@ -25,7 +25,7 @@ FOUNDATION_EXPORT NSString *const NSFileHandleConnectionAcceptedNotification;
 FOUNDATION_EXPORT NSString *const NSFileHandleDataAvailableNotification;
 FOUNDATION_EXPORT NSString *const NSFileHandleReadCompletionNotification;
 FOUNDATION_EXPORT NSString
-    *const NSFileHandleReadToEndOfFileCompletionNotification;
+        *const NSFileHandleReadToEndOfFileCompletionNotification;
 
 FOUNDATION_EXPORT NSString *const NSFileHandleNotificationDataItem;
 FOUNDATION_EXPORT NSString *const NSFileHandleNotificationFileHandleItem;

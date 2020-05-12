@@ -17,12 +17,11 @@
         }
 
         [self setPlaceholderString:
-                  [coder decodeObjectForKey: @"NSPlaceholderString"]];
-        [self
-            setBackgroundColor: [coder
-                                    decodeObjectForKey: @"NSBackgroundColor"]];
+                        [coder decodeObjectForKey: @"NSPlaceholderString"]];
+        [self setBackgroundColor:
+                        [coder decodeObjectForKey: @"NSBackgroundColor"]];
         [self setPathComponentCells:
-                  [coder decodeObjectForKey: @"NSPathComponentCells"]];
+                        [coder decodeObjectForKey: @"NSPathComponentCells"]];
         [self setPathStyle: [coder decodeIntForKey: @"NSPathStyle"]];
         _delegate = [coder decodeObjectForKey: @"NSDelegate"];
         [self setAllowedTypes: [coder decodeObjectForKey: @"NSAllowedTypes"]];
@@ -106,8 +105,8 @@
 
 - (void) setPlaceholderString: (NSString *) string {
     [self setPlaceholderAttributedString: [[[NSAttributedString alloc]
-                                              initWithString: string]
-                                              autorelease]];
+                                                  initWithString: string]
+                                                  autorelease]];
 }
 
 - (NSColor *) backgroundColor {
@@ -172,9 +171,9 @@
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) cellFrame
-             ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) untilMouseUp
+              inRect: (NSRect) cellFrame
+              ofView: (NSView *) controlView
+        untilMouseUp: (BOOL) untilMouseUp
 {
 
     do {
@@ -183,14 +182,15 @@
 
         [_clickPathComponentCell release];
         _clickPathComponentCell =
-            [[self pathComponentCellAtPoint: point
-                                  withFrame: cellFrame
-                                     inView: controlView] retain];
+                [[self pathComponentCellAtPoint: point
+                                      withFrame: cellFrame
+                                         inView: controlView] retain];
 
         [controlView setNeedsDisplay: YES];
 
         event = [[controlView window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+                nextEventMatchingMask: NSLeftMouseUpMask |
+                                       NSLeftMouseDraggedMask];
 
     } while ([event type] != NSLeftMouseUp);
 
@@ -252,9 +252,9 @@
             [currentPath appendString: path];
 
             NSURL *currentURL =
-                [[[NSURL alloc] initWithScheme: scheme
-                                          host: host
-                                          path: currentPath] autorelease];
+                    [[[NSURL alloc] initWithScheme: scheme
+                                              host: host
+                                              path: currentPath] autorelease];
             NSString *title;
             NSImage *image;
 
@@ -263,12 +263,12 @@
                 image = [ws iconForFile: currentPath];
             } else {
                 title = [path stringByReplacingPercentEscapesUsingEncoding:
-                                  NSUTF8StringEncoding];
+                                      NSUTF8StringEncoding];
                 image = nil;
             }
 
             NSPathComponentCell *cell =
-                [[[pcClass alloc] initTextCell: nil] autorelease];
+                    [[[pcClass alloc] initTextCell: nil] autorelease];
             [cell setURL: currentURL];
             [cell setImage: image];
             [cell setStringValue: title];

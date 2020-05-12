@@ -61,7 +61,7 @@ char *NSUnicodeToUnicode(const unichar *characters, NSUInteger length,
                          BOOL zeroTerminate)
 {
     unichar *unicode = NSZoneMalloc(
-        zone, sizeof(unichar) * (length + (zeroTerminate ? 1 : 0)));
+            zone, sizeof(unichar) * (length + (zeroTerminate ? 1 : 0)));
 
     memcpy(unicode, characters, length * sizeof(unichar));
 

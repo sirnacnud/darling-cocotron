@@ -20,18 +20,18 @@
 + (NSArray *) spellEngines {
     NSBundle *bundle = [NSBundle bundleForClass: self];
     NSString *directory =
-        [[bundle resourcePath] stringByAppendingPathComponent: @"Spelling"];
+            [[bundle resourcePath] stringByAppendingPathComponent: @"Spelling"];
 
     NSSpellEngine_hunspell *engine = [[[NSSpellEngine_hunspell alloc]
-        initWithContentsOfFile: directory] autorelease];
+            initWithContentsOfFile: directory] autorelease];
 
     return [NSArray arrayWithObject: engine];
 }
 
 - initWithContentsOfFile: (NSString *) path {
     NSArray *contents =
-        [[NSFileManager defaultManager] contentsOfDirectoryAtPath: path
-                                                            error: NULL];
+            [[NSFileManager defaultManager] contentsOfDirectoryAtPath: path
+                                                                error: NULL];
 
     _dictionaries = [[NSMutableDictionary alloc] init];
 
@@ -40,8 +40,8 @@
         if ([[aff pathExtension] isEqualToString: @"aff"]) {
             NSString *affPath = [path stringByAppendingPathComponent: aff];
             NSSpellEngine_hunspellDictionary *dict =
-                [[[NSSpellEngine_hunspellDictionary alloc]
-                    initWithContentsOfFile: affPath] autorelease];
+                    [[[NSSpellEngine_hunspellDictionary alloc]
+                            initWithContentsOfFile: affPath] autorelease];
 
             [_dictionaries setObject: dict forKey: [dict language]];
         }
@@ -67,13 +67,13 @@
 }
 
 - (NSSpellEngine_hunspellDictionary *) _dictionaryForLanguage:
-    (NSString *) language
+        (NSString *) language
 {
     if (language == nil) {
         language = [[NSLocale currentLocale] localeIdentifier];
     }
     NSSpellEngine_hunspellDictionary *dict =
-        [_dictionaries objectForKey: language];
+            [_dictionaries objectForKey: language];
     if (dict == nil) {
         // If the lang is "xx_YY", then try the first dict starting with "xx"
         // So "fr_CA", "fr_BE"... can use the french dictionary for example if
@@ -107,7 +107,7 @@
 
     NSString *language = [orthography dominantLanguage];
     NSSpellEngine_hunspellDictionary *dict =
-        [self _dictionaryForLanguage: language];
+            [self _dictionaryForLanguage: language];
     NSUInteger length = [stringToCheck length];
 
     NSUInteger bufferCapacity = 10, bufferOffset = offset, bufferIndex = 0,
@@ -116,7 +116,7 @@
 
     NSUInteger wordCapacity = 10, wordLength = 0;
     unichar *wordBuffer =
-        (unichar *) NSZoneMalloc(NULL, sizeof(unichar) * wordCapacity);
+            (unichar *) NSZoneMalloc(NULL, sizeof(unichar) * wordCapacity);
 
     NSCharacterSet *letters = [NSCharacterSet letterCharacterSet];
 
@@ -126,8 +126,8 @@
     // the binary charset representations.
     static NSCharacterSet *marks = nil;
     if (marks == nil) {
-        marks =
-            [[NSCharacterSet characterSetWithCharactersInString: @"'"] retain];
+        marks = [[NSCharacterSet characterSetWithCharactersInString: @"'"]
+                retain];
     }
 
     enum {
@@ -150,8 +150,8 @@
                 bufferLength = MIN(bufferCapacity, length - bufferOffset);
 
                 [stringToCheck
-                    getCharacters: buffer
-                            range: NSMakeRange(bufferOffset, bufferLength)];
+                        getCharacters: buffer
+                                range: NSMakeRange(bufferOffset, bufferLength)];
             }
 
             code = buffer[bufferIndex];
@@ -184,22 +184,21 @@
             if (wordLength >= wordCapacity) {
                 wordCapacity *= 2;
                 wordBuffer = (unichar *) NSZoneRealloc(
-                    NULL, wordBuffer, sizeof(unichar) * wordCapacity);
+                        NULL, wordBuffer, sizeof(unichar) * wordCapacity);
             }
 
             wordBuffer[wordLength++] = code;
         }
 
         if (checkWord) {
-            [result
-                addObjectsFromArray:
-                    [dict textCheckingResultWithRange: NSMakeRange(
-                                                           bufferOffset +
-                                                               (bufferIndex -
-                                                                wordLength),
-                                                           wordLength)
-                                        forCharacters: wordBuffer
-                                               length: wordLength]];
+            [result addObjectsFromArray:
+                            [dict textCheckingResultWithRange:
+                                            NSMakeRange(bufferOffset +
+                                                                (bufferIndex -
+                                                                 wordLength),
+                                                        wordLength)
+                                                forCharacters: wordBuffer
+                                                       length: wordLength]];
             wordLength = 0;
         }
     }
@@ -211,7 +210,7 @@
                          inLanguage: (NSString *) language
 {
     NSSpellEngine_hunspellDictionary *dict =
-        [self _dictionaryForLanguage: language];
+            [self _dictionaryForLanguage: language];
     return [dict suggestGuessesForWord: word];
 }
 

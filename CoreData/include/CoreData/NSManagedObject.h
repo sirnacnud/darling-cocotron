@@ -20,8 +20,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSObject.h>
 
 @class NSManagedObjectID, NSEntityDescription, NSManagedObjectContext,
-    NSPropertyDescription, NSMutableDictionary, NSDictionary, NSError, NSArray,
-    NSMutableSet;
+        NSPropertyDescription, NSMutableDictionary, NSDictionary, NSError,
+        NSArray, NSMutableSet;
 
 COREDATA_EXPORT NSString *const NSValidationKeyErrorKey;
 COREDATA_EXPORT NSString *const NSValidationObjectErrorKey;
@@ -38,7 +38,7 @@ COREDATA_EXPORT NSString *const NSValidationValueErrorKey;
 }
 
 - initWithEntity: (NSEntityDescription *) entity
-    insertIntoManagedObjectContext: (NSManagedObjectContext *) context;
+        insertIntoManagedObjectContext: (NSManagedObjectContext *) context;
 
 - (NSEntityDescription *) entity;
 - (NSManagedObjectID *) objectID;

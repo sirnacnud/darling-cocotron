@@ -33,10 +33,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [super init];
     _outputSet = nil;
     [[NSNotificationCenter defaultCenter]
-        addObserver: self
-           selector: @selector(selectSetOutputNotification:)
-               name: NSSelectSetOutputNotification
-             object: nil];
+            addObserver: self
+               selector: @selector(selectSetOutputNotification:)
+                   name: NSSelectSetOutputNotification
+                 object: nil];
     return self;
 }
 

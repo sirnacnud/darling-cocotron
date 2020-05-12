@@ -45,7 +45,7 @@ static NSMapTable *nameToSet = NULL;
 
 - mutableCopyWithZone: (NSZone *) zone {
     return [[NSMutableCharacterSet_bitmap allocWithZone: NULL]
-        initWithCharacterSet: self];
+            initWithCharacterSet: self];
 }
 
 - (Class) classForCoder {
@@ -68,8 +68,8 @@ static NSMapTable *nameToSet = NULL;
 
 + characterSetWithCharactersInString: (NSString *) string {
     return NSAutorelease([[NSCharacterSet_string allocWithZone: NULL]
-        initWithString: string
-              inverted: NO]);
+            initWithString: string
+                  inverted: NO]);
 }
 
 + characterSetWithContentsOfFile: (NSString *) path {
@@ -83,7 +83,7 @@ static NSMapTable *nameToSet = NULL;
 
 + characterSetWithRange: (NSRange) range {
     return NSAutorelease(
-        [[NSCharacterSet_range allocWithZone: NULL] initWithRange: range]);
+            [[NSCharacterSet_range allocWithZone: NULL] initWithRange: range]);
 }
 
 static NSString *pathForCharacterSet(NSString *name) {
@@ -92,8 +92,8 @@ static NSString *pathForCharacterSet(NSString *name) {
 
     if (path == nil)
         [NSException
-             raise: @"NSCharacterSetFailedException"
-            format: @"NSCharacterSet unable to find bitmap for %@", name];
+                 raise: @"NSCharacterSetFailedException"
+                format: @"NSCharacterSet unable to find bitmap for %@", name];
 
     return path;
 }
@@ -103,12 +103,12 @@ static NSCharacterSet *sharedSetWithName(Class cls, NSString *name) {
 
     if (cls != [NSCharacterSet class])
         result =
-            [cls characterSetWithContentsOfFile: pathForCharacterSet(name)];
+                [cls characterSetWithContentsOfFile: pathForCharacterSet(name)];
     else {
         if ((result = NSMapGet(nameToSet, name)) == nil) {
             if ((result = [NSCharacterSet
-                     characterSetWithContentsOfFile: pathForCharacterSet(
-                                                         name)]) != nil)
+                         characterSetWithContentsOfFile: pathForCharacterSet(
+                                                                 name)]) != nil)
                 NSMapInsert(nameToSet, name, result);
         }
     }
@@ -163,9 +163,9 @@ static NSCharacterSet *sharedSetWithName(Class cls, NSString *name) {
         self != [NSCharacterSet class]) {
         unichar chars[] = {0x0A, 0x0B, 0x0C, 0x0D, 0x85, 0x2028, 0x2029};
         set = [self characterSetWithCharactersInString:
-                        [NSString stringWithCharacters: chars
-                                                length: sizeof(chars) /
-                                                        sizeof(unichar)]];
+                            [NSString stringWithCharacters: chars
+                                                    length: sizeof(chars) /
+                                                            sizeof(unichar)]];
         if (self == [NSCharacterSet class])
             NSMapInsert(nameToSet, setName, set);
     }
@@ -181,9 +181,9 @@ static NSCharacterSet *sharedSetWithName(Class cls, NSString *name) {
         unichar chars[] = {0x20, 0x09, 0x0A, 0x0B,   0x0C,
                            0x0D, 0x85, 0xA0, 0x2028, 0x2029};
         set = [self characterSetWithCharactersInString:
-                        [NSString stringWithCharacters: chars
-                                                length: sizeof(chars) /
-                                                        sizeof(unichar)]];
+                            [NSString stringWithCharacters: chars
+                                                    length: sizeof(chars) /
+                                                            sizeof(unichar)]];
         if (self == [NSCharacterSet class])
             NSMapInsert(nameToSet, setName, set);
     }
@@ -197,10 +197,8 @@ static NSCharacterSet *sharedSetWithName(Class cls, NSString *name) {
         self != [NSCharacterSet class]) {
         // Doc.s do not mention 0xA0 but it is implemented as a member
         unichar chars[3] = {0x20, 0x09, 0xA0};
-        set = [self
-            characterSetWithCharactersInString: [NSString
-                                                    stringWithCharacters: chars
-                                                                  length: 3]];
+        set = [self characterSetWithCharactersInString:
+                            [NSString stringWithCharacters: chars length: 3]];
         if (self == [NSCharacterSet class])
             NSMapInsert(nameToSet, setName, set);
     }
@@ -220,8 +218,8 @@ static NSCharacterSet *sharedSetWithName(Class cls, NSString *name) {
         bitmap[i] = ~bitmap[i];
 
     return NSAutorelease(NSCharacterSet_bitmapNewWithBitmap(
-        NULL, [NSData dataWithBytesNoCopy: bitmap
-                                   length: NSBitmapCharacterSetSize]));
+            NULL, [NSData dataWithBytesNoCopy: bitmap
+                                       length: NSBitmapCharacterSetSize]));
 }
 
 - (NSData *) bitmapRepresentation {

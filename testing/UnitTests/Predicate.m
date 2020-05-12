@@ -23,73 +23,76 @@
 @implementation Predicate
 - (void) testPredicateParsing {
     id dict = [NSDictionary
-        dictionaryWithObjectsAndKeys: @"Something", @"name",
-                                      [NSNumber numberWithDouble: 17.5],
-                                      @"value", nil];
+            dictionaryWithObjectsAndKeys: @"Something", @"name",
+                                          [NSNumber numberWithDouble: 17.5],
+                                          @"value", nil];
 
     STAssertTrueNoThrow(
-        ([[NSPredicate predicateWithFormat: @"name contains %@", @"Some"]
-            evaluateWithObject: dict]),
-        nil);
+            ([[NSPredicate predicateWithFormat: @"name contains %@", @"Some"]
+                    evaluateWithObject: dict]),
+            nil);
 
     STAssertTrueNoThrow(
-        ([[NSPredicate predicateWithFormat: @"name beginswith %@", @"Some"]
-            evaluateWithObject: dict]),
-        nil);
+            ([[NSPredicate predicateWithFormat: @"name beginswith %@", @"Some"]
+                    evaluateWithObject: dict]),
+            nil);
     STAssertTrueNoThrow(
-        ([[NSPredicate predicateWithFormat: @"name endswith %@", @"thing"]
-            evaluateWithObject: dict]),
-        nil);
+            ([[NSPredicate predicateWithFormat: @"name endswith %@", @"thing"]
+                    evaluateWithObject: dict]),
+            nil);
     STAssertTrueNoThrow(
-        (![[NSPredicate predicateWithFormat: @"name beginswith %@", @"None"]
-            evaluateWithObject: dict]),
-        nil);
+            (![[NSPredicate predicateWithFormat: @"name beginswith %@", @"None"]
+                    evaluateWithObject: dict]),
+            nil);
     STAssertTrueNoThrow(
-        (![[NSPredicate predicateWithFormat: @"name endswith %@", @"None"]
-            evaluateWithObject: dict]),
-        nil);
+            (![[NSPredicate predicateWithFormat: @"name endswith %@", @"None"]
+                    evaluateWithObject: dict]),
+            nil);
 
     STAssertTrueNoThrow(
-        (![[NSPredicate predicateWithFormat: @"name contains %@", @"None"]
-            evaluateWithObject: dict]),
-        nil);
+            (![[NSPredicate predicateWithFormat: @"name contains %@", @"None"]
+                    evaluateWithObject: dict]),
+            nil);
     STAssertTrueNoThrow(
-        (![[NSPredicate predicateWithFormat: @"unavailable like %@", @"None"]
-            evaluateWithObject: dict]),
-        nil);
+            (![[NSPredicate
+                    predicateWithFormat: @"unavailable like %@", @"None"]
+                    evaluateWithObject: dict]),
+            nil);
     STAssertTrueNoThrow(([[NSPredicate predicateWithFormat: @"value < %f", 20.0]
-                            evaluateWithObject: dict]),
+                                evaluateWithObject: dict]),
                         nil);
     STAssertTrueNoThrow(([[NSPredicate predicateWithFormat: @"value > %f", 17.3]
-                            evaluateWithObject: dict]),
+                                evaluateWithObject: dict]),
                         nil);
     STAssertTrueNoThrow(
-        ([[NSPredicate predicateWithFormat: @"value between {%f, %f}", 15.0,
-                                            20.0] evaluateWithObject: dict]),
-        nil);
+            ([[NSPredicate
+                    predicateWithFormat: @"value between {%f, %f}", 15.0, 20.0]
+                    evaluateWithObject: dict]),
+            nil);
     STAssertTrueNoThrow(
-        (![[NSPredicate predicateWithFormat: @"value between {%f, %f}", 20.0,
-                                             25.0] evaluateWithObject: dict]),
-        nil);
+            (![[NSPredicate
+                    predicateWithFormat: @"value between {%f, %f}", 20.0, 25.0]
+                    evaluateWithObject: dict]),
+            nil);
     STAssertTrueNoThrow(
-        ([[NSPredicate predicateWithFormat: @"self == %@", @"Hello"]
-            evaluateWithObject: @"Hello"]),
-        nil);
+            ([[NSPredicate predicateWithFormat: @"self == %@", @"Hello"]
+                    evaluateWithObject: @"Hello"]),
+            nil);
     STAssertTrueNoThrow(
-        (![[NSPredicate predicateWithFormat: @"self != %@", @"Hello"]
-            evaluateWithObject: @"Hello"]),
-        nil);
+            (![[NSPredicate predicateWithFormat: @"self != %@", @"Hello"]
+                    evaluateWithObject: @"Hello"]),
+            nil);
     STAssertTrueNoThrow(
-        ([[NSPredicate predicateWithFormat: @"self like %@", @"H?llo"]
-            evaluateWithObject: @"Hello"]),
-        nil);
+            ([[NSPredicate predicateWithFormat: @"self like %@", @"H?llo"]
+                    evaluateWithObject: @"Hello"]),
+            nil);
     STAssertTrueNoThrow(
-        ([[NSPredicate predicateWithFormat: @"NOT (self == %@)", @"Hello"]
-            evaluateWithObject: @"Jello"]),
-        nil);
+            ([[NSPredicate predicateWithFormat: @"NOT (self == %@)", @"Hello"]
+                    evaluateWithObject: @"Jello"]),
+            nil);
     STAssertTrueNoThrow(
-        ([[NSPredicate predicateWithFormat: @"self == \"Hello\""]
-            evaluateWithObject: @"Hello"]),
-        nil);
+            ([[NSPredicate predicateWithFormat: @"self == \"Hello\""]
+                    evaluateWithObject: @"Hello"]),
+            nil);
 }
 @end

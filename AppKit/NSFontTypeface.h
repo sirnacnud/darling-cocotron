@@ -30,12 +30,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithName: (NSString *) name
-     traitName: (NSString *) traitName
-        traits: (NSFontTraitMask) traits;
+        traitName: (NSString *) traitName
+           traits: (NSFontTraitMask) traits;
 - initWithName: (NSString *) name
-    displayName: (NSString *) displayName
-      traitName: (NSString *) traitName
-         traits: (NSFontTraitMask) traits;
+        displayName: (NSString *) displayName
+          traitName: (NSString *) traitName
+             traits: (NSFontTraitMask) traits;
 
 - (NSString *) name;
 - (NSString *) displayName;

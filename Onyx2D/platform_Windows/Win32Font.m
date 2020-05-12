@@ -31,9 +31,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation Win32Font
 
 - initWithName: (NSString *) name
-        height: (int) height
-     antialias: (BOOL) antialias
-         angle: (CGFloat) angle
+           height: (int) height
+        antialias: (BOOL) antialias
+            angle: (CGFloat) angle
 {
     NSUInteger length = [name length];
     unichar buffer[length + 1];
@@ -45,10 +45,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     O2FontLog(@"selecting font: %@ height: %d for drawing", name, height);
     angle = 180. * angle / M_PI * 10; // Tenth of degrees
-    _handle =
-        CreateFontW(height, 0, angle, angle, FW_NORMAL, FALSE, FALSE, FALSE,
-                    DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                    quality, DEFAULT_PITCH | FF_DONTCARE, buffer);
+    _handle = CreateFontW(height, 0, angle, angle, FW_NORMAL, FALSE, FALSE,
+                          FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+                          CLIP_DEFAULT_PRECIS, quality,
+                          DEFAULT_PITCH | FF_DONTCARE, buffer);
 
     if (_handle == NULL) {
         O2FontLog(@"CreateFontW for name: %@ failed", name);
@@ -58,8 +58,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithName: (NSString *) name
-        height: (int) height
-     antialias: (BOOL) antialias
+           height: (int) height
+        antialias: (BOOL) antialias
 {
     return [self initWithName: name
                        height: height

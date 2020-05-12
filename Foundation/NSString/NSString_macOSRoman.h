@@ -42,5 +42,5 @@ NSString *NSMacOSRomanCStringNewWithCharacters(NSZone *zone,
                                                NSUInteger length, BOOL lossy);
 
 NSUInteger NSGetMacOSRomanCStringWithMaxLength(
-    const unichar *characters, NSUInteger length, NSUInteger *location,
-    char *cString, NSUInteger maxLength, BOOL lossy);
+        const unichar *characters, NSUInteger length, NSUInteger *location,
+        char *cString, NSUInteger maxLength, BOOL lossy);

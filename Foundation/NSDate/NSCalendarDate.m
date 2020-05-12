@@ -50,21 +50,21 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
 }
 
 - initWithYear: (NSInteger) year
-         month: (NSUInteger) month
-           day: (NSUInteger) day
-          hour: (NSUInteger) hour
-        minute: (NSUInteger) minute
-        second: (NSUInteger) second
-      timeZone: (NSTimeZone *) aTimeZone;
+           month: (NSUInteger) month
+             day: (NSUInteger) day
+            hour: (NSUInteger) hour
+          minute: (NSUInteger) minute
+          second: (NSUInteger) second
+        timeZone: (NSTimeZone *) aTimeZone;
 {
-    NSTimeInterval interval =
-        NSTimeIntervalWithComponents(year, month, day, hour, minute, second, 0);
+    NSTimeInterval interval = NSTimeIntervalWithComponents(
+            year, month, day, hour, minute, second, 0);
     NSTimeZone *tz =
-        (aTimeZone == nil ? [NSTimeZone localTimeZone] : aTimeZone);
-    interval =
-        interval -
-        [tz secondsFromGMTForDate:
-                [NSDate dateWithTimeIntervalSinceReferenceDate: interval]];
+            (aTimeZone == nil ? [NSTimeZone localTimeZone] : aTimeZone);
+    interval = interval -
+               [tz secondsFromGMTForDate:
+                               [NSDate dateWithTimeIntervalSinceReferenceDate:
+                                               interval]];
 
     [self initWithTimeIntervalSinceReferenceDate: interval];
     [_timeZone release];
@@ -74,8 +74,8 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
 }
 
 - initWithString: (NSString *) string
-    calendarFormat: (NSString *) format
-            locale: (NSDictionary *) locale
+        calendarFormat: (NSString *) format
+                locale: (NSDictionary *) locale
 {
     NSMutableString *mu = [[string mutableCopy] autorelease];
 
@@ -84,9 +84,9 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
                           withString: @" "];
 
     NSDateFormatter *dateFormatter = [[[NSDateFormatter allocWithZone: NULL]
-          initWithDateFormat: format
-        allowNaturalLanguage: YES
-                      locale: locale] autorelease];
+              initWithDateFormat: format
+            allowNaturalLanguage: YES
+                          locale: locale] autorelease];
     NSString *error;
 
     [self autorelease];
@@ -116,12 +116,12 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
 }
 
 + dateWithYear: (NSInteger) year
-         month: (NSUInteger) month
-           day: (NSUInteger) day
-          hour: (NSUInteger) hour
-        minute: (NSUInteger) minute
-        second: (NSUInteger) second
-      timeZone: (NSTimeZone *) timeZone
+           month: (NSUInteger) month
+             day: (NSUInteger) day
+            hour: (NSUInteger) hour
+          minute: (NSUInteger) minute
+          second: (NSUInteger) second
+        timeZone: (NSTimeZone *) timeZone
 {
     return [[[self allocWithZone: NULL] initWithYear: year
                                                month: month
@@ -134,8 +134,8 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
 }
 
 + dateWithString: (NSString *) string
-    calendarFormat: (NSString *) format
-            locale: (NSDictionary *) locale
+        calendarFormat: (NSString *) format
+                locale: (NSDictionary *) locale
 {
     return [[[self allocWithZone: NULL] initWithString: string
                                         calendarFormat: format
@@ -244,12 +244,12 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
 }
 
 - (void) years: (NSInteger *) yearsp
-        months: (NSInteger *) monthsp
-          days: (NSInteger *) daysp
-         hours: (NSInteger *) hoursp
-       minutes: (NSInteger *) minutesp
-       seconds: (NSInteger *) secondsp
-     sinceDate: (NSCalendarDate *) since
+           months: (NSInteger *) monthsp
+             days: (NSInteger *) daysp
+            hours: (NSInteger *) hoursp
+          minutes: (NSInteger *) minutesp
+          seconds: (NSInteger *) secondsp
+        sinceDate: (NSCalendarDate *) since
 {
     NSTimeInterval delta;
     BOOL inverted = NO;
@@ -273,33 +273,34 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
         carry = 0;
     }
 
-    carry =
-        (NSMonthFromTimeInterval(delta) - 1) * (inverted ? -1 : 1) + carry * 12;
+    carry = (NSMonthFromTimeInterval(delta) - 1) * (inverted ? -1 : 1) +
+            carry * 12;
     if (monthsp != NULL) {
         *monthsp = carry;
     }
     if (inverted) {
         carry = (NSDayOfCommonEraFromTimeInterval([[since
-                     dateByAddingYears: yearsp != NULL ? *yearsp : 0
-                                months: monthsp != NULL ? *monthsp : 0
-                                  days: 0
-                                 hours: 0
-                               minutes: 0
-                               seconds: 0] timeIntervalSinceReferenceDate]) -
+                         dateByAddingYears: yearsp != NULL ? *yearsp : 0
+                                    months: monthsp != NULL ? *monthsp : 0
+                                      days: 0
+                                     hours: 0
+                                   minutes: 0
+                                   seconds: 0]
+                         timeIntervalSinceReferenceDate]) -
                  NSDayOfCommonEraFromTimeInterval(
-                     [self timeIntervalSinceReferenceDate]) -
+                         [self timeIntervalSinceReferenceDate]) -
                  1) *
                 -1;
     } else {
         carry = NSDayOfCommonEraFromTimeInterval([[self
-                    dateByAddingYears: yearsp != NULL ? *yearsp * -1 : 0
-                               months: monthsp != NULL ? *monthsp * -1 : 0
-                                 days: 0
-                                hours: 0
-                              minutes: 0
-                              seconds: 0] timeIntervalSinceReferenceDate]) -
+                        dateByAddingYears: yearsp != NULL ? *yearsp * -1 : 0
+                                   months: monthsp != NULL ? *monthsp * -1 : 0
+                                     days: 0
+                                    hours: 0
+                                  minutes: 0
+                                  seconds: 0] timeIntervalSinceReferenceDate]) -
                 NSDayOfCommonEraFromTimeInterval(
-                    [since timeIntervalSinceReferenceDate]) -
+                        [since timeIntervalSinceReferenceDate]) -
                 1;
     }
 
@@ -417,9 +418,9 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
     year += yearDelta;
 
     NSCalendarDate *resultDate = [NSCalendarDate
-        dateWithTimeIntervalSinceReferenceDate: NSTimeIntervalWithComponents(
-                                                    year, month, day, hour,
-                                                    minute, second, 0)];
+            dateWithTimeIntervalSinceReferenceDate:
+                    NSTimeIntervalWithComponents(year, month, day, hour, minute,
+                                                 second, 0)];
 
     [resultDate setTimeZone: _timeZone];
 

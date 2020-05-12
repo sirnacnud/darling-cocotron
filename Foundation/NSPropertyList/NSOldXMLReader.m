@@ -179,8 +179,8 @@ enum {
     else {
         NSUInteger length;
         unichar *buffer =
-            NSUTF8ToUnicode((const char *) (_bytes + _range.location),
-                            _range.length, &length, NULL);
+                NSUTF8ToUnicode((const char *) (_bytes + _range.location),
+                                _range.length, &length, NULL);
         NSString *result = [[NSString alloc] initWithCharacters: buffer
                                                          length: length];
 

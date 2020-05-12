@@ -29,11 +29,11 @@
     _path = [path copy];
     NSString *affPath = _path;
     NSString *dicPath = [[_path stringByDeletingPathExtension]
-        stringByAppendingPathExtension: @"dic"];
+            stringByAppendingPathExtension: @"dic"];
 
     _hunspell =
-        hunspell_initialize((char *) [affPath fileSystemRepresentation],
-                            (char *) [dicPath fileSystemRepresentation]);
+            hunspell_initialize((char *) [affPath fileSystemRepresentation],
+                                (char *) [dicPath fileSystemRepresentation]);
     return self;
 }
 
@@ -90,13 +90,13 @@
         /* Word contains a character outside of IS8859-1, I guess this is a
          * spelling error. */
         NSTextCheckingResult *result =
-            [NSTextCheckingResult spellCheckingResultWithRange: range];
+                [NSTextCheckingResult spellCheckingResultWithRange: range];
 
         return [NSArray arrayWithObject: result];
     } else {
         if (hunspell_spell((Hunspell *) _hunspell, string) == 0) {
             NSTextCheckingResult *result =
-                [NSTextCheckingResult spellCheckingResultWithRange: range];
+                    [NSTextCheckingResult spellCheckingResultWithRange: range];
 
             return [NSArray arrayWithObject: result];
         }
@@ -120,9 +120,9 @@
 
     for (i = 0; i < len && slst != NULL; i++) {
         NSString *guess = [[[NSString alloc]
-            initWithBytes: slst[i]
-                   length: strlen(slst[i])
-                 encoding: NSUTF8StringEncoding] autorelease];
+                initWithBytes: slst[i]
+                       length: strlen(slst[i])
+                     encoding: NSUTF8StringEncoding] autorelease];
         [result addObject: guess];
     }
 

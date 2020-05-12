@@ -21,8 +21,9 @@ static GUID IID_IGraphBuilder = {0x56a868a9, 0x0ad4, 0x11ce, 0xb0, 0x3a, 0x00,
                                    CLSCTX_INPROC_SERVER, &IID_IGraphBuilder,
                                    (void **) &_graphBuilder))) {
         if (_graphBuilder != NULL) {
-            _graphBuilder->lpVtbl->QueryInterface(
-                _graphBuilder, &IID_IMediaControl, (void **) &_mediaControl);
+            _graphBuilder->lpVtbl->QueryInterface(_graphBuilder,
+                                                  &IID_IMediaControl,
+                                                  (void **) &_mediaControl);
 
             const unichar *soundPathW = [_path fileSystemRepresentationW];
 

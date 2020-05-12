@@ -22,13 +22,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation O2Pattern
 
 - initWithInfo: (void *) info
-        bounds: (O2Rect) bounds
-        matrix: (O2AffineTransform) matrix
-         xstep: (O2Float) xstep
-         ystep: (O2Float) ystep
-        tiling: (O2PatternTiling) tiling
-     isColored: (BOOL) isColored
-     callbacks: (const O2PatternCallbacks *) callbacks
+           bounds: (O2Rect) bounds
+           matrix: (O2AffineTransform) matrix
+            xstep: (O2Float) xstep
+            ystep: (O2Float) ystep
+           tiling: (O2PatternTiling) tiling
+        isColored: (BOOL) isColored
+        callbacks: (const O2PatternCallbacks *) callbacks
 {
     _info = info;
     _bounds = bounds;

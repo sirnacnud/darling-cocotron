@@ -217,13 +217,13 @@ static NSAppleScrollBarVariant appleScrollBarVariant(NSScroller *self) {
     if ([self isVertical]) {
         result.origin.y = knob.origin.y + knob.size.height;
         result.size.height =
-            ((knobSlot.origin.y + knobSlot.size.height) - result.origin.y);
+                ((knobSlot.origin.y + knobSlot.size.height) - result.origin.y);
         if (result.size.height <= 0)
             result = NSZeroRect;
     } else {
         result.origin.x = knob.origin.x + knob.size.width;
         result.size.width =
-            ((knobSlot.origin.x + knobSlot.size.width) - result.origin.x);
+                ((knobSlot.origin.x + knobSlot.size.width) - result.origin.x);
         if (result.size.width <= 0)
             result = NSZeroRect;
     }
@@ -260,10 +260,10 @@ static inline CGFloat roundFloat(CGFloat value) {
                 incLine.origin.y = bounds.size.height - incLine.size.height;
                 knobSlot.origin.y += decLine.size.height;
                 knobSlot.size.height -=
-                    decLine.size.height + incLine.size.height;
+                        decLine.size.height + incLine.size.height;
             } else {
                 knobSlot.size.height -=
-                    decLine.size.height + incLine.size.height;
+                        decLine.size.height + incLine.size.height;
 
                 if (_arrowsPosition == NSScrollerArrowsMaxEnd) {
                     incLine.origin.y = bounds.size.height - incLine.size.height;
@@ -280,7 +280,7 @@ static inline CGFloat roundFloat(CGFloat value) {
         if (knob.size.height < knob.size.width)
             knob.size.height = knob.size.width;
         knob.origin.y +=
-            floor((knobSlot.size.height - knob.size.height) * _floatValue);
+                floor((knobSlot.size.height - knob.size.height) * _floatValue);
 
         if (floor(knob.size.height) >= floor(knobSlot.size.height))
             knob = NSZeroRect;
@@ -305,7 +305,7 @@ static inline CGFloat roundFloat(CGFloat value) {
         if (knob.size.width < knob.size.height)
             knob.size.width = knob.size.height;
         knob.origin.x +=
-            floor((knobSlot.size.width - knob.size.width) * _floatValue);
+                floor((knobSlot.size.width - knob.size.width) * _floatValue);
         if (floor(knob.size.width) >= floor(knobSlot.size.width))
             knob = NSZeroRect;
     }
@@ -378,15 +378,15 @@ static inline CGFloat roundFloat(CGFloat value) {
 
 - (void) drawArrow: (NSScrollerArrow) arrow highlight: (BOOL) highlight {
     NSRect rect = (arrow == NSScrollerIncrementArrow)
-                      ? [self rectForPart: NSScrollerIncrementLine]
-                      : [self rectForPart: NSScrollerDecrementLine];
+                          ? [self rectForPart: NSScrollerIncrementLine]
+                          : [self rectForPart: NSScrollerDecrementLine];
 
     [[self graphicsStyle]
-        drawScrollerButtonInRect: rect
-                         enabled: [self isEnabled]
-                         pressed: highlight
-                        vertical: [self isVertical]
-                        upOrLeft: (arrow != NSScrollerIncrementArrow)];
+            drawScrollerButtonInRect: rect
+                             enabled: [self isEnabled]
+                             pressed: highlight
+                            vertical: [self isVertical]
+                            upOrLeft: (arrow != NSScrollerIncrementArrow)];
 }
 
 - (void) drawRect: (NSRect) rect {
@@ -456,8 +456,8 @@ static inline CGFloat roundFloat(CGFloat value) {
         NSPoint point;
         CGFloat delta;
 
-        event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
 
         point = [self convertPoint: [event locationInWindow] fromView: nil];
 
@@ -553,8 +553,8 @@ static inline CGFloat roundFloat(CGFloat value) {
             [self sendAction: _action to: _target];
         }
 
-        event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
 
     } while ([event type] != NSLeftMouseUp);
 

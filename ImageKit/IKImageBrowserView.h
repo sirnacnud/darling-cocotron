@@ -22,7 +22,7 @@ IMAGEKIT_EXPORT NSString *const IKImageBrowserQTMovieRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserQTMoviePathRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserQCCompositionRepresentationType;
 IMAGEKIT_EXPORT NSString
-    *const IKImageBrowserQCCompositionPathRepresentationType;
+        *const IKImageBrowserQCCompositionPathRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserQuickLookPathRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserIconRefPathRepresentationType;
 IMAGEKIT_EXPORT NSString *const IKImageBrowserIconRefRepresentationType;
@@ -170,12 +170,12 @@ typedef enum {
 - (void) imageBrowserSelectionDidChange: (IKImageBrowserView *) browser;
 
 - (void) imageBrowser: (IKImageBrowserView *) browser
-    backgroundWasRightClickedWithEvent: (NSEvent *) event;
+        backgroundWasRightClickedWithEvent: (NSEvent *) event;
 - (void) imageBrowser: (IKImageBrowserView *) browser
-    cellWasRightClickedAtIndex: (NSUInteger) index
-                     withEvent: (NSEvent *) event;
+        cellWasRightClickedAtIndex: (NSUInteger) index
+                         withEvent: (NSEvent *) event;
 - (void) imageBrowser: (IKImageBrowserView *) browser
-    cellWasDoubleClickedAtIndex: (NSUInteger) index;
+        cellWasDoubleClickedAtIndex: (NSUInteger) index;
 @end
 
 @interface NSObject (IKImageBrowserDataSource)
@@ -185,10 +185,10 @@ typedef enum {
 - imageBrowser: (IKImageBrowserView *) browser itemAtIndex: (NSUInteger) index;
 
 - (BOOL) imageBrowser: (IKImageBrowserView *) browser
-    moveItemsAtIndexes: (NSIndexSet *) indexes
-               toIndex: (NSUInteger) destinationIndex;
+        moveItemsAtIndexes: (NSIndexSet *) indexes
+                   toIndex: (NSUInteger) destinationIndex;
 - (void) imageBrowser: (IKImageBrowserView *) browser
-    removeItemsAtIndexes: (NSIndexSet *) indexes;
+        removeItemsAtIndexes: (NSIndexSet *) indexes;
 - (NSUInteger) imageBrowser: (IKImageBrowserView *) browser
         writeItemsAtIndexes: (NSIndexSet *) itemIndexes
                toPasteboard: (NSPasteboard *) pasteboard;

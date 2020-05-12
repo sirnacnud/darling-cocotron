@@ -38,7 +38,7 @@ char *NSUnicodeToISOLatin1(const unichar *characters, NSUInteger length,
                            BOOL zeroTerminate)
 {
     char *isolatin1 = NSZoneMalloc(
-        zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
+            zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
     int i;
 
     for (i = 0; i < length; i++) {
@@ -101,8 +101,8 @@ NSString *NSISOLatin1CStringNewWithCharacters(NSZone *zone,
     NSUInteger bytesLength;
     char *bytes;
 
-    bytes =
-        NSUnicodeToISOLatin1(characters, length, lossy, &bytesLength, zone, NO);
+    bytes = NSUnicodeToISOLatin1(characters, length, lossy, &bytesLength, zone,
+                                 NO);
 
     if (bytes == NULL)
         string = nil;

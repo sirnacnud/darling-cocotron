@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSPropertyListSerialization
 
 + (BOOL) propertyList: propertyList
-     isValidForFormat: (NSPropertyListFormat) format
+        isValidForFormat: (NSPropertyListFormat) format
 {
     NSUnimplementedMethod();
     return NO;
@@ -52,9 +52,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + propertyListFromData: (NSData *) data
-      mutabilityOption: (NSPropertyListMutabilityOptions) mutability
-                format: (NSPropertyListFormat *) format
-      errorDescription: (NSString **) errorDescriptionp
+        mutabilityOption: (NSPropertyListMutabilityOptions) mutability
+                  format: (NSPropertyListFormat *) format
+        errorDescription: (NSString **) errorDescriptionp
 {
     id result;
 
@@ -68,14 +68,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         }
 
         if ((result = [NSPropertyListReader_binary1
-                 propertyListFromData: data]) != nil) {
+                     propertyListFromData: data]) != nil) {
             if (format)
                 *format = NSPropertyListBinaryFormat_v1_0;
             return result;
         }
 
         if ((result = [NSPropertyListReader_vintage
-                 propertyListFromData: data]) != nil) {
+                     propertyListFromData: data]) != nil) {
             if (format)
                 *format = NSPropertyListOpenStepFormat;
             return result;

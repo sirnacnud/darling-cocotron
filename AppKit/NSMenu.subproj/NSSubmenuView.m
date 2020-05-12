@@ -59,7 +59,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         ITEM_MAX(size);
         if ([[item keyEquivalent] length] == 0) {
             size = [[self graphicsStyle]
-                menuItemTextSize: [item _keyEquivalentDescription]];
+                    menuItemTextSize: [item _keyEquivalentDescription]];
             ITEM_MAX(size);
         }
         if ([item hasSubmenu]) {
@@ -102,7 +102,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
             if ([[item keyEquivalent] length] != 0) {
                 size = [[self graphicsStyle]
-                    menuItemTextSize: [item _keyEquivalentDescription]];
+                        menuItemTextSize: [item _keyEquivalentDescription]];
                 maxKeyWidth = MAX(maxKeyWidth, size.width);
                 height = MAX(height, size.height);
             }
@@ -173,9 +173,9 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
         NSMenuItem *item = [items objectAtIndex: i];
 
         if ([item isSeparatorItem]) {
-            NSRect separatorRect =
-                NSMakeRect(origin.x, origin.y, NSWidth(itemArea),
-                           [[self graphicsStyle] menuItemSeparatorSize].height);
+            NSRect separatorRect = NSMakeRect(
+                    origin.x, origin.y, NSWidth(itemArea),
+                    [[self graphicsStyle] menuItemSeparatorSize].height);
 
             [[self graphicsStyle] drawMenuSeparatorInRect: separatorRect];
 
@@ -194,8 +194,8 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
             NSSize partSize;
             BOOL showsEnabled = ([item isEnabled] || [item hasSubmenu]);
 
-            partRect =
-                NSMakeRect(origin.x, origin.y, itemArea.size.width, itemHeight);
+            partRect = NSMakeRect(origin.x, origin.y, itemArea.size.width,
+                                  itemHeight);
 
             if (selected)
                 [[self graphicsStyle] drawMenuSelectionInRect: partRect
@@ -203,7 +203,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
 
             // Draw the gutter and checkmark (if any)
             CENTER_PART_RECT_VERTICALLY(
-                [[self graphicsStyle] menuItemGutterSize]);
+                    [[self graphicsStyle] menuItemGutterSize]);
             if ([item state]) {
                 [[self graphicsStyle] drawMenuGutterInRect: partRect];
                 [[self graphicsStyle] drawMenuCheckmarkInRect: partRect
@@ -222,7 +222,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
                 CENTER_PART_RECT_VERTICALLY([image size]);
 
                 CGContextRef ctx =
-                    [[NSGraphicsContext currentContext] graphicsPort];
+                        [[NSGraphicsContext currentContext] graphicsPort];
                 CGContextSaveGState(ctx);
                 CGContextTranslateCTM(ctx, partRect.origin.x,
                                       partRect.origin.y);
@@ -254,7 +254,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
             } else {
                 NSString *title = [item title];
                 CENTER_PART_RECT_VERTICALLY(
-                    [[self graphicsStyle] menuItemTextSize: title]);
+                        [[self graphicsStyle] menuItemTextSize: title]);
                 [[self graphicsStyle] drawMenuItemText: title
                                                 inRect: partRect
                                                enabled: showsEnabled
@@ -265,9 +265,9 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
             if ([[item keyEquivalent] length] != 0) {
                 NSString *keyString = [item _keyEquivalentDescription];
                 NSSize branchArrowSize =
-                    [[self graphicsStyle] menuItemBranchArrowSize];
+                        [[self graphicsStyle] menuItemBranchArrowSize];
                 NSSize keyEquivalentSize =
-                    [[self graphicsStyle] menuItemTextSize: keyString];
+                        [[self graphicsStyle] menuItemTextSize: keyString];
 
                 partRect.origin.x = origin.x + NSWidth(itemArea) -
                                     branchArrowSize.width -
@@ -282,9 +282,9 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
             // Draw the submenu arrow
             if ([item hasSubmenu]) {
                 NSSize branchArrowSize =
-                    [[self graphicsStyle] menuItemBranchArrowSize];
+                        [[self graphicsStyle] menuItemBranchArrowSize];
                 partRect.origin.x =
-                    origin.x + NSWidth(itemArea) - branchArrowSize.width;
+                        origin.x + NSWidth(itemArea) - branchArrowSize.width;
                 partRect.size.width = branchArrowSize.width;
                 CENTER_PART_RECT_VERTICALLY(branchArrowSize);
                 [[self graphicsStyle] drawMenuBranchArrowInRect: partRect
@@ -380,7 +380,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
 
         if ([item hasSubmenu]) {
             NSMenuWindow *branch =
-                [[NSMenuWindow alloc] initWithMenu: [item submenu]];
+                    [[NSMenuWindow alloc] initWithMenu: [item submenu]];
 
             [self positionBranchForSelectedItem: branch screen: screen];
 

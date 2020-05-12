@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + sharedUserDefaultsController;
 
 - initWithDefaults: (NSUserDefaults *) defaults
-     initialValues: (NSDictionary *) values;
+        initialValues: (NSDictionary *) values;
 
 - (NSUserDefaults *) defaults;
 - (NSDictionary *) initialValues;

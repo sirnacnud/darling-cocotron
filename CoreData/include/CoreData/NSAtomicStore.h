@@ -1,7 +1,7 @@
 #import <CoreData/NSPersistentStore.h>
 
 @class NSMutableSet, NSSet, NSAtomicStoreCacheNode, NSManagedObjectID,
-    NSManagedObject, NSEntityDescription, NSMutableDictionary, NSDictionary;
+        NSManagedObject, NSEntityDescription, NSMutableDictionary, NSDictionary;
 
 @interface NSAtomicStore : NSPersistentStore {
     NSDictionary *_metadata;
@@ -11,7 +11,7 @@
 }
 
 - initWithPersistentStoreCoordinator:
-      (NSPersistentStoreCoordinator *) coordinator
+          (NSPersistentStoreCoordinator *) coordinator
                    configurationName: (NSString *) configurationName
                                  URL: (NSURL *) url
                              options: (NSDictionary *) options;
@@ -24,9 +24,9 @@
 - (void) addCacheNodes: (NSSet *) value;
 
 - (NSAtomicStoreCacheNode *) cacheNodeForObjectID:
-    (NSManagedObjectID *) objectID;
+        (NSManagedObjectID *) objectID;
 - (NSAtomicStoreCacheNode *) newCacheNodeForManagedObject:
-    (NSManagedObject *) managedObject;
+        (NSManagedObject *) managedObject;
 
 - newReferenceObjectForManagedObject: (NSManagedObject *) managedObject;
 
@@ -36,7 +36,7 @@
 - referenceObjectForObjectID: (NSManagedObjectID *) objectID;
 
 - (void) updateCacheNode: (NSAtomicStoreCacheNode *) node
-       fromManagedObject: (NSManagedObject *) managedObject;
+        fromManagedObject: (NSManagedObject *) managedObject;
 
 - (void) willRemoveCacheNodes: (NSSet *) cacheNodes;
 

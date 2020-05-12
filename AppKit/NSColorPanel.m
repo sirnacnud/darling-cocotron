@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSRaise.h>
 
 NSString *const NSColorPanelColorDidChangeNotification =
-    @"NSColorPanelColorDidChangeNotification";
+        @"NSColorPanelColorDidChangeNotification";
 
 @interface NSColorPicker (PrivateInterface)
 
@@ -87,25 +87,25 @@ static NSUInteger _pickerMask = 0;
     [color writeToPasteboard: pboard];
 
     [view dragImage: image
-                 at: NSMakePoint(0, 0)
-             offset: NSMakeSize(0, 0)
-              event: event
-         pasteboard: pboard
-             source: view
-          slideBack: YES];
+                    at: NSMakePoint(0, 0)
+                offset: NSMakeSize(0, 0)
+                 event: event
+            pasteboard: pboard
+                source: view
+             slideBack: YES];
     return YES;
 }
 
 - (void) swapInNewView: sender {
     NSColorPicker<NSColorPickingCustom> *chosenColorPicker =
-        [_colorPickers objectAtIndex: [sender selectedTag]];
+            [_colorPickers objectAtIndex: [sender selectedTag]];
     NSView *newView;
 
     newView = [chosenColorPicker provideNewView: YES];
 
     if (currentColorPickerView != newView) {
         [[sender selectedCell]
-            setImage: [chosenColorPicker provideNewButtonImage]];
+                setImage: [chosenColorPicker provideNewButtonImage]];
 
         if (currentColorPickerView != nil)
             [newView setFrame: [currentColorPickerView frame]];
@@ -125,14 +125,14 @@ static NSUInteger _pickerMask = 0;
     // time to load the color pickers. theoretically we should be searching all
     // the /Library/ColorPickers out there, but...
     NSArray *colorPickersClassArray =
-        [NSArray arrayWithObjects: [NSColorPickerWheel class],
-                                   [NSColorPickerSliders class],
+            [NSArray arrayWithObjects: [NSColorPickerWheel class],
+                                       [NSColorPickerSliders class],
 #if 1
-                                   // Disabled to see if it fixes a nib
-                                   // instantiation issue
-                                   [NSColorPickerColorList class],
+                                       // Disabled to see if it fixes a nib
+                                       // instantiation issue
+                                       [NSColorPickerColorList class],
 #endif
-                                   nil];
+                                       nil];
     NSUInteger i, count = [colorPickersClassArray count];
 
     [colorWell setBordered: NO];
@@ -142,9 +142,9 @@ static NSUInteger _pickerMask = 0;
 
     for (i = 0; i < count; i++) {
         Class colorPickerClass = [colorPickersClassArray objectAtIndex: i];
-        NSColorPicker *newPicker =
-            [[[colorPickerClass alloc] initWithPickerMask: _pickerMask
-                                               colorPanel: self] autorelease];
+        NSColorPicker *newPicker = [[[colorPickerClass alloc]
+                initWithPickerMask: _pickerMask
+                        colorPanel: self] autorelease];
         NSCell *cell = [colorPickersMatrix cellAtRow: 0 column: i];
 
         [_colorPickers addObject: newPicker];
@@ -217,13 +217,14 @@ static NSUInteger _pickerMask = 0;
     [opacityTextField setFloatValue: alpha * 100.f];
 
     [[NSNotificationQueue defaultQueue]
-        enqueueNotification:
-            [NSNotification
-                notificationWithName: NSColorPanelColorDidChangeNotification
-                              object: self]
-               postingStyle: NSPostNow
-               coalesceMask: NSNotificationCoalescingOnName
-                   forModes: nil];
+            enqueueNotification:
+                    [NSNotification
+                            notificationWithName:
+                                    NSColorPanelColorDidChangeNotification
+                                          object: self]
+                   postingStyle: NSPostNow
+                   coalesceMask: NSNotificationCoalescingOnName
+                       forModes: nil];
 }
 
 - (void) setMode: (NSColorPanelMode) mode {

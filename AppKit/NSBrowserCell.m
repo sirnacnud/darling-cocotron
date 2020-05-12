@@ -123,7 +123,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSAttributedString *title = [self attributedStringValue];
     NSImage *branchImage = [self branchImage];
     NSSize branchImageSize =
-        (branchImage == nil) ? NSMakeSize(0, 0) : [branchImage size];
+            (branchImage == nil) ? NSMakeSize(0, 0) : [branchImage size];
     NSPoint branchImageOrigin = frame.origin;
     NSImage *image = [self image];
     NSSize imageSize = (image == nil) ? NSMakeSize(0, 0) : [image size];
@@ -133,9 +133,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     BOOL drawBranchImage = YES, drawTitle = YES, drawImage = YES;
 
     branchImageOrigin.x =
-        frame.origin.x + (frame.size.width - branchImageSize.width);
+            frame.origin.x + (frame.size.width - branchImageSize.width);
     branchImageOrigin.y +=
-        floor((frame.size.height - branchImageSize.height) / 2);
+            floor((frame.size.height - branchImageSize.height) / 2);
 
     imageOrigin.x = frame.origin.x;
     imageOrigin.y += floor((frame.size.height - imageSize.height) / 2);
@@ -151,10 +151,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         /* check for length to avoid exception */
         if ([title length] > 0 &&
             [title attribute: NSForegroundColorAttributeName
-                       atIndex: 0
-                effectiveRange: NULL] == nil) {
+                           atIndex: 0
+                    effectiveRange: NULL] == nil) {
             NSMutableAttributedString *change =
-                [[title mutableCopy] autorelease];
+                    [[title mutableCopy] autorelease];
 
             [change addAttribute: NSForegroundColorAttributeName
                            value: [NSColor selectedControlTextColor]
@@ -174,12 +174,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (drawBranchImage) {
         [branchImage
-            drawInRect: NSMakeRect(branchImageOrigin.x, branchImageOrigin.y,
-                                   branchImageSize.width,
-                                   branchImageSize.height)
-              fromRect: NSZeroRect
-             operation: NSCompositeSourceOver
-              fraction: 1.0];
+                drawInRect: NSMakeRect(branchImageOrigin.x, branchImageOrigin.y,
+                                       branchImageSize.width,
+                                       branchImageSize.height)
+                  fromRect: NSZeroRect
+                 operation: NSCompositeSourceOver
+                  fraction: 1.0];
     }
 
     if (drawImage) {

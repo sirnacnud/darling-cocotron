@@ -60,8 +60,8 @@ class context_renderer;
 typedef agg::pixfmt_gray8_pre pixfmt_alphaMaskType;
 typedef agg::renderer_base<pixfmt_alphaMaskType> BaseRendererWithAlphaMaskType;
 typedef agg::rasterizer_scanline_aa<>
-    RasterizerType; // We use an anti-aliased scanline rasterizer for AGG
-                    // rendering.
+        RasterizerType; // We use an anti-aliased scanline rasterizer for AGG
+                        // rendering.
 typedef agg::amask_no_clip_gray8 MaskType;
 
 @interface O2Context_AntiGrain : O2Context_builtin_gdi {
@@ -75,8 +75,8 @@ typedef agg::amask_no_clip_gray8 MaskType;
 
     agg::scanline_u8 *scanline_u8; // used for mixed opaque/transparent
                                    // rendering (stroking,text...)
-    agg::scanline_p8
-        *scanline_p8; // used for mostly opaque rendering (filling, images...)
+    agg::scanline_p8 *scanline_p8; // used for mostly opaque rendering (filling,
+                                   // images...)
 
     // Rendering buffer to use for alpha masking (bezier path clipping)
     agg::rendering_buffer *rBufAlphaMask[2];
@@ -84,7 +84,7 @@ typedef agg::amask_no_clip_gray8 MaskType;
     pixfmt_alphaMaskType *pixelFormatAlphaMask[2];
     BaseRendererWithAlphaMaskType *baseRendererAlphaMask[2];
     agg::renderer_scanline_aa_solid<BaseRendererWithAlphaMaskType>
-        *solidScanlineRendererAlphaMask[2];
+            *solidScanlineRendererAlphaMask[2];
     int currentMask;
 
     NSArray *savedClipPhases;

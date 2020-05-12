@@ -124,14 +124,14 @@ FOUNDATION_EXPORT NSString *const NSFileSystemFreeSize;
 - (BOOL) createDirectoryAtPath: (NSString *) path
                     attributes: (NSDictionary *) attributes;
 - (BOOL) createDirectoryAtPath: (NSString *) path
-    withIntermediateDirectories: (BOOL) intermediates
-                     attributes: (NSDictionary *) attributes
-                          error: (NSError **) error;
+        withIntermediateDirectories: (BOOL) intermediates
+                         attributes: (NSDictionary *) attributes
+                              error: (NSError **) error;
 
 - (BOOL) createDirectoryAtURL: (NSURL *) url
-    withIntermediateDirectories: (BOOL) intermediates
-                     attributes: (NSDictionary *) attributes
-                          error: (NSError **) error;
+        withIntermediateDirectories: (BOOL) intermediates
+                         attributes: (NSDictionary *) attributes
+                              error: (NSError **) error;
 
 - (BOOL) createSymbolicLinkAtPath: (NSString *) path
                       pathContent: (NSString *) destination;
@@ -168,39 +168,39 @@ FOUNDATION_EXPORT NSString *const NSFileSystemFreeSize;
 
 @interface NSObject (NSFileManager_handler)
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldProceedAfterError: (NSDictionary *) dictionary;
+        shouldProceedAfterError: (NSDictionary *) dictionary;
 - (void) fileManager: (NSFileManager *) fileManager
-     willProcessPath: (NSString *) path;
+        willProcessPath: (NSString *) path;
 @end
 
 @interface NSObject (NSFileManagerDelegate)
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldCopyItemAtPath: (NSString *) path
-                  toPath: (NSString *) toPath;
+        shouldCopyItemAtPath: (NSString *) path
+                      toPath: (NSString *) toPath;
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldLinkItemAtPath: (NSString *) path
-                  toPath: (NSString *) toPath;
+        shouldLinkItemAtPath: (NSString *) path
+                      toPath: (NSString *) toPath;
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldMoveItemAtPath: (NSString *) path
-                  toPath: (NSString *) toPath;
+        shouldMoveItemAtPath: (NSString *) path
+                      toPath: (NSString *) toPath;
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldProceedAfterError: (NSError *) error
-          copyingItemAtPath: (NSString *) path
-                     toPath: (NSString *) toPath;
+        shouldProceedAfterError: (NSError *) error
+              copyingItemAtPath: (NSString *) path
+                         toPath: (NSString *) toPath;
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldProceedAfterError: (NSError *) error
-          linkingItemAtPath: (NSString *) path
-                     toPath: (NSString *) toPath;
+        shouldProceedAfterError: (NSError *) error
+              linkingItemAtPath: (NSString *) path
+                         toPath: (NSString *) toPath;
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldProceedAfterError: (NSError *) error
-           movingItemAtPath: (NSString *) path
-                     toPath: (NSString *) toPath;
+        shouldProceedAfterError: (NSError *) error
+               movingItemAtPath: (NSString *) path
+                         toPath: (NSString *) toPath;
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldProceedAfterError: (NSError *) error
-         removingItemAtPath: (NSString *) path;
+        shouldProceedAfterError: (NSError *) error
+             removingItemAtPath: (NSString *) path;
 
 - (BOOL) fileManager: (NSFileManager *) fileManager
-    shouldRemoveItemAtPath: (NSString *) path;
+        shouldRemoveItemAtPath: (NSString *) path;
 
 @end
 

@@ -58,10 +58,11 @@ static NSMutableDictionary *sSounds = nil;
                 if ([[NSBundle mainBundle] pathForResource: name
                                                     ofType: type]) {
                     sound = [[[NSSound alloc]
-                        initWithContentsOfFile: [[NSBundle mainBundle]
-                                                    pathForResource: name
-                                                             ofType: type]
-                                   byReference: NO] autorelease];
+                            initWithContentsOfFile:
+                                    [[NSBundle mainBundle]
+                                            pathForResource: name
+                                                     ofType: type]
+                                       byReference: NO] autorelease];
                     // Store it for quick access if asked again
                     [sSounds setObject: sound forKey: name];
                 }

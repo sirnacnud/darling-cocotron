@@ -86,7 +86,7 @@ static inline CGGlyphMetrics *glyphInfoForGlyph(KTFont_gdi *self, CGGlyph glyph)
 
     if (nameToGlyphRanges == NULL)
         nameToGlyphRanges = NSCreateMapTable(
-            NSObjectMapKeyCallBacks, NSNonOwnedPointerMapValueCallBacks, 0);
+                NSObjectMapKeyCallBacks, NSNonOwnedPointerMapValueCallBacks, 0);
 
     shared = NSMapGet(nameToGlyphRanges, _name);
 
@@ -150,14 +150,14 @@ static inline CGGlyphMetrics *glyphInfoForGlyph(KTFont_gdi *self, CGGlyph glyph)
 
             if (_glyphRangeTable->ranges[range] == NULL)
                 _glyphRangeTable->ranges[range] =
-                    NSZoneCalloc(NULL, sizeof(CGGlyphRange), 1);
+                        NSZoneCalloc(NULL, sizeof(CGGlyphRange), 1);
 
             _glyphRangeTable->ranges[range]->glyphs[index] = glyph;
         }
     }
     _glyphRangeTable->numberOfGlyphs++;
-    _glyphRangeTable->characters =
-        NSZoneCalloc(NULL, sizeof(unichar), _glyphRangeTable->numberOfGlyphs);
+    _glyphRangeTable->characters = NSZoneCalloc(
+            NULL, sizeof(unichar), _glyphRangeTable->numberOfGlyphs);
     for (i = 0; i < range.length; i++) {
         unsigned short glyph = glyphs[i];
 
@@ -213,17 +213,17 @@ static inline CGGlyphMetrics *glyphInfoForGlyph(KTFont_gdi *self, CGGlyph glyph)
 
                 if (index == 0)
                     info->kerningOffsets =
-                        NSZoneMalloc([self zone], sizeof(CGKerningOffset));
+                            NSZoneMalloc([self zone], sizeof(CGKerningOffset));
                 else
-                    info->kerningOffsets =
-                        NSZoneRealloc([self zone], info -> kerningOffsets,
-                                      sizeof(CGKerningOffset) * (index + 1));
+                    info->kerningOffsets = NSZoneRealloc(
+                            [self zone], info -> kerningOffsets,
+                            sizeof(CGKerningOffset) * (index + 1));
 
                 info->kerningOffsets[index].previous = previous;
                 info->kerningOffsets[index].xoffset = xoffset * scale;
                 if (_useMacMetrics == NO) {
                     info->kerningOffsets[index].xoffset =
-                        roundf(info->kerningOffsets[index].xoffset);
+                            roundf(info->kerningOffsets[index].xoffset);
                 }
                 info->numberOfKerningOffsets++;
             }
@@ -403,9 +403,9 @@ static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
     _metrics.boundingRect.origin.x = ttMetrics->otmrcFontBox.left;
     _metrics.boundingRect.origin.y = ttMetrics->otmrcFontBox.bottom;
     _metrics.boundingRect.size.width =
-        ttMetrics->otmrcFontBox.right - ttMetrics->otmrcFontBox.left;
+            ttMetrics->otmrcFontBox.right - ttMetrics->otmrcFontBox.left;
     _metrics.boundingRect.size.height =
-        ttMetrics->otmrcFontBox.top - ttMetrics->otmrcFontBox.bottom;
+            ttMetrics->otmrcFontBox.top - ttMetrics->otmrcFontBox.bottom;
 
     if (_useMacMetrics) {
         _metrics.ascender = ttMetrics->otmMacAscent;
@@ -645,8 +645,8 @@ static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
 }
 
 - (void) getGlyphs: (CGGlyph *) glyphs
-     forCharacters: (const unichar *) characters
-            length: (unsigned) length
+        forCharacters: (const unichar *) characters
+               length: (unsigned) length
 {
     int i;
 
@@ -752,8 +752,8 @@ static CGFloat FIXEDToFloat(FIXED f) {
  ****************************************************************************/
 static UINT MakeBezierFromQBSpline(CGPoint *pPts, POINTFX *pSpline) {
     CGPoint P0, // Quadratic on curve start point
-        P1,     // Quadratic control point
-        P2;     // Quadratic on curve end point
+            P1, // Quadratic control point
+            P2; // Quadratic on curve end point
     UINT cTotal = 0;
 
     // Convert the Quadratic points to integer
@@ -1027,7 +1027,7 @@ static void ConvertTTPolygonToPath(LPTTPOLYGONHEADER lpHeader, DWORD size,
 }
 
 - (NSString *) description {
-    return
-        [NSString stringWithFormat: @"%@ name: %@", [super description], _name];
+    return [NSString
+            stringWithFormat: @"%@ name: %@", [super description], _name];
 }
 @end

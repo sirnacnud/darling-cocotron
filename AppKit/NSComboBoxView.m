@@ -60,14 +60,14 @@ enum { KEYBOARD_INACTIVE, KEYBOARD_ACTIVE, KEYBOARD_OK, KEYBOARD_CANCEL };
 
 - (NSDictionary *) itemAttributes {
     return [NSDictionary
-        dictionaryWithObjectsAndKeys: _font, NSFontAttributeName, nil];
+            dictionaryWithObjectsAndKeys: _font, NSFontAttributeName, nil];
 }
 
 - (NSDictionary *) selectedItemAttributes {
     return [NSDictionary
-        dictionaryWithObjectsAndKeys: _font, NSFontAttributeName,
-                                      [NSColor selectedTextColor],
-                                      NSForegroundColorAttributeName, nil];
+            dictionaryWithObjectsAndKeys: _font, NSFontAttributeName,
+                                          [NSColor selectedTextColor],
+                                          NSForegroundColorAttributeName, nil];
 }
 
 - (NSSize) sizeForContents {
@@ -250,8 +250,8 @@ enum { KEYBOARD_INACTIVE, KEYBOARD_ACTIVE, KEYBOARD_OK, KEYBOARD_CANCEL };
         [[self window] flushWindow];
 
         event = [[self window]
-            nextEventMatchingMask: NSLeftMouseDownMask | NSLeftMouseUpMask |
-                                   NSLeftMouseDraggedMask | NSKeyDownMask];
+                nextEventMatchingMask: NSLeftMouseDownMask | NSLeftMouseUpMask |
+                                       NSLeftMouseDraggedMask | NSKeyDownMask];
         if ([event type] == NSKeyDown) {
             [self interpretKeyEvents: [NSArray arrayWithObject: event]];
             switch (_keyboardUIState) {
@@ -279,7 +279,7 @@ enum { KEYBOARD_INACTIVE, KEYBOARD_ACTIVE, KEYBOARD_OK, KEYBOARD_CANCEL };
         point = [event locationInWindow];
         point = [[event window] convertBaseToScreen: point];
         screenVisible =
-            NSInsetRect([[[self window] screen] visibleFrame], 4, 4);
+                NSInsetRect([[[self window] screen] visibleFrame], 4, 4);
         if (NSPointInRect(point, [[self window] frame]) &&
             !NSPointInRect(point, screenVisible)) {
             NSPoint origin = [[self window] frame].origin;

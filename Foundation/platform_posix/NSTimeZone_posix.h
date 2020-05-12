@@ -26,9 +26,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // interface for providing alternate time zone data sources...
 - initWithName: (NSString *) name
-           data: (NSData *) data
-    transitions: (NSArray *) transitions
-          types: (NSArray *) types;
+               data: (NSData *) data
+        transitions: (NSArray *) transitions
+              types: (NSArray *) types;
 
 + (NSString *) _zoneinfoPath;
 

@@ -817,8 +817,8 @@ unichar *NSUnicodeFromBytesUTF16BigEndian(const unsigned char *bytes,
         result[resultIndex++] = (high << 8) | low;
     }
 
-    *resultLengthp =
-        resultLength - ((skippedMarker) ? 2 : 0); // we skipped the marker word
+    *resultLengthp = resultLength -
+                     ((skippedMarker) ? 2 : 0); // we skipped the marker word
 
     return result;
 }
@@ -851,8 +851,8 @@ unichar *NSUnicodeFromBytesUTF16LittleEndian(const unsigned char *bytes,
         result[resultIndex++] = (high << 8) | low;
     }
 
-    *resultLengthp =
-        resultLength - ((skippedMarker) ? 2 : 0); // we skipped the marker word
+    *resultLengthp = resultLength -
+                     ((skippedMarker) ? 2 : 0); // we skipped the marker word
 
     return result;
 }

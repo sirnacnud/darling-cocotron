@@ -34,7 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithWindow: (Win32Window *) window
-      pasteboard: (NSPasteboard *) pasteboard;
+        pasteboard: (NSPasteboard *) pasteboard;
 
 - (void) setSourceOperationMask: (unsigned) mask;
 - (void) setScreenLocation: (NSPoint) point;

@@ -62,7 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) drawInteriorWithFrame: (NSRect) frame inView: (NSView *) control {
     NSRect titleRect = [self titleRectForBounds: frame];
     NSMutableAttributedString *astring =
-        [[self attributedStringValue] mutableCopy];
+            [[self attributedStringValue] mutableCopy];
     NSUInteger i, length = [astring length];
     unichar *buffer = NSZoneMalloc(NULL, length * sizeof(unichar));
 

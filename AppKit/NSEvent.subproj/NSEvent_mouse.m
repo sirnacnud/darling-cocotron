@@ -30,9 +30,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                        deltaY: (CGFloat) deltaY
 {
     [super initWithType: type
-               location: location
-          modifierFlags: modifierFlags
-                 window: window];
+                 location: location
+            modifierFlags: modifierFlags
+                   window: window];
 
     _clickCount = clickCount;
     _deltaX = deltaX;
@@ -52,9 +52,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                        deltaY: (CGFloat) deltaY
 {
     [super initWithType: type
-               location: location
-          modifierFlags: modifierFlags
-                 window: window];
+                 location: location
+            modifierFlags: modifierFlags
+                   window: window];
 
     _deltaY = deltaY;
 
@@ -93,9 +93,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                      pressure: (float) pressure
 {
     [super initWithType: type
-               location: location
-          modifierFlags: modifierFlags
-                 window: (id) windowNumber];
+                 location: location
+            modifierFlags: modifierFlags
+                   window: (id) windowNumber];
     _clickCount = clickCount;
     return self;
 }

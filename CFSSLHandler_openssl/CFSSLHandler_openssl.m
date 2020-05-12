@@ -71,7 +71,7 @@ static threadid_func(CRYPTO_THREADID *id){
         _method = SSLv23_client_method();
 
     CFNumberRef validatesCertChain = CFDictionaryGetValue(
-        _properties, kCFStreamSSLValidatesCertificateChain);
+            _properties, kCFStreamSSLValidatesCertificateChain);
 
     if (validatesCertChain != NULL) {
     }
@@ -274,9 +274,9 @@ static threadid_func(CRYPTO_THREADID *id){
 
     if ((check = [self writeEncrypted: _stableBuffer
                             maxLength: result]) != result) {
-        NSCLog(
-            "[sslHandler writeEncrypted:socketBuffer maxLength:%d] failed %d",
-            result, check);
+        NSCLog("[sslHandler writeEncrypted:socketBuffer maxLength:%d] failed "
+               "%d",
+               result, check);
     }
 
     return result;

@@ -25,36 +25,36 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSView.h>
 
 NSBitmapImageRepPropertyKey NSImageCompressionFactor =
-    @"NSImageCompressionFactor";
+        @"NSImageCompressionFactor";
 NSBitmapImageRepPropertyKey NSImageCompressionMethod =
-    @"NSImageCompressionMethod";
+        @"NSImageCompressionMethod";
 NSBitmapImageRepPropertyKey NSImageDitherTransparency =
-    @"NSImageDitherTransparency";
+        @"NSImageDitherTransparency";
 NSBitmapImageRepPropertyKey NSImageInterlaced = @"NSImageInterlaced";
 NSBitmapImageRepPropertyKey NSImageRGBColorTable = @"NSImageRGBColorTable";
 NSBitmapImageRepPropertyKey NSImageFrameCount = @"NSImageFrameCount";
 NSBitmapImageRepPropertyKey NSImageColorSyncProfileData =
-    @"NSImageColorSyncProfileData";
+        @"NSImageColorSyncProfileData";
 NSBitmapImageRepPropertyKey NSImageFallbackBackgroundColor =
-    @"NSImageFallbackBackgroundColor";
+        @"NSImageFallbackBackgroundColor";
 NSBitmapImageRepPropertyKey NSImageEXIFData = @"NSImageEXIFData";
 NSBitmapImageRepPropertyKey NSImageProgressive = @"NSImageProgressive";
 NSBitmapImageRepPropertyKey NSImageGamma = @"NSImageGamma";
 NSBitmapImageRepPropertyKey NSImageLoopCount = @"NSImageLoopCount";
 NSBitmapImageRepPropertyKey NSImageCurrentFrameDuration =
-    @"NSImageCurrentFrameDuration";
+        @"NSImageCurrentFrameDuration";
 NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
 @implementation NSBitmapImageRep
 
 + (NSArray *) imageUnfilteredFileTypes {
-    return
-        [NSArray arrayWithObjects:
-                     // Try to order them so the most used ones are at the top
-                     // of the list
-                     @"png", @"tiff", @"tif", @"jpg", @"jpeg", @"icns", @"gif",
-                     @"bmp", @"PNG", @"TIFF", @"TIF", @"JPG", @"JPEG", @"ICNS",
-                     @"jpe", @"JPE", @"GIF", @"BMP", nil];
+    return [NSArray arrayWithObjects:
+                            // Try to order them so the most used ones are at
+                            // the top of the list
+                                    @"png", @"tiff", @"tif", @"jpg", @"jpeg",
+                                    @"icns", @"gif", @"bmp", @"PNG", @"TIFF",
+                                    @"TIF", @"JPG", @"JPEG", @"ICNS", @"jpe",
+                                    @"JPE", @"GIF", @"BMP", nil];
 }
 
 + (NSArray *) imageRepsWithContentsOfFile: (NSString *) path {
@@ -88,13 +88,13 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
 + (NSData *) TIFFRepresentationOfImageRepsInArray: (NSArray *) array
                                  usingCompression:
-                                     (NSTIFFCompression) compression
+                                         (NSTIFFCompression) compression
                                            factor: (float) factor
 {
     NSMutableData *result = [NSMutableData data];
     CGImageDestinationRef dest = CGImageDestinationCreateWithData(
-        (CFMutableDataRef) result, (CFStringRef) @"public.tiff", [array count],
-        NULL);
+            (CFMutableDataRef) result, (CFStringRef) @"public.tiff",
+            [array count], NULL);
 
     for (NSBitmapImageRep *bitmap in array) {
         CGImageDestinationAddImage(dest, [bitmap CGImage], NULL);
@@ -120,7 +120,7 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
 + (BOOL) canInitWithData: (NSData *) data {
     CGImageSourceRef imageSource =
-        CGImageSourceCreateWithData((CFDataRef) data, nil);
+            CGImageSourceCreateWithData((CFDataRef) data, nil);
     BOOL result = (imageSource != NULL) ? YES : NO;
     CFRelease(imageSource);
     return result;
@@ -129,7 +129,7 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 + (NSArray *) imageRepsWithData: (NSData *) data {
     NSMutableArray *result = [NSMutableArray array];
     CGImageSourceRef imageSource =
-        CGImageSourceCreateWithData((CFDataRef) data, nil);
+            CGImageSourceCreateWithData((CFDataRef) data, nil);
 
     if (imageSource == nil)
         return nil;
@@ -138,19 +138,17 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
     for (i = 0; i < count; i++) {
         CGImageRef cgImage =
-            CGImageSourceCreateImageAtIndex(imageSource, i, nil);
+                CGImageSourceCreateImageAtIndex(imageSource, i, nil);
 
         if (cgImage == nil)
             break;
 
         CFDictionaryRef properties =
-            CGImageSourceCopyPropertiesAtIndex(imageSource, i, nil);
-        NSNumber *xres =
-            [[(id) CFDictionaryGetValue(properties, kCGImagePropertyDPIWidth)
-                copy] autorelease];
-        NSNumber *yres =
-            [[(id) CFDictionaryGetValue(properties, kCGImagePropertyDPIHeight)
-                copy] autorelease];
+                CGImageSourceCopyPropertiesAtIndex(imageSource, i, nil);
+        NSNumber *xres = [[(id) CFDictionaryGetValue(
+                properties, kCGImagePropertyDPIWidth) copy] autorelease];
+        NSNumber *yres = [[(id) CFDictionaryGetValue(
+                properties, kCGImagePropertyDPIHeight) copy] autorelease];
 
         CFRelease(properties);
 
@@ -237,7 +235,7 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
             _bitmapPlanes[i] = planes[i];
         else
             _bitmapPlanes[i] =
-                NSZoneCalloc(NULL, _bytesPerRow * _pixelsHigh, 1);
+                    NSZoneCalloc(NULL, _bytesPerRow * _pixelsHigh, 1);
     }
 
     return self;
@@ -287,7 +285,7 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
 - initWithData: (NSData *) data {
     CGImageSourceRef imageSource =
-        CGImageSourceCreateWithData((CFDataRef) data, nil);
+            CGImageSourceCreateWithData((CFDataRef) data, nil);
 
     if (imageSource == nil) {
         [self dealloc];
@@ -303,13 +301,13 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
     }
 
     CFDictionaryRef properties =
-        CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil);
+            CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil);
     NSNumber *xres =
-        [[(id) CFDictionaryGetValue(properties, kCGImagePropertyDPIWidth) copy]
-            autorelease];
+            [[(id) CFDictionaryGetValue(properties, kCGImagePropertyDPIWidth)
+                    copy] autorelease];
     NSNumber *yres =
-        [[(id) CFDictionaryGetValue(properties, kCGImagePropertyDPIHeight) copy]
-            autorelease];
+            [[(id) CFDictionaryGetValue(properties, kCGImagePropertyDPIHeight)
+                    copy] autorelease];
 
     CFRelease(properties);
     CFRelease(imageSource);
@@ -530,7 +528,7 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
             NSUnimplementedMethod();
         }
         unsigned char *bits =
-            _bitmapPlanes[0] + _bytesPerRow * y + (x * _bitsPerPixel) / 8;
+                _bitmapPlanes[0] + _bytesPerRow * y + (x * _bitsPerPixel) / 8;
 
         int i;
 
@@ -585,7 +583,7 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
     if (_bitmapFormat & NSFloatingPointSamplesBitmapFormat) {
         for (i = 0; i < numberOfComponents; i++) {
             ((CGFloat *) pixels)[i] =
-                MAX(0.0f, MIN(1.0f, components[i])); // clamp just in case
+                    MAX(0.0f, MIN(1.0f, components[i])); // clamp just in case
         }
     } else {
         int maxValue = (1 << [self bitsPerSample]) - 1;
@@ -593,12 +591,12 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
         for (i = 0; i < numberOfComponents; i++) {
 #ifdef __LITTLE_ENDIAN__
             pixels[i] =
-                MAX(0, MIN(maxValue,
-                           (int) (components[(numberOfComponents - 1) - i] *
-                                  maxValue))); // clamp just in case
+                    MAX(0, MIN(maxValue,
+                               (int) (components[(numberOfComponents - 1) - i] *
+                                      maxValue))); // clamp just in case
 #else
-            pixels[i] =
-                MAX(0, MIN(maxValue, (int) (components[i] *
+            pixels[i] = MAX(
+                    0, MIN(maxValue, (int) (components[i] *
                                             maxValue))); // clamp just in case
 #endif
         }
@@ -689,15 +687,15 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
     if ([properties count]) {
         id compressionFactor =
-            [properties valueForKey: NSImageCompressionFactor];
+                [properties valueForKey: NSImageCompressionFactor];
         if (compressionFactor) {
             [CGProperties
-                setValue: compressionFactor
-                  forKey: (id) kCGImageDestinationLossyCompressionQuality];
+                    setValue: compressionFactor
+                      forKey: (id) kCGImageDestinationLossyCompressionQuality];
         }
     }
     CGImageDestinationRef dest = CGImageDestinationCreateWithData(
-        (CFMutableDataRef) result, uti, 1, (CFDictionaryRef) CGProperties);
+            (CFMutableDataRef) result, uti, 1, (CFDictionaryRef) CGProperties);
 
     CGImageDestinationAddImage(dest, [self CGImage],
                                (CFDictionaryRef) CGProperties);
@@ -717,9 +715,10 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
                                          factor: (float) factor
 {
     return [[self class]
-        TIFFRepresentationOfImageRepsInArray: [NSArray arrayWithObject: self]
-                            usingCompression: compression
-                                      factor: factor];
+            TIFFRepresentationOfImageRepsInArray: [NSArray
+                                                          arrayWithObject: self]
+                                usingCompression: compression
+                                          factor: factor];
 }
 
 - (CGImageRef) createCGImageIfNeeded {
@@ -730,12 +729,12 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
         NSUnimplementedMethod();
 
     CGDataProviderRef provider = CGDataProviderCreateWithData(
-        NULL, _bitmapPlanes[0], _bytesPerRow * _pixelsHigh, NULL);
+            NULL, _bitmapPlanes[0], _bytesPerRow * _pixelsHigh, NULL);
 
     CGImageRef image = CGImageCreate(
-        _pixelsWide, _pixelsHigh, _bitsPerPixel / _samplesPerPixel,
-        _bitsPerPixel, _bytesPerRow, [self CGColorSpace], [self CGBitmapInfo],
-        provider, NULL, NO, kCGRenderingIntentDefault);
+            _pixelsWide, _pixelsHigh, _bitsPerPixel / _samplesPerPixel,
+            _bitsPerPixel, _bytesPerRow, [self CGColorSpace],
+            [self CGBitmapInfo], provider, NULL, NO, kCGRenderingIntentDefault);
 
     CGDataProviderRelease(provider);
 
@@ -764,11 +763,11 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
 - (CGColorSpaceRef) CGColorSpace {
     if ([_colorSpaceName isEqualToString: NSDeviceRGBColorSpace])
-        return (
-            CGColorSpaceRef)[(id) CGColorSpaceCreateDeviceRGB() autorelease];
+        return (CGColorSpaceRef)[(id) CGColorSpaceCreateDeviceRGB()
+                                         autorelease];
     if ([_colorSpaceName isEqualToString: NSCalibratedRGBColorSpace])
-        return (
-            CGColorSpaceRef)[(id) CGColorSpaceCreateDeviceRGB() autorelease];
+        return (CGColorSpaceRef)[(id) CGColorSpaceCreateDeviceRGB()
+                                         autorelease];
 
     return NULL;
 }

@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSURLProtocol.h>
 
 @class NSInputStream, NSOutputStream, NSMutableData, NSMutableDictionary,
-    NSMutableArray, NSTimer;
+        NSMutableArray, NSTimer;
 
 @interface NSURLProtocol_http : NSURLProtocol {
     NSMutableArray *_modes;

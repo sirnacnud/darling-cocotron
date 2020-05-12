@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSValue.h>
 
 NSString *const NSAnimationProgressMarkNotification =
-    @"NSAnimationProgressMarkNotification";
+        @"NSAnimationProgressMarkNotification";
 
 NSString *NSAnimationTriggerOrderIn = @"NSAnimationTriggerOrderIn";
 NSString *NSAnimationTriggerOrderOut = @"NSAnimationTriggerOrderOut";
@@ -35,7 +35,7 @@ NSString *NSAnimationRunLoopMode = @"NSAnimationRunLoopMode";
 @implementation NSAnimation
 
 - initWithDuration: (NSTimeInterval) duration
-    animationCurve: (NSAnimationCurve) curve
+        animationCurve: (NSAnimationCurve) curve
 {
     _duration = duration;
     _curve = curve;
@@ -207,9 +207,9 @@ NSString *NSAnimationRunLoopMode = @"NSAnimationRunLoopMode";
 
             while (_isAnimating)
                 [[NSRunLoop currentRunLoop]
-                       runMode: NSAnimationRunLoopMode
-                    beforeDate: [NSDate
-                                    dateWithTimeIntervalSinceNow: _duration]];
+                           runMode: NSAnimationRunLoopMode
+                        beforeDate: [NSDate dateWithTimeIntervalSinceNow:
+                                                    _duration]];
 
             [self _setCurrentProgressAndEndIfNeeded: 1.0];
             break;

@@ -29,16 +29,16 @@ FOUNDATION_EXPORT NSString *const NSURLCredentialStorageChangedNotification;
 
 - (NSDictionary *) allCredentials;
 - (NSDictionary *) credentialsForProtectionSpace:
-    (NSURLProtectionSpace *) protectionSpace;
+        (NSURLProtectionSpace *) protectionSpace;
 - (NSURLCredential *) defaultCredentialForProtectionSpace:
-    (NSURLProtectionSpace *) protectionSpace;
+        (NSURLProtectionSpace *) protectionSpace;
 
 - (void) setCredential: (NSURLCredential *) credential
-    forProtectionSpace: (NSURLProtectionSpace *) protectionSpace;
+        forProtectionSpace: (NSURLProtectionSpace *) protectionSpace;
 - (void) setDefaultCredential: (NSURLCredential *) credential
            forProtectionSpace: (NSURLProtectionSpace *) protectionSpace;
 
 - (void) removeCredential: (NSURLCredential *) credential
-       forProtectionSpace: (NSURLProtectionSpace *) protectionSpace;
+        forProtectionSpace: (NSURLProtectionSpace *) protectionSpace;
 
 @end

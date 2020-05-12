@@ -113,6 +113,6 @@ CGPathCreateWithRect(CGRect rect, const CGAffineTransform *transform);
 COREGRAPHICS_EXPORT CGRect CGPathGetPathBoundingBox(CGPathRef path);
 
 COREGRAPHICS_EXPORT CGPathRef CGPathCreateCopyByTransformingPath(
-    CGPathRef path, CGAffineTransform *transform);
+        CGPathRef path, CGAffineTransform *transform);
 
 CF_IMPLICIT_BRIDGING_DISABLED

@@ -16,7 +16,7 @@
         _nibName = [[coder decodeObjectForKey: @"NSNibName"] copy];
         _title = [[coder decodeObjectForKey: @"NSTitle"] copy];
         NSString *bundleIdentifier =
-            [coder decodeObjectForKey: @"NSNibBundleIdentifier"];
+                [coder decodeObjectForKey: @"NSNibBundleIdentifier"];
         if (bundleIdentifier != nil)
             _nibBundle = [NSBundle bundleWithIdentifier: bundleIdentifier];
     }

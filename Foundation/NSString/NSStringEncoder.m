@@ -119,7 +119,7 @@ static const uint16_t *tableForCFEncoding(CFStringEncoding encoding) {
 
 static const uint16_t *tableForNSEncoding(NSStringEncoding encoding) {
     CFStringEncoding cfencoding =
-        CFStringConvertNSStringEncodingToEncoding(encoding);
+            CFStringConvertNSStringEncodingToEncoding(encoding);
     return tableForCFEncoding(cfencoding);
 }
 
@@ -137,9 +137,10 @@ static NSDictionary *dictionaryForEncoding(NSStringEncoding encoding) {
                 dict = [NSMutableDictionary dictionary];
                 for (int i = 0; table[i] != (uint16_t) -1; i += 2) {
                     [dict setObject: [NSNumber
-                                         numberWithUnsignedShort: table[i + 1]]
-                             forKey: [NSNumber
-                                         numberWithUnsignedShort: table[i]]];
+                                             numberWithUnsignedShort: table[i +
+                                                                            1]]
+                             forKey: [NSNumber numberWithUnsignedShort:
+                                                       table[i]]];
                 }
                 [sAllDicts setObject: dict
                               forKey: [NSNumber numberWithInteger: encoding]];
@@ -163,12 +164,10 @@ static NSDictionary *dictionaryForDecoding(NSStringEncoding encoding) {
                 dict = [NSMutableDictionary dictionary];
                 for (int i = 0; table[i] != (uint16_t) -1; i += 2) {
                     if (table[i] != 0xffff) {
-                        [dict
-                            setObject: [NSNumber
-                                           numberWithUnsignedShort: table[i]]
-                               forKey: [NSNumber
-                                           numberWithUnsignedShort: table[i +
-                                                                          1]]];
+                        [dict setObject: [NSNumber numberWithUnsignedShort:
+                                                           table[i]]
+                                 forKey: [NSNumber numberWithUnsignedShort:
+                                                           table[i + 1]]];
                     }
                 }
                 [sAllDicts setObject: dict
@@ -193,7 +192,7 @@ unichar *NSBytesToUnicode(const unsigned char *bytes, NSUInteger length,
             // mask the byte with any pending one (for 2-bytes char translation)
             current |= bytes[i];
             NSNumber *n = [dict
-                objectForKey: [NSNumber numberWithUnsignedShort: current]];
+                    objectForKey: [NSNumber numberWithUnsignedShort: current]];
             if (n) {
                 uint16_t u = [n unsignedShortValue];
                 if (u == (uint16_t) -1) {
@@ -237,7 +236,7 @@ unsigned char *NSBytesFromUnicode(const unichar *characters, NSUInteger length,
     if (dict) {
         NSUInteger charLength = 0;
         unsigned char *buffer =
-            NSZoneMalloc(NULL, sizeof(unsigned char) * (length * 2));
+                NSZoneMalloc(NULL, sizeof(unsigned char) * (length * 2));
         if (buffer == NULL) {
             NSCLog("NSBytesFromUnicode: can't allocate buffer of size %d",
                    length * 2);
@@ -245,9 +244,8 @@ unsigned char *NSBytesFromUnicode(const unichar *characters, NSUInteger length,
         }
         for (NSUInteger i = 0; i < length; ++i) {
             // mask the byte with any pending one (for 2-bytes char translation)
-            NSNumber *n = [dict
-                objectForKey: [NSNumber
-                                  numberWithUnsignedShort: characters[i]]];
+            NSNumber *n = [dict objectForKey: [NSNumber numberWithUnsignedShort:
+                                                                characters[i]]];
             if (n) {
                 uint16_t u = [n unsignedShortValue];
                 if (u >= 0x100) {

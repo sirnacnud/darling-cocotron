@@ -27,7 +27,7 @@ void NSSetTableInit(NSSetTable *table, NSUInteger capacity, NSZone *zone) {
     table->count = 0;
     table->numBuckets = NSSetTableRoundCount(capacity);
     table->buckets =
-        NSZoneCalloc(zone, table->numBuckets, sizeof(NSSetBucket *));
+            NSZoneCalloc(zone, table->numBuckets, sizeof(NSSetBucket *));
 }
 
 void NSSetTableFreeObjects(NSSetTable *table) {
@@ -160,7 +160,7 @@ void NSSetTableAddObjectCount(NSSetTable *table, id object) {
 void NSSetTableRemoveObjectCount(NSSetTable *table, id object) {
     NSUInteger index = [object hash] % table->numBuckets;
     NSCountBucket *current, *last,
-        *bucket = (NSCountBucket *) table->buckets[index];
+            *bucket = (NSCountBucket *) table->buckets[index];
 
     for (current = last = bucket; current != NULL;
          last = current, current = current->next)

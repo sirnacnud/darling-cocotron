@@ -125,13 +125,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (instancetype) keyEventWithType: (NSEventType) type
-                         location: (NSPoint) location
-                    modifierFlags: (NSEventModifierFlags) modifierFlags
-                           window: (NSWindow *) window
-                       characters: (NSString *) characters
-      charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
-                        isARepeat: (BOOL) isARepeat
-                          keyCode: (unsigned short) keyCode
+                           location: (NSPoint) location
+                      modifierFlags: (NSEventModifierFlags) modifierFlags
+                             window: (NSWindow *) window
+                         characters: (NSString *) characters
+        charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
+                          isARepeat: (BOOL) isARepeat
+                            keyCode: (unsigned short) keyCode
 {
     return [[[NSEvent_keyboard alloc] initWithType: type
                                           location: location
@@ -144,26 +144,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (instancetype) keyEventWithType: (NSEventType) type
-                         location: (NSPoint) location
-                    modifierFlags: (NSEventModifierFlags) modifierFlags
-                        timestamp: (NSTimeInterval) timestamp
-                     windowNumber: (NSInteger) windowNumber
-                          context: (NSGraphicsContext *) context
-                       characters: (NSString *) characters
-      charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
-                        isARepeat: (BOOL) isARepeat
-                          keyCode: (unsigned short) keyCode
+                           location: (NSPoint) location
+                      modifierFlags: (NSEventModifierFlags) modifierFlags
+                          timestamp: (NSTimeInterval) timestamp
+                       windowNumber: (NSInteger) windowNumber
+                            context: (NSGraphicsContext *) context
+                         characters: (NSString *) characters
+        charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
+                          isARepeat: (BOOL) isARepeat
+                            keyCode: (unsigned short) keyCode
 {
     return [[[NSEvent_keyboard alloc]
-                       initWithType: type
-                           location: location
-                      modifierFlags: modifierFlags
-                             window: [NSApp
-                                         windowWithWindowNumber: windowNumber]
-                         characters: characters
-        charactersIgnoringModifiers: charactersIgnoringModifiers
-                          isARepeat: isARepeat
-                            keyCode: keyCode] autorelease];
+                           initWithType: type
+                               location: location
+                          modifierFlags: modifierFlags
+                                 window: [NSApp windowWithWindowNumber:
+                                                         windowNumber]
+                             characters: characters
+            charactersIgnoringModifiers: charactersIgnoringModifiers
+                              isARepeat: isARepeat
+                                keyCode: keyCode] autorelease];
 }
 
 + (instancetype) otherEventWithType: (NSEventType) type
@@ -241,13 +241,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<NSEvent: type=%lu loc=(%f,%f) time=%f flags=0x%X "
-                          @"win=%p winNum=%lu>",
-                          (unsigned long) [self type],
-                          [self locationInWindow].x, [self locationInWindow].y,
-                          [self timestamp],
-                          (unsigned long) [self modifierFlags], [self window],
-                          (unsigned long) [self windowNumber]];
+            stringWithFormat:
+                    @"<NSEvent: type=%lu loc=(%f,%f) time=%f flags=0x%X "
+                    @"win=%p winNum=%lu>",
+                    (unsigned long) [self type], [self locationInWindow].x,
+                    [self locationInWindow].y, [self timestamp],
+                    (unsigned long) [self modifierFlags], [self window],
+                    (unsigned long) [self windowNumber]];
 }
 
 static NSTimer *_periodicTimer = nil;

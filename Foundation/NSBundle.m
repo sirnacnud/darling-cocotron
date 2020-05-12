@@ -151,7 +151,7 @@ static char *lastErrorString(DWORD error) {
     LPVOID lpMsgBuf;
 
     FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
-                      FORMAT_MESSAGE_IGNORE_INSERTS,
+                          FORMAT_MESSAGE_IGNORE_INSERTS,
                   NULL, error,
                   MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
                   (LPTSTR) &lpMsgBuf, 0, NULL);
@@ -247,15 +247,16 @@ NSModuleHandle NSLoadModule(const char *path, NSError **error) {
         } else {
             if (error != NULL) {
                 *error = [NSError
-                    errorWithDomain: NSPOSIXErrorDomain
-                               code: 0
-                           userInfo:
-                               [NSDictionary
-                                   dictionaryWithObject:
-                                       @"NSLoadModule: cannot find cwd and "
-                                       @"relative path specified"
-                                                 forKey:
-                                                     NSLocalizedDescriptionKey]];
+                        errorWithDomain: NSPOSIXErrorDomain
+                                   code: 0
+                               userInfo:
+                                       [NSDictionary
+                                               dictionaryWithObject:
+                                                       @"NSLoadModule: cannot "
+                                                       @"find cwd and "
+                                                       @"relative path "
+                                                       @"specified"
+                                                             forKey: NSLocalizedDescriptionKey]];
             }
             return NULL;
         }
@@ -265,16 +266,16 @@ NSModuleHandle NSLoadModule(const char *path, NSError **error) {
     if (handle == NULL) {
         if (error != NULL) {
             *error = [NSError
-                errorWithDomain: NSPOSIXErrorDomain
-                           code: 0
-                       userInfo:
-                           [NSDictionary
-                               dictionaryWithObject:
-                                   [NSString
-                                       stringWithFormat: @"%s",
-                                                         NSLastModuleError()]
-                                             forKey:
-                                                 NSLocalizedDescriptionKey]];
+                    errorWithDomain: NSPOSIXErrorDomain
+                               code: 0
+                           userInfo:
+                                   [NSDictionary
+                                           dictionaryWithObject:
+                                                   [NSString
+                                                           stringWithFormat:
+                                                                   @"%s",
+                                                                   NSLastModuleError()]
+                                                         forKey: NSLocalizedDescriptionKey]];
         }
     }
 
@@ -356,18 +357,19 @@ static NSMapTable *pathToObject = NULL;
     if (![extension isEqualToString: NSPlatformLoadableObjectFileExtension]) {
         // Support for MyProgram.app/MyProgram[.exe]
         if ([[directory lastPathComponent]
-                isEqualToString: [NSString stringWithFormat: @"%@.app",
-                                                             name]] == YES) {
+                    isEqualToString: [NSString stringWithFormat: @"%@.app",
+                                                                 name]] ==
+            YES) {
             return directory;
         } else {
             NSString *check = [[directory stringByAppendingPathComponent: name]
-                stringByAppendingPathExtension: @"app"];
+                    stringByAppendingPathExtension: @"app"];
 
             if ([[NSFileManager defaultManager] fileExistsAtPath: check]) {
                 result = check;
             } else {
                 result = [[directory stringByDeletingLastPathComponent]
-                    stringByDeletingLastPathComponent];
+                        stringByDeletingLastPathComponent];
             }
         }
     } else {
@@ -379,25 +381,27 @@ static NSMapTable *pathToObject = NULL;
         }
 
         if ([[directory lastPathComponent]
-                isEqualToString: [NSString stringWithFormat: @"%@.bundle",
-                                                             name]] == YES) {
+                    isEqualToString: [NSString stringWithFormat: @"%@.bundle",
+                                                                 name]] ==
+            YES) {
             return directory;
         } else {
             check = [[directory stringByAppendingPathComponent: name]
-                stringByAppendingPathExtension: @"framework"];
+                    stringByAppendingPathExtension: @"framework"];
 
             if ([[NSFileManager defaultManager] fileExistsAtPath: check]) {
                 result = check;
             } else {
                 check = [[[directory stringByDeletingLastPathComponent]
-                    stringByAppendingPathComponent: @"Frameworks"]
-                    stringByAppendingPathComponent:
-                        [name stringByAppendingPathExtension: @"framework"]];
+                        stringByAppendingPathComponent: @"Frameworks"]
+                        stringByAppendingPathComponent:
+                                [name stringByAppendingPathExtension:
+                                                @"framework"]];
                 if ([[NSFileManager defaultManager] fileExistsAtPath: check]) {
                     result = check;
                 } else {
                     result = [[directory stringByDeletingLastPathComponent]
-                        stringByDeletingLastPathComponent];
+                            stringByDeletingLastPathComponent];
                 }
             }
         }
@@ -522,14 +526,14 @@ static NSMapTable *pathToObject = NULL;
     _resourcePath = [_path stringByAppendingPathComponent: @"Resources"];
     if (![[NSFileManager defaultManager] fileExistsAtPath: _resourcePath]) {
         _resourcePath = [[_path stringByAppendingPathComponent: @"Contents"]
-            stringByAppendingPathComponent: @"Resources"];
+                stringByAppendingPathComponent: @"Resources"];
     }
     [_resourcePath retain];
 
     _pluginPath = [_path stringByAppendingPathComponent: @"PlugIns"];
     if (![[NSFileManager defaultManager] fileExistsAtPath: _pluginPath]) {
         _pluginPath = [[_path stringByAppendingPathComponent: @"Contents"]
-            stringByAppendingPathComponent: @"PlugIns"];
+                stringByAppendingPathComponent: @"PlugIns"];
     }
     [_pluginPath retain];
 
@@ -597,8 +601,8 @@ static NSMapTable *pathToObject = NULL;
     if (_infoDictionary == nil) {
 
         NSString *path = [[[_path stringByAppendingPathComponent: @"Contents"]
-            stringByAppendingPathComponent: @"Info"]
-            stringByAppendingPathExtension: @"plist"];
+                stringByAppendingPathComponent: @"Info"]
+                stringByAppendingPathExtension: @"plist"];
 
         if (![[NSFileManager defaultManager] fileExistsAtPath: path])
             path = nil;
@@ -610,10 +614,10 @@ static NSMapTable *pathToObject = NULL;
 
         if (![[NSFileManager defaultManager] fileExistsAtPath: path])
             path = [[_path stringByAppendingPathComponent: @"Info"]
-                stringByAppendingPathExtension: @"plist"];
+                    stringByAppendingPathExtension: @"plist"];
 
-        _infoDictionary =
-            [[NSDictionary allocWithZone: NULL] initWithContentsOfFile: path];
+        _infoDictionary = [[NSDictionary allocWithZone: NULL]
+                initWithContentsOfFile: path];
 
         if (_infoDictionary == nil)
             _infoDictionary = [NSDictionary new];
@@ -676,8 +680,8 @@ static NSMapTable *pathToObject = NULL;
 
     // Try to enhance compatibility with Unix-ish code.
     if ([NSPlatformExecutableFileExtension length]) {
-        path = [path
-            stringByAppendingPathExtension: NSPlatformExecutableFileExtension];
+        path = [path stringByAppendingPathExtension:
+                             NSPlatformExecutableFileExtension];
         if ([fm isExecutableFileAtPath: path])
             return path;
     }
@@ -717,7 +721,7 @@ static NSMapTable *pathToObject = NULL;
 - (NSString *) _findExecutable {
     NSString *type = [_path pathExtension];
     NSString *name = [[[self infoDictionary]
-        objectForKey: @"CFBundleExecutable"] stringByDeletingPathExtension];
+            objectForKey: @"CFBundleExecutable"] stringByDeletingPathExtension];
     NSString *checkDir;
     NSArray *contents;
     NSInteger i, count;
@@ -727,14 +731,14 @@ static NSMapTable *pathToObject = NULL;
 
     if ([type isEqualToString: @"framework"])
         checkDir = [[[_path stringByDeletingLastPathComponent]
-            stringByDeletingLastPathComponent]
-            stringByAppendingPathComponent: @"Executables"];
+                stringByDeletingLastPathComponent]
+                stringByAppendingPathComponent: @"Executables"];
     else
         checkDir = [[_path stringByAppendingPathComponent: @"Contents"]
-            stringByAppendingPathComponent: NSPlatformExecutableDirectory];
+                stringByAppendingPathComponent: NSPlatformExecutableDirectory];
 
     contents =
-        [[NSFileManager defaultManager] directoryContentsAtPath: checkDir];
+            [[NSFileManager defaultManager] directoryContentsAtPath: checkDir];
     count = [contents count];
 
     // Need to check for <name>*  versioning
@@ -751,11 +755,12 @@ static NSMapTable *pathToObject = NULL;
     }
     if ([type isEqualToString: @"app"] == YES) {
         return [[_path stringByAppendingPathComponent: name]
-            stringByAppendingPathExtension: NSPlatformExecutableFileExtension];
+                stringByAppendingPathExtension:
+                        NSPlatformExecutableFileExtension];
     } else {
         return [[_path stringByAppendingPathComponent: name]
-            stringByAppendingPathExtension:
-                NSPlatformLoadableObjectFileExtension];
+                stringByAppendingPathExtension:
+                        NSPlatformLoadableObjectFileExtension];
     }
 }
 
@@ -816,13 +821,13 @@ static NSMapTable *pathToObject = NULL;
             // language once the defaults are available.
             if ([NSUserDefaults standardUserDefaultsAvailable])
                 language = [[NSUserDefaults standardUserDefaults]
-                    objectForKey: @"PreferredLanguage"];
+                        objectForKey: @"PreferredLanguage"];
 
             if (language == nil || [language isEqualToString: @""]) {
                 // FIXME: This should be based on language preference order, and
                 // tested for presence in bundle before adding
                 localeid = [[cl objectForKey: NSLocaleIdentifier]
-                    stringByAppendingPathExtension: @"lproj"];
+                        stringByAppendingPathExtension: @"lproj"];
                 language = [cl objectForKey: NSLocaleLanguageCode];
                 if ([language isEqualToString: @"de"])
                     longlang = @"German.lproj";
@@ -838,28 +843,33 @@ static NSMapTable *pathToObject = NULL;
             if (localeid)
                 if (longlang)
                     lookInDirectories = [NSArray
-                        arrayWithObjects:
-                            localeid,
-                            [language stringByAppendingPathExtension: @"lproj"],
-                            longlang, @"en.lproj", @"English.lproj", @"", nil];
+                            arrayWithObjects:
+                                    localeid,
+                                    [language stringByAppendingPathExtension:
+                                                      @"lproj"],
+                                    longlang, @"en.lproj", @"English.lproj",
+                                    @"", nil];
                 else
                     lookInDirectories = [NSArray
-                        arrayWithObjects:
-                            localeid,
-                            [language stringByAppendingPathExtension: @"lproj"],
-                            @"en.lproj", @"English.lproj", @"", nil];
+                            arrayWithObjects:
+                                    localeid,
+                                    [language stringByAppendingPathExtension:
+                                                      @"lproj"],
+                                    @"en.lproj", @"English.lproj", @"", nil];
             else if ([language isEqualToString: @"English"])
-                lookInDirectories = [NSArray
-                    arrayWithObjects: @"English.lproj", @"en.lproj", @"", nil];
+                lookInDirectories =
+                        [NSArray arrayWithObjects: @"English.lproj",
+                                                   @"en.lproj", @"", nil];
             else
                 lookInDirectories = [NSArray
-                    arrayWithObjects:
-                        [language stringByAppendingPathExtension: @"lproj"],
-                        @"en.lproj", @"English.lproj", @"", nil];
+                        arrayWithObjects:
+                                [language stringByAppendingPathExtension:
+                                                  @"lproj"],
+                                @"en.lproj", @"English.lproj", @"", nil];
 
             for (NSString *proj in lookInDirectories) {
                 NSString *path =
-                    [_resourcePath stringByAppendingPathComponent: proj];
+                        [_resourcePath stringByAppendingPathComponent: proj];
                 BOOL isDirectory = NO;
                 if ([fm fileExistsAtPath: path isDirectory: &isDirectory] &&
                     isDirectory) {
@@ -916,7 +926,7 @@ static NSMapTable *pathToObject = NULL;
 
     for (i = 0; i < count; i++) {
         NSString *path = [_resourcePath
-            stringByAppendingPathComponent: [lookIn objectAtIndex: i]];
+                stringByAppendingPathComponent: [lookIn objectAtIndex: i]];
         if (directory != nil)
             path = [path stringByAppendingPathComponent: directory];
 
@@ -991,15 +1001,15 @@ static NSMapTable *pathToObject = NULL;
         fullPath = [fullPath stringByAppendingPathComponent: path];
 
     NSArray *allFiles =
-        [[NSFileManager defaultManager] directoryContentsAtPath: fullPath];
+            [[NSFileManager defaultManager] directoryContentsAtPath: fullPath];
     NSInteger i, count = [allFiles count];
 
     for (i = 0; i < count; i++) {
         NSString *check = [allFiles objectAtIndex: i];
 
         if ([type length] == 0 || [[check pathExtension] isEqualToString: type])
-            [result
-                addObject: [fullPath stringByAppendingPathComponent: check]];
+            [result addObject: [fullPath
+                                       stringByAppendingPathComponent: check]];
     }
 
     return result;
@@ -1061,9 +1071,10 @@ static NSMapTable *pathToObject = NULL;
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[0x%lx] path: %@ resourcePath: %@ isLoaded: %@>",
-                          [self class], self, _path, _resourcePath,
-                          (_isLoaded ? @"YES" : @"NO")];
+            stringWithFormat:
+                    @"<%@[0x%lx] path: %@ resourcePath: %@ isLoaded: %@>",
+                    [self class], self, _path, _resourcePath,
+                    (_isLoaded ? @"YES" : @"NO")];
 }
 
 @end

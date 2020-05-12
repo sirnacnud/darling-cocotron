@@ -59,7 +59,7 @@ static NSDocumentController *shared = nil;
 
     _documents = [NSMutableArray new];
     _fileTypes = [[[[NSBundle mainBundle] infoDictionary]
-        objectForKey: @"CFBundleDocumentTypes"] retain];
+            objectForKey: @"CFBundleDocumentTypes"] retain];
     _autosavingDelay = 0;
     return self;
 }
@@ -84,7 +84,7 @@ static NSDocumentController *shared = nil;
         return nil;
 
     return [(NSDictionary *) [_fileTypes objectAtIndex: 0]
-        objectForKey: @"CFBundleTypeName"];
+            objectForKey: @"CFBundleTypeName"];
 }
 
 - (NSArray *) documentClassNames {
@@ -93,7 +93,7 @@ static NSDocumentController *shared = nil;
 
     for (i = 0; i < count; i++)
         [result addObject: [(NSDictionary *) [_fileTypes objectAtIndex: i]
-                               objectForKey: @"NSDocumentClass"]];
+                                   objectForKey: @"NSDocumentClass"]];
 
     return [result allObjects];
 }
@@ -141,7 +141,7 @@ static NSDocumentController *shared = nil;
 
     for (i = 0; i < count; i++) {
         NSArray *add = [(NSDictionary *) [_fileTypes objectAtIndex: i]
-            objectForKey: @"CFBundleTypeExtensions"];
+                objectForKey: @"CFBundleTypeExtensions"];
         [set addObjectsFromArray: add];
     }
 
@@ -212,7 +212,7 @@ static NSDocumentController *shared = nil;
     }
 
     NSString *lastOpenPanelDirectory = [[NSUserDefaults standardUserDefaults]
-        stringForKey: @"NSNavLastRootDirectory"];
+            stringForKey: @"NSNavLastRootDirectory"];
     if (lastOpenPanelDirectory != nil)
         return lastOpenPanelDirectory;
 
@@ -268,9 +268,9 @@ static NSDocumentController *shared = nil;
 }
 
 - makeDocumentForURL: (NSURL *) url
-    withContentsOfURL: (NSURL *) contentsURL
-               ofType: (NSString *) type
-                error: (NSError **) error
+        withContentsOfURL: (NSURL *) contentsURL
+                   ofType: (NSString *) type
+                    error: (NSError **) error
 {
     id result;
     Class class = [self documentClassForType: type];
@@ -308,9 +308,9 @@ static NSDocumentController *shared = nil;
        if this class is a subclass that has this method overridden.
     */
     IMP mine = [NSDocumentController
-        instanceMethodForSelector: @selector(makeUntitledDocumentOfType:)];
+            instanceMethodForSelector: @selector(makeUntitledDocumentOfType:)];
     IMP theirs =
-        [self methodForSelector: @selector(makeUntitledDocumentOfType:)];
+            [self methodForSelector: @selector(makeUntitledDocumentOfType:)];
     if (mine != theirs) {
         return [self makeUntitledDocumentOfType: type];
     }
@@ -359,7 +359,7 @@ static NSDocumentController *shared = nil;
     IMP mine = [NSDocumentController instanceMethodForSelector: @selector
                                      (openUntitledDocumentOfType:display:)];
     IMP theirs = [self
-        methodForSelector: @selector(openUntitledDocumentOfType:display:)];
+            methodForSelector: @selector(openUntitledDocumentOfType:display:)];
     if (mine != theirs) {
         return [self openUntitledDocumentOfType: type display: display];
     }
@@ -402,8 +402,8 @@ static NSDocumentController *shared = nil;
 {
     IMP mine = [NSDocumentController instanceMethodForSelector: @selector
                                      (openDocumentWithContentsOfFile:display:)];
-    IMP theirs = [self
-        methodForSelector: @selector(openDocumentWithContentsOfFile:display:)];
+    IMP theirs = [self methodForSelector: @selector
+                       (openDocumentWithContentsOfFile:display:)];
 
     if ([url isFileURL] && mine != theirs)
         return [self openDocumentWithContentsOfFile: [url path]
@@ -452,11 +452,11 @@ static NSDocumentController *shared = nil;
         [document close];
         if ([_documents count] > 0) {
             [[_documents lastObject]
-                canCloseDocumentWithDelegate: self
-                         shouldCloseSelector: @selector
-                         (_closeDocumentsStartingWith:
-                                          shouldClose:closeAllContext:)
-                                 contextInfo: context];
+                    canCloseDocumentWithDelegate: self
+                             shouldCloseSelector: @selector
+                             (_closeDocumentsStartingWith:
+                                              shouldClose:closeAllContext:)
+                                     contextInfo: context];
             return;
         }
     }
@@ -468,8 +468,9 @@ static NSDocumentController *shared = nil;
     [context release];
     if ([delegate respondsToSelector: selector]) {
         void (*delegateMethod)(id, SEL, id, BOOL, void *);
-        delegateMethod = (void (*)(
-            id, SEL, id, BOOL, void *)) [delegate methodForSelector: selector];
+        delegateMethod =
+                (void (*)(id, SEL, id, BOOL,
+                          void *)) [delegate methodForSelector: selector];
         delegateMethod(delegate, selector, self, ([_documents count] == 0),
                        info);
     }
@@ -480,10 +481,10 @@ static NSDocumentController *shared = nil;
                            contextInfo: (void *) info
 {
     NSDictionary *closeAllContext = [[NSDictionary alloc]
-        initWithObjectsAndKeys: delegate, @"delegate",
-                                NSStringFromSelector(selector), @"selector",
-                                [NSValue valueWithPointer: info],
-                                @"contextInfo", nil];
+            initWithObjectsAndKeys: delegate, @"delegate",
+                                    NSStringFromSelector(selector), @"selector",
+                                    [NSValue valueWithPointer: info],
+                                    @"contextInfo", nil];
     [self _closeDocumentsStartingWith: nil
                           shouldClose: YES
                       closeAllContext: closeAllContext];
@@ -508,16 +509,16 @@ static NSDocumentController *shared = nil;
 }
 
 - (void) presentError: (NSError *) error
-        modalForWindow: (NSWindow *) window
-              delegate: delegate
-    didPresentSelector: (SEL) selector
-           contextInfo: (void *) info
+            modalForWindow: (NSWindow *) window
+                  delegate: delegate
+        didPresentSelector: (SEL) selector
+               contextInfo: (void *) info
 {
     [NSApp presentError: [self willPresentError: error]
-            modalForWindow: window
-                  delegate: delegate
-        didPresentSelector: selector
-               contextInfo: info];
+                modalForWindow: window
+                      delegate: delegate
+            didPresentSelector: selector
+                   contextInfo: info];
 }
 
 - (int) runModalOpenPanel: (NSOpenPanel *) openPanel
@@ -528,8 +529,8 @@ static NSDocumentController *shared = nil;
                                            types: extensions];
     if (result)
         [[NSUserDefaults standardUserDefaults]
-            setObject: [openPanel directory]
-               forKey: @"NSNavLastRootDirectory"];
+                setObject: [openPanel directory]
+                   forKey: @"NSNavLastRootDirectory"];
     return result;
 }
 
@@ -557,8 +558,8 @@ static NSDocumentController *shared = nil;
 - (NSMutableArray *) _recentDocumentPaths {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSMutableArray *paths = [NSMutableArray
-        arrayWithArray: [[NSUserDefaults standardUserDefaults]
-                            arrayForKey: @"NSRecentDocumentPaths"]];
+            arrayWithArray: [[NSUserDefaults standardUserDefaults]
+                                    arrayForKey: @"NSRecentDocumentPaths"]];
     int i, count = [paths count];
 
     for (i = count - 1; i >= 0; i--)
@@ -567,8 +568,8 @@ static NSDocumentController *shared = nil;
 
     if ([paths count] != count)
         [[NSUserDefaults standardUserDefaults]
-            setObject: paths
-               forKey: @"NSRecentDocumentPaths"];
+                setObject: paths
+                   forKey: @"NSRecentDocumentPaths"];
 
     return paths;
 }
@@ -591,8 +592,8 @@ static NSDocumentController *shared = nil;
                 if ([appDelegate respondsToSelector: @selector(application:
                                                                  openFiles:)]) {
                     [appDelegate
-                        application: NSApp
-                          openFiles: [NSArray arrayWithObject: [url path]]];
+                            application: NSApp
+                              openFiles: [NSArray arrayWithObject: [url path]]];
                 } else if ([appDelegate respondsToSelector: @selector
                                         (application:openFile:)]) {
                     [appDelegate application: NSApp openFile: [url path]];
@@ -635,12 +636,12 @@ static NSDocumentController *shared = nil;
     // Shorten entries to the last path component, but not for then-duplicates.
     for (i = 0; i < count; i++) {
         NSString *lastPath =
-            [(NSString *) [array objectAtIndex: i] lastPathComponent];
+                [(NSString *) [array objectAtIndex: i] lastPathComponent];
         NSInteger occurences = 0;
 
         for (j = 0; j < count; j++) {
             if ([[(NSString *) [array objectAtIndex: j] lastPathComponent]
-                    isEqualToString: lastPath])
+                        isEqualToString: lastPath])
                 occurences++;
         }
         if (occurences > 1)
@@ -651,10 +652,10 @@ static NSDocumentController *shared = nil;
 
     while (--count >= 0) {
         NSString *path = [lastPathArray objectAtIndex: count];
-        NSMenuItem *item =
-            [[[NSMenuItem alloc] initWithTitle: path
-                                        action: @selector(_openRecentDocument:)
-                                 keyEquivalent: nil] autorelease];
+        NSMenuItem *item = [[[NSMenuItem alloc]
+                initWithTitle: path
+                       action: @selector(_openRecentDocument:)
+                keyEquivalent: nil] autorelease];
 
         [item setTag: count];
         [menu insertItem: item atIndex: 0];
@@ -675,7 +676,7 @@ static NSDocumentController *shared = nil;
 
 - (unsigned) maximumRecentDocumentCount {
     NSString *value = [[NSUserDefaults standardUserDefaults]
-        stringForKey: @"NSRecentDocumentMaximum"];
+            stringForKey: @"NSRecentDocumentMaximum"];
 
     return (value == nil) ? 10 : [value intValue];
 }

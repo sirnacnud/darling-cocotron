@@ -25,12 +25,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 static inline void _NSInvalidAbstractInvocation(SEL selector, id object,
                                                 const char *file, int line)
 {
-    [NSException
-         raise: NSInvalidArgumentException
-        format:
-            @"-%s only defined for abstract class. Define -[%@ %s] in %s:%d!",
-            sel_getName(selector), [object class], sel_getName(selector), file,
-            line];
+    [NSException raise: NSInvalidArgumentException
+                format: @"-%s only defined for abstract class. Define -[%@ %s] "
+                        @"in %s:%d!",
+                        sel_getName(selector), [object class],
+                        sel_getName(selector), file, line];
 }
 
 static inline void _NSUnimplementedMethod(SEL selector, id object,

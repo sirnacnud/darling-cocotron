@@ -40,7 +40,7 @@
 - (void) setUp {
     [[self class] setKeys: [NSArray arrayWithObjects: @"someKey",
                                                       @"someOtherKey", nil]
-        triggerChangeNotificationsForDependentKey: @"derived"];
+            triggerChangeNotificationsForDependentKey: @"derived"];
     dict = [NSMutableDictionary new];
 }
 
@@ -70,12 +70,12 @@
 
 - (void) testDependencyKVOException {
     observerCalled = 0;
-    STAssertThrowsSpecificNamed([self
-                                    addObserver: self
-                                     forKeyPath: @"propertyWithBadDependencies"
-                                        options: 0
-                                        context: nil],
-                                NSException, NSUndefinedKeyException, nil);
+    STAssertThrowsSpecificNamed(
+            [self addObserver: self
+                    forKeyPath: @"propertyWithBadDependencies"
+                       options: 0
+                       context: nil],
+            NSException, NSUndefinedKeyException, nil);
     STAssertTrue([self observationInfo] == nil, nil);
 
     STAssertThrows([self removeObserver: self
@@ -89,16 +89,16 @@
     observerCalled = 0;
 
     STAssertThrowsSpecificNamed([self addObserver: self
-                                       forKeyPath: @"nonExisting.other"
-                                          options: 0
-                                          context: nil],
+                                        forKeyPath: @"nonExisting.other"
+                                           options: 0
+                                           context: nil],
                                 NSException, NSUndefinedKeyException, nil);
     STAssertTrue([self observationInfo] == nil, nil);
 
     STAssertNoThrowSpecificNamed([self addObserver: self
-                                        forKeyPath: @"nonExisting"
-                                           options: 0
-                                           context: nil],
+                                         forKeyPath: @"nonExisting"
+                                            options: 0
+                                            context: nil],
                                  NSException, NSUndefinedKeyException, nil);
 
     STAssertNoThrow([self removeObserver: self forKeyPath: @"nonExisting"],
@@ -142,9 +142,9 @@
 
 - (void) testDeepKVO {
     [self addObserver: self
-           forKeyPath: @"dict.someKey"
-              options: 0
-              context: nil];
+            forKeyPath: @"dict.someKey"
+               options: 0
+               context: nil];
 
     observerCalled = 0;
     [dict setObject: @"val1" forKey: @"someKey"];
@@ -178,9 +178,9 @@
     [self removeObserver: self forKeyPath: @"derived"];
 
     [self addObserver: self
-           forKeyPath: @"newStyleDerived"
-              options: 0
-              context: nil];
+            forKeyPath: @"newStyleDerived"
+               options: 0
+               context: nil];
 
     observerCalled = 0;
     [self setValue: @"val3" forKeyPath: @"dict.derivedProperty"];

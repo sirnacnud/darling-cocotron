@@ -87,7 +87,7 @@ NSData *NSData_concreteNewNoCopy(NSZone *zone, void *bytes, NSUInteger length) {
 - initWithContentsOfMappedFile: (NSString *) path {
     [self dealloc];
     return (NSData_concrete *) [[NSData_mapped alloc]
-        initWithContentsOfMappedFile: path];
+            initWithContentsOfMappedFile: path];
 }
 
 - (void) dealloc {

@@ -83,9 +83,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - propertyForKey: (NSString *) key {
     if ([key isEqualToString: (NSString *)
-                                  kCFStreamPropertySocketNativeHandle]) {
+                                      kCFStreamPropertySocketNativeHandle]) {
         CFSocketNativeHandle value =
-            (_socket == nil) ? -1 : [_socket fileDescriptor];
+                (_socket == nil) ? -1 : [_socket fileDescriptor];
 
         return [NSData dataWithBytes: &value length: sizeof(value)];
     }
@@ -236,7 +236,7 @@ static BOOL socketHasSpaceAvailable(NSSocket *socket) {
             }
         } else {
             if ([_delegate respondsToSelector: @selector(stream:
-                                                    handleEvent:)]) {
+                                                       handleEvent:)]) {
                 [_delegate stream: self handleEvent: event];
             }
         }

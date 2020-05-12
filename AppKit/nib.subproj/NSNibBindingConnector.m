@@ -51,8 +51,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // _binding, [_destination className], _keyPath,_options);
 
     [_source bind: _binding
-           toObject: _destination
-        withKeyPath: _keyPath
-            options: _options];
+               toObject: _destination
+            withKeyPath: _keyPath
+                options: _options];
 }
 @end

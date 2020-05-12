@@ -29,10 +29,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithKeys: (const void **) keys
-            values: (const void **) values
-             count: (NSUInteger) count
-      keyCallBacks: (const CFDictionaryKeyCallBacks *) keyCallBacks
-    valueCallBacks: (const CFDictionaryValueCallBacks *) valueCallBacks;
+                values: (const void **) values
+                 count: (NSUInteger) count
+          keyCallBacks: (const CFDictionaryKeyCallBacks *) keyCallBacks
+        valueCallBacks: (const CFDictionaryValueCallBacks *) valueCallBacks;
 
 - (NSUInteger) count;
 - objectForKey: key;

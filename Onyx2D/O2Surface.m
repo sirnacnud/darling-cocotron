@@ -431,7 +431,7 @@ static BOOL initFunctionsForParameters(O2Surface *self, size_t bitsPerComponent,
                     case kO2BitmapByteOrder16Little:
                     case kO2BitmapByteOrder32Little:
                         self->_writeargb32f =
-                            O2SurfaceWrite_argb32f_to_ABGR8888;
+                                O2SurfaceWrite_argb32f_to_ABGR8888;
                         self->_writeargb8u = O2SurfaceWrite_argb8u_to_ABGR8888;
                         return YES;
 
@@ -529,12 +529,12 @@ static BOOL initFunctionsForParameters(O2Surface *self, size_t bitsPerComponent,
 }
 
 - initWithBytes: (void *) bytes
-               width: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-         bytesPerRow: (size_t) bytesPerRow
-          colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo
+                   width: (size_t) width
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+             bytesPerRow: (size_t) bytesPerRow
+              colorSpace: (O2ColorSpaceRef) colorSpace
+              bitmapInfo: (O2BitmapInfo) bitmapInfo
 {
     O2DataProvider *provider;
     int bitsPerPixel = 32;
@@ -542,7 +542,7 @@ static BOOL initFunctionsForParameters(O2Surface *self, size_t bitsPerComponent,
     if (bytes != NULL) {
         provider = [[[O2DataProvider alloc] initWithBytes: bytes
                                                    length: bytesPerRow * height]
-            autorelease];
+                autorelease];
         m_ownsData = NO;
     } else {
         if (bytesPerRow > 0 && bytesPerRow < (width * bitsPerPixel) / 8) {
@@ -554,25 +554,26 @@ static BOOL initFunctionsForParameters(O2Surface *self, size_t bitsPerComponent,
             bytesPerRow = (width * bitsPerPixel) / 8;
 
         NSMutableData *data = [NSMutableData
-            dataWithLength: bytesPerRow * height *
-                            sizeof(uint8_t)]; // this will also zero the bytes
+                dataWithLength: bytesPerRow * height *
+                                sizeof(uint8_t)]; // this will also zero the
+                                                  // bytes
         provider =
-            [O2DataProviderCreateWithCFData((CFDataRef) data) autorelease];
+                [O2DataProviderCreateWithCFData((CFDataRef) data) autorelease];
         m_ownsData = YES;
     }
 
     if ([super initWithWidth: width
-                      height: height
-            bitsPerComponent: bitsPerComponent
-                bitsPerPixel: bitsPerPixel
-                 bytesPerRow: bytesPerRow
-                  colorSpace: colorSpace
-                  bitmapInfo: bitmapInfo
-                     decoder: NULL
-                    provider: provider
-                      decode: NULL
-                 interpolate: YES
-             renderingIntent: kO2RenderingIntentDefault] == nil)
+                          height: height
+                bitsPerComponent: bitsPerComponent
+                    bitsPerPixel: bitsPerPixel
+                     bytesPerRow: bytesPerRow
+                      colorSpace: colorSpace
+                      bitmapInfo: bitmapInfo
+                         decoder: NULL
+                        provider: provider
+                          decode: NULL
+                     interpolate: YES
+                 renderingIntent: kO2RenderingIntentDefault] == nil)
         return nil;
 
     if ([provider isDirectAccess])
@@ -589,7 +590,7 @@ static BOOL initFunctionsForParameters(O2Surface *self, size_t bitsPerComponent,
 
 - (void) dealloc {
     _pixelBytes =
-        NULL; // if we own it, it's in the provider, if not, no release
+            NULL; // if we own it, it's in the provider, if not, no release
     pthread_mutex_destroy(&_lock);
 
     [super dealloc];
@@ -608,8 +609,8 @@ void O2SurfaceUnlock(O2Surface *surface) {
 }
 
 - (void) setWidth: (size_t) width
-                      height: (size_t) height
-    reallocateOnlyIfRequired: (BOOL) roir
+                          height: (size_t) height
+        reallocateOnlyIfRequired: (BOOL) roir
 {
 
     if (!m_ownsData)
@@ -649,16 +650,16 @@ size_t O2SurfaceGetBytesPerRow(O2Surface *surface) {
 
 O2ImageRef O2SurfaceCreateImage(O2Surface *self) {
     NSData *data =
-        [[NSData alloc] initWithBytes: self->_pixelBytes
-                               length: self->_bytesPerRow * self->_height];
+            [[NSData alloc] initWithBytes: self->_pixelBytes
+                                   length: self->_bytesPerRow * self->_height];
     O2DataProviderRef provider =
-        O2DataProviderCreateWithCFData((CFDataRef) data);
+            O2DataProviderCreateWithCFData((CFDataRef) data);
 
     O2Image *result = O2ImageCreate(
-        self->_width, self->_height, self->_bitsPerComponent,
-        self->_bitsPerPixel, self->_bytesPerRow, self->_colorSpace,
-        self->_bitmapInfo, provider, self->_decode, self->_interpolate,
-        self->_renderingIntent);
+            self->_width, self->_height, self->_bitsPerComponent,
+            self->_bitsPerPixel, self->_bytesPerRow, self->_colorSpace,
+            self->_bitmapInfo, provider, self->_decode, self->_interpolate,
+            self->_renderingIntent);
 
     O2DataProviderRelease(provider);
     [data release];
@@ -735,7 +736,7 @@ O2GaussianKernel *O2CreateGaussianKernelWithDeviation(O2Float stdDeviation) {
     O2Float totalWeightX = stdDeviationX * (O2Float) sqrt(2.0f * M_PI);
     O2Float totalWeightY = stdDeviationY * (O2Float) sqrt(2.0f * M_PI);
     const O2Float tolerance =
-        0.99f; // use a kernel that covers 99% of the total Gaussian support
+            0.99f; // use a kernel that covers 99% of the total Gaussian support
 
     O2Float expScaleX = -1.0f / (2.0f * stdDeviationX * stdDeviationX);
     O2Float expScaleY = -1.0f / (2.0f * stdDeviationY * stdDeviationY);
@@ -767,13 +768,13 @@ O2GaussianKernel *O2CreateGaussianKernelWithDeviation(O2Float stdDeviation) {
     for (i = 0; i < kernel->xSize; i++) {
         int x = i - kernel->xShift;
         kernel->xValues[i] =
-            (O2Float) exp((O2Float) x * (O2Float) x * expScaleX);
+                (O2Float) exp((O2Float) x * (O2Float) x * expScaleX);
         kernel->xScale += kernel->xValues[i];
     }
     kernel->xScale =
-        1.0f / kernel->xScale; // NOTE: using the mathematical definition of the
-                               // scaling term doesn't work since we cut the
-                               // filter support early for performance
+            1.0f / kernel->xScale; // NOTE: using the mathematical definition of
+                                   // the scaling term doesn't work since we cut
+                                   // the filter support early for performance
 
     kernel->ySize = kernelHeight * 2 + 1;
     kernel->yValues = NSZoneMalloc(NULL, sizeof(O2Float) * kernel->ySize);
@@ -782,13 +783,13 @@ O2GaussianKernel *O2CreateGaussianKernelWithDeviation(O2Float stdDeviation) {
     for (i = 0; i < kernel->ySize; i++) {
         int y = i - kernel->yShift;
         kernel->yValues[i] =
-            (O2Float) exp((O2Float) y * (O2Float) y * expScaleY);
+                (O2Float) exp((O2Float) y * (O2Float) y * expScaleY);
         kernel->yScale += kernel->yValues[i];
     }
     kernel->yScale =
-        1.0f / kernel->yScale; // NOTE: using the mathematical definition of the
-                               // scaling term doesn't work since we cut the
-                               // filter support early for performance
+            1.0f / kernel->yScale; // NOTE: using the mathematical definition of
+                                   // the scaling term doesn't work since we cut
+                                   // the filter support early for performance
 
     return kernel;
 }
@@ -837,7 +838,7 @@ void O2SurfaceGaussianBlur(O2Surface *self, O2Image *src,
     RI_ASSERT(w > 0 && h > 0);
 
     O2argb32f *tmp =
-        NSZoneMalloc(NULL, src->_width * src->_height * sizeof(O2argb32f));
+            NSZoneMalloc(NULL, src->_width * src->_height * sizeof(O2argb32f));
 
     // copy source region to tmp and do conversion
     int i, j;
@@ -867,11 +868,11 @@ void O2SurfaceGaussianBlur(O2Surface *self, O2Image *src,
             int ki;
             for (ki = 0; ki < kernel->xSize; ki++) {
                 int x = i + ki - kernel->xShift;
-                sum = O2argb32fAdd(
-                    sum,
-                    O2argb32fMultiplyByFloat(
-                        gaussianReadPixel(x, j, src->_width, src->_height, tmp),
-                        kernel->xValues[ki]));
+                sum = O2argb32fAdd(sum,
+                                   O2argb32fMultiplyByFloat(
+                                           gaussianReadPixel(x, j, src->_width,
+                                                             src->_height, tmp),
+                                           kernel->xValues[ki]));
             }
             tmp2[j * w + i] = O2argb32fMultiplyByFloat(sum, kernel->xScale);
         }
@@ -884,9 +885,10 @@ void O2SurfaceGaussianBlur(O2Surface *self, O2Image *src,
             for (kj = 0; kj < kernel->ySize; kj++) {
                 int y = j + kj - kernel->yShift;
                 sum = O2argb32fAdd(
-                    sum, O2argb32fMultiplyByFloat(
-                             gaussianReadPixel(i, y, w, src->_height, tmp2),
-                             kernel->yValues[kj]));
+                        sum,
+                        O2argb32fMultiplyByFloat(
+                                gaussianReadPixel(i, y, w, src->_height, tmp2),
+                                kernel->yValues[kj]));
             }
             sum = O2argb32fMultiplyByFloat(sum, kernel->yScale);
             O2SurfaceWriteSpan_largb32f_PRE(self, i, j, &sum, 1);

@@ -4,9 +4,9 @@
 @implementation O2PDFCharWidths
 
 - initWithArray: (O2PDFArray *) array
-       firstChar: (int) firstChar
-        lastChar: (int) lastChar
-    missingWidth: (CGFloat) missingWidth
+           firstChar: (int) firstChar
+            lastChar: (int) lastChar
+        missingWidth: (CGFloat) missingWidth
 {
     int i, arrayIndex;
 

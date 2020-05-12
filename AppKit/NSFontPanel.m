@@ -40,7 +40,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSArray *) availableTraitsInFamily: (NSString *) familyName {
     NSMutableArray *result = [NSMutableArray array];
     NSArray *members = [[NSFontManager sharedFontManager]
-        availableMembersOfFontFamily: familyName];
+            availableMembersOfFontFamily: familyName];
     int i, count = [members count];
 
     // (fullName,traitName,size,traits)
@@ -131,7 +131,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) selectedFontName {
     NSArray *members = [[NSFontManager sharedFontManager]
-        availableMembersOfFontFamily: [self selectedFamilyName]];
+            availableMembersOfFontFamily: [self selectedFamilyName]];
     int row = [_typefaceMatrix selectedRow];
 
     if (row < 0)
@@ -159,7 +159,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     int i, count = [traits count];
     int selectRow = 0;
     NSString *oldTrait =
-        [[[[_typefaceMatrix selectedCell] stringValue] retain] autorelease];
+            [[[[_typefaceMatrix selectedCell] stringValue] retain] autorelease];
 
     [_typefaceMatrix renewRows: count columns: 1];
     for (i = 0; i < count; i++) {
@@ -194,14 +194,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     CGFloat pointSize = [self selectedPointSize];
 
     [_sampleTextField
-        setStringValue: [[font displayName]
-                            stringByAppendingFormat: @" %g pt", pointSize]];
+            setStringValue: [[font displayName]
+                                    stringByAppendingFormat: @" %g pt",
+                                                             pointSize]];
     [_sampleTextField setFont: font];
 }
 
 - (void) setPanelFont: (NSFont *) font isMultiple: (BOOL) isMultiple {
     NSFontFamily *family =
-        [NSFontFamily fontFamilyWithTypefaceName: [font fontName]];
+            [NSFontFamily fontFamilyWithTypefaceName: [font fontName]];
     NSFontTypeface *typeface = [family typefaceWithName: [font fontName]]; {
         NSArray *families = [self availableFontFamilies];
         NSString *familyName = [family name];
@@ -210,8 +211,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         unsigned traitIndex = [traits indexOfObject: [typeface traitName]];
         NSArray *sizes = [self availablePointSizes];
         unsigned sizeIndex = [sizes
-            indexOfObject: [NSString
-                               stringWithFormat: @"%g", [font pointSize]]];
+                indexOfObject: [NSString stringWithFormat: @"%g",
+                                                           [font pointSize]]];
 
         [self buildFamilyMatrix];
         [_familyMatrix selectCellAtRow: familyIndex column: 0];
@@ -260,10 +261,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (row >= 0) {
         [_sizeTextField
-            setStringValue: [NSString
-                                stringWithFormat: @"%g",
-                                                  [[sizes objectAtIndex: row]
-                                                      floatValue]]];
+                setStringValue:
+                        [NSString stringWithFormat: @"%g",
+                                                    [[sizes objectAtIndex: row]
+                                                            floatValue]]];
     }
 
     [self buildSampleTextField];

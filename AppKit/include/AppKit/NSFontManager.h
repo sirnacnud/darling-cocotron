@@ -85,7 +85,7 @@ enum {
 - (NSArray *) availableFontFamilies;
 - (NSArray *) availableMembersOfFontFamily: (NSString *) name;
 - (NSArray *) availableFontNamesMatchingFontDescriptor:
-    (NSFontDescriptor *) descriptor;
+        (NSFontDescriptor *) descriptor;
 - (NSArray *) availableFontNamesWithTraits: (NSFontTraitMask) traits;
 
 - (BOOL) fontNamed: (NSString *) name hasTraits: (NSFontTraitMask) traits;

@@ -101,9 +101,10 @@ static HKEY handleToPath(NSArray *path) {
     unichar zero = {0};
 
     for (i = 0; i < count; i++) {
-        error = RegCreateKeyExW(
-            previous, ZeroTerminatedString([path objectAtIndex: i]), 0, &zero,
-            REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &current, NULL);
+        error = RegCreateKeyExW(previous,
+                                ZeroTerminatedString([path objectAtIndex: i]),
+                                0, &zero, REG_OPTION_NON_VOLATILE,
+                                KEY_ALL_ACCESS, NULL, &current, NULL);
 
         if (error != ERROR_SUCCESS)
             NSLog(@"RegCreateKeyExW failed at index %d in path=%@", i, path);
@@ -125,9 +126,9 @@ static HKEY handleToPath(NSArray *path) {
 
     HKEY handle = handleToPath(path);
     SecKeychainCursor *result =
-        [[SecKeychainCursor alloc] initWithRegistryPath: path
-                                              itemClass: itemClass
-                                                 handle: handle];
+            [[SecKeychainCursor alloc] initWithRegistryPath: path
+                                                  itemClass: itemClass
+                                                     handle: handle];
 
     return result;
 }
@@ -241,14 +242,14 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
                                 itemClass: (SecItemClass) itemClass
 {
     SecKeychainAttributeList *list =
-        NSZoneMalloc(NULL, sizeof(SecKeychainAttributeList));
+            NSZoneMalloc(NULL, sizeof(SecKeychainAttributeList));
     UInt32 blobLength = 0;
     void *blobBytes = NULL;
     int i, listCapacity = 1;
 
     list->count = 0;
     list->attr =
-        NSZoneMalloc(NULL, sizeof(SecKeychainAttribute) * listCapacity);
+            NSZoneMalloc(NULL, sizeof(SecKeychainAttribute) * listCapacity);
 
     for (i = 0;; i++) {
         unichar nameBuffer[256];
@@ -280,14 +281,14 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
         if (nameLength == 4 && type == REG_SZ && (dataLength % 2 == 0)) {
             SecKeychainAttrType tag = fourByteCodeFromUnicode(nameBuffer);
             NSString *string =
-                [NSString stringWithCharacters: (unichar *) data
-                                        length: dataLength / 2 - 1];
+                    [NSString stringWithCharacters: (unichar *) data
+                                            length: dataLength / 2 - 1];
 
             if (list->count + 1 >= listCapacity) {
                 listCapacity *= 2;
-                list->attr =
-                    NSZoneRealloc(NULL, list->attr,
-                                  sizeof(SecKeychainAttribute) * listCapacity);
+                list->attr = NSZoneRealloc(NULL, list->attr,
+                                           sizeof(SecKeychainAttribute) *
+                                                   listCapacity);
             }
 
             list->attr[list->count].tag = tag;
@@ -300,12 +301,12 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
             case kSecAccountItemAttr:     // utf8
             case kSecServerItemAttr:      // utf8
             case kSecServiceItemAttr:     // utf8
-                ;
+                    ;
                 const char *utf8 = [string UTF8String];
 
                 list->attr[list->count].length = strlen(utf8);
                 list->attr[list->count].data =
-                    NSZoneMalloc(NULL, list->attr[list->count].length);
+                        NSZoneMalloc(NULL, list->attr[list->count].length);
                 SecByteCopy(utf8, list->attr[list->count].data,
                             list->attr[list->count].length);
                 break;
@@ -313,12 +314,12 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
             case kSecCreatorItemAttr:  // four byte code
             case kSecTypeItemAttr:     // four byte code
             case kSecProtocolItemAttr: // four byte code
-                ;
+                    ;
                 if (dataLength == 10) { // four byte code stored as unicode with
                                         // terminating zero
                     list->attr[list->count].length = 4;
                     list->attr[list->count].data =
-                        createFourByteCodeFromString(string);
+                            createFourByteCodeFromString(string);
                 }
                 break;
 
@@ -341,10 +342,10 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
     }
 
     SecKeychainItem *result =
-        [[SecKeychainItem alloc] initWithItemClass: itemClass
-                                     attributeList: list
-                                            length: blobLength
-                                             bytes: blobBytes];
+            [[SecKeychainItem alloc] initWithItemClass: itemClass
+                                         attributeList: list
+                                                length: blobLength
+                                                 bytes: blobBytes];
 
     [result setKeychain: self];
 
@@ -354,8 +355,8 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
 }
 
 - (SecKeychainItemRef)
-    createNextItemAtCursor: (SecKeychainCursor *) cursor
-             attributeList: (const SecKeychainAttributeList *) attributeList
+        createNextItemAtCursor: (SecKeychainCursor *) cursor
+                 attributeList: (const SecKeychainAttributeList *) attributeList
 {
     SecKeychainItemRef result = nil;
 
@@ -412,16 +413,16 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
         case kSecAccountItemAttr:     // utf8
         case kSecServerItemAttr:      // utf8
         case kSecServiceItemAttr:     // utf8
-            ;
+                ;
             NSString *string =
-                [[NSString alloc] initWithBytes: data
-                                         length: length
-                                       encoding: NSUTF8StringEncoding];
+                    [[NSString alloc] initWithBytes: data
+                                             length: length
+                                           encoding: NSUTF8StringEncoding];
             const unichar *unicode = ZeroTerminatedString(string);
 
             if ((error = RegSetValueExW(
-                     handle, key, 0, REG_SZ, (const BYTE *) unicode,
-                     ([string length] + 1) * 2)) != ERROR_SUCCESS)
+                         handle, key, 0, REG_SZ, (const BYTE *) unicode,
+                         ([string length] + 1) * 2)) != ERROR_SUCCESS)
                 NSLog(@"RegSetValueExW failed with %d", error);
 
             [string release];
@@ -430,14 +431,14 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
         case kSecCreatorItemAttr:  // four byte code
         case kSecTypeItemAttr:     // four byte code
         case kSecProtocolItemAttr: // four byte code
-            ;
+                ;
             if (length == 4) {
                 NSString *string = stringForFourCharCode(*(uint32_t *) data);
                 const unichar *unicode = ZeroTerminatedString(string);
 
                 if ((error = RegSetValueExW(
-                         handle, key, 0, REG_SZ, (const BYTE *) unicode,
-                         ([string length] + 1) * 2)) != ERROR_SUCCESS)
+                             handle, key, 0, REG_SZ, (const BYTE *) unicode,
+                             ([string length] + 1) * 2)) != ERROR_SUCCESS)
                     NSLog(@"RegSetValueExW failed with %d", error);
             }
             break;
@@ -453,7 +454,7 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
     const unichar *key = ZeroTerminatedString(@"_BLOB_");
     unsigned encryptedLength = 0;
     void *encrypted =
-        encryptData([item blobBytes], [item blobLength], &encryptedLength);
+            encryptData([item blobBytes], [item blobLength], &encryptedLength);
 
     if ((error = RegSetValueExW(handle, key, 0, REG_BINARY, encrypted,
                                 encryptedLength)) != ERROR_SUCCESS)

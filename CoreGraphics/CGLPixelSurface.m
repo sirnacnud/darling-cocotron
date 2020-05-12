@@ -76,14 +76,14 @@
 #else
     O2ColorSpaceRef colorSpace = O2ColorSpaceCreateDeviceRGB();
     _surface =
-        [[O2Surface alloc] initWithBytes: NULL
-                                   width: _width
-                                  height: -_height
-                        bitsPerComponent: 8
-                             bytesPerRow: 0
-                              colorSpace: colorSpace
-                              bitmapInfo: kO2ImageAlphaPremultipliedFirst |
-                                          kO2BitmapByteOrder32Little];
+            [[O2Surface alloc] initWithBytes: NULL
+                                       width: _width
+                                      height: -_height
+                            bitsPerComponent: 8
+                                 bytesPerRow: 0
+                                  colorSpace: colorSpace
+                                  bitmapInfo: kO2ImageAlphaPremultipliedFirst |
+                                              kO2BitmapByteOrder32Little];
     O2ColorSpaceRelease(colorSpace);
 #endif
 
@@ -99,7 +99,7 @@
 
     for (i = 0; i < _numberOfBuffers; i++) {
         _staticPixels[i] =
-            ((uint8_t *) [_surface pixelBytes]) + row * bytesPerRow;
+                ((uint8_t *) [_surface pixelBytes]) + row * bytesPerRow;
 
         if (_bufferObjects[i] == 0) {
             _readPixels[i] = _staticPixels[i];
@@ -224,7 +224,7 @@ static inline uint32_t premultiplyPixel(uint32_t value) {
             unbind = YES;
             glBindBuffer(GL_PIXEL_PACK_BUFFER, _bufferObjects[i]);
             inputRow =
-                (GLubyte *) glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY);
+                    (GLubyte *) glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY);
         }
 
         if (_isOpaque) {

@@ -35,30 +35,30 @@ void *ObservableArrayTestContext;
         return;
 
     [_array addObject: [NSMutableDictionary
-                           dictionaryWithObjectsAndKeys: @"First", @"name",
-                                                         [NSNumber
-                                                             numberWithInt: 10],
-                                                         @"value", nil]];
+                               dictionaryWithObjectsAndKeys:
+                                       @"First", @"name",
+                                       [NSNumber numberWithInt: 10], @"value",
+                                       nil]];
     [_array addObject: [NSMutableDictionary
-                           dictionaryWithObjectsAndKeys: @"Second", @"name",
-                                                         [NSNumber
-                                                             numberWithInt: 20],
-                                                         @"value", nil]];
+                               dictionaryWithObjectsAndKeys:
+                                       @"Second", @"name",
+                                       [NSNumber numberWithInt: 20], @"value",
+                                       nil]];
     [_array addObject: [NSMutableDictionary
-                           dictionaryWithObjectsAndKeys: @"Third", @"name",
-                                                         [NSNumber
-                                                             numberWithInt: 30],
-                                                         @"value", nil]];
+                               dictionaryWithObjectsAndKeys:
+                                       @"Third", @"name",
+                                       [NSNumber numberWithInt: 30], @"value",
+                                       nil]];
     [_array addObject: [NSMutableDictionary
-                           dictionaryWithObjectsAndKeys: @"Fourth", @"name",
-                                                         [NSNumber
-                                                             numberWithInt: 40],
-                                                         @"value", nil]];
+                               dictionaryWithObjectsAndKeys:
+                                       @"Fourth", @"name",
+                                       [NSNumber numberWithInt: 40], @"value",
+                                       nil]];
     [_array addObject: [NSMutableDictionary
-                           dictionaryWithObjectsAndKeys: @"Fifth", @"name",
-                                                         [NSNumber
-                                                             numberWithInt: 50],
-                                                         @"value", nil]];
+                               dictionaryWithObjectsAndKeys:
+                                       @"Fifth", @"name",
+                                       [NSNumber numberWithInt: 50], @"value",
+                                       nil]];
 }
 
 - (void) testArrayMutation {
@@ -71,10 +71,10 @@ void *ObservableArrayTestContext;
                 context: &ObservableArrayTestContext];
 
     [_array addObject: [NSMutableDictionary
-                           dictionaryWithObjectsAndKeys: @"Sixth", @"name",
-                                                         [NSNumber
-                                                             numberWithInt: 60],
-                                                         @"value", nil]];
+                               dictionaryWithObjectsAndKeys:
+                                       @"Sixth", @"name",
+                                       [NSNumber numberWithInt: 60], @"value",
+                                       nil]];
     AssertLastKeyWas(@"@count");
 
     [_array removeLastObject];
@@ -83,10 +83,10 @@ void *ObservableArrayTestContext;
 
     [_array replaceObjectAtIndex: 3
                       withObject: [NSMutableDictionary
-                                      dictionaryWithObjectsAndKeys:
-                                          @"Sixth", @"name",
-                                          [NSNumber numberWithInt: 60],
-                                          @"value", nil]];
+                                          dictionaryWithObjectsAndKeys:
+                                                  @"Sixth", @"name",
+                                                  [NSNumber numberWithInt: 60],
+                                                  @"value", nil]];
     AssertLastKeyWas(@"@count");
 
     [_array removeObserver: self forKeyPath: @"@count"];
@@ -102,10 +102,10 @@ void *ObservableArrayTestContext;
                 context: &ObservableArrayTestContext];
 
     [_array addObject: [NSMutableDictionary
-                           dictionaryWithObjectsAndKeys: @"Sixth", @"name",
-                                                         [NSNumber
-                                                             numberWithInt: 60],
-                                                         @"value", nil]];
+                               dictionaryWithObjectsAndKeys:
+                                       @"Sixth", @"name",
+                                       [NSNumber numberWithInt: 60], @"value",
+                                       nil]];
 
     AssertLastKeyWas(@"@avg.value");
 
@@ -144,7 +144,7 @@ void *ObservableArrayTestContext;
                 context: &ObservableArrayTestContext];
     id indexes = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(2, 2)];
     id irrelevant =
-        [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange(0, 2)];
+            [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange(0, 2)];
     [irrelevant addIndexesInRange: NSMakeRange(4, [_array count] - 4)];
 
     [_array setROI: indexes];
@@ -164,13 +164,12 @@ void *ObservableArrayTestContext;
     }
 
     [_array removeObjectAtIndex: 1];
-    [_array
-        insertObject: [NSMutableDictionary
-                          dictionaryWithObjectsAndKeys: @"Sixth", @"name",
-                                                        [NSNumber
-                                                            numberWithInt: 60],
-                                                        @"value", nil]
-             atIndex: 1];
+    [_array insertObject: [NSMutableDictionary
+                                  dictionaryWithObjectsAndKeys:
+                                          @"Sixth", @"name",
+                                          [NSNumber numberWithInt: 60],
+                                          @"value", nil]
+                 atIndex: 1];
 
     for (int i = [indexes firstIndex]; i != NSNotFound;
          i = [indexes indexGreaterThanIndex: i]) {
@@ -192,8 +191,8 @@ void *ObservableArrayTestContext;
                 context: &ObservableArrayTestContext];
     [_array removeObserver: self forKeyPath: @"value"];
 
-    indexes =
-        [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
+    indexes = [NSIndexSet
+            indexSetWithIndexesInRange: NSMakeRange(0, [_array count])];
     for (int i = [irrelevant firstIndex]; i != NSNotFound;
          i = [irrelevant indexGreaterThanIndex: i]) {
         [[_array objectAtIndex: i] setValue: [NSNumber numberWithInt: 0]

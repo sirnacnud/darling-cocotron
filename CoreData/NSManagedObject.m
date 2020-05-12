@@ -41,7 +41,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 }
 
 - initWithObjectID: (NSManagedObjectID *) objectID
-    managedObjectContext: (NSManagedObjectContext *) context
+        managedObjectContext: (NSManagedObjectContext *) context
 {
     NSEntityDescription *entity = [objectID entity];
     NSString *className = [entity managedObjectClassName];
@@ -67,10 +67,10 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 }
 
 - initWithEntity: (NSEntityDescription *) entity
-    insertIntoManagedObjectContext: (NSManagedObjectContext *) context
+        insertIntoManagedObjectContext: (NSManagedObjectContext *) context
 {
     NSManagedObjectID *objectID =
-        [[[NSManagedObjectID alloc] initWithEntity: entity] autorelease];
+            [[[NSManagedObjectID alloc] initWithEntity: entity] autorelease];
 
     if ((self = [self initWithObjectID: objectID
                   managedObjectContext: context]) == nil)
@@ -170,7 +170,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 
     if (_committedValues == nil) {
         NSAtomicStoreCacheNode *node =
-            [_context _cacheNodeForObjectID: [self objectID]];
+                [_context _cacheNodeForObjectID: [self objectID]];
         NSDictionary *propertyCache = [node propertyCache];
         NSMutableDictionary *storedValues = [[NSMutableDictionary alloc] init];
 
@@ -185,10 +185,10 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
                 if (value != nil) {
                     [storedValues setObject: value forKey: name];
                 }
-            } else if ([property
-                           isKindOfClass: [NSRelationshipDescription class]]) {
+            } else if ([property isKindOfClass: [NSRelationshipDescription
+                                                        class]]) {
                 NSRelationshipDescription *relationship =
-                    (NSRelationshipDescription *) property;
+                        (NSRelationshipDescription *) property;
                 id indirectValue = [propertyCache objectForKey: name];
 
                 if (indirectValue != nil) {
@@ -252,7 +252,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
         return [self valueForUndefinedKey: nil];
 
     NSPropertyDescription *property =
-        [[self entity] _propertyForSelector: NSSelectorFromString(key)];
+            [[self entity] _propertyForSelector: NSSelectorFromString(key)];
     NSString *propertyName = [property name];
 
     if ([property isKindOfClass: [NSAttributeDescription class]]) {
@@ -265,7 +265,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
         return result;
     } else if ([property isKindOfClass: [NSRelationshipDescription class]]) {
         NSRelationshipDescription *relationship =
-            (NSRelationshipDescription *) property;
+                (NSRelationshipDescription *) property;
 
         [self willAccessValueForKey: propertyName];
 
@@ -274,8 +274,8 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
         if (result != nil) {
             if ([relationship isToMany])
                 result = [[[NSManagedObjectSet alloc]
-                    initWithManagedObjectContext: _context
-                                             set: result] autorelease];
+                        initWithManagedObjectContext: _context
+                                                 set: result] autorelease];
             else
                 result = [_context objectWithID: result];
         }
@@ -290,7 +290,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 
 - (void) setValue: value forKey: (NSString *) key {
     NSPropertyDescription *property =
-        [[self entity] _propertyForSelector: NSSelectorFromString(key)];
+            [[self entity] _propertyForSelector: NSSelectorFromString(key)];
     NSString *propertyName = [property name];
 
     if ([property isKindOfClass: [NSAttributeDescription class]]) {
@@ -300,7 +300,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
         return;
     } else if ([property isKindOfClass: [NSRelationshipDescription class]]) {
         NSRelationshipDescription *relationship =
-            (NSRelationshipDescription *) property;
+                (NSRelationshipDescription *) property;
         NSRelationshipDescription *inverse = [relationship inverseRelationship];
         NSString *inverseName = [inverse name];
         id valueByID;
@@ -321,13 +321,13 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 
             if (primitivePrevious != nil) {
                 NSSet *allPrevious =
-                    [relationship isToMany]
-                        ? primitivePrevious
-                        : [NSSet setWithObject: primitivePrevious];
+                        [relationship isToMany]
+                                ? primitivePrevious
+                                : [NSSet setWithObject: primitivePrevious];
 
                 for (NSManagedObjectID *previousID in allPrevious) {
                     NSManagedObject *previous =
-                        [_context objectWithID: previousID];
+                            [_context objectWithID: previousID];
 
                     // FIXME: should be using set mutation notifications for to
                     // many
@@ -335,7 +335,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 
                     if ([inverse isToMany])
                         [[previous primitiveValueForKey: inverseName]
-                            removeObject: [self objectID]];
+                                removeObject: [self objectID]];
                     else
                         [previous setPrimitiveValue: nil forKey: inverseName];
 
@@ -350,8 +350,8 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 
         if (inverse != nil) {
             NSSet *allValues = [relationship isToMany]
-                                   ? valueByID
-                                   : [NSSet setWithObject: valueByID];
+                                       ? valueByID
+                                       : [NSSet setWithObject: valueByID];
 
             for (NSManagedObjectID *valueID in allValues) {
                 NSManagedObject *value = [_context objectWithID: valueID];
@@ -361,7 +361,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 
                 if ([inverse isToMany]) {
                     NSMutableSet *set =
-                        [value primitiveValueForKey: inverseName];
+                            [value primitiveValueForKey: inverseName];
 
                     if (set == nil) {
                         set = [NSMutableSet set];
@@ -386,7 +386,7 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 - (NSMutableSet *) mutableSetValueForKey: (NSString *) key {
     return [[[NSManagedObjectMutableSet alloc] initWithManagedObject: self
                                                                  key: key]
-        autorelease];
+            autorelease];
 }
 
 - primitiveValueForKey: (NSString *) key {
@@ -451,14 +451,15 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 }
 
 - (NSString *) description {
-    NSMutableDictionary *values =
-        [NSMutableDictionary dictionaryWithDictionary: [self _committedValues]];
+    NSMutableDictionary *values = [NSMutableDictionary
+            dictionaryWithDictionary: [self _committedValues]];
 
     [values addEntriesFromDictionary: _changedValues];
 
     return [NSString
-        stringWithFormat: @"<%@ %x:objectID=%@ entity name=%@, values=%@>",
-                          [self class], self, _objectID, [self entity], values];
+            stringWithFormat: @"<%@ %x:objectID=%@ entity name=%@, values=%@>",
+                              [self class], self, _objectID, [self entity],
+                              values];
 }
 
 @end

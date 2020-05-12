@@ -58,7 +58,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _isTransparent = [keyed decodeBoolForKey: @"NSFullyTransparent"];
 
         [[_subviews lastObject]
-            setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+                setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
         [[_subviews lastObject] setAutoresizesSubviews: YES];
 
         if (_boxType == NSBoxCustom) {
@@ -105,7 +105,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _titlePosition = NSAboveTop;
 
     contentview = [[NSView alloc]
-        initWithFrame: NSMakeRect(0, 0, NSWidth(frame), NSHeight(frame))];
+            initWithFrame: NSMakeRect(0, 0, NSWidth(frame), NSHeight(frame))];
     [contentview setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
     [self addSubview: contentview];
     [contentview release];
@@ -173,7 +173,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setContentView: (NSView *) view {
     if (![[self subviews] containsObject: view]) {
         [[self subviews]
-            makeObjectsPerformSelector: @selector(removeFromSuperview)];
+                makeObjectsPerformSelector: @selector(removeFromSuperview)];
         // FIX, adjust size
         [self addSubview: view];
     }
@@ -201,7 +201,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSAttributedString *) _attributedTitle {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     NSMutableParagraphStyle *paraStyle =
-        [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+            [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
+                    autorelease];
     NSFont *font = [_titleCell font];
 
     if (font != nil)
@@ -217,9 +218,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [attributes setObject: [NSColor windowBackgroundColor]
                    forKey: NSBackgroundColorAttributeName];
 
-    return
-        [[[NSAttributedString alloc] initWithString: [_titleCell stringValue]
-                                         attributes: attributes] autorelease];
+    return [[[NSAttributedString alloc] initWithString: [_titleCell stringValue]
+                                            attributes: attributes]
+            autorelease];
 }
 
 #define TEXTGAP 4
@@ -235,10 +236,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     // result.size.width=ceil(size.width); // // NSTextField cell must be bugged
     // we get too low values for the width here
-    result.size.width =
-        bounds.size.width -
-        result.origin
-            .x; // use the whole width until the text field cell size is fixed
+    result.size.width = bounds.size.width -
+                        result.origin.x; // use the whole width until the text
+                                         // field cell size is fixed
 
     switch (_titlePosition) {
 

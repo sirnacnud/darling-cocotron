@@ -31,11 +31,11 @@ NSString *const NSCocoaErrorDomain = @"NSCocoaErrorDomain";
 NSString *const NSUnderlyingErrorKey = @"NSUnderlyingErrorKey";
 NSString *const NSLocalizedDescriptionKey = @"NSLocalizedDescriptionKey";
 NSString *const NSLocalizedFailureReasonErrorKey =
-    @"NSLocalizedFailureReasonErrorKey";
+        @"NSLocalizedFailureReasonErrorKey";
 NSString *const NSLocalizedRecoveryOptionsErrorKey =
-    @"NSLocalizedRecoveryOptionsErrorKey";
+        @"NSLocalizedRecoveryOptionsErrorKey";
 NSString *const NSLocalizedRecoverySuggestionErrorKey =
-    @"NSLocalizedRecoverySuggestionErrorKey";
+        @"NSLocalizedRecoverySuggestionErrorKey";
 NSString *const NSRecoveryAttempterErrorKey = @"NSRecoveryAttempterErrorKey";
 
 @implementation NSError
@@ -99,18 +99,20 @@ NSString *const NSRecoveryAttempterErrorKey = @"NSRecoveryAttempterErrorKey";
     localizedDescription = [self localizedFailureReason];
     if (localizedDescription) {
         return [NSString
-            stringWithFormat: @"%@ %@",
-                              NSLocalizedString(
-                                  @"The operation could not be completed.",
-                                  @"Default NSError description"),
-                              localizedDescription];
+                stringWithFormat:
+                        @"%@ %@",
+                        NSLocalizedString(
+                                @"The operation could not be completed.",
+                                @"Default NSError description"),
+                        localizedDescription];
     } else {
         return [NSString
-            stringWithFormat: @"%@ (%@ error %d)",
-                              NSLocalizedString(
-                                  @"The operation could not be completed.",
-                                  @"Default NSError description"),
-                              _domain, _code];
+                stringWithFormat:
+                        @"%@ (%@ error %d)",
+                        NSLocalizedString(
+                                @"The operation could not be completed.",
+                                @"Default NSError description"),
+                        _domain, _code];
     }
 }
 
@@ -132,8 +134,9 @@ NSString *const NSRecoveryAttempterErrorKey = @"NSRecoveryAttempterErrorKey";
 
 - (id) description {
     return [NSString
-        stringWithFormat: @"Error Domain=%@ Code=%d UserInfo=%p %@", _domain,
-                          _code, _userInfo, [self localizedDescription]];
+            stringWithFormat: @"Error Domain=%@ Code=%d UserInfo=%p %@",
+                              _domain, _code, _userInfo,
+                              [self localizedDescription]];
 }
 
 @end

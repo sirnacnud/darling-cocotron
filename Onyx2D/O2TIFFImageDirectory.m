@@ -351,9 +351,9 @@ static void sTIFFUnmapFileProc(thandle_t userData, tdata_t data, toff_t size) {
             break;
 
         case NSTIFFTagStripByteCounts:
-            [reader
-                expectArrayOfUnsigned16OrUnsigned32: &_stripByteCounts
-                                              count: &_sizeOfStripByteCounts];
+            [reader expectArrayOfUnsigned16OrUnsigned32: &_stripByteCounts
+                                                  count: &
+                                                         _sizeOfStripByteCounts];
             break;
 
         case NSTIFFTagStripOffsets:

@@ -25,8 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithWidth: (int) width
-                         height: (int) height
-    compatibleWithDeviceContext: (O2DeviceContext_gdi *) compatible;
+                             height: (int) height
+        compatibleWithDeviceContext: (O2DeviceContext_gdi *) compatible;
 
 - (O2DeviceContext_gdi *) deviceContext;
 

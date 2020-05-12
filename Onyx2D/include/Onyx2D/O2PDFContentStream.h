@@ -20,7 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSObject.h>
 
 @class O2PDFPage, O2PDFStream, O2PDFDictionary, O2PDFArray, NSArray,
-    O2PDFObject;
+        O2PDFObject;
 
 @interface O2PDFContentStream : NSObject {
     NSArray *_streams;
@@ -30,8 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithPage: (O2PDFPage *) page;
 - initWithStream: (O2PDFStream *) stream
-       resources: (O2PDFDictionary *) resources
-          parent: (O2PDFContentStream *) parent;
+        resources: (O2PDFDictionary *) resources
+           parent: (O2PDFContentStream *) parent;
 
 - (NSArray *) streams;
 - (id) resourceForCategory: (const char *) category name: (const char *) name;

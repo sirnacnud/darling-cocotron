@@ -37,31 +37,26 @@
 
     id table = [NSMutableArray array];
 
-    [table addObject: [NSMutableDictionary
-                          dictionaryWithObjectsAndKeys: @"Test", @"name",
-                                                        [NSNumber
-                                                            numberWithInt: 10],
-                                                        @"value", nil]];
-    [table addObject: [NSMutableDictionary
-                          dictionaryWithObjectsAndKeys: @"Something", @"name",
-                                                        [NSNumber
-                                                            numberWithInt: 20],
-                                                        @"value", nil]];
-    [table addObject: [NSMutableDictionary
-                          dictionaryWithObjectsAndKeys: @"Ultimate", @"name",
-                                                        [NSNumber
-                                                            numberWithInt: 30],
-                                                        @"value", nil]];
-    [table addObject: [NSMutableDictionary
-                          dictionaryWithObjectsAndKeys: @"Nothing", @"name",
-                                                        [NSNumber
-                                                            numberWithInt: 40],
-                                                        @"value", nil]];
-    [table addObject: [NSMutableDictionary
-                          dictionaryWithObjectsAndKeys: @"Abcdefg", @"name",
-                                                        [NSNumber
-                                                            numberWithInt: 50],
-                                                        @"value", nil]];
+    [table addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                   @"Test", @"name",
+                                                   [NSNumber numberWithInt: 10],
+                                                   @"value", nil]];
+    [table addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                   @"Something", @"name",
+                                                   [NSNumber numberWithInt: 20],
+                                                   @"value", nil]];
+    [table addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                   @"Ultimate", @"name",
+                                                   [NSNumber numberWithInt: 30],
+                                                   @"value", nil]];
+    [table addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                   @"Nothing", @"name",
+                                                   [NSNumber numberWithInt: 40],
+                                                   @"value", nil]];
+    [table addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                   @"Abcdefg", @"name",
+                                                   [NSNumber numberWithInt: 50],
+                                                   @"value", nil]];
 
     self.table = table;
 }
@@ -73,8 +68,9 @@
     STAssertEqualObjects([cell objectValue], @"Test", nil);
 
     [_tableView
-        setSortDescriptors: [NSArray
-                                arrayWithObject: [[[_tableView tableColumns]
+            setSortDescriptors:
+                    [NSArray
+                            arrayWithObject: [[[_tableView tableColumns]
                                                      objectAtIndex: 0]
                                                      sortDescriptorPrototype]]];
 
@@ -82,9 +78,9 @@
     STAssertEqualObjects([cell objectValue], @"Abcdefg", nil);
 
     [_arrayController
-        setFilterPredicate: [NSPredicate
-                                predicateWithFormat: @"name endswith %@",
-                                                     @"thing"]];
+            setFilterPredicate:
+                    [NSPredicate predicateWithFormat: @"name endswith %@",
+                                                      @"thing"]];
 
     cell = [_tableView preparedCellAtColumn: 0 row: 0];
     STAssertEqualObjects([cell objectValue], @"Nothing", nil);

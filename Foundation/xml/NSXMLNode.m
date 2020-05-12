@@ -39,11 +39,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + elementWithName: (NSString *) name
-         children: (NSArray *) children
-       attributes: (NSArray *) attributes
+          children: (NSArray *) children
+        attributes: (NSArray *) attributes
 {
     NSXMLElement *result =
-        [[[NSXMLElement alloc] initWithName: name] autorelease];
+            [[[NSXMLElement alloc] initWithName: name] autorelease];
 
     [result setChildren: children];
     [result setAttributes: attributes];
@@ -58,7 +58,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + attributeWithName: (NSString *) name stringValue: (NSString *) string {
     NSXMLNode *result =
-        [[[self alloc] initWithKind: NSXMLAttributeKind] autorelease];
+            [[[self alloc] initWithKind: NSXMLAttributeKind] autorelease];
 
     [result setName: name];
     [result setStringValue: string];
@@ -68,7 +68,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + commentWithStringValue: (NSString *) string {
     NSXMLNode *result =
-        [[[self alloc] initWithKind: NSXMLCommentKind] autorelease];
+            [[[self alloc] initWithKind: NSXMLCommentKind] autorelease];
 
     [result setStringValue: string];
 
@@ -77,7 +77,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + textWithStringValue: (NSString *) string {
     NSXMLNode *result =
-        [[[self alloc] initWithKind: NSXMLTextKind] autorelease];
+            [[[self alloc] initWithKind: NSXMLTextKind] autorelease];
 
     [result setStringValue: string];
 
@@ -88,7 +88,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     stringValue: (NSString *) string
 {
     NSXMLNode *result = [[[self alloc]
-        initWithKind: NSXMLProcessingInstructionKind] autorelease];
+            initWithKind: NSXMLProcessingInstructionKind] autorelease];
 
     [result setName: name];
     [result setStringValue: string];
@@ -102,7 +102,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + namespaceWithName: (NSString *) name stringValue: (NSString *) string {
     NSXMLNode *result =
-        [[[self alloc] initWithKind: NSXMLNamespaceKind] autorelease];
+            [[[self alloc] initWithKind: NSXMLNamespaceKind] autorelease];
 
     [result setName: name];
     [result setStringValue: string];
@@ -257,7 +257,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setStringValue: (NSString *) string
-      resolvingEntities: (BOOL) resolveEntities
+        resolvingEntities: (BOOL) resolveEntities
 {
     NSUnimplementedMethod();
 }
@@ -283,7 +283,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         }
     } else {
         NSString *firstComponent =
-            [xpath substringWithRange: NSMakeRange(0, range.location)];
+                [xpath substringWithRange: NSMakeRange(0, range.location)];
         NSString *remainder = [xpath substringFromIndex: NSMaxRange(range)];
 
         for (NSXMLNode *node in _children) {

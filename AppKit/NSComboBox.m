@@ -24,13 +24,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSTextView.h>
 
 NSString *const NSComboBoxSelectionDidChangeNotification =
-    @"NSComboBoxSelectionDidChangeNotification";
+        @"NSComboBoxSelectionDidChangeNotification";
 NSString *const NSComboBoxSelectionIsChangingNotification =
-    @"NSComboBoxSelectionIsChangingNotification";
+        @"NSComboBoxSelectionIsChangingNotification";
 NSString *const NSComboBoxWillDismissNotification =
-    @"NSComboBoxWillDismissNotification";
+        @"NSComboBoxWillDismissNotification";
 NSString *const NSComboBoxWillPopUpNotification =
-    @"NSComboBoxWillPopUpNotification";
+        @"NSComboBoxWillPopUpNotification";
 
 @implementation NSComboBox
 
@@ -195,7 +195,7 @@ NSString *const NSComboBoxWillPopUpNotification =
 // objectValue index 0...
 - (BOOL) textView: (NSTextView *) textView doCommandBySelector: (SEL) selector {
     NSInteger index =
-        [[self cell] indexOfItemWithObjectValue: [self objectValue]];
+            [[self cell] indexOfItemWithObjectValue: [self objectValue]];
     id objectCache = nil;
 
     if ([textView rangeForUserCompletion].location != NSNotFound)
@@ -226,12 +226,12 @@ NSString *const NSComboBoxWillPopUpNotification =
 }
 
 - (NSArray *) textView: (NSTextView *) textView
-            completions: (NSArray *) words
-    forPartialWordRange: (NSRange) range
-    indexOfSelectedItem: (NSInteger *) index
+                completions: (NSArray *) words
+        forPartialWordRange: (NSRange) range
+        indexOfSelectedItem: (NSInteger *) index
 {
     NSString *string = [[self cell]
-        completedString: [[textView string] substringWithRange: range]];
+            completedString: [[textView string] substringWithRange: range]];
 
     //    NSLog(@"NSComboBox delegate OK: %@", string);
 

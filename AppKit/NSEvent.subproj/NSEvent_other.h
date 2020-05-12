@@ -26,13 +26,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithType: (NSEventType) type
-         location: (NSPoint) location
-    modifierFlags: (NSUInteger) modifierFlags
-        timestamp: (NSTimeInterval) time
-     windowNumber: (NSInteger) windowNum
-          context: (NSGraphicsContext *) context
-          subtype: (short) subtype
-            data1: (NSInteger) data1
-            data2: (NSInteger) data2;
+             location: (NSPoint) location
+        modifierFlags: (NSUInteger) modifierFlags
+            timestamp: (NSTimeInterval) time
+         windowNumber: (NSInteger) windowNum
+              context: (NSGraphicsContext *) context
+              subtype: (short) subtype
+                data1: (NSInteger) data1
+                data2: (NSInteger) data2;
 
 @end

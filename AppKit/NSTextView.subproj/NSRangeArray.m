@@ -46,8 +46,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) addRange: (NSRange) range {
     if (_count >= _capacity) {
         _capacity *= 2;
-        _ranges =
-            NSZoneRealloc([self zone], _ranges, sizeof(NSRange) * _capacity);
+        _ranges = NSZoneRealloc([self zone], _ranges,
+                                sizeof(NSRange) * _capacity);
     }
 
     _ranges[_count++] = range;

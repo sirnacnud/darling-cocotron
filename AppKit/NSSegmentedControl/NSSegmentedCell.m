@@ -306,12 +306,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     for (i = 0; i < count; i++) {
         segmentFrame.size.width =
-            [[_segmentComputedWidths objectAtIndex: i] doubleValue];
+                [[_segmentComputedWidths objectAtIndex: i] doubleValue];
         [NSGraphicsContext saveGraphicsState];
         // Make sure that segment drawing is not allowed to spill out into other
         // segments
         NSBezierPath *clipPath =
-            [NSBezierPath bezierPathWithRect: segmentFrame];
+                [NSBezierPath bezierPathWithRect: segmentFrame];
         [clipPath addClip];
         [self drawSegment: i inFrame: segmentFrame withView: controlView];
         [NSGraphicsContext restoreGraphicsState];
@@ -352,7 +352,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSSegmentItem *item = [_segments objectAtIndex: i];
 
         segmentFrame.size.width =
-            [[_segmentComputedWidths objectAtIndex: i] doubleValue];
+                [[_segmentComputedWidths objectAtIndex: i] doubleValue];
         if (NSPointInRect(point, segmentFrame)) {
             return i;
         }
@@ -363,10 +363,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) startTrackingAt: (NSPoint) startPoint inView: (NSView *) controlView {
     // save the segment clicked on and its state
-    _firstTrackingSegmentIndex = [self
-        _segmentForPoint: [controlView convertPoint: startPoint fromView: nil]];
+    _firstTrackingSegmentIndex =
+            [self _segmentForPoint: [controlView convertPoint: startPoint
+                                                     fromView: nil]];
     NSSegmentItem *trackingItem =
-        [_segments objectAtIndex: _firstTrackingSegmentIndex];
+            [_segments objectAtIndex: _firstTrackingSegmentIndex];
     if (![trackingItem isEnabled])
         return YES;
 
@@ -385,7 +386,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     lastPoint = [controlView convertPoint: lastPoint fromView: nil];
 
     NSSegmentItem *trackingItem =
-        [_segments objectAtIndex: _firstTrackingSegmentIndex];
+            [_segments objectAtIndex: _firstTrackingSegmentIndex];
     if (![trackingItem isEnabled])
         return YES;
 
@@ -415,7 +416,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [self continueTracking: lastPoint at: stopPoint inView: controlView];
 
     NSSegmentItem *trackingItem =
-        [_segments objectAtIndex: _firstTrackingSegmentIndex];
+            [_segments objectAtIndex: _firstTrackingSegmentIndex];
     if (![trackingItem isEnabled])
         return;
 
@@ -454,13 +455,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) cellFrame
-             ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) flag
+              inRect: (NSRect) cellFrame
+              ofView: (NSView *) controlView
+        untilMouseUp: (BOOL) flag
 {
     NSPoint startPoint = [event locationInWindow];
-    NSInteger segmentUnderMouse = [self
-        _segmentForPoint: [controlView convertPoint: startPoint fromView: nil]];
+    NSInteger segmentUnderMouse =
+            [self _segmentForPoint: [controlView convertPoint: startPoint
+                                                     fromView: nil]];
 
     if (segmentUnderMouse == NSNotFound)
         return YES;

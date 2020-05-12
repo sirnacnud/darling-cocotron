@@ -62,7 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSFontFamily *family = [[self alloc] initWithName: familyName];
     [self addFontFamily: family];
     NSArray *typefaces =
-        [[NSDisplay currentDisplay] fontTypefacesForFamilyName: familyName];
+            [[NSDisplay currentDisplay] fontTypefacesForFamilyName: familyName];
     [family addTypefaces: typefaces];
     return [family autorelease];
 }

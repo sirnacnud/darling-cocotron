@@ -38,7 +38,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithDefaults: (NSUserDefaults *) defaults
-     initialValues: (NSDictionary *) values
+        initialValues: (NSDictionary *) values
 {
     if (defaults == nil)
         defaults = [NSUserDefaults standardUserDefaults];
@@ -47,7 +47,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _initialValues = [values copy];
     _appliesImmediately = YES;
     _valueProxy =
-        [[NSUserDefaultsControllerProxy alloc] initWithController: self];
+            [[NSUserDefaultsControllerProxy alloc] initWithController: self];
 
     return self;
 }
@@ -99,7 +99,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             // Be sure to retain the shared object - the caller must be able to
             // call release on it when done
             self = [[NSUserDefaultsController sharedUserDefaultsController]
-                retain];
+                    retain];
         } else {
             self = [self init];
         }

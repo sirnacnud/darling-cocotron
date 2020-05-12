@@ -68,8 +68,8 @@ void native_set_set(native_set *native, SOCKET handle) {
     if (native->fdset->fd_count >= native->max) {
         native->max *= 2;
         native->fdset = NSZoneRealloc(
-            NULL, native->fdset,
-            sizeof(fd_set) + sizeof(SOCKET) * (native->max - FD_SETSIZE));
+                NULL, native->fdset,
+                sizeof(fd_set) + sizeof(SOCKET) * (native->max - FD_SETSIZE));
     }
     native->fdset->fd_array[native->fdset->fd_count++] = handle;
 }
@@ -95,8 +95,8 @@ void native_set_copy(native_set *native, native_set *copy) {
     while (copy->max < native->fdset->fd_count) {
         copy->max *= 2;
         copy->fdset = NSZoneRealloc(
-            NULL, copy->fdset,
-            sizeof(fd_set) + sizeof(SOCKET) * (copy->max - FD_SETSIZE));
+                NULL, copy->fdset,
+                sizeof(fd_set) + sizeof(SOCKET) * (copy->max - FD_SETSIZE));
     }
 
     for (i = 0; i < native->fdset->fd_count; i++)
@@ -280,19 +280,19 @@ static struct NSSelectSetBackgroundInfo *asyncThreadInfo() {
     pthread_once(&asyncThreadKeyOnce, asyncThreadKeyInitialize);
 
     struct NSSelectSetBackgroundInfo *result =
-        pthread_getspecific(asyncThreadKey);
+            pthread_getspecific(asyncThreadKey);
     if (result == NULL) {
         result = NSZoneMalloc(NULL, sizeof(struct NSSelectSetBackgroundInfo));
 
         result->eventHandle = CreateEvent(NULL, FALSE, FALSE, NULL);
         result->eventMonitor = [[NSHandleMonitor_win32
-            handleMonitorWithHandle: result->eventHandle] retain];
+                handleMonitorWithHandle: result->eventHandle] retain];
         [result->eventMonitor setDelegate: [NSSelectSet_windows class]];
         [result->eventMonitor setCurrentActivity: Win32HandleSignaled];
         result->eventMonitorModes = [NSMutableArray new];
 
         result->pingWrite =
-            [[NSSocket alloc] initConnectedToSocket: &result->pingRead];
+                [[NSSocket alloc] initConnectedToSocket: &result->pingRead];
 
         [result->pingRead retain];
         result->pingWriteHandle = [result->pingWrite socketHandle];
@@ -330,7 +330,7 @@ void NSSelectSetShutdownForCurrentThread() {
     pthread_once(&asyncThreadKeyOnce, asyncThreadKeyInitialize);
 
     struct NSSelectSetBackgroundInfo *async =
-        pthread_getspecific(asyncThreadKey);
+            pthread_getspecific(asyncThreadKey);
     if (async != NULL) {
         pthread_setspecific(asyncThreadKey, NULL);
 
@@ -363,8 +363,9 @@ static void transferNativeToSet(native_set *native, NSMutableSet *set) {
 
     for (i = 0; i < native->fdset->fd_count; i++)
         [set addObject: [[[NSSocket_windows alloc]
-                            initWithSocketHandle: native->fdset->fd_array[i]]
-                            autorelease]];
+                                initWithSocketHandle: native->fdset
+                                                              ->fd_array[i]]
+                                autorelease]];
 }
 
 static void transferNativeToSetWithOriginals(native_set *native,
@@ -393,8 +394,8 @@ static void transferNativeToSetWithOriginals(native_set *native,
     LeaveCriticalSection(async->lock);
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSSelectSetOutputNotification
-                      object: outputSet];
+            postNotificationName: NSSelectSetOutputNotification
+                          object: outputSet];
 }
 
 - (void) waitInBackgroundInMode: (NSString *) mode {
@@ -466,7 +467,7 @@ static void transferNativeToSetWithOriginals(native_set *native,
 
     if (result == nil) {
         NSSelectSet_windows *outputSet =
-            [[[NSSelectSet alloc] init] autorelease];
+                [[[NSSelectSet alloc] init] autorelease];
 
         transferNativeToSetWithOriginals(activeRead, outputSet->_readSet,
                                          _readSet, cheater);

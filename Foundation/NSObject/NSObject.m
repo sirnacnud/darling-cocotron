@@ -56,7 +56,7 @@ BOOL NSObjectIsKindOfClass(id object, Class kindOf) {
 
 @interface NSInvocation (private)
 + (NSInvocation *) invocationWithMethodSignature:
-                       (NSMethodSignature *) signature
+                           (NSMethodSignature *) signature
                                        arguments: (void *) arguments;
 @end
 
@@ -264,8 +264,8 @@ static IMP objc_msg_forward(id rcv, SEL message) {
         return nil;
     } else {
         NSInvocation *invocation =
-            [NSInvocation invocationWithMethodSignature: signature
-                                              arguments: arguments];
+                [NSInvocation invocationWithMethodSignature: signature
+                                                  arguments: arguments];
         // char          result[[signature methodReturnLength]];
         id result;
 

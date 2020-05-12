@@ -25,24 +25,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + allocWithZone: (NSZone *) zone {
     if (self == objc_lookUpClass("NSMutableCharacterSet"))
         return NSAllocateObject(
-            objc_lookUpClass("NSMutableCharacterSet_bitmap"), 0, zone);
+                objc_lookUpClass("NSMutableCharacterSet_bitmap"), 0, zone);
 
     return NSAllocateObject(self, 0, zone);
 }
 
 + characterSetWithBitmapRepresentation: (NSData *) data {
-    return
-        [[[NSMutableCharacterSet_bitmap alloc] initWithData: data] autorelease];
+    return [[[NSMutableCharacterSet_bitmap alloc] initWithData: data]
+            autorelease];
 }
 
 + characterSetWithCharactersInString: (NSString *) string {
     return [[[NSMutableCharacterSet_bitmap alloc] initWithString: string]
-        autorelease];
+            autorelease];
 }
 
 + characterSetWithRange: (NSRange) range {
     return [[[NSMutableCharacterSet_bitmap alloc] initWithRange: range]
-        autorelease];
+            autorelease];
 }
 
 - (void) addCharactersInString: (NSString *) string {

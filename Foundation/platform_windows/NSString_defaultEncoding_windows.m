@@ -31,7 +31,7 @@ NSStringEncoding defaultEncoding() {
     UINT codepage = GetACP();
 
     CFStringEncoding encoding =
-        CFStringConvertWindowsCodepageToEncoding(codepage);
+            CFStringConvertWindowsCodepageToEncoding(codepage);
     if (encoding != kCFStringEncodingInvalidId) {
         return CFStringConvertEncodingToNSStringEncoding(encoding);
     }

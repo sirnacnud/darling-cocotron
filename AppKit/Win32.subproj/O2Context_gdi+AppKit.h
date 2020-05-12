@@ -4,7 +4,7 @@
 
 - initWithHWND: (HWND) handle;
 - initWithPrinterDC: (HDC) printer
-      auxiliaryInfo: (NSDictionary *) auxiliaryInfo;
+        auxiliaryInfo: (NSDictionary *) auxiliaryInfo;
 - (HWND) windowHandle;
 
 @end

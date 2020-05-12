@@ -57,8 +57,8 @@ ONYX2D_STATIC int color_largb32f_PRE(O2Paint *selfX, int x, int y,
 }
 
 - initWithGray: (O2Float) gray
-                      alpha: (O2Float) alpha
-    surfaceToPaintTransform: (O2AffineTransform) transform
+                          alpha: (O2Float) alpha
+        surfaceToPaintTransform: (O2AffineTransform) transform
 {
     O2PaintInitWithTransform(self, transform);
 
@@ -76,10 +76,10 @@ ONYX2D_STATIC int color_largb32f_PRE(O2Paint *selfX, int x, int y,
 }
 
 - initWithRed: (O2Float) red
-                      green: (O2Float) green
-                       blue: (O2Float) blue
-                      alpha: (O2Float) alpha
-    surfaceToPaintTransform: (O2AffineTransform) transform
+                          green: (O2Float) green
+                           blue: (O2Float) blue
+                          alpha: (O2Float) alpha
+        surfaceToPaintTransform: (O2AffineTransform) transform
 {
     O2PaintInitWithTransform(self, transform);
 

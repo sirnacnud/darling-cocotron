@@ -45,8 +45,8 @@ const NSTimeInterval NSTimeIntervalSince1970 = (NSTimeInterval) 978307200.0;
     static NSDate *staticInstance = nil;
     if (!staticInstance)
         staticInstance = [[self allocWithZone: NULL]
-            initWithTimeIntervalSinceReferenceDate: -(2010.0L * 365.0 * 24.0 *
-                                                      60.0 * 60.0)];
+                initWithTimeIntervalSinceReferenceDate: -(2010.0L * 365.0 *
+                                                          24.0 * 60.0 * 60.0)];
     return staticInstance;
 }
 
@@ -54,14 +54,14 @@ const NSTimeInterval NSTimeIntervalSince1970 = (NSTimeInterval) 978307200.0;
     static NSDate *staticInstance = nil;
     if (!staticInstance)
         staticInstance = [[self allocWithZone: NULL]
-            initWithTimeIntervalSinceReferenceDate: 2010.0L * 365.0 * 24.0 *
-                                                    60.0 * 60.0];
+                initWithTimeIntervalSinceReferenceDate: 2010.0L * 365.0 * 24.0 *
+                                                        60.0 * 60.0];
     return staticInstance;
 }
 
 - init {
     return [self initWithTimeIntervalSinceReferenceDate:
-                     NSPlatformTimeIntervalSinceReferenceDate()];
+                         NSPlatformTimeIntervalSinceReferenceDate()];
 }
 
 - initWithString: (NSString *) string {
@@ -76,44 +76,44 @@ const NSTimeInterval NSTimeIntervalSince1970 = (NSTimeInterval) 978307200.0;
 
 - initWithTimeIntervalSinceNow: (NSTimeInterval) seconds {
     return [self initWithTimeIntervalSinceReferenceDate:
-                     NSPlatformTimeIntervalSinceReferenceDate() + seconds];
+                         NSPlatformTimeIntervalSinceReferenceDate() + seconds];
 }
 
 - initWithTimeIntervalSince1970: (NSTimeInterval) seconds {
-    return
-        [self initWithTimeIntervalSinceReferenceDate: -NSTimeIntervalSince1970 +
-                                                      seconds];
+    return [self
+            initWithTimeIntervalSinceReferenceDate: -NSTimeIntervalSince1970 +
+                                                    seconds];
 }
 
 - initWithTimeInterval: (NSTimeInterval) seconds sinceDate: (NSDate *) other {
     return [self initWithTimeIntervalSinceReferenceDate:
-                     [other timeIntervalSinceReferenceDate] + seconds];
+                         [other timeIntervalSinceReferenceDate] + seconds];
 }
 
 + date {
     return [[[self allocWithZone: NULL]
-        initWithTimeIntervalSinceReferenceDate:
-            NSPlatformTimeIntervalSinceReferenceDate()] autorelease];
+            initWithTimeIntervalSinceReferenceDate:
+                    NSPlatformTimeIntervalSinceReferenceDate()] autorelease];
 }
 
 + dateWithString: (NSString *) string {
     return [[[NSCalendarDate allocWithZone: NULL] initWithString: string]
-        autorelease];
+            autorelease];
 }
 
 + dateWithTimeIntervalSinceReferenceDate: (NSTimeInterval) seconds {
     return [[[self allocWithZone: NULL]
-        initWithTimeIntervalSinceReferenceDate: seconds] autorelease];
+            initWithTimeIntervalSinceReferenceDate: seconds] autorelease];
 }
 
 + dateWithTimeIntervalSinceNow: (NSTimeInterval) seconds {
     return [[[self allocWithZone: NULL] initWithTimeIntervalSinceNow: seconds]
-        autorelease];
+            autorelease];
 }
 
 + dateWithTimeIntervalSince1970: (NSTimeInterval) seconds {
     return [[[self allocWithZone: NULL] initWithTimeIntervalSince1970: seconds]
-        autorelease];
+            autorelease];
 }
 
 - copyWithZone: (NSZone *) zone {
@@ -205,21 +205,23 @@ const NSTimeInterval NSTimeIntervalSince1970 = (NSTimeInterval) 978307200.0;
 }
 
 - addTimeInterval: (NSTimeInterval) seconds {
-    return [[self class] dateWithTimeIntervalSinceReferenceDate:
-                             [self timeIntervalSinceReferenceDate] + seconds];
+    return [[self class]
+            dateWithTimeIntervalSinceReferenceDate:
+                    [self timeIntervalSinceReferenceDate] + seconds];
 }
 
 - dateByAddingTimeInterval: (NSTimeInterval) seconds {
-    return [[self class] dateWithTimeIntervalSinceReferenceDate:
-                             [self timeIntervalSinceReferenceDate] + seconds];
+    return [[self class]
+            dateWithTimeIntervalSinceReferenceDate:
+                    [self timeIntervalSinceReferenceDate] + seconds];
 }
 
 - (NSCalendarDate *) dateWithCalendarFormat: (NSString *) format
                                    timeZone: (NSTimeZone *) timeZone
 {
     NSCalendarDate *date =
-        [NSCalendarDate dateWithTimeIntervalSinceReferenceDate:
-                            [self timeIntervalSinceReferenceDate]];
+            [NSCalendarDate dateWithTimeIntervalSinceReferenceDate:
+                                    [self timeIntervalSinceReferenceDate]];
 
     if (format == nil)
         format = DEFAULT_CALENDAR_FORMAT;

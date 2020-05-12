@@ -334,14 +334,14 @@ void O2PDF_render_Do(O2PDFScanner *scanner, void *info) {
         }
 
         contentStream = [[[O2PDFContentStream alloc]
-            initWithStream: stream
-                 resources: resources
-                    parent: [scanner contentStream]] autorelease];
+                initWithStream: stream
+                     resources: resources
+                        parent: [scanner contentStream]] autorelease];
         operatorTable = [O2PDFOperatorTable renderingOperatorTable];
-        doScanner =
-            [[[O2PDFScanner alloc] initWithContentStream: contentStream
-                                           operatorTable: operatorTable
-                                                    info: info] autorelease];
+        doScanner = [[[O2PDFScanner alloc] initWithContentStream: contentStream
+                                                   operatorTable: operatorTable
+                                                            info: info]
+                autorelease];
 
         if (doIt)
             [doScanner scan];
@@ -537,7 +537,7 @@ void O2PDF_render_gs(O2PDFScanner *scanner, void *info) {
         if ([array getDictionaryAtIndex: 0 value: &fontDictionary] &&
             [array getNumberAtIndex: 1 value: &scale]) {
             O2PDFFont *font =
-                [O2PDFFont createWithPDFDictionary: fontDictionary];
+                    [O2PDFFont createWithPDFDictionary: fontDictionary];
 
             establishFontInContext(context, font, scale);
 
@@ -721,7 +721,7 @@ void O2PDF_render_ID(O2PDFScanner *scanner, void *info) {
     size_t bytesPerRow = (width * bitsPerComponent) / 8;
 
     NSData *data =
-        O2PDFScannerCreateDataWithLength(scanner, height * bytesPerRow);
+            O2PDFScannerCreateDataWithLength(scanner, height * bytesPerRow);
 }
 
 // setlinejoin, Set line join style
@@ -957,7 +957,7 @@ void O2PDF_render_SC(O2PDFScanner *scanner, void *info) {
     O2ColorRef color = O2ContextStrokeColor(context);
     O2ColorSpaceRef colorSpace = O2ColorGetColorSpace(color);
     NSUInteger numberOfComponents =
-        O2ColorSpaceGetNumberOfComponents(colorSpace);
+            O2ColorSpaceGetNumberOfComponents(colorSpace);
     NSInteger count = numberOfComponents;
     O2Float components[count + 1];
 
@@ -979,7 +979,7 @@ void O2PDF_render_sc(O2PDFScanner *scanner, void *info) {
     O2ColorRef color = O2ContextFillColor(context);
     O2ColorSpaceRef colorSpace = O2ColorGetColorSpace(color);
     NSUInteger numberOfComponents =
-        O2ColorSpaceGetNumberOfComponents(colorSpace);
+            O2ColorSpaceGetNumberOfComponents(colorSpace);
     NSInteger count = numberOfComponents;
     O2Float components[count + 1];
 
@@ -1002,7 +1002,7 @@ void O2PDF_render_SCN(O2PDFScanner *scanner, void *info) {
     O2ColorRef color = O2ContextStrokeColor(context);
     O2ColorSpaceRef colorSpace = O2ColorGetColorSpace(color);
     NSUInteger numberOfComponents =
-        O2ColorSpaceGetNumberOfComponents(colorSpace);
+            O2ColorSpaceGetNumberOfComponents(colorSpace);
     NSInteger count = numberOfComponents;
     O2Float components[count + 1];
 
@@ -1025,7 +1025,7 @@ void O2PDF_render_scn(O2PDFScanner *scanner, void *info) {
     O2ColorRef color = O2ContextFillColor(context);
     O2ColorSpaceRef colorSpace = O2ColorGetColorSpace(color);
     NSUInteger numberOfComponents =
-        O2ColorSpaceGetNumberOfComponents(colorSpace);
+            O2ColorSpaceGetNumberOfComponents(colorSpace);
     NSInteger count = numberOfComponents;
     O2PDFReal components[count + 1];
 
@@ -1068,8 +1068,8 @@ void O2PDF_render_T_star(O2PDFScanner *scanner, void *info) {
     O2Context *context = kgContextFromInfo(info);
 
     O2AffineTransform Tlm = O2ContextGetTextLineMatrix(context);
-    O2AffineTransform result =
-        O2AffineTransformTranslate(Tlm, 0, -O2ContextGetTextLeading(context));
+    O2AffineTransform result = O2AffineTransformTranslate(
+            Tlm, 0, -O2ContextGetTextLeading(context));
 
     O2ContextSetTextMatrix(context, result);
     O2ContextSetTextLineMatrix(context, result);
@@ -1214,8 +1214,8 @@ void O2PDF_render_TJ(O2PDFScanner *scanner, void *info) {
             // The amount is expressed in thousands of a text space unit and
             // subtracted
             O2AffineTransform Tm = O2ContextGetTextMatrix(context);
-            O2Size advance =
-                O2SizeApplyAffineTransform(O2SizeMake(real / 1000.0, 0), Tm);
+            O2Size advance = O2SizeApplyAffineTransform(
+                    O2SizeMake(real / 1000.0, 0), Tm);
 
             Tm.tx -= advance.width;
             Tm.ty -= advance.height;

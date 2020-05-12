@@ -36,8 +36,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - init {
-    return
-        [self initWithNotificationCenter: [NSNotificationCenter defaultCenter]];
+    return [self
+            initWithNotificationCenter: [NSNotificationCenter defaultCenter]];
 }
 
 + (NSNotificationQueue *) defaultQueue {
@@ -178,9 +178,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             queue = _asapQueue;
 
         [self coalesceNotification: note inQueue: queue coalesceMask: mask];
-        [queue
-            addObject: [NSNotificationAndModes queuedWithNotification: note
-                                                                modes: modes]];
+        [queue addObject: [NSNotificationAndModes
+                                  queuedWithNotification: note
+                                                   modes: modes]];
     }
 }
 

@@ -65,8 +65,8 @@ O2PDFArray *O2FontCreatePDFWidthsWithEncoding(O2FontRef self,
 - (const char *) pdfFontName {
     // possibly wrong encoding
     return [[[self->_name componentsSeparatedByString: @" "]
-        componentsJoinedByString: @","]
-        cStringUsingEncoding: NSISOLatin1StringEncoding];
+            componentsJoinedByString: @","]
+            cStringUsingEncoding: NSISOLatin1StringEncoding];
 }
 
 - (O2PDFDictionary *) _pdfFontDescriptorWithSize: (CGFloat) size {
@@ -113,7 +113,7 @@ O2PDFArray *O2FontCreatePDFWidthsWithEncoding(O2FontRef self,
     if (reference == nil) {
         O2PDFDictionary *result = [O2PDFDictionary pdfDictionary];
         O2Encoding *encoding =
-            [self createEncodingForTextEncoding: kO2EncodingMacRoman];
+                [self createEncodingForTextEncoding: kO2EncodingMacRoman];
 
         [result setNameForKey: "Type" value: "Font"];
         [result setNameForKey: "Subtype" value: "TrueType"];
@@ -126,18 +126,18 @@ O2PDFArray *O2FontCreatePDFWidthsWithEncoding(O2FontRef self,
                           value: [context encodeIndirectPDFObject: widths]];
         [widths release];
 
-        [result
-            setObjectForKey: "FontDescriptor"
-                      value: [context
-                                 encodeIndirectPDFObject:
-                                     [self _pdfFontDescriptorWithSize: size]]];
+        [result setObjectForKey: "FontDescriptor"
+                          value: [context
+                                         encodeIndirectPDFObject:
+                                                 [self _pdfFontDescriptorWithSize:
+                                                                 size]]];
 
         [result setNameForKey: "Encoding" value: "MacRomanEncoding"];
 
         reference = [context encodeIndirectPDFObject: result];
         [context setReference: reference
-              forFontWithName: self->_name
-                         size: size];
+                forFontWithName: self->_name
+                           size: size];
     }
 
     return reference;

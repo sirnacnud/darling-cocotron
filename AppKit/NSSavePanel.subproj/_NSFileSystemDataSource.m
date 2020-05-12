@@ -17,7 +17,7 @@
 }
 
 - (NSInteger) outlineView: (NSOutlineView *) outlineView
-    numberOfChildrenOfItem: (NSURL *) url
+        numberOfChildrenOfItem: (NSURL *) url
 {
 
     if (url == nil) {
@@ -30,7 +30,7 @@
 }
 
 - (BOOL) outlineView: (NSOutlineView *) outlineView
-    isItemExpandable: (NSURL *) url
+        isItemExpandable: (NSURL *) url
 {
 
     if (url == nil) {
@@ -66,8 +66,8 @@
 }
 
 - (NSString *) outlineView: (NSOutlineView *) outlineView
-    objectValueForTableColumn: (NSTableColumn *) tableColumn
-                       byItem: (NSURL *) url
+        objectValueForTableColumn: (NSTableColumn *) tableColumn
+                           byItem: (NSURL *) url
 {
     return [[url pathComponents] lastObject];
 }

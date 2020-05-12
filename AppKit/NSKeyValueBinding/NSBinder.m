@@ -33,35 +33,35 @@ static void *NSBinderChangeContext;
 @implementation _NSBinder (BindingOptions)
 - (BOOL) conditionallySetsEditable {
     return [[_options objectForKey: NSConditionallySetsEditableBindingOption]
-               boolValue] &&
+                   boolValue] &&
            [_source respondsToSelector: @selector(setEditable:)];
 }
 
 - (BOOL) conditionallySetsEnabled {
     return [[_options objectForKey: NSConditionallySetsEnabledBindingOption]
-               boolValue] &&
+                   boolValue] &&
            [_source respondsToSelector: @selector(setEnabled:)];
 }
 
 - (BOOL) allowsEditingMultipleValues {
     return [[_options
-        objectForKey: NSAllowsEditingMultipleValuesSelectionBindingOption]
-        boolValue];
+            objectForKey: NSAllowsEditingMultipleValuesSelectionBindingOption]
+            boolValue];
 }
 
 - (BOOL) createsSortDescriptor {
     return [[_options objectForKey: NSCreatesSortDescriptorBindingOption]
-        boolValue];
+            boolValue];
 }
 
 - (BOOL) raisesForNotApplicableKeys {
     return [[_options objectForKey: NSRaisesForNotApplicableKeysBindingOption]
-        boolValue];
+            boolValue];
 }
 
 - (BOOL) continuouslyUpdatesValue {
     return [[_options objectForKey: NSContinuouslyUpdatesValueBindingOption]
-        boolValue];
+            boolValue];
 }
 
 - (id) multipleValuesPlaceholder {
@@ -93,7 +93,7 @@ static void *NSBinderChangeContext;
 
     if (result == nil) {
         NSString *name =
-            [_options objectForKey: NSValueTransformerNameBindingOption];
+                [_options objectForKey: NSValueTransformerNameBindingOption];
 
         if (name == nil)
             return nil;
@@ -101,11 +101,11 @@ static void *NSBinderChangeContext;
         result = [NSValueTransformer valueTransformerForName: name];
 
         if (result == nil) {
-            NSBindingDebugLog(
-                kNSBindingDebugLogLevel1,
-                @"[NSValueTransformer valueTransformerForName:%@] failed in "
-                @"NSBinder.m",
-                name);
+            NSBindingDebugLog(kNSBindingDebugLogLevel1,
+                              @"[NSValueTransformer "
+                              @"valueTransformerForName:%@] failed in "
+                              @"NSBinder.m",
+                              name);
         }
 
         if (result != nil)
@@ -151,8 +151,8 @@ static void *NSBinderChangeContext;
 - (void) setSource: (id) value {
     if (_source != value) {
         _source = value;
-        [self
-            setBindingPath: [_source _replacementKeyPathForBinding: _binding]];
+        [self setBindingPath: [_source
+                                      _replacementKeyPathForBinding: _binding]];
     }
 }
 
@@ -185,8 +185,8 @@ static void *NSBinderChangeContext;
     if (_binding != value) {
         [_binding release];
         _binding = [value copy];
-        [self
-            setBindingPath: [_source _replacementKeyPathForBinding: _binding]];
+        [self setBindingPath: [_source
+                                      _replacementKeyPathForBinding: _binding]];
     }
 }
 
@@ -207,7 +207,7 @@ static void *NSBinderChangeContext;
         _options = [value mutableCopy];
     else
         _options =
-            [[self defaultBindingOptionsForBinding: _binding] mutableCopy];
+                [[self defaultBindingOptionsForBinding: _binding] mutableCopy];
 }
 
 - (id) bindingPath {
@@ -241,9 +241,9 @@ static void *NSBinderChangeContext;
 {
 
     NSBindingDebugLog(
-        kNSBindingDebugLogLevel1,
-        @"keyPath: %@\n   object: %@\n   change: %@\n    context: %p", kp,
-        object, change, context);
+            kNSBindingDebugLogLevel1,
+            @"keyPath: %@\n   object: %@\n   change: %@\n    context: %p", kp,
+            object, change, context);
     if ([self allowsReverseTransformation]) {
 
         if (context == &NSBinderChangeContext) {
@@ -256,8 +256,8 @@ static void *NSBinderChangeContext;
             NSBindingDebugLog(kNSBindingDebugLogLevel2, @"new value %@",
                               [_source valueForKeyPath: _bindingPath]);
             NSBindingDebugLog(
-                kNSBindingDebugLogLevel2, @"DST setting %@, for %@",
-                [_source valueForKeyPath: _bindingPath], _keyPath);
+                    kNSBindingDebugLogLevel2, @"DST setting %@, for %@",
+                    [_source valueForKeyPath: _bindingPath], _keyPath);
 
             id value = [_source valueForKeyPath: _bindingPath];
 
@@ -329,9 +329,9 @@ static void *NSBinderChangeContext;
                 if ([checkBinding length] == [baseName length] + 1) {
                     // Only keep the binder if it has a 1..9 at the end
                     NSRange numberAtEnd =
-                        NSMakeRange([checkBinding length] - 1, 1);
+                            NSMakeRange([checkBinding length] - 1, 1);
                     if ([[checkBinding substringWithRange: numberAtEnd]
-                            intValue] == 0) {
+                                intValue] == 0) {
                         peer = NO;
                     }
                 }

@@ -68,9 +68,9 @@ void O2DContextClipAndFillEdges(O2Context_builtin *self, int fillRuleMask);
     _clipContext = nil;
 
     O2PaintRef paint =
-        [[O2Paint_color alloc] initWithGray: 0
-                                      alpha: 1
-                    surfaceToPaintTransform: O2AffineTransformIdentity];
+            [[O2Paint_color alloc] initWithGray: 0
+                                          alpha: 1
+                        surfaceToPaintTransform: O2AffineTransformIdentity];
 
     O2ContextSetupPaintAndBlendMode(self, paint, kO2BlendModeNormal);
 
@@ -82,7 +82,7 @@ void O2DContextClipAndFillEdges(O2Context_builtin *self, int fillRuleMask);
     _edgeCapacity = 256;
     _edges = NSZoneMalloc(NULL, self->_edgeCapacity * sizeof(Edge *));
     _sortCache =
-        NSZoneMalloc(NULL, (self->_edgeCapacity / 2 + 1) * sizeof(Edge *));
+            NSZoneMalloc(NULL, (self->_edgeCapacity / 2 + 1) * sizeof(Edge *));
 
     sampleSizeShift = 0;
     numSamples = 0;
@@ -124,8 +124,8 @@ void O2DContextClipAndFillEdges(O2Context_builtin *self, int fillRuleMask);
 }
 
 - (void) setWidth: (size_t) width
-                      height: (size_t) height
-    reallocateOnlyIfRequired: (BOOL) roir
+                          height: (size_t) height
+        reallocateOnlyIfRequired: (BOOL) roir
 {
     [_surface setWidth: width height: height reallocateOnlyIfRequired: roir];
     [self reallocateForSurface];
@@ -137,13 +137,13 @@ void O2DContextClipAndFillEdges(O2Context_builtin *self, int fillRuleMask);
 
 - (O2Surface *) createSurfaceWithWidth: (size_t) width height: (size_t) height {
     return [[[self surfaceClass] alloc]
-           initWithBytes: NULL
-                   width: width
-                  height: height
-        bitsPerComponent: O2ImageGetBitsPerComponent(_surface)
-             bytesPerRow: 0
-              colorSpace: O2ImageGetColorSpace(_surface)
-              bitmapInfo: O2ImageGetBitmapInfo(_surface)];
+               initWithBytes: NULL
+                       width: width
+                      height: height
+            bitsPerComponent: O2ImageGetBitsPerComponent(_surface)
+                 bytesPerRow: 0
+                  colorSpace: O2ImageGetColorSpace(_surface)
+                  bitmapInfo: O2ImageGetBitmapInfo(_surface)];
 }
 
 - (O2Size) size {
@@ -180,18 +180,18 @@ void O2DContextClipAndFillEdges(O2Context_builtin *self, int fillRuleMask);
 
     if (O2ContextCurrentGState(self)->_shadowKernel) {
         O2Surface *shadow =
-            [self createSurfaceWithWidth: O2ImageGetWidth(_surface)
-                                  height: O2ImageGetHeight(_surface)];
+                [self createSurfaceWithWidth: O2ImageGetWidth(_surface)
+                                      height: O2ImageGetHeight(_surface)];
 
         O2SurfaceGaussianBlur(shadow, O2LayerGetSurface(layer),
                               O2ContextCurrentGState(self)->_shadowKernel,
                               O2ContextCurrentGState(self)->_shadowColor);
         O2ContextDrawImage(
-            self,
-            O2RectMake(O2ContextCurrentGState(self)->_shadowOffset.width,
-                       O2ContextCurrentGState(self)->_shadowOffset.height,
-                       size.width, size.height),
-            shadow);
+                self,
+                O2RectMake(O2ContextCurrentGState(self)->_shadowOffset.width,
+                           O2ContextCurrentGState(self)->_shadowOffset.height,
+                           size.width, size.height),
+                shadow);
     }
 
     O2ContextDrawLayerInRect(self, O2RectMake(0, 0, size.width, size.height),
@@ -208,7 +208,7 @@ ONYX2D_STATIC void O2ContextClipViewportToPath(O2Context_builtin *self,
                                                O2Path *path)
 {
     O2Rect viewport =
-        O2RectMake(self->_vpx, self->_vpy, self->_vpwidth, self->_vpheight);
+            O2RectMake(self->_vpx, self->_vpy, self->_vpwidth, self->_vpheight);
     O2Rect rect = O2PathGetBoundingBox(path);
 
     rect = O2RectIntegral(rect);
@@ -274,16 +274,16 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
         O2Surface *surface = [self createSurfaceWithWidth: size.width
                                                    height: size.height];
         O2BitmapContext *context =
-            [[[self class] alloc] initWithSurface: surface flipped: NO];
+                [[[self class] alloc] initWithSurface: surface flipped: NO];
 
         O2ContextClearRect(context, O2RectMake(0, 0, size.width, size.height));
         // do save/restore? probably pointless
         [pattern drawInContext: context];
 
         result = [[O2Paint_pattern alloc]
-                      initWithImage: surface
-            surfaceToPaintTransform: surfaceToPaintMatrix
-                              phase: O2GStatePatternPhase(gState)];
+                          initWithImage: surface
+                surfaceToPaintTransform: surfaceToPaintMatrix
+                                  phase: O2GStatePatternPhase(gState)];
 
         O2ContextRelease(context);
         [surface release];
@@ -335,13 +335,13 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
 
     if (drawingMode != kO2PathStroke) {
         O2AffineTransform surfaceToPaintMatrix =
-            userToSurfaceMatrix; // context->m_pathUserToSurface *
-                                 // context->m_fillPaintToUser;
+                userToSurfaceMatrix; // context->m_pathUserToSurface *
+                                     // context->m_fillPaintToUser;
 
         surfaceToPaintMatrix = O2AffineTransformInvert(surfaceToPaintMatrix);
 
         O2Paint *paint =
-            paintFromColor(self, gState->_fillColor, surfaceToPaintMatrix);
+                paintFromColor(self, gState->_fillColor, surfaceToPaintMatrix);
 
         O2ContextSetupPaintAndBlendMode(self, paint, gState->_blendMode);
         O2PaintRelease(paint);
@@ -349,9 +349,9 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
         VGPathFill(vgPath, userToSurfaceMatrix, self);
 
         VGFillRuleMask fillRule =
-            (drawingMode == kO2PathFill || drawingMode == kO2PathFillStroke)
-                ? VG_NON_ZERO
-                : VG_EVEN_ODD;
+                (drawingMode == kO2PathFill || drawingMode == kO2PathFillStroke)
+                        ? VG_NON_ZERO
+                        : VG_EVEN_ODD;
 
         O2DContextClipAndFillEdges(self, fillRule);
     }
@@ -359,11 +359,11 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
     if (drawingMode >= kO2PathStroke) {
         if (gState->_lineWidth > 0.0f) {
             O2AffineTransform surfaceToPaintMatrix =
-                userToSurfaceMatrix; // = context->m_pathUserToSurface *
-                                     // context->m_strokePaintToUser;
+                    userToSurfaceMatrix; // = context->m_pathUserToSurface *
+                                         // context->m_strokePaintToUser;
 
             surfaceToPaintMatrix =
-                O2AffineTransformInvert(surfaceToPaintMatrix);
+                    O2AffineTransformInvert(surfaceToPaintMatrix);
 
             O2Paint *paint = paintFromColor(self, gState->_strokeColor,
                                             surfaceToPaintMatrix);
@@ -414,12 +414,12 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
 
     if ([shading isAxial])
         paint = [[O2Paint_axialGradient alloc]
-            initWithShading: shading
-            deviceTransform: gState->_deviceSpaceTransform];
+                initWithShading: shading
+                deviceTransform: gState->_deviceSpaceTransform];
     else
         paint = [[O2Paint_radialGradient alloc]
-            initWithShading: shading
-            deviceTransform: gState->_deviceSpaceTransform];
+                initWithShading: shading
+                deviceTransform: gState->_deviceSpaceTransform];
 
     O2ContextSetupPaintAndBlendMode(self, paint, gState->_blendMode);
     O2PaintRelease(paint);
@@ -429,7 +429,7 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
     case O2ClipStateTypeOnePath:
     case O2ClipStateTypeOneRectOnePath:;
         VGPath *vgPath =
-            [[VGPath alloc] initWithKGPath: O2ClipStateOnePath(clipState)];
+                [[VGPath alloc] initWithKGPath: O2ClipStateOnePath(clipState)];
         VGPathFill(vgPath, O2AffineTransformIdentity, self);
         break;
 
@@ -441,9 +441,9 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
     case O2ClipStateTypeManyPathsAndMasks:
         O2DContextAddEdge(self, O2PointMake(0, 0),
                           O2PointMake(0, O2ImageGetHeight(_surface)));
-        O2DContextAddEdge(
-            self, O2PointMake(O2ImageGetWidth(_surface), 0),
-            O2PointMake(O2ImageGetWidth(_surface), O2ImageGetHeight(_surface)));
+        O2DContextAddEdge(self, O2PointMake(O2ImageGetWidth(_surface), 0),
+                          O2PointMake(O2ImageGetWidth(_surface),
+                                      O2ImageGetHeight(_surface)));
         break;
     }
 
@@ -457,15 +457,15 @@ createImageToSurfaceTransform(O2ImageRef image, O2Rect rect,
                               O2AffineTransform deviceTransform)
 {
     O2AffineTransform result =
-        O2AffineTransformMakeTranslation(rect.origin.x, rect.origin.y);
+            O2AffineTransformMakeTranslation(rect.origin.x, rect.origin.y);
 
     result = O2AffineTransformScale(
-        result, rect.size.width / (O2Float) O2ImageGetWidth(image),
-        rect.size.height / (O2Float) O2ImageGetHeight(image));
+            result, rect.size.width / (O2Float) O2ImageGetWidth(image),
+            rect.size.height / (O2Float) O2ImageGetHeight(image));
     result = O2AffineTransformConcat(result, deviceTransform);
 
     O2AffineTransform i2u =
-        O2AffineTransformMakeTranslation(0, O2ImageGetHeight(image));
+            O2AffineTransformMakeTranslation(0, O2ImageGetHeight(image));
     i2u = O2AffineTransformScale(i2u, 1, -1);
 
     result = O2AffineTransformConcat(i2u, result);
@@ -478,14 +478,14 @@ createImageToSurfaceTransform(O2ImageRef image, O2Rect rect,
     O2ImageRef softMask = O2ImageGetMask(image);
 
     O2AffineTransform imageToSurface = createImageToSurfaceTransform(
-        image, rect, gState->_deviceSpaceTransform);
+            image, rect, gState->_deviceSpaceTransform);
     O2AffineTransform maskToSurface;
 
     if (softMask == NULL)
         maskToSurface = O2AffineTransformIdentity;
     else
         maskToSurface = createImageToSurfaceTransform(
-            softMask, rect, gState->_deviceSpaceTransform);
+                softMask, rect, gState->_deviceSpaceTransform);
 
     // transform image corners into the surface space
     O2Point p0 = O2PointMake(0, 0);
@@ -505,12 +505,12 @@ createImageToSurfaceTransform(O2ImageRef image, O2Rect rect,
     O2AffineTransform fillPaintToUser = O2AffineTransformIdentity;
 
     O2AffineTransform surfaceToPaintMatrix =
-        O2AffineTransformConcat(imageToSurface, fillPaintToUser);
+            O2AffineTransformConcat(imageToSurface, fillPaintToUser);
 
     surfaceToPaintMatrix = O2AffineTransformInvert(surfaceToPaintMatrix);
 
     O2Paint *paint =
-        paintFromColor(self, gState->_fillColor, surfaceToPaintMatrix);
+            paintFromColor(self, gState->_fillColor, surfaceToPaintMatrix);
     O2InterpolationQuality iq;
     if (gState->_interpolationQuality == kO2InterpolationDefault)
         iq = kO2InterpolationLow;
@@ -518,13 +518,13 @@ createImageToSurfaceTransform(O2ImageRef image, O2Rect rect,
         iq = gState->_interpolationQuality;
 
     O2Paint *imagePaint = [[O2Paint_image allocWithZone: NULL]
-               initWithImage: image
-                        mask: softMask
-                        mode: VG_DRAW_IMAGE_NORMAL
-                       paint: paint
-        interpolationQuality: iq
-              surfaceToImage: O2AffineTransformInvert(imageToSurface)
-               surfaceToMask: O2AffineTransformInvert(maskToSurface)];
+                   initWithImage: image
+                            mask: softMask
+                            mode: VG_DRAW_IMAGE_NORMAL
+                           paint: paint
+            interpolationQuality: iq
+                  surfaceToImage: O2AffineTransformInvert(imageToSurface)
+                   surfaceToMask: O2AffineTransformInvert(maskToSurface)];
 
     O2ContextSetupPaintAndBlendMode(self, imagePaint, gState->_blendMode);
 
@@ -588,8 +588,8 @@ void O2DContextAddEdge(O2Context_builtin *self, const O2Point v0,
         self->_edges = NSZoneRealloc(NULL, self->_edges,
                                      self->_edgeCapacity * sizeof(Edge *));
         self->_sortCache =
-            NSZoneRealloc(NULL, self->_sortCache,
-                          (self->_edgeCapacity / 2 + 1) * sizeof(Edge *));
+                NSZoneRealloc(NULL, self->_sortCache,
+                              (self->_edgeCapacity / 2 + 1) * sizeof(Edge *));
     }
     self->_edges[self->_edgeCount] = edge;
     self->_edgeCount++;
@@ -668,8 +668,11 @@ void O2RasterizerSetShouldAntialias(O2Context_builtin *self, BOOL antialias,
     }
 }
 
-ONYX2D_STATIC void O2ApplyCoverageAndMaskToSpan_largb32f_PRE(
-    O2argb32f *dst, int icoverage, O2Float *mask, O2argb32f *src, int length)
+ONYX2D_STATIC void O2ApplyCoverageAndMaskToSpan_largb32f_PRE(O2argb32f *dst,
+                                                             int icoverage,
+                                                             O2Float *mask,
+                                                             O2argb32f *src,
+                                                             int length)
 {
     int i;
 
@@ -707,8 +710,8 @@ ONYX2D_STATIC void O2ApplyCoverageToSpan_largb32f_PRE(O2argb32f *dst,
  * to make sure we cover the entire span so we loop until the span is complete.
  */
 ONYX2D_STATIC_INLINE void O2RasterizeWriteCoverageSpan8888_Normal(
-    O2Surface *surface, O2Surface *mask, O2Paint *paint, int x, int y,
-    int coverage, int length, O2BlendSpan_argb8u blendFunction)
+        O2Surface *surface, O2Surface *mask, O2Paint *paint, int x, int y,
+        int coverage, int length, O2BlendSpan_argb8u blendFunction)
 {
     O2argb8u *dst = __builtin_alloca(length * sizeof(O2argb8u));
     O2argb8u *direct = surface->_read_argb8u(surface, x, y, dst, length);
@@ -743,8 +746,8 @@ ONYX2D_STATIC_INLINE void O2RasterizeWriteCoverageSpan8888_Normal(
 }
 
 ONYX2D_STATIC_INLINE void O2RasterizeWriteCoverageSpan8888_Copy(
-    O2Surface *surface, O2Surface *mask, O2Paint *paint, int x, int y,
-    int coverage, int length, O2BlendSpan_argb8u blendFunction)
+        O2Surface *surface, O2Surface *mask, O2Paint *paint, int x, int y,
+        int coverage, int length, O2BlendSpan_argb8u blendFunction)
 {
     O2argb8u *dst = __builtin_alloca(length * sizeof(O2argb8u));
     O2argb8u *direct = surface->_read_argb8u(surface, x, y, dst, length);
@@ -1088,8 +1091,8 @@ void O2DContextFillEdgesOnSurface(O2Context_builtin *self, O2Surface *surface,
         }
 #endif
                     self->_writeCoverageFunction(
-                        surface, mask, paint, node->scanx, scany,
-                        node->coverage, node->length, self->_blendFunction);
+                            surface, mask, paint, node->scanx, scany,
+                            node->coverage, node->length, self->_blendFunction);
                 }
                 continue;
             }
@@ -1137,8 +1140,8 @@ void O2DContextFillEdgesOnSurface(O2Context_builtin *self, O2Surface *surface,
 
             O2Float normalX = edge->v0.y - edge->v1.y;
             O2Float normalY = edge->v0.x - edge->v1.x;
-            O2Float pcxnormal =
-                (scanx - edge->v0.x) * normalX - (scany - edge->v0.y) * normalY;
+            O2Float pcxnormal = (scanx - edge->v0.x) * normalX -
+                                (scany - edge->v0.y) * normalY;
 
             int *windptr = winding + (scanx << shiftNumberOfSamples);
 
@@ -1205,8 +1208,8 @@ void O2DContextFillEdgesOnSurface(O2Context_builtin *self, O2Surface *surface,
 
         int accum = 0;
 
-        int *windptr =
-            winding + ((increase - self->_increase) << shiftNumberOfSamples);
+        int *windptr = winding +
+                       ((increase - self->_increase) << shiftNumberOfSamples);
         int *windend = windptr + numberOfSamples;
 
         CoverageNode *node;
@@ -1309,7 +1312,7 @@ void O2DContextFillEdgesOnSurface(O2Context_builtin *self, O2Surface *surface,
 
 void O2DContextClipAndFillEdges(O2Context_builtin *self, int fillRuleMask) {
     O2Image *mask =
-        (self->_clipContext != nil) ? self->_clipContext->_surface : nil;
+            (self->_clipContext != nil) ? self->_clipContext->_surface : nil;
     O2Surface *surface;
 
     if ([self->_layerStack count] > 0)
@@ -1341,7 +1344,7 @@ void O2ContextSetupPaintAndBlendMode(O2Context_builtin *self, O2PaintRef paint,
         self->_blend_argb8u_PRE = O2BlendSpanNormal_8888;
         self->_blend_argb32f_PRE = O2BlendSpanNormal_ffff;
         self->_writeCoverage_argb8u_PRE =
-            O2RasterizeWriteCoverageSpan8888_Normal;
+                O2RasterizeWriteCoverageSpan8888_Normal;
         break;
 
     case kO2BlendModeMultiply:

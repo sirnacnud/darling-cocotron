@@ -45,10 +45,10 @@ static NSSavePanel *_newPanel = nil;
 + (NSSavePanel *) savePanel {
     if ([[NSDisplay currentDisplay] implementsCustomPanelForClass: self]) {
         _newPanel = [[self alloc]
-            initWithContentRect: NSMakeRect(0, 0, 1, 1)
-                      styleMask: NSTitledWindowMask | NSResizableWindowMask
-                        backing: NSBackingStoreBuffered
-                          defer: YES];
+                initWithContentRect: NSMakeRect(0, 0, 1, 1)
+                          styleMask: NSTitledWindowMask | NSResizableWindowMask
+                            backing: NSBackingStoreBuffered
+                              defer: YES];
     } else {
         [NSBundle loadNibNamed: @"NSSavePanel" owner: self];
     }
@@ -117,7 +117,7 @@ static NSSavePanel *_newPanel = nil;
 - (NSInteger) runModal {
     NSInteger res;
     if ([[NSDisplay currentDisplay]
-            implementsCustomPanelForClass: [self class]]) {
+                implementsCustomPanelForClass: [self class]]) {
         res = [[NSDisplay currentDisplay] savePanel: self
                                runModalForDirectory: [self directory]
                                                file: [self filename]];
@@ -237,18 +237,18 @@ static NSSavePanel *_newPanel = nil;
                     contextInfo: (void *) contextInfo
 {
     id inv = [NSInvocation
-        invocationWithMethodSignature:
-            [self
-                methodSignatureForSelector: @selector
-                (_background_beginSheetForDirectory:
-                                               file:modalForWindow:modalDelegate
-                                                   :didEndSelector:contextInfo
-                                                   :)]];
+            invocationWithMethodSignature:
+                    [self methodSignatureForSelector: @selector
+                            (_background_beginSheetForDirectory:
+                                                           file:modalForWindow
+                                                               :modalDelegate
+                                                               :didEndSelector
+                                                               :contextInfo:)]];
     [inv setTarget: self];
     [inv setSelector: @selector
-         (_background_beginSheetForDirectory:
-                                        file:modalForWindow:modalDelegate
-                                            :didEndSelector:contextInfo:)];
+            (_background_beginSheetForDirectory:
+                                           file:modalForWindow:modalDelegate
+                                               :didEndSelector:contextInfo:)];
     [inv setArgument: &path atIndex: 2];
     [inv setArgument: &name atIndex: 3];
     [inv setArgument: &docWindow atIndex: 4];
@@ -275,10 +275,11 @@ static NSSavePanel *_newPanel = nil;
     id pool = [NSAutoreleasePool new];
     int ret = [self runModalForDirectory: path file: name];
 
-    id inv = [NSInvocation invocationWithMethodSignature:
-                               [self methodSignatureForSelector: @selector
-                                     (_selector_savePanelDidEnd:
-                                                     returnCode:contextInfo:)]];
+    id inv = [NSInvocation
+            invocationWithMethodSignature:
+                    [self methodSignatureForSelector: @selector
+                            (_selector_savePanelDidEnd:
+                                            returnCode:contextInfo:)]];
 
     [inv setTarget: modalDelegate];
     [inv setSelector: didEndSelector];

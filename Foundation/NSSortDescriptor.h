@@ -32,8 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithKey: (NSString *) key ascending: (BOOL) ascending;
 - initWithKey: (NSString *) key
-    ascending: (BOOL) ascending
-     selector: (SEL) selector;
+        ascending: (BOOL) ascending
+         selector: (SEL) selector;
 
 - (NSString *) key;
 - (BOOL) ascending;

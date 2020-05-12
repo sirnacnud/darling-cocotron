@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // DO NOT USE IN NEW CODE AND REPLACE USAGE. Use NSAssert().
 void NSRaiseException(NSString *name, id self, SEL cmd, NSString *fmt, ...) {
     NSString *where = [NSString
-        stringWithFormat: @"-[%@ %s]", [self class], sel_getName(cmd)];
+            stringWithFormat: @"-[%@ %s]", [self class], sel_getName(cmd)];
     NSString *why;
     va_list args;
 

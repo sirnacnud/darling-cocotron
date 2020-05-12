@@ -32,10 +32,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (_window != nil)
         [[NSNotificationCenter defaultCenter]
-            addObserver: self
-               selector: @selector(_windowWillClose:)
-                   name: NSWindowWillCloseNotification
-                 object: _window];
+                addObserver: self
+                   selector: @selector(_windowWillClose:)
+                       name: NSWindowWillCloseNotification
+                     object: _window];
 
     _nibName = nil;
     _nibPath = nil;
@@ -62,7 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithWindowNibPath: (NSString *) nibPath owner: owner {
     [self initWithWindow: nil];
     _nibName =
-        [[[nibPath lastPathComponent] stringByDeletingPathExtension] copy];
+            [[[nibPath lastPathComponent] stringByDeletingPathExtension] copy];
     _nibPath = [nibPath copy];
     _owner = owner;
     return self;
@@ -151,12 +151,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         _topLevelObjects = [[NSMutableArray alloc] init];
         nameTable = [NSDictionary
-            dictionaryWithObjectsAndKeys: _owner, NSNibOwner, _topLevelObjects,
-                                          NSNibTopLevelObjects, nil];
+                dictionaryWithObjectsAndKeys: _owner, NSNibOwner,
+                                              _topLevelObjects,
+                                              NSNibTopLevelObjects, nil];
 
         if (![NSBundle loadNibFile: path
-                 externalNameTable: nameTable
-                          withZone: NULL]) {
+                    externalNameTable: nameTable
+                             withZone: NULL]) {
             NSLog(@"%s: unable to load nib from file '%@'", __PRETTY_FUNCTION__,
                   path);
         }
@@ -165,7 +166,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         if (_shouldCascadeWindows)
             cascadeTopLeftSavedPoint =
-                [_window cascadeTopLeftFromPoint: cascadeTopLeftSavedPoint];
+                    [_window cascadeTopLeftFromPoint: cascadeTopLeftSavedPoint];
     }
 }
 
@@ -257,8 +258,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSString *) windowTitleForDocumentDisplayName: (NSString *) displayName {
-    NSString *appName =
-        [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleName"];
+    NSString *appName = [[[NSBundle mainBundle] infoDictionary]
+            objectForKey: @"CFBundleName"];
     if (appName)
         return [NSString stringWithFormat: @"%@ - %@", displayName, appName];
     else

@@ -47,12 +47,12 @@ static unsigned int uniquenum = 1;
     //	FIXME: Instead of returned this predetermined set (XPSP2) we should
     // query it something *like* GetProfileString("mci extensions",....);
 
-    return
-        [NSArray arrayWithObjects: @"wav", @"aif", @"aifc", @"aiff", @"asf",
-                                   @"asx", @"au", @"m1v", @"m3u", @"mp2",
-                                   @"mp2v", @"mp3", @"mpa", @"mpe", @"mpeg",
-                                   @"mpg", @"mpv2", @"snd", @"wax", @"wm",
-                                   @"wma", @"wmv", @"wmx", @"wpl", @"wvx", nil];
+    return [NSArray arrayWithObjects: @"wav", @"aif", @"aifc", @"aiff", @"asf",
+                                      @"asx", @"au", @"m1v", @"m3u", @"mp2",
+                                      @"mp2v", @"mp3", @"mpa", @"mpe", @"mpeg",
+                                      @"mpg", @"mpv2", @"snd", @"wax", @"wm",
+                                      @"wma", @"wmv", @"wmx", @"wpl", @"wvx",
+                                      nil];
 }
 
 @end
@@ -86,12 +86,12 @@ static unsigned int uniquenum = 1;
     }
 
     NSString *loadStr = [NSString
-        stringWithFormat: @"open \"%@\" type %@ alias %i", _soundFilePath,
-                          [[_soundFilePath pathExtension]
-                              isEqualToString: @"wav"]
-                              ? @"waveaudio"
-                              : @"MPEGVideo",
-                          _handle];
+            stringWithFormat: @"open \"%@\" type %@ alias %i", _soundFilePath,
+                              [[_soundFilePath pathExtension]
+                                      isEqualToString: @"wav"]
+                                      ? @"waveaudio"
+                                      : @"MPEGVideo",
+                              _handle];
     if (mciSendString([loadStr UTF8String], NULL, 0, 0))
         return NO;
 
@@ -108,7 +108,7 @@ static unsigned int uniquenum = 1;
     else {
         if (_handle != 0) {
             NSString *pauseStr =
-                [NSString stringWithFormat: @"pause %i", _handle];
+                    [NSString stringWithFormat: @"pause %i", _handle];
             mciSendString([pauseStr UTF8String], NULL, 0, 0);
         }
         _paused = YES;
@@ -122,7 +122,7 @@ static unsigned int uniquenum = 1;
     else {
         if (_handle != 0) {
             NSString *pauseStr =
-                [NSString stringWithFormat: @"resume %i", _handle];
+                    [NSString stringWithFormat: @"resume %i", _handle];
             mciSendString([pauseStr UTF8String], NULL, 0, 0);
         }
         _paused = NO;

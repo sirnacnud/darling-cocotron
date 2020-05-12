@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSMapTable.h>
 
 @class NSPortNameServer, NSPort, NSRunLoop, NSDistantObject, NSMutableArray,
-    NSMutableDictionary;
+        NSMutableDictionary;
 
 FOUNDATION_EXPORT NSString *const NSConnectionReplyMode;
 
@@ -50,17 +50,18 @@ FOUNDATION_EXPORT NSString *const NSConnectionReplyMode;
 + (NSConnection *) connectionWithRegisteredName: (NSString *) name
                                            host: (NSString *) hostName
                                 usingNameServer:
-                                    (NSPortNameServer *) nameServer;
+                                        (NSPortNameServer *) nameServer;
 + (NSConnection *) connectionWithRegisteredName: (NSString *) name
                                            host: (NSString *) hostName;
 
 + (NSDistantObject *)
-    rootProxyForConnectionWithRegisteredName: (NSString *) name
-                                        host: (NSString *) hostName
-                             usingNameServer: (NSPortNameServer *) nameServer;
+        rootProxyForConnectionWithRegisteredName: (NSString *) name
+                                            host: (NSString *) hostName
+                                 usingNameServer:
+                                         (NSPortNameServer *) nameServer;
 + (NSDistantObject *)
-    rootProxyForConnectionWithRegisteredName: (NSString *) name
-                                        host: (NSString *) hostName;
+        rootProxyForConnectionWithRegisteredName: (NSString *) name
+                                            host: (NSString *) hostName;
 
 + currentConversation;
 
@@ -104,7 +105,7 @@ FOUNDATION_EXPORT NSString *const NSConnectionReplyMode;
 - (void) removeRunLoop: (NSRunLoop *) runLoop;
 
 - (BOOL) registerName: (NSString *) name
-       withNameServer: (NSPortNameServer *) nameServer;
+        withNameServer: (NSPortNameServer *) nameServer;
 - (BOOL) registerName: (NSString *) name;
 
 - (NSDictionary *) statistics;

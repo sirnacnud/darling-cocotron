@@ -102,9 +102,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if (_heightTracksTextView || _widthTracksTextView) {
         if (_textView) {
             [[NSNotificationCenter defaultCenter]
-                removeObserver: self
-                          name: NSViewFrameDidChangeNotification
-                        object: _textView];
+                    removeObserver: self
+                              name: NSViewFrameDidChangeNotification
+                            object: _textView];
         }
     }
     _textView = textView;
@@ -113,10 +113,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         if (_textView) {
             [_textView setPostsFrameChangedNotifications: YES];
             [[NSNotificationCenter defaultCenter]
-                addObserver: self
-                   selector: @selector(_textViewFrameDidChange:)
-                       name: NSViewFrameDidChangeNotification
-                     object: _textView];
+                    addObserver: self
+                       selector: @selector(_textViewFrameDidChange:)
+                           name: NSViewFrameDidChangeNotification
+                         object: _textView];
         }
     }
 }
@@ -144,17 +144,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     // Observe our textView frame changes
                     [_textView setPostsFrameChangedNotifications: YES];
                     [[NSNotificationCenter defaultCenter]
-                        addObserver: self
-                           selector: @selector(_textViewFrameDidChange:)
-                               name: NSViewFrameDidChangeNotification
-                             object: _textView];
+                            addObserver: self
+                               selector: @selector(_textViewFrameDidChange:)
+                                   name: NSViewFrameDidChangeNotification
+                                 object: _textView];
                 }
             } else {
                 if (_heightTracksTextView == NO) {
                     [[NSNotificationCenter defaultCenter]
-                        removeObserver: self
-                                  name: NSViewFrameDidChangeNotification
-                                object: _textView];
+                            removeObserver: self
+                                      name: NSViewFrameDidChangeNotification
+                                    object: _textView];
                 }
             }
         }
@@ -170,17 +170,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     // Observe our textView frame changes
                     [_textView setPostsFrameChangedNotifications: YES];
                     [[NSNotificationCenter defaultCenter]
-                        addObserver: self
-                           selector: @selector(_textViewFrameDidChange:)
-                               name: NSViewFrameDidChangeNotification
-                             object: _textView];
+                            addObserver: self
+                               selector: @selector(_textViewFrameDidChange:)
+                                   name: NSViewFrameDidChangeNotification
+                                 object: _textView];
                 }
             } else {
                 if (_widthTracksTextView == NO) {
                     [[NSNotificationCenter defaultCenter]
-                        removeObserver: self
-                                  name: NSViewFrameDidChangeNotification
-                                object: _textView];
+                            removeObserver: self
+                                      name: NSViewFrameDidChangeNotification
+                                    object: _textView];
                 }
             }
         }

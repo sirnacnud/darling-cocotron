@@ -23,10 +23,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSPopUpButtonCell.h>
 
 NSString *const NSPopUpButtonWillPopUpNotification =
-    @"NSPopUpButtonWillPopUpNotification";
+        @"NSPopUpButtonWillPopUpNotification";
 
 static NSString *const NSPopUpButtonBindingObservationContext =
-    @"NSPopUpButtonBindingObservationContext";
+        @"NSPopUpButtonBindingObservationContext";
 
 @implementation NSPopUpButton
 
@@ -46,7 +46,7 @@ static NSString *const NSPopUpButtonBindingObservationContext =
     NS_HANDLER
     NS_ENDHANDLER
 
-        [super dealloc];
+            [super dealloc];
 }
 
 - (BOOL) pullsDown {
@@ -216,9 +216,9 @@ static NSString *const NSPopUpButtonBindingObservationContext =
 - (void) performClick: sender {
 
     if ([_cell trackMouse: [NSApp currentEvent]
-                   inRect: [self bounds]
-                   ofView: self
-             untilMouseUp: NO]) {
+                      inRect: [self bounds]
+                      ofView: self
+                untilMouseUp: NO]) {
         NSMenuItem *item = [self selectedItem];
         SEL action = [item action];
         id target = [item target];
@@ -250,9 +250,9 @@ static NSString *const NSPopUpButtonBindingObservationContext =
     [self performClick: self];
 #else
     if ([_cell trackMouse: event
-                   inRect: [self bounds]
-                   ofView: self
-             untilMouseUp: NO]) {
+                      inRect: [self bounds]
+                      ofView: self
+                untilMouseUp: NO]) {
         NSMenuItem *item = [self selectedItem];
         SEL action = [item action];
         id target = [item target];
@@ -367,28 +367,28 @@ static NSString *const NSPopUpButtonBindingObservationContext =
 }
 
 - (void) bind: (NSString *) binding
-       toObject: (id) observable
-    withKeyPath: (NSString *) keyPath
-        options: (NSDictionary *) options
+           toObject: (id) observable
+        withKeyPath: (NSString *) keyPath
+            options: (NSDictionary *) options
 {
     // No need to observe the same thing many times when we have several
     // bindings
     if (!_observerAdded) {
         _observerAdded = YES;
         [self addObserver: self
-               forKeyPath: @"cell.menu.itemArray"
-                  options: NSKeyValueObservingOptionPrior
-                  context: NSPopUpButtonBindingObservationContext];
+                forKeyPath: @"cell.menu.itemArray"
+                   options: NSKeyValueObservingOptionPrior
+                   context: NSPopUpButtonBindingObservationContext];
 
         [self addObserver: self
-               forKeyPath: @"cell.selectedItem"
-                  options: NSKeyValueObservingOptionPrior
-                  context: NSPopUpButtonBindingObservationContext];
+                forKeyPath: @"cell.selectedItem"
+                   options: NSKeyValueObservingOptionPrior
+                   context: NSPopUpButtonBindingObservationContext];
     }
     [super bind: binding
-           toObject: observable
-        withKeyPath: keyPath
-            options: options];
+               toObject: observable
+            withKeyPath: keyPath
+                options: options];
 }
 
 - (void) observeValueForKeyPath: (NSString *) keyPath
@@ -399,7 +399,7 @@ static NSString *const NSPopUpButtonBindingObservationContext =
     if (context == NSPopUpButtonBindingObservationContext) {
         if ([keyPath isEqualToString: @"cell.selectedItem"]) {
             if ([[change objectForKey: NSKeyValueChangeNotificationIsPriorKey]
-                    boolValue]) {
+                        boolValue]) {
                 [self willChangeValueForKey: @"selectedIndex"];
                 [self willChangeValueForKey: @"selectedValue"];
                 [self willChangeValueForKey: @"selectedObject"];
@@ -413,7 +413,7 @@ static NSString *const NSPopUpButtonBindingObservationContext =
             }
         } else {
             if ([[change objectForKey: NSKeyValueChangeNotificationIsPriorKey]
-                    boolValue]) {
+                        boolValue]) {
                 [self willChangeValueForKey: @"contentValues"];
             } else {
                 [self didChangeValueForKey: @"contentValues"];

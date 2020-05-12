@@ -126,26 +126,26 @@ typedef O2Float *(*O2ImageFunction_read_a32f)(O2Image *self, int x, int y,
 }
 
 - initWithWidth: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-        bitsPerPixel: (size_t) bitsPerPixel
-         bytesPerRow: (size_t) bytesPerRow
-          colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo
-             decoder: (O2ImageDecoder *) decoder
-            provider: (O2DataProvider *) provider
-              decode: (const O2Float *) decode
-         interpolate: (BOOL) interpolate
-     renderingIntent: (O2ColorRenderingIntent) renderingIntent;
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+            bitsPerPixel: (size_t) bitsPerPixel
+             bytesPerRow: (size_t) bytesPerRow
+              colorSpace: (O2ColorSpaceRef) colorSpace
+              bitmapInfo: (O2BitmapInfo) bitmapInfo
+                 decoder: (O2ImageDecoder *) decoder
+                provider: (O2DataProvider *) provider
+                  decode: (const O2Float *) decode
+             interpolate: (BOOL) interpolate
+         renderingIntent: (O2ColorRenderingIntent) renderingIntent;
 
 - initMaskWithWidth: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-        bitsPerPixel: (size_t) bitsPerPixel
-         bytesPerRow: (size_t) bytesPerRow
-            provider: (O2DataProvider *) provider
-              decode: (const O2Float *) decode
-         interpolate: (BOOL) interpolate;
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+            bitsPerPixel: (size_t) bitsPerPixel
+             bytesPerRow: (size_t) bytesPerRow
+                provider: (O2DataProvider *) provider
+                  decode: (const O2Float *) decode
+             interpolate: (BOOL) interpolate;
 
 - initWithJPEGDataProvider: (O2DataProvider *) jpegProvider
                     decode: (const O2Float *) decode
@@ -303,8 +303,8 @@ void O2ImagePointSampling_largb32f_PRE(O2Image *self, int x, int y,
                                        O2argb32f *span, int length,
                                        O2AffineTransform surfaceToImage);
 void O2ImageBilinearFloatTranslate_largb8u_PRE(
-    O2Image *self, int x, int y, O2argb8u *span, int length,
-    O2AffineTransform surfaceToImage);
+        O2Image *self, int x, int y, O2argb8u *span, int length,
+        O2AffineTransform surfaceToImage);
 void O2ImageIntegerTranslate_largb8u_PRE(O2Image *self, int x, int y,
                                          O2argb8u *span, int length,
                                          O2AffineTransform surfaceToImage);

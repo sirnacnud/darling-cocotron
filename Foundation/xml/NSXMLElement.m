@@ -209,8 +209,8 @@ static void appendStringWithCharacterEntities(NSMutableString *result,
         if (entity != nil) {
             if (i - location > 0) {
                 NSString *chunk =
-                    [[NSString alloc] initWithCharacters: buffer + location
-                                                  length: i - location];
+                        [[NSString alloc] initWithCharacters: buffer + location
+                                                      length: i - location];
                 [result appendString: chunk];
                 [chunk release];
             }
@@ -224,8 +224,8 @@ static void appendStringWithCharacterEntities(NSMutableString *result,
         [result appendString: string];
     else if (i - location > 0) {
         NSString *chunk =
-            [[NSString alloc] initWithCharacters: buffer + location
-                                          length: i - location];
+                [[NSString alloc] initWithCharacters: buffer + location
+                                              length: i - location];
         [result appendString: chunk];
         [chunk release];
     }

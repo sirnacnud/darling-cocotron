@@ -64,14 +64,14 @@ static void NSLogDefaultCStringFunction(const char *string, unsigned length,
                                         BOOL withSyslogBanner)
 {
     NSString *message =
-        [[NSString alloc] initWithBytes: string
-                                 length: length
-                               encoding: [NSString defaultCStringEncoding]];
+            [[NSString alloc] initWithBytes: string
+                                     length: length
+                                   encoding: [NSString defaultCStringEncoding]];
     if (withSyslogBanner) {
         NSString *date = [[NSDate date]
-            descriptionWithCalendarFormat: @"%Y-%m-%d %H:%M:%S.%F"
-                                 timeZone: [NSTimeZone systemTimeZone]
-                                   locale: nil];
+                descriptionWithCalendarFormat: @"%Y-%m-%d %H:%M:%S.%F"
+                                     timeZone: [NSTimeZone systemTimeZone]
+                                       locale: nil];
         NSString *process = [[NSProcessInfo processInfo] processName];
 
         NSLogFormat(@"%@ %@[%d:%lx] %@", date, process, NSPlatformProcessID(),
@@ -152,7 +152,7 @@ NSString *NSStringFromSelector(SEL selector) {
 
     const char *name = sel_getName(selector);
     return NSAutorelease(NSString_anyCStringNewWithBytes(
-        NSASCIIStringEncoding, NULL, name, strlen(name)));
+            NSASCIIStringEncoding, NULL, name, strlen(name)));
 }
 
 Class NSClassFromString(NSString *className) {
@@ -175,5 +175,5 @@ NSString *NSStringFromClass(Class class) {
 
     const char *name = class_getName(class);
     return NSAutorelease(NSString_anyCStringNewWithBytes(
-        NSASCIIStringEncoding, NULL, name, strlen(name)));
+            NSASCIIStringEncoding, NULL, name, strlen(name)));
 }

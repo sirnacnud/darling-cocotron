@@ -48,10 +48,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSView *view = [[[NSDragView alloc] initWithImage: image] autorelease];
 
         _window = [[NSPanel alloc]
-            initWithContentRect: NSMakeRect(0, 0, size.width, size.height)
-                      styleMask: NSBorderlessWindowMask
-                        backing: NSBackingStoreBuffered
-                          defer: NO];
+                initWithContentRect: NSMakeRect(0, 0, size.width, size.height)
+                          styleMask: NSBorderlessWindowMask
+                            backing: NSBackingStoreBuffered
+                              defer: NO];
         [_window setHasShadow: NO];
         [_window setOpaque: NO];
         [_window setBackgroundColor: [NSColor clearColor]];
@@ -96,7 +96,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #endif
 
     NSPoint point = [(Win32Window *) [_window platformWindow]
-        mouseLocationOutsideOfEventStream];
+            mouseLocationOutsideOfEventStream];
     point.x -= _offset.width;
     point.y -= _offset.height;
 
@@ -113,7 +113,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (HRESULT) GiveFeedback: (DWORD) dwEffect {
     NSPoint point = [(Win32Window *) [_window platformWindow]
-        mouseLocationOutsideOfEventStream];
+            mouseLocationOutsideOfEventStream];
     point.x -= _offset.width;
     point.y -= _offset.height;
 

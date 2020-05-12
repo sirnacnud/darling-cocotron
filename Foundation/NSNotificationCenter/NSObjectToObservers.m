@@ -29,8 +29,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - init {
     _objectToObservers =
-        NSCreateMapTableWithZone(NSNonOwnedPointerMapKeyCallBacks,
-                                 NSObjectMapValueCallBacks, 0, [self zone]);
+            NSCreateMapTableWithZone(NSNonOwnedPointerMapKeyCallBacks,
+                                     NSObjectMapValueCallBacks, 0, [self zone]);
     return self;
 }
 
@@ -105,28 +105,28 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSInteger count;
 
     if (object != nil) {
-        observers =
-            [NSArray arrayWithArray: (id) NSMapGet(_objectToObservers, object)];
+        observers = [NSArray
+                arrayWithArray: (id) NSMapGet(_objectToObservers, object)];
 
         count = [observers count];
         while (--count >= 0) {
             id observer = [observers objectAtIndex: count];
 
             if ([(NSArray *) NSMapGet(_objectToObservers, object)
-                    indexOfObjectIdenticalTo: observer] != NSNotFound)
+                        indexOfObjectIdenticalTo: observer] != NSNotFound)
                 [observer performSelector: _cmd withObject: note];
         }
     }
 
     observers = [NSArray
-        arrayWithArray: (id) NSMapGet(_objectToObservers, [NSNull null])];
+            arrayWithArray: (id) NSMapGet(_objectToObservers, [NSNull null])];
 
     count = [observers count];
     while (--count >= 0) {
         id observer = [observers objectAtIndex: count];
 
         if ([(NSArray *) NSMapGet(_objectToObservers, [NSNull null])
-                indexOfObjectIdenticalTo: observer] != NSNotFound)
+                    indexOfObjectIdenticalTo: observer] != NSNotFound)
             [observer performSelector: _cmd withObject: note];
     }
 }

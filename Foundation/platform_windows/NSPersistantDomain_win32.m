@@ -57,12 +57,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithName: (NSString *) name {
     // Allow software to specify a more meaningful registry group key
     NSString *company = [[NSBundle mainBundle]
-        objectForInfoDictionaryKey: @"Win32RegistryCompanyIdentifier"];
+            objectForInfoDictionaryKey: @"Win32RegistryCompanyIdentifier"];
     if (company == nil) {
         company = @"Cocotron";
     }
-    _path =
-        [[NSArray arrayWithObjects: @"Software", company, name, nil] retain];
+    _path = [[NSArray arrayWithObjects: @"Software", company, name, nil]
+            retain];
     _handle = [self rootHandle];
     _cache = [NSMutableDictionary new];
     return self;
@@ -118,8 +118,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         // NSLog(@"-[%@ %s] %@ %@",[self class],sel_getName(_cmd),_path,key);
 
-        error =
-            RegQueryValueExA(_handle, keyCString, NULL, &type, NULL, &length);
+        error = RegQueryValueExA(_handle, keyCString, NULL, &type, NULL,
+                                 &length);
         if (error != ERROR_SUCCESS) {
             // NSLog(@"RegQueryValueEx failed %@ %@",_path,key);
             return nil;
@@ -127,8 +127,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         buffer = NSZoneMalloc(NULL, length);
 
-        error =
-            RegQueryValueExA(_handle, keyCString, NULL, &type, buffer, &length);
+        error = RegQueryValueExA(_handle, keyCString, NULL, &type, buffer,
+                                 &length);
         if (error != ERROR_SUCCESS) {
             return nil;
         }
@@ -142,15 +142,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSString *errorDescription = nil;
 
         result = [NSPropertyListSerialization
-            propertyListFromData: data
-                mutabilityOption: NSPropertyListImmutable
-                          format: &format
-                errorDescription: &errorDescription];
+                propertyListFromData: data
+                    mutabilityOption: NSPropertyListImmutable
+                              format: &format
+                    errorDescription: &errorDescription];
         NS_HANDLER
         result = nil;
         NS_ENDHANDLER
 
-            [_cache setObject: result forKey: key];
+                [_cache setObject: result forKey: key];
     }
 
     return result;
@@ -160,9 +160,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     LONG error;
     NSString *errorDescription = nil;
     NSData *data = [NSPropertyListSerialization
-        dataFromPropertyList: object
-                      format: NSPropertyListXMLFormat_v1_0
-            errorDescription: &errorDescription];
+            dataFromPropertyList: object
+                          format: NSPropertyListXMLFormat_v1_0
+                errorDescription: &errorDescription];
 
     [_cache removeObjectForKey: key];
 

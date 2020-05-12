@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSRaise.h>
 
 NSString *const NSColorListDidChangeNotification =
-    @"NSColorListDidChangeNotification";
+        @"NSColorListDidChangeNotification";
 
 @implementation NSColorList
 
@@ -175,11 +175,11 @@ static NSMutableDictionary *_namedColorLists = nil;
                         {nil, 0x0}};
 
     NSColorList *basicColorList =
-        [[[NSColorList alloc] initWithName: @"Basic"] autorelease];
+            [[[NSColorList alloc] initWithName: @"Basic"] autorelease];
     NSColorList *systemColorList =
-        [[[NSColorList alloc] initWithName: @"System"] autorelease];
+            [[[NSColorList alloc] initWithName: @"System"] autorelease];
     NSColorList *webColorList =
-        [[[NSColorList alloc] initWithName: @"Web"] autorelease];
+            [[[NSColorList alloc] initWithName: @"Web"] autorelease];
     int i;
 
     for (i = 0; webColors[i].name != nil; i++) {
@@ -356,8 +356,8 @@ static NSMutableDictionary *_namedColorLists = nil;
     }
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSColorListDidChangeNotification
-                      object: self];
+            postNotificationName: NSColorListDidChangeNotification
+                          object: self];
 }
 
 - (void) removeColorWithKey: (NSString *) key {
@@ -368,8 +368,8 @@ static NSMutableDictionary *_namedColorLists = nil;
         [_keys removeObjectAtIndex: index];
 
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSColorListDidChangeNotification
-                          object: self];
+                postNotificationName: NSColorListDidChangeNotification
+                              object: self];
     }
 }
 
@@ -381,8 +381,8 @@ static NSMutableDictionary *_namedColorLists = nil;
     [_keys insertObject: key atIndex: index];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSColorListDidChangeNotification
-                      object: self];
+            postNotificationName: NSColorListDidChangeNotification
+                          object: self];
 }
 
 - (void) writeToFile: (NSString *) path {

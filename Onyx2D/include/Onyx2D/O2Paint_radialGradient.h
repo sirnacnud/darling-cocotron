@@ -33,6 +33,6 @@
 }
 
 - initWithShading: (O2Shading *) shading
-    deviceTransform: (O2AffineTransform) deviceTransform;
+        deviceTransform: (O2AffineTransform) deviceTransform;
 
 @end

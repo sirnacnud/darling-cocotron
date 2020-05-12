@@ -84,17 +84,17 @@ NSString *const NSViewAnimationFadeOutEffect = @"NSViewAnimationFadeOutEffect";
             NSRect currentRect;
 
             currentRect.origin.x =
-                startRect.origin.x +
-                (endRect.origin.x - startRect.origin.x) * progress;
+                    startRect.origin.x +
+                    (endRect.origin.x - startRect.origin.x) * progress;
             currentRect.origin.y =
-                startRect.origin.y +
-                (endRect.origin.y - startRect.origin.y) * progress;
+                    startRect.origin.y +
+                    (endRect.origin.y - startRect.origin.y) * progress;
             currentRect.size.width =
-                startRect.size.width +
-                (endRect.size.width - startRect.size.width) * progress;
+                    startRect.size.width +
+                    (endRect.size.width - startRect.size.width) * progress;
             currentRect.size.height =
-                startRect.size.height +
-                (endRect.size.height - startRect.size.height) * progress;
+                    startRect.size.height +
+                    (endRect.size.height - startRect.size.height) * progress;
 
             if ([target isKindOfClass: [NSView class]])
                 [target setFrame: currentRect];

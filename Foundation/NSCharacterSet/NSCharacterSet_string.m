@@ -62,7 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [[[NSCharacterSet_string alloc] initWithCharacters: _buffer
                                                        length: _length
                                                      inverted: !_inverted]
-        autorelease];
+            autorelease];
 }
 
 @end

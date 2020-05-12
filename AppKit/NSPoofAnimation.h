@@ -11,9 +11,9 @@
 @interface NSPoofAnimation : NSObject
 
 + (void) poofAtLocation: (NSPoint) location
-                   size: (NSSize) size
-      animationDelegate: (id) animationDelegate
-         didEndSelector: (SEL) didEndSelector
-            contextInfo: (void *) contextInfo;
+                     size: (NSSize) size
+        animationDelegate: (id) animationDelegate
+           didEndSelector: (SEL) didEndSelector
+              contextInfo: (void *) contextInfo;
 
 @end

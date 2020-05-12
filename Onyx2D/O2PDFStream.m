@@ -40,8 +40,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _data = nil;
 
     // FIX, can do a more efficient subdata here
-    _data =
-        [[[xref data] subdataWithRange: NSMakeRange(position, length)] retain];
+    _data = [[[xref data] subdataWithRange: NSMakeRange(position, length)]
+            retain];
     _xref = [xref retain];
     return self;
 }

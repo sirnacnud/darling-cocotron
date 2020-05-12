@@ -180,13 +180,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + arrayWithContentsOfFile: (NSString *) path {
-    return
-        [[[self allocWithZone: NULL] initWithContentsOfFile: path] autorelease];
+    return [[[self allocWithZone: NULL] initWithContentsOfFile: path]
+            autorelease];
 }
 
 + arrayWithContentsOfURL: (NSURL *) url {
-    return
-        [[[self allocWithZone: NULL] initWithContentsOfURL: url] autorelease];
+    return [[[self allocWithZone: NULL] initWithContentsOfURL: url]
+            autorelease];
 }
 
 + arrayWithObject: object {
@@ -545,11 +545,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @end
 
 void objc_enumerationMutation(id collection) {
-    [NSException
-         raise: NSInternalInconsistencyException
-        format: @"Collection %p of class %@ was mutated during enumeration. "
-                @"Break on objc_enumerationMutation to debug.",
-                collection, [collection className]];
+    [NSException raise: NSInternalInconsistencyException
+                format: @"Collection %p of class %@ was mutated during "
+                        @"enumeration. "
+                        @"Break on objc_enumerationMutation to debug.",
+                        collection, [collection className]];
 }
 
 #import <Foundation/NSCFTypeID.h>

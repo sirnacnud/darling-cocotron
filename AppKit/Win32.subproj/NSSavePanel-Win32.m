@@ -54,10 +54,10 @@ static unsigned *saveFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
 
                     if ([type length] > 0 &&
                         [type isEqualToString: extension]) {
-                        int result = NSRunAlertPanel(
-                            nil,
-                            @"%@ already exists. Do you want to replace it?",
-                            @"Yes", @"No", nil, file);
+                        int result = NSRunAlertPanel(nil,
+                                                     @"%@ already exists. Do "
+                                                     @"you want to replace it?",
+                                                     @"Yes", @"No", nil, file);
 
                         if (result == NSAlertDefaultReturn) {
                             notify->lpOFN->lCustData = 0xFFFFFFFF;
@@ -82,17 +82,17 @@ static unsigned *saveFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
     @synchronized(self) {
         unichar filename[1025] = L"";
         NSString *ext = (_requiredFileType && [_requiredFileType length] > 0)
-                            ? _requiredFileType
-                            : (NSString *) @"*";
+                                ? _requiredFileType
+                                : (NSString *) @"*";
         NSString *first = [[[NSString alloc]
-            initWithFormat: @"Document (*.%@)", ext] autorelease];
+                initWithFormat: @"Document (*.%@)", ext] autorelease];
         NSString *second =
-            [[[NSString alloc] initWithFormat: @"*.%@", ext] autorelease];
+                [[[NSString alloc] initWithFormat: @"*.%@", ext] autorelease];
         size_t firstLength = [first cStringLength];
         size_t secondLength = [second cStringLength];
         size_t fileTypesLength = (firstLength + secondLength + 3);
         unichar *fileTypes =
-            (unichar *) alloca(sizeof(unichar) * fileTypesLength);
+                (unichar *) alloca(sizeof(unichar) * fileTypesLength);
 
         fileTypes[firstLength] = 0;
         fileTypes[fileTypesLength - 2] = 0;
@@ -101,8 +101,8 @@ static unsigned *saveFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
         wcscpy(fileTypes + firstLength + 1, [second fileSystemRepresentationW]);
 
         openFileName.lStructSize = sizeof(OPENFILENAMEW);
-        openFileName.hwndOwner =
-            [(Win32Window *) [[NSApp keyWindow] platformWindow] windowHandle];
+        openFileName.hwndOwner = [(Win32Window *) [[NSApp keyWindow]
+                platformWindow] windowHandle];
         openFileName.hInstance = NULL;
         openFileName.lpstrFilter = fileTypes;
         openFileName.lpstrCustomFilter = NULL;
@@ -115,7 +115,7 @@ static unsigned *saveFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
         openFileName.nMaxFileTitle = 0;
         openFileName.lpstrInitialDir = [_directory fileSystemRepresentationW];
         openFileName.lpstrTitle = (const unichar *) [_dialogTitle
-            cStringUsingEncoding: NSUnicodeStringEncoding];
+                cStringUsingEncoding: NSUnicodeStringEncoding];
         openFileName.Flags = OFN_CREATEPROMPT | OFN_NOTESTFILECREATE |
                              OFN_EXPLORER | OFN_HIDEREADONLY |
                              OFN_OVERWRITEPROMPT | OFN_ENABLEHOOK |
@@ -124,7 +124,7 @@ static unsigned *saveFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
         openFileName.nFileExtension = 0;
         if ([_requiredFileType length] > 0) {
             openFileName.lpstrDefExt = (const unichar *) [_requiredFileType
-                cStringUsingEncoding: NSUnicodeStringEncoding];
+                    cStringUsingEncoding: NSUnicodeStringEncoding];
         } else {
             openFileName.lpstrDefExt = NULL;
         }
@@ -144,12 +144,12 @@ static unsigned *saveFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
 
         [_filename release];
         _filename = [[NSString
-            stringWithCharacters: openFileName.lpstrFile
-                          length: wcslen(openFileName.lpstrFile)] copy];
+                stringWithCharacters: openFileName.lpstrFile
+                              length: wcslen(openFileName.lpstrFile)] copy];
         if (![[_filename pathExtension] isEqualToString: _requiredFileType]) {
             [_filename autorelease];
             _filename = [[_filename
-                stringByAppendingPathExtension: _requiredFileType] copy];
+                    stringByAppendingPathExtension: _requiredFileType] copy];
         }
     }
 

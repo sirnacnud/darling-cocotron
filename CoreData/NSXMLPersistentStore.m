@@ -26,15 +26,15 @@
                                                  options: 0
                                                    error: error];
     NSInteger options =
-        NSXMLNodePreserveCharacterReferences | NSXMLNodePreserveWhitespace;
+            NSXMLNodePreserveCharacterReferences | NSXMLNodePreserveWhitespace;
 
     if ([data length] == 0)
         return nil;
 
     NSXMLDocument *xml =
-        [[[NSXMLDocument alloc] initWithContentsOfURL: url
-                                              options: options
-                                                error: error] autorelease];
+            [[[NSXMLDocument alloc] initWithContentsOfURL: url
+                                                  options: options
+                                                    error: error] autorelease];
 
     if (xml == nil)
         return nil;
@@ -42,12 +42,12 @@
     NSXMLElement *database = [[xml nodesForXPath: @"database"
                                            error: nil] lastObject];
     NSXMLElement *databaseInfo =
-        [[database elementsForName: @"databaseInfo"] lastObject];
+            [[database elementsForName: @"databaseInfo"] lastObject];
     NSXMLElement *uuid = [[databaseInfo elementsForName: @"UUID"] lastObject];
 
     return [NSDictionary
-        dictionaryWithObjectsAndKeys: [uuid stringValue], NSStoreUUIDKey,
-                                      NSXMLStoreType, NSStoreTypeKey, nil];
+            dictionaryWithObjectsAndKeys: [uuid stringValue], NSStoreUUIDKey,
+                                          NSXMLStoreType, NSStoreTypeKey, nil];
 }
 
 - (NSString *) type {
@@ -59,8 +59,8 @@
 }
 
 - (NSXMLElement *) databaseInfoElement {
-    return
-        [[[self databaseElement] elementsForName: @"databaseInfo"] lastObject];
+    return [[[self databaseElement] elementsForName: @"databaseInfo"]
+            lastObject];
 }
 
 - (NSXMLElement *) metadataElement {
@@ -73,11 +73,11 @@
 
 - (NSXMLElement *) nextObjectIDElement {
     return [[[self databaseInfoElement] elementsForName: @"nextObjectID"]
-        lastObject];
+            lastObject];
 }
 
 - initWithPersistentStoreCoordinator:
-      (NSPersistentStoreCoordinator *) coordinator
+          (NSPersistentStoreCoordinator *) coordinator
                    configurationName: (NSString *) configurationName
                                  URL: (NSURL *) url
                              options: (NSDictionary *) options
@@ -92,7 +92,7 @@
                                                  options: 0
                                                    error: NULL];
     NSInteger xmlOptions =
-        NSXMLNodePreserveCharacterReferences | NSXMLNodePreserveWhitespace;
+            NSXMLNodePreserveCharacterReferences | NSXMLNodePreserveWhitespace;
 
     // A valid load can be from a non-existent file or a zero file, zero length
     // checks for both
@@ -109,19 +109,20 @@
                                                 options: xmlOptions];
 
         NSXMLElement *database =
-            [[NSXMLElement alloc] initWithName: @"database"];
+                [[NSXMLElement alloc] initWithName: @"database"];
         NSXMLElement *databaseInfo =
-            [[NSXMLElement alloc] initWithName: @"databaseInfo"];
+                [[NSXMLElement alloc] initWithName: @"databaseInfo"];
         NSXMLElement *versionElement =
-            [[NSXMLElement alloc] initWithName: @"version" stringValue: @"1"];
+                [[NSXMLElement alloc] initWithName: @"version"
+                                       stringValue: @"1"];
         NSXMLElement *uuidElement =
-            [[NSXMLElement alloc] initWithName: @"UUID"
-                                   stringValue: [self identifier]];
+                [[NSXMLElement alloc] initWithName: @"UUID"
+                                       stringValue: [self identifier]];
         NSXMLElement *nextObjectID =
-            [[NSXMLElement alloc] initWithName: @"nextObjectID"
-                                   stringValue: @"1"];
+                [[NSXMLElement alloc] initWithName: @"nextObjectID"
+                                       stringValue: @"1"];
         NSXMLElement *metadata =
-            [[NSXMLElement alloc] initWithName: @"metadata"];
+                [[NSXMLElement alloc] initWithName: @"metadata"];
 
         [_document addChild: database];
         [database addChild: databaseInfo];
@@ -140,10 +141,11 @@
 
     [super setIdentifier: [[self identifierElement] stringValue]];
     [self setMetadata: [NSDictionary
-                           dictionaryWithObjectsAndKeys: [self identifier],
-                                                         NSStoreUUIDKey,
-                                                         [self type],
-                                                         NSStoreTypeKey, nil]];
+                               dictionaryWithObjectsAndKeys: [self identifier],
+                                                             NSStoreUUIDKey,
+                                                             [self type],
+                                                             NSStoreTypeKey,
+                                                             nil]];
 
     _referenceToCacheNode = [[NSMutableDictionary alloc] init];
     _referenceToElement = [[NSMutableDictionary alloc] init];
@@ -169,7 +171,7 @@
                                 referenceObject: reference
 {
     NSAtomicStoreCacheNode *result =
-        [_referenceToCacheNode objectForKey: reference];
+            [_referenceToCacheNode objectForKey: reference];
 
     if (result == nil) {
         NSManagedObjectID *objectID = [self objectIDForEntity: entity
@@ -189,15 +191,15 @@
                                          model: (NSManagedObjectModel *) model
 {
     NSString *entityName =
-        [[entityElement attributeForName: @"type"] stringValue];
+            [[entityElement attributeForName: @"type"] stringValue];
     NSString *entityReference =
-        [[entityElement attributeForName: @"id"] stringValue];
+            [[entityElement attributeForName: @"id"] stringValue];
     NSArray *attributeElements = [entityElement elementsForName: @"attribute"];
     NSArray *relationshipElements =
-        [entityElement elementsForName: @"relationship"];
+            [entityElement elementsForName: @"relationship"];
 
     NSEntityDescription *entity =
-        [[model entitiesByName] objectForKey: entityName];
+            [[model entitiesByName] objectForKey: entityName];
 
     if (entity == nil) {
         NSLog(@"Unable to find entity %@ in model", entityName);
@@ -207,14 +209,14 @@
     [_referenceToElement setObject: entityElement forKey: entityReference];
 
     NSAtomicStoreCacheNode *cacheNode =
-        [self cacheNodeForEntity: entity referenceObject: entityReference];
+            [self cacheNodeForEntity: entity referenceObject: entityReference];
 
     NSDictionary *attributesByName = [entity attributesByName];
 
     for (NSXMLElement *attribute in attributeElements) {
         NSString *name = [[attribute attributeForName: @"name"] stringValue];
         NSAttributeDescription *description =
-            [attributesByName objectForKey: name];
+                [attributesByName objectForKey: name];
 
         if (description == nil) {
             NSLog(@"Unable to find attribute named %@ for entity named %@",
@@ -234,30 +236,30 @@
 
         case NSInteger16AttributeType:
             objectValue =
-                [NSNumber numberWithInteger: [stringValue integerValue]];
+                    [NSNumber numberWithInteger: [stringValue integerValue]];
             break;
 
         case NSInteger32AttributeType:
             objectValue =
-                [NSNumber numberWithInteger: [stringValue integerValue]];
+                    [NSNumber numberWithInteger: [stringValue integerValue]];
             break;
 
         case NSInteger64AttributeType:
             objectValue =
-                [NSNumber numberWithInteger: [stringValue integerValue]];
+                    [NSNumber numberWithInteger: [stringValue integerValue]];
             break;
 
         case NSDecimalAttributeType:
             // decimal types not supported right now, use double
             objectValue =
-                [NSNumber numberWithDouble: [stringValue doubleValue]];
+                    [NSNumber numberWithDouble: [stringValue doubleValue]];
             //      objectValue=[NSDecimalNumber
             //      decimalNumberWithString:stringValue];
             break;
 
         case NSDoubleAttributeType:
             objectValue =
-                [NSNumber numberWithDouble: [stringValue doubleValue]];
+                    [NSNumber numberWithDouble: [stringValue doubleValue]];
             break;
 
         case NSFloatAttributeType:
@@ -297,7 +299,7 @@
     for (NSXMLElement *relationship in relationshipElements) {
         NSString *name = [[relationship attributeForName: @"name"] stringValue];
         NSRelationshipDescription *description =
-            [relationshipsByName objectForKey: name];
+                [relationshipsByName objectForKey: name];
 
         if (description == nil) {
             NSLog(@"No description for relationship name %@ in %@", name,
@@ -306,21 +308,22 @@
         }
 
         NSString *destinationEntityName =
-            [[relationship attributeForName: @"destination"] stringValue];
+                [[relationship attributeForName: @"destination"] stringValue];
         NSEntityDescription *destinationEntity =
-            [[model entitiesByName] objectForKey: destinationEntityName];
+                [[model entitiesByName] objectForKey: destinationEntityName];
         NSString *type = [[relationship attributeForName: @"type"] stringValue];
         NSString *idrefsString =
-            [[relationship attributeForName: @"idrefs"] stringValue];
-        NSArray *idrefs = [idrefsString length]
-                              ? [idrefsString componentsSeparatedByString: @" "]
-                              : nil;
+                [[relationship attributeForName: @"idrefs"] stringValue];
+        NSArray *idrefs =
+                [idrefsString length]
+                        ? [idrefsString componentsSeparatedByString: @" "]
+                        : nil;
         id objectValue = [NSMutableSet set];
 
         for (NSString *ref in idrefs) {
             NSAtomicStoreCacheNode *cacheNode =
-                [self cacheNodeForEntity: destinationEntity
-                         referenceObject: ref];
+                    [self cacheNodeForEntity: destinationEntity
+                             referenceObject: ref];
 
             [objectValue addObject: cacheNode];
         }
@@ -345,7 +348,7 @@
 - (BOOL) load: (NSError **) errorp {
 
     NSManagedObjectModel *model =
-        [[self persistentStoreCoordinator] managedObjectModel];
+            [[self persistentStoreCoordinator] managedObjectModel];
 
     NSXMLElement *database = [self databaseElement];
     NSArray *objects = [database elementsForName: @"object"];
@@ -380,19 +383,19 @@
 }
 
 - (void) updateCacheNode: (NSAtomicStoreCacheNode *) node
-       fromManagedObject: (NSManagedObject *) managedObject
+        fromManagedObject: (NSManagedObject *) managedObject
 {
     NSXMLElement *entityElement =
-        [self entityElementForObjectID: [managedObject objectID]];
+            [self entityElementForObjectID: [managedObject objectID]];
     NSDictionary *attributesByName = [[managedObject entity] attributesByName];
     NSArray *attributeKeys = [attributesByName allKeys];
     NSMutableArray *children = [NSMutableArray array];
 
     for (NSString *attributeName in attributeKeys) {
         NSAttributeDescription *attributeDescription =
-            [attributesByName objectForKey: attributeName];
+                [attributesByName objectForKey: attributeName];
         NSXMLElement *attributeElement =
-            [NSXMLNode elementWithName: @"attribute"];
+                [NSXMLNode elementWithName: @"attribute"];
         id value = [managedObject primitiveValueForKey: attributeName];
         NSString *type = nil;
         NSString *stringValue = nil;
@@ -459,8 +462,8 @@
 
         [attributeElement setStringValue: stringValue];
         [attributeElement
-            addAttribute: [NSXMLNode attributeWithName: @"name"
-                                           stringValue: attributeName]];
+                addAttribute: [NSXMLNode attributeWithName: @"name"
+                                               stringValue: attributeName]];
         [attributeElement addAttribute: [NSXMLNode attributeWithName: @"type"
                                                          stringValue: type]];
 
@@ -470,19 +473,19 @@
     }
 
     NSDictionary *relationshipsByName =
-        [[managedObject entity] relationshipsByName];
+            [[managedObject entity] relationshipsByName];
     NSArray *relationshipKeys = [relationshipsByName allKeys];
 
     for (NSString *relationshipName in relationshipKeys) {
         NSRelationshipDescription *relationshipDescription =
-            [relationshipsByName objectForKey: relationshipName];
+                [relationshipsByName objectForKey: relationshipName];
         NSXMLElement *relationshipElement =
-            [NSXMLNode elementWithName: @"relationship"];
+                [NSXMLNode elementWithName: @"relationship"];
         NSString *relationshipType = [NSString
-            stringWithFormat: @"%d/%d", [relationshipDescription minCount],
-                              [relationshipDescription maxCount]];
+                stringWithFormat: @"%d/%d", [relationshipDescription minCount],
+                                  [relationshipDescription maxCount]];
         NSEntityDescription *destinationEntity =
-            [relationshipDescription destinationEntity];
+                [relationshipDescription destinationEntity];
         id value = [managedObject primitiveValueForKey: relationshipName];
         NSSet *valueSet;
         NSMutableSet *cacheNodeSet = [NSMutableSet set];
@@ -498,15 +501,15 @@
         }
 
         [relationshipElement
-            addAttribute: [NSXMLNode attributeWithName: @"name"
-                                           stringValue: relationshipName]];
+                addAttribute: [NSXMLNode attributeWithName: @"name"
+                                               stringValue: relationshipName]];
         [relationshipElement
-            addAttribute: [NSXMLNode attributeWithName: @"type"
-                                           stringValue: relationshipType]];
+                addAttribute: [NSXMLNode attributeWithName: @"type"
+                                               stringValue: relationshipType]];
         [relationshipElement
-            addAttribute: [NSXMLNode
-                              attributeWithName: @"destination"
-                                    stringValue: [destinationEntity name]]];
+                addAttribute: [NSXMLNode attributeWithName: @"destination"
+                                               stringValue: [destinationEntity
+                                                                    name]]];
 
         NSMutableArray *idrefArray = [NSMutableArray array];
 
@@ -516,18 +519,20 @@
             [idrefArray addObject: referenceObject];
 
             NSAtomicStoreCacheNode *relNode =
-                [self cacheNodeForEntity: destinationEntity
-                         referenceObject: referenceObject];
+                    [self cacheNodeForEntity: destinationEntity
+                             referenceObject: referenceObject];
 
             [cacheNodeSet addObject: relNode];
         }
 
         [relationshipElement
-            addAttribute:
-                [NSXMLNode
-                    attributeWithName: @"idrefs"
-                          stringValue: [idrefArray
-                                           componentsJoinedByString: @" "]]];
+                addAttribute:
+                        [NSXMLNode
+                                attributeWithName: @"idrefs"
+                                      stringValue:
+                                              [idrefArray
+                                                      componentsJoinedByString:
+                                                              @" "]]];
 
         [children addObject: relationshipElement];
 
@@ -535,9 +540,9 @@
             [node setValue: cacheNodeSet forKey: relationshipName];
         } else {
             if ([cacheNodeSet count] > 1) {
-                NSLog(
-                    @"relationship is one to one, yet cacheNodeSet count is %d",
-                    [cacheNodeSet count]);
+                NSLog(@"relationship is one to one, yet cacheNodeSet count is "
+                      @"%d",
+                      [cacheNodeSet count]);
                 continue;
             }
 
@@ -553,16 +558,16 @@
 }
 
 - (NSAtomicStoreCacheNode *) newCacheNodeForManagedObject:
-    (NSManagedObject *) managedObject
+        (NSManagedObject *) managedObject
 {
     NSEntityDescription *entity = [managedObject entity];
     NSManagedObjectID *objectID = [managedObject objectID];
     id reference = [self referenceObjectForObjectID: objectID];
     NSAtomicStoreCacheNode *cacheNode =
-        [[NSAtomicStoreCacheNode alloc] initWithObjectID: objectID];
+            [[NSAtomicStoreCacheNode alloc] initWithObjectID: objectID];
 
     NSXMLElement *entityElement =
-        [[NSXMLElement alloc] initWithName: @"object"];
+            [[NSXMLElement alloc] initWithName: @"object"];
     NSXMLNode *nameAttribute = [NSXMLNode attributeWithName: @"type"
                                                 stringValue: [entity name]];
     NSXMLNode *idAttribute = [NSXMLNode attributeWithName: @"id"
@@ -602,7 +607,8 @@
     [check release];
 
     [nextObjectIDElement
-        setStringValue: [NSString stringWithFormat: @"%d", nextInteger + 1]];
+            setStringValue: [NSString
+                                    stringWithFormat: @"%d", nextInteger + 1]];
 
     return [[NSString alloc] initWithFormat: @"r%d", nextInteger];
 }
@@ -616,7 +622,7 @@
         NSXMLElement *entityElement = [self entityElementForObjectID: objectID];
         id entityReference = [self referenceObjectForObjectID: objectID];
         NSInteger index =
-            [[database children] indexOfObjectIdenticalTo: entityElement];
+                [[database children] indexOfObjectIdenticalTo: entityElement];
 
         if (index == NSNotFound)
             NSLog(@"unable to remove object %@ from database - not found",
@@ -632,7 +638,7 @@
 }
 
 - (void) willRemoveFromPersistentStoreCoordinator:
-    (NSPersistentStoreCoordinator *) coordinator
+        (NSPersistentStoreCoordinator *) coordinator
 {
     [_document release];
     _document = nil;

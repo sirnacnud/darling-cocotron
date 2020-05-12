@@ -29,11 +29,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithSurface: (O2Surface *) surface flipped: (BOOL) flipped {
     O2AffineTransform flip =
-        flipped
-            ? O2AffineTransformIdentity
-            : O2AffineTransformMake(1, 0, 0, -1, 0, O2ImageGetHeight(surface));
+            flipped ? O2AffineTransformIdentity
+                    : O2AffineTransformMake(1, 0, 0, -1, 0,
+                                            O2ImageGetHeight(surface));
     O2GState *initialState =
-        [[[O2GState alloc] initWithDeviceTransform: flip] autorelease];
+            [[[O2GState alloc] initWithDeviceTransform: flip] autorelease];
 
     [super initWithGraphicsState: initialState];
     _surface = [surface retain];
@@ -45,23 +45,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithBytes: (void *) bytes
-               width: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-         bytesPerRow: (size_t) bytesPerRow
-          colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo
-     releaseCallback: (O2BitmapContextReleaseDataCallback) releaseCallback
-         releaseInfo: (void *) releaseInfo
+                   width: (size_t) width
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+             bytesPerRow: (size_t) bytesPerRow
+              colorSpace: (O2ColorSpaceRef) colorSpace
+              bitmapInfo: (O2BitmapInfo) bitmapInfo
+         releaseCallback: (O2BitmapContextReleaseDataCallback) releaseCallback
+             releaseInfo: (void *) releaseInfo
 {
     O2Surface *surface =
-        [[[self surfaceClass] alloc] initWithBytes: bytes
-                                             width: width
-                                            height: height
-                                  bitsPerComponent: bitsPerComponent
-                                       bytesPerRow: bytesPerRow
-                                        colorSpace: colorSpace
-                                        bitmapInfo: bitmapInfo];
+            [[[self surfaceClass] alloc] initWithBytes: bytes
+                                                 width: width
+                                                height: height
+                                      bitsPerComponent: bitsPerComponent
+                                           bytesPerRow: bytesPerRow
+                                            colorSpace: colorSpace
+                                            bitmapInfo: bitmapInfo];
 
     [self initWithSurface: surface flipped: NO];
     [surface release];
@@ -78,9 +78,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 O2ContextRef O2BitmapContextCreateWithData(
-    void *data, size_t width, size_t height, size_t bitsPerComponent,
-    size_t bytesPerRow, O2ColorSpaceRef colorSpace, O2BitmapInfo bitmapInfo,
-    O2BitmapContextReleaseDataCallback releaseCallback, void *releaseInfo)
+        void *data, size_t width, size_t height, size_t bitsPerComponent,
+        size_t bytesPerRow, O2ColorSpaceRef colorSpace, O2BitmapInfo bitmapInfo,
+        O2BitmapContextReleaseDataCallback releaseCallback, void *releaseInfo)
 {
     return [O2Context createWithBytes: data
                                 width: width
@@ -128,9 +128,9 @@ size_t O2BitmapContextGetBitsPerComponent(O2ContextRef selfX) {
 }
 
 size_t O2BitmapContextGetBitsPerPixel(O2ContextRef self) {
-    size_t result =
-        O2BitmapContextGetBitsPerComponent(self) *
-        O2ColorSpaceGetNumberOfComponents(O2BitmapContextGetColorSpace(self));
+    size_t result = O2BitmapContextGetBitsPerComponent(self) *
+                    O2ColorSpaceGetNumberOfComponents(
+                            O2BitmapContextGetColorSpace(self));
 
     switch (O2BitmapContextGetAlphaInfo(self)) {
 

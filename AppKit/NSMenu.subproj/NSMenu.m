@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSKeyedArchiver.h>
 
 const NSNotificationName NSMenuDidEndTrackingNotification =
-    @"NSMenuDidEndTrackingNotification";
+        @"NSMenuDidEndTrackingNotification";
 
 @implementation NSMenu
 
@@ -76,7 +76,7 @@ const NSNotificationName NSMenuDidEndTrackingNotification =
         _name = [[keyed decodeObjectForKey: @"NSName"] copy];
 
         _itemArray = [[NSMutableArray alloc]
-            initWithArray: [keyed decodeObjectForKey: @"NSMenuItems"]];
+                initWithArray: [keyed decodeObjectForKey: @"NSMenuItems"]];
         _autoenablesItems = ![keyed decodeBoolForKey: @"NSNoAutoenable"];
     } else {
         NSInteger version;
@@ -132,8 +132,8 @@ const NSNotificationName NSMenuDidEndTrackingNotification =
 
             [coder decodeValueOfObjCType: @encode(int) at: &flags];
 
-            [coder
-                decodeValuesOfObjCTypes: "@@@", &_title, &_itemArray, &_name];
+            [coder decodeValuesOfObjCTypes: "@@@", &_title, &_itemArray,
+                                            &_name];
 
             _autoenablesItems = !(flags & 0x80000000);
             // _excludeMarkColumn = flags & 0x80000;
@@ -263,7 +263,7 @@ const NSNotificationName NSMenuDidEndTrackingNotification =
 
     for (i = 0; i < count; i++)
         if ([[(NSMenuItem *) [_itemArray objectAtIndex: i] representedObject]
-                isEqual: object])
+                    isEqual: object])
             return i;
 
     return -1;
@@ -321,9 +321,9 @@ const NSNotificationName NSMenuDidEndTrackingNotification =
                     keyEquivalent: (NSString *) keyEquivalent
 {
     NSMenuItem *item =
-        [[[NSMenuItem alloc] initWithTitle: title
-                                    action: action
-                             keyEquivalent: keyEquivalent] autorelease];
+            [[[NSMenuItem alloc] initWithTitle: title
+                                        action: action
+                                 keyEquivalent: keyEquivalent] autorelease];
 
     [self addItem: item];
 
@@ -355,9 +355,9 @@ const NSNotificationName NSMenuDidEndTrackingNotification =
                              atIndex: (NSInteger) index
 {
     NSMenuItem *item =
-        [[[NSMenuItem alloc] initWithTitle: title
-                                    action: action
-                             keyEquivalent: keyEquivalent] autorelease];
+            [[[NSMenuItem alloc] initWithTitle: title
+                                        action: action
+                                 keyEquivalent: keyEquivalent] autorelease];
 
     [self insertItem: item atIndex: index];
 
@@ -382,9 +382,9 @@ BOOL itemIsEnabled(NSMenuItem *item) {
             enabled = NO;
         } else if ([target respondsToSelector: @selector(validateMenuItem:)]) {
             enabled = [target validateMenuItem: item];
-        } else if ([target
-                       respondsToSelector: @selector
-                       (validateUserInterfaceItem:)]) { // New validation scheme
+        } else if ([target respondsToSelector: @selector
+                           (validateUserInterfaceItem:)]) { // New validation
+                                                            // scheme
             enabled = [target validateUserInterfaceItem: item];
         } else {
             enabled = YES;
@@ -477,8 +477,8 @@ BOOL itemIsEnabled(NSMenuItem *item) {
         NSInteger i, count = [_itemArray count];
 
         for (i = 0; i < count; i++) {
-            NSMenu *check =
-                [[[_itemArray objectAtIndex: i] submenu] _menuWithName: name];
+            NSMenu *check = [[[_itemArray objectAtIndex: i] submenu]
+                    _menuWithName: name];
 
             if (check != nil)
                 return check;

@@ -47,38 +47,38 @@ const NSRunLoopMode NSModalPanelRunLoopMode = @"NSModalPanelRunLoopMode";
 const NSRunLoopMode NSEventTrackingRunLoopMode = @"NSEventTrackingRunLoopMode";
 
 const NSNotificationName NSApplicationWillFinishLaunchingNotification =
-    @"NSApplicationWillFinishLaunchingNotification";
+        @"NSApplicationWillFinishLaunchingNotification";
 const NSNotificationName NSApplicationDidFinishLaunchingNotification =
-    @"NSApplicationDidFinishLaunchingNotification";
+        @"NSApplicationDidFinishLaunchingNotification";
 
 const NSNotificationName NSApplicationWillBecomeActiveNotification =
-    @"NSApplicationWillBecomeActiveNotification";
+        @"NSApplicationWillBecomeActiveNotification";
 const NSNotificationName NSApplicationDidBecomeActiveNotification =
-    @"NSApplicationDidBecomeActiveNotification";
+        @"NSApplicationDidBecomeActiveNotification";
 const NSNotificationName NSApplicationWillResignActiveNotification =
-    @"NSApplicationWillResignActiveNotification";
+        @"NSApplicationWillResignActiveNotification";
 const NSNotificationName NSApplicationDidResignActiveNotification =
-    @"NSApplicationDidResignActiveNotification";
+        @"NSApplicationDidResignActiveNotification";
 
 const NSNotificationName NSApplicationWillUpdateNotification =
-    @"NSApplicationWillUpdateNotification";
+        @"NSApplicationWillUpdateNotification";
 const NSNotificationName NSApplicationDidUpdateNotification =
-    @"NSApplicationDidUpdateNotification";
+        @"NSApplicationDidUpdateNotification";
 
 const NSNotificationName NSApplicationWillHideNotification =
-    @"NSApplicationWillHideNotification";
+        @"NSApplicationWillHideNotification";
 const NSNotificationName NSApplicationDidHideNotification =
-    @"NSApplicationDidHideNotification";
+        @"NSApplicationDidHideNotification";
 const NSNotificationName NSApplicationWillUnhideNotification =
-    @"NSApplicationWillUnhideNotification";
+        @"NSApplicationWillUnhideNotification";
 const NSNotificationName NSApplicationDidUnhideNotification =
-    @"NSApplicationDidUnhideNotification";
+        @"NSApplicationDidUnhideNotification";
 
 const NSNotificationName NSApplicationWillTerminateNotification =
-    @"NSApplicationWillTerminateNotification";
+        @"NSApplicationWillTerminateNotification";
 
 const NSNotificationName NSApplicationDidChangeScreenParametersNotification =
-    @"NSApplicationDidChangeScreenParametersNotification";
+        @"NSApplicationDidChangeScreenParametersNotification";
 
 const NSAppKitVersion NSAppKitVersionNumber = 1504; // macOS 10.12
 
@@ -119,10 +119,10 @@ NSApplication *NSApp = nil;
         NSSize imageSize = [image size];
         NSRect rect = NSMakeRect(0, 0, imageSize.width, imageSize.height);
         NSWindow *splash =
-            [[NSWindow alloc] initWithContentRect: rect
-                                        styleMask: NSBorderlessWindowMask
-                                          backing: NSBackingStoreBuffered
-                                            defer: NO];
+                [[NSWindow alloc] initWithContentRect: rect
+                                            styleMask: NSBorderlessWindowMask
+                                              backing: NSBackingStoreBuffered
+                                                defer: NO];
         [splash setLevel: NSFloatingWindowLevel];
 
         NSImageView *view = [[NSImageView alloc] initWithFrame: rect];
@@ -142,7 +142,7 @@ NSApplication *NSApp = nil;
 
         if ([contentView isKindOfClass: [NSImageView class]])
             if ([[[(NSImageView *) contentView image] name]
-                    isEqual: @"splash"]) {
+                        isEqual: @"splash"]) {
                 [window close];
                 return;
             }
@@ -309,66 +309,66 @@ NSApplication *NSApp = nil;
 }
 
 - (void) unregisterDelegate {
-    if ([_delegate
-            respondsToSelector: @selector(applicationWillFinishLaunching:)]) {
+    if ([_delegate respondsToSelector: @selector
+                   (applicationWillFinishLaunching:)]) {
         [[NSNotificationCenter defaultCenter]
-            removeObserver: _delegate
-                      name: NSApplicationWillFinishLaunchingNotification
-                    object: self];
+                removeObserver: _delegate
+                          name: NSApplicationWillFinishLaunchingNotification
+                        object: self];
+    }
+    if ([_delegate respondsToSelector: @selector
+                   (applicationDidFinishLaunching:)]) {
+        [[NSNotificationCenter defaultCenter]
+                removeObserver: _delegate
+                          name: NSApplicationDidFinishLaunchingNotification
+                        object: self];
     }
     if ([_delegate
-            respondsToSelector: @selector(applicationDidFinishLaunching:)]) {
+                respondsToSelector: @selector(applicationDidBecomeActive:)]) {
         [[NSNotificationCenter defaultCenter]
-            removeObserver: _delegate
-                      name: NSApplicationDidFinishLaunchingNotification
-                    object: self];
-    }
-    if ([_delegate
-            respondsToSelector: @selector(applicationDidBecomeActive:)]) {
-        [[NSNotificationCenter defaultCenter]
-            removeObserver: _delegate
-                      name: NSApplicationDidBecomeActiveNotification
-                    object: self];
+                removeObserver: _delegate
+                          name: NSApplicationDidBecomeActiveNotification
+                        object: self];
     }
     if ([_delegate respondsToSelector: @selector(applicationWillTerminate:)]) {
         [[NSNotificationCenter defaultCenter]
-            removeObserver: _delegate
-                      name: NSApplicationWillTerminateNotification
-                    object: self];
+                removeObserver: _delegate
+                          name: NSApplicationWillTerminateNotification
+                        object: self];
     }
 }
 
 - (void) registerDelegate {
-    if ([_delegate
-            respondsToSelector: @selector(applicationWillFinishLaunching:)]) {
+    if ([_delegate respondsToSelector: @selector
+                   (applicationWillFinishLaunching:)]) {
         [[NSNotificationCenter defaultCenter]
-            addObserver: _delegate
-               selector: @selector(applicationWillFinishLaunching:)
-                   name: NSApplicationWillFinishLaunchingNotification
-                 object: self];
+                addObserver: _delegate
+                   selector: @selector(applicationWillFinishLaunching:)
+                       name: NSApplicationWillFinishLaunchingNotification
+                     object: self];
+    }
+    if ([_delegate respondsToSelector: @selector
+                   (applicationDidFinishLaunching:)]) {
+        [[NSNotificationCenter defaultCenter]
+                addObserver: _delegate
+                   selector: @selector(applicationDidFinishLaunching:)
+                       name: NSApplicationDidFinishLaunchingNotification
+                     object: self];
     }
     if ([_delegate
-            respondsToSelector: @selector(applicationDidFinishLaunching:)]) {
+                respondsToSelector: @selector(applicationDidBecomeActive:)]) {
         [[NSNotificationCenter defaultCenter]
-            addObserver: _delegate
-               selector: @selector(applicationDidFinishLaunching:)
-                   name: NSApplicationDidFinishLaunchingNotification
-                 object: self];
-    }
-    if ([_delegate
-            respondsToSelector: @selector(applicationDidBecomeActive:)]) {
-        [[NSNotificationCenter defaultCenter]
-            addObserver: _delegate
-               selector: @selector(applicationDidBecomeActive:)
-                   name: NSApplicationDidBecomeActiveNotification
-                 object: self];
+                addObserver: _delegate
+                   selector: @selector(applicationDidBecomeActive:)
+                       name: NSApplicationDidBecomeActiveNotification
+                     object: self];
     }
     if ([_delegate respondsToSelector: @selector(applicationWillTerminate:)]) {
         [[NSNotificationCenter defaultCenter]
-            addObserver: _delegate
-               selector: @selector(applicationWillTerminate:)
-                   name: NSApplicationWillTerminateNotification
-                 object: self];
+                addObserver: _delegate
+                   selector: @selector(applicationWillTerminate:)
+                       name: NSApplicationWillTerminateNotification
+                     object: self];
     }
 }
 
@@ -428,14 +428,14 @@ NSApplication *NSApp = nil;
     NSMenuItem *item;
 
     if ([[self windowsMenu]
-            indexOfItemWithTarget: window
-                        andAction: @selector(makeKeyAndOrderFront:)] != -1)
+                indexOfItemWithTarget: window
+                            andAction: @selector(makeKeyAndOrderFront:)] != -1)
         return;
 
     if (isFilename)
         title = [NSString
-            stringWithFormat: @"%@  --  %@", [title lastPathComponent],
-                              [title stringByDeletingLastPathComponent]];
+                stringWithFormat: @"%@  --  %@", [title lastPathComponent],
+                                  [title stringByDeletingLastPathComponent]];
 
     item = [[[NSMenuItem alloc] initWithTitle: title
                                        action: @selector(makeKeyAndOrderFront:)
@@ -455,17 +455,17 @@ NSApplication *NSApp = nil;
         [self removeWindowsItem: window];
     } else {
         int itemIndex = [[self windowsMenu]
-            indexOfItemWithTarget: window
-                        andAction: @selector(makeKeyAndOrderFront:)];
+                indexOfItemWithTarget: window
+                            andAction: @selector(makeKeyAndOrderFront:)];
 
         if (itemIndex != -1) {
             NSMenuItem *item = [[self windowsMenu] itemAtIndex: itemIndex];
 
             if (isFilename)
                 title = [NSString
-                    stringWithFormat: @"%@  --  %@", [title lastPathComponent],
-                                      [title
-                                          stringByDeletingLastPathComponent]];
+                        stringWithFormat:
+                                @"%@  --  %@", [title lastPathComponent],
+                                [title stringByDeletingLastPathComponent]];
 
             [item setTitle: title];
             [[self windowsMenu] itemChanged: item];
@@ -476,15 +476,15 @@ NSApplication *NSApp = nil;
 
 - (void) removeWindowsItem: (NSWindow *) window {
     int itemIndex = [[self windowsMenu]
-        indexOfItemWithTarget: window
-                    andAction: @selector(makeKeyAndOrderFront:)];
+            indexOfItemWithTarget: window
+                        andAction: @selector(makeKeyAndOrderFront:)];
 
     if (itemIndex != -1) {
         [[self windowsMenu] removeItemAtIndex: itemIndex];
 
         if ([[[[self windowsMenu] itemArray] lastObject] isSeparatorItem]) {
             [[self windowsMenu]
-                removeItem: [[[self windowsMenu] itemArray] lastObject]];
+                    removeItem: [[[self windowsMenu] itemArray] lastObject]];
         }
     }
 }
@@ -495,8 +495,8 @@ NSApplication *NSApp = nil;
 #else
     NSMenu *menu = [self windowsMenu];
     int itemIndex = [[self windowsMenu]
-        indexOfItemWithTarget: window
-                    andAction: @selector(makeKeyAndOrderFront:)];
+            indexOfItemWithTarget: window
+                        andAction: @selector(makeKeyAndOrderFront:)];
 
     if (itemIndex != -1) {
         NSMenuItem *item = [menu itemAtIndex: itemIndex];
@@ -547,14 +547,14 @@ NSApplication *NSApp = nil;
     BOOL needsUntitled = YES;
 
     NS_DURING [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSApplicationWillFinishLaunchingNotification
-                      object: self];
+            postNotificationName: NSApplicationWillFinishLaunchingNotification
+                          object: self];
     NS_HANDLER [self reportException: localException];
     NS_ENDHANDLER
 
     // Load the application icon if we have one
     NSString *iconName = [[[NSBundle mainBundle] infoDictionary]
-        objectForKey: @"CFBundleIconFile"];
+            objectForKey: @"CFBundleIconFile"];
     if (iconName) {
         iconName = [iconName stringByAppendingPathExtension: @"icns"];
         NSImage *image = [NSImage imageNamed: iconName];
@@ -572,7 +572,7 @@ NSApplication *NSApp = nil;
 
     NSDocumentController *controller = nil;
     id types = [[[NSBundle mainBundle] infoDictionary]
-        objectForKey: @"CFBundleDocumentTypes"];
+            objectForKey: @"CFBundleDocumentTypes"];
     if ([types count] > 0)
         controller = [NSDocumentController sharedDocumentController];
 
@@ -588,7 +588,7 @@ NSApplication *NSApp = nil;
 
     if (needsUntitled && _delegate &&
         [_delegate
-            respondsToSelector: @selector(applicationOpenUntitledFile:)]) {
+                respondsToSelector: @selector(applicationOpenUntitledFile:)]) {
         needsUntitled = ![_delegate applicationOpenUntitledFile: self];
     }
 
@@ -603,12 +603,12 @@ NSApplication *NSApp = nil;
     }
 
     NS_DURING [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSApplicationDidFinishLaunchingNotification
-                      object: self];
+            postNotificationName: NSApplicationDidFinishLaunchingNotification
+                          object: self];
     NS_HANDLER [self reportException: localException];
     NS_ENDHANDLER
 
-        [pool release];
+            [pool release];
 }
 
 - (void) _checkForReleasedWindows {
@@ -685,7 +685,7 @@ NSApplication *NSApp = nil;
         NS_HANDLER [self reportException: localException];
         NS_ENDHANDLER
 
-            [self _checkForReleasedWindows];
+                [self _checkForReleasedWindows];
         [self _checkForTerminate];
 
         [pool release];
@@ -736,14 +736,14 @@ NSApplication *NSApp = nil;
         NSAutoreleasePool *pool = [NSAutoreleasePool new];
 
         NS_DURING [NSClassFromString(@"Win32RunningCopyPipe")
-            performSelector: @selector(createRunningCopyPipe)];
+                performSelector: @selector(createRunningCopyPipe)];
 
         // This should happen before _makeSureIsOnAScreen so we don't reposition
         // done windows
         [self _checkForReleasedWindows];
 
         [[NSApp windows]
-            makeObjectsPerformSelector: @selector(_makeSureIsOnAScreen)];
+                makeObjectsPerformSelector: @selector(_makeSureIsOnAScreen)];
 
         [self _checkForAppActivation];
         [self _displayAllWindowsIfNeeded];
@@ -761,7 +761,7 @@ NSApplication *NSApp = nil;
         NS_HANDLER [self reportException: localException];
         NS_ENDHANDLER
 
-            [pool release];
+                [pool release];
     } while (nextEvent == nil && [untilDate timeIntervalSinceNow] > 0);
 
     if (nextEvent != nil) {
@@ -864,7 +864,7 @@ NSApplication *NSApp = nil;
     }
 
     NSDocumentController *documentController =
-        [NSDocumentController sharedDocumentController];
+            [NSDocumentController sharedDocumentController];
     if ([[documentController currentDocument] respondsToSelector: action])
         return [documentController currentDocument];
 
@@ -999,10 +999,10 @@ NSApplication *NSApp = nil;
 - (void) endModalSession: (NSModalSession) session {
     if (session != [_modalStack lastObject])
         [NSException
-             raise: NSInvalidArgumentException
-            format: @"-[%@ %s] modal session %@ is not the current one %@",
-                    [self class], sel_getName(_cmd), session,
-                    [_modalStack lastObject]];
+                 raise: NSInvalidArgumentException
+                format: @"-[%@ %s] modal session %@ is not the current one %@",
+                        [self class], sel_getName(_cmd), session,
+                        [_modalStack lastObject]];
 
     for (NSEvent *requeue in [session unprocessedEvents]) {
         [self postEvent: requeue atStart: YES];
@@ -1036,13 +1036,13 @@ NSApplication *NSApp = nil;
     NSMutableDictionary *values = [NSMutableDictionary dictionary];
     values[@"NSWindow"] = window;
 
-    [self
-        performSelectorOnMainThread: @selector(_mainThreadRunModalForWindow:)
-                         withObject: values
-                      waitUntilDone: YES
-                              modes: @[
-                                  NSDefaultRunLoopMode, NSModalPanelRunLoopMode
-                              ]];
+    [self performSelectorOnMainThread: @selector(_mainThreadRunModalForWindow:)
+                           withObject: values
+                        waitUntilDone: YES
+                                modes: @[
+                                    NSDefaultRunLoopMode,
+                                    NSModalPanelRunLoopMode
+                                ]];
 
     NSNumber *result = values[@"result"];
 
@@ -1064,25 +1064,25 @@ NSApplication *NSApp = nil;
 }
 
 - (void) beginSheet: (NSWindow *) sheet
-     modalForWindow: (NSWindow *) window
-      modalDelegate: (id) modalDelegate
-     didEndSelector: (SEL) didEndSelector
-        contextInfo: (void *) contextInfo
+        modalForWindow: (NSWindow *) window
+         modalDelegate: (id) modalDelegate
+        didEndSelector: (SEL) didEndSelector
+           contextInfo: (void *) contextInfo
 {
     NSSheetContext *context =
-        [NSSheetContext sheetContextWithSheet: sheet
-                                modalDelegate: modalDelegate
-                               didEndSelector: didEndSelector
-                                  contextInfo: contextInfo
-                                        frame: [sheet frame]];
+            [NSSheetContext sheetContextWithSheet: sheet
+                                    modalDelegate: modalDelegate
+                                   didEndSelector: didEndSelector
+                                      contextInfo: contextInfo
+                                            frame: [sheet frame]];
 
     if ([[NSUserDefaults standardUserDefaults]
-            boolForKey: @"NSRunAllSheetsAsModalPanel"]) {
+                boolForKey: @"NSRunAllSheetsAsModalPanel"]) {
         // Center the sheet on the window.
         NSPoint windowCenter =
-            NSMakePoint(NSMidX([window frame]), NSMidY([window frame]));
+                NSMakePoint(NSMidX([window frame]), NSMidY([window frame]));
         NSPoint sheetCenter =
-            NSMakePoint(NSMidX([sheet frame]), NSMidY([sheet frame]));
+                NSMakePoint(NSMidX([sheet frame]), NSMidY([sheet frame]));
         NSPoint origin = [sheet frame].origin;
         origin.x += windowCenter.x - sheetCenter.x;
         origin.y += windowCenter.y - sheetCenter.y;
@@ -1104,13 +1104,13 @@ NSApplication *NSApp = nil;
 
 - (void) endSheet: (NSWindow *) sheet returnCode: (NSModalResponse) returnCode {
     if ([[NSUserDefaults standardUserDefaults]
-            boolForKey: @"NSRunAllSheetsAsModalPanel"]) {
+                boolForKey: @"NSRunAllSheetsAsModalPanel"]) {
         NSSheetContext *context = [sheet _sheetContext];
         NSModalSession session = [context modalSession];
         [session stopModalWithCode: NSRunStoppedResponse];
 
         IMP function = [[context modalDelegate]
-            methodForSelector: [context didEndSelector]];
+                methodForSelector: [context didEndSelector]];
         if (function != NULL) {
             function([context modalDelegate], [context didEndSelector], sheet,
                      returnCode, [context contextInfo]);
@@ -1130,7 +1130,7 @@ NSApplication *NSApp = nil;
                 [check _detachSheetContextAnimateAndOrderOut];
 
                 function = [[context modalDelegate]
-                    methodForSelector: [context didEndSelector]];
+                        methodForSelector: [context didEndSelector]];
                 if (function != NULL)
                     function([context modalDelegate], [context didEndSelector],
                              sheet, returnCode, [context contextInfo]);
@@ -1156,11 +1156,11 @@ NSApplication *NSApp = nil;
 - (int) requestUserAttention: (NSRequestUserAttentionType) attentionType {
     [_attentionTimer invalidate];
     _attentionTimer =
-        [NSTimer scheduledTimerWithTimeInterval: 3
-                                         target: self
-                                       selector: @selector(_attentionTimer:)
-                                       userInfo: nil
-                                        repeats: YES];
+            [NSTimer scheduledTimerWithTimeInterval: 3
+                                             target: self
+                                           selector: @selector(_attentionTimer:)
+                                           userInfo: nil
+                                            repeats: YES];
 
     return 0;
 }
@@ -1187,15 +1187,15 @@ NSApplication *NSApp = nil;
         return;
     }
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSApplicationWillHideNotification
-                      object: self];
+            postNotificationName: NSApplicationWillHideNotification
+                          object: self];
     // Do no use orderOut here ist causes the application to quit if no window
     // is visible.
     [_windows
-        makeObjectsPerformSelector: @selector(_forcedHideForDeactivation)];
+            makeObjectsPerformSelector: @selector(_forcedHideForDeactivation)];
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSApplicationDidHideNotification
-                      object: self];
+            postNotificationName: NSApplicationDidHideNotification
+                          object: self];
     _isHidden = YES;
 }
 
@@ -1207,13 +1207,13 @@ NSApplication *NSApp = nil;
 
     if (_isHidden) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationWillUnhideNotification
-                          object: self];
+                postNotificationName: NSApplicationWillUnhideNotification
+                              object: self];
         [_windows makeObjectsPerformSelector: @selector
                   (_showForActivation)]; // only shows previously hidden windows
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationDidUnhideNotification
-                          object: self];
+                postNotificationName: NSApplicationDidUnhideNotification
+                              object: self];
     }
     _isHidden = NO;
     //[self activateIgnoringOtherApps:NO]
@@ -1227,13 +1227,13 @@ NSApplication *NSApp = nil;
     if (_isHidden) {
 
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationWillUnhideNotification
-                          object: self];
+                postNotificationName: NSApplicationWillUnhideNotification
+                              object: self];
         [_windows makeObjectsPerformSelector: @selector
                   (_showForActivation)]; // only shows previously hidden windows
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationDidUnhideNotification
-                          object: self];
+                postNotificationName: NSApplicationDidUnhideNotification
+                              object: self];
     }
     _isHidden = NO;
 }
@@ -1249,10 +1249,10 @@ NSApplication *NSApp = nil;
 
 - (void) terminate: sender {
     [[NSDocumentController sharedDocumentController]
-        closeAllDocumentsWithDelegate: self
-                  didCloseAllSelector: @selector
-                  (_documentController:didCloseAll:contextInfo:)
-                          contextInfo: NULL];
+            closeAllDocumentsWithDelegate: self
+                      didCloseAllSelector: @selector
+                      (_documentController:didCloseAll:contextInfo:)
+                              contextInfo: NULL];
 }
 
 - (void) _documentController: (NSDocumentController *) docController
@@ -1262,10 +1262,10 @@ NSApplication *NSApp = nil;
     // callback method for terminate:
     if (didCloseAll) {
         if ([_delegate
-                respondsToSelector: @selector(applicationShouldTerminate:)])
+                    respondsToSelector: @selector(applicationShouldTerminate:)])
             [self replyToApplicationShouldTerminate:
-                      [_delegate applicationShouldTerminate: self] ==
-                      NSTerminateNow];
+                            [_delegate applicationShouldTerminate: self] ==
+                            NSTerminateNow];
         else
             [self replyToApplicationShouldTerminate: YES];
     }
@@ -1274,11 +1274,11 @@ NSApplication *NSApp = nil;
 - (void) replyToApplicationShouldTerminate: (BOOL) terminate {
     if (terminate == YES) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationWillTerminateNotification
-                          object: self];
+                postNotificationName: NSApplicationWillTerminateNotification
+                              object: self];
 
         [NSClassFromString(@"Win32RunningCopyPipe")
-            performSelector: @selector(invalidateRunningCopyPipe)];
+                performSelector: @selector(invalidateRunningCopyPipe)];
 
         exit(0);
     }
@@ -1366,7 +1366,7 @@ NSApplication *NSApp = nil;
 
 - (void) orderFrontStandardAboutPanelWithOptions: (NSDictionary *) options {
     NSSystemInfoPanel *standardAboutPanel =
-        [[NSSystemInfoPanel standardAboutPanel] retain];
+            [[NSSystemInfoPanel standardAboutPanel] retain];
     [standardAboutPanel showInfoPanel: self withOptions: options];
 }
 
@@ -1376,16 +1376,17 @@ NSApplication *NSApp = nil;
 
 - (void) showGuessPanel: sender {
     [[[NSSpellChecker sharedSpellChecker] spellingPanel]
-        makeKeyAndOrderFront: self];
+            makeKeyAndOrderFront: self];
 }
 
 - (void) showHelp: sender {
     NSString *helpBookFolder = [[[NSBundle mainBundle] infoDictionary]
-        objectForKey: @"CFBundleHelpBookFolder"];
+            objectForKey: @"CFBundleHelpBookFolder"];
     if (helpBookFolder != nil) {
         BOOL isDir;
         NSString *folder =
-            [[NSBundle mainBundle] pathForResource: helpBookFolder ofType: nil];
+                [[NSBundle mainBundle] pathForResource: helpBookFolder
+                                                ofType: nil];
         if (folder != nil &&
             [[NSFileManager defaultManager] fileExistsAtPath: folder
                                                  isDirectory: &isDir] &&
@@ -1393,14 +1394,15 @@ NSApplication *NSApp = nil;
             NSBundle *helpBundle = [NSBundle bundleWithPath: folder];
             if (helpBundle) {
                 NSString *helpBookName = [[helpBundle infoDictionary]
-                    objectForKey: @"CFBundleHelpTOCFile"];
+                        objectForKey: @"CFBundleHelpTOCFile"];
                 if (helpBookName != nil) {
                     NSString *helpFilePath =
-                        [helpBundle pathForResource: helpBookName ofType: nil];
+                            [helpBundle pathForResource: helpBookName
+                                                 ofType: nil];
                     if (helpFilePath) {
                         if ([[NSWorkspace sharedWorkspace]
-                                       openFile: helpFilePath
-                                withApplication: @"Help Viewer"] == YES) {
+                                           openFile: helpFilePath
+                                    withApplication: @"Help Viewer"] == YES) {
                             return;
                         }
                     }
@@ -1410,8 +1412,8 @@ NSApplication *NSApp = nil;
                                                               ofType: @"html"];
                 if (helpFilePath) {
                     if ([[NSWorkspace sharedWorkspace]
-                                   openFile: helpFilePath
-                            withApplication: @"Help Viewer"] == YES) {
+                                       openFile: helpFilePath
+                                withApplication: @"Help Viewer"] == YES) {
                         return;
                     }
                 }
@@ -1422,18 +1424,20 @@ NSApplication *NSApp = nil;
     NSString *processName = [[NSProcessInfo processInfo] processName];
     NSAlert *alert = [[NSAlert alloc] init];
     [alert setMessageText: NSLocalizedStringFromTableInBundle(
-                               @"Help", nil,
-                               [NSBundle bundleForClass: [NSApplication class]],
-                               @"Help alert title")];
-    [alert
-        setInformativeText:
-            [NSString
-                stringWithFormat: NSLocalizedStringFromTableInBundle(
-                                      @"Help isn't available for %@.", nil,
-                                      [NSBundle bundleForClass: [NSApplication
-                                                                    class]],
-                                      @""),
-                                  processName]];
+                                   @"Help", nil,
+                                   [NSBundle bundleForClass: [NSApplication
+                                                                     class]],
+                                   @"Help alert title")];
+    [alert setInformativeText:
+                    [NSString stringWithFormat:
+                                      NSLocalizedStringFromTableInBundle(
+                                              @"Help isn't available for %@.",
+                                              nil,
+                                              [NSBundle bundleForClass:
+                                                                [NSApplication
+                                                                        class]],
+                                              @""),
+                                      processName]];
     [alert runModal];
     [alert release];
 }
@@ -1459,24 +1463,24 @@ NSApplication *NSApp = nil;
 
     if (![self isActive]) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationWillBecomeActiveNotification
-                          object: self];
+                postNotificationName: NSApplicationWillBecomeActiveNotification
+                              object: self];
     }
 }
 
 - (void) _windowDidBecomeActive: (NSWindow *) window {
     if (![self isActiveExcludingWindow: window]) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationDidBecomeActiveNotification
-                          object: self];
+                postNotificationName: NSApplicationDidBecomeActiveNotification
+                              object: self];
     }
 }
 
 - (void) _windowWillBecomeDeactive: (NSWindow *) window {
     if (![self isActiveExcludingWindow: window]) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationWillResignActiveNotification
-                          object: self];
+                postNotificationName: NSApplicationWillResignActiveNotification
+                              object: self];
     }
 }
 
@@ -1491,20 +1495,20 @@ NSApplication *NSApp = nil;
         // received to let them proceed. This special event type was added to
         // help them get unstuck and remove the menu on deactivation
         NSEvent *appKitEvent =
-            [NSEvent otherEventWithType: NSAppKitDefined
-                               location: NSZeroPoint
-                          modifierFlags: 0
-                              timestamp: 0
-                           windowNumber: 0
-                                context: nil
-                                subtype: NSApplicationDeactivated
-                                  data1: 0
-                                  data2: 0];
+                [NSEvent otherEventWithType: NSAppKitDefined
+                                   location: NSZeroPoint
+                              modifierFlags: 0
+                                  timestamp: 0
+                               windowNumber: 0
+                                    context: nil
+                                    subtype: NSApplicationDeactivated
+                                      data1: 0
+                                      data2: 0];
         [self postEvent: appKitEvent atStart: YES];
 
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSApplicationDidResignActiveNotification
-                          object: self];
+                postNotificationName: NSApplicationDidResignActiveNotification
+                              object: self];
     }
 }
 
@@ -1536,24 +1540,25 @@ int NSApplicationMain(int argc, const char *argv[]) {
 #ifndef DARLING
     if (argc > 1) {
         NSMutableArray *arguments =
-            [NSMutableArray arrayWithCapacity: arg c - 1];
+                [NSMutableArray arrayWithCapacity: arg c - 1];
         for (int i = 1; i < argc; i++)
             if (argv[i][0] != '-')
                 [arguments addObject: [NSString stringWithUTF8String: argv[i]]];
             else if (argv[i][1] == '-' && argv[i][2] == '\0')
                 break;
             else // (argv[i][0] == '-' && argv[i] != "--")
-                if (*(int64_t *) argv[i] != *(int64_t *) "-NSOpen")
+                    if (*(int64_t *) argv[i] != *(int64_t *) "-NSOpen")
                 i++;
 
         if ((argc = [arguments count]))
             [[NSUserDefaults standardUserDefaults]
-                setObject: ((argc == 1) ? [arguments lastObject] : arguments)
-                   forKey: @"NSOpen"];
+                    setObject: ((argc == 1) ? [arguments lastObject]
+                                            : arguments)
+                       forKey: @"NSOpen"];
     }
 
     [NSClassFromString(@"Win32RunningCopyPipe")
-        performSelector: @selector(startRunningCopyPipe)];
+            performSelector: @selector(startRunningCopyPipe)];
 #endif
 
     if (class == Nil)

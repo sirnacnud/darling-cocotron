@@ -134,22 +134,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                           length: bytesPerRow * height];
 
     O2DataProvider *provider =
-        O2DataProviderCreateWithCFData((CFDataRef) bitmap);
+            O2DataProviderCreateWithCFData((CFDataRef) bitmap);
     O2ColorSpaceRef colorSpace = O2ColorSpaceCreateDeviceRGB();
     O2Image *image =
-        [[O2Image alloc] initWithWidth: width
-                                height: height
-                      bitsPerComponent: 8
-                          bitsPerPixel: bitsPerPixel
-                           bytesPerRow: bytesPerRow
-                            colorSpace: colorSpace
-                            bitmapInfo: kO2BitmapByteOrder32Big |
-                                        kO2ImageAlphaPremultipliedLast
-                               decoder: NULL
-                              provider: provider
-                                decode: NULL
-                           interpolate: NO
-                       renderingIntent: kO2RenderingIntentDefault];
+            [[O2Image alloc] initWithWidth: width
+                                    height: height
+                          bitsPerComponent: 8
+                              bitsPerPixel: bitsPerPixel
+                               bytesPerRow: bytesPerRow
+                                colorSpace: colorSpace
+                                bitmapInfo: kO2BitmapByteOrder32Big |
+                                            kO2ImageAlphaPremultipliedLast
+                                   decoder: NULL
+                                  provider: provider
+                                    decode: NULL
+                               interpolate: NO
+                           renderingIntent: kO2RenderingIntentDefault];
 
     [colorSpace release];
     [provider release];

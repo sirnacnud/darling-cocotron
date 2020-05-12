@@ -27,22 +27,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSPropertyListWriter_vintage
 
 static BOOL _NSPropertyListNameSet[128] = {
-    NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,
-    NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, // 0
-    NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,
-    NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, // 16
-    NO,  NO,  NO,  NO,  YES, NO,  NO,  NO,
-    NO,  NO,  NO,  NO,  NO,  NO,  YES, YES, // 32
-    YES, YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, NO,  NO,  NO,  NO,  NO,  NO, // 48
-    NO,  YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, YES, YES, YES, YES, YES, YES, // 64
-    YES, YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, YES, NO,  NO,  NO,  NO,  YES, // 80
-    NO,  YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, YES, YES, YES, YES, YES, YES, // 96
-    YES, YES, YES, YES, YES, YES, YES, YES,
-    YES, YES, YES, NO,  NO,  NO,  NO,  NO, // 112
+        NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,
+        NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, // 0
+        NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,
+        NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, // 16
+        NO,  NO,  NO,  NO,  YES, NO,  NO,  NO,
+        NO,  NO,  NO,  NO,  NO,  NO,  YES, YES, // 32
+        YES, YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, NO,  NO,  NO,  NO,  NO,  NO, // 48
+        NO,  YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, YES, YES, YES, YES, YES, YES, // 64
+        YES, YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, YES, NO,  NO,  NO,  NO,  YES, // 80
+        NO,  YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, YES, YES, YES, YES, YES, YES, // 96
+        YES, YES, YES, YES, YES, YES, YES, YES,
+        YES, YES, YES, NO,  NO,  NO,  NO,  NO, // 112
 };
 
 static NSInteger keySort(id key1, id key2, void *context) {
@@ -213,7 +213,7 @@ static NSInteger keySort(id key1, id key2, void *context) {
 + (NSData *) nullTerminatedASCIIDataWithString: (NSString *) string {
     NSPropertyListWriter_vintage *writer = [[self alloc] init];
     NSData *result = [[[writer nullTerminatedASCIIDataWithString: string]
-        retain] autorelease];
+            retain] autorelease];
 
     [writer release];
 
@@ -229,7 +229,7 @@ static NSInteger keySort(id key1, id key2, void *context) {
 + (NSData *) nullTerminatedASCIIDataWithPropertyList: plist {
     NSPropertyListWriter_vintage *writer = [[self alloc] init];
     NSData *result = [[[writer nullTerminatedASCIIDataWithPropertyList: plist]
-        retain] autorelease];
+            retain] autorelease];
 
     [writer release];
 
@@ -249,8 +249,8 @@ static NSInteger keySort(id key1, id key2, void *context) {
     NSPropertyListWriter_vintage *writer = [[self alloc] init];
     NSData *data = [writer dataForRootObject: plist];
     NSString *result = [[[NSString allocWithZone: NULL]
-        initWithData: data
-            encoding: NSASCIIStringEncoding] autorelease];
+            initWithData: data
+                encoding: NSASCIIStringEncoding] autorelease];
 
     [writer release];
 

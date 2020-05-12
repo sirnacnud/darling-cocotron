@@ -104,15 +104,15 @@ static NSData *makeWindowIcon() {
 
         // Render the image in ARGB.
         O2BitmapContext *context = (O2BitmapContext *) O2BitmapContextCreate(
-            NULL, width, height, 8, width * 4, colorSpace,
-            kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Host);
+                NULL, width, height, 8, width * 4, colorSpace,
+                kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Host);
 
         [context drawImage: image inRect: O2RectMake(0, 0, width, height)];
         int *imageData = O2BitmapContextGetData(context);
 
         // Convert to the format accepted by Xlib.
         NSMutableData *data =
-            [NSMutableData dataWithLength: width * height * sizeof(long)];
+                [NSMutableData dataWithLength: width * height * sizeof(long)];
         long *dataPtr = (long *) [data mutableBytes];
         int count = width * height;
         for (int i = 0; i < count; i++) {
@@ -143,9 +143,9 @@ static NSData *makeWindowIcon() {
         return;
 
     XChangeProperty(
-        _display, _window, XInternAtom(_display, "_NET_WM_ICON", False),
-        XInternAtom(_display, "CARDINAL", False), 32, PropModeReplace,
-        [data bytes], [data length] / sizeof(long));
+            _display, _window, XInternAtom(_display, "_NET_WM_ICON", False),
+            XInternAtom(_display, "CARDINAL", False), 32, PropModeReplace,
+            [data bytes], [data length] / sizeof(long));
 }
 
 - (instancetype) initWithDelegate: (NSWindow *) delegate {
@@ -179,8 +179,8 @@ static NSData *makeWindowIcon() {
     }
 
     Colormap cmap =
-        XCreateColormap(_display, RootWindow(_display, _visualInfo->screen),
-                        _visualInfo->visual, AllocNone);
+            XCreateColormap(_display, RootWindow(_display, _visualInfo->screen),
+                            _visualInfo->visual, AllocNone);
 
     if (cmap < 0) {
         NSLog(@"XCreateColormap failed");
@@ -191,17 +191,17 @@ static NSData *makeWindowIcon() {
     XSetWindowAttributes xattr;
     unsigned long xattr_mask;
     xattr.override_redirect =
-        _styleMask == NSBorderlessWindowMask ? True : False;
+            _styleMask == NSBorderlessWindowMask ? True : False;
     xattr_mask = CWOverrideRedirect | CWColormap;
     xattr.colormap = cmap;
 
     _window = XCreateWindow(
-        _display, DefaultRootWindow(_display), _frame.origin.x, _frame.origin.y,
-        _frame.size.width, _frame.size.height, 0,
-        (_visualInfo == NULL) ? CopyFromParent : _visualInfo->depth,
-        InputOutput,
-        (_visualInfo == NULL) ? CopyFromParent : _visualInfo->visual,
-        xattr_mask, &xattr);
+            _display, DefaultRootWindow(_display), _frame.origin.x,
+            _frame.origin.y, _frame.size.width, _frame.size.height, 0,
+            (_visualInfo == NULL) ? CopyFromParent : _visualInfo->depth,
+            InputOutput,
+            (_visualInfo == NULL) ? CopyFromParent : _visualInfo->visual,
+            xattr_mask, &xattr);
 
     [self syncDelegateProperties];
 
@@ -241,7 +241,7 @@ static NSData *makeWindowIcon() {
 
     if (isTransient && [NSApp mainWindow]) {
         X11Window *mainWindow =
-            (X11Window *) [[NSApp mainWindow] platformWindow];
+                (X11Window *) [[NSApp mainWindow] platformWindow];
         XSetTransientForHint(_display, _window, [mainWindow windowHandle]);
     }
 
@@ -272,7 +272,7 @@ static NSData *makeWindowIcon() {
 
 - (void) setStyleMaskInternal: (NSUInteger) mask force: (BOOL) force {
     if (force || (mask & NSWindowStyleMaskResizable) !=
-                     (_styleMask & NSWindowStyleMaskResizable)) {
+                         (_styleMask & NSWindowStyleMaskResizable)) {
         XSizeHints *sh = XAllocSizeHints();
         if (mask & NSWindowStyleMaskResizable) {
             // Make resizable
@@ -293,11 +293,11 @@ static NSData *makeWindowIcon() {
         int states_cnt = 0;
         if (_isModal) {
             states[states_cnt++] =
-                (long) XInternAtom(_display, "_NET_WM_STATE_MODAL", False);
+                    (long) XInternAtom(_display, "_NET_WM_STATE_MODAL", False);
         }
         if (mask & NSWindowStyleMaskFullScreen) {
-            states[states_cnt++] =
-                (long) XInternAtom(_display, "_NET_WM_STATE_FULLSCREEN", False);
+            states[states_cnt++] = (long) XInternAtom(
+                    _display, "_NET_WM_STATE_FULLSCREEN", False);
         }
         XChangeProperty(_display, _window,
                         XInternAtom(_display, "_NET_WM_STATE", False), XA_ATOM,
@@ -312,7 +312,7 @@ static NSData *makeWindowIcon() {
         event.format = 32;
         event.data.l[0] = (mask & NSWindowStyleMaskFullScreen) ? 1 : 2;
         event.data.l[1] =
-            (long) XInternAtom(_display, "_NET_WM_STATE_FULLSCREEN", False);
+                (long) XInternAtom(_display, "_NET_WM_STATE_FULLSCREEN", False);
         event.data.l[3] = 1;
         XSendEvent(_display, DefaultRootWindow(_display), False,
                    SubstructureNotifyMask | SubstructureRedirectMask,
@@ -337,7 +337,7 @@ static NSData *makeWindowIcon() {
         long input_mode;
         unsigned long status;
     } hints = {
-        2, 0, 0, 0, 0,
+            2, 0, 0, 0, 0,
     };
     XChangeProperty(dpy, w, XInternAtom(dpy, "_MOTIF_WM_HINTS", False),
                     XInternAtom(dpy, "_MOTIF_WM_HINTS", False), 32,
@@ -417,15 +417,15 @@ static NSData *makeWindowIcon() {
 - (O2Context *) createCGContextIfNeeded {
     if (_context == nil) {
         O2ColorSpaceRef colorSpace = O2ColorSpaceCreateDeviceRGB();
-        O2Surface *surface =
-            [[O2Surface alloc] initWithBytes: NULL
-                                       width: _frame.size.width
-                                      height: _frame.size.height
-                            bitsPerComponent: 8
-                                 bytesPerRow: 0
-                                  colorSpace: colorSpace
-                                  bitmapInfo: kO2ImageAlphaPremultipliedFirst |
-                                              kO2BitmapByteOrder32Little];
+        O2Surface *surface = [[O2Surface alloc]
+                   initWithBytes: NULL
+                           width: _frame.size.width
+                          height: _frame.size.height
+                bitsPerComponent: 8
+                     bytesPerRow: 0
+                      colorSpace: colorSpace
+                      bitmapInfo: kO2ImageAlphaPremultipliedFirst |
+                                  kO2BitmapByteOrder32Little];
         O2ColorSpaceRelease(colorSpace);
         _context = [[O2Context_builtin_FT alloc] initWithSurface: surface
                                                          flipped: NO];
@@ -568,19 +568,19 @@ static NSData *makeWindowIcon() {
             NSLog(@"CGLCreateContext failed at %s %d with error %d", __FILE__,
                   __LINE__, error);
 
-            [NSException
-                 raise: NSGenericException
-                format: @"Failed to create GL context, CGL error %d", error];
+            [NSException raise: NSGenericException
+                        format: @"Failed to create GL context, CGL error %d",
+                                error];
         }
         if ((error = CGLContextMakeCurrentAndAttachToWindow(
-                 _cglContext, _cglWindow)) != kCGLNoError)
-            NSLog(
-                @"CGLContextMakeCurrentAndAttachToWindow failed with error %d",
-                error);
+                     _cglContext, _cglWindow)) != kCGLNoError)
+            NSLog(@"CGLContextMakeCurrentAndAttachToWindow failed with error "
+                  @"%d",
+                  error);
     }
     if (_cglContext != nil && _caContext == nil) {
         _caContext =
-            [[CAWindowOpenGLContext alloc] initWithCGLContext: _cglContext];
+                [[CAWindowOpenGLContext alloc] initWithCGLContext: _cglContext];
     }
 }
 
@@ -683,7 +683,7 @@ static int ignoreBadWindow(Display *display, XErrorEvent *errorEvent) {
 - (O2Rect) transformFrame: (O2Rect) frame {
     return NSMakeRect(frame.origin.x,
                       DisplayHeight(_display, DefaultScreen(_display)) -
-                          frame.origin.y - frame.size.height,
+                              frame.origin.y - frame.size.height,
                       fmax(frame.size.width, 1.0),
                       fmax(frame.size.height, 1.0));
 }

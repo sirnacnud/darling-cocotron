@@ -71,9 +71,10 @@
     // NSDictionaryController has a default sort descriptor, NSArrayController
     // does not
     [self setSortDescriptors:
-              [NSArray arrayWithObject: [NSSortDescriptor
-                                            sortDescriptorWithKey: @"key"
-                                                        ascending: YES]]];
+                    [NSArray arrayWithObject:
+                                     [NSSortDescriptor
+                                             sortDescriptorWithKey: @"key"
+                                                         ascending: YES]]];
     _initialKey = @"key";
     _initialValue = @"value";
     return self;
@@ -86,9 +87,10 @@
     _includedKeys = [[coder decodeObjectForKey: @"NSIncludedKeys"] retain];
     _excludedKeys = [[coder decodeObjectForKey: @"NSExcludedKeys"] retain];
     [self setSortDescriptors:
-              [NSArray arrayWithObject: [NSSortDescriptor
-                                            sortDescriptorWithKey: @"key"
-                                                        ascending: YES]]];
+                    [NSArray arrayWithObject:
+                                     [NSSortDescriptor
+                                             sortDescriptorWithKey: @"key"
+                                                         ascending: YES]]];
     _initialKey = @"key";
     _initialValue = @"value";
 
@@ -132,7 +134,7 @@
         for (id key in [_contentDictionary allKeys]) {
             if (![_excludedKeys containsObject: key]) {
                 NSDictionaryControllerProxy *proxy =
-                    [NSDictionaryControllerProxy new];
+                        [NSDictionaryControllerProxy new];
                 proxy.key = key;
                 proxy.dictionary = _contentDictionary;
                 [contentArray addObject: proxy];

@@ -63,8 +63,8 @@ enum {
 
 @interface NSHTTPURLResponse (private)
 - initWithURL: (NSURL *) url
-    statusCode: (NSInteger) statusCode
-       headers: (NSDictionary *) headers;
+        statusCode: (NSInteger) statusCode
+           headers: (NSDictionary *) headers;
 @end
 
 @implementation NSURLProtocol_http
@@ -81,9 +81,9 @@ enum {
     if (_statusCode >= 200 && _statusCode < 300) {
         NSURL *url = [_request URL];
         NSHTTPURLResponse *response =
-            [[[NSHTTPURLResponse alloc] initWithURL: url
-                                         statusCode: _statusCode
-                                            headers: headers] autorelease];
+                [[[NSHTTPURLResponse alloc] initWithURL: url
+                                             statusCode: _statusCode
+                                                headers: headers] autorelease];
         NSURLCacheStoragePolicy cachePolicy = NSURLCacheStorageNotAllowed;
 
         if ([[_request HTTPMethod] isEqualToString: @"GET"]) {
@@ -94,22 +94,22 @@ enum {
         }
 
         [_client URLProtocol: self
-            didReceiveResponse: response
-            cacheStoragePolicy: cachePolicy];
+                didReceiveResponse: response
+                cacheStoragePolicy: cachePolicy];
     } else if (_statusCode == 304) {
         [_client URLProtocol: self cachedResponseIsValid: _cachedResponse];
 
         [_client URLProtocol: self
-            didReceiveResponse: [_cachedResponse response]
-            cacheStoragePolicy: NSURLCacheStorageNotAllowed];
+                didReceiveResponse: [_cachedResponse response]
+                cacheStoragePolicy: NSURLCacheStorageNotAllowed];
 
         [_client URLProtocol: self didLoadData: [_cachedResponse data]];
     } else {
         NSDictionary *userInfo = [NSDictionary
-            dictionaryWithObject:
-                [NSString
-                    stringWithFormat: @"HTTP status code = %d", _statusCode]
-                          forKey: NSLocalizedDescriptionKey];
+                dictionaryWithObject:
+                        [NSString stringWithFormat: @"HTTP status code = %d",
+                                                    _statusCode]
+                              forKey: NSLocalizedDescriptionKey];
 
         NSError *error = [NSError errorWithDomain: NSURLErrorDomain
                                              code: NSURLErrorBadServerResponse
@@ -147,19 +147,19 @@ enum {
 - (void) _headerKey {
     [_currentKey autorelease];
     _currentKey =
-        [[NSString alloc] initWithCString: (char *) _bytes + _range.location
-                                   length: _range.length];
+            [[NSString alloc] initWithCString: (char *) _bytes + _range.location
+                                       length: _range.length];
 }
 
 - (void) _headerValue {
     NSString *value =
-        [NSString stringWithCString: (char *) _bytes + _range.location
-                             length: _range.length - 1];
+            [NSString stringWithCString: (char *) _bytes + _range.location
+                                 length: _range.length - 1];
     NSString *oldValue;
     NSString *normalized = [self normalizedHeaderWithName: _currentKey];
     if ((oldValue = [_headers objectForKey: normalized]) != nil)
         value = [[oldValue stringByAppendingString: @" "]
-            stringByAppendingString: value];
+                stringByAppendingString: value];
 
     [_rawHeaders setObject: value forKey: _currentKey];
     [_headers setObject: value forKey: normalized];
@@ -167,13 +167,13 @@ enum {
 
 - (void) _continuation {
     NSString *value =
-        [NSString stringWithCString: (char *) _bytes + _range.location
-                             length: _range.length - 1];
+            [NSString stringWithCString: (char *) _bytes + _range.location
+                                 length: _range.length - 1];
     NSString *normalized = [self normalizedHeaderWithName: _currentKey];
     NSString *oldValue = [_headers objectForKey: normalized];
 
     value = [[oldValue stringByAppendingString: @" "]
-        stringByAppendingString: value];
+            stringByAppendingString: value];
 
     [_rawHeaders setObject: value forKey: _currentKey];
     [_headers setObject: value forKey: normalized];
@@ -241,17 +241,21 @@ enum {
         case STATE_waitingForStatusVersion:
             if (code == ' ') {
                 [self statusVersion: [NSString
-                                         stringWithCString: (char *) _bytes +
-                                                            _range.location
-                                                    length: _range.length - 1]];
+                                             stringWithCString: (char *)
+                                                                        _bytes +
+                                                                _range.location
+                                                        length: _range.length -
+                                                                1]];
                 rangeAction = advanceLocationToNext;
                 _state = STATE_waitingForStatusCode;
                 _statusCode = 0;
             } else if (code == '\015') {
                 [self statusVersion: [NSString
-                                         stringWithCString: (char *) _bytes +
-                                                            _range.location
-                                                    length: _range.length - 1]];
+                                             stringWithCString: (char *)
+                                                                        _bytes +
+                                                                _range.location
+                                                        length: _range.length -
+                                                                1]];
                 _state = STATE_waitingForStatusLF;
             }
             break;
@@ -397,9 +401,9 @@ enum {
                 if (code == '\015')
                     NSLog(@"got cr");
                 NSLog(@"chunk done");
-                [self
-                    didLoadData: [NSData dataWithBytes: _bytes + _range.location
-                                                length: _range.length]];
+                [self didLoadData: [NSData dataWithBytes: _bytes +
+                                                          _range.location
+                                                  length: _range.length]];
                 _range.location = NSMaxRange(_range);
                 _range.length = 0;
             }
@@ -458,13 +462,13 @@ enum {
     NSString *host = [url host];
     NSMutableString *string = [NSMutableString string];
 
-    [string
-        appendFormat: @"%@ %@ HTTP/1.1\015\012", [_request HTTPMethod], path];
+    [string appendFormat: @"%@ %@ HTTP/1.1\015\012", [_request HTTPMethod],
+                          path];
     [string appendFormat: @"Host: %@\015\012", host];
     [string appendFormat: @"Accept: */*\015\012"];
 
     NSMutableDictionary *headers =
-        [[[_request allHTTPHeaderFields] mutableCopy] autorelease];
+            [[[_request allHTTPHeaderFields] mutableCopy] autorelease];
     NSEnumerator *state = [headers keyEnumerator];
     NSString *key;
 
@@ -488,7 +492,7 @@ enum {
 
     if (_cachedResponse != nil) {
         NSHTTPURLResponse *response =
-            (NSHTTPURLResponse *) [_cachedResponse response];
+                (NSHTTPURLResponse *) [_cachedResponse response];
         NSDictionary *headers = [response allHeaderFields];
         NSString *lastModified = nil;
         NSString *etag = nil;
@@ -502,8 +506,8 @@ enum {
         }
 
         if (lastModified != nil)
-            [string
-                appendFormat: @"If-Modified-Since: %@\015\012", lastModified];
+            [string appendFormat: @"If-Modified-Since: %@\015\012",
+                                  lastModified];
 
         if (etag != nil)
             [string appendFormat: @"If-None-Match: %@\015\012", etag];
@@ -551,8 +555,8 @@ enum {
 
 - (void) timeout: (NSTimer *) timer {
     NSDictionary *userInfo =
-        [NSDictionary dictionaryWithObject: @"Connection timed out"
-                                    forKey: NSLocalizedDescriptionKey];
+            [NSDictionary dictionaryWithObject: @"Connection timed out"
+                                        forKey: NSLocalizedDescriptionKey];
     NSError *error = [NSError errorWithDomain: NSURLErrorDomain
                                          code: NSURLErrorTimedOut
                                      userInfo: userInfo];
@@ -617,8 +621,8 @@ enum {
             length = MIN(length, 256);
             NSData *dump = [NSData dataWithBytes: buffer length: length];
             NSString *str = [[[NSString alloc]
-                initWithData: dump
-                    encoding: NSUTF8StringEncoding] autorelease];
+                    initWithData: dump
+                        encoding: NSUTF8StringEncoding] autorelease];
             NSLog(@"sent: %@ ...", str);
 #endif
         }
@@ -643,8 +647,8 @@ enum {
     return NO;
 }
 - initWithRequest: (NSURLRequest *) request
-    cachedResponse: (NSCachedURLResponse *) response
-            client: (id<NSURLProtocolClient>) client
+        cachedResponse: (NSCachedURLResponse *) response
+                client: (id<NSURLProtocolClient>) client
 {
     [super initWithRequest: request cachedResponse: response client: client];
 

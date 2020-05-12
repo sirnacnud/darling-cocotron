@@ -20,7 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSXMLNodeOptions.h>
 
 @class NSArray, NSError, NSDictionary, NSXMLElement, NSXMLNode, NSXMLDocument,
-    NSMutableArray;
+        NSMutableArray;
 
 typedef enum {
     NSXMLInvalidKind,
@@ -120,7 +120,7 @@ enum {
 - (void) setObjectValue: object;
 - (void) setStringValue: (NSString *) string;
 - (void) setStringValue: (NSString *) string
-      resolvingEntities: (BOOL) resolveEntities;
+        resolvingEntities: (BOOL) resolveEntities;
 
 - (void) detach;
 - (NSArray *) nodesForXPath: (NSString *) xpath error: (NSError **) error;

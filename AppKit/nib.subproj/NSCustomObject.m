@@ -42,22 +42,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
             if (className) {
                 _className = [[NSString alloc]
-                    initWithBytesNoCopy: className
-                                 length: strlen(className)
-                               encoding: NSNEXTSTEPStringEncoding
-                           freeWhenDone: TRUE];
+                        initWithBytesNoCopy: className
+                                     length: strlen(className)
+                                   encoding: NSNEXTSTEPStringEncoding
+                               freeWhenDone: TRUE];
             } else
                 _className = @"NSObject";
 
-            NSString *mapped =
-                [NSUnarchiver classNameDecodedForArchiveClassName: _className];
+            NSString *mapped = [NSUnarchiver
+                    classNameDecodedForArchiveClassName: _className];
             if (![mapped isEqualToString: _className]) {
                 [_className release];
                 _className = [mapped copy];
             }
         } else if (version <= 16 || version > 40) {
-            [coder
-                decodeValuesOfObjCTypes: "@@", &_className, &self->extension];
+            [coder decodeValuesOfObjCTypes: "@@", &_className,
+                                            &self->extension];
         } else {
             _className = [[coder decodeObject] retain];
         }

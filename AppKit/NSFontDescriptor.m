@@ -33,7 +33,7 @@ NSString *const NSFontFixedAdvanceAttribute = @"NSFontFixedAdvanceAttribute";
 NSString *const NSFontVisibleNameAttribute = @"NSFontVisibleNameAttribute";
 NSString *const NSFontCascadeListAttribute = @"NSCTFontCascadeListAttribute";
 NSString *const NSFontFeatureSettingsAttribute =
-    @"NSCTFontFeatureSettingsAttribute";
+        @"NSCTFontFeatureSettingsAttribute";
 NSString *const NSFontVariationAttribute = @"NSCTFontVariationAttribute";
 
 NSString *const NSFontSymbolicTrait = @"NSFontSymbolicTrait";
@@ -73,28 +73,28 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 
 + fontDescriptorWithFontAttributes: (NSDictionary *) attributes {
     return [[[self allocWithZone: NULL] initWithFontAttributes: attributes]
-        autorelease];
+            autorelease];
 }
 
 + fontDescriptorWithName: (NSString *) name
                   matrix: (NSAffineTransform *) matrix
 {
     NSDictionary *attributes = [NSDictionary
-        dictionaryWithObjectsAndKeys: name, NSFontNameAttribute, matrix,
-                                      NSFontMatrixAttribute, nil];
+            dictionaryWithObjectsAndKeys: name, NSFontNameAttribute, matrix,
+                                          NSFontMatrixAttribute, nil];
     return [[[self allocWithZone: NULL] initWithFontAttributes: attributes]
-        autorelease];
+            autorelease];
 }
 
 + fontDescriptorWithName: (NSString *) name size: (CGFloat) pointSize {
     NSDictionary *attributes = [NSDictionary
-        dictionaryWithObjectsAndKeys: name, NSFontNameAttribute,
-                                      [[NSNumber numberWithFloat: pointSize]
-                                          stringValue],
-                                      NSFontSizeAttribute, nil];
+            dictionaryWithObjectsAndKeys: name, NSFontNameAttribute,
+                                          [[NSNumber numberWithFloat: pointSize]
+                                                  stringValue],
+                                          NSFontSizeAttribute, nil];
 
     return [[[self allocWithZone: NULL] initWithFontAttributes: attributes]
-        autorelease];
+            autorelease];
 }
 
 - (NSDictionary *) fontAttributes {
@@ -115,15 +115,15 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 
 - (NSFontSymbolicTraits) symbolicTraits {
     NSDictionary *fontTraits =
-        [_attributes objectForKey: NSFontTraitsAttribute];
+            [_attributes objectForKey: NSFontTraitsAttribute];
     return [[fontTraits objectForKey: NSFontSymbolicTrait] unsignedIntValue];
 }
 
 - (NSFontDescriptor *) fontDescriptorByAddingAttributes:
-    (NSDictionary *) attributes
+        (NSDictionary *) attributes
 {
     NSMutableDictionary *copy =
-        [NSMutableDictionary dictionaryWithDictionary: _attributes];
+            [NSMutableDictionary dictionaryWithDictionary: _attributes];
 
     [copy addEntriesFromDictionary: attributes];
 
@@ -132,7 +132,7 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 
 - (NSFontDescriptor *) fontDescriptorWithFace: (NSString *) face {
     NSMutableDictionary *copy =
-        [NSMutableDictionary dictionaryWithDictionary: _attributes];
+            [NSMutableDictionary dictionaryWithDictionary: _attributes];
 
     [copy setObject: face forKey: NSFontFaceAttribute];
 
@@ -141,7 +141,7 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 
 - (NSFontDescriptor *) fontDescriptorWithFamily: (NSString *) family {
     NSMutableDictionary *copy =
-        [NSMutableDictionary dictionaryWithDictionary: _attributes];
+            [NSMutableDictionary dictionaryWithDictionary: _attributes];
 
     [copy setObject: family forKey: NSFontFamilyAttribute];
 
@@ -150,7 +150,7 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 
 - (NSFontDescriptor *) fontDescriptorWithMatrix: (NSAffineTransform *) matrix {
     NSMutableDictionary *copy =
-        [NSMutableDictionary dictionaryWithDictionary: _attributes];
+            [NSMutableDictionary dictionaryWithDictionary: _attributes];
 
     [copy setObject: matrix forKey: NSFontMatrixAttribute];
 
@@ -159,7 +159,7 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 
 - (NSFontDescriptor *) fontDescriptorWithSize: (CGFloat) pointSize {
     NSMutableDictionary *copy =
-        [NSMutableDictionary dictionaryWithDictionary: _attributes];
+            [NSMutableDictionary dictionaryWithDictionary: _attributes];
 
     [copy setObject: [NSNumber numberWithFloat: pointSize]
              forKey: NSFontSizeAttribute];
@@ -168,14 +168,14 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 }
 
 - (NSFontDescriptor *) fontDescriptorWithSymbolicTraits:
-    (NSFontSymbolicTraits) traits
+        (NSFontSymbolicTraits) traits
 {
     NSMutableDictionary *copy =
-        [NSMutableDictionary dictionaryWithDictionary: _attributes];
+            [NSMutableDictionary dictionaryWithDictionary: _attributes];
 
     NSMutableDictionary *traitsCopy = [NSMutableDictionary
-        dictionaryWithDictionary: [_attributes
-                                      objectForKey: NSFontTraitsAttribute]];
+            dictionaryWithDictionary:
+                    [_attributes objectForKey: NSFontTraitsAttribute]];
     [traitsCopy setObject: [NSNumber numberWithUnsignedInt: traits]
                    forKey: NSFontSymbolicTrait];
     [copy setObject: traitsCopy forKey: NSFontTraitsAttribute];

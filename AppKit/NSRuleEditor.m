@@ -1,7 +1,7 @@
 #import <AppKit/NSRuleEditor.h>
 
 NSString *const NSRuleEditorRowsDidChangeNotification =
-    @"NSRuleEditorRowsDidChangeNotification";
+        @"NSRuleEditorRowsDidChangeNotification";
 
 @implementation NSRuleEditor
 

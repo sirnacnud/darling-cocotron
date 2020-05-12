@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSRaise.h>
 
 NSString *const NSPortDidBecomeInvalidNotification =
-    @"NSPortDidBecomeInvalidNotification";
+        @"NSPortDidBecomeInvalidNotification";
 
 @implementation NSPort
 

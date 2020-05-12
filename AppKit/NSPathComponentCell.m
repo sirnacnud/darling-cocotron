@@ -26,7 +26,7 @@
     NSFont *font = [self font];
 
     return [NSDictionary
-        dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil];
+            dictionaryWithObjectsAndKeys: font, NSFontAttributeName, nil];
 }
 
 - (void) drawWithFrame: (NSRect) frame inView: (NSView *) view {
@@ -46,9 +46,9 @@
         frame.origin.x += iconRect.size.width + 2;
 
         [icon drawInRect: iconRect
-                fromRect: NSZeroRect
-               operation: NSCompositeSourceOver
-                fraction: 1.0];
+                 fromRect: NSZeroRect
+                operation: NSCompositeSourceOver
+                 fraction: 1.0];
     }
 
     [title drawAtPoint: frame.origin withAttributes: [self textAttributes]];
@@ -56,7 +56,7 @@
 
 - (NSSize) cellSize {
     NSSize textSize =
-        [[self stringValue] sizeWithAttributes: [self textAttributes]];
+            [[self stringValue] sizeWithAttributes: [self textAttributes]];
 
     if ([self image])
         textSize.width += textSize.height;

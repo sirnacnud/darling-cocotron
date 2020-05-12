@@ -22,12 +22,12 @@ enum {
 
 - initWithSocket: (NSSocket *) socket closeOnDealloc: (BOOL) closeOnDealloc {
     _inputStream =
-        [[NSInputStream_socket alloc] initWithSocket: socket
-                                        streamStatus: NSStreamStatusOpen];
+            [[NSInputStream_socket alloc] initWithSocket: socket
+                                            streamStatus: NSStreamStatusOpen];
     [_inputStream setDelegate: self];
     _outputStream =
-        [[NSOutputStream_socket alloc] initWithSocket: socket
-                                         streamStatus: NSStreamStatusOpen];
+            [[NSOutputStream_socket alloc] initWithSocket: socket
+                                             streamStatus: NSStreamStatusOpen];
     [_outputStream setDelegate: self];
     _closeOnDealloc = closeOnDealloc;
     _asyncState = NSFileHandleStateNone;
@@ -70,21 +70,21 @@ enum {
 
 - (uint64_t) offsetInFile {
     [NSException
-         raise: NSFileHandleOperationException
-        format: @"-[%@ %s]: Illegal seek", [self class], sel_getName(_cmd)];
+             raise: NSFileHandleOperationException
+            format: @"-[%@ %s]: Illegal seek", [self class], sel_getName(_cmd)];
     return 0;
 }
 
 - (void) seekToFileOffset: (uint64_t) offset {
     [NSException
-         raise: NSFileHandleOperationException
-        format: @"-[%@ %s]: Illegal seek", [self class], sel_getName(_cmd)];
+             raise: NSFileHandleOperationException
+            format: @"-[%@ %s]: Illegal seek", [self class], sel_getName(_cmd)];
 }
 
 - (uint64_t) seekToEndOfFile {
     [NSException
-         raise: NSFileHandleOperationException
-        format: @"-[%@ %s]: Illegal seek", [self class], sel_getName(_cmd)];
+             raise: NSFileHandleOperationException
+            format: @"-[%@ %s]: Illegal seek", [self class], sel_getName(_cmd)];
     return 0;
 }
 
@@ -173,8 +173,8 @@ enum {
             notificationName = NSFileHandleReadCompletionNotification;
             // FIX, need error key too
             userInfo = [NSDictionary
-                dictionaryWithObject: data
-                              forKey: NSFileHandleNotificationDataItem];
+                    dictionaryWithObject: data
+                                  forKey: NSFileHandleNotificationDataItem];
             [self _setAsyncState: NSFileHandleStateNone forModes: nil];
         } break;
 
@@ -188,11 +188,11 @@ enum {
                 [_endOfFileBuffer appendData: data];
             } else {
                 notificationName =
-                    NSFileHandleReadToEndOfFileCompletionNotification;
+                        NSFileHandleReadToEndOfFileCompletionNotification;
                 // FIX, need error key too
                 userInfo = [NSDictionary
-                    dictionaryWithObject: _endOfFileBuffer
-                                  forKey: NSFileHandleNotificationDataItem];
+                        dictionaryWithObject: _endOfFileBuffer
+                                      forKey: NSFileHandleNotificationDataItem];
                 [_endOfFileBuffer release];
                 _endOfFileBuffer = nil;
 
@@ -203,7 +203,7 @@ enum {
         case NSFileHandleStateAccept: {
             NSError *error;
             NSSocket *socket = [[(NSInputStream_socket *) _inputStream socket]
-                acceptWithError: &error];
+                    acceptWithError: &error];
 
             notificationName = NSFileHandleConnectionAcceptedNotification;
 
@@ -211,13 +211,12 @@ enum {
                 // FIX, need error key
             } else {
                 NSFileHandle *other = [[[NSFileHandle_stream alloc]
-                    initWithSocket: socket
-                    closeOnDealloc: YES] autorelease];
+                        initWithSocket: socket
+                        closeOnDealloc: YES] autorelease];
 
                 userInfo = [NSDictionary
-                    dictionaryWithObject: other
-                                  forKey:
-                                      NSFileHandleNotificationFileHandleItem];
+                        dictionaryWithObject: other
+                                      forKey: NSFileHandleNotificationFileHandleItem];
             }
             [self _setAsyncState: NSFileHandleStateNone forModes: nil];
         } break;
@@ -230,9 +229,9 @@ enum {
 
         if (notificationName != nil)
             [[NSNotificationCenter defaultCenter]
-                postNotificationName: notificationName
-                              object: self
-                            userInfo: userInfo];
+                    postNotificationName: notificationName
+                                  object: self
+                                userInfo: userInfo];
     }
 }
 

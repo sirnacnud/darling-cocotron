@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/Foundation.h>
 
 @class NSColor, NSDraggingManager, NSPrintInfo, NSView, NSSavePanel,
-    NSOpenPanel, NSFontTypeface, CGWindow;
+        NSOpenPanel, NSFontTypeface, CGWindow;
 
 @interface NSDisplay : NSObject {
     NSMutableArray *_eventQueue;
@@ -76,22 +76,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (int) runModalPageLayoutWithPrintInfo: (NSPrintInfo *) printInfo;
 - (int) runModalPrintPanelWithPrintInfoDictionary:
-    (NSMutableDictionary *) attributes;
+        (NSMutableDictionary *) attributes;
 
 - (CGContextRef) graphicsPortForPrintOperationWithView: (NSView *) view
                                              printInfo:
-                                                 (NSPrintInfo *) printInfo
+                                                     (NSPrintInfo *) printInfo
                                              pageRange: (NSRange) pageRange;
 
 - (BOOL) implementsCustomPanelForClass: (Class) panelClass;
 
 - (int) savePanel: (NSSavePanel *) savePanel
-    runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file;
+        runModalForDirectory: (NSString *) directory
+                        file: (NSString *) file;
 - (int) openPanel: (NSOpenPanel *) openPanel
-    runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file
-                   types: (NSArray *) types;
+        runModalForDirectory: (NSString *) directory
+                        file: (NSString *) file
+                       types: (NSArray *) types;
 
 - (NSPoint) mouseLocation;
 - (NSUInteger) currentModifierFlags;
@@ -99,9 +99,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSArray *) orderedWindowNumbers;
 
 - (CGRect) insetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask;
+        forNativeWindowBorderWithStyle: (NSUInteger) styleMask;
 - (CGRect) outsetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask;
+        forNativeWindowBorderWithStyle: (NSUInteger) styleMask;
 
 - (NSArray *) modesForScreen: (int) screenIndex;
 - (NSDictionary *) currentModeForScreen: (int) screenIndex;

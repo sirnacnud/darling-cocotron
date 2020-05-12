@@ -62,12 +62,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSValue *) valueWithNonretainedObject: object {
     return [[[NSValue_nonRetainedObject allocWithZone: NULL]
-        initWithObject: object] autorelease];
+            initWithObject: object] autorelease];
 }
 
 + (NSValue *) valueWithPointer: (const void *) pointer {
     return [[[NSValue_pointer allocWithZone: NULL] initWithPointer: pointer]
-        autorelease];
+            autorelease];
 }
 
 + (NSValue *) valueWithPoint: (NSPoint) point {
@@ -195,7 +195,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (id) description {
-    return [NSString
-        stringWithFormat: @"<%@, %s>", [super description], [self objCType]];
+    return [NSString stringWithFormat: @"<%@, %s>", [super description],
+                                       [self objCType]];
 }
 @end

@@ -29,10 +29,10 @@ CGContextRef CGPDFContextCreate(CGDataConsumerRef consumer,
                                 const CGRect *mediaBox,
                                 CFDictionaryRef auxiliaryInfo)
 {
-    return
-        [[O2PDFContext alloc] initWithConsumer: consumer
-                                      mediaBox: mediaBox
-                                 auxiliaryInfo: (NSDictionary *) auxiliaryInfo];
+    return [[O2PDFContext alloc]
+            initWithConsumer: consumer
+                    mediaBox: mediaBox
+               auxiliaryInfo: (NSDictionary *) auxiliaryInfo];
 }
 
 COREGRAPHICS_EXPORT void CGPDFContextClose(CGContextRef self) {

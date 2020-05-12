@@ -172,7 +172,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSAttributedString *) attributedStringValue {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     NSMutableParagraphStyle *paraStyle =
-        [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+            [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
+                    autorelease];
     NSFont *font = [self font];
 
     if (font != nil)
@@ -189,9 +190,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [paraStyle setAlignment: _textAlignment];
     [attributes setObject: paraStyle forKey: NSParagraphStyleAttributeName];
 
-    return
-        [[[NSAttributedString alloc] initWithString: [self stringValue]
-                                         attributes: attributes] autorelease];
+    return [[[NSAttributedString alloc] initWithString: [self stringValue]
+                                            attributes: attributes]
+            autorelease];
 }
 
 - (void) drawInteriorWithFrame: (NSRect) frame inView: (NSView *) control {
@@ -203,7 +204,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     titleRect.origin.x = frame.origin.x;
     titleRect.origin.y =
-        frame.origin.y + floor((frame.size.height - titleSize.height) / 2);
+            frame.origin.y + floor((frame.size.height - titleSize.height) / 2);
     titleRect.size.width = _titleWidth;
     titleRect.size.height = titleSize.height;
 

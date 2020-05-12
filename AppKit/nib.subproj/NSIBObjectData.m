@@ -56,7 +56,7 @@
     if ([coder allowsKeyedCoding]) {
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
         NSMutableDictionary *nameTable = [NSMutableDictionary
-            dictionaryWithDictionary: [[keyed delegate] externalNameTable]];
+                dictionaryWithDictionary: [[keyed delegate] externalNameTable]];
         int i, count;
         id owner;
 
@@ -69,7 +69,7 @@
         _namesValues = [[keyed decodeObjectForKey: @"NSNamesValues"] retain];
         count = [_namesValues count];
         NSMutableArray *namedObjects =
-            [[keyed decodeObjectForKey: @"NSNamesKeys"] mutableCopy];
+                [[keyed decodeObjectForKey: @"NSNamesKeys"] mutableCopy];
         for (i = 0; i < count; i++) {
             NSString *check = [_namesValues objectAtIndex: i];
             id external = [nameTable objectForKey: check];
@@ -102,26 +102,26 @@
             }
         }
 
-        _accessibilityConnectors =
-            [[keyed decodeObjectForKey: @"NSAccessibilityConnectors"] retain];
+        _accessibilityConnectors = [[keyed
+                decodeObjectForKey: @"NSAccessibilityConnectors"] retain];
         _accessibilityOidsKeys =
-            [[keyed decodeObjectForKey: @"NSAccessibilityOidsKeys"] retain];
-        _accessibilityOidsValues =
-            [[keyed decodeObjectForKey: @"NSAccessibilityOidsValues"] retain];
+                [[keyed decodeObjectForKey: @"NSAccessibilityOidsKeys"] retain];
+        _accessibilityOidsValues = [[keyed
+                decodeObjectForKey: @"NSAccessibilityOidsValues"] retain];
         _classesKeys = [[keyed decodeObjectForKey: @"NSClassesKeys"] retain];
         _classesValues =
-            [[keyed decodeObjectForKey: @"NSClassesValues"] retain];
+                [[keyed decodeObjectForKey: @"NSClassesValues"] retain];
         _connections = [[keyed decodeObjectForKey: @"NSConnections"] retain];
         _fontManager = [[keyed decodeObjectForKey: @"NSFontManager"] retain];
         _framework = [[keyed decodeObjectForKey: @"NSFramework"] retain];
         _nextOid = [keyed decodeIntForKey: @"NSNextOid"];
         _objectsKeys = [[keyed decodeObjectForKey: @"NSObjectsKeys"] retain];
         _objectsValues =
-            [[keyed decodeObjectForKey: @"NSObjectsValues"] retain];
+                [[keyed decodeObjectForKey: @"NSObjectsValues"] retain];
         _oidKeys = [[keyed decodeObjectForKey: @"NSOidsKeys"] retain];
         _oidValues = [[keyed decodeObjectForKey: @"NSOidsValues"] retain];
         _visibleWindows =
-            [[keyed decodeObjectForKey: @"NSVisibleWindows"] retain];
+                [[keyed decodeObjectForKey: @"NSVisibleWindows"] retain];
 
         // Replace any custom object with the real thing - and update anything
         // tracking them
@@ -142,8 +142,8 @@
                         _objectsKeys = [_objectsKeys mutableCopy];
                     }
                     [(NSMutableArray *) _objectsKeys
-                        replaceObjectAtIndex: i
-                                  withObject: replacement];
+                            replaceObjectAtIndex: i
+                                      withObject: replacement];
                     [replacement release];
                 }
             }
@@ -162,9 +162,9 @@
             // read version 0
 
             NSMutableArray *keys =
-                [[NSMutableArray alloc] initWithCapacity: count];
+                    [[NSMutableArray alloc] initWithCapacity: count];
             NSMutableArray *values =
-                [[NSMutableArray alloc] initWithCapacity: count];
+                    [[NSMutableArray alloc] initWithCapacity: count];
             NSMutableSet *keySet = [[NSMutableSet alloc] init];
 
             for (int i = 0; i < count; i++) {
@@ -208,10 +208,10 @@
                 [coder decodeValuesOfObjCTypes: "@*", &key, &string];
 
                 // The string encoding is a guess
-                nss =
-                    [[NSString alloc] initWithBytes: string
-                                             length: strlen(string)
-                                           encoding: NSNEXTSTEPStringEncoding];
+                nss = [[NSString alloc]
+                        initWithBytes: string
+                               length: strlen(string)
+                             encoding: NSNEXTSTEPStringEncoding];
 
                 [keys addObject: key];
                 [values addObject: nss];
@@ -244,7 +244,7 @@
             [coder decodeValueOfObjCType: @encode(int) at: &count];
 
             NSObject **connections =
-                (NSObject **) malloc(sizeof(NSObject *) * count);
+                    (NSObject **) malloc(sizeof(NSObject *) * count);
 
             [coder decodeArrayOfObjCType: @encode(id)
                                    count: count
@@ -257,9 +257,9 @@
             [coder decodeValueOfObjCType: @encode(id) at: &_fontManager];
         } else {
             NSMutableArray *keys =
-                [[NSMutableArray alloc] initWithCapacity: count];
+                    [[NSMutableArray alloc] initWithCapacity: count];
             NSMutableArray *values =
-                [[NSMutableArray alloc] initWithCapacity: count];
+                    [[NSMutableArray alloc] initWithCapacity: count];
 
             for (int i = 0; i < count; i++) {
                 NSMenuItem *key;
@@ -336,7 +336,7 @@
         if (![_oidKeys containsObject: _fileOwner]) {
             [(NSMutableArray *) _oidKeys addObject: _fileOwner];
             [(NSMutableArray *) _oidValues
-                addObject: [NSNumber numberWithInt: _nextOid++]];
+                    addObject: [NSNumber numberWithInt: _nextOid++]];
         }
 
         for (NSInteger i = 0; i < [_objectsKeys count]; i++) {
@@ -347,7 +347,7 @@
             if (![_oidKeys containsObject: key]) {
                 [(NSMutableArray *) _oidKeys addObject: key];
                 [(NSMutableArray *) _oidValues
-                    addObject: [NSNumber numberWithInt: _nextOid++]];
+                        addObject: [NSNumber numberWithInt: _nextOid++]];
             }
         }
 
@@ -356,7 +356,7 @@
             if (![_oidKeys containsObject: conn]) {
                 [(NSMutableArray *) _oidKeys addObject: conn];
                 [(NSMutableArray *) _oidValues
-                    addObject: [NSNumber numberWithInt: _nextOid++]];
+                        addObject: [NSNumber numberWithInt: _nextOid++]];
             }
         }
     }
@@ -436,8 +436,8 @@
             id aValue = [_objectsValues objectAtIndex: i];
             if (aValue == formerOwner) {
                 [(NSMutableArray *) _objectsValues
-                    replaceObjectAtIndex: i
-                              withObject: _fileOwner];
+                        replaceObjectAtIndex: i
+                                  withObject: _fileOwner];
             }
         }
     }

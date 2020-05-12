@@ -24,8 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #if 0
 #define NIBDEBUG(desc, ...)                                                    \
     do {                                                                       \
-        NSString *location =                                                   \
-            [NSString stringWithFormat: @"%s %ld", __FILE__, (long) __LINE__]; \
+        NSString *location = [NSString                                         \
+                stringWithFormat: @"%s %ld", __FILE__, (long) __LINE__];       \
         NSString *msg = [NSString stringWithFormat: desc, ##__VA_ARGS__];      \
         NSLog(@"%@: %@", location, msg);                                       \
     } while (0)
@@ -52,14 +52,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @interface NSBundle (NSNibLoading)
 
 + (BOOL) loadNibFile: (NSString *) path
-    externalNameTable: (NSDictionary *) nameTable
-             withZone: (NSZone *) zone;
+        externalNameTable: (NSDictionary *) nameTable
+                 withZone: (NSZone *) zone;
 
 + (BOOL) loadNibNamed: (NSString *) name owner: owner;
 
 - (BOOL) loadNibFile: (NSString *) fileName
-    externalNameTable: (NSDictionary *) nameTable
-             withZone: (NSZone *) zone;
+        externalNameTable: (NSDictionary *) nameTable
+                 withZone: (NSZone *) zone;
 
 @end
 
@@ -73,12 +73,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + (void) popNibPath;
 + (void) pushNibPath: (id) path;
 + (BOOL) _loadNibFile: (id) file
-    externalNameTable: (id) tableName
-              options: (id) options
-             withZone: (struct _NSZone *) zone;
+        externalNameTable: (id) tableName
+                  options: (id) options
+                 withZone: (struct _NSZone *) zone;
 - (BOOL) loadNibFile: (id) file
-    externalNameTable: (id) tableName
-              options: (id) options
-             withZone: (struct _NSZone *) zone;
+        externalNameTable: (id) tableName
+                  options: (id) options
+                 withZone: (struct _NSZone *) zone;
 
 @end

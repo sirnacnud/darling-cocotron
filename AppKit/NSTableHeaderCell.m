@@ -45,11 +45,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) drawWithFrame: (NSRect) cellFrame inView: (NSView *) controlView {
     _controlView = controlView;
     [[controlView graphicsStyle]
-        drawTableViewHeaderInRect: cellFrame
-                      highlighted: [self isHighlighted]];
+            drawTableViewHeaderInRect: cellFrame
+                          highlighted: [self isHighlighted]];
     [[self attributedStringValue]
-        _clipAndDrawInRect: [self titleRectForBounds: cellFrame]
-            truncatingTail: (_lineBreakMode > NSLineBreakByClipping)];
+            _clipAndDrawInRect: [self titleRectForBounds: cellFrame]
+                truncatingTail: (_lineBreakMode > NSLineBreakByClipping)];
 }
 
 @end

@@ -19,32 +19,32 @@ typedef uint32_t bonjour_DNSServiceFlags;
 typedef int32_t bonjour_DNSServiceErrorType;
 
 typedef void(BONJOUR_CALL *bonjour_DNSServiceDomainEnumReply)(
-    bonjour_DNSServiceRef service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
-    const char *replyDomain, void *context);
+        bonjour_DNSServiceRef service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
+        const char *replyDomain, void *context);
 typedef void(BONJOUR_CALL *bonjour_DNSServiceRegisterReply)(
-    bonjour_DNSServiceRef service, bonjour_DNSServiceFlags flags,
-    bonjour_DNSServiceErrorType errorCode, const char *name,
-    const char *regtype, const char *domain, void *context);
+        bonjour_DNSServiceRef service, bonjour_DNSServiceFlags flags,
+        bonjour_DNSServiceErrorType errorCode, const char *name,
+        const char *regtype, const char *domain, void *context);
 typedef void(BONJOUR_CALL *bonjour_DNSServiceBrowseReply)(
-    bonjour_DNSServiceRef service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
-    const char *serviceName, const char *regtype, const char *replyDomain,
-    void *context);
+        bonjour_DNSServiceRef service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
+        const char *serviceName, const char *regtype, const char *replyDomain,
+        void *context);
 typedef void(BONJOUR_CALL *bonjour_DNSServiceRegisterRecordReply)(
-    bonjour_DNSServiceRef service, bonjour_DNSRecordRef RecordRef,
-    bonjour_DNSServiceFlags flags, bonjour_DNSServiceErrorType errorCode,
-    void *context);
+        bonjour_DNSServiceRef service, bonjour_DNSRecordRef RecordRef,
+        bonjour_DNSServiceFlags flags, bonjour_DNSServiceErrorType errorCode,
+        void *context);
 typedef void(BONJOUR_CALL *bonjour_DNSServiceQueryRecordReply)(
-    bonjour_DNSServiceRef DNSServiceRef, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
-    const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen,
-    const void *rdata, uint32_t ttl, void *context);
+        bonjour_DNSServiceRef DNSServiceRef, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
+        const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen,
+        const void *rdata, uint32_t ttl, void *context);
 typedef void(BONJOUR_CALL *bonjour_DNSServiceResolveReply)(
-    bonjour_DNSServiceRef service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
-    const char *fullname, const char *hosttarget, uint16_t port,
-    uint16_t txtLen, const unsigned char *txtRecord, void *context);
+        bonjour_DNSServiceRef service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
+        const char *fullname, const char *hosttarget, uint16_t port,
+        uint16_t txtLen, const unsigned char *txtRecord, void *context);
 
 enum {
     bonjour_kDNSServiceClass_IN = 1,
@@ -149,15 +149,15 @@ bonjour_DNSServiceErrorType
 bonjour_DNSServiceProcessResult(bonjour_DNSServiceRef service);
 void bonjour_DNSServiceRefDeallocate(bonjour_DNSServiceRef service);
 bonjour_DNSServiceErrorType bonjour_DNSServiceEnumerateDomains(
-    bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, bonjour_DNSServiceDomainEnumReply callBack,
-    void *context);
+        bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, bonjour_DNSServiceDomainEnumReply callBack,
+        void *context);
 bonjour_DNSServiceErrorType bonjour_DNSServiceRegister(
-    bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, const char *name, const char *regtype,
-    const char *domain, const char *host, uint16_t port, uint16_t txtLen,
-    const void *txtRecord, bonjour_DNSServiceRegisterReply callBack,
-    void *context);
+        bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, const char *name, const char *regtype,
+        const char *domain, const char *host, uint16_t port, uint16_t txtLen,
+        const void *txtRecord, bonjour_DNSServiceRegisterReply callBack,
+        void *context);
 bonjour_DNSServiceErrorType
 bonjour_DNSServiceAddRecord(bonjour_DNSServiceRef service,
                             bonjour_DNSRecordRef *RecordRef,
@@ -178,22 +178,23 @@ bonjour_DNSServiceBrowse(bonjour_DNSServiceRef *service,
                          const char *regtype, const char *domain,
                          bonjour_DNSServiceBrowseReply callBack, void *context);
 bonjour_DNSServiceErrorType bonjour_DNSServiceResolve(
-    bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, const char *name, const char *regtype,
-    const char *domain, bonjour_DNSServiceResolveReply callBack, void *context);
+        bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, const char *name, const char *regtype,
+        const char *domain, bonjour_DNSServiceResolveReply callBack,
+        void *context);
 bonjour_DNSServiceErrorType
 bonjour_DNSServiceCreateConnection(bonjour_DNSServiceRef *service);
 bonjour_DNSServiceErrorType bonjour_DNSServiceRegisterRecord(
-    bonjour_DNSServiceRef service, bonjour_DNSRecordRef *RecordRef,
-    bonjour_DNSServiceFlags flags, uint32_t interfaceIndex,
-    const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen,
-    const void *rdata, uint32_t ttl,
-    bonjour_DNSServiceRegisterRecordReply callBack, void *context);
+        bonjour_DNSServiceRef service, bonjour_DNSRecordRef *RecordRef,
+        bonjour_DNSServiceFlags flags, uint32_t interfaceIndex,
+        const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen,
+        const void *rdata, uint32_t ttl,
+        bonjour_DNSServiceRegisterRecordReply callBack, void *context);
 bonjour_DNSServiceErrorType bonjour_DNSServiceQueryRecord(
-    bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, const char *fullname, uint16_t rrtype,
-    uint16_t rrclass, bonjour_DNSServiceQueryRecordReply callBack,
-    void *context);
+        bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, const char *fullname, uint16_t rrtype,
+        uint16_t rrclass, bonjour_DNSServiceQueryRecordReply callBack,
+        void *context);
 bonjour_DNSServiceErrorType
 bonjour_DNSServiceReconfirmRecord(bonjour_DNSServiceFlags flags,
                                   uint32_t interfaceIndex, const char *fullname,

@@ -50,9 +50,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSUInteger i;
 
     if ([data length] != NSBitmapCharacterSetSize)
-        [NSException
-             raise: @"NSCharacterSetFailedException"
-            format: @"NSCharacterSet bitmap short %d in init", [data length]];
+        [NSException raise: @"NSCharacterSetFailedException"
+                    format: @"NSCharacterSet bitmap short %d in init",
+                            [data length]];
 
     for (i = 0; i < NSBitmapCharacterSetSize; i++)
         _bitmap[i] = bytes[i];

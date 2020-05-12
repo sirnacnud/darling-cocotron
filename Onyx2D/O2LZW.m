@@ -216,8 +216,8 @@ int DLZWDecompressLine(LZWFileType *LZWFile, O2DataConsumerRef consumer,
                     if (CrntCode == LZWFile->RunningCode - RUNNING_CODE_MINUS) {
                         CrntPrefix = LastCode;
                         Suffix[LZWFile->RunningCode - RUNNING_CODE_MINUS] =
-                            Stack[StackPtr++] =
-                                DLZWGetPrefixChar(Prefix, LastCode, ClearCode);
+                                Stack[StackPtr++] = DLZWGetPrefixChar(
+                                        Prefix, LastCode, ClearCode);
                     } else {
                         LZWFile->LZWError = D_GIF_ERR_IMAGE_DEFECT;
                         NSLog(@"error at %s %d", __FILE__, __LINE__);
@@ -264,10 +264,10 @@ int DLZWDecompressLine(LZWFileType *LZWFile, O2DataConsumerRef consumer,
                      * prefix code is last code and the suffix char is
                      * exactly the prefix of last code! */
                     Suffix[LZWFile->RunningCode - RUNNING_CODE_MINUS] =
-                        DLZWGetPrefixChar(Prefix, LastCode, ClearCode);
+                            DLZWGetPrefixChar(Prefix, LastCode, ClearCode);
                 } else {
                     Suffix[LZWFile->RunningCode - RUNNING_CODE_MINUS] =
-                        DLZWGetPrefixChar(Prefix, CrntCode, ClearCode);
+                            DLZWGetPrefixChar(Prefix, CrntCode, ClearCode);
                 }
             }
             LastCode = CrntCode;
@@ -283,7 +283,7 @@ int DLZWDecompressLine(LZWFileType *LZWFile, O2DataConsumerRef consumer,
 NSData *LZWDecodeWithExpectedResultLength(NSData *data, unsigned stripLength) {
     NSMutableData *outputData = [NSMutableData data];
     O2DataConsumerRef consumer =
-        O2DataConsumerCreateWithCFData((CFMutableDataRef) outputData);
+            O2DataConsumerCreateWithCFData((CFMutableDataRef) outputData);
     LZWFileType lzwStream;
 
     lzwStream.inputStream = [NSInputStream inputStreamWithData: data];

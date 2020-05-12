@@ -347,8 +347,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) wraps {
     return (_lineBreakMode == NSLineBreakByWordWrapping ||
             _lineBreakMode == NSLineBreakByCharWrapping)
-               ? YES
-               : NO;
+                   ? YES
+                   : NO;
 }
 
 - (NSString *) title {
@@ -432,9 +432,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (int) intValue {
     NSString *objString =
-        ([_objectValue isKindOfClass: [NSAttributedString class]])
-            ? [_objectValue string]
-            : (NSString *) _objectValue;
+            ([_objectValue isKindOfClass: [NSAttributedString class]])
+                    ? [_objectValue string]
+                    : (NSString *) _objectValue;
     if ([objString isKindOfClass: [NSString class]]) {
         int i = 0;
         [[NSScanner localizedScannerWithString: objString] scanInt: &i];
@@ -450,9 +450,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         return 0.f;
     }
     NSString *objString =
-        ([_objectValue isKindOfClass: [NSAttributedString class]])
-            ? [_objectValue string]
-            : (NSString *) _objectValue;
+            ([_objectValue isKindOfClass: [NSAttributedString class]])
+                    ? [_objectValue string]
+                    : (NSString *) _objectValue;
     if ([objString isKindOfClass: [NSString class]]) {
         float f = 0.0;
         [[NSScanner localizedScannerWithString: objString] scanFloat: &f];
@@ -470,9 +470,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
     NSString *objString =
-        ([_objectValue isKindOfClass: [NSAttributedString class]])
-            ? [_objectValue string]
-            : (NSString *) _objectValue;
+            ([_objectValue isKindOfClass: [NSAttributedString class]])
+                    ? [_objectValue string]
+                    : (NSString *) _objectValue;
     if ([objString isKindOfClass: [NSString class]]) {
         double d = 0.0;
         [[NSScanner localizedScannerWithString: objString] scanDouble: &d];
@@ -483,9 +483,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSInteger) integerValue {
     NSString *objString =
-        ([_objectValue isKindOfClass: [NSAttributedString class]])
-            ? [_objectValue string]
-            : (NSString *) _objectValue;
+            ([_objectValue isKindOfClass: [NSAttributedString class]])
+                    ? [_objectValue string]
+                    : (NSString *) _objectValue;
     if ([objString isKindOfClass: [NSString class]]) {
         NSInteger i = 0;
         [[NSScanner localizedScannerWithString: objString] scanInteger: &i];
@@ -500,8 +500,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     else {
         NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
         NSMutableParagraphStyle *paraStyle =
-            [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
-                autorelease];
+                [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
+                        autorelease];
         NSFont *font = [self font];
 
         if (font != nil)
@@ -525,7 +525,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         return [[[NSAttributedString alloc] initWithString: [self stringValue]
                                                 attributes: attributes]
-            autorelease];
+                autorelease];
     }
 }
 
@@ -558,7 +558,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             [self setFont: [NSFont systemFontOfSize: 12.0]];
         }
         [[[self controlView] window]
-            invalidateCursorRectsForView: [self controlView]];
+                invalidateCursorRectsForView: [self controlView]];
     }
 }
 
@@ -596,20 +596,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setTarget: target {
     [NSException
-         raise: NSInternalInconsistencyException
-        format: @"-[%@ %s] Unimplemented", [self class], sel_getName(_cmd)];
+             raise: NSInternalInconsistencyException
+            format: @"-[%@ %s] Unimplemented", [self class], sel_getName(_cmd)];
 }
 
 - (void) setAction: (SEL) action {
     [NSException
-         raise: NSInternalInconsistencyException
-        format: @"-[%@ %s] Unimplemented", [self class], sel_getName(_cmd)];
+             raise: NSInternalInconsistencyException
+            format: @"-[%@ %s] Unimplemented", [self class], sel_getName(_cmd)];
 }
 
 - (void) setTag: (NSInteger) tag {
     [NSException
-         raise: NSInternalInconsistencyException
-        format: @"-[%@ %s] Unimplemented", [self class], sel_getName(_cmd)];
+             raise: NSInternalInconsistencyException
+            format: @"-[%@ %s] Unimplemented", [self class], sel_getName(_cmd)];
 }
 
 - (void) setEntryType: (NSInteger) type {
@@ -672,7 +672,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if (_isEnabled != flag) {
         _isEnabled = flag;
         [[[self controlView] window]
-            invalidateCursorRectsForView: [self controlView]];
+                invalidateCursorRectsForView: [self controlView]];
     }
 }
 
@@ -680,7 +680,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if (_isEditable != flag) {
         _isEditable = flag;
         [[[self controlView] window]
-            invalidateCursorRectsForView: [self controlView]];
+                invalidateCursorRectsForView: [self controlView]];
     }
 }
 
@@ -688,7 +688,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if (_isSelectable != flag) {
         _isSelectable = flag;
         [[[self controlView] window]
-            invalidateCursorRectsForView: [self controlView]];
+                invalidateCursorRectsForView: [self controlView]];
     }
 }
 
@@ -764,9 +764,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setStringValue: (NSString *) value {
     if (value == nil) {
-        [NSException
-             raise: NSInvalidArgumentException
-            format: @"-[%@ %s] value==nil", [self class], sel_getName(_cmd)];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"-[%@ %s] value==nil", [self class],
+                            sel_getName(_cmd)];
         return;
     }
 
@@ -922,9 +922,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) frame
-             ofView: (NSView *) view
-       untilMouseUp: (BOOL) untilMouseUp
+              inRect: (NSRect) frame
+              ofView: (NSView *) view
+        untilMouseUp: (BOOL) untilMouseUp
 {
     NSPoint lastPoint;
     BOOL result = NO;
@@ -940,7 +940,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         currentPoint = [view convertPoint: [event locationInWindow]
                                  fromView: nil];
         isWithinCellFrame =
-            NSMouseInRect(currentPoint, frame, [view isFlipped]);
+                NSMouseInRect(currentPoint, frame, [view isFlipped]);
 
         if (untilMouseUp) {
             if ([event type] == NSLeftMouseUp) {
@@ -982,8 +982,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         [[view window] flushWindow];
 
-        event = [[view window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[view window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
 
     } while (YES);
 
@@ -1010,7 +1010,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                                       (drawsBackground)]];
     if ([self respondsToSelector: @selector(backgroundColor)])
         [editor setBackgroundColor: [self performSelector: @selector
-                                          (backgroundColor)]];
+                                            (backgroundColor)]];
 
     return editor;
 }
@@ -1040,7 +1040,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         }
 
         [clipView
-            setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+                setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
         [editor setAutoresizingMask: 0];
         [editor setHorizontallyResizable: [self isScrollable]];
         [editor setVerticallyResizable: YES];
@@ -1149,9 +1149,10 @@ static NSString *NSStringFromCellType(NSCellType type) {
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"%@\n\ttype: %@\n\tfont: %@\n\tobjectValue: %@",
-                          [super description], NSStringFromCellType(_cellType),
-                          _font, _objectValue];
+            stringWithFormat: @"%@\n\ttype: %@\n\tfont: %@\n\tobjectValue: %@",
+                              [super description],
+                              NSStringFromCellType(_cellType), _font,
+                              _objectValue];
 }
 @end
 

@@ -255,15 +255,15 @@ enum { NSApplicationActivated = 0, NSApplicationDeactivated = 1 };
                         pressure: (float) pressure;
 
 + (NSEvent *) keyEventWithType: (NSEventType) type
-                       location: (NSPoint) location
-                  modifierFlags: (NSEventModifierFlags) modifierFlags
-                      timestamp: (NSTimeInterval) timestamp
-                   windowNumber: (NSInteger) windowNumber
-                        context: (NSGraphicsContext *) context
-                     characters: (NSString *) characters
-    charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
-                      isARepeat: (BOOL) isARepeat
-                        keyCode: (unsigned short) keyCode;
+                           location: (NSPoint) location
+                      modifierFlags: (NSEventModifierFlags) modifierFlags
+                          timestamp: (NSTimeInterval) timestamp
+                       windowNumber: (NSInteger) windowNumber
+                            context: (NSGraphicsContext *) context
+                         characters: (NSString *) characters
+        charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
+                          isARepeat: (BOOL) isARepeat
+                            keyCode: (unsigned short) keyCode;
 
 + (NSEvent *) otherEventWithType: (NSEventType) type
                         location: (NSPoint) location

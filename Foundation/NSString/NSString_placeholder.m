@@ -55,20 +55,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 {
     NSDeallocateObject(self);
     return (NSString_placeholder *) NSString_unicodePtrNewNoCopy(
-        NULL, characters, length, freeWhenDone);
+            NULL, characters, length, freeWhenDone);
 }
 
 // Copied from former -initWithData:(NSData *)data
 // encoding:(NSStringEncoding)encoding;
 - initWithBytes: (const void *) bytes
-         length: (NSUInteger) length
-       encoding: (NSStringEncoding) encoding
+          length: (NSUInteger) length
+        encoding: (NSStringEncoding) encoding
 {
     NSDeallocateObject(self);
 
     if (encoding == defaultEncoding()) {
         return (NSString_placeholder *) NSString_cStringNewWithBytes(
-            NULL, bytes, length);
+                NULL, bytes, length);
     }
 
     switch (encoding) {
@@ -78,59 +78,59 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     case NSUnicodeStringEncoding:
         characters = NSUnicodeFromBytes(bytes, length, &resultLength);
         return (NSString_placeholder *) NSString_unicodePtrNewNoCopy(
-            NULL, characters, resultLength, YES);
+                NULL, characters, resultLength, YES);
 
     case NSNEXTSTEPStringEncoding:
         return (NSString_placeholder *) NSNEXTSTEPStringNewWithBytes(
-            NULL, bytes, length);
+                NULL, bytes, length);
 
         // FIX, not nextstep
     case NSASCIIStringEncoding:
     case NSNonLossyASCIIStringEncoding:
         return (NSString_placeholder *) NSNEXTSTEPStringNewWithBytes(
-            NULL, bytes, length);
+                NULL, bytes, length);
 
     case NSISOLatin1StringEncoding:
         return (NSString_placeholder *) NSString_isoLatin1NewWithBytes(
-            NULL, bytes, length);
+                NULL, bytes, length);
 
     case NSSymbolStringEncoding:
         characters = NSSymbolToUnicode(bytes, length, &resultLength, NULL);
         return (NSString_placeholder *) NSString_unicodePtrNewNoCopy(
-            NULL, characters, resultLength, YES);
+                NULL, characters, resultLength, YES);
 
     case NSUTF8StringEncoding:
         characters = NSUTF8ToUnicode(bytes, length, &resultLength, NULL);
         return (NSString_placeholder *) NSString_unicodePtrNewNoCopy(
-            NULL, characters, resultLength, YES);
+                NULL, characters, resultLength, YES);
 
     case NSWindowsCP1252StringEncoding:
         return (NSString_placeholder *) NSString_win1252NewWithBytes(
-            NULL, bytes, length);
+                NULL, bytes, length);
 
     case NSMacOSRomanStringEncoding:
         return (NSString_placeholder *) NSString_macOSRomanNewWithBytes(
-            NULL, bytes, length);
+                NULL, bytes, length);
 
     case NSUTF16LittleEndianStringEncoding:
-        characters =
-            NSUnicodeFromBytesUTF16LittleEndian(bytes, length, &resultLength);
+        characters = NSUnicodeFromBytesUTF16LittleEndian(bytes, length,
+                                                         &resultLength);
         return (NSString_placeholder *) NSString_unicodePtrNewNoCopy(
-            NULL, characters, resultLength, YES);
+                NULL, characters, resultLength, YES);
 
     case NSUTF16BigEndianStringEncoding:
         characters =
-            NSUnicodeFromBytesUTF16BigEndian(bytes, length, &resultLength);
+                NSUnicodeFromBytesUTF16BigEndian(bytes, length, &resultLength);
         return (NSString_placeholder *) NSString_unicodePtrNewNoCopy(
-            NULL, characters, resultLength, YES);
+                NULL, characters, resultLength, YES);
 
     default: {
         // Let's convert the encoding to unicode and use that
         unichar *unicodePtr =
-            NSBytesToUnicode(bytes, length, encoding, &resultLength, NULL);
+                NSBytesToUnicode(bytes, length, encoding, &resultLength, NULL);
         if (unicodePtr) {
             return (NSString_placeholder *) NSString_unicodePtrNewNoCopy(
-                NULL, unicodePtr, resultLength, YES);
+                    NULL, unicodePtr, resultLength, YES);
         }
     } break;
     }
@@ -141,8 +141,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithFormat: (NSString *) format
-          locale: (NSDictionary *) locale
-       arguments: (va_list) arguments
+           locale: (NSDictionary *) locale
+        arguments: (va_list) arguments
 {
     NSDeallocateObject(self);
 

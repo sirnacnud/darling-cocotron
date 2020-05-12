@@ -56,8 +56,8 @@
 }
 
 - (void) getGlyphs: (CGGlyph *) glyphs
-     forCharacters: (const unichar *) characters
-            length: (NSUInteger) length
+        forCharacters: (const unichar *) characters
+               length: (NSUInteger) length
 {
     O2Font_freetype *o2Font = (O2Font_freetype *) _font;
     FT_Face face = [o2Font face];

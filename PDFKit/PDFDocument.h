@@ -3,7 +3,7 @@
 #import <PDFKit/PDFKitExport.h>
 
 @class NSURL, NSArray, NSMutableArray, PDFPage, PDFSelection, NSTimer,
-    NSNotification;
+        NSNotification;
 
 PDFKIT_EXPORT NSString *const PDFDocumentDidEndFindNotification;
 PDFKIT_EXPORT NSString *const PDFDocumentDidFindMatchNotification;

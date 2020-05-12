@@ -362,9 +362,9 @@ static void scan_net_loc(urlScanner *scanner, NSURL *url) {
         url->_user = [[NSString alloc] initWithCharacters: scanner->part
                                                    length: user];
         if (user < login)
-            url->_password =
-                [[NSString alloc] initWithCharacters: scanner->part + user + 1
-                                              length: login - (user + 1)];
+            url->_password = [[NSString alloc]
+                    initWithCharacters: scanner->part + user + 1
+                                length: login - (user + 1)];
     }
 
     NSInteger portEnd = scanner->partLength;
@@ -379,8 +379,8 @@ static void scan_net_loc(urlScanner *scanner, NSURL *url) {
 
         port++;
         NSString *string =
-            [[NSString alloc] initWithCharacters: scanner->part + port
-                                          length: portEnd - port];
+                [[NSString alloc] initWithCharacters: scanner->part + port
+                                              length: portEnd - port];
         NSScanner *portScanner = [[NSScanner alloc] initWithString: string];
         int portNumber;
 
@@ -506,9 +506,9 @@ static BOOL scanURL(urlScanner *scanner, NSURL *url) {
     urlScanner scannerStruct, *scanner = &scannerStruct;
 
     if (string == nil) {
-        [NSException
-             raise: NSInvalidArgumentException
-            format: @"-[%@ %s] string == nil", [self class], sel_getName(_cmd)];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"-[%@ %s] string == nil", [self class],
+                            sel_getName(_cmd)];
     }
 
     initScanner(scanner, string);
@@ -574,7 +574,7 @@ static BOOL scanURL(urlScanner *scanner, NSURL *url) {
             [self initFileURLWithPath: rel];
         else
             [self initWithString: rel
-                   relativeToURL: [keyed decodeObjectForKey: @"NS.base"]];
+                    relativeToURL: [keyed decodeObjectForKey: @"NS.base"]];
 
         return self;
     } else {
@@ -658,12 +658,12 @@ static BOOL scanURL(urlScanner *scanner, NSURL *url) {
 static NSString *NormalizePath(NSString *path) {
     NSArray *components = [path componentsSeparatedByString: @"/"];
     NSMutableArray *actualComponents =
-        [NSMutableArray arrayWithCapacity: [components count]];
+            [NSMutableArray arrayWithCapacity: [components count]];
 
     NSString *lastComponent = [components lastObject];
     if (![lastComponent isEqualToString: @".."])
         components = [components
-            subarrayWithRange: NSMakeRange(0, [components count] - 1)];
+                subarrayWithRange: NSMakeRange(0, [components count] - 1)];
 
     for (NSString *part in components) {
         if ([part isEqualToString: @".."]) {
@@ -839,7 +839,7 @@ AssembleResourceSpecifier(NSMutableString *result, NSString *host,
 
 - (NSString *) relativePath {
     NSString *result = [_path
-        stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+            stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 
     if ([result length] > 1 && [result hasSuffix: @"/"])
         result = [result substringToIndex: [result length] - 1];
@@ -907,14 +907,14 @@ AssembleResourceSpecifier(NSMutableString *result, NSString *host,
 }
 
 - (NSURL *) URLByAppendingPathComponent: (NSString *) pathComponent {
-    NSString *url =
-        [[self absoluteString] stringByAppendingPathComponent: pathComponent];
+    NSString *url = [[self absoluteString]
+            stringByAppendingPathComponent: pathComponent];
     return [NSURL URLWithString: url];
 }
 
 - (NSURL *) URLByAppendingPathExtension: (NSString *) pathExtension {
-    NSString *url =
-        [[self absoluteString] stringByAppendingPathExtension: pathExtension];
+    NSString *url = [[self absoluteString]
+            stringByAppendingPathExtension: pathExtension];
     return [NSURL URLWithString: url];
 }
 
@@ -960,8 +960,8 @@ AssembleResourceSpecifier(NSMutableString *result, NSString *host,
 }
 
 - (NSURL *) URLByResolvingSymlinksInPath {
-    return
-        [NSURL fileURLWithPath: [[self path] stringByResolvingSymlinksInPath]];
+    return [NSURL
+            fileURLWithPath: [[self path] stringByResolvingSymlinksInPath]];
 }
 
 @end

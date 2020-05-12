@@ -25,9 +25,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @interface NSObject (BindingSupport)
 - (void) bind: (id) binding
-       toObject: (id) destination
-    withKeyPath: (NSString *) keyPath
-        options: (NSDictionary *) options;
+           toObject: (id) destination
+        withKeyPath: (NSString *) keyPath
+            options: (NSDictionary *) options;
 - (NSDictionary *) infoForBinding: (id) binding;
 - (void) unbind: (id) binding;
 + (void) exposeBinding: (id) binding;

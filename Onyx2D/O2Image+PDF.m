@@ -62,33 +62,32 @@ const char *O2ImageNameWithIntent(O2ColorRenderingIntent intent) {
     [dictionary setIntegerForKey: "Height" value: _height];
     if (_colorSpace != nil)
         [dictionary
-            setObjectForKey: "ColorSpace"
-                      value: [_colorSpace encodeReferenceWithContext: context]];
+                setObjectForKey: "ColorSpace"
+                          value: [_colorSpace
+                                         encodeReferenceWithContext: context]];
     [dictionary setIntegerForKey: "BitsPerComponent" value: _bitsPerComponent];
     [dictionary setNameForKey: "Intent"
                         value: O2ImageNameWithIntent(_renderingIntent)];
     [dictionary setBooleanForKey: "ImageMask" value: _isMask];
     if (_mask != nil)
         [dictionary
-            setObjectForKey: "Mask"
-                      value: [_mask encodeReferenceWithContext: context]];
+                setObjectForKey: "Mask"
+                          value: [_mask encodeReferenceWithContext: context]];
     if (_decode != NULL)
         [dictionary
-            setObjectForKey: "Decode"
-                      value:
-                          [O2PDFArray
-                              pdfArrayWithNumbers: _decode
-                                            count:
-                                                O2ColorSpaceGetNumberOfComponents(
-                                                    _colorSpace) *
-                                                2]];
+                setObjectForKey: "Decode"
+                          value: [O2PDFArray
+                                         pdfArrayWithNumbers: _decode
+                                                       count: O2ColorSpaceGetNumberOfComponents(
+                                                                      _colorSpace) *
+                                                              2]];
     [dictionary setBooleanForKey: "Interpolate" value: _interpolate];
 
     if (O2ImageDecoderGetCompressionType(_decoder) == O2ImageCompressionJPEG) {
         // If the image is JPEG compressed, we can put the JPEG data in the PDF,
         // using a DCTDecode filter
         O2DataProviderRef dataProvider =
-            O2ImageDecoderGetDataProvider(_decoder);
+                O2ImageDecoderGetDataProvider(_decoder);
         CFDataRef dctData = O2DataProviderCopyData(dataProvider);
 
         [dictionary setNameForKey: "Filter" value: "DCTDecode"];
@@ -178,13 +177,13 @@ const char *O2ImageNameWithIntent(O2ColorRenderingIntent intent) {
                 in[idx++] = g;
                 in[idx++] = b;
                 BOOL flush =
-                    (i == _height - 1 && j == _width - 1) || (idx > CHUNK);
+                        (i == _height - 1 && j == _width - 1) || (idx > CHUNK);
                 if (flush) {
 #if ZLIB_PRESENT
                     strm.avail_in = idx;
                     flush = ((i == _height - 1 && j == _width - 1))
-                                ? Z_FINISH
-                                : Z_NO_FLUSH;
+                                    ? Z_FINISH
+                                    : Z_NO_FLUSH;
                     strm.next_in = in;
 
                     // run deflate() on input until the output buffer is not
@@ -257,7 +256,8 @@ const char *O2ImageNameWithIntent(O2ColorRenderingIntent intent) {
 
     if ([dictionary getObjectForKey: "ColorSpace" value: &colorSpaceObject]) {
         if ((colorSpace = [O2ColorSpace
-                 createColorSpaceFromPDFObject: colorSpaceObject]) == NULL) {
+                     createColorSpaceFromPDFObject: colorSpaceObject]) ==
+            NULL) {
             O2PDFError(__FILE__, __LINE__, @"Unable to create ColorSpace %@",
                        colorSpaceObject);
             return NULL;
@@ -304,8 +304,8 @@ const char *O2ImageNameWithIntent(O2ColorRenderingIntent intent) {
     NSData *data = [stream data];
     int bitsPerPixel = componentsPerPixel * bitsPerComponent;
     int bytesPerRow = ([stream bytesPerRow] != 0)
-                          ? [stream bytesPerRow]
-                          : ((width * bitsPerPixel) + 7) / 8;
+                              ? [stream bytesPerRow]
+                              : ((width * bitsPerPixel) + 7) / 8;
     O2DataProvider *provider;
     O2Image *image = NULL;
 
@@ -320,7 +320,7 @@ const char *O2ImageNameWithIntent(O2ColorRenderingIntent intent) {
     if (height * bytesPerRow > [data length]) {
         // provide some gray data
         NSMutableData *mutable =
-            [NSMutableData dataWithLength: height * bytesPerRow];
+                [NSMutableData dataWithLength: height * bytesPerRow];
         char *mbytes = [mutable mutableBytes];
         int i;
         for (i = 0; i < height * bytesPerRow; i++)
@@ -341,18 +341,18 @@ const char *O2ImageNameWithIntent(O2ColorRenderingIntent intent) {
                                        interpolate: interpolate];
     } else {
         image = [[O2Image alloc]
-               initWithWidth: width
-                      height: height
-            bitsPerComponent: bitsPerComponent
-                bitsPerPixel: bitsPerPixel
-                 bytesPerRow: bytesPerRow
-                  colorSpace: colorSpace
-                  bitmapInfo: 0
-                     decoder: NULL
-                    provider: provider
-                      decode: decode
-                 interpolate: interpolate
-             renderingIntent: O2ImageRenderingIntentWithName(intent)];
+                   initWithWidth: width
+                          height: height
+                bitsPerComponent: bitsPerComponent
+                    bitsPerPixel: bitsPerPixel
+                     bytesPerRow: bytesPerRow
+                      colorSpace: colorSpace
+                      bitmapInfo: 0
+                         decoder: NULL
+                        provider: provider
+                          decode: decode
+                     interpolate: interpolate
+                 renderingIntent: O2ImageRenderingIntentWithName(intent)];
 
         if (softMask != NULL)
             [image setMask: softMask];

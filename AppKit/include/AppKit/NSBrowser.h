@@ -138,17 +138,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) browser: (NSBrowser *) browser isColumnValid: (NSInteger) column;
 
 - (NSInteger) browser: (NSBrowser *) browser
-    numberOfRowsInColumn: (NSInteger) column;
+        numberOfRowsInColumn: (NSInteger) column;
 - (void) browser: (NSBrowser *) browser
-    createRowsForColumn: (NSInteger) column
-               inMatrix: (NSMatrix *) matrix;
+        createRowsForColumn: (NSInteger) column
+                   inMatrix: (NSMatrix *) matrix;
 
 - (BOOL) browser: (NSBrowser *) browser
-       selectRow: (NSInteger) row
-        inColumn: (NSInteger) column;
+        selectRow: (NSInteger) row
+         inColumn: (NSInteger) column;
 - (BOOL) browser: (NSBrowser *) browser
-    selectCellWithString: (NSString *) title
-                inColumn: (NSInteger) column;
+        selectCellWithString: (NSString *) title
+                    inColumn: (NSInteger) column;
 
 - (NSString *) browser: (NSBrowser *) browser titleOfColumn: (NSInteger) column;
 
@@ -156,8 +156,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) browserDidScroll: (NSBrowser *) browser;
 
 - (void) browser: (NSBrowser *) browser
-    willDisplayCell: cell
-              atRow: (NSInteger) row
-             column: (NSInteger) column;
+        willDisplayCell: cell
+                  atRow: (NSInteger) row
+                 column: (NSInteger) column;
 
 @end

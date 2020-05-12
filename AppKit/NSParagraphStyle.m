@@ -42,9 +42,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSTextTab *tabs[count];
 
         for (i = 0; i < count; i++) {
-            tabs[i] =
-                [[[NSTextTab alloc] initWithType: NSLeftTabStopType
-                                        location: (i + 1) * 28.0] autorelease];
+            tabs[i] = [[[NSTextTab alloc] initWithType: NSLeftTabStopType
+                                              location: (i + 1) * 28.0]
+                    autorelease];
         }
         shared = [[NSArray alloc] initWithObjects: tabs count: count];
     }
@@ -79,12 +79,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _writingDirection = [coder decodeIntForKey: @"BaseWritingDirection"];
         _paragraphSpacing = [coder decodeFloatForKey: @"ParagraphSpacing"];
         _paragraphSpacingBefore =
-            [coder decodeFloatForKey: @"ParagraphSpacingBefore"];
+                [coder decodeFloatForKey: @"ParagraphSpacingBefore"];
         _textBlocks = [[coder decodeObjectForKey: @"Blocks"] retain];
         _textLists = [coder decodeObjectForKey: @"Lists"];
         _headerLevel = [coder decodeIntForKey: @"HeaderLevel"];
         _firstLineHeadIndent =
-            [coder decodeFloatForKey: @"FirstLineHeadIndent"];
+                [coder decodeFloatForKey: @"FirstLineHeadIndent"];
         _headIndent = [coder decodeFloatForKey: @"HeadIndent"];
         _tailIndent = [coder decodeFloatForKey: @"TailIndent"];
         _alignment = [coder decodeIntForKey: @"Alignment"];
@@ -97,7 +97,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _tabStops = [[coder decodeObjectForKey: @"Tabs"] retain];
         _hyphenationFactor = [coder decodeFloatForKey: @"HyphenationFactor"];
         _tighteningFactorForTruncation =
-            [coder decodeFloatForKey: @"TighteningFactor"];
+                [coder decodeFloatForKey: @"TighteningFactor"];
     } else {
         [NSException raise: NSInvalidArgumentException
                     format: @"-[%@ %s] is not implemented for coder %@",
@@ -181,7 +181,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static inline id mutableCopyWithZone(NSParagraphStyle *self, NSZone *zone) {
     return [[NSMutableParagraphStyle allocWithZone: zone]
-        initWithParagraphStyle: self];
+            initWithParagraphStyle: self];
 }
 
 - mutableCopy {
@@ -292,7 +292,7 @@ static inline id mutableCopyWithZone(NSParagraphStyle *self, NSZone *zone) {
             _defaultTabInterval == other->_defaultTabInterval &&
             _hyphenationFactor == other->_hyphenationFactor &&
             _tighteningFactorForTruncation ==
-                other->_tighteningFactorForTruncation &&
+                    other->_tighteningFactorForTruncation &&
             (_tabStops == other->_tabStops ||
              [_tabStops isEqual: other->_tabStops]) &&
             (_textBlocks == other->_textBlocks ||
@@ -308,44 +308,48 @@ static inline id mutableCopyWithZone(NSParagraphStyle *self, NSZone *zone) {
         switch ([tab tabStopType]) {
         case NSLeftTabStopType:
             [tabsString
-                appendString: [NSString
-                                  stringWithFormat: @"%fL", [tab location]]];
+                    appendString: [NSString stringWithFormat: @"%fL",
+                                                              [tab location]]];
             break;
         case NSRightTabStopType:
             [tabsString
-                appendString: [NSString
-                                  stringWithFormat: @"%fR", [tab location]]];
+                    appendString: [NSString stringWithFormat: @"%fR",
+                                                              [tab location]]];
             break;
         case NSCenterTabStopType:
             [tabsString
-                appendString: [NSString
-                                  stringWithFormat: @"%fC", [tab location]]];
+                    appendString: [NSString stringWithFormat: @"%fC",
+                                                              [tab location]]];
             break;
         case NSDecimalTabStopType:
             [tabsString
-                appendString: [NSString
-                                  stringWithFormat: @"%fD", [tab location]]];
+                    appendString: [NSString stringWithFormat: @"%fD",
+                                                              [tab location]]];
             break;
         }
     }
     [tabsString appendString: @")"];
 
     return [NSString
-        stringWithFormat:
-            @"Alignment %d, LineSpacing %f, ParagraphSpacing %f, "
-            @"ParagraphSpacingBefore %f, HeadIndent %f, TailIndent %f, "
-            @"FirstLineHeadIndent %f, "
-            @"LineHeight %f/%f, LineHeightMultiple %f, LineBreakMode %d, Tabs "
-            @"%@, "
-            @"DefaultTabInterval %f, Blocks %@, Lists %@, BaseWritingDirection "
-            @"%d, "
-            @"HyphenationFactor %f, TighteningFactor %f, HeaderLevel %d",
-            _alignment, _lineSpacing, _paragraphSpacing,
-            _paragraphSpacingBefore, _headIndent, _tailIndent,
-            _firstLineHeadIndent, _minimumLineHeight, _maximumLineHeight,
-            _lineHeightMultiple, _lineBreakMode, tabsString,
-            _defaultTabInterval, _textBlocks, _textLists, _writingDirection,
-            _hyphenationFactor, _tighteningFactorForTruncation, _headerLevel];
+            stringWithFormat:
+                    @"Alignment %d, LineSpacing %f, ParagraphSpacing %f, "
+                    @"ParagraphSpacingBefore %f, HeadIndent %f, TailIndent %f, "
+                    @"FirstLineHeadIndent %f, "
+                    @"LineHeight %f/%f, LineHeightMultiple %f, LineBreakMode "
+                    @"%d, Tabs "
+                    @"%@, "
+                    @"DefaultTabInterval %f, Blocks %@, Lists %@, "
+                    @"BaseWritingDirection "
+                    @"%d, "
+                    @"HyphenationFactor %f, TighteningFactor %f, HeaderLevel "
+                    @"%d",
+                    _alignment, _lineSpacing, _paragraphSpacing,
+                    _paragraphSpacingBefore, _headIndent, _tailIndent,
+                    _firstLineHeadIndent, _minimumLineHeight,
+                    _maximumLineHeight, _lineHeightMultiple, _lineBreakMode,
+                    tabsString, _defaultTabInterval, _textBlocks, _textLists,
+                    _writingDirection, _hyphenationFactor,
+                    _tighteningFactorForTruncation, _headerLevel];
 }
 
 @end

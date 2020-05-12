@@ -31,8 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (int) runModalWithPrintInfo: (NSPrintInfo *) printInfo {
-    return
-        [[NSDisplay currentDisplay] runModalPageLayoutWithPrintInfo: printInfo];
+    return [[NSDisplay currentDisplay]
+            runModalPageLayoutWithPrintInfo: printInfo];
 }
 
 - (int) runModal {

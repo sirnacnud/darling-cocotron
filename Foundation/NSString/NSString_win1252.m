@@ -29,38 +29,38 @@ typedef struct {
 } CharMapping;
 
 static CharMapping mapping_array[] = {
-    {(const unsigned char) 0x80, (const unichar) 0x20AC},
-    {(const unsigned char) 0x81, (const unichar) UNDEFINED_UNICODE},
-    {(const unsigned char) 0x82, (const unichar) 0x201A},
-    {(const unsigned char) 0x83, (const unichar) 0x0192},
-    {(const unsigned char) 0x84, (const unichar) 0x201E},
-    {(const unsigned char) 0x85, (const unichar) 0x2026},
-    {(const unsigned char) 0x86, (const unichar) 0x2020},
-    {(const unsigned char) 0x87, (const unichar) 0x2021},
-    {(const unsigned char) 0x88, (const unichar) 0x02C6},
-    {(const unsigned char) 0x89, (const unichar) 0x2030},
-    {(const unsigned char) 0x8A, (const unichar) 0x0160},
-    {(const unsigned char) 0x8B, (const unichar) 0x2039},
-    {(const unsigned char) 0x8C, (const unichar) 0x0152},
-    {(const unsigned char) 0x8D, (const unichar) UNDEFINED_UNICODE},
-    {(const unsigned char) 0x8E, (const unichar) 0x017D},
-    {(const unsigned char) 0x8F, (const unichar) UNDEFINED_UNICODE},
-    {(const unsigned char) 0x90, (const unichar) UNDEFINED_UNICODE},
-    {(const unsigned char) 0x91, (const unichar) 0x2018},
-    {(const unsigned char) 0x92, (const unichar) 0x2019},
-    {(const unsigned char) 0x93, (const unichar) 0x201C},
-    {(const unsigned char) 0x94, (const unichar) 0x201D},
-    {(const unsigned char) 0x95, (const unichar) 0x2022},
-    {(const unsigned char) 0x96, (const unichar) 0x2013},
-    {(const unsigned char) 0x97, (const unichar) 0x2014},
-    {(const unsigned char) 0x98, (const unichar) 0x02DC},
-    {(const unsigned char) 0x99, (const unichar) 0x2122},
-    {(const unsigned char) 0x9A, (const unichar) 0x0161},
-    {(const unsigned char) 0x9B, (const unichar) 0x203A},
-    {(const unsigned char) 0x9C, (const unichar) 0x0153},
-    {(const unsigned char) 0x9D, (const unichar) UNDEFINED_UNICODE},
-    {(const unsigned char) 0x9E, (const unichar) 0x017E},
-    {(const unsigned char) 0x9F, (const unichar) 0x0178}};
+        {(const unsigned char) 0x80, (const unichar) 0x20AC},
+        {(const unsigned char) 0x81, (const unichar) UNDEFINED_UNICODE},
+        {(const unsigned char) 0x82, (const unichar) 0x201A},
+        {(const unsigned char) 0x83, (const unichar) 0x0192},
+        {(const unsigned char) 0x84, (const unichar) 0x201E},
+        {(const unsigned char) 0x85, (const unichar) 0x2026},
+        {(const unsigned char) 0x86, (const unichar) 0x2020},
+        {(const unsigned char) 0x87, (const unichar) 0x2021},
+        {(const unsigned char) 0x88, (const unichar) 0x02C6},
+        {(const unsigned char) 0x89, (const unichar) 0x2030},
+        {(const unsigned char) 0x8A, (const unichar) 0x0160},
+        {(const unsigned char) 0x8B, (const unichar) 0x2039},
+        {(const unsigned char) 0x8C, (const unichar) 0x0152},
+        {(const unsigned char) 0x8D, (const unichar) UNDEFINED_UNICODE},
+        {(const unsigned char) 0x8E, (const unichar) 0x017D},
+        {(const unsigned char) 0x8F, (const unichar) UNDEFINED_UNICODE},
+        {(const unsigned char) 0x90, (const unichar) UNDEFINED_UNICODE},
+        {(const unsigned char) 0x91, (const unichar) 0x2018},
+        {(const unsigned char) 0x92, (const unichar) 0x2019},
+        {(const unsigned char) 0x93, (const unichar) 0x201C},
+        {(const unsigned char) 0x94, (const unichar) 0x201D},
+        {(const unsigned char) 0x95, (const unichar) 0x2022},
+        {(const unsigned char) 0x96, (const unichar) 0x2013},
+        {(const unsigned char) 0x97, (const unichar) 0x2014},
+        {(const unsigned char) 0x98, (const unichar) 0x02DC},
+        {(const unsigned char) 0x99, (const unichar) 0x2122},
+        {(const unsigned char) 0x9A, (const unichar) 0x0161},
+        {(const unsigned char) 0x9B, (const unichar) 0x203A},
+        {(const unsigned char) 0x9C, (const unichar) 0x0153},
+        {(const unsigned char) 0x9D, (const unichar) UNDEFINED_UNICODE},
+        {(const unsigned char) 0x9E, (const unichar) 0x017E},
+        {(const unsigned char) 0x9F, (const unichar) 0x0178}};
 
 const unichar _mapWin1252ToUnichar(const unsigned char c) {
     if (c >= 0x80 && c <= 0x9F) {
@@ -88,7 +88,7 @@ char *NSUnicodeToWin1252(const unichar *characters, NSUInteger length,
                          BOOL zeroTerminate)
 {
     char *win1252 = NSZoneMalloc(
-        zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
+            zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
     int i;
 
     for (i = 0; i < length; i++) {
@@ -136,8 +136,8 @@ NSString *NSWin1252CStringNewWithCharacters(NSZone *zone,
     NSUInteger bytesLength;
     char *bytes;
 
-    bytes =
-        NSUnicodeToWin1252(characters, length, lossy, &bytesLength, zone, NO);
+    bytes = NSUnicodeToWin1252(characters, length, lossy, &bytesLength, zone,
+                               NO);
 
     if (bytes == NULL)
         string = nil;
@@ -194,8 +194,8 @@ NSUInteger NSGetWin1252CStringWithMaxLength(const unichar *characters,
 NSString *NSString_win1252NewWithBytes(NSZone *zone, const char *bytes,
                                        NSUInteger length)
 {
-    NSString_win1252 *self =
-        NSAllocateObject([NSString_win1252 class], length * sizeof(char), zone);
+    NSString_win1252 *self = NSAllocateObject([NSString_win1252 class],
+                                              length * sizeof(char), zone);
 
     if (self) {
         self->_length = length;

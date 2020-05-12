@@ -11,9 +11,9 @@
 #import <PDFKit/PDFSelection.h>
 
 NSString *const PDFDocumentDidEndFindNotification =
-    @"PDFDocumentDidEndFindNotification";
+        @"PDFDocumentDidEndFindNotification";
 NSString *const PDFDocumentDidFindMatchNotification =
-    @"PDFDocumentDidFindMatchNotification";
+        @"PDFDocumentDidFindMatchNotification";
 
 @implementation PDFDocument
 
@@ -127,9 +127,10 @@ NSString *const PDFDocumentDidFindMatchNotification =
                 NSInteger pageRangeLocation = MAX(0, rangeLocation);
                 NSInteger pageRangeLength = maxRange - pageRangeLocation;
                 PDFSelectedRange *selectedRange = [[[PDFSelectedRange alloc]
-                    initWithPage: page
-                           range: NSMakeRange(pageRangeLocation,
-                                              pageRangeLength)] autorelease];
+                        initWithPage: page
+                               range: NSMakeRange(pageRangeLocation,
+                                                  pageRangeLength)]
+                        autorelease];
 
                 [selectionRanges addObject: selectedRange];
 
@@ -140,15 +141,15 @@ NSString *const PDFDocumentDidFindMatchNotification =
                     if (pageForRange < 0)
                         break;
 
-                    maxRange =
-                        [[[_pages objectAtIndex: pageForRange] string] length];
+                    maxRange = [[[_pages objectAtIndex: pageForRange] string]
+                            length];
                     rangeLocation = maxRange - pageRangeLength;
                 }
 
             } while (maxRange > rangeLocation);
 
             PDFSelection *selection =
-                [[[PDFSelection alloc] initWithDocument: self] autorelease];
+                    [[[PDFSelection alloc] initWithDocument: self] autorelease];
 
             [selection _setSelectedRanges: selectionRanges];
 
@@ -174,13 +175,16 @@ NSString *const PDFDocumentDidFindMatchNotification =
                 [_delegate didMatchString: selection];
 
             [[NSNotificationCenter defaultCenter]
-                postNotificationName: PDFDocumentDidFindMatchNotification
-                              object: self
-                            userInfo:
-                                [NSDictionary
-                                    dictionaryWithObject: selection
-                                                  forKey: @"PDFDocumentFoundSel"
-                                                          @"ection"]];
+                    postNotificationName: PDFDocumentDidFindMatchNotification
+                                  object: self
+                                userInfo:
+                                        [NSDictionary
+                                                dictionaryWithObject: selection
+                                                              forKey: @"PDFDocu"
+                                                                      @"mentFou"
+                                                                      @"ndSel"
+                                                                      @"ectio"
+                                                                      @"n"]];
         }
 
         _findPageIndex++;
@@ -190,9 +194,9 @@ NSString *const PDFDocumentDidFindMatchNotification =
         _findTimer = nil;
 
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: PDFDocumentDidEndFindNotification
-                          object: self
-                        userInfo: nil];
+                postNotificationName: PDFDocumentDidEndFindNotification
+                              object: self
+                            userInfo: nil];
     }
 }
 
@@ -260,12 +264,12 @@ NSString *const PDFDocumentDidFindMatchNotification =
 {
     [self _setupFindString: string withOptions: options];
 
-    _findTimer =
-        [[NSTimer scheduledTimerWithTimeInterval: 0.001
-                                          target: self
-                                        selector: @selector(_findOnCurrentPage:)
-                                        userInfo: nil
-                                         repeats: YES] retain];
+    _findTimer = [[NSTimer
+            scheduledTimerWithTimeInterval: 0.001
+                                    target: self
+                                  selector: @selector(_findOnCurrentPage:)
+                                  userInfo: nil
+                                   repeats: YES] retain];
 }
 
 - (NSArray *) findString: (NSString *) string

@@ -32,18 +32,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
 
         _backgroundColor =
-            [[keyed decodeObjectForKey: @"NSBackgroundColor"] retain];
+                [[keyed decodeObjectForKey: @"NSBackgroundColor"] retain];
         _defaultParagraphStyle =
-            [[keyed decodeObjectForKey: @"NSDefaultParagraphStyle"] retain];
+                [[keyed decodeObjectForKey: @"NSDefaultParagraphStyle"] retain];
         _flags = [keyed decodeIntForKey: @"NSFlags"];
         _insertionColor =
-            [[keyed decodeObjectForKey: @"NSInsertionColor"] retain];
+                [[keyed decodeObjectForKey: @"NSInsertionColor"] retain];
         _linkAttributes =
-            [[keyed decodeObjectForKey: @"NSLinkAttributes"] retain];
+                [[keyed decodeObjectForKey: @"NSLinkAttributes"] retain];
         _markedAttributes =
-            [[keyed decodeObjectForKey: @"NSMarkedAttributes"] retain];
+                [[keyed decodeObjectForKey: @"NSMarkedAttributes"] retain];
         _selectedAttributes =
-            [[keyed decodeObjectForKey: @"NSSelectedAttributes"] retain];
+                [[keyed decodeObjectForKey: @"NSSelectedAttributes"] retain];
     } else {
         [NSException raise: NSInvalidArgumentException
                     format: @"-[%@ %s] is not implemented for coder %@",

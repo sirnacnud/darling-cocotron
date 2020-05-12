@@ -34,33 +34,33 @@
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     if ([_source isKindOfClass: [NSText class]]) {
         [nc addObserver: self
-               selector: @selector(textDidEndEditing:)
-                   name: NSTextDidEndEditingNotification
-                 object: _source];
+                selector: @selector(textDidEndEditing:)
+                    name: NSTextDidEndEditingNotification
+                  object: _source];
         if ([self continuouslyUpdatesValue])
             [nc addObserver: self
-                   selector: @selector(textDidChange:)
-                       name: NSTextDidChangeNotification
-                     object: _source];
+                    selector: @selector(textDidChange:)
+                        name: NSTextDidChangeNotification
+                      object: _source];
     } else if ([_source isKindOfClass: [NSControl class]]) {
         [nc addObserver: self
-               selector: @selector(textDidEndEditing:)
-                   name: NSControlTextDidEndEditingNotification
-                 object: _source];
+                selector: @selector(textDidEndEditing:)
+                    name: NSControlTextDidEndEditingNotification
+                  object: _source];
         if ([self continuouslyUpdatesValue])
             [nc addObserver: self
-                   selector: @selector(textDidChange:)
-                       name: NSControlTextDidChangeNotification
-                     object: _source];
+                    selector: @selector(textDidChange:)
+                        name: NSControlTextDidChangeNotification
+                      object: _source];
     }
 
     if ([_source isKindOfClass: [NSView class]]) {
         NSWindow *window = [_source window];
         if (window)
             [nc addObserver: self
-                   selector: @selector(windowWillClose:)
-                       name: NSWindowWillCloseNotification
-                     object: window];
+                    selector: @selector(windowWillClose:)
+                        name: NSWindowWillCloseNotification
+                      object: window];
     }
 }
 

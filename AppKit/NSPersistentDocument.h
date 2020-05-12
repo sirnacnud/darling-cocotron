@@ -29,12 +29,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSManagedObjectContext *) managedObjectContext;
 - (NSManagedObjectModel *) managedObjectModel;
 - (void) setManagedObjectContext:
-    (NSManagedObjectContext *) managedObjectContext;
+        (NSManagedObjectContext *) managedObjectContext;
 - (BOOL) configurePersistentStoreCoordinatorForURL: (NSURL *) url
                                             ofType: (NSString *) fileType
                                 modelConfiguration: (NSString *) configuration
                                       storeOptions:
-                                          (NSDictionary *) storeOptions
+                                              (NSDictionary *) storeOptions
                                              error: (NSError **) error;
 - (NSString *) persistentStoreTypeForFileType: (NSString *) fileType;
 
@@ -50,9 +50,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                         ofType: (NSString *) inTypeName
                          error: (NSError **) outError;
 - (BOOL) writeToURL: (NSURL *) absoluteURL
-                 ofType: (NSString *) typeName
-       forSaveOperation: (NSSaveOperationType) saveOperation
-    originalContentsURL: (NSURL *) absoluteOriginalContentsURL
-                  error: (NSError **) error;
+                     ofType: (NSString *) typeName
+           forSaveOperation: (NSSaveOperationType) saveOperation
+        originalContentsURL: (NSURL *) absoluteOriginalContentsURL
+                      error: (NSError **) error;
 
 @end

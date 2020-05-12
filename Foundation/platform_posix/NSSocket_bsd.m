@@ -84,8 +84,8 @@ static inline void byteZero(void *vsrc, size_t size) {
 
 - initTCPStream {
     NSError *error = [self
-        errorForReturnValue: _descriptor =
-                                 socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)];
+            errorForReturnValue: _descriptor = socket(PF_INET, SOCK_STREAM,
+                                                      IPPROTO_TCP)];
     if (error != nil) {
         [self dealloc];
         return nil;
@@ -94,9 +94,9 @@ static inline void byteZero(void *vsrc, size_t size) {
 }
 
 - initUDPStream {
-    NSError *error = [self
-        errorForReturnValue: _descriptor =
-                                 socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)];
+    NSError *error =
+            [self errorForReturnValue: _descriptor = socket(PF_INET, SOCK_DGRAM,
+                                                            IPPROTO_UDP)];
     if (error != nil) {
         [self dealloc];
         return nil;
@@ -112,8 +112,8 @@ static inline void byteZero(void *vsrc, size_t size) {
 - initConnectedToSocket: (NSSocket **) otherX {
     int pipes[2];
     if (pipe(pipes)) {
-        *otherX =
-            [[[[self class] alloc] initWithDescriptor: pipes[0]] autorelease];
+        *otherX = [[[[self class] alloc] initWithDescriptor: pipes[0]]
+                autorelease];
         return [self initWithDescriptor: pipes[1]];
     } else {
         NSLog(@"NSSocket: could not create pipe: (%d) %s", errno,
@@ -252,14 +252,14 @@ static inline void byteZero(void *vsrc, size_t size) {
     int newSocket;
     NSError *error;
 
-    error = [self
-        errorForReturnValue: newSocket = accept(_descriptor, &addr, &addrlen)];
+    error = [self errorForReturnValue: newSocket = accept(_descriptor, &addr,
+                                                          &addrlen)];
     if (errorp != NULL)
         *errorp = error;
 
     return (error != nil) ? nil
                           : [[[NSSocket_bsd alloc]
-                                initWithDescriptor: newSocket] autorelease];
+                                    initWithDescriptor: newSocket] autorelease];
 }
 
 - (CFSSLHandler *) sslHandler {
@@ -269,7 +269,8 @@ static inline void byteZero(void *vsrc, size_t size) {
 @end
 
 NSData *NSSocketAddressDataForNetworkOrderAddressBytesAndPort(
-    const void *address, NSUInteger length, uint16_t port, uint32_t interface)
+        const void *address, NSUInteger length, uint16_t port,
+        uint32_t interface)
 {
     return nil;
 }

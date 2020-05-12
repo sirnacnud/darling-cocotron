@@ -56,7 +56,7 @@ typedef NSUInteger NSKeyValueSetMutationKind;
 + (BOOL) automaticallyNotifiesObserversForKey: (NSString *) key;
 + (NSSet *) keyPathsForValuesAffectingValueForKey: (NSString *) key;
 + (void) setKeys: (NSArray *) keys
-    triggerChangeNotificationsForDependentKey: (NSString *) dependentKey;
+        triggerChangeNotificationsForDependentKey: (NSString *) dependentKey;
 
 - (void) observeValueForKeyPath: (NSString *) keyPath
                        ofObject: (id) object
@@ -71,11 +71,11 @@ typedef NSUInteger NSKeyValueSetMutationKind;
 - (void) willChangeValueForKey: (NSString *) key;
 - (void) didChangeValueForKey: (NSString *) key;
 - (void) willChange: (NSKeyValueChange) change
-    valuesAtIndexes: (NSIndexSet *) indexes
-             forKey: (NSString *) key;
+        valuesAtIndexes: (NSIndexSet *) indexes
+                 forKey: (NSString *) key;
 - (void) didChange: (NSKeyValueChange) change
-    valuesAtIndexes: (NSIndexSet *) indexes
-             forKey: (NSString *) key;
+        valuesAtIndexes: (NSIndexSet *) indexes
+                 forKey: (NSString *) key;
 - (void) willChangeValueForKey: (NSString *) key
                withSetMutation: (NSKeyValueSetMutationKind) mutation
                   usingObjects: (NSSet *) objects;
@@ -89,13 +89,13 @@ typedef NSUInteger NSKeyValueSetMutationKind;
 
 @interface NSArray (KeyValueObserving)
 - (void) addObserver: (NSObject *) observer
-    toObjectsAtIndexes: (NSIndexSet *) indexes
-            forKeyPath: (NSString *) keyPath
-               options: (NSKeyValueObservingOptions) options
-               context: (void *) context;
+        toObjectsAtIndexes: (NSIndexSet *) indexes
+                forKeyPath: (NSString *) keyPath
+                   options: (NSKeyValueObservingOptions) options
+                   context: (void *) context;
 - (void) removeObserver: (NSObject *) observer
-    fromObjectsAtIndexes: (NSIndexSet *) indexes
-              forKeyPath: (NSString *) keyPath;
+        fromObjectsAtIndexes: (NSIndexSet *) indexes
+                  forKeyPath: (NSString *) keyPath;
 @end
 
 @protocol NSKeyValueObserver

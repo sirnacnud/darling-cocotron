@@ -69,7 +69,7 @@ static inline O2TextEncoding textEncodingWithName(const char *name) {
                 O2PDFError(__FILE__, __LINE__, @"No data on FontFile stream");
             else {
                 O2DataProviderRef provider =
-                    O2DataProviderCreateWithCFData((CFDataRef) data);
+                        O2DataProviderCreateWithCFData((CFDataRef) data);
                 _resourceFont = O2FontCreateWithDataProvider(provider);
 
                 O2DataProviderRelease(provider);
@@ -82,7 +82,7 @@ static inline O2TextEncoding textEncodingWithName(const char *name) {
                 O2PDFError(__FILE__, __LINE__, @"No data on FontFile2 stream");
             else {
                 O2DataProviderRef provider =
-                    O2DataProviderCreateWithCFData((CFDataRef) data);
+                        O2DataProviderCreateWithCFData((CFDataRef) data);
                 _resourceFont = O2FontCreateWithDataProvider(provider);
 
                 O2DataProviderRelease(provider);
@@ -102,7 +102,7 @@ static inline O2TextEncoding textEncodingWithName(const char *name) {
                 O2PDFError(__FILE__, __LINE__, @"No data on FontFile3 stream");
             else {
                 O2DataProviderRef provider =
-                    O2DataProviderCreateWithCFData((CFDataRef) data);
+                        O2DataProviderCreateWithCFData((CFDataRef) data);
                 _resourceFont = O2FontCreateWithDataProvider(provider);
 
                 O2DataProviderRelease(provider);
@@ -178,8 +178,8 @@ static inline O2TextEncoding textEncodingWithName(const char *name) {
         _graphicsFont = [_resourceFont retain];
     else
         _graphicsFont = O2FontCreateWithFontName([NSString
-            stringWithCString: _baseFont
-                     encoding: NSUTF8StringEncoding]);
+                stringWithCString: _baseFont
+                         encoding: NSUTF8StringEncoding]);
 
     _encoding = [_graphicsFont createEncodingForTextEncoding: textEncoding];
 
@@ -199,9 +199,9 @@ static inline O2TextEncoding textEncodingWithName(const char *name) {
                 NSString *string = [[NSString alloc] initWithCString: name];
 
                 O2Glyph glyph = O2FontGetGlyphWithGlyphName(
-                    _graphicsFont, (CFStringRef) string);
+                        _graphicsFont, (CFStringRef) string);
                 uint16_t unicode =
-                    O2FontUnicodeForGlyphName((CFStringRef) string);
+                        O2FontUnicodeForGlyphName((CFStringRef) string);
 
                 [newEncoding setGlyph: glyph
                               unicode: unicode

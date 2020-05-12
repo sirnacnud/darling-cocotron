@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Onyx2D/O2Context.h>
 
 @class O2PDFContext, O2PDFxref, O2PDFObject, O2PDFDictionary, O2PDFArray,
-    NSMutableData, NSMutableDictionary, O2DataConsumer;
+        NSMutableData, NSMutableDictionary, O2DataConsumer;
 
 const NSString *kO2PDFContextTitle;
 
@@ -45,8 +45,8 @@ const NSString *kO2PDFContextTitle;
 }
 
 - initWithConsumer: (O2DataConsumer *) consumer
-          mediaBox: (const O2Rect *) mediaBox
-     auxiliaryInfo: (NSDictionary *) auxiliaryInfo;
+             mediaBox: (const O2Rect *) mediaBox
+        auxiliaryInfo: (NSDictionary *) auxiliaryInfo;
 
 - (NSUInteger) length;
 
@@ -61,8 +61,8 @@ const NSString *kO2PDFContextTitle;
 - (O2PDFObject *) referenceForFontWithName: (NSString *) name
                                       size: (O2Float) size;
 - (void) setReference: (O2PDFObject *) reference
-      forFontWithName: (NSString *) name
-                 size: (O2Float) size;
+        forFontWithName: (NSString *) name
+                   size: (O2Float) size;
 - (O2PDFObject *) referenceForObject: (O2PDFObject *) object;
 
 - (void) encodePDFObject: (O2PDFObject *) object;

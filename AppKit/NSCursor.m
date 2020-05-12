@@ -44,14 +44,14 @@ id NSPlatformCreateCursorImpWithImage(NSImage *image, NSPoint hotSpot) {
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(
-        NULL, width, height, 8, 0, colorSpace,
-        kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+            NULL, width, height, 8, 0, colorSpace,
+            kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
     CGColorSpaceRelease(colorSpace);
 
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     NSGraphicsContext *graphicsContext =
-        [NSGraphicsContext graphicsContextWithGraphicsPort: context
-                                                   flipped: NO];
+            [NSGraphicsContext graphicsContextWithGraphicsPort: context
+                                                       flipped: NO];
 
     [NSGraphicsContext saveGraphicsState];
     [NSGraphicsContext setCurrentContext: graphicsContext];
@@ -372,9 +372,9 @@ static NSMutableArray *_cursorStack = nil;
 }
 
 - initWithImage: (NSImage *) image
-    foregroundColorHint: (NSColor *) foregroundHint
-    backgroundColorHint: (NSColor *) backgroundHint
-                hotSpot: (NSPoint) hotSpot
+        foregroundColorHint: (NSColor *) foregroundHint
+        backgroundColorHint: (NSColor *) backgroundHint
+                    hotSpot: (NSPoint) hotSpot
 {
     // the hints are unused per doc.s
     return [self initWithImage: image hotSpot: hotSpot];

@@ -33,12 +33,12 @@ static void drawPattern(void *info, CGContextRef ctxt) {
 - (void) renderInContext: (CGContextRef) context {
     CGPatternCallbacks callbacks = {0, drawPattern, NULL};
     CGPatternRef pattern = CGPatternCreate(
-        self, CGRectMake(0, 0, 1, 1), CGAffineTransformMakeScale(100, 100), 0.5,
-        0.5, kCGPatternTilingNoDistortion, YES, &callbacks);
+            self, CGRectMake(0, 0, 1, 1), CGAffineTransformMakeScale(100, 100),
+            0.5, 0.5, kCGPatternTilingNoDistortion, YES, &callbacks);
     CGColorSpaceRef colorSpace = CGColorSpaceCreatePattern(NULL);
     CGFloat components[1] = {1};
     CGColorRef color =
-        CGColorCreateWithPattern(colorSpace, pattern, components);
+            CGColorCreateWithPattern(colorSpace, pattern, components);
 
     CGContextSaveGState(context);
 

@@ -32,9 +32,9 @@ NSNumber *NSNumber_BOOLNew(NSZone *zone, BOOL value) {
 }
 
 + (id) allocWithZone: (NSZone *) zone {
-    [NSException
-         raise: NSInternalInconsistencyException
-        format: @"Private class NSNumber_BOOL is not intended to be alloced."];
+    [NSException raise: NSInternalInconsistencyException
+                format: @"Private class NSNumber_BOOL is not intended to be "
+                        @"alloced."];
     return nil;
 }
 

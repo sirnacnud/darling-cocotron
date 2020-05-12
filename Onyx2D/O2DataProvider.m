@@ -48,8 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // why doesn't O2DataProvider use CFString's, ugh
     NSUInteger len = strlen(pathCString);
     _path = [[[NSFileManager defaultManager]
-        stringWithFileSystemRepresentation: pathCString
-                                    length: len] copy];
+            stringWithFileSystemRepresentation: pathCString
+                                        length: len] copy];
     _inputStream = [[NSInputStream inputStreamWithFileAtPath: _path] retain];
     [_inputStream open];
     _data = nil;

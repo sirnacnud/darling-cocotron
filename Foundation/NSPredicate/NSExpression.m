@@ -51,7 +51,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSExpression *) expressionForConstantValue: value {
     return [[[NSExpression_constant allocWithZone: NULL] initWithValue: value]
-        autorelease];
+            autorelease];
 }
 
 + (NSExpression *) expressionForEvaluatedObject {
@@ -60,20 +60,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSExpression *) expressionForVariable: (NSString *) string {
     return [[[NSExpression_variable allocWithZone: NULL]
-        initWithVariable: string] autorelease];
+            initWithVariable: string] autorelease];
 }
 
 + (NSExpression *) expressionForKeyPath: (NSString *) keyPath {
     return [[[NSExpression_keypath allocWithZone: NULL]
-        initWithKeyPath: keyPath] autorelease];
+            initWithKeyPath: keyPath] autorelease];
 }
 
 + (NSExpression *) expressionForFunction: (NSString *) name
                                arguments: (NSArray *) arguments
 {
     return [[[NSExpression_function allocWithZone: NULL]
-        initWithName: name
-           arguments: arguments] autorelease];
+            initWithName: name
+               arguments: arguments] autorelease];
 }
 
 + (NSExpression *) expressionForKeyPathLeft: (NSExpression *) left
@@ -132,7 +132,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSExpression *) _expressionWithSubstitutionVariables:
-    (NSDictionary *) variables
+        (NSDictionary *) variables
 {
     return self;
 }

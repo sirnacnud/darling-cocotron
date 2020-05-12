@@ -24,9 +24,9 @@ static BOOL CALLBACK enumLocalesProc(LPTSTR lpLocaleString) {
     GetLocaleInfo(lcid, LOCALE_SISO3166CTRYNAME, countryISO,
                   sizeof(countryISO) / sizeof(countryISO[0]));
 
-    [sLocales
-        setObject: [NSNumber numberWithUnsignedLong: lcid]
-           forKey: [NSString stringWithFormat: @"%s_%s", langISO, countryISO]];
+    [sLocales setObject: [NSNumber numberWithUnsignedLong: lcid]
+                 forKey: [NSString stringWithFormat: @"%s_%s", langISO,
+                                                     countryISO]];
     return YES;
 }
 
@@ -41,7 +41,7 @@ BOOL NSCurrentLocaleIsMetric() {
 }
 
 + (NSDictionary *) _platformLocaleAdditionalDescriptionForIdentifier:
-    (NSString *) string
+        (NSString *) string
 {
     @synchronized(self) {
         if (sLocales == nil) {

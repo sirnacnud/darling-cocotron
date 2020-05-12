@@ -108,7 +108,7 @@ typedef enum {
            frameChanged: (NSRect) frame
                 didSize: (BOOL) didSize;
 - (NSSize) platformWindow: (CGWindow *) window
-      frameSizeWillChange: (NSSize) size;
+        frameSizeWillChange: (NSSize) size;
 - (void) platformWindowWillBeginSizing: (CGWindow *) window;
 - (void) platformWindowDidEndSizing: (CGWindow *) window;
 - (void) platformWindowExitMove: (CGWindow *) window;

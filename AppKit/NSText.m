@@ -22,9 +22,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSTextView.h>
 
 NSString *const NSTextDidBeginEditingNotification =
-    @"NSTextDidBeginEditingNotification";
+        @"NSTextDidBeginEditingNotification";
 NSString *const NSTextDidEndEditingNotification =
-    @"NSTextDidEndEditingNotification";
+        @"NSTextDidEndEditingNotification";
 NSString *const NSTextDidChangeNotification = @"NSTextDidChangeNotification";
 
 @implementation NSText

@@ -27,8 +27,8 @@
 
 - (NSMethodSignature *) methodSignatureForSelector: (SEL) aSelector {
     if (aSelector == @selector(fullName)) {
-        return
-            [self methodSignatureForSelector: @selector(replacementFullName)];
+        return [self
+                methodSignatureForSelector: @selector(replacementFullName)];
     }
     return [super methodSignatureForSelector: aSelector];
 }

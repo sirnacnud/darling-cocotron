@@ -88,9 +88,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSUInteger currentLocation = _location;
 
     for (; currentLocation < length; currentLocation++) {
-        if ([_skipSet
-                characterIsMember: [_string
-                                       characterAtIndex: currentLocation]] ==
+        if ([_skipSet characterIsMember:
+                              [_string characterAtIndex: currentLocation]] ==
             YES) {
             continue;
         } else {
@@ -223,7 +222,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     unichar decimalSeperator = '.';
     if (_locale) {
         NSString *separatorString =
-            [_locale objectForKey: NSLocaleDecimalSeparator];
+                [_locale objectForKey: NSLocaleDecimalSeparator];
         if ([separatorString length] > 0) {
             decimalSeperator = [separatorString characterAtIndex: 0];
         }
@@ -621,8 +620,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             if (scanStarted) {
                 if (stringp != NULL)
                     *stringp =
-                        [[NSString alloc] initWithCharacters: result
-                                                      length: resultLength];
+                            [[NSString alloc] initWithCharacters: result
+                                                          length: resultLength];
 
                 [pool drain];
                 if (stringp != NULL)
@@ -636,9 +635,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     continue;
                 } else {
                     if (stringp != NULL)
-                        *stringp =
-                            [[NSString alloc] initWithCharacters: result
-                                                          length: resultLength];
+                        *stringp = [[NSString alloc]
+                                initWithCharacters: result
+                                            length: resultLength];
 
                     [pool drain];
                     if (stringp != NULL)

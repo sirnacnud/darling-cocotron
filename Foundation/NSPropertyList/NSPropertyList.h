@@ -35,15 +35,15 @@ typedef enum {
 @interface NSPropertyListSerialization : NSObject
 
 + (BOOL) propertyList: propertyList
-     isValidForFormat: (NSPropertyListFormat) format;
+        isValidForFormat: (NSPropertyListFormat) format;
 
 + (NSData *) dataFromPropertyList: plist
                            format: (NSPropertyListFormat) format
                  errorDescription: (NSString **) errorDescriptionp;
 
 + propertyListFromData: (NSData *) data
-      mutabilityOption: (NSPropertyListMutabilityOptions) mutability
-                format: (NSPropertyListFormat *) format
-      errorDescription: (NSString **) errorDescriptionp;
+        mutabilityOption: (NSPropertyListMutabilityOptions) mutability
+                  format: (NSPropertyListFormat *) format
+        errorDescription: (NSString **) errorDescriptionp;
 
 @end

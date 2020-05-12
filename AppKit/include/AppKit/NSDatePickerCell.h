@@ -103,6 +103,6 @@ typedef NSUInteger NSDatePickerStyle;
 
 @interface NSObject (NSDatePickerCellDelegate)
 - (void) datePickerCell: (NSDatePickerCell *) datePickerCell
-    validateProposedDateValue: (NSDate **) dateValue
-                 timeInterval: (NSTimeInterval *) timeInterval;
+        validateProposedDateValue: (NSDate **) dateValue
+                     timeInterval: (NSTimeInterval *) timeInterval;
 @end

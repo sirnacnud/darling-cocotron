@@ -32,11 +32,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [super init];
     _secondsFromGMT = seconds;
     _name = [[NSString allocWithZone: NULL]
-        initWithFormat: @"GMT %@%02d%02d", (seconds >= 0 ? @"+" : @""),
-                        seconds / 3600, (seconds % 3600) / 60];
+            initWithFormat: @"GMT %@%02d%02d", (seconds >= 0 ? @"+" : @""),
+                            seconds / 3600, (seconds % 3600) / 60];
     _abbreviation = [[NSString allocWithZone: NULL]
-        initWithFormat: @"%@%02d%02d", (seconds >= 0 ? @"+" : @""),
-                        seconds / 3600, (seconds % 3600) / 60];
+            initWithFormat: @"%@%02d%02d", (seconds >= 0 ? @"+" : @""),
+                            seconds / 3600, (seconds % 3600) / 60];
 
     return self;
 }

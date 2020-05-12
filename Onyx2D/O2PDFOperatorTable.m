@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (O2PDFOperatorTable *) renderingOperatorTable {
     O2PDFOperatorTable *result =
-        [[[O2PDFOperatorTable alloc] init] autorelease];
+            [[[O2PDFOperatorTable alloc] init] autorelease];
 
     O2PDF_render_populateOperatorTable(result);
 

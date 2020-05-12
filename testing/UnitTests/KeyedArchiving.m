@@ -67,16 +67,16 @@
     // if you change the encoding of ArchivableClass, you need to uncomment the
     // line below, run on Apple-Darwin, then copy the resulting data file
     [data writeToFile: [@"~/ArchivableClass.keyedArchive"
-                           stringByExpandingTildeInPath]
-           atomically: NO];
+                               stringByExpandingTildeInPath]
+            atomically: NO];
 
     object = [NSKeyedUnarchiver unarchiveObjectWithData: data];
 }
 
 - (void) testForeignDecoding {
     id paths = [[NSBundle bundleForClass: [self class]]
-        pathsForResourcesOfType: @"keyedArchive"
-                    inDirectory: @""];
+            pathsForResourcesOfType: @"keyedArchive"
+                        inDirectory: @""];
     for (id archiveName in paths) {
         id data = [NSData dataWithContentsOfFile: archiveName];
         STAssertNotNil(data, @"Data file couldn't be opened");

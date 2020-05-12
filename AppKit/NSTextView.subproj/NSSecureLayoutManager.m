@@ -32,8 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSRange characterRange = [self characterRangeForGlyphRange: glyphRange
                                               actualGlyphRange: NULL];
     NSDictionary *attributes =
-        [_textStorage attributesAtIndex: characterRange.location
-                         effectiveRange: NULL];
+            [_textStorage attributesAtIndex: characterRange.location
+                             effectiveRange: NULL];
     NSFont *font = NSFontAttributeInDictionary(attributes);
     unichar buffer[characterRange.length];
 

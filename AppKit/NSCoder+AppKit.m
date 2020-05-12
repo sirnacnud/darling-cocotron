@@ -58,8 +58,8 @@ enum {
 
         if (*name)
             colorName =
-                [NSString stringWithCString: name
-                                   encoding: NSMacOSRomanStringEncoding];
+                    [NSString stringWithCString: name
+                                       encoding: NSMacOSRomanStringEncoding];
 
         NSString *catalogs[2] = {@"PANTONE", nil};
         NSString *palette = nil;
@@ -81,8 +81,8 @@ enum {
                     palette = catalogs[0];
                 } else
                     palette = [NSString
-                        stringWithCString: bufPalette
-                                 encoding: NSMacOSRomanStringEncoding];
+                            stringWithCString: bufPalette
+                                     encoding: NSMacOSRomanStringEncoding];
             }
         }
 

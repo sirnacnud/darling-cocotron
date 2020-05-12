@@ -28,8 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithSendPort: (NSPort *) sendPort
-       receivePort: (NSPort *) receivePort
-        components: (NSArray *) components;
+        receivePort: (NSPort *) receivePort
+         components: (NSArray *) components;
 
 - (uint32_t) msgid;
 - (NSArray *) components;

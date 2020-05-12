@@ -67,9 +67,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat:
-            @"<%@[%p] string: %@ modifierMask: %p selectorNames: %@>",
-            [self class], self, _string, _modifierMask, _selectorNames];
+            stringWithFormat:
+                    @"<%@[%p] string: %@ modifierMask: %p selectorNames: %@>",
+                    [self class], self, _string, _modifierMask, _selectorNames];
 }
 
 @end

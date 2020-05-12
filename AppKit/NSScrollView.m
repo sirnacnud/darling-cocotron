@@ -29,11 +29,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSKeyedArchiver.h>
 
 NSString *const NSScrollViewDidEndLiveScrollNotification =
-    @"NSScrollViewDidEndLiveScrollNotification";
+        @"NSScrollViewDidEndLiveScrollNotification";
 NSString *const NSScrollViewWillStartLiveScrollNotification =
-    @"NSScrollViewWillStartLiveScrollNotification";
+        @"NSScrollViewWillStartLiveScrollNotification";
 NSString *const NSScrollViewDidLiveScrollNotification =
-    @"NSScrollViewDidLiveScrollNotification";
+        @"NSScrollViewDidLiveScrollNotification";
 
 @implementation NSScrollView
 
@@ -139,13 +139,13 @@ static Class _rulerViewClass = nil;
         _clipView = [[keyed decodeObjectForKey: @"NSContentView"] retain];
         _verticalScroller = [[keyed decodeObjectForKey: @"NSVScroller"] retain];
         _horizontalScroller =
-            [[keyed decodeObjectForKey: @"NSHScroller"] retain];
+                [[keyed decodeObjectForKey: @"NSHScroller"] retain];
         [_verticalScroller setTarget: self];
         [_verticalScroller setAction: @selector(_verticalScroll:)];
         [_horizontalScroller setTarget: self];
         [_horizontalScroller setAction: @selector(_horizontalScroll:)];
         _headerClipView =
-            [[keyed decodeObjectForKey: @"NSHeaderClipView"] retain];
+                [[keyed decodeObjectForKey: @"NSHeaderClipView"] retain];
         _cornerView = [[keyed decodeObjectForKey: @"NSCornerView"] retain];
         _backgroundColor = [[NSColor controlBackgroundColor] copy];
 
@@ -250,7 +250,7 @@ static Class _rulerViewClass = nil;
     NSRect bounds = [self insetBounds];
     NSRect frame;
     frame.origin.x =
-        bounds.origin.x + bounds.size.width - [NSScroller scrollerWidth];
+            bounds.origin.x + bounds.size.width - [NSScroller scrollerWidth];
     frame.origin.y = bounds.origin.y;
     frame.size.width = [NSScroller scrollerWidth];
     frame.size.height = [headerView bounds].size.height;
@@ -318,7 +318,7 @@ static Class _rulerViewClass = nil;
     NSRect result;
 
     result.origin.x =
-        bounds.origin.x + bounds.size.width - [NSScroller scrollerWidth];
+            bounds.origin.x + bounds.size.width - [NSScroller scrollerWidth];
     result.origin.y = bounds.origin.y;
     result.size.width = [NSScroller scrollerWidth];
     result.size.height = bounds.size.height;
@@ -343,7 +343,7 @@ static Class _rulerViewClass = nil;
 
     result.origin.x = bounds.origin.x;
     result.origin.y =
-        (bounds.origin.y + bounds.size.height) - [NSScroller scrollerWidth];
+            (bounds.origin.y + bounds.size.height) - [NSScroller scrollerWidth];
     result.size.width = bounds.size.width;
     if ([self hasVerticalScroller] && ![_verticalScroller isHidden])
         result.size.width -= [NSScroller scrollerWidth];
@@ -360,10 +360,10 @@ static Class _rulerViewClass = nil;
 
 - (void) createVerticalScrollerIfNeeded {
     if (_verticalScroller == nil) {
-        _verticalScroller =
-            [[NSScroller alloc] initWithFrame: [self verticalScrollerFrame]];
+        _verticalScroller = [[NSScroller alloc]
+                initWithFrame: [self verticalScrollerFrame]];
         [_verticalScroller
-            setAutoresizingMask: NSViewMinXMargin | NSViewHeightSizable];
+                setAutoresizingMask: NSViewMinXMargin | NSViewHeightSizable];
         [_verticalScroller setTarget: self];
         [_verticalScroller setAction: @selector(_verticalScroll:)];
     }
@@ -371,10 +371,10 @@ static Class _rulerViewClass = nil;
 
 - (void) createHorizontalScrollerIfNeeded {
     if (_horizontalScroller == nil) {
-        _horizontalScroller =
-            [[NSScroller alloc] initWithFrame: [self horizontalScrollerFrame]];
+        _horizontalScroller = [[NSScroller alloc]
+                initWithFrame: [self horizontalScrollerFrame]];
         [_horizontalScroller
-            setAutoresizingMask: NSViewMaxYMargin | NSViewWidthSizable];
+                setAutoresizingMask: NSViewMaxYMargin | NSViewWidthSizable];
         [_horizontalScroller setTarget: self];
         [_horizontalScroller setAction: @selector(_horizontalScroll:)];
     }
@@ -433,12 +433,12 @@ static Class _rulerViewClass = nil;
         _headerClipView = nil;
     } else if ([self _headerView] != nil && _headerClipView == nil) {
         _headerClipView =
-            [[NSClipView alloc] initWithFrame: [self headerClipViewFrame]];
+                [[NSClipView alloc] initWithFrame: [self headerClipViewFrame]];
         [_headerClipView setDocumentView: [self _headerView]];
 
         [self addSubview: _headerClipView];
         [_headerClipView
-            setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+                setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
         [_headerClipView setAutoresizesSubviews: YES];
     }
 
@@ -463,16 +463,16 @@ static Class _rulerViewClass = nil;
         if (_hasHorizontalRuler) {
             if (_horizontalRuler == nil)
                 _horizontalRuler = [[[[self class] rulerViewClass] alloc]
-                    initWithScrollView: self
-                           orientation: NSHorizontalRuler];
+                        initWithScrollView: self
+                               orientation: NSHorizontalRuler];
 
             [self addSubview: _horizontalRuler];
         }
         if (_hasVerticalRuler) {
             if (_verticalRuler == nil)
                 _verticalRuler = [[[[self class] rulerViewClass] alloc]
-                    initWithScrollView: self
-                           orientation: NSVerticalRuler];
+                        initWithScrollView: self
+                               orientation: NSVerticalRuler];
 
             [self addSubview: _verticalRuler];
         }
@@ -834,18 +834,19 @@ static Class _rulerViewClass = nil;
                 [_verticalScroller setHidden: _autohidesScrollers];
             } else {
                 CGFloat value =
-                    (heightDiff <= 0)
-                        ? 0
-                        : (clipRect.origin.y - docRect.origin.y) / heightDiff;
+                        (heightDiff <= 0)
+                                ? 0
+                                : (clipRect.origin.y - docRect.origin.y) /
+                                          heightDiff;
 
                 if (![docView isFlipped])
                     value = 1.0 - value;
 
                 [_verticalScroller setEnabled: YES];
                 [_verticalScroller setHidden: NO];
-                [_verticalScroller
-                     setFloatValue: value
-                    knobProportion: clipRect.size.height / docRect.size.height];
+                [_verticalScroller setFloatValue: value
+                                  knobProportion: clipRect.size.height /
+                                                  docRect.size.height];
             }
 
             if (widthDiff <= 0) {
@@ -853,15 +854,16 @@ static Class _rulerViewClass = nil;
                 [_horizontalScroller setHidden: _autohidesScrollers];
             } else {
                 CGFloat value =
-                    (widthDiff <= 0)
-                        ? 0
-                        : (clipRect.origin.x - docRect.origin.x) / widthDiff;
+                        (widthDiff <= 0)
+                                ? 0
+                                : (clipRect.origin.x - docRect.origin.x) /
+                                          widthDiff;
 
                 [_horizontalScroller setEnabled: YES];
                 [_horizontalScroller setHidden: NO];
-                [_horizontalScroller
-                     setFloatValue: value
-                    knobProportion: clipRect.size.width / docRect.size.width];
+                [_horizontalScroller setFloatValue: value
+                                    knobProportion: clipRect.size.width /
+                                                    docRect.size.width];
             }
         }
 

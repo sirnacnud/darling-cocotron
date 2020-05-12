@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) tracingEnabled {
     return [[NSUserDefaults standardUserDefaults]
-        boolForKey: @"NSTIFFTracingEnabled"];
+            boolForKey: @"NSTIFFTracingEnabled"];
 }
 
 - (unsigned) currentOffset {
@@ -33,10 +33,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static void seekToOffset(O2Decoder_TIFF *self, unsigned offset) {
     if (offset >= self->_length)
-        [NSException
-             raise: NSInvalidArgumentException
-            format: @"Attempt to seek past end of TIFF, length=%d,offset=%d",
-                    self->_length, offset];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"Attempt to seek past end of TIFF, "
+                            @"length=%d,offset=%d",
+                            self->_length, offset];
 
     self->_position = offset;
 }
@@ -57,9 +57,9 @@ static uint8_t nextUnsigned8(O2Decoder_TIFF *self) {
     if (self->_position < self->_length)
         return self->_bytes[self->_position++];
 
-    [NSException
-         raise: NSInvalidArgumentException
-        format: @"Attempt to read past end of TIFF, length=%d", self->_length];
+    [NSException raise: NSInvalidArgumentException
+                format: @"Attempt to read past end of TIFF, length=%d",
+                        self->_length];
     return 0;
 }
 
@@ -305,7 +305,7 @@ static void _decodeArrayOfUnsigned32(O2Decoder_TIFF *self, unsigned **valuesp,
     return [[[NSString alloc] initWithBytes: ascii
                                      length: count - 1
                                    encoding: NSISOLatin1StringEncoding]
-        autorelease];
+            autorelease];
 }
 
 - (unsigned) expectUnsigned16OrUnsigned32 {
@@ -372,8 +372,8 @@ static void _decodeArrayOfUnsigned32(O2Decoder_TIFF *self, unsigned **valuesp,
 
     seekToOffset(self, offset);
 
-    imageFileDirectory =
-        [[[O2TIFFImageDirectory alloc] initWithTIFFReader: self] autorelease];
+    imageFileDirectory = [[[O2TIFFImageDirectory alloc]
+            initWithTIFFReader: self] autorelease];
 
     [_directory addObject: imageFileDirectory];
 
@@ -406,8 +406,8 @@ static void _decodeArrayOfUnsigned32(O2Decoder_TIFF *self, unsigned **valuesp,
         return NO;
     }
 
-    while ((nextEntryOffset =
-                [self parseImageFileDirectoryAtOffset: nextEntryOffset]) != 0)
+    while ((nextEntryOffset = [self
+                    parseImageFileDirectoryAtOffset: nextEntryOffset]) != 0)
         ;
 
     NS_HANDLER

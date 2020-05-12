@@ -12,7 +12,7 @@ static void O2ContextDistillShowText(O2ContextRef self, const char *text,
     O2AffineTransform Trm = O2ContextGetTextRenderingMatrix(self);
     NSPoint point = O2PointApplyAffineTransform(NSMakePoint(0, 0), Trm);
     O2Size fontSize = O2SizeApplyAffineTransform(
-        O2SizeMake(0, O2GStatePointSize(gState)), Trm);
+            O2SizeMake(0, O2GStatePointSize(gState)), Trm);
     O2Encoding *encoding = [gState encoding];
     O2PDFCharWidths *widths = [gState pdfCharWidths];
     O2Glyph glyphs[length];
@@ -61,10 +61,10 @@ static void O2ContextDistillShowText(O2ContextRef self, const char *text,
     O2ContextConcatAdvancesToTextMatrix(self, advances, length);
 
     [((O2Context_distill *) self)->_delegate
-        distiller: (O2Context_distill *) self
-          unicode: unicode
-            rects: glyphRects
-            count: length];
+            distiller: (O2Context_distill *) self
+              unicode: unicode
+                rects: glyphRects
+                count: length];
 }
 
 - (void) drawPath: (O2PathDrawingMode) pathMode {

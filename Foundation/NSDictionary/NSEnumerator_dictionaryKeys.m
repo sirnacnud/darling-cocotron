@@ -35,7 +35,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSEnumerator *NSEnumerator_dictionaryKeysNew(NSMapTable *table) {
     NSEnumerator_dictionaryKeys *self =
-        NSAllocateObject([NSEnumerator_dictionaryKeys class], 0, NULL);
+            NSAllocateObject([NSEnumerator_dictionaryKeys class], 0, NULL);
     if (self) {
         self->state = NSEnumerateMapTable(table);
     }

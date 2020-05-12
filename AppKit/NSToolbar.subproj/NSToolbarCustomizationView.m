@@ -138,11 +138,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSData *data = nil;
 
     if (_isDefaultSetView) {
-        image =
-            [[[NSImage alloc] initWithSize: [self bounds].size] autorelease];
-        data = [NSArchiver
-            archivedDataWithRootObject: [[_toolbar _defaultToolbarItems]
-                                            valueForKey: @"itemIdentifier"]];
+        image = [[[NSImage alloc] initWithSize: [self bounds].size]
+                autorelease];
+        data = [NSArchiver archivedDataWithRootObject:
+                                   [[_toolbar _defaultToolbarItems]
+                                           valueForKey: @"itemIdentifier"]];
 
         [image setCachedSeparately: YES];
         [image lockFocus];
@@ -162,9 +162,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 NSToolbarItem *item = [items objectAtIndex: i];
 
                 image = [[[NSImage alloc] initWithSize: frames[i].size]
-                    autorelease];
+                        autorelease];
                 data = [NSArchiver
-                    archivedDataWithRootObject: [item itemIdentifier]];
+                        archivedDataWithRootObject: [item itemIdentifier]];
 
                 [image setCachedSeparately: YES];
                 [image lockFocus];
@@ -176,18 +176,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (data != nil) {
         [pasteboard
-            declareTypes:
-                [NSArray arrayWithObject: NSToolbarItemIdentifierPboardType]
-                   owner: nil];
+                declareTypes: [NSArray
+                                      arrayWithObject:
+                                              NSToolbarItemIdentifierPboardType]
+                       owner: nil];
         [pasteboard setData: data forType: NSToolbarItemIdentifierPboardType];
 
         [self dragImage: image
-                     at: NSMakePoint(0, 0)
-                 offset: NSMakeSize(0, 0)
-                  event: event
-             pasteboard: pasteboard
-                 source: self
-              slideBack: YES];
+                        at: NSMakePoint(0, 0)
+                    offset: NSMakeSize(0, 0)
+                     event: event
+                pasteboard: pasteboard
+                    source: self
+                 slideBack: YES];
     }
 }
 
@@ -198,4 +199,4 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @end
 
 const NSPasteboardType NSToolbarItemIdentifierPboardType =
-    @"NSToolbarItemIdentifierPboardType";
+        @"NSToolbarItemIdentifierPboardType";

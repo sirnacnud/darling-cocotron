@@ -29,7 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSOpenGLPixelFormatAttribute attributes[] = {0};
 
     return [[[NSOpenGLPixelFormat alloc] initWithAttributes: attributes]
-        autorelease];
+            autorelease];
 }
 
 - (id) initWithFrame: (NSRect) frame

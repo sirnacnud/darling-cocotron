@@ -51,7 +51,7 @@
 
 - (const char *) pdfFontName {
     return [[[[self name] componentsSeparatedByString: @" "]
-        componentsJoinedByString: @","] cString];
+            componentsJoinedByString: @","] cString];
 }
 
 - (KGPDFDictionary *) _pdfFontDescriptor {
@@ -92,20 +92,19 @@
         [result setNameForKey: "BaseFont" value: [self pdfFontName]];
         [result setIntegerForKey: "FirstChar" value: 0];
         [result setIntegerForKey: "LastChar" value: 255];
-        [result
-            setObjectForKey: "Widths"
-                      value: [context
-                                 encodeIndirectPDFObject: [self _pdfWidths]]];
+        [result setObjectForKey: "Widths"
+                          value: [context encodeIndirectPDFObject:
+                                                  [self _pdfWidths]]];
         [result setObjectForKey: "FontDescriptor"
                           value: [context encodeIndirectPDFObject:
-                                              [self _pdfFontDescriptor]]];
+                                                  [self _pdfFontDescriptor]]];
 
         [result setNameForKey: "Encoding" value: "WinAnsiEncoding"];
 
         reference = [context encodeIndirectPDFObject: result];
         [context setReference: reference
-              forFontWithName: [self name]
-                         size: _size];
+                forFontWithName: [self name]
+                           size: _size];
     }
 
     return reference;

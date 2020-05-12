@@ -32,7 +32,7 @@ typedef NSInteger NSStringDrawingOptions;
 
 @interface NSString (NSStringDrawing)
 - (void) drawAtPoint: (NSPoint) point
-      withAttributes: (NSDictionary *) attributes;
+        withAttributes: (NSDictionary *) attributes;
 - (void) drawInRect: (NSRect) rect withAttributes: (NSDictionary *) attributes;
 
 - (NSSize) sizeWithAttributes: (NSDictionary *) attributes;

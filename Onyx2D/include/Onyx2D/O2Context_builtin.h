@@ -103,8 +103,8 @@ typedef void (*O2WriteCoverage_argb8u)(O2Surface *surface, O2Surface *mask,
 }
 
 - (void) setWidth: (size_t) width
-                      height: (size_t) height
-    reallocateOnlyIfRequired: (BOOL) roir;
+                          height: (size_t) height
+        reallocateOnlyIfRequired: (BOOL) roir;
 
 void O2RasterizerDealloc(O2Context_builtin *self);
 void O2RasterizerSetViewport(O2Context_builtin *self, int x, int y, int vpwidth,

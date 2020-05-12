@@ -40,8 +40,8 @@ typedef enum {
 
 - (void) setCookie: (NSHTTPCookie *) value;
 - (void) setCookies: (NSArray *) cookies
-             forURL: (NSURL *) url
-    mainDocumentURL: (NSURL *) mainDocumentURL;
+                 forURL: (NSURL *) url
+        mainDocumentURL: (NSURL *) mainDocumentURL;
 
 - (void) deleteCookie: (NSHTTPCookie *) value;
 

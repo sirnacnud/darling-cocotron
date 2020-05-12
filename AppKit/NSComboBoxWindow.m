@@ -69,10 +69,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (int) runTrackingWithEvent: (NSEvent *) event {
     NSSize size = [_view sizeForContents];
     NSSize scrollViewSize = [NSScrollView
-        frameSizeForContentSize: size
-          hasHorizontalScroller: [_scrollView hasHorizontalScroller]
-            hasVerticalScroller: [_scrollView hasVerticalScroller]
-                     borderType: NSLineBorder];
+            frameSizeForContentSize: size
+              hasHorizontalScroller: [_scrollView hasHorizontalScroller]
+                hasVerticalScroller: [_scrollView hasVerticalScroller]
+                         borderType: NSLineBorder];
     NSRect frame;
 
     frame = [self frame];

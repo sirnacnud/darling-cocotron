@@ -20,8 +20,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSURLCache.h>
 
 @class NSInputStream, NSOutputStream, NSRunLoop, NSURLRequest, NSData,
-    NSURLResponse, NSError, NSMutableArray, NSURLAuthenticationChallenge,
-    NSCachedURLResponse, NSURLProtocol, NSMutableData;
+        NSURLResponse, NSError, NSMutableArray, NSURLAuthenticationChallenge,
+        NSCachedURLResponse, NSURLProtocol, NSMutableData;
 
 @interface NSURLConnection : NSObject {
     NSURLRequest *_request;
@@ -41,8 +41,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                    delegate: delegate;
 
 - initWithRequest: (NSURLRequest *) request
-            delegate: delegate
-    startImmediately: (BOOL) startLoading;
+                delegate: delegate
+        startImmediately: (BOOL) startLoading;
 - initWithRequest: (NSURLRequest *) request delegate: delegate;
 
 - (void) start;
@@ -56,17 +56,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @interface NSObject (NSURLConnectionDelegate)
 - (void) connection: (NSURLConnection *) connection
-    didFailWithError: (NSError *) error;
+        didFailWithError: (NSError *) error;
 - (void) connection: (NSURLConnection *) connection
-    didReceiveAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge;
+        didReceiveAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) challenge;
 - (void) connection: (NSURLConnection *) connection
-    didCancelAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge;
+        didCancelAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) challenge;
 - (void) connection: (NSURLConnection *) connection
-     didReceiveData: (NSData *) data;
+        didReceiveData: (NSData *) data;
 - (void) connection: (NSURLConnection *) connection
-    didReceiveResponse: (NSURLResponse *) response;
+        didReceiveResponse: (NSURLResponse *) response;
 - (NSCachedURLResponse *) connection: (NSURLConnection *) connection
                    willCacheResponse: (NSCachedURLResponse *) response;
 - (NSURLRequest *) connection: (NSURLConnection *) connection

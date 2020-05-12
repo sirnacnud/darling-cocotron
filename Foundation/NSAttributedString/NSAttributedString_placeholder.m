@@ -32,22 +32,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSDeallocateObject(self);
 
     return [NSAllocateObject([NSAttributedString_nilAttributes class], 0, NULL)
-        initWithString: string];
+            initWithString: string];
 }
 
 - initWithString: (NSString *) string attributes: (NSDictionary *) attributes {
     NSDeallocateObject(self);
 
     return [NSAllocateObject([NSAttributedString_oneAttribute class], 0, NULL)
-        initWithString: string
-            attributes: attributes];
+            initWithString: string
+                attributes: attributes];
 }
 
 - initWithAttributedString: (NSAttributedString *) other {
     NSDeallocateObject(self);
 
     return [NSAllocateObject([NSAttributedString_manyAttributes class], 0, NULL)
-        initWithAttributedString: other];
+            initWithAttributedString: other];
 }
 
 - initWithCoder: (NSCoder *) coder {
@@ -64,7 +64,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                            attributes: attributes];
     }
     return [NSAllocateObject([NSAttributedString_nilAttributes class], 0, NULL)
-        initWithString: string];
+            initWithString: string];
 }
 
 @end

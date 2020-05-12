@@ -169,7 +169,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     for (i = 0; i < count; i++)
         if ([[_asyncInputSourceSets objectAtIndex: i]
-                fireSingleImmediateInputInMode: mode])
+                    fireSingleImmediateInputInMode: mode])
             return YES;
 
     return [_inputSourceSet fireSingleImmediateInputInMode: mode];
@@ -185,7 +185,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         for (i = 0; i < count; i++)
             [[_asyncInputSourceSets objectAtIndex: i]
-                waitInBackgroundInMode: mode];
+                    waitInBackgroundInMode: mode];
 
         return [_inputSourceSet waitForInputInMode: mode beforeDate: date];
     }
@@ -196,9 +196,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (id) description {
-    return
-        [NSString stringWithFormat: @"%@, %i inputSources", [super description],
-                                    [_inputSourceSet count]];
+    return [NSString stringWithFormat: @"%@, %i inputSources",
+                                       [super description],
+                                       [_inputSourceSet count]];
 }
 
 @end

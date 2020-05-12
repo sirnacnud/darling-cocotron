@@ -43,17 +43,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSHandleMonitor_win32 *) handleMonitor {
     if (_monitor == nil) {
         int processId = [[NSUserDefaults standardUserDefaults]
-            integerForKey: @"ParentProcessId"];
+                integerForKey: @"ParentProcessId"];
 
         if (processId == 0 || (_parentHandle = OpenProcess(
-                                   SYNCHRONIZE | PROCESS_QUERY_INFORMATION, NO,
-                                   processId)) == NULL) {
+                                       SYNCHRONIZE | PROCESS_QUERY_INFORMATION,
+                                       NO, processId)) == NULL) {
             [self dealloc];
             return nil;
         }
 
         _monitor = [[NSHandleMonitor_win32 allocWithZone: NULL]
-            initWithHandle: _parentHandle];
+                initWithHandle: _parentHandle];
         [_monitor setDelegate: self];
     }
     return _monitor;

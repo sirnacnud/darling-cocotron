@@ -26,10 +26,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                        endingWith: (NSString *) end;
 {
     if ([self hasPrefix: start] && [self hasSuffix: end]) {
-        NSString *keyName =
-            [self substringWithRange: NSMakeRange([start length],
-                                                  [self length] - [end length] -
-                                                      [start length])];
+        NSString *keyName = [self
+                substringWithRange: NSMakeRange([start length],
+                                                [self length] - [end length] -
+                                                        [start length])];
         if (![keyName length])
             return NO;
 

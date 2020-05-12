@@ -119,7 +119,7 @@ NSRect NSUnionRect(NSRect rect0, NSRect rect1) {
         result.origin.y = MIN(rect0.origin.y, rect1.origin.y);
         result.size.width = MAX(NSMaxX(rect0), NSMaxX(rect1)) - result.origin.x;
         result.size.height =
-            MAX(NSMaxY(rect0), NSMaxY(rect1)) - result.origin.y;
+                MAX(NSMaxY(rect0), NSMaxY(rect1)) - result.origin.y;
 
         return result;
     }
@@ -178,8 +178,8 @@ BOOL NSContainsRect(NSRect rect0, NSRect rect1) {
             (NSMinY(rect0) <= NSMinY(rect1)) &&
             (NSMaxX(rect0) >= NSMaxX(rect1)) &&
             (NSMaxY(rect0) >= NSMaxY(rect1)))
-               ? YES
-               : NO;
+                   ? YES
+                   : NO;
 }
 
 BOOL NSIntersectsRect(NSRect rect0, NSRect rect1) {

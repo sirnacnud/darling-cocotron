@@ -77,13 +77,13 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
     }
     if (isDirectory) {
         objects = [[path stringByAppendingPathComponent: @"keyedobjects"]
-            stringByAppendingPathExtension: @"nib"];
+                stringByAppendingPathExtension: @"nib"];
 
         if ([[NSFileManager defaultManager] fileExistsAtPath: objects])
             _flags._isKeyed = TRUE;
         else
             objects = [[path stringByAppendingPathComponent: @"objects"]
-                stringByAppendingPathExtension: @"nib"];
+                    stringByAppendingPathExtension: @"nib"];
     } else {
         // FIXME: Should we try to infer keyed-ness form the file itself in this
         // case?
@@ -149,8 +149,8 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
 }
 
 - (void) unarchiver: (NSKeyedUnarchiver *) unarchiver
-    willReplaceObject: object
-           withObject: replacement
+        willReplaceObject: object
+               withObject: replacement
 {
     if (object != nil && replacement != nil) {
         NSUInteger index = [_allObjects indexOfObjectIdenticalTo: object];
@@ -179,7 +179,7 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
         if (_flags._isKeyed) {
             NSKeyedUnarchiver *keyed;
             unarchiver = keyed = [[[NSKeyedUnarchiver alloc]
-                initForReadingWithData: _data] autorelease];
+                    initForReadingWithData: _data] autorelease];
             [keyed setDelegate: self];
 
             /*
@@ -188,15 +188,15 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
             - misaligned objects in boxes everywhere
             */
             [keyed setClass: [NSTableCornerView class]
-                forClassName: @"_NSCornerView"];
+                    forClassName: @"_NSCornerView"];
             [keyed setClass: [NSNibHelpConnector class]
-                forClassName: @"NSIBHelpConnector"];
+                    forClassName: @"NSIBHelpConnector"];
 
             objectData = [keyed decodeObjectForKey: @"IB.objectdata"];
         } else {
             NSUnarchiver *unkeyed;
             unarchiver = unkeyed = [[[NSUnarchiver alloc]
-                initForReadingWithData: _data] autorelease];
+                    initForReadingWithData: _data] autorelease];
 
             [unkeyed decodeClassName: @"_NSCornerView"
                          asClassName: @"NSTableCornerView"];
@@ -212,7 +212,8 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
             if ([menu numberOfItems] > 0) {
                 NSMenuItem *firstItem = [menu itemAtIndex: 0];
                 NSString *appName = [[NSBundle mainBundle]
-                    objectForInfoDictionaryKey: (NSString *) kCFBundleNameKey];
+                        objectForInfoDictionaryKey: (NSString *)
+                                                            kCFBundleNameKey];
                 [firstItem setTitle: appName];
             }
             [NSApp setMainMenu: menu];
@@ -229,7 +230,7 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
         // objects,
         if ([_nameTable objectForKey: NSNibTopLevelObjects]) {
             [[_nameTable objectForKey: NSNibTopLevelObjects]
-                setArray: topLevelObjects];
+                    setArray: topLevelObjects];
         }
 
         // We do not need to add the objects from nameTable to allObjects as
@@ -253,8 +254,8 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
         }
 
         [[objectData visibleWindows]
-            makeObjectsPerformSelector: @selector(makeKeyAndOrderFront:)
-                            withObject: nil];
+                makeObjectsPerformSelector: @selector(makeKeyAndOrderFront:)
+                                withObject: nil];
 
         [_nameTable release];
         _nameTable = nil;
@@ -268,10 +269,10 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
     NIBDEBUG(@"instantiateNibWithOwner: %@ topLevelObjects: ", owner);
 
     NSMutableArray *topLevelObjects =
-        (objects != NULL ? [[NSMutableArray alloc] init] : nil);
+            (objects != NULL ? [[NSMutableArray alloc] init] : nil);
     NSDictionary *nameTable = [NSDictionary
-        dictionaryWithObjectsAndKeys: owner, NSNibOwner, topLevelObjects,
-                                      NSNibTopLevelObjects, nil];
+            dictionaryWithObjectsAndKeys: owner, NSNibOwner, topLevelObjects,
+                                          NSNibTopLevelObjects, nil];
     BOOL result = [self instantiateNibWithExternalNameTable: nameTable];
 
     if (objects != NULL) {

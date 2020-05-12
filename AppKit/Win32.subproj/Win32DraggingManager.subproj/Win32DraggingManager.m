@@ -39,7 +39,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) registerWindow: (NSWindow *) window dragTypes: (NSArray *) dragTypes {
     Win32IDropTargetServer *target = [[[Win32IDropTargetServer alloc]
-        initWithWindow: (Win32Window *) [window platformWindow]] autorelease];
+            initWithWindow: (Win32Window *) [window platformWindow]]
+            autorelease];
 
     if (target == nil) // RegisterDragDrop fails sometimes, unresolved.
         return;
@@ -82,9 +83,9 @@ static unsigned sourceOperationForSource(id source, BOOL isLocal) {
          slideBack: (BOOL) slideBack
 {
     Win32IDataObjectServer *dataServer = [[Win32IDataObjectServer alloc]
-        initWithPasteboard: (Win32Pasteboard *) pasteboard];
+            initWithPasteboard: (Win32Pasteboard *) pasteboard];
     Win32IDropSourceServer *dropSource =
-        [[Win32IDropSourceServer alloc] initAsIDropSource];
+            [[Win32IDropSourceServer alloc] initAsIDropSource];
     unsigned sourceOperation = sourceOperationForSource(source, NO);
     unsigned targetOperation;
     DWORD sourceEffect = Win32DropEffectFromDragOperation(sourceOperation);

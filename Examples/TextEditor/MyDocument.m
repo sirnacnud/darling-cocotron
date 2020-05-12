@@ -40,7 +40,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSData *) dataRepresentationOfType: (NSString *) aType {
     return [[[_textView textStorage] string]
-        dataUsingEncoding: NSISOLatin1StringEncoding];
+            dataUsingEncoding: NSISOLatin1StringEncoding];
 }
 
 - (BOOL) loadDataRepresentation: (NSData *) data ofType: (NSString *) aType {

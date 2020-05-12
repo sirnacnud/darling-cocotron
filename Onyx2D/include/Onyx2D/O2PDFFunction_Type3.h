@@ -32,9 +32,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithDomain: (O2PDFArray *) domain
-           range: (O2PDFArray *) range
-       functions: (NSArray *) functions
-          bounds: (O2PDFArray *) bounds
-          encode: (O2PDFArray *) encode;
+            range: (O2PDFArray *) range
+        functions: (NSArray *) functions
+           bounds: (O2PDFArray *) bounds
+           encode: (O2PDFArray *) encode;
 
 @end

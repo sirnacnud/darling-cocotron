@@ -57,7 +57,7 @@
 #import "NSUndoTextOperation.h"
 
 NSString *const NSTextViewDidChangeSelectionNotification =
-    @"NSTextViewDidChangeSelectionNotification";
+        @"NSTextViewDidChangeSelectionNotification";
 NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 @interface NSLayoutManager (NSLayoutManager_visualKeyboardMovement)
@@ -100,35 +100,39 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     if (menu == nil) {
         menu = [[NSMenu alloc] initWithTitle: @""];
-        [menu
-            addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                  @"Cut", nil,
-                                  [NSBundle bundleForClass: [NSTextView class]],
-                                  @"Cut the selection")
-                      action: @selector(cut:)
-               keyEquivalent: @""];
-        [menu
-            addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                  @"Copy", nil,
-                                  [NSBundle bundleForClass: [NSTextView class]],
-                                  @"Copy the selection")
-                      action: @selector(copy:)
-               keyEquivalent: @""];
-        [menu
-            addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                  @"Paste", nil,
-                                  [NSBundle bundleForClass: [NSTextView class]],
-                                  @"Paste the selection")
-                      action: @selector(paste:)
-               keyEquivalent: @""];
+        [menu addItemWithTitle: NSLocalizedStringFromTableInBundle(
+                                        @"Cut", nil,
+                                        [NSBundle
+                                                bundleForClass: [NSTextView
+                                                                        class]],
+                                        @"Cut the selection")
+                        action: @selector(cut:)
+                 keyEquivalent: @""];
+        [menu addItemWithTitle: NSLocalizedStringFromTableInBundle(
+                                        @"Copy", nil,
+                                        [NSBundle
+                                                bundleForClass: [NSTextView
+                                                                        class]],
+                                        @"Copy the selection")
+                        action: @selector(copy:)
+                 keyEquivalent: @""];
+        [menu addItemWithTitle: NSLocalizedStringFromTableInBundle(
+                                        @"Paste", nil,
+                                        [NSBundle
+                                                bundleForClass: [NSTextView
+                                                                        class]],
+                                        @"Paste the selection")
+                        action: @selector(paste:)
+                 keyEquivalent: @""];
         [menu addItem: [NSMenuItem separatorItem]];
-        [menu
-            addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                  @"Select All", nil,
-                                  [NSBundle bundleForClass: [NSTextView class]],
-                                  @"Select all the content")
-                      action: @selector(selectAll:)
-               keyEquivalent: @""];
+        [menu addItemWithTitle: NSLocalizedStringFromTableInBundle(
+                                        @"Select All", nil,
+                                        [NSBundle
+                                                bundleForClass: [NSTextView
+                                                                        class]],
+                                        @"Select all the content")
+                        action: @selector(selectAll:)
+                 keyEquivalent: @""];
     }
     [self setMenu: menu];
 }
@@ -144,10 +148,10 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
         unsigned flags = [keyed decodeIntForKey: @"NSTVFlags"];
         NSTextViewSharedData *sharedData =
-            [keyed decodeObjectForKey: @"NSSharedData"];
+                [keyed decodeObjectForKey: @"NSSharedData"];
 
         _textContainer =
-            [[keyed decodeObjectForKey: @"NSTextContainer"] retain];
+                [[keyed decodeObjectForKey: @"NSTextContainer"] retain];
         _textContainerInset = NSMakeSize(4, 4);
 
         _textStorage = [[[_textContainer layoutManager] textStorage] retain];
@@ -180,28 +184,28 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
         _selectedRanges = [[NSMutableArray alloc] init];
         [_selectedRanges
-            addObject: [NSValue valueWithRange: NSMakeRange(0, 0)]];
+                addObject: [NSValue valueWithRange: NSMakeRange(0, 0)]];
 
         _rangeForUserCompletion = NSMakeRange(NSNotFound, 0);
         _selectedTextAttributes = [[NSDictionary
-            dictionaryWithObjectsAndKeys: [NSColor selectedTextColor],
-                                          NSForegroundColorAttributeName,
-                                          [NSColor selectedTextBackgroundColor],
-                                          NSBackgroundColorAttributeName, nil]
-            retain];
+                dictionaryWithObjectsAndKeys:
+                        [NSColor selectedTextColor],
+                        NSForegroundColorAttributeName,
+                        [NSColor selectedTextBackgroundColor],
+                        NSBackgroundColorAttributeName, nil] retain];
 
         [_textStorage
-            addAttribute: NSFontAttributeName
-                   value: _font
-                   range: NSMakeRange(0, [[self textStorage] length])];
+                addAttribute: NSFontAttributeName
+                       value: _font
+                       range: NSMakeRange(0, [[self textStorage] length])];
         [_textStorage
-            addAttribute: NSForegroundColorAttributeName
-                   value: _textColor
-                   range: NSMakeRange(0, [[self textStorage] length])];
+                addAttribute: NSForegroundColorAttributeName
+                       value: _textColor
+                       range: NSMakeRange(0, [[self textStorage] length])];
 
         NSMutableDictionary *typingAttributes =
-            [[_textStorage attributesAtIndex: 0
-                              effectiveRange: NULL] mutableCopy];
+                [[_textStorage attributesAtIndex: 0
+                                  effectiveRange: NULL] mutableCopy];
         if (![typingAttributes objectForKey: NSFontAttributeName]) {
             [typingAttributes setObject: _font forKey: NSFontAttributeName];
         }
@@ -213,20 +217,20 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
         if ([typingAttributes objectForKey: NSParagraphStyleAttributeName]) {
             _defaultParagraphStyle = [[typingAttributes
-                objectForKey: NSParagraphStyleAttributeName] copy];
+                    objectForKey: NSParagraphStyleAttributeName] copy];
         } else {
             _defaultParagraphStyle =
-                [[NSParagraphStyle defaultParagraphStyle] copy];
+                    [[NSParagraphStyle defaultParagraphStyle] copy];
         }
     } else {
         [NSException raise: NSInvalidArgumentException
                     format: @"-[%@ %s] is not implemented for coder %@",
                             [self class], sel_getName(_cmd), coder];
     }
-    [self
-        registerForDraggedTypes: [NSArray arrayWithObjects: NSRTFPboardType,
-                                                            NSStringPboardType,
-                                                            nil]];
+    [self registerForDraggedTypes: [NSArray
+                                           arrayWithObjects: NSRTFPboardType,
+                                                             NSStringPboardType,
+                                                             nil]];
 
     return self;
 }
@@ -258,7 +262,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     [_selectedRanges addObject: [NSValue valueWithRange: NSMakeRange(0, 0)]];
 
     NSMutableDictionary *typingAttributes =
-        [[_textStorage attributesAtIndex: 0 effectiveRange: NULL] mutableCopy];
+            [[_textStorage attributesAtIndex: 0
+                              effectiveRange: NULL] mutableCopy];
     if (![typingAttributes objectForKey: NSFontAttributeName]) {
         [typingAttributes setObject: _font forKey: NSFontAttributeName];
     }
@@ -270,27 +275,27 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     if ([typingAttributes objectForKey: NSParagraphStyleAttributeName]) {
         _defaultParagraphStyle = [[typingAttributes
-            objectForKey: NSParagraphStyleAttributeName] copy];
+                objectForKey: NSParagraphStyleAttributeName] copy];
     } else {
         _defaultParagraphStyle =
-            [[NSParagraphStyle defaultParagraphStyle] copy];
+                [[NSParagraphStyle defaultParagraphStyle] copy];
     }
 
     _rangeForUserCompletion = NSMakeRange(NSNotFound, 0);
     _selectedTextAttributes = [[NSDictionary
-        dictionaryWithObjectsAndKeys: [NSColor selectedTextColor],
-                                      NSForegroundColorAttributeName,
-                                      [NSColor selectedTextBackgroundColor],
-                                      NSBackgroundColorAttributeName, nil]
-        retain];
+            dictionaryWithObjectsAndKeys: [NSColor selectedTextColor],
+                                          NSForegroundColorAttributeName,
+                                          [NSColor selectedTextBackgroundColor],
+                                          NSBackgroundColorAttributeName, nil]
+            retain];
 
     [self setBoundsOrigin: NSMakePoint(-_textContainerInset.width,
                                        -_textContainerInset.height)];
     [self configureMenu];
-    [self
-        registerForDraggedTypes: [NSArray arrayWithObjects: NSRTFPboardType,
-                                                            NSStringPboardType,
-                                                            nil]];
+    [self registerForDraggedTypes: [NSArray
+                                           arrayWithObjects: NSRTFPboardType,
+                                                             NSStringPboardType,
+                                                             nil]];
 
     return self;
 }
@@ -299,7 +304,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     NSTextStorage *storage = [[NSTextStorage new] autorelease];
     NSLayoutManager *layout = [[NSLayoutManager new] autorelease];
     NSTextContainer *container = [[[NSTextContainer alloc]
-        initWithContainerSize: frame.size] autorelease];
+            initWithContainerSize: frame.size] autorelease];
 
     [storage addLayoutManager: layout];
     [layout addTextContainer: container];
@@ -514,7 +519,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
            stillSelecting: (BOOL) stillSelecting
 {
     NSArray *ranges =
-        [NSArray arrayWithObject: [NSValue valueWithRange: range]];
+            [NSArray arrayWithObject: [NSValue valueWithRange: range]];
 
     [self setSelectedRanges: ranges
                    affinity: affinity
@@ -526,9 +531,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             stillSelecting: (BOOL) stillSelecting
 {
     if ([ranges count] == 0)
-        [NSException
-             raise: NSInvalidArgumentException
-            format: @"-[%@ %s] ranges should not be empty", [self class], _cmd];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"-[%@ %s] ranges should not be empty",
+                            [self class], _cmd];
 
     // Save the initial selected ranges so we can use it when we're done with
     // the selection change
@@ -564,20 +569,20 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     // Tell the world the selection changed when the selection change is done
     if (!stillSelecting) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSTextViewDidChangeSelectionNotification
-                          object: self
-                        userInfo:
-                            [NSDictionary
-                                dictionaryWithObject: [oldRanges
-                                                          objectAtIndex: 0]
-                                              forKey:
-                                                  NSOldSelectedCharacterRange]];
+                postNotificationName: NSTextViewDidChangeSelectionNotification
+                              object: self
+                            userInfo:
+                                    [NSDictionary
+                                            dictionaryWithObject:
+                                                    [oldRanges objectAtIndex: 0]
+                                                          forKey: NSOldSelectedCharacterRange]];
     }
 
     if (!_isContinuousSpellCheckingEnabled)
         [[self layoutManager]
-            removeTemporaryAttribute: NSSpellingStateAttributeName
-                   forCharacterRange: NSMakeRange(0, [[self string] length])];
+                removeTemporaryAttribute: NSSpellingStateAttributeName
+                       forCharacterRange: NSMakeRange(0,
+                                                      [[self string] length])];
 }
 
 - (void) setSelectedRanges: (NSArray *) ranges {
@@ -606,9 +611,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     NSArray *result;
     // replace this with a real completion list source...
     NSArray *source = [NSArray
-        arrayWithObjects: @"selector", @"Class", @"Classic", @"object",
-                          @"objects d'art", @"objection", @"objectivism",
-                          @"objective-c", @"NSString", nil];
+            arrayWithObjects: @"selector", @"Class", @"Classic", @"object",
+                              @"objects d'art", @"objection", @"objectivism",
+                              @"objective-c", @"NSString", nil];
     NSMutableArray *completions = [NSMutableArray new];
     NSString *string = [[_textStorage string] substringWithRange: range];
     NSInteger i, count = [source count];
@@ -627,9 +632,10 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     result = completions;
 
-    if ([_delegate respondsToSelector: @selector
-                   (textView:
-                       completions:forPartialWordRange:indexOfSelectedItem:)])
+    if ([_delegate
+                respondsToSelector: @selector
+                (textView:
+                        completions:forPartialWordRange:indexOfSelectedItem:)])
         result = [_delegate textView: self
                          completions: result
                  forPartialWordRange: range
@@ -639,9 +645,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (void) insertCompletion: (NSString *) string
-      forPartialWordRange: (NSRange) range
-                 movement: (NSInteger) movement
-                  isFinal: (BOOL) isFinal
+        forPartialWordRange: (NSRange) range
+                   movement: (NSInteger) movement
+                    isFinal: (BOOL) isFinal
 {
     [self _replaceCharactersInRange: range withString: string];
 
@@ -655,8 +661,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         // selected.
         if (movement == NSReturnTextMovement ||
             movement == NSOtherTextMovement) {
-            [self setSelectedRange: NSMakeRange(
-                                        range.location + [string length], 0)];
+            [self setSelectedRange: NSMakeRange(range.location +
+                                                        [string length],
+                                                0)];
             [self endUserCompletion];
         } else if (movement == NSCancelTextMovement)
             [self endUserCompletion];
@@ -671,9 +678,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
                                type: (NSString *) type
 {
     if ([type isEqualToString: NSStringPboardType]) {
-        [pasteboard
-            setString: [[self string] substringWithRange: [self selectedRange]]
-              forType: type];
+        [pasteboard setString: [[self string]
+                                       substringWithRange: [self selectedRange]]
+                      forType: type];
         return YES;
     } else if ([type isEqualToString: NSRTFPboardType]) {
         NSData *rtfdata = [[self textStorage] RTFFromRange: [self selectedRange]
@@ -737,8 +744,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) didChangeText {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSTextDidChangeNotification
-                      object: self];
+            postNotificationName: NSTextDidChangeNotification
+                          object: self];
 }
 
 - (BOOL) shouldDrawInsertionPoint {
@@ -788,8 +795,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         glyphRange.length = 1;
     } else {
         glyphRange =
-            [layoutManager glyphRangeForBoundingRect: glyphRect
-                                     inTextContainer: [self textContainer]];
+                [layoutManager glyphRangeForBoundingRect: glyphRect
+                                         inTextContainer: [self textContainer]];
     }
     [layoutManager drawBackgroundForGlyphRange: glyphRange atPoint: origin];
     [layoutManager drawGlyphsForGlyphRange: glyphRange atPoint: origin];
@@ -811,12 +818,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
                 NSUInteger rectCount = 0;
                 // Get the last used fragment rect
                 range = NSMakeRange([_textStorage length] - 1, 1);
-                range =
-                    [[self layoutManager] glyphRangeForCharacterRange: range
-                                                 actualCharacterRange: NULL];
+                range = [[self layoutManager]
+                        glyphRangeForCharacterRange: range
+                               actualCharacterRange: NULL];
                 result = [[self layoutManager]
-                    lineFragmentUsedRectForGlyphAtIndex: range.location
-                                         effectiveRange: NULL];
+                        lineFragmentUsedRectForGlyphAtIndex: range.location
+                                             effectiveRange: NULL];
 
                 // Check the direction for that location
                 uint8_t level;
@@ -838,10 +845,10 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         } else {
             NSUInteger rectCount = 0;
             NSRect *rectArray = [[self layoutManager]
-                  rectArrayForCharacterRange: range
-                withinSelectedCharacterRange: range
-                             inTextContainer: [self textContainer]
-                                   rectCount: &rectCount];
+                      rectArrayForCharacterRange: range
+                    withinSelectedCharacterRange: range
+                                 inTextContainer: [self textContainer]
+                                       rectCount: &rectCount];
             result = rectArray[0];
         }
         result.size.width = 1;
@@ -850,12 +857,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             result = [[self layoutManager] extraLineFragmentRect];
         } else {
             NSRange glyphRange =
-                [[self layoutManager] glyphRangeForCharacterRange: range
-                                             actualCharacterRange: NULL];
+                    [[self layoutManager] glyphRangeForCharacterRange: range
+                                                 actualCharacterRange: NULL];
 
             result = [[self layoutManager]
-                boundingRectForGlyphRange: glyphRange
-                          inTextContainer: [self textContainer]];
+                    boundingRectForGlyphRange: glyphRange
+                              inTextContainer: [self textContainer]];
         }
     }
 
@@ -888,7 +895,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         _insertionPointRect = NSZeroRect;
     else
         _insertionPointRect =
-            [self _viewRectForCharacterRange: [self selectedRange]];
+                [self _viewRectForCharacterRange: [self selectedRange]];
 
     if (restartFlag) {
         CGFloat interval = [[NSDisplay currentDisplay] textCaretBlinkInterval];
@@ -899,12 +906,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         _insertionPointTimer = nil;
 
         _insertionPointTimer =
-            [[NSTimer scheduledTimerWithTimeInterval: interval
-                                              target: self
-                                            selector: @selector
-                                            (_insertionPointTimerFired:)
-                                            userInfo: nil
-                                             repeats: YES] retain];
+                [[NSTimer scheduledTimerWithTimeInterval: interval
+                                                  target: self
+                                                selector: @selector
+                                                (_insertionPointTimerFired:)
+                                                userInfo: nil
+                                                 repeats: YES] retain];
         [[NSRunLoop currentRunLoop] addTimer: _insertionPointTimer
                                      forMode: NSModalPanelRunLoopMode];
     }
@@ -919,7 +926,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
         NSDictionary *typingAttributes = [self typingAttributes];
         NSParagraphStyle *style =
-            [typingAttributes objectForKey: NSParagraphStyleAttributeName];
+                [typingAttributes objectForKey: NSParagraphStyleAttributeName];
         if (style == nil) {
             // This should be the NSTextView defaultParagraphStyle but it's not
             // supported yet in Cocoton
@@ -927,9 +934,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         }
 
         NSArray *markers =
-            [[self layoutManager] rulerMarkersForTextView: self
-                                           paragraphStyle: style
-                                                    ruler: ruler];
+                [[self layoutManager] rulerMarkersForTextView: self
+                                               paragraphStyle: style
+                                                        ruler: ruler];
         [ruler setMarkers: markers];
     }
 }
@@ -963,8 +970,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         NSData *data = [pboard dataForType: NSRTFPboardType];
         if (data && data.length > 0) {
             string =
-                [[[NSAttributedString alloc] initWithRTF: data
-                                      documentAttributes: nil] autorelease];
+                    [[[NSAttributedString alloc] initWithRTF: data
+                                          documentAttributes: nil] autorelease];
         }
     }
     if (string == nil) {
@@ -996,14 +1003,14 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     [_insertionPointTimer release];
     _insertionPointTimer = nil;
 
-    NSDictionary *userInfo =
-        [NSDictionary dictionaryWithObject: [NSNumber numberWithInt: movement]
-                                    forKey: @"NSTextMovement"];
+    NSDictionary *userInfo = [NSDictionary
+            dictionaryWithObject: [NSNumber numberWithInt: movement]
+                          forKey: @"NSTextMovement"];
 
-    NSNotification *note =
-        [NSNotification notificationWithName: NSTextDidEndEditingNotification
-                                      object: self
-                                    userInfo: userInfo];
+    NSNotification *note = [NSNotification
+            notificationWithName: NSTextDidEndEditingNotification
+                          object: self
+                        userInfo: userInfo];
 
     _didSendTextDidEndNotification = YES;
 
@@ -1023,11 +1030,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         if (_userCompletionSelectedItem >= [_userCompletions count])
             _userCompletionSelectedItem = 0;
 
-        [self insertCompletion: [_userCompletions
-                                    objectAtIndex: _userCompletionSelectedItem]
-            forPartialWordRange: _rangeForUserCompletion
-                       movement: NSTabTextMovement
-                        isFinal: NO];
+        [self insertCompletion:
+                        [_userCompletions
+                                objectAtIndex: _userCompletionSelectedItem]
+                forPartialWordRange: _rangeForUserCompletion
+                           movement: NSTabTextMovement
+                            isFinal: NO];
         return;
     }
 
@@ -1051,11 +1059,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     }
 
     if (_rangeForUserCompletion.location != NSNotFound) {
-        [self insertCompletion: [_userCompletions
-                                    objectAtIndex: _userCompletionSelectedItem]
-            forPartialWordRange: _rangeForUserCompletion
-                       movement: NSReturnTextMovement
-                        isFinal: YES];
+        [self insertCompletion:
+                        [_userCompletions
+                                objectAtIndex: _userCompletionSelectedItem]
+                forPartialWordRange: _rangeForUserCompletion
+                           movement: NSReturnTextMovement
+                            isFinal: YES];
         return;
     }
 
@@ -1069,9 +1078,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 - (void) cancel: sender {
     if (_rangeForUserCompletion.location != NSNotFound) {
         [self insertCompletion: _userCompletionHint
-            forPartialWordRange: _rangeForUserCompletion
-                       movement: NSCancelTextMovement
-                        isFinal: YES];
+                forPartialWordRange: _rangeForUserCompletion
+                           movement: NSCancelTextMovement
+                            isFinal: YES];
         return;
     }
 }
@@ -1170,11 +1179,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         if (_userCompletionSelectedItem < [_userCompletions count] - 1)
             _userCompletionSelectedItem++;
 
-        [self insertCompletion: [_userCompletions
-                                    objectAtIndex: _userCompletionSelectedItem]
-            forPartialWordRange: _rangeForUserCompletion
-                       movement: NSDownTextMovement
-                        isFinal: NO];
+        [self insertCompletion:
+                        [_userCompletions
+                                objectAtIndex: _userCompletionSelectedItem]
+                forPartialWordRange: _rangeForUserCompletion
+                           movement: NSDownTextMovement
+                            isFinal: NO];
         return;
     }
 
@@ -1182,14 +1192,14 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     range.length = 0;
     if (range.location < length) {
         NSRange line = [[self layoutManager]
-            _softLineRangeForCharacterAtIndex: range.location];
+                _softLineRangeForCharacterAtIndex: range.location];
         NSUInteger max = NSMaxRange(line);
 
         if (max >= length)
             range.location = length;
         else {
             NSRange nextLine = [[self layoutManager]
-                _softLineRangeForCharacterAtIndex: max + 1];
+                    _softLineRangeForCharacterAtIndex: max + 1];
             NSUInteger offset = range.location - line.location;
 
             range.location = nextLine.location + offset;
@@ -1211,14 +1221,14 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     if (delta < length) {
         NSRange line =
-            [[self layoutManager] _softLineRangeForCharacterAtIndex: delta];
+                [[self layoutManager] _softLineRangeForCharacterAtIndex: delta];
         NSUInteger max = NSMaxRange(line);
 
         if (max >= length)
             delta = length;
         else {
             NSRange nextLine = [[self layoutManager]
-                _softLineRangeForCharacterAtIndex: max + 1];
+                    _softLineRangeForCharacterAtIndex: max + 1];
             NSUInteger offset = delta - line.location;
 
             delta = nextLine.location + offset;
@@ -1251,11 +1261,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         if (_userCompletionSelectedItem > 0)
             _userCompletionSelectedItem--;
 
-        [self insertCompletion: [_userCompletions
-                                    objectAtIndex: _userCompletionSelectedItem]
-            forPartialWordRange: _rangeForUserCompletion
-                       movement: NSUpTextMovement
-                        isFinal: NO];
+        [self insertCompletion:
+                        [_userCompletions
+                                objectAtIndex: _userCompletionSelectedItem]
+                forPartialWordRange: _rangeForUserCompletion
+                           movement: NSUpTextMovement
+                            isFinal: NO];
         return;
     }
 
@@ -1263,11 +1274,11 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     if (range.location <= length) {
         NSRange line = [[self layoutManager]
-            _softLineRangeForCharacterAtIndex: range.location];
+                _softLineRangeForCharacterAtIndex: range.location];
 
         if (line.location > 0) {
             NSRange prevLine = [[self layoutManager]
-                _softLineRangeForCharacterAtIndex: line.location - 1];
+                    _softLineRangeForCharacterAtIndex: line.location - 1];
             NSUInteger offset = range.location - line.location;
 
             range.location = prevLine.location + offset;
@@ -1293,11 +1304,11 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     if (delta <= length) {
         NSRange line =
-            [[self layoutManager] _softLineRangeForCharacterAtIndex: delta];
+                [[self layoutManager] _softLineRangeForCharacterAtIndex: delta];
 
         if (line.location > 0) {
             NSRange prevLine = [[self layoutManager]
-                _softLineRangeForCharacterAtIndex: line.location - 1];
+                    _softLineRangeForCharacterAtIndex: line.location - 1];
             NSUInteger offset = delta - line.location;
 
             delta = prevLine.location + offset;
@@ -1340,16 +1351,16 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             location = length - 1;
         }
         NSRange paragraphRange =
-            [string paragraphRangeForRange: NSMakeRange(location, 1)];
+                [string paragraphRangeForRange: NSMakeRange(location, 1)];
         // Check the direction for that location
         uint8_t level;
         [[self layoutManager]
-             getGlyphsInRange: NSMakeRange(paragraphRange.location, 1)
-                       glyphs: NULL
-             characterIndexes: NULL
-            glyphInscriptions: NULL
-                  elasticBits: NULL
-                   bidiLevels: &level];
+                 getGlyphsInRange: NSMakeRange(paragraphRange.location, 1)
+                           glyphs: NULL
+                 characterIndexes: NULL
+                glyphInscriptions: NULL
+                      elasticBits: NULL
+                       bidiLevels: &level];
         leftToRight = (level & 1) == 0;
     }
     return leftToRight;
@@ -1536,9 +1547,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     } else {
         if (range.location > 0) {
             range.location--;
-            if (![self
-                    _delegateChangeTextInRange: NSMakeRange(range.location, 1)
-                             replacementString: @""])
+            if (![self _delegateChangeTextInRange: NSMakeRange(range.location,
+                                                               1)
+                                replacementString: @""])
                 return;
 
             [self _replaceCharactersInRange: NSMakeRange(range.location, 1)
@@ -1576,7 +1587,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 - (void) deleteToBeginningOfLine: sender {
     NSRange range = [self selectedRange];
     NSRange lineRange = [[self layoutManager]
-        _softLineRangeForCharacterAtIndex: NSMaxRange(range)];
+            _softLineRangeForCharacterAtIndex: NSMaxRange(range)];
     NSUInteger delta = range.location - lineRange.location;
 
     if (range.length == 0) {
@@ -1588,7 +1599,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         return;
 
     [self _appendStringToKillBuffer: [[_textStorage string]
-                                         substringWithRange: range]];
+                                             substringWithRange: range]];
     [self _replaceCharactersInRange: range withString: @""];
     [self didChangeText];
 }
@@ -1596,7 +1607,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 - (void) deleteToEndOfLine: sender {
     NSRange range = [self selectedRange];
     NSRange lineRange = [[self layoutManager]
-        _softLineRangeForCharacterAtIndex: NSMaxRange(range)];
+            _softLineRangeForCharacterAtIndex: NSMaxRange(range)];
     NSUInteger delta = NSMaxRange(lineRange) - NSMaxRange(range);
 
     if (range.length ==
@@ -1607,7 +1618,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         return;
 
     [self _appendStringToKillBuffer: [[_textStorage string]
-                                         substringWithRange: range]];
+                                             substringWithRange: range]];
     [self _replaceCharactersInRange: range withString: @""];
     [self didChangeText];
 }
@@ -1627,7 +1638,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         return;
 
     [self _appendStringToKillBuffer: [[_textStorage string]
-                                         substringWithRange: range]];
+                                             substringWithRange: range]];
     [self _replaceCharactersInRange: range withString: @""];
     [self didChangeText];
 }
@@ -1648,7 +1659,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         return;
 
     [self _appendStringToKillBuffer: [[_textStorage string]
-                                         substringWithRange: range]];
+                                             substringWithRange: range]];
     [self _replaceCharactersInRange: range withString: @""];
     [self didChangeText];
 }
@@ -1713,7 +1724,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 - (void) moveToBeginningOfLine: sender {
     NSLayoutManager *layoutManager = [self layoutManager];
     NSRange range = [layoutManager
-        _softLineRangeForCharacterAtIndex: [self selectedRange].location];
+            _softLineRangeForCharacterAtIndex: [self selectedRange].location];
 
     [self _setAndScrollToRange: NSMakeRange(range.location, 0)];
 }
@@ -1752,7 +1763,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 - (void) moveToEndOfLine: sender {
     NSLayoutManager *layoutManager = [self layoutManager];
     NSRange range = [layoutManager
-        _softLineRangeForCharacterAtIndex: [self selectedRange].location];
+            _softLineRangeForCharacterAtIndex: [self selectedRange].location];
 
     [self _setAndScrollToRange: NSMakeRange(NSMaxRange(range), 0)];
 }
@@ -1808,12 +1819,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         NSUInteger delta = 0;
 
         lineRange = [[_textStorage string]
-            lineRangeForRange: NSMakeRange(range.location, 0)];
+                lineRangeForRange: NSMakeRange(range.location, 0)];
 
         // ugh. newlines screw up the lineRangeForRange calculation.
         if (lineRange.location == range.location && range.location > 0)
             lineRange = [[_textStorage string]
-                lineRangeForRange: NSMakeRange(range.location - 1, 0)];
+                    lineRangeForRange: NSMakeRange(range.location - 1, 0)];
 
         delta = range.location - lineRange.location;
 
@@ -1821,7 +1832,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         range.length += delta;
     } else {
         NSRange lineRange = [[_textStorage string]
-            lineRangeForRange: NSMakeRange(NSMaxRange(range) - 1, 0)];
+                lineRangeForRange: NSMakeRange(NSMaxRange(range) - 1, 0)];
         NSUInteger delta = NSMaxRange(range) - lineRange.location;
 
         if (delta < range.length)
@@ -1852,13 +1863,13 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     if (downstream) {
         NSRange lineRange = [[_textStorage string]
-            lineRangeForRange: NSMakeRange(NSMaxRange(range), 0)];
+                lineRangeForRange: NSMakeRange(NSMaxRange(range), 0)];
         NSUInteger delta = NSMaxRange(lineRange) - NSMaxRange(range);
 
         range.length += delta;
     } else {
         NSRange lineRange = [[_textStorage string]
-            lineRangeForRange: NSMakeRange(range.location, 0)];
+                lineRangeForRange: NSMakeRange(range.location, 0)];
         NSUInteger delta = NSMaxRange(lineRange) - range.location;
 
         if (delta < range.length) {
@@ -1890,7 +1901,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (NSUInteger) glyphIndexForPoint: (NSPoint) point
-    fractionOfDistanceThroughGlyph: (CGFloat *) fraction
+        fractionOfDistanceThroughGlyph: (CGFloat *) fraction
 {
     point.x -= _textContainerInset.width;
     point.y -= _textContainerInset.height;
@@ -1909,8 +1920,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     rect = [self visibleRect];
     range.location =
-        [self glyphIndexForPoint: NSMakePoint(NSMinX(rect), NSMinY(rect))
-            fractionOfDistanceThroughGlyph: &fraction];
+            [self glyphIndexForPoint: NSMakePoint(NSMinX(rect), NSMinY(rect))
+                    fractionOfDistanceThroughGlyph: &fraction];
     range.length = 0;
 
     [self _setAndScrollToRange: range];
@@ -1927,7 +1938,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     rect = [self visibleRect];
     location = [self glyphIndexForPoint: NSMakePoint(NSMinX(rect), NSMinY(rect))
-         fractionOfDistanceThroughGlyph: &fraction];
+            fractionOfDistanceThroughGlyph: &fraction];
 
     upstream = (NSMaxRange(range) <= _selectionOrigin);
     if (upstream) {
@@ -1965,8 +1976,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     rect = [self visibleRect];
     range.location =
-        [self glyphIndexForPoint: NSMakePoint(NSMinX(rect), NSMaxY(rect))
-            fractionOfDistanceThroughGlyph: &fraction];
+            [self glyphIndexForPoint: NSMakePoint(NSMinX(rect), NSMaxY(rect))
+                    fractionOfDistanceThroughGlyph: &fraction];
     if (range.location == 0)
         range.location = [string length];
     range.length = 0;
@@ -1985,7 +1996,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     rect = [self visibleRect];
     location = [self glyphIndexForPoint: NSMakePoint(NSMinX(rect), NSMaxY(rect))
-         fractionOfDistanceThroughGlyph: &fraction];
+            fractionOfDistanceThroughGlyph: &fraction];
 
     downstream = (range.location >= _selectionOrigin);
     if (downstream) {
@@ -2022,9 +2033,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
         NSString *transposed = [b stringByAppendingString: a];
 
-        if (![self
-                _delegateChangeTextInRange: NSMakeRange(range.location - 1, 2)
-                         replacementString: transposed])
+        if (![self _delegateChangeTextInRange: NSMakeRange(range.location - 1,
+                                                           2)
+                            replacementString: transposed])
             return;
 
         [self _replaceCharactersInRange: NSMakeRange(range.location - 1, 2)
@@ -2047,7 +2058,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         return;
 
     if ([[NSCharacterSet whitespaceCharacterSet]
-            characterIsMember: [string characterAtIndex: range.location]] == NO)
+                characterIsMember: [string characterAtIndex: range.location]] ==
+        NO)
         return;
 
     space = [string substringWithRange: NSMakeRange(range.location, 1)];
@@ -2068,9 +2080,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     [self replaceCharactersInRange: NSMakeRange(previousWord, 0) withString: b];
     [self replaceCharactersInRange: NSMakeRange(previousWord + [b length], 0)
                         withString: space];
-    [self
-        replaceCharactersInRange: NSMakeRange(previousWord + [b length] + 1, 0)
-                      withString: a];
+    [self replaceCharactersInRange: NSMakeRange(previousWord + [b length] + 1,
+                                                0)
+                        withString: a];
 
     [self _setAndScrollToRange: NSMakeRange(nextWord + 1, 0)];
 }
@@ -2084,10 +2096,11 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     _rangeForUserCompletion = [self rangeForUserCompletion];
     _userCompletionHint = [[[_textStorage string]
-        substringWithRange: _rangeForUserCompletion] retain];
-    _userCompletions = [[self
-        completionsForPartialWordRange: _rangeForUserCompletion
-                   indexOfSelectedItem: &_userCompletionSelectedItem] retain];
+            substringWithRange: _rangeForUserCompletion] retain];
+    _userCompletions =
+            [[self completionsForPartialWordRange: _rangeForUserCompletion
+                              indexOfSelectedItem: &_userCompletionSelectedItem]
+                    retain];
 
     if ([_userCompletions count] == 0) {
         [self endUserCompletion];
@@ -2098,10 +2111,10 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     // Hmm, what should be the initial text movement for the completion editor?
     // Docs are unclear
     [self insertCompletion: [_userCompletions
-                                objectAtIndex: _userCompletionSelectedItem]
-        forPartialWordRange: _rangeForUserCompletion
-                   movement: NSOtherTextMovement
-                    isFinal: NO];
+                                    objectAtIndex: _userCompletionSelectedItem]
+            forPartialWordRange: _rangeForUserCompletion
+                       movement: NSOtherTextMovement
+                        isFinal: NO];
 }
 
 - (void) endUserCompletion {
@@ -2123,14 +2136,16 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     if ([sender isKindOfClass: [NSMenuItem class]]) {
         if (flag) {
             [sender setTitle: NSLocalizedStringFromTableInBundle(
-                                  @"Hide Ruler", nil,
-                                  [NSBundle bundleForClass: [NSTextView class]],
-                                  @"Hide the page ruler")];
+                                      @"Hide Ruler", nil,
+                                      [NSBundle bundleForClass: [NSTextView
+                                                                        class]],
+                                      @"Hide the page ruler")];
         } else {
             [sender setTitle: NSLocalizedStringFromTableInBundle(
-                                  @"Show Ruler", nil,
-                                  [NSBundle bundleForClass: [NSTextView class]],
-                                  @"Show the page ruler")];
+                                      @"Show Ruler", nil,
+                                      [NSBundle bundleForClass: [NSTextView
+                                                                        class]],
+                                      @"Show the page ruler")];
         }
     }
 }
@@ -2231,12 +2246,13 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         SEL selector;
         NSString *name;
     } notes[] = {
-        {@selector(textDidBeginEditing:), NSTextDidBeginEditingNotification},
-        {@selector(textDidEndEditing:), NSTextDidEndEditingNotification},
-        {@selector(textDidChange:), NSTextDidChangeNotification},
-        {@selector(textViewDidChangeSelection:),
-         NSTextViewDidChangeSelectionNotification},
-        {NULL, nil}};
+            {@selector(textDidBeginEditing:),
+             NSTextDidBeginEditingNotification},
+            {@selector(textDidEndEditing:), NSTextDidEndEditingNotification},
+            {@selector(textDidChange:), NSTextDidChangeNotification},
+            {@selector(textViewDidChangeSelection:),
+             NSTextViewDidChangeSelectionNotification},
+            {NULL, nil}};
     int i;
 
     if (_delegate != nil)
@@ -2284,7 +2300,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
                                        atIndex: selectedRange.location
                                 effectiveRange: &effectiveRange];
         BOOL isMultiple =
-            NSMaxRange(effectiveRange) < NSMaxRange(selectedRange);
+                NSMaxRange(effectiveRange) < NSMaxRange(selectedRange);
         if (font) {
             [[NSFontManager sharedFontManager] setSelectedFont: font
                                                     isMultiple: isMultiple];
@@ -2296,12 +2312,13 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 - (void) _updateTypingAttributes {
     if (_isRichText == NO) {
         NSMutableParagraphStyle *style =
-            [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
-                autorelease];
+                [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
+                        autorelease];
         [style setAlignment: _textAlignment];
         NSDictionary *attributes = [NSDictionary
-            dictionaryWithObjectsAndKeys: _font, NSFontAttributeName, style,
-                                          NSParagraphStyleAttributeName, nil];
+                dictionaryWithObjectsAndKeys: _font, NSFontAttributeName, style,
+                                              NSParagraphStyleAttributeName,
+                                              nil];
         if (attributes &&
             [attributes isEqualToDictionary: [self typingAttributes]] == NO) {
             [self setTypingAttributes: attributes];
@@ -2330,11 +2347,11 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             }
             if (min >= 0 && min < length) {
                 NSDictionary *attributes =
-                    [[self textStorage] attributesAtIndex: min
-                                           effectiveRange: NULL];
+                        [[self textStorage] attributesAtIndex: min
+                                               effectiveRange: NULL];
                 if (attributes &&
                     [attributes isEqualToDictionary: [self typingAttributes]] ==
-                        NO) {
+                            NO) {
                     [self setTypingAttributes: attributes];
                 }
             }
@@ -2358,11 +2375,11 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         [self breakUndoCoalescing];
 
         NSUndoSetAttributes *undoSetAttributes = [[[NSUndoSetAttributes alloc]
-            initWithAffectedRange: range
-                    layoutManager: self.layoutManager
-                      undoManager: self.undoManager] autorelease];
+                initWithAffectedRange: range
+                        layoutManager: self.layoutManager
+                          undoManager: self.undoManager] autorelease];
         [[self.undoManager prepareWithInvocationTarget: undoSetAttributes]
-            undoRedo: self.textStorage];
+                undoRedo: self.textStorage];
     }
     [[self textStorage] addAttributes: attributes range: range];
 }
@@ -2382,11 +2399,11 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         [self breakUndoCoalescing];
 
         NSUndoSetAttributes *undoSetAttributes = [[[NSUndoSetAttributes alloc]
-            initWithAffectedRange: range
-                    layoutManager: self.layoutManager
-                      undoManager: self.undoManager] autorelease];
+                initWithAffectedRange: range
+                        layoutManager: self.layoutManager
+                          undoManager: self.undoManager] autorelease];
         [[self.undoManager prepareWithInvocationTarget: undoSetAttributes]
-            undoRedo: self.textStorage];
+                undoRedo: self.textStorage];
     }
     [[self textStorage] removeAttribute: key range: range];
 }
@@ -2413,8 +2430,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     if (_firstResponderButNotEditingYet) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSTextDidBeginEditingNotification
-                          object: self];
+                postNotificationName: NSTextDidBeginEditingNotification
+                              object: self];
         _firstResponderButNotEditingYet = NO;
     }
 
@@ -2423,36 +2440,36 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             if (_undoTyping) {
                 // Try first to coaelesce with current undo typing object
                 if ([_undoTyping
-                        coalesceAffectedRange: range
-                             replacementRange: NSMakeRange(range.location,
-                                                           [string length])
-                                selectedRange: [self selectedRange]
-                                         text: _textStorage] == NO) {
+                            coalesceAffectedRange: range
+                                 replacementRange: NSMakeRange(range.location,
+                                                               [string length])
+                                    selectedRange: [self selectedRange]
+                                             text: _textStorage] == NO) {
                     [self breakUndoCoalescing];
                 }
             }
             if (_undoTyping == nil) {
                 _undoTyping = [[NSUndoTyping alloc]
-                    initWithAffectedRange: range
-                            layoutManager: self.layoutManager
-                              undoManager: self.undoManager
-                         replacementRange: NSMakeRange(range.location,
-                                                       [string length])];
+                        initWithAffectedRange: range
+                                layoutManager: self.layoutManager
+                                  undoManager: self.undoManager
+                             replacementRange: NSMakeRange(range.location,
+                                                           [string length])];
                 [[self.undoManager prepareWithInvocationTarget: _undoTyping]
-                    undoRedo: self.textStorage];
+                        undoRedo: self.textStorage];
             }
         } else {
             [self breakUndoCoalescing];
 
             NSUndoReplaceCharacters *replace = [[[NSUndoReplaceCharacters alloc]
-                initWithAffectedRange: range
-                        layoutManager: self.layoutManager
-                          undoManager: self.undoManager
-                     replacementRange: NSMakeRange(range.location,
-                                                   [string length])]
-                autorelease];
+                    initWithAffectedRange: range
+                            layoutManager: self.layoutManager
+                              undoManager: self.undoManager
+                         replacementRange: NSMakeRange(range.location,
+                                                       [string length])]
+                    autorelease];
             [[self.undoManager prepareWithInvocationTarget: replace]
-                undoRedo: self.textStorage];
+                    undoRedo: self.textStorage];
         }
     }
     if (_isRichText) {
@@ -2463,16 +2480,16 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             if (useTypingAttributes) {
                 // We're going to merge the attributes
                 NSMutableAttributedString *mutableAttrString =
-                    [[string mutableCopy] autorelease];
+                        [[string mutableCopy] autorelease];
                 [mutableAttrString
-                    addAttributes: [self typingAttributes]
-                            range: NSMakeRange(0, [string length])];
+                        addAttributes: [self typingAttributes]
+                                range: NSMakeRange(0, [string length])];
                 attrString = mutableAttrString;
             }
         } else {
             attrString = [[[NSAttributedString alloc]
-                initWithString: string
-                    attributes: [self typingAttributes]] autorelease];
+                    initWithString: string
+                        attributes: [self typingAttributes]] autorelease];
         }
         [_textStorage replaceCharactersInRange: range
                           withAttributedString: attrString];
@@ -2487,8 +2504,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             string = [str string];
         }
         NSAttributedString *attrString = [[[NSAttributedString alloc]
-            initWithString: string
-                attributes: [self typingAttributes]] autorelease];
+                initWithString: string
+                    attributes: [self typingAttributes]] autorelease];
         [_textStorage replaceCharactersInRange: range
                           withAttributedString: attrString];
     }
@@ -2496,8 +2513,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     // TODO: this needs to be optimized to check the changed range expanded
     // (probably to paragraphs)
     [self _continuousSpellCheckWithInvalidatedRange: NSMakeRange(
-                                                         range.location,
-                                                         [string length])];
+                                                             range.location,
+                                                             [string length])];
 
     [self setSelectedRange: NSMakeRange(range.location + [string length], 0)];
 }
@@ -2531,7 +2548,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (BOOL) readRTFDFromFile: (NSString *) path {
     NSAttributedString *contents =
-        [NSRichTextReader attributedStringWithContentsOfFile: path];
+            [NSRichTextReader attributedStringWithContentsOfFile: path];
 
     [_textStorage setAttributedString: contents];
 
@@ -2540,7 +2557,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) replaceCharactersInRange: (NSRange) range withRTF: (NSData *) rtf {
     NSAttributedString *astring =
-        [NSRichTextReader attributedStringWithData: rtf];
+            [NSRichTextReader attributedStringWithData: rtf];
 
     if (![self _delegateChangeTextInRange: range
                         replacementString: [astring string]])
@@ -2554,7 +2571,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) replaceCharactersInRange: (NSRange) range withRTFD: (NSData *) rtfd {
     NSAttributedString *astring =
-        [NSRichTextReader attributedStringWithData: rtfd];
+            [NSRichTextReader attributedStringWithData: rtfd];
 
     if (![self _delegateChangeTextInRange: range
                         replacementString: [astring string]])
@@ -2616,14 +2633,14 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     NSMutableParagraphStyle *style = nil;
 
     if ([[self textStorage] length] > 0)
-        style =
-            [[[[self textStorage] attribute: NSParagraphStyleAttributeName
-                                    atIndex: range.location
-                             effectiveRange: NULL] mutableCopy] autorelease];
+        style = [[[[self textStorage] attribute: NSParagraphStyleAttributeName
+                                        atIndex: range.location
+                                 effectiveRange: NULL] mutableCopy]
+                autorelease];
 
     if (style == nil)
         style = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
-            autorelease];
+                autorelease];
 
     [style setAlignment: alignment];
 
@@ -2634,7 +2651,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     // This method is always been called with the selected range - so update the
     // typing attributes with that
     NSMutableDictionary *attributes =
-        [[[self typingAttributes] mutableCopy] autorelease];
+            [[[self typingAttributes] mutableCopy] autorelease];
     [attributes setObject: style forKey: NSParagraphStyleAttributeName];
     [self setTypingAttributes: attributes];
 }
@@ -2706,11 +2723,11 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     if ([self isHorizontallyResizable] == NO)
         containerSize.width =
-            [self bounds].size.width - _textContainerInset.width * 2;
+                [self bounds].size.width - _textContainerInset.width * 2;
 
     if ([self isVerticallyResizable] == NO)
         containerSize.height =
-            [self bounds].size.height - _textContainerInset.height * 2;
+                [self bounds].size.height - _textContainerInset.height * 2;
 
     [[self textContainer] setContainerSize: containerSize];
 }
@@ -2721,8 +2738,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     [self _configureTextContainerSize];
 
-    usedRect =
-        [[self layoutManager] usedRectForTextContainer: [self textContainer]];
+    usedRect = [[self layoutManager]
+            usedRectForTextContainer: [self textContainer]];
     extraRect = [[self layoutManager] extraLineFragmentUsedRect];
     if (!NSEqualRects(extraRect, NSZeroRect)) {
         extraRect.size.width = NSMaxX(usedRect) - NSMinX(extraRect);
@@ -2798,7 +2815,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             font = [sender convertFont: font];
             if (font) {
                 NSRange changeRange =
-                    NSIntersectionRange(effectiveRange, range);
+                        NSIntersectionRange(effectiveRange, range);
                 [_textStorage addAttribute: NSFontAttributeName
                                      value: font
                                      range: changeRange];
@@ -2819,7 +2836,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         font = [sender convertFont: font];
         if (font) {
             NSMutableDictionary *attributes =
-                [[[self typingAttributes] mutableCopy] autorelease];
+                    [[[self typingAttributes] mutableCopy] autorelease];
             [attributes setObject: font forKey: NSFontAttributeName];
             [self setTypingAttributes: attributes];
         }
@@ -2887,7 +2904,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     [self setSelectedRange: range];
 
     NSMutableDictionary *attributes =
-        [[[self typingAttributes] mutableCopy] autorelease];
+            [[[self typingAttributes] mutableCopy] autorelease];
     [attributes setObject: [NSNumber numberWithInt: NSUnderlineStyleSingle]
                    forKey: NSUnderlineStyleAttributeName];
     [self setTypingAttributes: attributes];
@@ -2941,9 +2958,9 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         // in a death spiral.
         _didSendTextDidEndNotification = YES;
         NSNotification *note = [NSNotification
-            notificationWithName: NSTextDidEndEditingNotification
-                          object: self
-                        userInfo: nil];
+                notificationWithName: NSTextDidEndEditingNotification
+                              object: self
+                            userInfo: nil];
 
         [[NSNotificationCenter defaultCenter] postNotification: note];
         _didSendTextDidEndNotification = NO;
@@ -3033,7 +3050,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) doCommandBySelector: (SEL) selector {
     if ([_delegate respondsToSelector: @selector(textView:
-                                           doCommandBySelector:)])
+                                               doCommandBySelector:)])
         if ([_delegate textView: self doCommandBySelector: selector] == YES)
             return;
 
@@ -3044,11 +3061,11 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             selector != @selector(insertNewline:) &&
             selector != @selector(cancel:))
             [self insertCompletion:
-                      [_userCompletions
-                          objectAtIndex: _userCompletionSelectedItem]
-                forPartialWordRange: _rangeForUserCompletion
-                           movement: NSOtherTextMovement
-                            isFinal: YES];
+                            [_userCompletions
+                                    objectAtIndex: _userCompletionSelectedItem]
+                    forPartialWordRange: _rangeForUserCompletion
+                               movement: NSOtherTextMovement
+                                isFinal: YES];
     }
 
     [super doCommandBySelector: selector];
@@ -3061,8 +3078,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     glyphRect.origin.x -= _textContainerInset.width;
     glyphRect.origin.y -= _textContainerInset.height;
     NSRange gRange = gRange =
-        [layoutManager glyphRangeForBoundingRect: glyphRect
-                                 inTextContainer: [self textContainer]];
+            [layoutManager glyphRangeForBoundingRect: glyphRect
+                                     inTextContainer: [self textContainer]];
 
     if ([self drawsBackground]) {
         [_backgroundColor setFill];
@@ -3189,7 +3206,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     [_selectedRanges removeAllObjects];
     [_selectedRanges
-        addObject: [NSValue valueWithRange: NSMakeRange(location, 0)]];
+            addObject: [NSValue valueWithRange: NSMakeRange(location, 0)]];
     [self setNeedsDisplay: YES];
 
     if ([sender draggingSourceOperationMask] & NSDragOperationGeneric)
@@ -3213,7 +3230,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     NSPoint point = [self convertPoint: [sender draggingLocation]
                               fromView: nil];
     NSString *string =
-        [[sender draggingPasteboard] stringForType: NSStringPboardType];
+            [[sender draggingPasteboard] stringForType: NSStringPboardType];
     CGFloat fraction = 0;
     NSUInteger location = [self glyphIndexForPoint: point
                     fractionOfDistanceThroughGlyph: &fraction];
@@ -3267,8 +3284,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     if ([_delegate respondsToSelector: @selector
                    (textView:shouldChangeTextInRange:replacementString:)]) {
         if ([_delegate textView: self
-                shouldChangeTextInRange: range
-                      replacementString: string] == NO)
+                    shouldChangeTextInRange: range
+                          replacementString: string] == NO)
             return NO;
     }
 
@@ -3280,25 +3297,25 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 {
     NSArray *result = to;
     if ([_delegate
-            respondsToSelector: @selector
-            (textView:
-                willChangeSelectionFromCharacterRanges:toCharacterRanges:)])
+                respondsToSelector: @selector
+                (textView:
+                        willChangeSelectionFromCharacterRanges:toCharacterRanges
+                                                              :)])
         result = [_delegate textView: self
-            willChangeSelectionFromCharacterRanges: from
-                                 toCharacterRanges: to];
-    else if ([_delegate
-                 respondsToSelector: @selector
-                 (textView:
-                     willChangeSelectionFromCharacterRange:toCharacterRange
-                                                          :)]) {
+                willChangeSelectionFromCharacterRanges: from
+                                     toCharacterRanges: to];
+    else if ([_delegate respondsToSelector: @selector
+                        (textView:
+                                willChangeSelectionFromCharacterRange:
+                                toCharacterRange:)]) {
         NSRange fromRange = [[from objectAtIndex: 0] rangeValue];
         NSRange toRange = [[to objectAtIndex: 0] rangeValue];
         NSRange resultRange = [_delegate textView: self
-            willChangeSelectionFromCharacterRange: fromRange
-                                 toCharacterRange: toRange];
+                willChangeSelectionFromCharacterRange: fromRange
+                                     toCharacterRange: toRange];
 
-        result =
-            [NSArray arrayWithObject: [NSValue valueWithRange: resultRange]];
+        result = [NSArray
+                arrayWithObject: [NSValue valueWithRange: resultRange]];
     }
 
     return result;
@@ -3309,14 +3326,17 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         [_textStorage setAttributedString: attrString];
     } else {
         [_textStorage
-            setAttributedString:
-                [[[NSAttributedString alloc]
-                    initWithString: NSLocalizedStringFromTableInBundle(
-                                        @"", nil,
-                                        [NSBundle
-                                            bundleForClass: [NSTextView class]],
-                                        @"")
-                        attributes: nil] autorelease]];
+                setAttributedString:
+                        [[[NSAttributedString alloc]
+                                initWithString:
+                                        NSLocalizedStringFromTableInBundle(
+                                                @"", nil,
+                                                [NSBundle
+                                                        bundleForClass:
+                                                                [NSTextView
+                                                                        class]],
+                                                @"")
+                                    attributes: nil] autorelease]];
     }
 }
 
@@ -3354,14 +3374,14 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) ignoreSpelling: sender {
     [[NSSpellChecker sharedSpellChecker]
-                    ignoreWord: [[sender selectedCell] stringValue]
-        inSpellDocumentWithTag: [self spellCheckerDocumentTag]];
+                        ignoreWord: [[sender selectedCell] stringValue]
+            inSpellDocumentWithTag: [self spellCheckerDocumentTag]];
 }
 
 - (void) showGuessPanel: sender {
     [self moveToBeginningOfDocument: sender];
     [[[NSSpellChecker sharedSpellChecker] spellingPanel]
-        makeKeyAndOrderFront: self];
+            makeKeyAndOrderFront: self];
 }
 
 - (void) _continuousSpellCheckWithInvalidatedRange: (NSRange) invalidatedRange {
@@ -3379,8 +3399,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     invalidatedRange = NSMakeRange(start, end - start);
     if (invalidatedRange.length > 0) {
         [[self layoutManager]
-            removeTemporaryAttribute: NSSpellingStateAttributeName
-                   forCharacterRange: invalidatedRange];
+                removeTemporaryAttribute: NSSpellingStateAttributeName
+                       forCharacterRange: invalidatedRange];
     }
     if (_isContinuousSpellCheckingEnabled) {
         NSSpellChecker *checker = [NSSpellChecker sharedSpellChecker];
@@ -3411,9 +3431,10 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (void) _continuousSpellCheck {
-    [self
-        _continuousSpellCheckWithInvalidatedRange: NSMakeRange(0, [[self string]
-                                                                      length])];
+    [self _continuousSpellCheckWithInvalidatedRange: NSMakeRange(
+                                                             0,
+                                                             [[self string]
+                                                                     length])];
 }
 
 - (void) checkSpelling: sender {
@@ -3431,8 +3452,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         }
     }
 
-    NSRange range =
-        NSMakeRange(selection.location, [string length] - selection.location);
+    NSRange range = NSMakeRange(selection.location,
+                                [string length] - selection.location);
 
     NSSpellChecker *checker = [NSSpellChecker sharedSpellChecker];
     NSArray *checking = [checker checkString: string
@@ -3470,27 +3491,30 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
     @try {
         NSRange range = [_textStorage
-            doubleClickAtIndex: [self glyphIndexForPoint: point
-                                    fractionOfDistanceThroughGlyph: &fraction]];
+                doubleClickAtIndex:
+                        [self glyphIndexForPoint: point
+                                fractionOfDistanceThroughGlyph: &fraction]];
 
         [self setSelectedRange: range];
 
         NSSpellChecker *checker = [NSSpellChecker sharedSpellChecker];
-        NSArray *guesses = [checker
-               guessesForWordRange: range
-                          inString: [self string]
-                          language: [[NSLocale currentLocale] localeIdentifier]
-            inSpellDocumentWithTag: [self spellCheckerDocumentTag]];
+        NSArray *guesses =
+                [checker guessesForWordRange: range
+                                      inString: [self string]
+                                      language: [[NSLocale currentLocale]
+                                                        localeIdentifier]
+                        inSpellDocumentWithTag: [self spellCheckerDocumentTag]];
 
         if ([guesses count] == 0) {
             NSMenuItem *item = [menu
-                addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                      @"No Guesses Found", nil,
-                                      [NSBundle
-                                          bundleForClass: [NSTextView class]],
-                                      @"Spell checker guesses")
-                          action: @selector(cut:)
-                   keyEquivalent: @""];
+                    addItemWithTitle:
+                            NSLocalizedStringFromTableInBundle(
+                                    @"No Guesses Found", nil,
+                                    [NSBundle
+                                            bundleForClass: [NSTextView class]],
+                                    @"Spell checker guesses")
+                              action: @selector(cut:)
+                       keyEquivalent: @""];
             [item setEnabled: NO];
         } else {
             for (NSString *guess in guesses) {
@@ -3505,28 +3529,32 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         // means there's nothing to spellcheck
     }
     [menu addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                @"Cut", nil,
-                                [NSBundle bundleForClass: [NSTextView class]],
-                                @"Cut the selection")
+                                    @"Cut", nil,
+                                    [NSBundle
+                                            bundleForClass: [NSTextView class]],
+                                    @"Cut the selection")
                     action: @selector(cut:)
              keyEquivalent: @""];
     [menu addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                @"Copy", nil,
-                                [NSBundle bundleForClass: [NSTextView class]],
-                                @"Copy the selection")
+                                    @"Copy", nil,
+                                    [NSBundle
+                                            bundleForClass: [NSTextView class]],
+                                    @"Copy the selection")
                     action: @selector(copy:)
              keyEquivalent: @""];
     [menu addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                @"Paste", nil,
-                                [NSBundle bundleForClass: [NSTextView class]],
-                                @"Paste the selection")
+                                    @"Paste", nil,
+                                    [NSBundle
+                                            bundleForClass: [NSTextView class]],
+                                    @"Paste the selection")
                     action: @selector(paste:)
              keyEquivalent: @""];
     [menu addItem: [NSMenuItem separatorItem]];
     [menu addItemWithTitle: NSLocalizedStringFromTableInBundle(
-                                @"Select All", nil,
-                                [NSBundle bundleForClass: [NSTextView class]],
-                                @"Select all the content")
+                                    @"Select All", nil,
+                                    [NSBundle
+                                            bundleForClass: [NSTextView class]],
+                                    @"Select all the content")
                     action: @selector(selectAll:)
              keyEquivalent: @""];
 
@@ -3550,7 +3578,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
                 if ([checkContainer textView]->_spellCheckerDocumentTag != 0) {
                     // Direct access the ivar to avoid the method logic here.
                     _spellCheckerDocumentTag =
-                        [checkContainer textView]->_spellCheckerDocumentTag;
+                            [checkContainer textView]->_spellCheckerDocumentTag;
                 }
 
         if (_spellCheckerDocumentTag == 0)
@@ -3587,7 +3615,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) toggleAutomaticSpellingCorrection: sender {
     _isAutomaticSpellingCorrectionEnabled =
-        !_isAutomaticSpellingCorrectionEnabled;
+            !_isAutomaticSpellingCorrectionEnabled;
     NSUnimplementedMethod();
 }
 
@@ -3602,48 +3630,48 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) setSpellingState: (NSInteger) value range: (NSRange) characterRange {
     [[self layoutManager]
-        addTemporaryAttribute: NSSpellingStateAttributeName
-                        value: [NSNumber numberWithLong: value]
-            forCharacterRange: characterRange];
+            addTemporaryAttribute: NSSpellingStateAttributeName
+                            value: [NSNumber numberWithLong: value]
+                forCharacterRange: characterRange];
 }
 
 #pragma mark Ruler client view
 - (void) rulerView: (NSRulerView *) rulerView
-    willSetClientView: (NSView *) clientView
+        willSetClientView: (NSView *) clientView
 {
 }
 
 - (void) rulerView: (NSRulerView *) rulerView
-    handleMouseDown: (NSEvent *) event
+        handleMouseDown: (NSEvent *) event
 {
     // Add a new tab stop
     NSPoint point = [self convertPoint: event.locationInWindow fromView: nil];
     CGFloat delta = rulerView.originOffset;
     NSRulerMarker *marker =
-        [NSRulerMarker leftTabMarkerWithRulerView: rulerView
-                                         location: point.x + delta];
+            [NSRulerMarker leftTabMarkerWithRulerView: rulerView
+                                             location: point.x + delta];
     NSTextTab *tabstop =
-        [[[NSTextTab alloc] initWithType: NSLeftTabStopType
-                                location: point.x] autorelease];
+            [[[NSTextTab alloc] initWithType: NSLeftTabStopType
+                                    location: point.x] autorelease];
     [marker setRepresentedObject: tabstop];
     [rulerView trackMarker: marker withMouseEvent: event];
 }
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldMoveMarker: (NSRulerMarker *) marker
+        shouldMoveMarker: (NSRulerMarker *) marker
 {
     return YES;
 }
 
 - (CGFloat) rulerView: (NSRulerView *) rulerView
-       willMoveMarker: (NSRulerMarker *) marker
-           toLocation: (CGFloat) location
+        willMoveMarker: (NSRulerMarker *) marker
+            toLocation: (CGFloat) location
 {
     if (location < rulerView.originOffset) {
         location = rulerView.originOffset;
     }
     if (location > self.textContainer.containerSize.width -
-                       self.textContainer.lineFragmentPadding) {
+                           self.textContainer.lineFragmentPadding) {
         location = self.textContainer.containerSize.width -
                    self.textContainer.lineFragmentPadding;
     }
@@ -3651,7 +3679,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (void) rulerView: (NSRulerView *) rulerView
-     didMoveMarker: (NSRulerMarker *) marker
+        didMoveMarker: (NSRulerMarker *) marker
 {
     CGFloat delta = rulerView.originOffset;
     CGFloat location = marker.markerLocation - delta;
@@ -3660,8 +3688,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     if ([representedObject isKindOfClass: [NSTextTab class]]) {
         NSTextTab *textTab = (NSTextTab *) representedObject;
         NSTextTab *newTab =
-            [[[NSTextTab alloc] initWithType: [textTab tabStopType]
-                                    location: location] autorelease];
+                [[[NSTextTab alloc] initWithType: [textTab tabStopType]
+                                        location: location] autorelease];
 
         // We need to expand the range to full paragraphs
         NSRange range = [self rangeForUserParagraphAttributeChange];
@@ -3672,27 +3700,29 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         while (location < NSMaxRange(range)) {
             NSRange effectiveRange;
             NSParagraphStyle *style =
-                [_textStorage attribute: NSParagraphStyleAttributeName
-                                atIndex: location
-                         effectiveRange: &effectiveRange];
+                    [_textStorage attribute: NSParagraphStyleAttributeName
+                                    atIndex: location
+                             effectiveRange: &effectiveRange];
             NSRange rangeToChange = NSIntersectionRange(effectiveRange, range);
             if (style == nil) {
                 style = [NSParagraphStyle defaultParagraphStyle];
             }
             // Copy the paragraph style, changing only the tab
             NSMutableParagraphStyle *newStyle =
-                [[style mutableCopy] autorelease];
+                    [[style mutableCopy] autorelease];
             NSMutableArray *tabstops =
-                [[[newStyle tabStops] mutableCopy] autorelease];
+                    [[[newStyle tabStops] mutableCopy] autorelease];
             [tabstops addObject: newTab];
             [tabstops removeObject: textTab];
             // keep the tabstops sorted
             [tabstops
-                sortUsingDescriptors:
-                    [NSArray
-                        arrayWithObject: [NSSortDescriptor
-                                             sortDescriptorWithKey: @"location"
-                                                         ascending: YES]]];
+                    sortUsingDescriptors:
+                            [NSArray arrayWithObject:
+                                             [NSSortDescriptor
+                                                     sortDescriptorWithKey:
+                                                             @"location"
+                                                                 ascending:
+                                                                         YES]]];
             [newStyle setTabStops: tabstops];
             [_textStorage addAttribute: NSParagraphStyleAttributeName
                                  value: newStyle
@@ -3704,22 +3734,24 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
         // Update the typing attributes too
         NSParagraphStyle *style =
-            [_typingAttributes objectForKey: NSParagraphStyleAttributeName];
+                [_typingAttributes objectForKey: NSParagraphStyleAttributeName];
         if (style == nil) {
             style = [NSParagraphStyle defaultParagraphStyle];
         }
         // Copy the paragraph style, changing only the tab
         NSMutableParagraphStyle *newStyle = [[style mutableCopy] autorelease];
         NSMutableArray *tabstops =
-            [[[newStyle tabStops] mutableCopy] autorelease];
+                [[[newStyle tabStops] mutableCopy] autorelease];
         [tabstops addObject: newTab];
         [tabstops removeObject: textTab];
         // keep the tabstops sorted
         [tabstops
-            sortUsingDescriptors:
-                [NSArray arrayWithObject: [NSSortDescriptor
-                                              sortDescriptorWithKey: @"location"
-                                                          ascending: YES]]];
+                sortUsingDescriptors:
+                        [NSArray arrayWithObject:
+                                         [NSSortDescriptor
+                                                 sortDescriptorWithKey:
+                                                         @"location"
+                                                             ascending: YES]]];
         [newStyle setTabStops: tabstops];
         if (![_typingAttributes isKindOfClass: [NSMutableDictionary class]]) {
             NSDictionary *dict = [_typingAttributes mutableCopy];
@@ -3727,14 +3759,14 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             _typingAttributes = dict;
         }
         [(NSMutableDictionary *) _typingAttributes
-            setObject: newStyle
-               forKey: NSParagraphStyleAttributeName];
+                setObject: newStyle
+                   forKey: NSParagraphStyleAttributeName];
 
         marker.representedObject = newTab;
     } else if ([representedObject isEqual: @"NSHeadIndentRulerMarkerTag"] ||
                [representedObject isEqual: @"NSTailIndentRulerMarkerTag"] ||
                [representedObject
-                   isEqual: @"NSFirstLineHeadIndentRulerMarkerTag"]) {
+                       isEqual: @"NSFirstLineHeadIndentRulerMarkerTag"]) {
         // TODO
         // style.headIndent = location
         // style.tailIndent = view.textContainer.containerSize.width - location
@@ -3743,7 +3775,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldAddMarker: (NSRulerMarker *) marker
+        shouldAddMarker: (NSRulerMarker *) marker
 {
     return YES;
 }
@@ -3756,7 +3788,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         location = rulerView.originOffset;
     }
     if (location > self.textContainer.containerSize.width -
-                       self.textContainer.lineFragmentPadding) {
+                           self.textContainer.lineFragmentPadding) {
         location = self.textContainer.containerSize.width -
                    self.textContainer.lineFragmentPadding;
     }
@@ -3764,7 +3796,7 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (void) rulerView: (NSRulerView *) rulerView
-      didAddMarker: (NSRulerMarker *) marker
+        didAddMarker: (NSRulerMarker *) marker
 {
     CGFloat delta = rulerView.originOffset;
 
@@ -3774,8 +3806,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
     if ([representedObject isKindOfClass: [NSTextTab class]]) {
         NSTextTab *textTab = (NSTextTab *) representedObject;
         NSTextTab *newTab =
-            [[[NSTextTab alloc] initWithType: [textTab tabStopType]
-                                    location: location] autorelease];
+                [[[NSTextTab alloc] initWithType: [textTab tabStopType]
+                                        location: location] autorelease];
 
         // Change the tab stop value for all of the selection
         NSRange range = [self rangeForUserParagraphAttributeChange];
@@ -3784,26 +3816,28 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         while (location < NSMaxRange(range)) {
             NSRange effectiveRange;
             NSParagraphStyle *style =
-                [_textStorage attribute: NSParagraphStyleAttributeName
-                                atIndex: location
-                         effectiveRange: &effectiveRange];
+                    [_textStorage attribute: NSParagraphStyleAttributeName
+                                    atIndex: location
+                             effectiveRange: &effectiveRange];
             NSRange rangeToChange = NSIntersectionRange(effectiveRange, range);
             if (style == nil) {
                 style = [NSParagraphStyle defaultParagraphStyle];
             }
             // Copy the paragraph style, changing only the tab
             NSMutableParagraphStyle *newStyle =
-                [[style mutableCopy] autorelease];
+                    [[style mutableCopy] autorelease];
             NSMutableArray *tabstops =
-                [[[newStyle tabStops] mutableCopy] autorelease];
+                    [[[newStyle tabStops] mutableCopy] autorelease];
             [tabstops addObject: newTab];
             // keep the tabstops sorted
             [tabstops
-                sortUsingDescriptors:
-                    [NSArray
-                        arrayWithObject: [NSSortDescriptor
-                                             sortDescriptorWithKey: @"location"
-                                                         ascending: YES]]];
+                    sortUsingDescriptors:
+                            [NSArray arrayWithObject:
+                                             [NSSortDescriptor
+                                                     sortDescriptorWithKey:
+                                                             @"location"
+                                                                 ascending:
+                                                                         YES]]];
             [newStyle setTabStops: tabstops];
             [_textStorage addAttribute: NSParagraphStyleAttributeName
                                  value: newStyle
@@ -3814,21 +3848,23 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
         // Update the typing attributes too
         NSParagraphStyle *style =
-            [_typingAttributes objectForKey: NSParagraphStyleAttributeName];
+                [_typingAttributes objectForKey: NSParagraphStyleAttributeName];
         if (style == nil) {
             style = [NSParagraphStyle defaultParagraphStyle];
         }
         // Copy the paragraph style, changing only the tab
         NSMutableParagraphStyle *newStyle = [[style mutableCopy] autorelease];
         NSMutableArray *tabstops =
-            [[[newStyle tabStops] mutableCopy] autorelease];
+                [[[newStyle tabStops] mutableCopy] autorelease];
         [tabstops addObject: newTab];
         // keep the tabstops sorted
         [tabstops
-            sortUsingDescriptors:
-                [NSArray arrayWithObject: [NSSortDescriptor
-                                              sortDescriptorWithKey: @"location"
-                                                          ascending: YES]]];
+                sortUsingDescriptors:
+                        [NSArray arrayWithObject:
+                                         [NSSortDescriptor
+                                                 sortDescriptorWithKey:
+                                                         @"location"
+                                                             ascending: YES]]];
         [newStyle setTabStops: tabstops];
         if (![_typingAttributes isKindOfClass: [NSMutableDictionary class]]) {
             NSDictionary *dict = [_typingAttributes mutableCopy];
@@ -3836,8 +3872,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             _typingAttributes = dict;
         }
         [(NSMutableDictionary *) _typingAttributes
-            setObject: newStyle
-               forKey: NSParagraphStyleAttributeName];
+                setObject: newStyle
+                   forKey: NSParagraphStyleAttributeName];
 
         marker.representedObject = newTab;
 
@@ -3846,14 +3882,14 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldRemoveMarker: (NSRulerMarker *) marker
+        shouldRemoveMarker: (NSRulerMarker *) marker
 {
     return [(NSObject *) marker.representedObject
-        isKindOfClass: [NSTextTab class]];
+            isKindOfClass: [NSTextTab class]];
 }
 
 - (void) rulerView: (NSRulerView *) rulerView
-    didRemoveMarker: (NSRulerMarker *) marker
+        didRemoveMarker: (NSRulerMarker *) marker
 {
     id representedObject = marker.representedObject;
     if ([representedObject isKindOfClass: [NSTextTab class]]) {
@@ -3867,18 +3903,18 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
         while (location < NSMaxRange(range)) {
             NSRange effectiveRange;
             NSParagraphStyle *style =
-                [_textStorage attribute: NSParagraphStyleAttributeName
-                                atIndex: location
-                         effectiveRange: &effectiveRange];
+                    [_textStorage attribute: NSParagraphStyleAttributeName
+                                    atIndex: location
+                             effectiveRange: &effectiveRange];
             NSRange rangeToChange = NSIntersectionRange(effectiveRange, range);
             if (style == nil) {
                 style = [NSParagraphStyle defaultParagraphStyle];
             }
             // Copy the paragraph style, changing only the tab
             NSMutableParagraphStyle *newStyle =
-                [[style mutableCopy] autorelease];
+                    [[style mutableCopy] autorelease];
             NSMutableArray *tabstops =
-                [[[newStyle tabStops] mutableCopy] autorelease];
+                    [[[newStyle tabStops] mutableCopy] autorelease];
             [tabstops removeObject: textTab];
             [newStyle setTabStops: tabstops];
             [_textStorage addAttribute: NSParagraphStyleAttributeName
@@ -3890,14 +3926,14 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
         // Update the typing attributes
         NSParagraphStyle *style =
-            [_typingAttributes objectForKey: NSParagraphStyleAttributeName];
+                [_typingAttributes objectForKey: NSParagraphStyleAttributeName];
         if (style == nil) {
             style = [NSParagraphStyle defaultParagraphStyle];
         }
         // Copy the paragraph style, changing only the tab
         NSMutableParagraphStyle *newStyle = [[style mutableCopy] autorelease];
         NSMutableArray *tabstops =
-            [[[newStyle tabStops] mutableCopy] autorelease];
+                [[[newStyle tabStops] mutableCopy] autorelease];
         [tabstops removeObject: textTab];
         [newStyle setTabStops: tabstops];
         if (![_typingAttributes isKindOfClass: [NSMutableDictionary class]]) {
@@ -3906,8 +3942,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
             _typingAttributes = dict;
         }
         [(NSMutableDictionary *) _typingAttributes
-            setObject: newStyle
-               forKey: NSParagraphStyleAttributeName];
+                setObject: newStyle
+                   forKey: NSParagraphStyleAttributeName];
 
         marker.representedObject = nil;
 

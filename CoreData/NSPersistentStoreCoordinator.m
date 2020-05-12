@@ -32,21 +32,21 @@ NSString *const NSInMemoryStoreType = @"Memory";
 NSString *const NSSQLiteStoreType = @"SQLite";
 NSString *const NSBinaryStoreType = @"Binary";
 NSString *const NSMigratePersistentStoresAutomaticallyOption =
-    @"NSMigratePersistentStoresAutomaticallyOption";
+        @"NSMigratePersistentStoresAutomaticallyOption";
 
 NSString *const NSPersistentStoreCoordinatorStoresDidChangeNotification =
-    @"NSPersistentStoreCoordinatorStoresDidChangeNotification";
+        @"NSPersistentStoreCoordinatorStoresDidChangeNotification";
 NSString *const NSAddedPersistentStoresKey = @"NSAddedPersistentStoresKey";
 NSString *const NSRemovedPersistentStoresKey = @"NSRemovedPersistentStoresKey";
 NSString *const NSUUIDChangedPersistentStoresKey =
-    @"NSUUIDChangedPersistentStoresKey";
+        @"NSUUIDChangedPersistentStoresKey";
 
 NSString *const NSPersistentStoreSaveConflictsErrorKey = @"conflictList";
 
 NSString *const NSInferMappingModelAutomaticallyOption =
-    @"NSInferMappingModelAutomaticallyOption";
+        @"NSInferMappingModelAutomaticallyOption";
 NSString *const NSReadOnlyPersistentStoreOption =
-    @"NSReadOnlyPersistentStoreOption";
+        @"NSReadOnlyPersistentStoreOption";
 
 @implementation NSPersistentStoreCoordinator
 
@@ -101,7 +101,8 @@ static NSMutableDictionary *_storeTypes = nil;
 
         for (Class class in [_storeTypes allValues]) {
             NSDictionary *metadata =
-                [class metadataForPersistentStoreWithURL: storeURL error: nil];
+                    [class metadataForPersistentStoreWithURL: storeURL
+                                                       error: nil];
             if ((storeType = [metadata objectForKey: NSStoreTypeKey]) != nil)
                 break;
         }
@@ -109,10 +110,10 @@ static NSMutableDictionary *_storeTypes = nil;
 
     Class class = [[[self class] registeredStoreTypes] objectForKey: storeType];
     NSAtomicStore *store = [[[class alloc]
-        initWithPersistentStoreCoordinator: self
-                         configurationName: configuration
-                                       URL: storeURL
-                                   options: options] autorelease];
+            initWithPersistentStoreCoordinator: self
+                             configurationName: configuration
+                                           URL: storeURL
+                                       options: options] autorelease];
 
     if (![store load: error])
         return nil;
@@ -132,16 +133,16 @@ static NSMutableDictionary *_storeTypes = nil;
 {
     NSArray *remove = [NSArray arrayWithObject: store];
     NSDictionary *userInfo =
-        [NSDictionary dictionaryWithObject: remove
-                                    forKey: NSRemovedPersistentStoresKey];
+            [NSDictionary dictionaryWithObject: remove
+                                        forKey: NSRemovedPersistentStoresKey];
 
     [store willRemoveFromPersistentStoreCoordinator: self];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName:
-            NSPersistentStoreCoordinatorStoresDidChangeNotification
-                      object: self
-                    userInfo: userInfo];
+            postNotificationName:
+                    NSPersistentStoreCoordinatorStoresDidChangeNotification
+                          object: self
+                        userInfo: userInfo];
 
     [_stores removeObjectIdenticalTo: store];
 
@@ -194,21 +195,21 @@ static NSMutableDictionary *_storeTypes = nil;
 }
 
 - (void) setMetadata: (NSDictionary *) value
-    forPersistentStore: (NSPersistentStore *) store
+        forPersistentStore: (NSPersistentStore *) store
 {
     [store setMetadata: value];
 }
 
 + (BOOL) setMetadata: (NSDictionary *) metadata
-    forPersistentStoreOfType: (NSString *) storeType
-                         URL: (NSURL *) url
-                       error: (NSError **) error
+        forPersistentStoreOfType: (NSString *) storeType
+                             URL: (NSURL *) url
+                           error: (NSError **) error
 {
     Class check = [[self registeredStoreTypes] objectForKey: storeType];
 
     return [check setMetadata: metadata
-        forPersistentStoreWithURL: url
-                            error: error];
+            forPersistentStoreWithURL: url
+                                error: error];
 }
 
 + (NSDictionary *) metadataForPersistentStoreOfType: (NSString *) storeType
@@ -230,12 +231,12 @@ static NSMutableDictionary *_storeTypes = nil;
 }
 
 - (NSPersistentStore *) _persistentStoreForObjectID:
-    (NSManagedObjectID *) objectID
+        (NSManagedObjectID *) objectID
 {
     NSEntityDescription *entity = [objectID entity];
     NSString *storeIdentifier = [objectID storeIdentifier];
     NSPersistentStore *check =
-        [self _persistentStoreWithIdentifier: storeIdentifier];
+            [self _persistentStoreWithIdentifier: storeIdentifier];
 
     if (check != nil)
         return check;
@@ -244,8 +245,8 @@ static NSMutableDictionary *_storeTypes = nil;
 
     if ([_stores count] == 0) {
         [NSException
-             raise: NSInvalidArgumentException
-            format: @"-[%@ %s] no persistent stores", [self class], _cmd];
+                 raise: NSInvalidArgumentException
+                format: @"-[%@ %s] no persistent stores", [self class], _cmd];
         return nil;
     }
 
@@ -254,7 +255,7 @@ static NSMutableDictionary *_storeTypes = nil;
 
         if (configurationName == nil) {
             NSArray *entities =
-                [model entitiesForConfiguration: configurationName];
+                    [model entitiesForConfiguration: configurationName];
 
             if ([entities containsObject: entity])
                 return check;
@@ -274,14 +275,14 @@ static NSMutableDictionary *_storeTypes = nil;
     NSString *path = [URL path];
     NSString *referenceObject = [path lastPathComponent];
     NSString *entityName =
-        [[path stringByDeletingLastPathComponent] lastPathComponent];
+            [[path stringByDeletingLastPathComponent] lastPathComponent];
     NSManagedObjectModel *model = [self managedObjectModel];
     NSEntityDescription *entity =
-        [[model entitiesByName] objectForKey: entityName];
+            [[model entitiesByName] objectForKey: entityName];
 
     return [(NSAtomicStore *) [self _persistentStoreWithIdentifier: host]
-        objectIDForEntity: entity
-          referenceObject: referenceObject];
+            objectIDForEntity: entity
+              referenceObject: referenceObject];
 }
 
 @end

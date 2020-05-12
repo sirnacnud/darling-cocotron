@@ -54,7 +54,7 @@ static int CopyDirectoryW(CONST WCHAR *cszFrom, CONST WCHAR *cszTo) {
         swprintf(cszDirectoryFindPattern, L"\\\\?\\%s\\*", cszFrom);
 
         if ((hFindFile =
-                 FindFirstFileW(cszDirectoryFindPattern, &FindFileData)) !=
+                     FindFirstFileW(cszDirectoryFindPattern, &FindFileData)) !=
             INVALID_HANDLE_VALUE) {
             do {
                 if (*FindFileData.cFileName == '.')
@@ -119,7 +119,7 @@ static NSString *DriveLetterInPath(NSString *path) {
     NSArray *components = [path componentsSeparatedByString: @":"];
     if ([components count] > 0) {
         NSString *driveLetter = [NSString
-            stringWithFormat: @"%@:\\", [components objectAtIndex: 0]];
+                stringWithFormat: @"%@:\\", [components objectAtIndex: 0]];
         return driveLetter;
     }
     return nil;
@@ -127,11 +127,11 @@ static NSString *DriveLetterInPath(NSString *path) {
 
 static NSError *NSErrorForGetLastErrorCode(DWORD code) {
     NSString *localizedDescription =
-        @"NSErrorForGetLastError localizedDescription";
+            @"NSErrorForGetLastError localizedDescription";
     unichar *message;
 
     FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
-                       FORMAT_MESSAGE_IGNORE_INSERTS,
+                           FORMAT_MESSAGE_IGNORE_INSERTS,
                    NULL, code, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
                    (LPWSTR) &message, 0, NULL);
     localizedDescription = NSStringFromNullTerminatedUnicode(message);
@@ -139,11 +139,12 @@ static NSError *NSErrorForGetLastErrorCode(DWORD code) {
     LocalFree(message);
 
     return [NSError
-        errorWithDomain: NSWin32ErrorDomain
-                   code: code
-               userInfo: [NSDictionary
-                             dictionaryWithObject: localizedDescription
-                                           forKey: NSLocalizedDescriptionKey]];
+            errorWithDomain: NSWin32ErrorDomain
+                       code: code
+                   userInfo:
+                           [NSDictionary
+                                   dictionaryWithObject: localizedDescription
+                                                 forKey: NSLocalizedDescriptionKey]];
 }
 
 static NSError *NSErrorForGetLastError() {
@@ -203,8 +204,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
     return MoveFileW([fromPath fileSystemRepresentationW],
                      [toPath fileSystemRepresentationW])
-               ? YES
-               : NO;
+                   ? YES
+                   : NO;
 }
 
 - (BOOL) movePath: (NSString *) src toPath: (NSString *) dest handler: handler {
@@ -240,9 +241,9 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
     if ([self fileExistsAtPath: toPath] == YES) {
         if (error != NULL) {
-            NSDictionary *userInfo =
-                [NSDictionary dictionaryWithObject: @"File exists"
-                                            forKey: NSLocalizedDescriptionKey];
+            NSDictionary *userInfo = [NSDictionary
+                    dictionaryWithObject: @"File exists"
+                                  forKey: NSLocalizedDescriptionKey];
 
             *error = [NSError errorWithDomain: NSPOSIXErrorDomain
                                          code: 17
@@ -258,10 +259,10 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
                             [toPath fileSystemRepresentationW])) {
             if (error != NULL) {
                 NSString *msg = [NSString
-                    stringWithFormat: @"Copy error (%d)", GetLastError()];
+                        stringWithFormat: @"Copy error (%d)", GetLastError()];
                 NSDictionary *userInfo = [NSDictionary
-                    dictionaryWithObject: msg
-                                  forKey: NSLocalizedDescriptionKey];
+                        dictionaryWithObject: msg
+                                      forKey: NSLocalizedDescriptionKey];
                 *error = [NSError errorWithDomain: NSPOSIXErrorDomain
                                              code: 17
                                          userInfo: userInfo];
@@ -274,10 +275,10 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
                        [toPath fileSystemRepresentationW], YES)) {
             if (error != NULL) {
                 NSString *msg = [NSString
-                    stringWithFormat: @"Copy error (%d)", GetLastError()];
+                        stringWithFormat: @"Copy error (%d)", GetLastError()];
                 NSDictionary *userInfo = [NSDictionary
-                    dictionaryWithObject: msg
-                                  forKey: NSLocalizedDescriptionKey];
+                        dictionaryWithObject: msg
+                                      forKey: NSLocalizedDescriptionKey];
                 *error = [NSError errorWithDomain: NSPOSIXErrorDomain
                                              code: 17
                                          userInfo: userInfo];
@@ -355,10 +356,11 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
         for (i = 0; i < count; i++) {
             NSString *fullPath = [path
-                stringByAppendingPathComponent: [contents objectAtIndex: i]];
+                    stringByAppendingPathComponent: [contents
+                                                            objectAtIndex: i]];
             if (_delegate != nil) {
                 if (![_delegate fileManager: self
-                        shouldRemoveItemAtPath: fullPath]) {
+                            shouldRemoveItemAtPath: fullPath]) {
                     if (error != NULL)
                         *error = nil; // FIXME; is there a Cocoa error for the
                                       // delegate cancelling?
@@ -395,9 +397,9 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 #pragma mark Creating an item
 
 - (BOOL) createDirectoryAtPath: (NSString *) path
-    withIntermediateDirectories: (BOOL) intermediates
-                     attributes: (NSDictionary *) attributes
-                          error: (NSError **) error
+        withIntermediateDirectories: (BOOL) intermediates
+                         attributes: (NSDictionary *) attributes
+                              error: (NSError **) error
 {
     if (intermediates) {
         NSArray *components = [path pathComponents];
@@ -406,7 +408,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
         for (i = 0; i < count - 1; i++) {
             check = [check
-                stringByAppendingPathComponent: [components objectAtIndex: i]];
+                    stringByAppendingPathComponent: [components
+                                                            objectAtIndex: i]];
             // ignore errors on intermediates since we're not handling all
             // possible error codes.
             _NSCreateDirectory(check, NULL);
@@ -498,11 +501,11 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
                 psl->lpVtbl->Release(psl);
 
                 NSString *resolvedPath =
-                    [NSString stringWithFormat: @"%S", pszFilePath];
+                        [NSString stringWithFormat: @"%S", pszFilePath];
                 // Mac-ify the path
-                resolvedPath =
-                    [resolvedPath stringByReplacingOccurrencesOfString: @"\\"
-                                                            withString: @"/"];
+                resolvedPath = [resolvedPath
+                        stringByReplacingOccurrencesOfString: @"\\"
+                                                  withString: @"/"];
                 return resolvedPath;
             } else {
                 NSLog(@"Unable to resolve link");
@@ -552,9 +555,9 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
         return nil;
     }
 
-    handle = FindFirstFileW(
-        [[path stringByAppendingString: @"\\*.*"] fileSystemRepresentationW],
-        &findData);
+    handle = FindFirstFileW([[path stringByAppendingString: @"\\*.*"]
+                                    fileSystemRepresentationW],
+                            &findData);
 
     if (handle == INVALID_HANDLE_VALUE)
         return nil;
@@ -562,11 +565,10 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     do {
         if (wcscmp(findData.cFileName, L".") != 0 &&
             wcscmp(findData.cFileName, L"..") != 0)
-            [result
-                addObject: [NSString
-                               stringWithCharacters: findData.cFileName
-                                             length: wcslen(
-                                                         findData.cFileName)]];
+            [result addObject:
+                            [NSString
+                                    stringWithCharacters: findData.cFileName
+                                                  length: wcslen(findData.cFileName)]];
     } while (FindNextFileW(handle, &findData));
 
     FindClose(handle);
@@ -583,9 +585,9 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
         return nil;
     }
 
-    handle = FindFirstFileW(
-        [[path stringByAppendingString: @"\\*.*"] fileSystemRepresentationW],
-        &findData);
+    handle = FindFirstFileW([[path stringByAppendingString: @"\\*.*"]
+                                    fileSystemRepresentationW],
+                            &findData);
 
     if (handle == INVALID_HANDLE_VALUE)
         return nil;
@@ -593,11 +595,10 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     do {
         if (wcscmp(findData.cFileName, L".") != 0 &&
             wcscmp(findData.cFileName, L"..") != 0)
-            [result
-                addObject: [NSString
-                               stringWithCharacters: findData.cFileName
-                                             length: wcslen(
-                                                         findData.cFileName)]];
+            [result addObject:
+                            [NSString
+                                    stringWithCharacters: findData.cFileName
+                                                  length: wcslen(findData.cFileName)]];
     } while (FindNextFileW(handle, &findData));
 
     FindClose(handle);
@@ -624,7 +625,7 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     }
 
     NSMutableDictionary *attrs =
-        [NSMutableDictionary dictionaryWithCapacity: 3];
+            [NSMutableDictionary dictionaryWithCapacity: 3];
 
     const uint16_t *wPath = [path fileSystemRepresentationW];
     ULARGE_INTEGER freeBytesAvailable;
@@ -634,13 +635,12 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
     if (GetDiskFreeSpaceExW(wPath, &freeBytesAvailable, &totalNumberOfBytes,
                             &totalNumberOfBytes) != 0) {
-        [attrs
-            setObject: [NSNumber numberWithUnsignedLongLong: freeBytesAvailable
-                                                                 .QuadPart]
-               forKey: NSFileSystemFreeSize];
         [attrs setObject: [NSNumber
-                              numberWithUnsignedLongLong: totalNumberOfFreeBytes
-                                                              .QuadPart]
+                                  numberWithUnsignedLongLong: freeBytesAvailable
+                                                                      .QuadPart]
+                  forKey: NSFileSystemFreeSize];
+        [attrs setObject: [NSNumber numberWithUnsignedLongLong:
+                                            totalNumberOfFreeBytes.QuadPart]
                   forKey: NSFileSystemSize];
     } else {
         NSError *error = NSErrorForGetLastError();
@@ -694,8 +694,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     NSDate *date = [NSDate
-        dateWithTimeIntervalSinceReferenceDate: Win32TimeIntervalFromFileTime(
-                                                    fileData.ftLastWriteTime)];
+            dateWithTimeIntervalSinceReferenceDate:
+                    Win32TimeIntervalFromFileTime(fileData.ftLastWriteTime)];
     [result setObject: date forKey: NSFileModificationDate];
 
     NSString *fileType = NSFileTypeRegular;
@@ -715,23 +715,24 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
         DWORD domainLen = 128;
 
         if (GetSecurityDescriptorOwner(
-                (SECURITY_DESCRIPTOR *) pSecurityDescriptor, &sid,
-                ((LPBOOL)(&lpbOwnerDefaulted))) != 0) {
+                    (SECURITY_DESCRIPTOR *) pSecurityDescriptor, &sid,
+                    ((LPBOOL)(&lpbOwnerDefaulted))) != 0) {
             if (LookupAccountSid(NULL, sid, lpName, &len, referencedDomainName,
                                  &domainLen, &nameUse) != 0) {
-                NSString *owner =
-                    [[[NSString alloc] initWithCString: lpName] autorelease];
+                NSString *owner = [[[NSString alloc] initWithCString: lpName]
+                        autorelease];
 
                 if (referencedDomainName != NULL) {
-                    [result
-                        setObject: [NSString stringWithFormat:
-                                                 @"%@\\%@",
-                                                 [[[NSString alloc]
-                                                     initWithCString:
-                                                         referencedDomainName]
-                                                     autorelease],
-                                                 owner]
-                           forKey: NSFileOwnerAccountName];
+                    [result setObject:
+                                    [NSString
+                                            stringWithFormat:
+                                                    @"%@\\%@",
+                                                    [[[NSString alloc]
+                                                            initWithCString:
+                                                                    referencedDomainName]
+                                                            autorelease],
+                                                    owner]
+                               forKey: NSFileOwnerAccountName];
                 } else {
                     [result setObject: owner forKey: NSFileOwnerAccountName];
                 }
@@ -823,7 +824,7 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     }
 
     DWORD attributes =
-        GetFileAttributesW([self fileSystemRepresentationWithPathW: path]);
+            GetFileAttributesW([self fileSystemRepresentationWithPathW: path]);
 
     if (attributes == 0xFFFFFFFF)
         return NO;
@@ -903,7 +904,7 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     path = TranslatePath(path);
 
     return (const unichar *) [path
-        cStringUsingEncoding: NSUnicodeStringEncoding];
+            cStringUsingEncoding: NSUnicodeStringEncoding];
 }
 
 - (const char *) fileSystemRepresentationWithPath: (NSString *) path {

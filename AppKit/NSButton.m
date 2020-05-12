@@ -284,10 +284,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     CGFloat size = [currentFont pointSize];
 
     NSFont *newFont =
-        [[NSFontManager sharedFontManager] fontWithFamily: familyName
-                                                   traits: 0
-                                                   weight: 5
-                                                     size: size];
+            [[NSFontManager sharedFontManager] fontWithFamily: familyName
+                                                       traits: 0
+                                                       weight: 5
+                                                         size: size];
     if (newFont != nil) {
         [self setFont: newFont];
     }

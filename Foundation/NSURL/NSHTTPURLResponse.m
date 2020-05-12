@@ -48,19 +48,19 @@ static NSString *textEncodingNameFromContentType(NSString *contentType) {
 }
 
 - initWithURL: (NSURL *) url
-    statusCode: (NSInteger) statusCode
-       headers: (NSDictionary *) headers
+        statusCode: (NSInteger) statusCode
+           headers: (NSDictionary *) headers
 {
     NSString *contentType = valueInHeaders(headers, @"content-type");
     NSInteger contentLength =
-        [valueInHeaders(headers, @"content-length") integerValue];
+            [valueInHeaders(headers, @"content-length") integerValue];
     NSString *mimeType = mimeTypeFromContentType(contentType);
     NSString *textEncodingName = textEncodingNameFromContentType(contentType);
 
     [super initWithURL: url
-                     MIMEType: mimeType
-        expectedContentLength: contentLength
-             textEncodingName: textEncodingName];
+                         MIMEType: mimeType
+            expectedContentLength: contentLength
+                 textEncodingName: textEncodingName];
 
     _statusCode = statusCode;
     _allHeaderFields = [headers retain];

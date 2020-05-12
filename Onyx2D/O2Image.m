@@ -312,24 +312,24 @@ ONYX2D_STATIC BOOL initFunctionsForParameters(O2Image *self,
                                               bitsPerPixel, bitmapInfo);
     case kO2ColorSpaceModelIndexed:
         return initFunctionsForIndexedColorSpace(
-            self, bitsPerComponent, bitsPerPixel, colorSpace, bitmapInfo);
+                self, bitsPerComponent, bitsPerPixel, colorSpace, bitmapInfo);
     default:
         return NO;
     }
 }
 
 - initWithWidth: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-        bitsPerPixel: (size_t) bitsPerPixel
-         bytesPerRow: (size_t) bytesPerRow
-          colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo
-             decoder: (O2ImageDecoder *) decoder
-            provider: (O2DataProvider *) provider
-              decode: (const O2Float *) decode
-         interpolate: (BOOL) interpolate
-     renderingIntent: (O2ColorRenderingIntent) renderingIntent
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+            bitsPerPixel: (size_t) bitsPerPixel
+             bytesPerRow: (size_t) bytesPerRow
+              colorSpace: (O2ColorSpaceRef) colorSpace
+              bitmapInfo: (O2BitmapInfo) bitmapInfo
+                 decoder: (O2ImageDecoder *) decoder
+                provider: (O2DataProvider *) provider
+                  decode: (const O2Float *) decode
+             interpolate: (BOOL) interpolate
+         renderingIntent: (O2ColorRenderingIntent) renderingIntent
 {
     _width = width;
     _height = height;
@@ -381,13 +381,13 @@ ONYX2D_STATIC BOOL initFunctionsForParameters(O2Image *self,
 }
 
 - initMaskWithWidth: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-        bitsPerPixel: (size_t) bitsPerPixel
-         bytesPerRow: (size_t) bytesPerRow
-            provider: (O2DataProvider *) provider
-              decode: (const O2Float *) decode
-         interpolate: (BOOL) interpolate
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+            bitsPerPixel: (size_t) bitsPerPixel
+             bytesPerRow: (size_t) bytesPerRow
+                provider: (O2DataProvider *) provider
+                  decode: (const O2Float *) decode
+             interpolate: (BOOL) interpolate
 {
     O2ColorSpaceRef gray = O2ColorSpaceCreateDeviceGray();
 
@@ -456,7 +456,7 @@ ONYX2D_STATIC_INLINE const void *directBytes(O2Image *self) {
             self->_directLength = [self->_provider length];
         } else {
             self->_directData =
-                (NSData *) O2DataProviderCopyData(self->_provider);
+                    (NSData *) O2DataProviderCopyData(self->_provider);
             self->_directBytes = [self->_directData bytes];
             self->_directLength = [self->_directData length];
         }
@@ -588,12 +588,12 @@ O2ImageRef O2ImageCreateWithImageInRect(O2ImageRef self, O2Rect rect) {
     NSData *data = [NSData dataWithBytesNoCopy: childPixelBytes
                                         length: childIndex];
     O2DataProviderRef provider =
-        O2DataProviderCreateWithCFData((CFDataRef) data);
+            O2DataProviderCreateWithCFData((CFDataRef) data);
 
     O2ImageRef result = O2ImageCreate(
-        width, height, self->_bitsPerComponent, self->_bitsPerPixel,
-        childBytesPerRow, self->_colorSpace, self->_bitmapInfo, provider,
-        self->_decode, self->_interpolate, self->_renderingIntent);
+            width, height, self->_bitsPerComponent, self->_bitsPerPixel,
+            childBytesPerRow, self->_colorSpace, self->_bitmapInfo, provider,
+            self->_decode, self->_interpolate, self->_renderingIntent);
 
     O2DataProviderRelease(provider);
 
@@ -1339,9 +1339,9 @@ ONYX2D_STATIC_INLINE int cubic_8(int v0, int v1, int v2, int v3, int fraction) {
     int q = (v0 - v1) - p;
 
     return RI_INT_CLAMP((p * (fraction * fraction * fraction)) /
-                                (256 * 256 * 256) +
-                            (q * fraction * fraction) / (256 * 256) +
-                            ((v2 - v0) * fraction) / 256 + v1,
+                                        (256 * 256 * 256) +
+                                (q * fraction * fraction) / (256 * 256) +
+                                ((v2 - v0) * fraction) / 256 + v1,
                         0, 255);
 }
 
@@ -1408,7 +1408,8 @@ ONYX2D_STATIC_INLINE O2Float cubic_f(O2Float v0, O2Float v1, O2Float v2,
     O2Float q = (v0 - v1) - p;
 
     return RI_CLAMP((p * (fraction * fraction * fraction)) +
-                        (q * fraction * fraction) + ((v2 - v0) * fraction) + v1,
+                            (q * fraction * fraction) + ((v2 - v0) * fraction) +
+                            v1,
                     0, 1);
 }
 
@@ -1446,22 +1447,22 @@ void O2ImageBicubic_largb32f_PRE(O2Image *self, int x, int y, O2argb32f *span,
 
         O2ImageReadTileSpanExtendEdge__largb32f_PRE(self, u - 1, v - 1, cspan,
                                                     4);
-        t0 =
-            bicubic_largb32f_PRE(cspan[0], cspan[1], cspan[2], cspan[3], ufrac);
+        t0 = bicubic_largb32f_PRE(cspan[0], cspan[1], cspan[2], cspan[3],
+                                  ufrac);
 
         O2ImageReadTileSpanExtendEdge__largb32f_PRE(self, u - 1, v, cspan, 4);
-        t1 =
-            bicubic_largb32f_PRE(cspan[0], cspan[1], cspan[2], cspan[3], ufrac);
+        t1 = bicubic_largb32f_PRE(cspan[0], cspan[1], cspan[2], cspan[3],
+                                  ufrac);
 
         O2ImageReadTileSpanExtendEdge__largb32f_PRE(self, u - 1, v + 1, cspan,
                                                     4);
-        t2 =
-            bicubic_largb32f_PRE(cspan[0], cspan[1], cspan[2], cspan[3], ufrac);
+        t2 = bicubic_largb32f_PRE(cspan[0], cspan[1], cspan[2], cspan[3],
+                                  ufrac);
 
         O2ImageReadTileSpanExtendEdge__largb32f_PRE(self, u - 1, v + 2, cspan,
                                                     4);
-        t3 =
-            bicubic_largb32f_PRE(cspan[0], cspan[1], cspan[2], cspan[3], ufrac);
+        t3 = bicubic_largb32f_PRE(cspan[0], cspan[1], cspan[2], cspan[3],
+                                  ufrac);
 
         span[i] = bicubic_largb32f_PRE(t0, t1, t2, t3, vfrac);
 
@@ -1505,10 +1506,10 @@ void O2ImageBilinear_largb8u_PRE(O2Image *self, int x, int y, O2argb8u *span,
         O2ImageReadTileSpanExtendEdge_largb8u_PRE(self, u, v, line0, 2);
         O2ImageReadTileSpanExtendEdge_largb8u_PRE(self, u, v + 1, line1, 2);
 
-        O2argb8u c0 =
-            O2argb8uMultiplyByCoverageAdd(line0[0], oneMinusFu, line0[1], fu);
-        O2argb8u c1 =
-            O2argb8uMultiplyByCoverageAdd(line1[0], oneMinusFu, line1[1], fu);
+        O2argb8u c0 = O2argb8uMultiplyByCoverageAdd(line0[0], oneMinusFu,
+                                                    line0[1], fu);
+        O2argb8u c1 = O2argb8uMultiplyByCoverageAdd(line1[0], oneMinusFu,
+                                                    line1[1], fu);
 
         uint32_t fv = uvy & 0xFF;
         uint32_t oneMinusFv = inverseCoverage(fv);
@@ -1545,11 +1546,11 @@ void O2ImageBilinear_largb32f_PRE(O2Image *self, int x, int y, O2argb32f *span,
         O2Float fu = uv.x - (O2Float) u;
         O2Float fv = uv.y - (O2Float) v;
         O2argb32f c0 =
-            O2argb32fAdd(O2argb32fMultiplyByFloat(c00c01[0], (1.0f - fu)),
-                         O2argb32fMultiplyByFloat(c00c01[1], fu));
+                O2argb32fAdd(O2argb32fMultiplyByFloat(c00c01[0], (1.0f - fu)),
+                             O2argb32fMultiplyByFloat(c00c01[1], fu));
         O2argb32f c1 =
-            O2argb32fAdd(O2argb32fMultiplyByFloat(c01c11[0], (1.0f - fu)),
-                         O2argb32fMultiplyByFloat(c01c11[1], fu));
+                O2argb32fAdd(O2argb32fMultiplyByFloat(c01c11[0], (1.0f - fu)),
+                             O2argb32fMultiplyByFloat(c01c11[1], fu));
         span[i] = O2argb32fAdd(O2argb32fMultiplyByFloat(c0, (1.0f - fv)),
                                O2argb32fMultiplyByFloat(c1, fv));
 
@@ -1571,8 +1572,9 @@ void O2ImagePointSampling_largb8u_PRE(O2Image *self, int x, int y,
     for (i = 0; i < length; i++, x++) {
         O2Point uv = O2PointMake(du, dv);
 
-        O2ImageReadTileSpanExtendEdge_largb8u_PRE(
-            self, RI_FLOOR_TO_INT(uv.x), RI_FLOOR_TO_INT(uv.y), span + i, 1);
+        O2ImageReadTileSpanExtendEdge_largb8u_PRE(self, RI_FLOOR_TO_INT(uv.x),
+                                                  RI_FLOOR_TO_INT(uv.y),
+                                                  span + i, 1);
 
         du += surfaceToImage.a;
         dv += surfaceToImage.b;
@@ -1592,8 +1594,9 @@ void O2ImagePointSampling_largb32f_PRE(O2Image *self, int x, int y,
     for (i = 0; i < length; i++, x++) {
         O2Point uv = O2PointMake(du, dv);
 
-        O2ImageReadTileSpanExtendEdge__largb32f_PRE(
-            self, RI_FLOOR_TO_INT(uv.x), RI_FLOOR_TO_INT(uv.y), span + i, 1);
+        O2ImageReadTileSpanExtendEdge__largb32f_PRE(self, RI_FLOOR_TO_INT(uv.x),
+                                                    RI_FLOOR_TO_INT(uv.y),
+                                                    span + i, 1);
 
         du += surfaceToImage.a;
         dv += surfaceToImage.b;
@@ -1767,11 +1770,11 @@ void O2ImagePattern_Bilinear(O2Image *self, O2Float x, O2Float y,
         O2Float fu = uv.x - (O2Float) u;
         O2Float fv = uv.y - (O2Float) v;
         O2argb32f c0 =
-            O2argb32fAdd(O2argb32fMultiplyByFloat(c00c01[0], (1.0f - fu)),
-                         O2argb32fMultiplyByFloat(c00c01[1], fu));
+                O2argb32fAdd(O2argb32fMultiplyByFloat(c00c01[0], (1.0f - fu)),
+                             O2argb32fMultiplyByFloat(c00c01[1], fu));
         O2argb32f c1 =
-            O2argb32fAdd(O2argb32fMultiplyByFloat(c01c11[0], (1.0f - fu)),
-                         O2argb32fMultiplyByFloat(c01c11[1], fu));
+                O2argb32fAdd(O2argb32fMultiplyByFloat(c01c11[0], (1.0f - fu)),
+                             O2argb32fMultiplyByFloat(c01c11[1], fu));
         span[i] = O2argb32fAdd(O2argb32fMultiplyByFloat(c0, (1.0f - fv)),
                                O2argb32fMultiplyByFloat(c1, fv));
 
@@ -1794,8 +1797,9 @@ void O2ImagePattern_PointSampling_largb8u_PRE(O2Image *self, O2Float x,
     for (i = 0; i < length; i++, x++) {
         O2Point uv = O2PointMake(du, dv);
 
-        O2ImageReadTexelTileRepeat_largb8u_PRE(
-            self, RI_FLOOR_TO_INT(uv.x), RI_FLOOR_TO_INT(uv.y), span + i, 1);
+        O2ImageReadTexelTileRepeat_largb8u_PRE(self, RI_FLOOR_TO_INT(uv.x),
+                                               RI_FLOOR_TO_INT(uv.y), span + i,
+                                               1);
 
         du += surfaceToImage.a;
         dv += surfaceToImage.b;
@@ -1816,8 +1820,9 @@ void O2ImagePattern_PointSampling_largb32f_PRE(O2Image *self, O2Float x,
     for (i = 0; i < length; i++, x++) {
         O2Point uv = O2PointMake(du, dv);
 
-        O2ImageReadTexelTileRepeat_largb32f_PRE(
-            self, RI_FLOOR_TO_INT(uv.x), RI_FLOOR_TO_INT(uv.y), span + i, 1);
+        O2ImageReadTexelTileRepeat_largb32f_PRE(self, RI_FLOOR_TO_INT(uv.x),
+                                                RI_FLOOR_TO_INT(uv.y), span + i,
+                                                1);
 
         du += surfaceToImage.a;
         dv += surfaceToImage.b;
@@ -1862,11 +1867,13 @@ void O2ImageReadPatternSpan_largb32f_PRE(O2Image *self, O2Float x, O2Float y,
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat:
-            @"<%@:%p> width=%d,height=%d,bpc=%d,bpp=%d,bpr=%d,bminfo=%x data "
-            @"length=%d",
-            [self class], self, _width, _height, _bitsPerComponent,
-            _bitsPerPixel, _bytesPerRow, _bitmapInfo, [_provider length]];
+            stringWithFormat:
+                    @"<%@:%p> "
+                    @"width=%d,height=%d,bpc=%d,bpp=%d,bpr=%d,bminfo=%x data "
+                    @"length=%d",
+                    [self class], self, _width, _height, _bitsPerComponent,
+                    _bitsPerPixel, _bytesPerRow, _bitmapInfo,
+                    [_provider length]];
 }
 
 @end

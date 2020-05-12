@@ -175,23 +175,23 @@ static int readCallback(GifFileType *ft, GifByteType *buf, int count) {
     }
 
     O2DataProvider *provider =
-        O2DataProviderCreateWithCFData((CFDataRef) bitmap);
+            O2DataProviderCreateWithCFData((CFDataRef) bitmap);
     O2BitmapInfo info =
-        kO2BitmapByteOrder32Big | kO2ImageAlphaPremultipliedLast;
+            kO2BitmapByteOrder32Big | kO2ImageAlphaPremultipliedLast;
 
     O2Image *result =
-        [[O2Image alloc] initWithWidth: width
-                                height: height
-                      bitsPerComponent: bitsPerComponent
-                          bitsPerPixel: bitsPerPixel
-                           bytesPerRow: bytesPerRow
-                            colorSpace: colorSpace
-                            bitmapInfo: info
-                               decoder: NULL
-                              provider: provider
-                                decode: NULL
-                           interpolate: NO
-                       renderingIntent: kO2RenderingIntentDefault];
+            [[O2Image alloc] initWithWidth: width
+                                    height: height
+                          bitsPerComponent: bitsPerComponent
+                              bitsPerPixel: bitsPerPixel
+                               bytesPerRow: bytesPerRow
+                                colorSpace: colorSpace
+                                bitmapInfo: info
+                                   decoder: NULL
+                                  provider: provider
+                                    decode: NULL
+                               interpolate: NO
+                           renderingIntent: kO2RenderingIntentDefault];
 
     [colorSpace release];
     [provider release];

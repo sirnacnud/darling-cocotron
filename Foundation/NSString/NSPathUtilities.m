@@ -314,13 +314,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (const char *) fileSystemRepresentation {
-    return
-        [[NSFileManager defaultManager] fileSystemRepresentationWithPath: self];
+    return [[NSFileManager defaultManager]
+            fileSystemRepresentationWithPath: self];
 }
 
 - (const uint16_t *) fileSystemRepresentationW {
     return [[NSFileManager defaultManager]
-        fileSystemRepresentationWithPathW: self];
+            fileSystemRepresentationWithPathW: self];
 }
 
 @end
@@ -348,7 +348,7 @@ NSArray *NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory directory,
 
     if (directory == NSCachesDirectory) {
         NSString *path = [[[NSPlatform currentPlatform] libraryDirectory]
-            stringByAppendingPathComponent: @"Caches"];
+                stringByAppendingPathComponent: @"Caches"];
 
         [[NSFileManager defaultManager] createDirectoryAtPath: path
                                   withIntermediateDirectories: YES
@@ -360,7 +360,7 @@ NSArray *NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory directory,
 
     if (directory == NSApplicationSupportDirectory) {
         NSString *path = [[[NSPlatform currentPlatform] libraryDirectory]
-            stringByAppendingPathComponent: @"Application Support"];
+                stringByAppendingPathComponent: @"Application Support"];
 
         [[NSFileManager defaultManager] createDirectoryAtPath: path
                                   withIntermediateDirectories: YES

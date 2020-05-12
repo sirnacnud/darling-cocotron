@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSNumber *NSNumber_unsignedLongNew(NSZone *zone, unsigned long value) {
     NSNumber_unsignedLong *self =
-        NSAllocateObject([NSNumber_unsignedLong class], 0, zone);
+            NSAllocateObject([NSNumber_unsignedLong class], 0, zone);
     if (self) {
         self->_type = kCFNumberLongType;
         self->_value = value;

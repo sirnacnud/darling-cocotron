@@ -68,17 +68,18 @@ NSString *const NSConnectionReplyMode = @"NSConnectionReplyMode";
 + (NSConnection *) connectionWithRegisteredName: (NSString *) name
                                            host: (NSString *) hostName
 {
-    return
-        [self connectionWithRegisteredName: name
-                                      host: hostName
-                           usingNameServer: [NSPortNameServer
-                                                systemDefaultPortNameServer]];
+    return [self
+            connectionWithRegisteredName: name
+                                    host: hostName
+                         usingNameServer: [NSPortNameServer
+                                                  systemDefaultPortNameServer]];
 }
 
 + (NSDistantObject *)
-    rootProxyForConnectionWithRegisteredName: (NSString *) name
-                                        host: (NSString *) hostName
-                             usingNameServer: (NSPortNameServer *) nameServer
+        rootProxyForConnectionWithRegisteredName: (NSString *) name
+                                            host: (NSString *) hostName
+                                 usingNameServer:
+                                         (NSPortNameServer *) nameServer
 {
     return [[self connectionWithRegisteredName: name
                                           host: hostName
@@ -86,8 +87,8 @@ NSString *const NSConnectionReplyMode = @"NSConnectionReplyMode";
 }
 
 + (NSDistantObject *)
-    rootProxyForConnectionWithRegisteredName: (NSString *) name
-                                        host: (NSString *) hostName
+        rootProxyForConnectionWithRegisteredName: (NSString *) name
+                                            host: (NSString *) hostName
 {
     return [[self connectionWithRegisteredName: name host: hostName] rootProxy];
 }
@@ -204,7 +205,7 @@ NSString *const NSConnectionReplyMode = @"NSConnectionReplyMode";
 }
 
 - (BOOL) registerName: (NSString *) name
-       withNameServer: (NSPortNameServer *) nameServer
+        withNameServer: (NSPortNameServer *) nameServer
 {
     NSUnimplementedMethod();
     return NO;

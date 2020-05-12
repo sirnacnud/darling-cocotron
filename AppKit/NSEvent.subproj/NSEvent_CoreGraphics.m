@@ -23,18 +23,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithCoreGraphicsEvent: (CGEvent *) event window: (NSWindow *) window {
     [super initWithType: NSPlatformSpecific
-               location: NSMakePoint(0, 0)
-          modifierFlags: 0
-                 window: window];
+                 location: NSMakePoint(0, 0)
+            modifierFlags: 0
+                   window: window];
     _coreGraphicsEvent = [event retain];
     return self;
 }
 
 - initWithDisplayEvent: (CGEvent *) event {
     [super initWithType: NSPlatformSpecificDisplayEvent
-               location: NSMakePoint(0, 0)
-          modifierFlags: 0
-                 window: nil];
+                 location: NSMakePoint(0, 0)
+            modifierFlags: 0
+                   window: nil];
     _coreGraphicsEvent = [event retain];
     return self;
 }

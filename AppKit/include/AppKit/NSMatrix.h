@@ -57,15 +57,15 @@ typedef enum {
 }
 
 - initWithFrame: (NSRect) frame
-               mode: (NSMatrixMode) mode
-          prototype: (NSCell *) prototype
-       numberOfRows: (NSInteger) rows
-    numberOfColumns: (NSInteger) columns;
+                   mode: (NSMatrixMode) mode
+              prototype: (NSCell *) prototype
+           numberOfRows: (NSInteger) rows
+        numberOfColumns: (NSInteger) columns;
 - initWithFrame: (NSRect) frame
-               mode: (NSMatrixMode) mode
-          cellClass: (Class) cls
-       numberOfRows: (NSInteger) rows
-    numberOfColumns: (NSInteger) columns;
+                   mode: (NSMatrixMode) mode
+              cellClass: (Class) cls
+           numberOfRows: (NSInteger) rows
+        numberOfColumns: (NSInteger) columns;
 
 - delegate;
 - (SEL) doubleAction;
@@ -81,8 +81,8 @@ typedef enum {
          column: (NSInteger *) column
          ofCell: (NSCell *) cell;
 - (BOOL) getRow: (NSInteger *) row
-         column: (NSInteger *) column
-       forPoint: (NSPoint) point;
+          column: (NSInteger *) column
+        forPoint: (NSPoint) point;
 
 - (NSInteger) numberOfRows;
 - (NSInteger) numberOfColumns;

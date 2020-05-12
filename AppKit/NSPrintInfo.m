@@ -28,7 +28,7 @@ NSString *const NSPrintPrinter = @"NSPrintPrinter";
 NSString *const NSPrintPrinterName = @"NSPrintPrinterName";
 NSString *const NSPrintJobDisposition = @"NSPrintJobDisposition";
 NSString *const NSPrintDetailedErrorReporting =
-    @"NSPrintDetailedErrorReporting";
+        @"NSPrintDetailedErrorReporting";
 
 NSString *const NSPrintSpoolJob = @"NSPrintSpoolJob";
 NSString *const NSPrintPreviewJob = @"NSPrintPreviewJob";
@@ -60,7 +60,7 @@ NSString *const NSPrintHeaderAndFooter = @"NSPrintHeaderAndFooter";
 
 const NSPrintingPaginationMode NSFitPagination = NSPrintingPaginationModeFit;
 const NSPrintingPaginationMode NSAutoPagination =
-    NSPrintingPaginationModeAutomatic;
+        NSPrintingPaginationModeAutomatic;
 const NSPrintingPaginationMode NSClipPagination = NSPrintingPaginationModeClip;
 
 @implementation NSPrintInfo
@@ -76,25 +76,18 @@ const NSPrintingPaginationMode NSClipPagination = NSPrintingPaginationModeClip;
 
 - init {
     NSDictionary *defaults = [NSDictionary
-        dictionaryWithObjectsAndKeys: [NSNumber numberWithInt: 1],
-                                      NSPrintCopies,
-                                      [NSNumber numberWithBool: YES],
-                                      NSPrintAllPages, @"US Letter",
-                                      NSPrintPaperName,
-                                      [NSValue
-                                          valueWithSize: NSMakeSize(612, 792)],
-                                      NSPrintPaperSize,
-                                      [NSNumber numberWithFloat: 36],
-                                      NSPrintTopMargin,
-                                      [NSNumber numberWithFloat: 36],
-                                      NSPrintLeftMargin,
-                                      [NSNumber numberWithFloat: 36],
-                                      NSPrintRightMargin,
-                                      [NSNumber numberWithFloat: 36],
-                                      NSPrintBottomMargin,
-                                      [NSNumber
-                                          numberWithInt: NSPortraitOrientation],
-                                      NSPrintOrientation, nil];
+            dictionaryWithObjectsAndKeys:
+                    [NSNumber numberWithInt: 1], NSPrintCopies,
+                    [NSNumber numberWithBool: YES], NSPrintAllPages,
+                    @"US Letter", NSPrintPaperName,
+                    [NSValue valueWithSize: NSMakeSize(612, 792)],
+                    NSPrintPaperSize, [NSNumber numberWithFloat: 36],
+                    NSPrintTopMargin, [NSNumber numberWithFloat: 36],
+                    NSPrintLeftMargin, [NSNumber numberWithFloat: 36],
+                    NSPrintRightMargin, [NSNumber numberWithFloat: 36],
+                    NSPrintBottomMargin,
+                    [NSNumber numberWithInt: NSPortraitOrientation],
+                    NSPrintOrientation, nil];
 
     return [self initWithDictionary: defaults];
 }

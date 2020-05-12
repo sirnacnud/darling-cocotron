@@ -26,12 +26,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSTimeZoneTransition
 
 + (NSTimeZoneTransition *)
-    timeZoneTransitionWithTransitionDate: (NSDate *) transitionDate
-                               typeIndex: (unsigned) typeIndex
+        timeZoneTransitionWithTransitionDate: (NSDate *) transitionDate
+                                   typeIndex: (unsigned) typeIndex
 {
     return [[[self allocWithZone: NULL] initWithTransitionDate: transitionDate
                                                      typeIndex: typeIndex]
-        autorelease];
+            autorelease];
 }
 
 - initWithTransitionDate: (NSDate *) transitionDate
@@ -68,8 +68,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[0x%lx] transitionDate: %@ typeIndex: %d",
-                          [self class], self, _transitionDate, _typeIndex];
+            stringWithFormat: @"<%@[0x%lx] transitionDate: %@ typeIndex: %d",
+                              [self class], self, _transitionDate, _typeIndex];
 }
 
 @end

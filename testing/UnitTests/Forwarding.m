@@ -116,11 +116,11 @@
 {
     beenInMethodFlag = YES;
     return [NSString
-        stringWithFormat: @"%i %i %i %i %i %i %i %i %i %i %i", (int) size.width,
-                          (int) size.height, c, range.location, range.length,
-                          (int) rect.origin.x, (int) rect.origin.y,
-                          (int) rect.size.width, (int) rect.size.height,
-                          (int) d, (int) l];
+            stringWithFormat: @"%i %i %i %i %i %i %i %i %i %i %i",
+                              (int) size.width, (int) size.height, c,
+                              range.location, range.length, (int) rect.origin.x,
+                              (int) rect.origin.y, (int) rect.size.width,
+                              (int) rect.size.height, (int) d, (int) l];
 }
 
 - (TestingStruct) returnTestingStructWithParam: (float) x {

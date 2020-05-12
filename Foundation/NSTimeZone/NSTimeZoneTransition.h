@@ -27,8 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSTimeZoneTransition *)
-    timeZoneTransitionWithTransitionDate: (NSDate *) transitionDate
-                               typeIndex: (unsigned) typeIndex;
+        timeZoneTransitionWithTransitionDate: (NSDate *) transitionDate
+                                   typeIndex: (unsigned) typeIndex;
 
 - initWithTransitionDate: (NSDate *) transitionDate
                typeIndex: (unsigned) typeIndex;

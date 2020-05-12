@@ -29,8 +29,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithData: (NSData *) data
-       options: (NSUInteger) options
-         error: (NSError **) error
+        options: (NSUInteger) options
+          error: (NSError **) error
 {
     NSUnimplementedMethod();
     return nil;

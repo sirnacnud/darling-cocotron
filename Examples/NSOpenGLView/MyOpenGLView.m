@@ -20,7 +20,7 @@ static void drawArcWithDepth(float beginAngle, float endAngle,
 {
     for (; beginAngle <= endAngle; beginAngle += 1) {
         CGAffineTransform matrix =
-            CGAffineTransformMakeRotation(M_PI * beginAngle / 180.0);
+                CGAffineTransformMakeRotation(M_PI * beginAngle / 180.0);
         CGPoint innerPoint = CGPointMake(innerRadius, 0);
         CGPoint outerPoint = CGPointMake(outerRadius, 0);
 
@@ -37,7 +37,7 @@ static void drawEdge(float beginAngle, float endAngle, float radius,
 {
     for (; beginAngle <= endAngle; beginAngle += 1) {
         CGAffineTransform matrix =
-            CGAffineTransformMakeRotation(M_PI * beginAngle / 180.0);
+                CGAffineTransformMakeRotation(M_PI * beginAngle / 180.0);
         CGPoint point = CGPointMake(radius, 0);
         CGPoint normal = CGPointMake(1, 0);
 
@@ -54,7 +54,7 @@ static void capAtAngle(float angle, float innerRadius, float outerRadius,
                        float depth)
 {
     CGAffineTransform matrix =
-        CGAffineTransformMakeRotation(M_PI * angle / 180.0);
+            CGAffineTransformMakeRotation(M_PI * angle / 180.0);
     CGPoint innerPoint = CGPointMake(innerRadius, 0);
     CGPoint outerPoint = CGPointMake(outerRadius, 0);
     CGPoint normal = CGPointMake(1, 0);

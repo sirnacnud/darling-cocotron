@@ -69,8 +69,9 @@ static NSToolbarCustomizationPalette *_nextPanel;
 
     [_displayModePopUp selectItemAtIndex: (index == -1) ? 0 : index];
     [_smallSizeModeButton
-        setState: ([_toolbar sizeMode] == NSToolbarSizeModeSmall) ? NSOnState
-                                                                  : NSOffState];
+            setState: ([_toolbar sizeMode] == NSToolbarSizeModeSmall)
+                              ? NSOnState
+                              : NSOffState];
     [self setDefaultButtonCell: [_button cell]];
 
     NSSize oldSize, newSize;
@@ -113,8 +114,8 @@ static NSToolbarCustomizationPalette *_nextPanel;
 
 - (void) sizeModeChanged: sender {
     NSToolbarSizeMode sizeMode = [_smallSizeModeButton state]
-                                     ? NSToolbarSizeModeSmall
-                                     : NSToolbarSizeModeRegular;
+                                         ? NSToolbarSizeModeSmall
+                                         : NSToolbarSizeModeRegular;
 
     [_toolbar setSizeMode: sizeMode];
 }

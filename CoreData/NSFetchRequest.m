@@ -51,7 +51,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     result->_affectedStores = [_affectedStores copy];
     result->_propertiesToFetch = [_propertiesToFetch copy];
     result->_relationshipKeyPathsForPrefetching =
-        [_relationshipKeyPathsForPrefetching copy];
+            [_relationshipKeyPathsForPrefetching copy];
 
     return result;
 }

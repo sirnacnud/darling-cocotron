@@ -16,7 +16,7 @@ CGGradientRef CGGradientCreateWithColors(CGColorSpaceRef colorSpace,
 {
     CFIndex i, count = CFArrayGetCount(colors);
     size_t numberOfComponents =
-        CGColorSpaceGetNumberOfComponents(colorSpace) + 1;
+            CGColorSpaceGetNumberOfComponents(colorSpace) + 1;
     CGFloat components[count * numberOfComponents];
 
     for (i = 0; i < count; i++) {

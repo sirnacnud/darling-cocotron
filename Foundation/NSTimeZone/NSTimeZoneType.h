@@ -32,8 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                        abbreviation: (NSString *) abbreviation;
 
 - initWithSecondsFromGMT: (NSInteger) seconds
-    isDaylightSavingTime: (BOOL) isDST
-            abbreviation: (NSString *) abbreviation;
+        isDaylightSavingTime: (BOOL) isDST
+                abbreviation: (NSString *) abbreviation;
 
 - (NSInteger) secondsFromGMT;
 - (BOOL) isDaylightSavingTime;

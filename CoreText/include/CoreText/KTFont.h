@@ -56,8 +56,8 @@ enum { CGNullGlyph = 0x0 };
                   isNominal: (BOOL *) isNominalp;
 
 - (void) getGlyphs: (CGGlyph *) glyphs
-     forCharacters: (const unichar *) characters
-            length: (NSUInteger) length;
+        forCharacters: (const unichar *) characters
+               length: (NSUInteger) length;
 
 - (void) getAdvancements: (CGSize *) advancements
                forGlyphs: (const CGGlyph *) glyphs

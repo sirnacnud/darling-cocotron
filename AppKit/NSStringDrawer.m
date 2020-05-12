@@ -58,8 +58,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
     [_textContainer setContainerSize: maxSize];
     [_textStorage beginEditing];
     [_textStorage
-        replaceCharactersInRange: NSMakeRange(0, [_textStorage length])
-                      withString: string];
+            replaceCharactersInRange: NSMakeRange(0, [_textStorage length])
+                          withString: string];
     [_textStorage setAttributes: attributes
                           range: NSMakeRange(0, [_textStorage length])];
     [_textStorage endEditing];
@@ -67,16 +67,16 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 }
 
 - (void) drawString: (NSString *) string
-     withAttributes: (NSDictionary *) attributes
-             inRect: (NSRect) rect
+        withAttributes: (NSDictionary *) attributes
+                inRect: (NSRect) rect
 {
     NSRange glyphRange;
 
     [_textContainer setContainerSize: rect.size];
     [_textStorage beginEditing];
     [_textStorage
-        replaceCharactersInRange: NSMakeRange(0, [_textStorage length])
-                      withString: string];
+            replaceCharactersInRange: NSMakeRange(0, [_textStorage length])
+                          withString: string];
     [_textStorage setAttributes: attributes
                           range: NSMakeRange(0, [_textStorage length])];
     [_textStorage endEditing];
@@ -89,9 +89,9 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 }
 
 - (void) drawString: (NSString *) string
-     withAttributes: (NSDictionary *) attributes
-            atPoint: (NSPoint) point
-             inSize: (NSSize) maxSize
+        withAttributes: (NSDictionary *) attributes
+               atPoint: (NSPoint) point
+                inSize: (NSSize) maxSize
 {
     NSRange glyphRange;
 
@@ -102,8 +102,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
     [_textContainer setContainerSize: maxSize];
     [_textStorage beginEditing];
     [_textStorage
-        replaceCharactersInRange: NSMakeRange(0, [_textStorage length])
-                      withString: string];
+            replaceCharactersInRange: NSMakeRange(0, [_textStorage length])
+                          withString: string];
     [_textStorage setAttributes: attributes
                           range: NSMakeRange(0, [_textStorage length])];
     [_textStorage endEditing];
@@ -165,9 +165,9 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
              withAttributes: (NSDictionary *) attributes
              truncatingTail: (BOOL) truncateTail
 {
-    NSAttributedString *string =
-        [[[NSAttributedString alloc] initWithString: self
-                                         attributes: attributes] autorelease];
+    NSAttributedString *string = [[[NSAttributedString alloc]
+            initWithString: self
+                attributes: attributes] autorelease];
     [string _clipAndDrawInRect: rect truncatingTail: truncateTail];
 }
 
@@ -198,19 +198,20 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
         // Create a "..." attributed string with the attributes of the last char
         // of this string
         NSDictionary *attributes =
-            [string attributesAtIndex: [string length] - 1
-                       effectiveRange: NULL];
+                [string attributesAtIndex: [string length] - 1
+                           effectiveRange: NULL];
         NSAttributedString *ellipsis = [[[NSAttributedString alloc]
-            initWithString: @"..."
-                attributes: attributes] autorelease];
+                initWithString: @"..."
+                    attributes: attributes] autorelease];
         NSAttributedString *clippedTitle = string;
         do {
             clippedTitle = [clippedTitle
-                attributedSubstringFromRange: NSMakeRange(
-                                                  0,
-                                                  [clippedTitle length] - 1)];
+                    attributedSubstringFromRange: NSMakeRange(0,
+                                                              [clippedTitle
+                                                                      length] -
+                                                                      1)];
             NSMutableAttributedString *tmpString =
-                [[clippedTitle mutableCopy] autorelease];
+                    [[clippedTitle mutableCopy] autorelease];
             [tmpString appendAttributedString: ellipsis];
             string = tmpString;
             size = [string size];

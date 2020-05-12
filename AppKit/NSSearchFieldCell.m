@@ -30,11 +30,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithCoder: (NSCoder *) coder {
     [super initWithCoder: coder];
     _searchButtonCell = [[NSButtonCell alloc]
-        initImageCell: [NSImage imageNamed: @"NSSearchGlass"]];
+            initImageCell: [NSImage imageNamed: @"NSSearchGlass"]];
     [_searchButtonCell setImageScaling: NSImageScaleProportionallyUpOrDown];
     _cancelButtonCell = [[NSButtonCell alloc]
-        initImageCell: [NSImage
-                           imageNamed: @"NSStopProgressFreestandingTemplate"]];
+            initImageCell:
+                    [NSImage
+                            imageNamed: @"NSStopProgressFreestandingTemplate"]];
     [_cancelButtonCell setImageScaling: NSImageScaleProportionallyUpOrDown];
     return self;
 }
@@ -42,11 +43,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initTextCell: (NSString *) string {
     [super initTextCell: string];
     _searchButtonCell = [[NSButtonCell alloc]
-        initImageCell: [NSImage imageNamed: @"NSSearchGlass"]];
+            initImageCell: [NSImage imageNamed: @"NSSearchGlass"]];
     [_searchButtonCell setImageScaling: NSImageScaleProportionallyUpOrDown];
     _cancelButtonCell = [[NSButtonCell alloc]
-        initImageCell: [NSImage
-                           imageNamed: @"NSStopProgressFreestandingTemplate"]];
+            initImageCell:
+                    [NSImage
+                            imageNamed: @"NSStopProgressFreestandingTemplate"]];
     [_cancelButtonCell setImageScaling: NSImageScaleProportionallyUpOrDown];
     return self;
 }
@@ -171,9 +173,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) frame
-             ofView: (NSView *) view
-       untilMouseUp: (BOOL) untilMouseUp
+              inRect: (NSRect) frame
+              ofView: (NSView *) view
+        untilMouseUp: (BOOL) untilMouseUp
 {
     if ([_cancelButtonCell trackMouse: event
                                inRect: [self cancelButtonRectForBounds: frame]
@@ -199,8 +201,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                               inView: control];
     if ([[self attributedStringValue] length] > 0)
         [_cancelButtonCell
-            drawWithFrame: [self cancelButtonRectForBounds: frame]
-                   inView: control];
+                drawWithFrame: [self cancelButtonRectForBounds: frame]
+                       inView: control];
 }
 
 @end

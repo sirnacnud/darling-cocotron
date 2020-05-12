@@ -20,9 +20,10 @@
 
 - (SecKeychainCursor *) createCursorForItemClass: (SecItemClass) itemClass;
 
-- (SecKeychainItemRef)
-    createNextItemAtCursor: (SecKeychainCursor *) cursor
-             attributeList: (const SecKeychainAttributeList *) attributeList;
+- (SecKeychainItemRef) createNextItemAtCursor: (SecKeychainCursor *) cursor
+                                attributeList:
+                                        (const SecKeychainAttributeList *)
+                                                attributeList;
 
 - (void) addKeychainItem: (SecKeychainItemRef) item;
 - (void) removeKeychainItem: (SecKeychainItemRef) item;

@@ -43,34 +43,34 @@ NSDate *NSDateFromPlistString(NSString *string) {
     NSString *str;
     [sc scanInt: &y];
     [sc scanCharactersFromSet: [NSCharacterSet
-                                   characterSetWithCharactersInString: @"-"]
+                                       characterSetWithCharactersInString: @"-"]
                    intoString: &str];
     [sc scanInt: &mo];
     [sc scanCharactersFromSet: [NSCharacterSet
-                                   characterSetWithCharactersInString: @"-"]
+                                       characterSetWithCharactersInString: @"-"]
                    intoString: &str];
     [sc scanInt: &d];
-    [sc scanCharactersFromSet: [NSCharacterSet
-                                   characterSetWithCharactersInString: @"T "]
+    [sc scanCharactersFromSet:
+                    [NSCharacterSet characterSetWithCharactersInString: @"T "]
                    intoString: &str];
     [sc scanInt: &h];
     [sc scanCharactersFromSet: [NSCharacterSet
-                                   characterSetWithCharactersInString: @":"]
+                                       characterSetWithCharactersInString: @":"]
                    intoString: &str];
     [sc scanInt: &mi];
     [sc scanCharactersFromSet: [NSCharacterSet
-                                   characterSetWithCharactersInString: @":"]
+                                       characterSetWithCharactersInString: @":"]
                    intoString: &str];
     [sc scanInt: &s];
 
     NSCalendarDate *date =
-        [NSCalendarDate dateWithYear: y
-                               month: mo
-                                 day: d - 1
-                                hour: h
-                              minute: mi
-                              second: s
-                            timeZone: [NSTimeZone localTimeZone]];
+            [NSCalendarDate dateWithYear: y
+                                   month: mo
+                                     day: d - 1
+                                    hour: h
+                                  minute: mi
+                                  second: s
+                                timeZone: [NSTimeZone localTimeZone]];
     return date;
 }
 
@@ -190,8 +190,8 @@ NSDate *NSDateFromPlistString(NSString *string) {
     NSInteger i, count = [strings count];
 
     for (i = 0; i < count; i++)
-        [result appendData: [self dataFromBase64String: [strings
-                                                            objectAtIndex: i]]];
+        [result appendData: [self dataFromBase64String:
+                                            [strings objectAtIndex: i]]];
 
     return result;
 }

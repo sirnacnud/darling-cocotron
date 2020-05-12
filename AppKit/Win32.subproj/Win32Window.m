@@ -50,14 +50,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static CGRect convertFrameToWin32ScreenCoordinates(CGRect rect) {
     rect.origin.y =
-        GetSystemMetrics(SM_CYSCREEN) - (rect.origin.y + rect.size.height);
+            GetSystemMetrics(SM_CYSCREEN) - (rect.origin.y + rect.size.height);
 
     return rect;
 }
 
 static CGRect convertFrameFromWin32ScreenCoordinates(CGRect rect) {
     rect.origin.y =
-        GetSystemMetrics(SM_CYSCREEN) - (rect.origin.y + rect.size.height);
+            GetSystemMetrics(SM_CYSCREEN) - (rect.origin.y + rect.size.height);
 
     return rect;
 }
@@ -100,7 +100,7 @@ static DWORD Win32ExtendedStyleForStyleMask(unsigned styleMask, BOOL isPanel,
 
     if (styleMask & NSUtilityWindowMask) {
         result |=
-            WS_EX_TOPMOST; // Make it floating as a utility window should be
+                WS_EX_TOPMOST; // Make it floating as a utility window should be
     }
 
     return result /*|0x80000*/;
@@ -135,8 +135,8 @@ static DWORD Win32StyleForStyleMask(unsigned styleMask, BOOL isPanel,
             result |= WS_THICKFRAME;
 
         if (isPanel) {
-            result |=
-                WS_CAPTION; // without CAPTION it puts space for a menu (???)
+            result |= WS_CAPTION; // without CAPTION it puts space for a menu
+                                  // (???)
         }
 
         result |= WS_SYSMENU; // Is there a way to get a closebutton without
@@ -150,9 +150,9 @@ static DWORD Win32StyleForStyleMask(unsigned styleMask, BOOL isPanel,
     SetWindowLong(_handle, GWL_EXSTYLE,
                   Win32ExtendedStyleForStyleMask(_styleMask, _isPanel,
                                                  [self isLayeredWindow]));
-    SetWindowLong(
-        _handle, GWL_STYLE,
-        Win32StyleForStyleMask(_styleMask, _isPanel, [self isLayeredWindow]));
+    SetWindowLong(_handle, GWL_STYLE,
+                  Win32StyleForStyleMask(_styleMask, _isPanel,
+                                         [self isLayeredWindow]));
 }
 
 void CGNativeBorderFrameWidthsForStyle(unsigned styleMask, CGFloat *top,
@@ -213,12 +213,12 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
 
 - (void) createWindowHandle {
     CGRect win32Frame = convertFrameToWin32ScreenCoordinates(_frame);
-    DWORD style =
-        Win32StyleForStyleMask(_styleMask, _isPanel, [self isLayeredWindow]);
+    DWORD style = Win32StyleForStyleMask(_styleMask, _isPanel,
+                                         [self isLayeredWindow]);
     DWORD extendStyle = Win32ExtendedStyleForStyleMask(_styleMask, _isPanel,
                                                        [self isLayeredWindow]);
     const unichar *className =
-        Win32ClassNameForStyleMask(_styleMask, _hasShadow);
+            Win32ClassNameForStyleMask(_styleMask, _hasShadow);
 
     _handle = CreateWindowExW(extendStyle, className, L"", style,
                               win32Frame.origin.x, win32Frame.origin.y,
@@ -228,7 +228,7 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
     if (_title != nil)
         SetWindowTextW(_handle,
                        (const unichar *) [_title
-                           cStringUsingEncoding: NSUnicodeStringEncoding]);
+                               cStringUsingEncoding: NSUnicodeStringEncoding]);
 
     SetProp(_handle, "Win32Window", self);
 
@@ -238,8 +238,8 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
 
     if ((systemMenu = GetSystemMenu(_handle, FALSE)) != NULL) {
         UINT dwExtra = (_styleMask & NSClosableWindowMask)
-                           ? MF_ENABLED
-                           : (MF_DISABLED | MF_GRAYED);
+                               ? MF_ENABLED
+                               : (MF_DISABLED | MF_GRAYED);
         EnableMenuItem(systemMenu, SC_CLOSE, MF_BYCOMMAND | dwExtra);
     }
 
@@ -255,9 +255,9 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
 }
 
 - initWithFrame: (CGRect) frame
-      styleMask: (unsigned) styleMask
-        isPanel: (BOOL) isPanel
-    backingType: (CGSBackingStoreType) backingType
+          styleMask: (unsigned) styleMask
+            isPanel: (BOOL) isPanel
+        backingType: (CGSBackingStoreType) backingType
 {
     InitializeCriticalSection(&_lock);
     _frame = frame;
@@ -269,8 +269,8 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
     _styleMask = styleMask;
     _isPanel = isPanel;
 
-    _ignoreMinMaxMessage =
-        YES; // creating a window can cause bogus GETMINMAX messages to be sent
+    _ignoreMinMaxMessage = YES; // creating a window can cause bogus GETMINMAX
+                                // messages to be sent
 
     [self createWindowHandle];
 
@@ -279,7 +279,7 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
     _backingType = backingType;
 
     if ([[NSUserDefaults standardUserDefaults]
-            boolForKey: @"NSAllWindowsRetained"])
+                boolForKey: @"NSAllWindowsRetained"])
         _backingType = CGSBackingStoreRetained;
 
     _backingContext = nil;
@@ -292,7 +292,7 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
     _deviceDictionary = [NSMutableDictionary new];
 
     NSString *check = [[NSUserDefaults standardUserDefaults]
-        stringForKey: @"CGBackingRasterizer"];
+            stringForKey: @"CGBackingRasterizer"];
     if ([check isEqual: @"Onyx"] || [check isEqual: @"GDI"])
         [_deviceDictionary setObject: check forKey: @"CGContext"];
 
@@ -349,8 +349,8 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
 - (O2Context *) createCGContextIfNeeded {
     if (_cgContext == nil)
         _cgContext =
-            (O2Context_gdi *) [O2Context createContextWithSize: _frame.size
-                                                        window: self];
+                (O2Context_gdi *) [O2Context createContextWithSize: _frame.size
+                                                            window: self];
 
     return _cgContext;
 }
@@ -358,9 +358,9 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
 - (O2Context *) createBackingCGContextIfNeeded {
     if (_backingContext == nil) {
         _backingContext = [O2Context
-            createBackingContextWithSize: _frame.size
-                                 context: [self createCGContextIfNeeded]
-                        deviceDictionary: _deviceDictionary];
+                createBackingContextWithSize: _frame.size
+                                     context: [self createCGContextIfNeeded]
+                            deviceDictionary: _deviceDictionary];
         CGNativeBorderFrameWidthsForStyle([self styleMask], &_borderTop,
                                           &_borderLeft, &_borderBottom,
                                           &_borderRight);
@@ -423,8 +423,9 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
     title = [title copy];
     [_title release];
     _title = title;
-    SetWindowTextW(_handle, (const unichar *) [_title
-                                cStringUsingEncoding: NSUnicodeStringEncoding]);
+    SetWindowTextW(_handle,
+                   (const unichar *) [_title
+                           cStringUsingEncoding: NSUnicodeStringEncoding]);
 }
 
 - (void) setFrame: (CGRect) frame {
@@ -617,7 +618,7 @@ CGL_EXPORT CGLError CGLCopyPixels(CGLContextObj source,
 
 - (O2Surface_DIBSection *) resultSurface {
     O2Surface_DIBSection *backingSurface =
-        (O2Surface_DIBSection *) [_backingContext surface];
+            (O2Surface_DIBSection *) [_backingContext surface];
 
     if (_surfaceCount == 0)
         return backingSurface;
@@ -630,9 +631,9 @@ CGL_EXPORT CGLError CGLCopyPixels(CGLContextObj source,
         O2ImageGetHeight(_overlayResult) != resultHeight) {
         [_overlayResult release];
         _overlayResult =
-            [[O2Surface_DIBSection alloc] initWithWidth: resultWidth
-                                                 height: resultHeight
-                            compatibleWithDeviceContext: nil];
+                [[O2Surface_DIBSection alloc] initWithWidth: resultWidth
+                                                     height: resultHeight
+                                compatibleWithDeviceContext: nil];
     }
 
     BLENDFUNCTION blend;
@@ -663,7 +664,7 @@ CGL_EXPORT CGLError CGLCopyPixels(CGLContextObj source,
         CGLGetParameter(_surfaces[i], kCGLCPSurfaceOpacity, &sourceOpacity);
 
         O2Surface_DIBSection *srcSurface =
-            (O2Surface_DIBSection *) [overlay validSurface];
+                (O2Surface_DIBSection *) [overlay validSurface];
 
         if (srcSurface == nil)
             return kCGLNoError;
@@ -695,7 +696,7 @@ CGL_EXPORT CGLError CGLCopyPixels(CGLContextObj source,
 
         CGLPixelFormatAttribute attributes[] = {
 
-            0};
+                0};
 
         CGLChoosePixelFormat(attributes, &pf, &novs);
 
@@ -896,41 +897,46 @@ static int reportGLErrorIfNeeded(const char *function, int line) {
 
 - (void) checkExtensionsInString: (const char *) extensions {
     _hasRenderTexture =
-        (extensions == NULL)
-            ? NO
-            : ((strstr(extensions, "WGL_ARB_render_texture") == NULL) ? NO
-                                                                      : YES);
+            (extensions == NULL)
+                    ? NO
+                    : ((strstr(extensions, "WGL_ARB_render_texture") == NULL)
+                               ? NO
+                               : YES);
     if (!_hasRenderTexture)
         _hasRenderTexture =
-            (extensions == NULL)
-                ? NO
-                : ((strstr(extensions, "WGL_EXT_render_texture") == NULL)
-                       ? NO
-                       : YES);
+                (extensions == NULL)
+                        ? NO
+                        : ((strstr(extensions, "WGL_EXT_render_texture") ==
+                            NULL)
+                                   ? NO
+                                   : YES);
 
     _hasMakeCurrentRead =
-        (extensions == NULL)
-            ? NO
-            : ((strstr(extensions, "WGL_ARB_make_current_read") == NULL) ? NO
-                                                                         : YES);
+            (extensions == NULL)
+                    ? NO
+                    : ((strstr(extensions, "WGL_ARB_make_current_read") == NULL)
+                               ? NO
+                               : YES);
     if (!_hasMakeCurrentRead)
         _hasMakeCurrentRead =
-            (extensions == NULL)
-                ? NO
-                : ((strstr(extensions, "WGL_EXT_make_current_read") == NULL)
-                       ? NO
-                       : YES);
+                (extensions == NULL)
+                        ? NO
+                        : ((strstr(extensions, "WGL_EXT_make_current_read") ==
+                            NULL)
+                                   ? NO
+                                   : YES);
 
     _hasSwapHintRect =
-        (extensions == NULL)
-            ? NO
-            : ((strstr(extensions, "GL_WIN_swap_hint") == NULL) ? NO : YES);
+            (extensions == NULL)
+                    ? NO
+                    : ((strstr(extensions, "GL_WIN_swap_hint") == NULL) ? NO
+                                                                        : YES);
 }
 
 - (void) openGLFlushBufferOnlyContext: (CGLContextObj) onlyContext {
     CGLError error;
     O2Surface_DIBSection *surface =
-        (O2Surface_DIBSection *) [_backingContext surface];
+            (O2Surface_DIBSection *) [_backingContext surface];
 
     if (surface == nil) {
         NSLog(@"no surface on %@", _backingContext);
@@ -1010,7 +1016,7 @@ static int reportGLErrorIfNeeded(const char *function, int line) {
 
     if (_textureIdCount < _surfaceCount) {
         _textureIds =
-            NSZoneRealloc(NULL, _textureIds, sizeof(GLint) * _surfaceCount);
+                NSZoneRealloc(NULL, _textureIds, sizeof(GLint) * _surfaceCount);
         glGenTextures((_surfaceCount - _textureIdCount),
                       _textureIds + _textureIdCount);
 
@@ -1244,11 +1250,11 @@ static int reportGLErrorIfNeeded(const char *function, int line) {
 - (void) dirtyRect: (CGRect) rect {
     if (_dirtyRectCap == _dirtyRectCnt) {
         void *tmp = (_dirtyRectCnt == 0)
-                        ? malloc((_dirtyRectCap = DIRTY_RECT_BLOCK_COUNT) *
-                                 sizeof(CGRect))
-                        : realloc(_dirtyRectSet,
-                                  (_dirtyRectCap += DIRTY_RECT_BLOCK_COUNT) *
-                                      sizeof(CGRect));
+                            ? malloc((_dirtyRectCap = DIRTY_RECT_BLOCK_COUNT) *
+                                     sizeof(CGRect))
+                            : realloc(_dirtyRectSet, (_dirtyRectCap +=
+                                                      DIRTY_RECT_BLOCK_COUNT) *
+                                                             sizeof(CGRect));
 
         if (tmp)
             _dirtyRectSet = tmp;
@@ -1314,7 +1320,7 @@ static int reportGLErrorIfNeeded(const char *function, int line) {
 
 #if BENCHBLIT
             NSTimeInterval currentTime =
-                [NSDate timeIntervalSinceReferenceDate];
+                    [NSDate timeIntervalSinceReferenceDate];
             if (currentTime - lastTime > 2.) {
                 NSLog(@"%f fps", (double) cptr / (currentTime - lastTime));
                 cptr = 0;
@@ -1666,9 +1672,9 @@ static int reportGLErrorIfNeeded(const char *function, int line) {
 
 #if WM_SIZING_DEBUGGING
     NSString *wmParamValues[] = {
-        @"None",        @"WMSZ_LEFT",       @"WMSZ_RIGHT",
-        @"WMSZ_TOP",    @"WMSZ_TOPLEFT",    @"WMSZ_TOPRIGHT",
-        @"WMSZ_BOTTOM", @"WMSZ_BOTTOMLEFT", @"WMSZ_BOTTOMRIGHT"};
+            @"None",        @"WMSZ_LEFT",       @"WMSZ_RIGHT",
+            @"WMSZ_TOP",    @"WMSZ_TOPLEFT",    @"WMSZ_TOPRIGHT",
+            @"WMSZ_BOTTOM", @"WMSZ_BOTTOMLEFT", @"WMSZ_BOTTOMRIGHT"};
 
     if (wParam > 0 && wParam <= WMSZ_BOTTOMRIGHT) {
         NSLog(@"   wParam: %@", wmParamValues[wParam]);
@@ -1912,10 +1918,11 @@ const int kWindowMaxDim = 10000;
 
     case WM_COMMAND:
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: @"WIN32_WM_COMMAND"
-                          object: [NSValue
-                                      valueWithPoint: CGPointMake(lParam,
-                                                                  wParam)]];
+                postNotificationName: @"WIN32_WM_COMMAND"
+                              object: [NSValue
+                                              valueWithPoint: CGPointMake(
+                                                                      lParam,
+                                                                      wParam)]];
         return 1;
         break;
 
@@ -1982,17 +1989,17 @@ static void initializeWindowClass(WNDCLASSW *class) {
 + (void) initialize {
     if (self == [Win32Window class]) {
         NSString *name = [[NSBundle mainBundle]
-            objectForInfoDictionaryKey: @"CFBundleIconFile"];
+                objectForInfoDictionaryKey: @"CFBundleIconFile"];
         NSString *path = [[NSBundle mainBundle] pathForResource: name
                                                          ofType: @"ico"];
-        HICON icon =
-            (path == nil)
-                ? NULL
-                : LoadImage(NULL, [path fileSystemRepresentation], IMAGE_ICON,
-                            16, 16, LR_DEFAULTCOLOR | LR_LOADFROMFILE);
+        HICON icon = (path == nil)
+                             ? NULL
+                             : LoadImage(NULL, [path fileSystemRepresentation],
+                                         IMAGE_ICON, 16, 16,
+                                         LR_DEFAULTCOLOR | LR_LOADFROMFILE);
 
         static WNDCLASSW _standardWindowClass, _borderlessWindowClass,
-            _borderlessWindowClassWithShadow;
+                _borderlessWindowClassWithShadow;
 
         if (icon == NULL)
             icon = LoadImage(NULL, IDI_APPLICATION, IMAGE_ICON, 0, 0,
@@ -2008,7 +2015,7 @@ static void initializeWindowClass(WNDCLASSW *class) {
         _borderlessWindowClass.lpszClassName = L"Win32BorderlessWindow";
 
         _borderlessWindowClassWithShadow.lpszClassName =
-            L"Win32BorderlessWindowWithShadow";
+                L"Win32BorderlessWindowWithShadow";
 
         if (NSPlatformGreaterThanOrEqualToWindowsXP())
             _borderlessWindowClassWithShadow.style |= CS_DROPSHADOW;

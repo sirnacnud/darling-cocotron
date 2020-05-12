@@ -159,7 +159,7 @@ CGPathRef CGPathCreateWithEllipseInRect(CGRect rect,
                                         const CGAffineTransform *transform)
 {
     return (CGPathRef) O2PathCreateWithEllipseInRect(
-        rect, (O2AffineTransform *) transform);
+            rect, (O2AffineTransform *) transform);
 }
 
 CGPathRef CGPathCreateWithRect(CGRect rect, const CGAffineTransform *transform)

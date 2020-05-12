@@ -44,12 +44,12 @@
         do {
             NSRange effectiveRange;
             NSDictionary *attrs =
-                [textStorage attributesAtIndex: location
-                                effectiveRange: &effectiveRange];
+                    [textStorage attributesAtIndex: location
+                                    effectiveRange: &effectiveRange];
             NSRange attrRange = NSIntersectionRange(range, effectiveRange);
             _NSAttributes *attributes = [[[_NSAttributes alloc]
-                initWithAttributes: attrs
-                             range: attrRange] autorelease];
+                    initWithAttributes: attrs
+                                 range: attrRange] autorelease];
             [_attributesArray addObject: attributes];
 
             location = NSMaxRange(effectiveRange);
@@ -150,7 +150,7 @@
                                  undoManager: undoManager])) {
         _replacementRange = replacementRange;
         _attributedString = [[layoutManager.textStorage
-            attributedSubstringFromRange: affectedRange] mutableCopy];
+                attributedSubstringFromRange: affectedRange] mutableCopy];
     }
     return self;
 }
@@ -189,9 +189,10 @@
                 _affectedRange.length += delta;
                 _affectedRange.location -= delta;
                 NSAttributedString *killedString = [string
-                    attributedSubstringFromRange: NSMakeRange(
-                                                      _affectedRange.location,
-                                                      delta)];
+                        attributedSubstringFromRange: NSMakeRange(
+                                                              _affectedRange
+                                                                      .location,
+                                                              delta)];
                 [_attributedString insertAttributedString: killedString
                                                   atIndex: 0];
             }
@@ -207,19 +208,19 @@
 
     // Register the undo/redo operation
     NSUndoTyping *undoOperation = [[[[self class] alloc]
-        initWithAffectedRange: _replacementRange
-                layoutManager: _layoutManager
-                  undoManager: _undoManager
-             replacementRange: _affectedRange] autorelease];
+            initWithAffectedRange: _replacementRange
+                    layoutManager: _layoutManager
+                      undoManager: _undoManager
+                 replacementRange: _affectedRange] autorelease];
     [[_undoManager prepareWithInvocationTarget: undoOperation]
-        undoRedo: textStorage];
+            undoRedo: textStorage];
 
     // Undo the change
     // Reset the old value and select it
     [textStorage replaceCharactersInRange: _replacementRange
                      withAttributedString: _attributedString];
     [[self firstTextViewForTextStorage: textStorage]
-        setSelectedRange: _affectedRange];
+            setSelectedRange: _affectedRange];
 
     [[self firstTextViewForTextStorage: textStorage] didChangeText];
 }
@@ -239,8 +240,8 @@
                                layoutManager: layoutManager
                                  undoManager: undoManager])) {
         _attributes = [[_NSAttributeRun alloc]
-            initWithTextStorage: layoutManager.textStorage
-                          range: affectedRange];
+                initWithTextStorage: layoutManager.textStorage
+                              range: affectedRange];
     }
     return self;
 }
@@ -256,11 +257,11 @@
 
     // Register the undo/redo operation
     NSUndoSetAttributes *undoOperation = [[[[self class] alloc]
-        initWithAffectedRange: _affectedRange
-                layoutManager: _layoutManager
-                  undoManager: _undoManager] autorelease];
+            initWithAffectedRange: _affectedRange
+                    layoutManager: _layoutManager
+                      undoManager: _undoManager] autorelease];
     [[_undoManager prepareWithInvocationTarget: undoOperation]
-        undoRedo: textStorage];
+            undoRedo: textStorage];
 
     // Undo the change
     [_attributes restoreAttributesOfTextStorage: textStorage];
@@ -280,7 +281,7 @@
                                  undoManager: undoManager])) {
         _replacementRange = replacementRange;
         _attributedString = [[layoutManager.textStorage
-            attributedSubstringFromRange: affectedRange] retain];
+                attributedSubstringFromRange: affectedRange] retain];
     }
     return self;
 }
@@ -296,19 +297,19 @@
 
     // Register the undo/redo operation
     NSUndoReplaceCharacters *undoOperation = [[[[self class] alloc]
-        initWithAffectedRange: _replacementRange
-                layoutManager: _layoutManager
-                  undoManager: _undoManager
-             replacementRange: _affectedRange] autorelease];
+            initWithAffectedRange: _replacementRange
+                    layoutManager: _layoutManager
+                      undoManager: _undoManager
+                 replacementRange: _affectedRange] autorelease];
     [[_undoManager prepareWithInvocationTarget: undoOperation]
-        undoRedo: textStorage];
+            undoRedo: textStorage];
 
     // Undo the change
     // Reset the old value and select it
     [textStorage replaceCharactersInRange: _replacementRange
                      withAttributedString: _attributedString];
     [[self firstTextViewForTextStorage: textStorage]
-        setSelectedRange: _affectedRange];
+            setSelectedRange: _affectedRange];
 
     [[self firstTextViewForTextStorage: textStorage] didChangeText];
 }

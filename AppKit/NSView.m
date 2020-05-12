@@ -47,13 +47,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <QuartzCore/CATransaction.h>
 
 NSString *const NSViewFrameDidChangeNotification =
-    @"NSViewFrameDidChangeNotification";
+        @"NSViewFrameDidChangeNotification";
 NSString *const NSViewBoundsDidChangeNotification =
-    @"NSViewBoundsDidChangeNotification";
+        @"NSViewBoundsDidChangeNotification";
 NSString *const NSViewFocusDidChangeNotification =
-    @"NSViewFocusDidChangeNotification";
+        @"NSViewFocusDidChangeNotification";
 const NSNotificationName NSViewGlobalFrameDidChangeNotification =
-    @"NSViewGlobalFrameDidChangeNotification";
+        @"NSViewGlobalFrameDidChangeNotification";
 
 @interface NSView (NSView_forward)
 - (CGAffineTransform) transformFromWindow;
@@ -184,14 +184,14 @@ typedef struct __VFlags {
 
         // Subviews come in from the nib in back to front order
         [_subviews
-            addObjectsFromArray: [keyed decodeObjectForKey: @"NSSubviews"]];
+                addObjectsFromArray: [keyed decodeObjectForKey: @"NSSubviews"]];
         [_subviews
-            makeObjectsPerformSelector: @selector(viewWillMoveToSuperview:)
-                            withObject: self];
+                makeObjectsPerformSelector: @selector(viewWillMoveToSuperview:)
+                                withObject: self];
         [_subviews makeObjectsPerformSelector: @selector(_setSuperview:)
                                    withObject: self];
         [_subviews
-            makeObjectsPerformSelector: @selector(viewDidMoveToSuperview)];
+                makeObjectsPerformSelector: @selector(viewDidMoveToSuperview)];
 
         _window = [keyed decodeObjectForKey: @"NSWindow"];
         _superview = [keyed decodeObjectForKey: @"NSSuperview"];
@@ -202,18 +202,20 @@ typedef struct __VFlags {
 
         if ([keyed containsValueForKey: @"NSViewCompositeFilter"])
             [self setCompositingFilter:
-                      [keyed decodeObjectForKey: @"NSViewCompositeFilter"]];
+                            [keyed decodeObjectForKey:
+                                            @"NSViewCompositeFilter"]];
 
         if ([keyed containsValueForKey: @"NSViewBackgroundFilters"])
             [self setBackgroundFilters:
-                      [keyed decodeObjectForKey: @"NSViewBackgroundFilters"]];
+                            [keyed decodeObjectForKey:
+                                            @"NSViewBackgroundFilters"]];
 
         if ([keyed containsValueForKey: @"NSViewAnimations"])
-            [self
-                setAnimations: [keyed decodeObjectForKey: @"NSViewAnimations"]];
+            [self setAnimations:
+                            [keyed decodeObjectForKey: @"NSViewAnimations"]];
 
         [self setCanDrawConcurrently:
-                  [keyed decodeBoolForKey: @"NSViewCanDrawConcurrently"]];
+                        [keyed decodeBoolForKey: @"NSViewCanDrawConcurrently"]];
 
         // TODO: NSViewConstraints, NSViewLayoutGuides, ...
 
@@ -221,14 +223,14 @@ typedef struct __VFlags {
         _invalidRectCount = 0;
         _invalidRects = NULL;
         _trackingAreas = [[NSMutableArray alloc] init];
-        [self
-            setWantsLayer: [keyed decodeBoolForKey: @"NSViewIsLayerTreeHost"]];
+        [self setWantsLayer:
+                        [keyed decodeBoolForKey: @"NSViewIsLayerTreeHost"]];
 
         _layerContentsRedrawPolicy =
-            [keyed decodeIntegerForKey: @"NSViewLayerContentsRedrawPolicy"];
+                [keyed decodeIntegerForKey: @"NSViewLayerContentsRedrawPolicy"];
 
         _contentFilters =
-            [[keyed decodeObjectForKey: @"NSViewContentFilters"] retain];
+                [[keyed decodeObjectForKey: @"NSViewContentFilters"] retain];
     } else {
         NSInteger version = [coder versionForClassName: @"NSView"];
         if (version == 0)
@@ -263,7 +265,7 @@ typedef struct __VFlags {
 
             vflags.vf.rotatedFromBase = (flags1 & 0x400) != 0;
             vflags.vf.rotatedOrScaledFromBase = vflags.vf.validGState =
-                (flags1 & 0x200) != 0;
+                    (flags1 & 0x200) != 0;
             vflags.vf.autosizing = (flags2 & 0xFC00) >> 10;
             vflags.vf.autoresizeSubviews = (flags2 & 0x200) != 0;
             vflags.vf.wantsGState = (flags2 & 0x10) != 0;
@@ -353,8 +355,8 @@ typedef struct __VFlags {
     _postsNotificationOnBoundsChange = YES;
     _autoresizesSubviews = YES;
     _autoresizingMask = NSViewNotSizable;
-    _tag =
-        -1; // according to the docs - loading from a nib gets a default of 0.
+    _tag = -1; // according to the docs - loading from a nib gets a default of
+               // 0.
     _needsDisplay = YES;
     _invalidRectCount = 0;
     _invalidRects = NULL;
@@ -415,22 +417,23 @@ static CGAffineTransform concatViewTransform(CGAffineTransform result,
     NSRect frame = [view frame];
 
     if (doFrame)
-        result =
-            CGAffineTransformTranslate(result, frame.origin.x, frame.origin.y);
+        result = CGAffineTransformTranslate(result, frame.origin.x,
+                                            frame.origin.y);
 
     // Apply bounds scaling to fit in the frame
-    CGAffineTransform scale = CGAffineTransformMakeScale(
-        NSWidth(frame) / NSWidth(bounds), NSHeight(frame) / NSHeight(bounds));
+    CGAffineTransform scale =
+            CGAffineTransformMakeScale(NSWidth(frame) / NSWidth(bounds),
+                                       NSHeight(frame) / NSHeight(bounds));
     result = CGAffineTransformConcat(scale, result);
 
     if (flip) {
         CGAffineTransform flip =
-            CGAffineTransformMake(1, 0, 0, -1, 0, bounds.size.height);
+                CGAffineTransformMake(1, 0, 0, -1, 0, bounds.size.height);
 
         result = CGAffineTransformConcat(flip, result);
     }
-    result =
-        CGAffineTransformTranslate(result, -bounds.origin.x, -bounds.origin.y);
+    result = CGAffineTransformTranslate(result, -bounds.origin.x,
+                                        -bounds.origin.y);
 
     return result;
 }
@@ -460,12 +463,12 @@ static CGAffineTransform concatViewTransform(CGAffineTransform result,
 
     if ([self isFlipped]) {
         CGAffineTransform flip =
-            CGAffineTransformMake(1, 0, 0, -1, 0, bounds.size.height);
+                CGAffineTransformMake(1, 0, 0, -1, 0, bounds.size.height);
 
         result = CGAffineTransformConcat(flip, result);
     }
-    result =
-        CGAffineTransformTranslate(result, -bounds.origin.x, -bounds.origin.y);
+    result = CGAffineTransformTranslate(result, -bounds.origin.x,
+                                        -bounds.origin.y);
 
     return result;
 }
@@ -511,7 +514,7 @@ static inline void buildTransformsIfNeeded(NSView *self) {
     if (!self->_validTransforms) {
         self->_transformToWindow = [self createTransformToWindow];
         self->_transformFromWindow =
-            CGAffineTransformInvert(self->_transformToWindow);
+                CGAffineTransformInvert(self->_transformToWindow);
         self->_transformToLayer = [self createTransformToLayer];
         self->_validTransforms = YES;
 
@@ -871,56 +874,56 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 
 - (NSPoint) convertPoint: (NSPoint) point fromView: (NSView *) viewOrNil {
     NSView *fromView =
-        (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
+            (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
     CGAffineTransform toWindow = [fromView transformToWindow];
     CGAffineTransform fromWindow = [self transformFromWindow];
 
     return CGPointApplyAffineTransform(
-        CGPointApplyAffineTransform(point, toWindow), fromWindow);
+            CGPointApplyAffineTransform(point, toWindow), fromWindow);
 }
 
 - (NSPoint) convertPoint: (NSPoint) point toView: (NSView *) viewOrNil {
     NSView *toView =
-        (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
+            (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
     CGAffineTransform toWindow = [self transformToWindow];
     CGAffineTransform fromWindow = [toView transformFromWindow];
 
     return CGPointApplyAffineTransform(
-        CGPointApplyAffineTransform(point, toWindow), fromWindow);
+            CGPointApplyAffineTransform(point, toWindow), fromWindow);
 }
 
 - (NSSize) convertSize: (NSSize) size fromView: (NSView *) viewOrNil {
     NSView *fromView =
-        (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
+            (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
     CGAffineTransform toWindow = [fromView transformToWindow];
     CGAffineTransform fromWindow = [self transformFromWindow];
 
     return CGSizeApplyAffineTransform(
-        CGSizeApplyAffineTransform(size, toWindow), fromWindow);
+            CGSizeApplyAffineTransform(size, toWindow), fromWindow);
 }
 
 - (NSSize) convertSize: (NSSize) size toView: (NSView *) viewOrNil {
     NSView *toView =
-        (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
+            (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
     CGAffineTransform toWindow = [self transformToWindow];
     CGAffineTransform fromWindow = [toView transformFromWindow];
 
     return CGSizeApplyAffineTransform(
-        CGSizeApplyAffineTransform(size, toWindow), fromWindow);
+            CGSizeApplyAffineTransform(size, toWindow), fromWindow);
 }
 
 - (NSRect) convertRect: (NSRect) rect fromView: (NSView *) viewOrNil {
     NSView *fromView =
-        (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
+            (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
     CGAffineTransform toWindow = [fromView transformToWindow];
     CGAffineTransform fromWindow = [self transformFromWindow];
     NSPoint point1 = rect.origin;
     NSPoint point2 = NSMakePoint(NSMaxX(rect), NSMaxY(rect));
 
     point1 = CGPointApplyAffineTransform(
-        CGPointApplyAffineTransform(point1, toWindow), fromWindow);
+            CGPointApplyAffineTransform(point1, toWindow), fromWindow);
     point2 = CGPointApplyAffineTransform(
-        CGPointApplyAffineTransform(point2, toWindow), fromWindow);
+            CGPointApplyAffineTransform(point2, toWindow), fromWindow);
     if (point2.y < point1.y) {
         CGFloat temp = point2.y;
         point2.y = point1.y;
@@ -933,16 +936,16 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 
 - (NSRect) convertRect: (NSRect) rect toView: (NSView *) viewOrNil {
     NSView *toView =
-        (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
+            (viewOrNil != nil) ? viewOrNil : [[self window] _backgroundView];
     CGAffineTransform toWindow = [self transformToWindow];
     CGAffineTransform fromWindow = [toView transformFromWindow];
     NSPoint point1 = rect.origin;
     NSPoint point2 = NSMakePoint(NSMaxX(rect), NSMaxY(rect));
 
     point1 = CGPointApplyAffineTransform(
-        CGPointApplyAffineTransform(point1, toWindow), fromWindow);
+            CGPointApplyAffineTransform(point1, toWindow), fromWindow);
     point2 = CGPointApplyAffineTransform(
-        CGPointApplyAffineTransform(point2, toWindow), fromWindow);
+            CGPointApplyAffineTransform(point2, toWindow), fromWindow);
     if (point2.y < point1.y) {
         CGFloat temp = point2.y;
         point2.y = point1.y;
@@ -976,8 +979,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
         _bounds.size = frame.size;
     } else {
         // Get the bounds->frame transform
-        CGAffineTransform transform =
-            concatViewTransform(CGAffineTransformIdentity, self, nil, YES, NO);
+        CGAffineTransform transform = concatViewTransform(
+                CGAffineTransformIdentity, self, nil, YES, NO);
         // ... and invert it so we can get the new bounds size from the new
         // frame size
         transform = CGAffineTransformInvert(transform);
@@ -1004,8 +1007,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 
     if (_postsNotificationOnFrameChange)
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSViewFrameDidChangeNotification
-                          object: self];
+                postNotificationName: NSViewFrameDidChangeNotification
+                              object: self];
 }
 
 - (void) setFrameSize: (NSSize) size {
@@ -1040,8 +1043,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 
         if (_postsNotificationOnBoundsChange)
             [[NSNotificationCenter defaultCenter]
-                postNotificationName: NSViewBoundsDidChangeNotification
-                              object: self];
+                    postNotificationName: NSViewBoundsDidChangeNotification
+                                  object: self];
     }
 }
 
@@ -1076,7 +1079,7 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 - (void) _setWindow: (NSWindow *) window {
     if (_window != window) {
         BOOL windowRecalulatesKeyViewLoop =
-            [window autorecalculatesKeyViewLoop];
+                [window autorecalculatesKeyViewLoop];
         if (windowRecalulatesKeyViewLoop)
             [self setNextKeyView: nil];
 
@@ -1151,10 +1154,10 @@ static inline void buildTransformsIfNeeded(NSView *self) {
     if (index == NSNotFound)
         index = (ordering == NSWindowBelow) ? 0 : NSNotFound;
     else
-        index =
-            (ordering == NSWindowBelow)
-                ? index
-                : ((index + 1 == [_subviews count]) ? NSNotFound : index + 1);
+        index = (ordering == NSWindowBelow)
+                        ? index
+                        : ((index + 1 == [_subviews count]) ? NSNotFound
+                                                            : index + 1);
 
     [self _insertSubview: view atIndex: index];
 }
@@ -1181,7 +1184,7 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 }
 
 - (void) sortSubviewsUsingFunction:
-             (NSComparisonResult (*)(id, id, void *)) compareFunction
+                 (NSComparisonResult (*)(id, id, void *)) compareFunction
                            context: (void *) context
 {
     NSUnimplementedMethod();
@@ -1295,13 +1298,13 @@ static inline void buildTransformsIfNeeded(NSView *self) {
     NSTrackingArea *area = nil;
 
     area = [[NSTrackingArea alloc]
-         _initWithRect: rect
-               options: NSTrackingCursorUpdate | NSTrackingActiveInKeyWindow
-                 owner: cursorRect
-              userData: NULL
-        retainUserData: NO
-             isToolTip: NO
-              isLegacy: YES];
+             _initWithRect: rect
+                   options: NSTrackingCursorUpdate | NSTrackingActiveInKeyWindow
+                     owner: cursorRect
+                  userData: NULL
+            retainUserData: NO
+                 isToolTip: NO
+                  isLegacy: YES];
     [_trackingAreas addObject: area];
     [area release];
     [cursorRect release];
@@ -1383,7 +1386,7 @@ static inline void buildTransformsIfNeeded(NSView *self) {
         count = [subviews count];
         for (i = 0; i < count; i++)
             [(NSView *) [subviews objectAtIndex: i]
-                _collectTrackingAreasForWindowInto: collector];
+                    _collectTrackingAreasForWindowInto: collector];
     }
 }
 
@@ -1415,7 +1418,7 @@ static inline void buildTransformsIfNeeded(NSView *self) {
                          assumeInside: (BOOL) assumeInside
 {
     NSTrackingAreaOptions options =
-        NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways;
+            NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways;
     NSTrackingArea *area = nil;
 
     if (assumeInside == YES)
@@ -1526,11 +1529,11 @@ static inline void buildTransformsIfNeeded(NSView *self) {
             if (_autoresizingMask & NSViewMaxXMargin) {
                 frame.origin.x += ((superFrame.size.width - oldSize.width) / 3);
                 frame.size.width +=
-                    ((superFrame.size.width - oldSize.width) / 3);
+                        ((superFrame.size.width - oldSize.width) / 3);
             } else {
                 frame.origin.x += ((superFrame.size.width - oldSize.width) / 2);
                 frame.size.width +=
-                    ((superFrame.size.width - oldSize.width) / 2);
+                        ((superFrame.size.width - oldSize.width) / 2);
             }
             originChanged = YES;
             sizeChanged = YES;
@@ -1555,14 +1558,14 @@ static inline void buildTransformsIfNeeded(NSView *self) {
         if (_autoresizingMask & NSViewHeightSizable) {
             if (_autoresizingMask & NSViewMaxYMargin) {
                 frame.origin.y +=
-                    ((superFrame.size.height - oldSize.height) / 3);
+                        ((superFrame.size.height - oldSize.height) / 3);
                 frame.size.height +=
-                    ((superFrame.size.height - oldSize.height) / 3);
+                        ((superFrame.size.height - oldSize.height) / 3);
             } else {
                 frame.origin.y +=
-                    ((superFrame.size.height - oldSize.height) / 2);
+                        ((superFrame.size.height - oldSize.height) / 2);
                 frame.size.height +=
-                    ((superFrame.size.height - oldSize.height) / 2);
+                        ((superFrame.size.height - oldSize.height) / 2);
             }
             originChanged = YES;
             sizeChanged = YES;
@@ -1576,7 +1579,7 @@ static inline void buildTransformsIfNeeded(NSView *self) {
     } else if (_autoresizingMask & NSViewHeightSizable) {
         if (_autoresizingMask & NSViewMaxYMargin)
             frame.size.height +=
-                ((superFrame.size.height - oldSize.height) / 2);
+                    ((superFrame.size.height - oldSize.height) / 2);
         else
             frame.size.height += superFrame.size.height - oldSize.height;
         sizeChanged = YES;
@@ -1814,8 +1817,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
         return;
 
     if (value != _layer) {
-        [_subviews
-            makeObjectsPerformSelector: @selector(_removeLayerFromSuperlayer)];
+        [_subviews makeObjectsPerformSelector: @selector
+                   (_removeLayerFromSuperlayer)];
 
         value = [value retain];
 
@@ -1835,7 +1838,7 @@ static inline void buildTransformsIfNeeded(NSView *self) {
         }
 
         [_subviews
-            makeObjectsPerformSelector: @selector(_addLayerToSuperlayer)];
+                makeObjectsPerformSelector: @selector(_addLayerToSuperlayer)];
     }
 }
 
@@ -1931,7 +1934,7 @@ static void removeRectFromInvalidInVisibleRect(NSView *self, NSRect rect,
 
     while (--count >= 0) {
         self->_invalidRects[count] =
-            NSIntersectionRect(self->_invalidRects[count], visibleRect);
+                NSIntersectionRect(self->_invalidRects[count], visibleRect);
 
         if (NSContainsRect(rect, self->_invalidRects[count])) {
             int i;
@@ -2065,11 +2068,11 @@ static NSView *viewBeingPrinted = nil;
             CGFloat width = _frame.size.width;
             CGFloat height = _frame.size.height;
             CGContextRef graphicsPort = CGBitmapContextCreate(
-                NULL, width, height, 8, 0, colorSpace,
-                kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Host);
-            context =
-                [NSGraphicsContext graphicsContextWithGraphicsPort: graphicsPort
-                                                           flipped: NO];
+                    NULL, width, height, 8, 0, colorSpace,
+                    kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Host);
+            context = [NSGraphicsContext
+                    graphicsContextWithGraphicsPort: graphicsPort
+                                            flipped: NO];
             CGColorSpaceRelease(colorSpace);
             CGContextRelease(graphicsPort); // we'll re-fetch it below
         } else {
@@ -2092,13 +2095,13 @@ static NSView *viewBeingPrinted = nil;
     } else {
         CGAffineTransform transform = CGAffineTransformIdentity;
         if (viewBeingPrinted != nil) {
-            transform =
-                CGAffineTransformConcat([self transformToWindow],
-                                        [viewBeingPrinted transformFromWindow]);
+            transform = CGAffineTransformConcat(
+                    [self transformToWindow],
+                    [viewBeingPrinted transformFromWindow]);
         }
         NSView *targetView = viewBeingPrinted == nil ? self : viewBeingPrinted;
-        transform =
-            CGAffineTransformConcat(transform, [targetView transformToLayer]);
+        transform = CGAffineTransformConcat(transform,
+                                            [targetView transformToLayer]);
         CGContextSetCTM(graphicsPort, transform);
     }
 
@@ -2175,8 +2178,8 @@ static NSView *viewBeingPrinted = nil;
             [opaqueAncestor getRectsBeingDrawn: &ancestorRects
                                          count: &_rectsBeingRedrawnCount];
             if (_rectsBeingRedrawnCount) {
-                _rectsBeingRedrawn =
-                    NSZoneCalloc(NULL, _rectsBeingRedrawnCount, sizeof(NSRect));
+                _rectsBeingRedrawn = NSZoneCalloc(NULL, _rectsBeingRedrawnCount,
+                                                  sizeof(NSRect));
                 int rectsCount = 0;
                 for (int i = 0; i < _rectsBeingRedrawnCount; ++i) {
                     NSRect r = [opaqueAncestor convertRect: ancestorRects[i]
@@ -2201,8 +2204,8 @@ static NSView *viewBeingPrinted = nil;
                                              count: &ancestorRectsCount];
                 if (ancestorRectsCount || _invalidRectCount) {
                     _rectsBeingRedrawn = NSZoneCalloc(
-                        NULL, _invalidRectCount + ancestorRectsCount,
-                        sizeof(NSRect));
+                            NULL, _invalidRectCount + ancestorRectsCount,
+                            sizeof(NSRect));
                     NSInteger rectsCount = 0;
                     for (int i = 0; i < ancestorRectsCount; ++i) {
                         NSRect r = [opaqueAncestor convertRect: ancestorRects[i]
@@ -2296,7 +2299,7 @@ static NSView *viewBeingPrinted = nil;
     NSView *child = nil;
     while ((child = [viewEnumerator nextObject])) {
         NSRect converted = NSIntersectionRect(
-            [self convertRect: rect toView: child], [child bounds]);
+                [self convertRect: rect toView: child], [child bounds]);
         if (!NSIsEmptyRect(converted)) {
             [child displayIfNeededInRect: converted];
         }
@@ -2315,7 +2318,7 @@ static NSView *viewBeingPrinted = nil;
     NSView *child = nil;
     while ((child = [viewEnumerator nextObject])) {
         NSRect converted = NSIntersectionRect(
-            [self convertRect: rect toView: child], [child bounds]);
+                [self convertRect: rect toView: child], [child bounds]);
 
         if (!NSIsEmptyRect(converted)) {
             [child displayIfNeededInRectIgnoringOpacity: converted];
@@ -2479,12 +2482,12 @@ static NSView *viewBeingPrinted = nil;
 
     transform = CGAffineTransformIdentity;
     if ([self isFlipped]) {
-        transform =
-            CGAffineTransformMake(1, 0, 0, -1, 0, [printInfo paperSize].height);
+        transform = CGAffineTransformMake(1, 0, 0, -1, 0,
+                                          [printInfo paperSize].height);
     }
 
-    transform =
-        CGAffineTransformTranslate(transform, -rect.origin.x, -rect.origin.y);
+    transform = CGAffineTransformTranslate(transform, -rect.origin.x,
+                                           -rect.origin.y);
 
     CGContextConcatCTM(graphicsPort, transform);
 
@@ -2561,9 +2564,9 @@ static NSView *viewBeingPrinted = nil;
 - (NSData *) dataWithEPSInsideRect: (NSRect) rect {
     NSMutableData *result = [NSMutableData data];
     NSPrintOperation *operation =
-        [NSPrintOperation EPSOperationWithView: self
-                                    insideRect: rect
-                                        toData: result];
+            [NSPrintOperation EPSOperationWithView: self
+                                        insideRect: rect
+                                            toData: result];
 
     [operation runOperation];
 
@@ -2573,9 +2576,9 @@ static NSView *viewBeingPrinted = nil;
 - (NSData *) dataWithPDFInsideRect: (NSRect) rect {
     NSMutableData *result = [NSMutableData data];
     NSPrintOperation *operation =
-        [NSPrintOperation PDFOperationWithView: self
-                                    insideRect: rect
-                                        toData: result];
+            [NSPrintOperation PDFOperationWithView: self
+                                        insideRect: rect
+                                            toData: result];
 
     [operation runOperation];
 
@@ -2646,9 +2649,9 @@ static NSView *viewBeingPrinted = nil;
         CGFloat direction = [documentView isFlipped] ? -1 : 1;
 
         visible.origin.x +=
-            [event deltaX] * [scrollView horizontalLineScroll] * 3;
-        visible.origin.y +=
-            [event deltaY] * direction * [scrollView verticalLineScroll] * 3;
+                [event deltaX] * [scrollView horizontalLineScroll] * 3;
+        visible.origin.y += [event deltaY] * direction *
+                            [scrollView verticalLineScroll] * 3;
 
         // Something equivalent to this should be in scrollRectToVisible:
         if (visible.origin.y < bounds.origin.y)
@@ -2792,7 +2795,7 @@ static NSView *viewBeingPrinted = nil;
                                      range: (NSRange) range
                                    options: (NSDictionary *) options
                     baselineOriginProvider:
-                        (NSPoint (^)(NSRange adjustedRange)) originProvider
+                            (NSPoint (^)(NSRange adjustedRange)) originProvider
 {
     NSUnimplementedMethod();
 }

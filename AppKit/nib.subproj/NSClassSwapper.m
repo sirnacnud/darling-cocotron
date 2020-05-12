@@ -29,14 +29,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (id) initWithCoder: (NSCoder *) coder {
     _className = [[coder decodeObjectForKey: @"NSClassName"] retain];
     _originalClassName =
-        [[coder decodeObjectForKey: @"NSOriginalClassName"] retain];
+            [[coder decodeObjectForKey: @"NSOriginalClassName"] retain];
 
     Class class = NSClassFromString(_className);
 
     if (class == Nil) {
-        [NSException
-             raise: NSInvalidArgumentException
-            format: @"NSClassSwapper is unable to find class %@", _className];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"NSClassSwapper is unable to find class %@",
+                            _className];
     }
 
     _object = [class alloc];

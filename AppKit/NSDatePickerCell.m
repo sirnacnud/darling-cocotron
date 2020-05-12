@@ -201,8 +201,8 @@ static void drawRoundedSelection(NSRect rect) {
 
 - (NSArray *) _attributedStrings {
     NSMutableArray *result = [NSMutableArray array];
-    NSMutableParagraphStyle *style =
-        [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+    NSMutableParagraphStyle *style = [[[NSParagraphStyle defaultParagraphStyle]
+            mutableCopy] autorelease];
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     NSMutableDictionary *separatorAttributes;
 
@@ -221,72 +221,76 @@ static void drawRoundedSelection(NSRect rect) {
     if ((_elements & NSYearMonthDayDatePickerElementFlag) ==
         NSYearMonthDayDatePickerElementFlag) {
         NSUInteger flags =
-            NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+                NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
         NSDateComponents *components = [_calendar components: flags
                                                     fromDate: [self dateValue]];
 
         NSString *month =
-            [NSString stringWithFormat: @"%d", [components month]];
+                [NSString stringWithFormat: @"%d", [components month]];
         NSString *day = [NSString stringWithFormat: @"%d", [components day]];
         NSString *year = [NSString stringWithFormat: @"%d", [components year]];
 
         [attributes
-            setObject: [NSNumber numberWithUnsignedInteger: [components month]]
-               forKey: @"_value"];
+                setObject: [NSNumber numberWithUnsignedInteger: [components
+                                                                        month]]
+                   forKey: @"_value"];
         [attributes setObject: [NSNumber numberWithUnsignedInteger: 1]
                        forKey: @"_min"];
         [attributes setObject: [NSNumber numberWithUnsignedInteger: 12]
                        forKey: @"_max"];
-        [attributes
-            setObject: [NSNumber numberWithUnsignedInteger: NSMonthCalendarUnit]
-               forKey: @"_unit"];
+        [attributes setObject: [NSNumber numberWithUnsignedInteger:
+                                                 NSMonthCalendarUnit]
+                       forKey: @"_unit"];
         [attributes setObject: [NSNumber numberWithFloat: digitWidth * 2]
                        forKey: @"_width"];
         [result addObject: [[[NSAttributedString alloc]
-                               initWithString: month
-                                   attributes: attributes] autorelease]];
+                                   initWithString: month
+                                       attributes: attributes] autorelease]];
 
-        [result
-            addObject: [[[NSAttributedString alloc]
-                           initWithString: @"/"
-                               attributes: separatorAttributes] autorelease]];
+        [result addObject: [[[NSAttributedString alloc]
+                                   initWithString: @"/"
+                                       attributes: separatorAttributes]
+                                   autorelease]];
 
         [attributes
-            setObject: [NSNumber numberWithUnsignedInteger: [components day]]
-               forKey: @"_value"];
+                setObject: [NSNumber
+                                   numberWithUnsignedInteger: [components day]]
+                   forKey: @"_value"];
         [attributes setObject: [NSNumber numberWithUnsignedInteger: 1]
                        forKey: @"_min"];
         [attributes setObject: [NSNumber numberWithUnsignedInteger: 31]
                        forKey: @"_max"];
         [attributes
-            setObject: [NSNumber numberWithUnsignedInteger: NSDayCalendarUnit]
-               forKey: @"_unit"];
+                setObject: [NSNumber
+                                   numberWithUnsignedInteger: NSDayCalendarUnit]
+                   forKey: @"_unit"];
         [attributes setObject: [NSNumber numberWithFloat: digitWidth * 2]
                        forKey: @"_width"];
         [result addObject: [[[NSAttributedString alloc]
-                               initWithString: day
-                                   attributes: attributes] autorelease]];
+                                   initWithString: day
+                                       attributes: attributes] autorelease]];
 
-        [result
-            addObject: [[[NSAttributedString alloc]
-                           initWithString: @"/"
-                               attributes: separatorAttributes] autorelease]];
+        [result addObject: [[[NSAttributedString alloc]
+                                   initWithString: @"/"
+                                       attributes: separatorAttributes]
+                                   autorelease]];
 
         [attributes
-            setObject: [NSNumber numberWithUnsignedInteger: [components year]]
-               forKey: @"_value"];
+                setObject: [NSNumber
+                                   numberWithUnsignedInteger: [components year]]
+                   forKey: @"_value"];
         [attributes setObject: [NSNumber numberWithUnsignedInteger: 0]
                        forKey: @"_min"];
         [attributes setObject: [NSNumber numberWithUnsignedInteger: 9999]
                        forKey: @"_max"];
-        [attributes
-            setObject: [NSNumber numberWithUnsignedInteger: NSYearCalendarUnit]
-               forKey: @"_unit"];
+        [attributes setObject: [NSNumber numberWithUnsignedInteger:
+                                                 NSYearCalendarUnit]
+                       forKey: @"_unit"];
         [attributes setObject: [NSNumber numberWithFloat: digitWidth * 4]
                        forKey: @"_width"];
         [result addObject: [[[NSAttributedString alloc]
-                               initWithString: year
-                                   attributes: attributes] autorelease]];
+                                   initWithString: year
+                                       attributes: attributes] autorelease]];
     }
 
     return result;
@@ -370,24 +374,24 @@ static void getRectsInFrameForAttributesStrings(NSRect *rects, NSRect frame,
     NSArray *array = [self _attributedStrings];
     NSInteger i, count = [array count];
     NSDateComponents *components =
-        [[[NSDateComponents alloc] init] autorelease];
+            [[[NSDateComponents alloc] init] autorelease];
 
     for (i = 0; i < count; i++) {
         NSAttributedString *string = [array objectAtIndex: i];
         NSDictionary *attributes = [string attributesAtIndex: 0
                                               effectiveRange: NULL];
         NSUInteger unit =
-            [[attributes objectForKey: @"_unit"] unsignedIntegerValue];
+                [[attributes objectForKey: @"_unit"] unsignedIntegerValue];
 
         if (unit == 0)
             continue;
 
         NSUInteger value =
-            [[attributes objectForKey: @"_value"] unsignedIntegerValue];
+                [[attributes objectForKey: @"_value"] unsignedIntegerValue];
         NSUInteger min =
-            [[attributes objectForKey: @"_min"] unsignedIntegerValue];
+                [[attributes objectForKey: @"_min"] unsignedIntegerValue];
         NSUInteger max =
-            [[attributes objectForKey: @"_max"] unsignedIntegerValue];
+                [[attributes objectForKey: @"_max"] unsignedIntegerValue];
 
         if (unit == _selectedUnit) {
             value *= multiply;
@@ -444,17 +448,19 @@ static void getRectsInFrameForAttributesStrings(NSRect *rects, NSRect frame,
     [self drawInteriorWithFrame: frame inView: view];
 
     [[_controlView graphicsStyle]
-        drawStepperButtonInRect: [self _upArrowFrameForStepperFrame: stepper]
-                       clipRect: stepper
-                        enabled: [self isEnabled]
-                    highlighted: _isUpHighlighted
-                      upNotDown: YES];
+            drawStepperButtonInRect:
+                    [self _upArrowFrameForStepperFrame: stepper]
+                           clipRect: stepper
+                            enabled: [self isEnabled]
+                        highlighted: _isUpHighlighted
+                          upNotDown: YES];
     [[_controlView graphicsStyle]
-        drawStepperButtonInRect: [self _downArrowFrameForStepperFrame: stepper]
-                       clipRect: stepper
-                        enabled: [self isEnabled]
-                    highlighted: _isDownHighlighted
-                      upNotDown: NO];
+            drawStepperButtonInRect:
+                    [self _downArrowFrameForStepperFrame: stepper]
+                           clipRect: stepper
+                            enabled: [self isEnabled]
+                        highlighted: _isDownHighlighted
+                          upNotDown: NO];
 }
 
 - (void) selectComponentUnderPoint: (NSPoint) point inView: (NSView *) view {
@@ -472,7 +478,7 @@ static void getRectsInFrameForAttributesStrings(NSRect *rects, NSRect frame,
             NSDictionary *attributes = [string attributesAtIndex: 0
                                                   effectiveRange: NULL];
             NSUInteger unit =
-                [[attributes objectForKey: @"_unit"] unsignedIntegerValue];
+                    [[attributes objectForKey: @"_unit"] unsignedIntegerValue];
 
             if (unit != 0) {
                 _selectedUnit = unit;

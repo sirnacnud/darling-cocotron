@@ -47,7 +47,7 @@ static inline BOOL transformIsFlipped(O2AffineTransform matrix) {
 static NSRect Win32TransformRect(O2AffineTransform matrix, NSRect rect) {
     NSPoint point1 = O2PointApplyAffineTransform(rect.origin, matrix);
     NSPoint point2 = O2PointApplyAffineTransform(
-        NSMakePoint(NSMaxX(rect), NSMaxY(rect)), matrix);
+            NSMakePoint(NSMaxX(rect), NSMaxY(rect)), matrix);
 
     if (point2.y < point1.y) {
         float temp = point2.y;
@@ -226,7 +226,7 @@ static RECT NSRectToRECT(NSRect rect) {
         NSLog(@"ModifyWorldTransform failed");
 
     O2DeviceContextEstablishDeviceSpacePath_gdi(
-        _dc, path, O2AffineTransformInvert(state->_userSpaceTransform));
+            _dc, path, O2AffineTransformInvert(state->_userSpaceTransform));
 
     {
         HBRUSH fillBrush = CreateSolidBrush(COLORREFFromColor(fillColor));
@@ -319,8 +319,8 @@ static RECT NSRectToRECT(NSRect rect) {
         O2GStateClearFontIsDirty(gState);
         [_gdiFont release];
         _gdiFont = [(O2Font_gdi *) O2GStateFont(gState)
-            createGDIFontSelectedInDC: _dc
-                            pointSize: O2GStatePointSize(gState)];
+                createGDIFontSelectedInDC: _dc
+                                pointSize: O2GStatePointSize(gState)];
     }
 }
 
@@ -330,10 +330,10 @@ static RECT NSRectToRECT(NSRect rect) {
 {
     // FIXME: use advances if not NULL
     O2AffineTransform transformToDevice =
-        O2ContextGetUserSpaceToDeviceSpaceTransform(self);
+            O2ContextGetUserSpaceToDeviceSpaceTransform(self);
     O2GState *gState = O2ContextCurrentGState(self);
     O2AffineTransform Trm =
-        O2AffineTransformConcat(_textMatrix, transformToDevice);
+            O2AffineTransformConcat(_textMatrix, transformToDevice);
     NSPoint point = O2PointApplyAffineTransform(NSMakePoint(0, 0), Trm);
 
     [self establishFontStateInDeviceIfDirty];
@@ -412,21 +412,20 @@ static inline float axialBandIntervalFromMagnitude(O2Function *function,
     BOOL extendStart = [shading extendStart];
     BOOL extendEnd = [shading extendEnd];
     NSPoint startPoint =
-        O2PointApplyAffineTransform([shading startPoint], matrix);
+            O2PointApplyAffineTransform([shading startPoint], matrix);
     NSPoint endPoint = O2PointApplyAffineTransform([shading endPoint], matrix);
     NSPoint vector =
-        NSMakePoint(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+            NSMakePoint(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
     float magnitude = ceilf(sqrtf(vector.x * vector.x + vector.y * vector.y));
-    float angle =
-        (magnitude == 0)
-            ? 0
-            : (atanf(vector.y / vector.x) + ((vector.x < 0) ? M_PI : 0));
+    float angle = (magnitude == 0) ? 0
+                                   : (atanf(vector.y / vector.x) +
+                                      ((vector.x < 0) ? M_PI : 0));
     float bandInterval = axialBandIntervalFromMagnitude(function, magnitude);
     int bandCount = bandInterval;
     int i, rectIndex = 0;
     float rectWidth = (bandCount == 0) ? 0 : magnitude / bandInterval;
     float domainInterval =
-        (bandCount == 0) ? 0 : (domain[1] - domain[0]) / bandInterval;
+            (bandCount == 0) ? 0 : (domain[1] - domain[0]) / bandInterval;
     GRADIENT_RECT rect[1 + bandCount + 1];
     int vertexIndex = 0;
     TRIVERTEX vertices[(1 + bandCount + 1) * 2];
@@ -443,7 +442,7 @@ static inline float axialBandIntervalFromMagnitude(O2Function *function,
                                                   ULONG, ULONG);
     HANDLE library = LoadLibrary("MSIMG32");
     gradientType gradientFill =
-        (gradientType) GetProcAddress(library, "GradientFill");
+            (gradientType) GetProcAddress(library, "GradientFill");
 
     if (gradientFill == NULL) {
         NSLog(@"Unable to locate GradientFill");
@@ -586,7 +585,7 @@ static int appendCircle(NSPoint *cp, int position, float x, float y,
     O2MutablePathEllipseToBezier(cp + position, x, y, radius, radius);
     for (i = 0; i < 13; i++)
         cp[position + i] =
-            O2PointApplyAffineTransform(cp[position + i], matrix);
+                O2PointApplyAffineTransform(cp[position + i], matrix);
 
     return position + 13;
 }
@@ -626,13 +625,13 @@ static inline float numberOfRadialBands(O2Function *function,
 
     startRadiusPoint = O2PointApplyAffineTransform(startRadiusPoint, matrix);
     endRadiusPoint = O2PointApplyAffineTransform(endRadiusPoint, matrix); {
-        NSPoint lineVector =
-            NSMakePoint(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
-        float lineMagnitude = ceilf(
-            sqrtf(lineVector.x * lineVector.x + lineVector.y * lineVector.y));
+        NSPoint lineVector = NSMakePoint(endPoint.x - startPoint.x,
+                                         endPoint.y - startPoint.y);
+        float lineMagnitude = ceilf(sqrtf(lineVector.x * lineVector.x +
+                                          lineVector.y * lineVector.y));
         NSPoint radiusVector =
-            NSMakePoint(endRadiusPoint.x - startRadiusPoint.x,
-                        endRadiusPoint.y - startRadiusPoint.y);
+                NSMakePoint(endRadiusPoint.x - startRadiusPoint.x,
+                            endRadiusPoint.y - startRadiusPoint.y);
         float radiusMagnitude = ceilf(sqrtf(radiusVector.x * radiusVector.x +
                                             radiusVector.y * radiusVector.y)) *
                                 2;
@@ -682,10 +681,10 @@ static void extend(HDC dc, int i, int direction, float bandInterval,
     // accurately but these are undesirable gradients
 
     {
-        NSPoint lineVector =
-            NSMakePoint(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
-        float lineMagnitude = ceilf(
-            sqrtf(lineVector.x * lineVector.x + lineVector.y * lineVector.y));
+        NSPoint lineVector = NSMakePoint(endPoint.x - startPoint.x,
+                                         endPoint.y - startPoint.y);
+        float lineMagnitude = ceilf(sqrtf(lineVector.x * lineVector.x +
+                                          lineVector.y * lineVector.y));
 
         if ((lineMagnitude + startRadius) < endRadius) {
             BeginPath(dc);
@@ -782,7 +781,7 @@ static void extend(HDC dc, int i, int direction, float bandInterval,
                                              startRadius, endRadius, matrix);
     int i, bandCount = bandInterval;
     float domainInterval =
-        (bandCount == 0) ? 0 : (domain[1] - domain[0]) / bandInterval;
+            (bandCount == 0) ? 0 : (domain[1] - domain[0]) / bandInterval;
     float output[O2ColorSpaceGetNumberOfComponents(colorSpace) + 1];
     float rgba[4];
     void (*outputToRGBA)(float *, float *);
@@ -811,8 +810,8 @@ static void extend(HDC dc, int i, int direction, float bandInterval,
 
         O2FunctionEvaluate(function, domain[0], output);
         outputToRGBA(output, rgba);
-        brush =
-            CreateSolidBrush(RGB(rgba[0] * 255, rgba[1] * 255, rgba[2] * 255));
+        brush = CreateSolidBrush(
+                RGB(rgba[0] * 255, rgba[1] * 255, rgba[2] * 255));
         SelectObject(_dc, brush);
         SetPolyFillMode(_dc, ALTERNATE);
         extend(_dc, 0, -1, bandInterval, startPoint, endPoint, startRadius,
@@ -850,7 +849,7 @@ static void extend(HDC dc, int i, int direction, float bandInterval,
         O2FunctionEvaluate(function, x0, output);
         outputToRGBA(output, rgba);
         brush = CreateSolidBrush(
-            RGB(output[0] * 255, output[1] * 255, output[2] * 255));
+                RGB(output[0] * 255, output[1] * 255, output[2] * 255));
         SelectObject(_dc, brush);
         SetPolyFillMode(_dc, ALTERNATE);
         FillPath(_dc);
@@ -862,8 +861,8 @@ static void extend(HDC dc, int i, int direction, float bandInterval,
 
         O2FunctionEvaluate(function, domain[1], output);
         outputToRGBA(output, rgba);
-        brush =
-            CreateSolidBrush(RGB(rgba[0] * 255, rgba[1] * 255, rgba[2] * 255));
+        brush = CreateSolidBrush(
+                RGB(rgba[0] * 255, rgba[1] * 255, rgba[2] * 255));
         SelectObject(_dc, brush);
         SetPolyFillMode(_dc, ALTERNATE);
         extend(_dc, i, 1, bandInterval, startPoint, endPoint, startRadius,
@@ -875,7 +874,7 @@ static void extend(HDC dc, int i, int direction, float bandInterval,
 
 - (void) drawShading: (O2ShadingRef) shading {
     O2AffineTransform transformToDevice =
-        O2ContextGetUserSpaceToDeviceSpaceTransform(self);
+            O2ContextGetUserSpaceToDeviceSpaceTransform(self);
 
     if ([shading isAxial])
         [self drawInUserSpace: transformToDevice axialShading: shading];
@@ -1033,12 +1032,14 @@ void O2GraphicsSourceOver_bgra32_onto_bgrx32(unsigned char *sourceBGRA,
 #if 1
     if ((O2ImageGetAlphaInfo(image) == kO2ImageAlphaPremultipliedFirst) &&
         (O2ImageGetBitmapInfo(image) & kO2BitmapByteOrderMask) ==
-            kO2BitmapByteOrder32Little)
-        O2GraphicsSourceOver_bgra32_onto_bgrx32(
-            imageRGBA, (unsigned char *) combineBGRX, width, height, fraction);
+                kO2BitmapByteOrder32Little)
+        O2GraphicsSourceOver_bgra32_onto_bgrx32(imageRGBA,
+                                                (unsigned char *) combineBGRX,
+                                                width, height, fraction);
     else
-        O2GraphicsSourceOver_rgba32_onto_bgrx32(
-            imageRGBA, (unsigned char *) combineBGRX, width, height, fraction);
+        O2GraphicsSourceOver_rgba32_onto_bgrx32(imageRGBA,
+                                                (unsigned char *) combineBGRX,
+                                                width, height, fraction);
 #else
     sourceOverImage(image, combineBGRX, width, height, fraction);
 #endif
@@ -1130,12 +1131,13 @@ static void zeroBytes(void *bytes, int size) {
     blendFunction.BlendFlags = 0;
     blendFunction.SourceConstantAlpha = 0xFF;
     blendFunction.BlendOp = AC_SRC_ALPHA; {
-        typedef WINGDIAPI BOOL WINAPI (*alphaType)(
-            HDC, int, int, int, int, HDC, int, int, int, int, BLENDFUNCTION);
+        typedef WINGDIAPI BOOL WINAPI (*alphaType)(HDC, int, int, int, int, HDC,
+                                                   int, int, int, int,
+                                                   BLENDFUNCTION);
 
         HANDLE library = LoadLibrary("MSIMG32");
         alphaType alphaBlend =
-            (alphaType) GetProcAddress(library, "AlphaBlend");
+                (alphaType) GetProcAddress(library, "AlphaBlend");
 
         if (alphaBlend == NULL)
             NSLog(@"Unable to get AlphaBlend", alphaBlend);
@@ -1155,7 +1157,7 @@ static void zeroBytes(void *bytes, int size) {
 
 - (void) drawImage: (O2Image *) image inRect: (O2Rect) rect {
     O2AffineTransform transformToDevice =
-        O2ContextGetUserSpaceToDeviceSpaceTransform(self);
+            O2ContextGetUserSpaceToDeviceSpaceTransform(self);
     O2GState *gState = O2ContextCurrentGState(self);
     O2ClipPhase *phase = [[O2GStateClipState(gState) clipPhases] lastObject];
 
@@ -1206,12 +1208,12 @@ static void zeroBytes(void *bytes, int size) {
         return;
     }
     O2DeviceContext_gdi *deviceContext =
-        [(O2Context_gdi *) context deviceContext];
+            [(O2Context_gdi *) context deviceContext];
 
-    [self
-        drawDeviceContext: deviceContext
-                   inRect: rect
-                      ctm: O2ContextCurrentGState(self)->_deviceSpaceTransform];
+    [self drawDeviceContext: deviceContext
+                     inRect: rect
+                        ctm: O2ContextCurrentGState(self)->
+                             _deviceSpaceTransform];
 }
 
 - (void) copyBitsInRect: (NSRect) rect
@@ -1219,11 +1221,11 @@ static void zeroBytes(void *bytes, int size) {
                  gState: (int) gState
 {
     O2AffineTransform transformToDevice =
-        O2ContextGetUserSpaceToDeviceSpaceTransform(self);
+            O2ContextGetUserSpaceToDeviceSpaceTransform(self);
     NSRect srcRect = Win32TransformRect(transformToDevice, rect);
     NSRect dstRect = Win32TransformRect(
-        transformToDevice,
-        NSMakeRect(point.x, point.y, rect.size.width, rect.size.height));
+            transformToDevice,
+            NSMakeRect(point.x, point.y, rect.size.width, rect.size.height));
     NSRect scrollRect = NSUnionRect(srcRect, dstRect);
     int dx = dstRect.origin.x - srcRect.origin.x;
     int dy = dstRect.origin.y - srcRect.origin.y;
@@ -1259,7 +1261,7 @@ static void zeroBytes(void *bytes, int size) {
 
 - (NSData *) captureBitmapInRect: (NSRect) rect {
     O2AffineTransform transformToDevice =
-        O2ContextGetUserSpaceToDeviceSpaceTransform(self);
+            O2ContextGetUserSpaceToDeviceSpaceTransform(self);
     NSPoint pt = O2PointApplyAffineTransform(rect.origin, transformToDevice);
     int width = rect.size.width;
     int height = rect.size.height;
@@ -1305,12 +1307,12 @@ static void zeroBytes(void *bytes, int size) {
     for (i = 3; i < bmSize; i += 4)
         ((char *) bmBits)[i] = 255; // set alpha value
     bmFileHeader.bfOffBits =
-        sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
+            sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
     bmFileHeader.bfSize = bmFileHeader.bfOffBits + bmSize;
 
     NSMutableData *result =
-        [NSMutableData dataWithBytes: &bmFileHeader
-                              length: sizeof(BITMAPFILEHEADER)];
+            [NSMutableData dataWithBytes: &bmFileHeader
+                                  length: sizeof(BITMAPFILEHEADER)];
     [result appendBytes: &bmInfo.bmiHeader length: sizeof(BITMAPINFOHEADER)];
     [result appendBytes: bmBits length: bmSize];
 

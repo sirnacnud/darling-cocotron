@@ -76,11 +76,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSPredicate *)
-    predicateWithLeftExpression: (NSExpression *) left
-                rightExpression: (NSExpression *) right
-                       modifier: (NSComparisonPredicateModifier) modifier
-                           type: (NSPredicateOperatorType) type
-                        options: (NSUInteger) options
+        predicateWithLeftExpression: (NSExpression *) left
+                    rightExpression: (NSExpression *) right
+                           modifier: (NSComparisonPredicateModifier) modifier
+                               type: (NSPredicateOperatorType) type
+                            options: (NSUInteger) options
 {
     return [[[self alloc] initWithLeftExpression: left
                                  rightExpression: right
@@ -174,8 +174,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     // FIX, not right
     case NSCustomSelectorPredicateOperatorType:
-        operator= [NSString
-            stringWithFormat: @"@selector(%s)", sel_getName(_customSelector)];
+        operator= [NSString stringWithFormat: @"@selector(%s)",
+                                              sel_getName(_customSelector)];
         break;
     }
 
@@ -187,9 +187,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSPredicate *) predicateWithSubstitutionVariables: (NSDictionary *) variables
 {
     NSExpression *left =
-        [_left _expressionWithSubstitutionVariables: variables];
+            [_left _expressionWithSubstitutionVariables: variables];
     NSExpression *right =
-        [_right _expressionWithSubstitutionVariables: variables];
+            [_right _expressionWithSubstitutionVariables: variables];
 
     if (_type != NSCustomSelectorPredicateOperatorType)
         return [NSComparisonPredicate predicateWithLeftExpression: left
@@ -199,9 +199,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                                           options: _options];
     else
         return [NSComparisonPredicate
-            predicateWithLeftExpression: left
-                        rightExpression: right
-                         customSelector: _customSelector];
+                predicateWithLeftExpression: left
+                            rightExpression: right
+                             customSelector: _customSelector];
 }
 
 - (NSExpression *) leftExpression {
@@ -234,7 +234,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     BOOL selfIsNil = (leftResult == nil || [leftResult isEqual: [NSNull null]]);
     BOOL objectIsNil =
-        (rightResult == nil || [rightResult isEqual: [NSNull null]]);
+            (rightResult == nil || [rightResult isEqual: [NSNull null]]);
 
     if (selfIsNil || objectIsNil)
         return (selfIsNil == objectIsNil &&
@@ -288,8 +288,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         return ([leftResult compare: rightResult
                             options: compareOptions
                               range: range] == NSOrderedSame)
-                   ? YES
-                   : NO;
+                       ? YES
+                       : NO;
     }
 
     case NSEndsWithPredicateOperatorType: {
@@ -299,20 +299,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         return ([leftResult compare: rightResult
                             options: compareOptions
                               range: range] == NSOrderedSame)
-                   ? YES
-                   : NO;
+                       ? YES
+                       : NO;
     }
 
     case NSInPredicateOperatorType:
         return ([leftResult rangeOfString: rightResult options: compareOptions]
-                    .location != NSNotFound)
-                   ? YES
-                   : NO;
+                        .location != NSNotFound)
+                       ? YES
+                       : NO;
 
     case NSCustomSelectorPredicateOperatorType: {
         BOOL(*function)
         (id, SEL, id) = (BOOL(*)(
-            id, SEL, id)) [leftResult methodForSelector: _customSelector];
+                id, SEL, id)) [leftResult methodForSelector: _customSelector];
 
         return function(leftResult, _customSelector, rightResult);
     }
@@ -341,10 +341,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         if ([[self leftExpression] expressionType] != NSKeyPathExpressionType ||
             !([leftValue isKindOfClass: [NSArray class]] ||
               [leftValue isKindOfClass: [NSSet class]]))
-            [NSException
-                 raise: NSInvalidArgumentException
-                format: @"The left hand side for an ALL or ANY operator must "
-                        @"be either an NSArray or an NSSet"];
+            [NSException raise: NSInvalidArgumentException
+                        format: @"The left hand side for an ALL or ANY "
+                                @"operator must "
+                                @"be either an NSArray or an NSSet"];
         [values addObjectsFromArray: leftValue];
     }
 

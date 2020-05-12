@@ -4,9 +4,9 @@
 @implementation NSKeyObserver
 
 - initWithObject: object
-                key: (NSString *) key
-    keyPathObserver: (NSKeyPathObserver *) keyPathObserver
-         restOfPath: (NSString *) restOfPath
+                    key: (NSString *) key
+        keyPathObserver: (NSKeyPathObserver *) keyPathObserver
+             restOfPath: (NSString *) restOfPath
 {
     _object = object;
     _key = [key copy];
@@ -72,8 +72,8 @@
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@ %x _object: %@ _key: %@ _branchPath: %@>",
-                          [self class], self, _object, _key, _branchPath];
+            stringWithFormat: @"<%@ %x _object: %@ _key: %@ _branchPath: %@>",
+                              [self class], self, _object, _key, _branchPath];
 }
 
 @end

@@ -122,26 +122,28 @@ NSString *const NSPlatformLoadableObjectFilePrefix = @"";
 
     if (operatingSystemVersionString == NULL) {
         NSDictionary *operatingSystemVersionDictionary = [NSDictionary
-            dictionaryWithContentsOfFile:
-                @"/System/Library/CoreServices/SystemVersion.plist"];
-        if (operatingSystemVersionDictionary == NULL) {
-            operatingSystemVersionDictionary = [NSDictionary
                 dictionaryWithContentsOfFile:
-                    @"/System/Library/CoreServices/ServerVersion.plist"];
+                        @"/System/Library/CoreServices/SystemVersion.plist"];
+        if (operatingSystemVersionDictionary == NULL) {
+            operatingSystemVersionDictionary =
+                    [NSDictionary dictionaryWithContentsOfFile:
+                                          @"/System/Library/CoreServices/"
+                                          @"ServerVersion.plist"];
         }
         if (operatingSystemVersionDictionary != NULL) {
             operatingSystemVersionString = [[NSString alloc]
-                initWithFormat: @"Version %@ (Build %@)",
-                                [operatingSystemVersionDictionary
+                    initWithFormat:
+                            @"Version %@ (Build %@)",
+                            [operatingSystemVersionDictionary
                                     objectForKey: @"ProductVersion"],
-                                [operatingSystemVersionDictionary
+                            [operatingSystemVersionDictionary
                                     objectForKey: @"ProductBuildVersion"]];
         } else {
             operatingSystemVersionString = [[NSString alloc]
-                initWithFormat: @"%@ Version %@ (Build %@)",
-                                stringSysctlByName("kern.ostype"),
-                                stringSysctlByName("kern.osrelease"),
-                                stringSysctlByName("kern.osversion")];
+                    initWithFormat: @"%@ Version %@ (Build %@)",
+                                    stringSysctlByName("kern.ostype"),
+                                    stringSysctlByName("kern.osrelease"),
+                                    stringSysctlByName("kern.osversion")];
         }
     }
 

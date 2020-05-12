@@ -65,13 +65,13 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
 }
 
 - initWithDomain: (O2PDFArray *) domain
-            range: (O2PDFArray *) range
-             size: (O2PDFArray *) size
-    bitsPerSample: (O2PDFInteger) bps
-            order: (O2PDFInteger) order
-           encode: (O2PDFArray *) encode
-           decode: (O2PDFArray *) decode
-             data: (NSData *) data
+                range: (O2PDFArray *) range
+                 size: (O2PDFArray *) size
+        bitsPerSample: (O2PDFInteger) bps
+                order: (O2PDFInteger) order
+               encode: (O2PDFArray *) encode
+               decode: (O2PDFArray *) decode
+                 data: (NSData *) data
 {
     if ([super initWithDomain: domain range: range] == nil)
         return nil;

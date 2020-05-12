@@ -132,9 +132,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // not so pretty
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) cellFrame
-             ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) untilMouseUp
+              inRect: (NSRect) cellFrame
+              ofView: (NSView *) controlView
+        untilMouseUp: (BOOL) untilMouseUp
 {
     NSPoint point;
     double delta = 0.0;
@@ -177,8 +177,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 [(NSControl *) controlView sendAction: _action to: _target];
 
             event = [[controlView window]
-                nextEventMatchingMask: NSPeriodicMask | NSLeftMouseUpMask |
-                                       NSLeftMouseDraggedMask];
+                    nextEventMatchingMask: NSPeriodicMask | NSLeftMouseUpMask |
+                                           NSLeftMouseDraggedMask];
         }
         if ([event type] == NSLeftMouseUp)
             untilMouseUp = NO;
@@ -198,17 +198,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     _controlView = controlView;
     [[_controlView graphicsStyle]
-        drawStepperButtonInRect: [self _upArrowFrameForFrame: frame]
-                       clipRect: frame
-                        enabled: [self isEnabled]
-                    highlighted: _isUpHighlighted
-                      upNotDown: YES];
+            drawStepperButtonInRect: [self _upArrowFrameForFrame: frame]
+                           clipRect: frame
+                            enabled: [self isEnabled]
+                        highlighted: _isUpHighlighted
+                          upNotDown: YES];
     [[_controlView graphicsStyle]
-        drawStepperButtonInRect: [self _downArrowFrameForFrame: frame]
-                       clipRect: frame
-                        enabled: [self isEnabled]
-                    highlighted: _isDownHighlighted
-                      upNotDown: NO];
+            drawStepperButtonInRect: [self _downArrowFrameForFrame: frame]
+                           clipRect: frame
+                            enabled: [self isEnabled]
+                        highlighted: _isDownHighlighted
+                          upNotDown: NO];
 
     if ([[controlView window] firstResponder] == controlView) {
         if ([controlView isKindOfClass: [NSMatrix class]]) {

@@ -88,13 +88,13 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
 
 - (void) _didUpdateTXTRecordData: (NSData *) data {
     if ([_delegate respondsToSelector: @selector(netService:
-                                           didUpdateTXTRecordData:)])
+                                               didUpdateTXTRecordData:)])
         [_delegate netService: self didUpdateTXTRecordData: data];
 }
 
 - (void) beginAsynchronousNetService {
     NSSocket *socket = [[NSSocket alloc]
-        initWithFileDescriptor: bonjour_DNSServiceRefSockFD(_netService)];
+            initWithFileDescriptor: bonjour_DNSServiceRefSockFD(_netService)];
 
     _inputSource = [[NSSelectInputSource alloc] initWithSocket: socket];
     [socket release];
@@ -128,9 +128,9 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
 }
 
 - (void) addAddress: (const void *) rdata
-             length: (uint16_t) rdlen
-               type: (uint16_t) rrtype
-     interfaceIndex: (uint32_t) interface
+                length: (uint16_t) rdlen
+                  type: (uint16_t) rrtype
+        interfaceIndex: (uint32_t) interface
 {
     NSData *data = nil;
 
@@ -138,13 +138,13 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
 
     case bonjour_kDNSServiceType_A: // ipv4
         data = NSSocketAddressDataForNetworkOrderAddressBytesAndPort(
-            rdata, 4, htons(_port), interface);
+                rdata, 4, htons(_port), interface);
         break;
 
     case bonjour_kDNSServiceType_AAAA: // ipv6
     case bonjour_kDNSServiceType_A6:   // deprecates AAAA
         data = NSSocketAddressDataForNetworkOrderAddressBytesAndPort(
-            rdata, 16, htons(_port), interface);
+                rdata, 16, htons(_port), interface);
         break;
     }
 
@@ -175,9 +175,9 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
 
     case bonjour_kDNSServiceType_A: // 1 -- AF_INET
         [self addAddress: rdata
-                    length: rdlen
-                      type: rrtype
-            interfaceIndex: interfaceIndex];
+                        length: rdlen
+                          type: rrtype
+                interfaceIndex: interfaceIndex];
         break;
 
     case bonjour_kDNSServiceType_NS:
@@ -220,9 +220,9 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
 
     case bonjour_kDNSServiceType_AAAA: // 28 -- AF_INET6
         [self addAddress: rdata
-                    length: rdlen
-                      type: rrtype
-            interfaceIndex: interfaceIndex];
+                        length: rdlen
+                          type: rrtype
+                interfaceIndex: interfaceIndex];
         break;
 
     case bonjour_kDNSServiceType_LOC:
@@ -239,9 +239,9 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
 
     case bonjour_kDNSServiceType_A6: // 38 -- AF_INET6, deprecates AAAA
         [self addAddress: rdata
-                    length: rdlen
-                      type: rrtype
-            interfaceIndex: interfaceIndex];
+                        length: rdlen
+                          type: rrtype
+                interfaceIndex: interfaceIndex];
         break;
 
     case bonjour_kDNSServiceType_DNAME:
@@ -281,7 +281,7 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
             [self _didResolveAddress];
         else
             [self _didNotResolve: bonjour_CreateError(
-                                      self, NSNetServicesNotFoundError)];
+                                          self, NSNetServicesNotFoundError)];
     }
 }
 
@@ -344,9 +344,9 @@ QueryCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 
     // Prepare query for A and/or AAAA record
     errorCode = bonjour_DNSServiceQueryRecord(
-        &_netService, 0, _interfaceIndex, [_host UTF8String],
-        bonjour_kDNSServiceType_ANY, bonjour_kDNSServiceClass_IN, QueryCallback,
-        self);
+            &_netService, 0, _interfaceIndex, [_host UTF8String],
+            bonjour_kDNSServiceType_ANY, bonjour_kDNSServiceClass_IN,
+            QueryCallback, self);
 
     if (bonjour_kDNSServiceErr_NoError != errorCode) {
         [self _invalidateNetService];
@@ -411,7 +411,7 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 
     if (selectEvent & NSSelectReadEvent) {
         bonjour_DNSServiceErrorType err =
-            bonjour_DNSServiceProcessResult(_netService);
+                bonjour_DNSServiceProcessResult(_netService);
 
         if (err != bonjour_kDNSServiceErr_NoError) {
             if (_isPublishing)
@@ -496,7 +496,8 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
     }
 
     NSData *result =
-        (i < count) ? nil
+            (i < count)
+                    ? nil
                     : [NSData dataWithBytes: bonjour_TXTRecordGetBytesPtr(&txt)
                                      length: bonjour_TXTRecordGetLength(&txt)];
 
@@ -531,11 +532,11 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                 uint8_t valLen = 0;
                 const void *value = NULL;
                 bonjour_DNSServiceErrorType err =
-                    bonjour_kDNSServiceErr_NoError;
+                        bonjour_kDNSServiceErr_NoError;
 
                 err = bonjour_TXTRecordGetItemAtIndex(
-                    len, txt, i, sizeof keyCString, keyCString, &valLen,
-                    &value);
+                        len, txt, i, sizeof keyCString, keyCString, &valLen,
+                        &value);
 
                 // only if we can get the keyCString and value...
                 if (bonjour_kDNSServiceErr_NoError == err) {
@@ -655,9 +656,9 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
         }
 
         err = bonjour_DNSServiceRegister(
-            &_netService, flags, _interfaceIndex, [_name UTF8String],
-            [_type UTF8String], [_domain UTF8String], NULL, htons(_port), 0,
-            NULL, RegistrationCallback, self);
+                &_netService, flags, _interfaceIndex, [_name UTF8String],
+                [_type UTF8String], [_domain UTF8String], NULL, htons(_port), 0,
+                NULL, RegistrationCallback, self);
     }
 
     if (err != bonjour_kDNSServiceErr_NoError) {
@@ -698,17 +699,18 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
             _resolverTimeout = nil;
         }
 
-        err = bonjour_DNSServiceResolve(
-            &_netService, flags, _interfaceIndex, [_name UTF8String],
-            [_type UTF8String], [_domain UTF8String], ResolverCallback, self);
+        err = bonjour_DNSServiceResolve(&_netService, flags, _interfaceIndex,
+                                        [_name UTF8String], [_type UTF8String],
+                                        [_domain UTF8String], ResolverCallback,
+                                        self);
 
         if (err == bonjour_kDNSServiceErr_NoError) {
             _resolverTimeout = [[NSTimer
-                scheduledTimerWithTimeInterval: timeout
-                                        target: self
-                                      selector: @selector(stopResolving:)
-                                      userInfo: nil
-                                       repeats: NO] retain];
+                    scheduledTimerWithTimeInterval: timeout
+                                            target: self
+                                          selector: @selector(stopResolving:)
+                                          userInfo: nil
+                                           repeats: NO] retain];
         }
     }
 
@@ -742,18 +744,18 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
         err = NSNetServicesActivityInProgress;
     else {
         NSString *fullname =
-            [NSString stringWithFormat: @"%@.%@%@", [self name], [self type],
-                                        [self domain]];
+                [NSString stringWithFormat: @"%@.%@%@", [self name],
+                                            [self type], [self domain]];
 
         err = bonjour_DNSServiceQueryRecord(
-            &_netService, bonjour_kDNSServiceFlagsLongLivedQuery, 0,
-            [fullname UTF8String], bonjour_kDNSServiceType_TXT,
-            bonjour_kDNSServiceClass_IN, QueryCallback, self);
+                &_netService, bonjour_kDNSServiceFlagsLongLivedQuery, 0,
+                [fullname UTF8String], bonjour_kDNSServiceType_TXT,
+                bonjour_kDNSServiceClass_IN, QueryCallback, self);
 
         if (bonjour_kDNSServiceErr_NoError == err) {
             NSSocket *socket = [[NSSocket alloc]
-                initWithFileDescriptor: bonjour_DNSServiceRefSockFD(
-                                            _netService)];
+                    initWithFileDescriptor: bonjour_DNSServiceRefSockFD(
+                                                    _netService)];
 
             _inputSource = [[NSSelectInputSource alloc] initWithSocket: socket];
             [socket release];
@@ -816,7 +818,7 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
     // I must admit, the following may not be entirely correct...
 
     NSDictionary *dictionary =
-        [NSNetService dictionaryFromTXTRecordData: [self TXTRecordData]];
+            [NSNetService dictionaryFromTXTRecordData: [self TXTRecordData]];
 
     if (dictionary) {
         NSEnumerator *keys = [dictionary keyEnumerator];
@@ -828,13 +830,14 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
             id value = [dictionary objectForKey: key];
 
             if (value != [NSNull null]) {
-                [array
-                    addObject: [NSString
-                                   stringWithFormat:
-                                       @"%@=%@", key,
-                                       [NSString
-                                           stringWithCString: [value bytes]
-                                                      length: [value length]]]];
+                [array addObject:
+                                [NSString
+                                        stringWithFormat:
+                                                @"%@=%@", key,
+                                                [NSString
+                                                        stringWithCString:
+                                                                [value bytes]
+                                                                   length: [value length]]]];
             } else if ([key length]) {
                 [array addObject: [NSString stringWithFormat: @"%@", key]];
             }
@@ -853,19 +856,20 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 
     if (count > 0) {
         NSMutableDictionary *dictionary =
-            [NSMutableDictionary dictionaryWithCapacity: count];
+                [NSMutableDictionary dictionaryWithCapacity: count];
 
         for (i = 0; i < count; i++) {
-            NSArray *parts =
-                [[array objectAtIndex: i] componentsSeparatedByString: @"="];
+            NSArray *parts = [[array objectAtIndex: i]
+                    componentsSeparatedByString: @"="];
 
-            [dictionary setObject: [[parts objectAtIndex: 1]
+            [dictionary
+                    setObject: [[parts objectAtIndex: 1]
                                        dataUsingEncoding: NSUTF8StringEncoding]
-                           forKey: [parts objectAtIndex: 0]];
+                       forKey: [parts objectAtIndex: 0]];
         }
 
-        [self setTXTRecordData: [NSNetService
-                                    dataFromTXTRecordDictionary: dictionary]];
+        [self setTXTRecordData:
+                        [NSNetService dataFromTXTRecordDictionary: dictionary]];
     }
 }
 
@@ -889,8 +893,8 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 
         // Now update the record so others can pick it up
         err = bonjour_DNSServiceUpdateRecord(
-            _netService, NULL, 0, recordData ? [recordData length] : 0,
-            recordData ? [recordData bytes] : NULL, 0);
+                _netService, NULL, 0, recordData ? [recordData length] : 0,
+                recordData ? [recordData bytes] : NULL, 0);
         if (err) {
             result = NO;
         }
@@ -1033,7 +1037,7 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 
 - (void) _didStopSearch {
     if ([_delegate
-            respondsToSelector: @selector(netServiceBrowserDidStopSearch:)])
+                respondsToSelector: @selector(netServiceBrowserDidStopSearch:)])
         [_delegate netServiceBrowserDidStopSearch: self];
 }
 
@@ -1083,8 +1087,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
     if (bonjour_kDNSServiceErr_NoError == err) {
         [self _willSearch];
         NSSocket *socket = [[NSSocket alloc]
-            initWithFileDescriptor: bonjour_DNSServiceRefSockFD(
-                                        _netServiceBrowser)];
+                initWithFileDescriptor: bonjour_DNSServiceRefSockFD(
+                                                _netServiceBrowser)];
 
         _inputSource = [[NSSelectInputSource alloc] initWithSocket: socket];
         [socket release];
@@ -1202,7 +1206,7 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
     if (selectEvent & NSSelectReadEvent) {
 
         bonjour_DNSServiceErrorType err =
-            bonjour_DNSServiceProcessResult(_netServiceBrowser);
+                bonjour_DNSServiceProcessResult(_netServiceBrowser);
 
         if (err != bonjour_kDNSServiceErr_NoError) {
             [self _didNotSearch: bonjour_CreateError(self, err)];
@@ -1246,9 +1250,10 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
     else if (_inputSource)
         err = NSNetServicesActivityInProgress;
     else {
-        err = bonjour_DNSServiceBrowse(
-            &_netServiceBrowser, 0, _interfaceIndex, [serviceType UTF8String],
-            [domainName UTF8String], BrowserCallback, self);
+        err = bonjour_DNSServiceBrowse(&_netServiceBrowser, 0, _interfaceIndex,
+                                       [serviceType UTF8String],
+                                       [domainName UTF8String], BrowserCallback,
+                                       self);
     }
 
     [self executeWithError: err];

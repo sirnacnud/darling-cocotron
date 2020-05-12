@@ -41,18 +41,18 @@
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
         if ([_source isKindOfClass: [NSControl class]]) {
             [nc addObserver: self
-                   selector: @selector(textDidEndEditing:)
-                       name: NSControlTextDidEndEditingNotification
-                     object: _source];
+                    selector: @selector(textDidEndEditing:)
+                        name: NSControlTextDidEndEditingNotification
+                      object: _source];
             [nc addObserver: self
-                   selector: @selector(textDidBeginEditing:)
-                       name: NSControlTextDidBeginEditingNotification
-                     object: _source];
+                    selector: @selector(textDidBeginEditing:)
+                        name: NSControlTextDidBeginEditingNotification
+                      object: _source];
             if ([self continuouslyUpdatesValue])
                 [nc addObserver: self
-                       selector: @selector(textDidChange:)
-                           name: NSControlTextDidChangeNotification
-                         object: _source];
+                        selector: @selector(textDidChange:)
+                            name: NSControlTextDidChangeNotification
+                          object: _source];
         }
     }
 }
@@ -90,7 +90,7 @@
             [_destination objectDidEndEditing: self];
         if ([_source respondsToSelector: @selector(window)]) {
             NSDocument *document =
-                [[[_source window] windowController] document];
+                    [[[_source window] windowController] document];
             if (document)
                 [document objectDidEndEditing: self];
         }

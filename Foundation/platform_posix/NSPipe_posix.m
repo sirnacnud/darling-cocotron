@@ -35,9 +35,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                          @"pipe() failed: %s", strerror(errno));
 
     _fileHandleForReading =
-        [[NSFileHandle_posix alloc] initWithFileDescriptor: fds[0]];
+            [[NSFileHandle_posix alloc] initWithFileDescriptor: fds[0]];
     _fileHandleForWriting =
-        [[NSFileHandle_posix alloc] initWithFileDescriptor: fds[1]];
+            [[NSFileHandle_posix alloc] initWithFileDescriptor: fds[1]];
 
     return self;
 }
@@ -51,12 +51,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[0x%lx] readfd: %d writefd: %d>",
-                          [[self class] description], self,
-                          [(NSFileHandle_posix *)
-                                  _fileHandleForReading fileDescriptor],
-                          [(NSFileHandle_posix *)
-                                  _fileHandleForWriting fileDescriptor]];
+            stringWithFormat: @"<%@[0x%lx] readfd: %d writefd: %d>",
+                              [[self class] description], self,
+                              [(NSFileHandle_posix *) _fileHandleForReading
+                                      fileDescriptor],
+                              [(NSFileHandle_posix *) _fileHandleForWriting
+                                      fileDescriptor]];
 }
 
 - (NSFileHandle *) fileHandleForReading {

@@ -66,11 +66,11 @@ enum {
           customSelector: (SEL) selector;
 
 + (NSPredicate *)
-    predicateWithLeftExpression: (NSExpression *) left
-                rightExpression: (NSExpression *) right
-                       modifier: (NSComparisonPredicateModifier) modifier
-                           type: (NSPredicateOperatorType) type
-                        options: (NSUInteger) options;
+        predicateWithLeftExpression: (NSExpression *) left
+                    rightExpression: (NSExpression *) right
+                           modifier: (NSComparisonPredicateModifier) modifier
+                               type: (NSPredicateOperatorType) type
+                            options: (NSUInteger) options;
 + (NSPredicate *) predicateWithLeftExpression: (NSExpression *) left
                               rightExpression: (NSExpression *) right
                                customSelector: (SEL) selector;

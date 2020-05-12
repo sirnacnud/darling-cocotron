@@ -37,7 +37,7 @@ CGAffineTransform CGAffineTransformMake(CGFloat a, CGFloat b, CGFloat c,
 
 CGAffineTransform CGAffineTransformMakeRotation(CGFloat radians) {
     CGAffineTransform xform = {
-        cos(radians), sin(radians), -sin(radians), cos(radians), 0, 0};
+            cos(radians), sin(radians), -sin(radians), cos(radians), 0, 0};
     return xform;
 }
 

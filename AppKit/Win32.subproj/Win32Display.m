@@ -133,20 +133,20 @@ static DWORD WINAPI runWaitCursor(LPVOID arg) {
     // bundled application fonts - returns nil if the path is not specified so
     // the original code path is followed
     NSString *fontsDir = [[NSBundle mainBundle]
-        objectForInfoDictionaryKey: @"ATSApplicationFontsPath"];
+            objectForInfoDictionaryKey: @"ATSApplicationFontsPath"];
 
     NSArray *ttfPaths =
-        [[NSBundle mainBundle] pathsForResourcesOfType: @"ttf"
-                                           inDirectory: fontsDir];
+            [[NSBundle mainBundle] pathsForResourcesOfType: @"ttf"
+                                               inDirectory: fontsDir];
     NSArray *TTFPaths =
-        [[NSBundle mainBundle] pathsForResourcesOfType: @"TTF"
-                                           inDirectory: fontsDir];
+            [[NSBundle mainBundle] pathsForResourcesOfType: @"TTF"
+                                               inDirectory: fontsDir];
     NSArray *otfPaths =
-        [[NSBundle mainBundle] pathsForResourcesOfType: @"otf"
-                                           inDirectory: fontsDir];
+            [[NSBundle mainBundle] pathsForResourcesOfType: @"otf"
+                                               inDirectory: fontsDir];
     NSArray *OTFPaths =
-        [[NSBundle mainBundle] pathsForResourcesOfType: @"OTF"
-                                           inDirectory: fontsDir];
+            [[NSBundle mainBundle] pathsForResourcesOfType: @"OTF"
+                                               inDirectory: fontsDir];
 
     NSMutableArray *allPaths = [NSMutableArray arrayWithCapacity: 100];
     [allPaths addObjectsFromArray: ttfPaths];
@@ -211,8 +211,8 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
     visibleFrame.origin.y = NSHeight(frame) - NSHeight(visibleFrame);
 
     NSScreen *screen =
-        [[[NSScreen alloc] initWithFrame: frame
-                            visibleFrame: visibleFrame] autorelease];
+            [[[NSScreen alloc] initWithFrame: frame
+                                visibleFrame: visibleFrame] autorelease];
 
     if (info.dwFlags & MONITORINFOF_PRIMARY)
         [array insertObject: screen atIndex: 0];
@@ -237,10 +237,10 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
         NSRect frame = NSMakeRect(0, 0, GetSystemMetrics(SM_CXSCREEN),
                                   GetSystemMetrics(SM_CYSCREEN));
 
-        return
-            [NSArray arrayWithObject: [[[NSScreen alloc] initWithFrame: frame
-                                                          visibleFrame: frame]
-                                          autorelease]];
+        return [NSArray
+                arrayWithObject: [[[NSScreen alloc] initWithFrame: frame
+                                                     visibleFrame: frame]
+                                         autorelease]];
     }
 }
 
@@ -297,45 +297,45 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
         NSString *name;
         int value;
     } table[] = {
-        {@"controlBackgroundColor", COLOR_WINDOW},
-        {@"controlColor", COLOR_3DFACE},
-        {@"controlDarkShadowColor", COLOR_3DDKSHADOW},
-        {@"controlHighlightColor", COLOR_3DLIGHT},
-        {@"controlLightHighlightColor", COLOR_3DHILIGHT},
-        {@"controlShadowColor", COLOR_3DSHADOW},
-        {@"controlTextColor", COLOR_BTNTEXT},
-        //  { @"disabledControlTextColor", COLOR_3DSHADOW },
-        {@"disabledControlTextColor", COLOR_GRAYTEXT},
-        {@"highlightColor", COLOR_3DHILIGHT},
-        {@"knobColor", COLOR_3DFACE},
-        {@"scrollBarColor", COLOR_SCROLLBAR},
-        {@"selectedControlColor", COLOR_HIGHLIGHT},
-        {@"selectedControlTextColor", COLOR_HIGHLIGHTTEXT},
-        {@"selectedKnobColor", COLOR_HIGHLIGHT},
-        {@"selectedTextBackgroundColor", COLOR_HIGHLIGHT},
-        {@"selectedTextColor", COLOR_HIGHLIGHTTEXT},
-        {@"shadowColor", COLOR_3DDKSHADOW},
-        {@"textBackgroundColor", COLOR_WINDOW},
-        {@"textColor", COLOR_WINDOWTEXT},
-        {@"gridColor", COLOR_INACTIVEBORDER}, // what should this be?
-        {@"headerColor", COLOR_3DFACE}, // these do not appear in the user-space
-                                        // System color list,
-        {@"headerTextColor",
-         COLOR_BTNTEXT}, // probably because Apple builds that off System.clr
-        {@"alternateSelectedControlColor", COLOR_WINDOW},         // FIXME:
-        {@"alternateSelectedControlTextColor", COLOR_WINDOWTEXT}, // FIXME:
-        {@"secondarySelectedControlColor", COLOR_HIGHLIGHT},      // FIXME:
-        {@"keyboardFocusIndicatorColor", COLOR_ACTIVEBORDER},     // FIXME:
-        {@"windowFrameColor", COLOR_WINDOWFRAME},                 // FIXME:
-        {@"selectedMenuItemColor", 29 /* COLOR_MENUHILIGHT */},   // FIXME:
-        {@"selectedMenuItemTextColor", COLOR_HIGHLIGHTTEXT},      // FIXME:
-                                                                  // extensions
-        {@"menuBackgroundColor", COLOR_MENU},
-        {@"mainMenuBarColor", 30},
-        {@"menuItemTextColor", COLOR_MENUTEXT},
-        {@"_sourceListBackgroundColor", COLOR_WINDOW},
+            {@"controlBackgroundColor", COLOR_WINDOW},
+            {@"controlColor", COLOR_3DFACE},
+            {@"controlDarkShadowColor", COLOR_3DDKSHADOW},
+            {@"controlHighlightColor", COLOR_3DLIGHT},
+            {@"controlLightHighlightColor", COLOR_3DHILIGHT},
+            {@"controlShadowColor", COLOR_3DSHADOW},
+            {@"controlTextColor", COLOR_BTNTEXT},
+            //  { @"disabledControlTextColor", COLOR_3DSHADOW },
+            {@"disabledControlTextColor", COLOR_GRAYTEXT},
+            {@"highlightColor", COLOR_3DHILIGHT},
+            {@"knobColor", COLOR_3DFACE},
+            {@"scrollBarColor", COLOR_SCROLLBAR},
+            {@"selectedControlColor", COLOR_HIGHLIGHT},
+            {@"selectedControlTextColor", COLOR_HIGHLIGHTTEXT},
+            {@"selectedKnobColor", COLOR_HIGHLIGHT},
+            {@"selectedTextBackgroundColor", COLOR_HIGHLIGHT},
+            {@"selectedTextColor", COLOR_HIGHLIGHTTEXT},
+            {@"shadowColor", COLOR_3DDKSHADOW},
+            {@"textBackgroundColor", COLOR_WINDOW},
+            {@"textColor", COLOR_WINDOWTEXT},
+            {@"gridColor", COLOR_INACTIVEBORDER}, // what should this be?
+            {@"headerColor", COLOR_3DFACE},       // these do not appear in the
+                                            // user-space System color list,
+            {@"headerTextColor", COLOR_BTNTEXT}, // probably because Apple
+                                                 // builds that off System.clr
+            {@"alternateSelectedControlColor", COLOR_WINDOW},         // FIXME:
+            {@"alternateSelectedControlTextColor", COLOR_WINDOWTEXT}, // FIXME:
+            {@"secondarySelectedControlColor", COLOR_HIGHLIGHT},      // FIXME:
+            {@"keyboardFocusIndicatorColor", COLOR_ACTIVEBORDER},     // FIXME:
+            {@"windowFrameColor", COLOR_WINDOWFRAME},                 // FIXME:
+            {@"selectedMenuItemColor", 29 /* COLOR_MENUHILIGHT */},   // FIXME:
+            {@"selectedMenuItemTextColor", COLOR_HIGHLIGHTTEXT},      // FIXME:
+                                                                 // extensions
+            {@"menuBackgroundColor", COLOR_MENU},
+            {@"mainMenuBarColor", 30},
+            {@"menuItemTextColor", COLOR_MENUTEXT},
+            {@"_sourceListBackgroundColor", COLOR_WINDOW},
 
-        {nil, 0}};
+            {nil, 0}};
     int i;
     CGColorSpaceRef colorSpace = [[O2ColorSpace alloc] initWithPlatformRGB];
 
@@ -450,15 +450,15 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
     [self stopWaitCursor];
 
     do {
-        result =
-            [super nextEventMatchingMask: mask | NSPlatformSpecificDisplayMask
-                               untilDate: untilDate
-                                  inMode: mode
-                                 dequeue: dequeue];
+        result = [super
+                nextEventMatchingMask: mask | NSPlatformSpecificDisplayMask
+                            untilDate: untilDate
+                               inMode: mode
+                              dequeue: dequeue];
 
         if ([result type] == NSPlatformSpecificDisplayEvent) {
             Win32Event *win32Event = (Win32Event *) [(
-                NSEvent_CoreGraphics *) result coreGraphicsEvent];
+                    NSEvent_CoreGraphics *) result coreGraphicsEvent];
             MSG msg = [win32Event msg];
 
             DispatchMessageW(&msg);
@@ -888,8 +888,8 @@ perhaps passing the windows values through.
         bufferSize = 1;
     } else {
         BOOL isCtrlAlt =
-            (modifierFlags & (NSCommandKeyMask | NSAlternateKeyMask)) ==
-            (NSCommandKeyMask | NSAlternateKeyMask);
+                (modifierFlags & (NSCommandKeyMask | NSAlternateKeyMask)) ==
+                (NSCommandKeyMask | NSAlternateKeyMask);
         BOOL isCtrl = (modifierFlags & NSCommandKeyMask) == NSCommandKeyMask;
         if (isCtrl == NO || isCtrlAlt == YES) {
             // Not a shortcut - use the normal char composing path
@@ -920,8 +920,8 @@ perhaps passing the windows values through.
             }
             if (ignoringBufferSize > 0) {
                 NSString *str = [[[NSString alloc]
-                    initWithCharacters: ignoringBuffer
-                                length: ignoringBufferSize] autorelease];
+                        initWithCharacters: ignoringBuffer
+                                    length: ignoringBufferSize] autorelease];
                 [_ignoringModifiersString appendString: str];
             }
 
@@ -936,7 +936,7 @@ perhaps passing the windows values through.
 
     // Let's save the current keyCode
     _keyCode =
-        appleKeyCodeForWindowsKeyCode(msg.wParam, msg.lParam, &_isKeypad);
+            appleKeyCodeForWindowsKeyCode(msg.wParam, msg.lParam, &_isKeypad);
 
     if (bufferSize == 0) {
         // clang-format off
@@ -1040,10 +1040,10 @@ perhaps passing the windows values through.
         NSEvent *event;
         BOOL isKeypad;
 
-        NSString *characters = (bufferSize > 0)
-                                   ? [NSString stringWithCharacters: buffer
-                                                             length: bufferSize]
-                                   : @"";
+        NSString *characters =
+                (bufferSize > 0) ? [NSString stringWithCharacters: buffer
+                                                           length: bufferSize]
+                                 : @"";
         NSString *charactersIgnoringModifiers = _ignoringModifiersString;
         // Only send the event if we have something to send
         if (characters.length > 0 || charactersIgnoringModifiers.length > 0) {
@@ -1053,18 +1053,17 @@ perhaps passing the windows values through.
             if (_isKeypad) {
                 modifierFlags |= NSNumericPadKeyMask;
             }
-            event = [NSEvent
-                           keyEventWithType: type
-                                   location: location
-                              modifierFlags: modifierFlags
-                                  timestamp: [NSDate
-                                                 timeIntervalSinceReferenceDate]
-                               windowNumber: [window windowNumber]
-                                    context: nil
-                                 characters: characters
-                charactersIgnoringModifiers: charactersIgnoringModifiers
-                                  isARepeat: isARepeat
-                                    keyCode: _keyCode];
+            event = [NSEvent keyEventWithType: type
+                                       location: location
+                                  modifierFlags: modifierFlags
+                                      timestamp:
+                                              [NSDate timeIntervalSinceReferenceDate]
+                                   windowNumber: [window windowNumber]
+                                        context: nil
+                                     characters: characters
+                    charactersIgnoringModifiers: charactersIgnoringModifiers
+                                      isARepeat: isARepeat
+                                        keyCode: _keyCode];
             [self postEvent: event atStart: NO];
 
             [_ignoringModifiersString release];
@@ -1209,8 +1208,9 @@ NSArray *CGSOrderedWindowNumbers() {
         Win32Window *platformWindow = GetProp(check, "Win32Window");
 
         if (platformWindow != nil)
-            [result addObject: [NSNumber numberWithInteger: [platformWindow
-                                                                windowNumber]]];
+            [result addObject: [NSNumber
+                                       numberWithInteger:
+                                               [platformWindow windowNumber]]];
 
         check = GetNextWindow(check, GW_HWNDNEXT);
     }
@@ -1366,8 +1366,8 @@ static HWND findWindowForScrollWheel(POINT point) {
     case WM_NCMBUTTONDBLCLK: {
         Win32Event *cgEvent = [Win32Event eventWithMSG: msg];
         NSEvent *event = [[[NSEvent_CoreGraphics alloc]
-            initWithCoreGraphicsEvent: cgEvent
-                               window: window] autorelease];
+                initWithCoreGraphicsEvent: cgEvent
+                                   window: window] autorelease];
         [self postEvent: event atStart: NO];
     }
         return YES;
@@ -1465,8 +1465,8 @@ static int CALLBACK buildFamily(const const EXTLOGFONTW *logFont,
     NSMutableSet *set = (NSMutableSet *) lParam;
     //   NSString     *name=[NSString stringWithCString:logFont->elfFullName];
     if (logFont && logFont->elfLogFont.lfFaceName) {
-        NSString *name =
-            [NSString stringWithFormat: @"%S", logFont->elfLogFont.lfFaceName];
+        NSString *name = [NSString
+                stringWithFormat: @"%S", logFont->elfLogFont.lfFaceName];
         // Font name starting with "@" are rotated versions of the font, for
         // vertical rendering We don't want them - the are polluting our font
         // list + they have the same PS name as the normal ones, leading to
@@ -1496,8 +1496,8 @@ static NSFontMetric *
 fontMetricWithLogicalAndMetric(const ENUMLOGFONTEX *logFont,
                                const NEWTEXTMETRICEX *textMetric)
 {
-    NSSize size =
-        NSMakeSize(logFont->elfLogFont.lfWidth, logFont->elfLogFont.lfHeight);
+    NSSize size = NSMakeSize(logFont->elfLogFont.lfWidth,
+                             logFont->elfLogFont.lfHeight);
     CGFloat ascender = textMetric->ntmTm.tmAscent;
     CGFloat descender = -((CGFloat) textMetric->ntmTm.tmDescent);
 
@@ -1514,9 +1514,9 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
     LPENUMLOGFONTEX logFont = (LPENUMLOGFONTEX) lofFont_old;
     NEWTEXTMETRICEX *textMetric = (NEWTEXTMETRICEX *) textMetric_old;
     NSString *name =
-        [NSString stringWithCString: (char *) (logFont->elfFullName)];
+            [NSString stringWithCString: (char *) (logFont->elfFullName)];
     NSString *traitName =
-        [NSString stringWithCString: (char *) logFont->elfStyle];
+            [NSString stringWithCString: (char *) logFont->elfStyle];
     // NSString       *encoding=[NSString stringWithCString:logFont->elfScript];
     NSFontTypeface *typeface = [result objectForKey: name];
 
@@ -1574,7 +1574,7 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
 
     setup.lStructSize = sizeof(PAGESETUPDLG);
     setup.hwndOwner =
-        [(Win32Window *) [[NSApp mainWindow] platformWindow] windowHandle];
+            [(Win32Window *) [[NSApp mainWindow] platformWindow] windowHandle];
     setup.hDevMode = NULL;
     setup.hDevNames = NULL;
     setup.Flags = PSD_INTHOUSANDTHSOFINCHES;
@@ -1615,7 +1615,7 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
 }
 
 - (int) runModalPrintPanelWithPrintInfoDictionary:
-    (NSMutableDictionary *) attributes
+        (NSMutableDictionary *) attributes
 {
     NSView *view = [attributes objectForKey: @"_NSView"];
     PRINTDLG printProperties;
@@ -1647,22 +1647,22 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
 
     printProperties.lStructSize = sizeof(PRINTDLG);
     printProperties.hwndOwner =
-        [(Win32Window *) [[view window] platformWindow] windowHandle];
+            [(Win32Window *) [[view window] platformWindow] windowHandle];
     printProperties.hDevMode = devMode;
     printProperties.hDevNames = NULL;
     printProperties.hDC = NULL;
     printProperties.Flags = PD_RETURNDC | PD_COLLATE;
 
     printProperties.nFromPage =
-        [[attributes objectForKey: NSPrintFirstPage] intValue];
+            [[attributes objectForKey: NSPrintFirstPage] intValue];
     printProperties.nToPage =
-        [[attributes objectForKey: NSPrintLastPage] intValue];
+            [[attributes objectForKey: NSPrintLastPage] intValue];
     printProperties.nMinPage =
-        [[attributes objectForKey: NSPrintFirstPage] intValue];
+            [[attributes objectForKey: NSPrintFirstPage] intValue];
     printProperties.nMaxPage =
-        [[attributes objectForKey: NSPrintLastPage] intValue];
+            [[attributes objectForKey: NSPrintLastPage] intValue];
     printProperties.nCopies =
-        [[attributes objectForKey: NSPrintCopies] intValue];
+            [[attributes objectForKey: NSPrintCopies] intValue];
     printProperties.hInstance = NULL;
     printProperties.lCustData = 0;
     printProperties.lpfnPrintHook = NULL;
@@ -1682,11 +1682,11 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
         return NSCancelButton;
     else {
         NSDictionary *auxiliaryInfo = [NSDictionary
-            dictionaryWithObject: [attributes objectForKey: @"_title"]
-                          forKey: (id) kCGPDFContextTitle];
+                dictionaryWithObject: [attributes objectForKey: @"_title"]
+                              forKey: (id) kCGPDFContextTitle];
         O2Context_gdi *context = [[[O2Context_gdi alloc]
-            initWithPrinterDC: printProperties.hDC
-                auxiliaryInfo: auxiliaryInfo] autorelease];
+                initWithPrinterDC: printProperties.hDC
+                    auxiliaryInfo: auxiliaryInfo] autorelease];
         NSRect imageable;
 
         if ([context getImageableRect: &imageable])
@@ -1698,8 +1698,8 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
         [attributes setObject: [NSValue valueWithSize: [context pointSize]]
                        forKey: NSPrintPaperSize];
         [attributes
-            setObject: [NSNumber numberWithInt: printProperties.nFromPage]
-               forKey: NSPrintFirstPage];
+                setObject: [NSNumber numberWithInt: printProperties.nFromPage]
+                   forKey: NSPrintFirstPage];
         [attributes setObject: [NSNumber numberWithInt: printProperties.nToPage]
                        forKey: NSPrintLastPage];
 
@@ -1707,7 +1707,7 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
         // paper area, like Cocoa does - so translate the context to make
         // Cocotron happy
         O2AffineTransform translation = O2AffineTransformMakeTranslation(
-            -imageable.origin.x, -imageable.origin.y);
+                -imageable.origin.x, -imageable.origin.y);
         O2ContextConcatCTM(context, translation);
     }
 
@@ -1715,16 +1715,16 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
 }
 
 - (int) savePanel: (NSSavePanel *) savePanel
-    runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file
+        runModalForDirectory: (NSString *) directory
+                        file: (NSString *) file
 {
     return [savePanel _GetOpenFileName];
 }
 
 - (int) openPanel: (NSOpenPanel *) openPanel
-    runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file
-                   types: (NSArray *) types
+        runModalForDirectory: (NSString *) directory
+                        file: (NSString *) file
+                       types: (NSArray *) types
 {
     if ([openPanel canChooseDirectories])
         return [openPanel _SHBrowseForFolder: directory];

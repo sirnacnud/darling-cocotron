@@ -93,21 +93,21 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
         return [NSNumber numberWithLongLong: *(long long *) value];
     case 'Q':
         return [NSNumber
-            numberWithUnsignedLongLong: *(unsigned long long *) value];
+                numberWithUnsignedLongLong: *(unsigned long long *) value];
     default:
         // FIX #warning some wrapping types unimplemented
         [NSException
-             raise: NSInvalidArgumentException
-            format: @"FIXME: wrap value of type %s unimplemented for get",
-                    type];
+                 raise: NSInvalidArgumentException
+                format: @"FIXME: wrap value of type %s unimplemented for get",
+                        type];
         return nil;
     }
 }
 
 - (BOOL) _setValue: (id) value
-          toBuffer: (void *) buffer
-            ofType: (const char *) type
-      shouldRetain: (BOOL) shouldRetain
+            toBuffer: (void *) buffer
+              ofType: (const char *) type
+        shouldRetain: (BOOL) shouldRetain
 {
     char *cleanType = __builtin_alloca(strlen(type) + 1);
     [self _demangleTypeEncoding: type to: cleanType];
@@ -166,9 +166,9 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
     default:
         // FIX #warning some wrapping types unimplemented
         [NSException
-             raise: NSInvalidArgumentException
-            format: @"FIXME: wrap value of type %s unimplemented for set",
-                    type];
+                 raise: NSInvalidArgumentException
+                format: @"FIXME: wrap value of type %s unimplemented for set",
+                        type];
         return NO;
     }
 }
@@ -305,8 +305,8 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
     }
 
     BOOL shouldNotify =
-        [[self class] automaticallyNotifiesObserversForKey: key] &&
-        [self _hasObserverForKey: key];
+            [[self class] automaticallyNotifiesObserversForKey: key] &&
+            [self _hasObserverForKey: key];
     if (shouldNotify == YES) {
     }
     if ([[self class] accessInstanceVariablesDirectly]) {
@@ -346,9 +346,9 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
                 [self setNilValueForKey: key];
             } else {
                 [self _setValue: value
-                        toBuffer: (void *) self + ivar_getOffset(ivar)
-                          ofType: ivar_getTypeEncoding(ivar)
-                    shouldRetain: YES];
+                            toBuffer: (void *) self + ivar_getOffset(ivar)
+                              ofType: ivar_getTypeEncoding(ivar)
+                        shouldRetain: YES];
             }
             if (shouldNotify) {
                 [self didChangeValueForKey: key];
@@ -373,10 +373,10 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
                  error: (NSError **) outError
 {
     SEL sel = NSSelectorFromString([NSString
-        stringWithFormat: @"validate%@:error:", [key capitalizedString]]);
+            stringWithFormat: @"validate%@:error:", [key capitalizedString]]);
     if ([self respondsToSelector: sel]) {
         id inv = [NSInvocation invocationWithMethodSignature:
-                                   [self methodSignatureForSelector: sel]];
+                                       [self methodSignatureForSelector: sel]];
         [inv setSelector: sel];
         [inv setTarget: self];
         [inv setArgument: ioValue atIndex: 2];
@@ -394,16 +394,16 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 }
 
 - valueForUndefinedKey: (NSString *) key {
-    [NSException
-         raise: NSUndefinedKeyException
-        format: @"%@: trying to get undefined key '%@'", [self className], key];
+    [NSException raise: NSUndefinedKeyException
+                format: @"%@: trying to get undefined key '%@'",
+                        [self className], key];
     return nil;
 }
 
 - (void) setValue: (id) value forUndefinedKey: (NSString *) key {
-    [NSException
-         raise: NSUndefinedKeyException
-        format: @"%@: trying to set undefined key '%@'", [self className], key];
+    [NSException raise: NSUndefinedKeyException
+                format: @"%@: trying to set undefined key '%@'",
+                        [self className], key];
 }
 
 - (void) setNilValueForKey: key {
@@ -441,8 +441,8 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
             forKeyPath: (NSString *) keyPath
                  error: (NSError **) outError
 {
-    id array =
-        [[[keyPath componentsSeparatedByString: @"."] mutableCopy] autorelease];
+    id array = [[[keyPath componentsSeparatedByString: @"."] mutableCopy]
+            autorelease];
     id lastPathComponent = [array lastObject];
     [array removeObject: lastPathComponent];
     id en = [array objectEnumerator];

@@ -29,9 +29,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithResponse: (NSURLResponse *) response
-              data: (NSData *) data
-          userInfo: (NSDictionary *) userInfo
-     storagePolicy: (NSURLCacheStoragePolicy) storagePolicy;
+                 data: (NSData *) data
+             userInfo: (NSDictionary *) userInfo
+        storagePolicy: (NSURLCacheStoragePolicy) storagePolicy;
 - initWithResponse: (NSURLResponse *) response data: (NSData *) data;
 
 - (NSURLResponse *) response;

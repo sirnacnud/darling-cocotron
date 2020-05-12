@@ -90,8 +90,8 @@ NSInteger NSRunAlertPanel(NSString *title, NSString *format,
     va_list arguments;
     va_start(arguments, otherButton);
     NSString *message =
-        [[[NSString alloc] initWithFormat: format
-                                arguments: arguments] autorelease];
+            [[[NSString alloc] initWithFormat: format
+                                    arguments: arguments] autorelease];
 
     NSPanel *panel = [[NSAlertPanel alloc] initWithTitle: title
                                                  message: message
@@ -113,8 +113,8 @@ NSInteger NSRunInformationalAlertPanel(NSString *title, NSString *format,
     va_list arguments;
     va_start(arguments, otherButton);
     NSString *message =
-        [[[NSString alloc] initWithFormat: format
-                                arguments: arguments] autorelease];
+            [[[NSString alloc] initWithFormat: format
+                                    arguments: arguments] autorelease];
 
     // FIXME: Should have a different icon.
     return NSRunAlertPanel(title, @"%@", defaultButton, alternateButton,
@@ -129,8 +129,8 @@ NSInteger NSRunCriticalAlertPanel(NSString *title, NSString *format,
     va_list arguments;
     va_start(arguments, otherButton);
     NSString *message =
-        [[[NSString alloc] initWithFormat: format
-                                arguments: arguments] autorelease];
+            [[[NSString alloc] initWithFormat: format
+                                    arguments: arguments] autorelease];
 
     // FIXME: Should have a different icon.
     return NSRunAlertPanel(title, @"%@", defaultButton, alternateButton,
@@ -146,8 +146,8 @@ void NSBeginAlertSheet(NSString *title, NSString *defaultButton,
     va_list arguments;
     va_start(arguments, format);
     NSString *message =
-        [[[NSString alloc] initWithFormat: format
-                                arguments: arguments] autorelease];
+            [[[NSString alloc] initWithFormat: format
+                                    arguments: arguments] autorelease];
 
     NSPanel *panel = [[[NSAlertPanel alloc] initWithTitle: title
                                                   message: message
@@ -157,10 +157,10 @@ void NSBeginAlertSheet(NSString *title, NSString *defaultButton,
                                                     sheet: YES] autorelease];
 
     [NSApp beginSheet: panel
-        modalForWindow: window
-         modalDelegate: modalDelegate
-        didEndSelector: didEndSelector
-           contextInfo: contextInfo];
+            modalForWindow: window
+             modalDelegate: modalDelegate
+            didEndSelector: didEndSelector
+               contextInfo: contextInfo];
 }
 
 void NSBeginCriticalAlertSheet(NSString *title, NSString *defaultButton,
@@ -172,8 +172,8 @@ void NSBeginCriticalAlertSheet(NSString *title, NSString *defaultButton,
     va_list arguments;
     va_start(arguments, format);
     NSString *message =
-        [[[NSString alloc] initWithFormat: format
-                                arguments: arguments] autorelease];
+            [[[NSString alloc] initWithFormat: format
+                                    arguments: arguments] autorelease];
 
     // FIXME: Should probably have different icon or so.
     NSBeginAlertSheet(title, defaultButton, alternateButton, otherButton,
@@ -191,8 +191,8 @@ void NSBeginInformationalAlertSheet(NSString *title, NSString *defaultButton,
     va_list arguments;
     va_start(arguments, format);
     NSString *message =
-        [[[NSString alloc] initWithFormat: format
-                                arguments: arguments] autorelease];
+            [[[NSString alloc] initWithFormat: format
+                                    arguments: arguments] autorelease];
 
     // FIXME: Should probably have different icon or so.
     NSBeginAlertSheet(title, defaultButton, alternateButton, otherButton,

@@ -164,9 +164,9 @@ static NSString *NSStringFromQueuePriority(NSOperationQueuePriority priority) {
 @end
 
 NSString *const NSInvocationOperationVoidResultException =
-    @"NSInvocationOperationVoidResultException";
+        @"NSInvocationOperationVoidResultException";
 NSString *const NSInvocationOperationCancelledException =
-    @"NSInvocationOperationCancelledException";
+        @"NSInvocationOperationCancelledException";
 
 @implementation NSInvocationOperation
 
@@ -182,9 +182,9 @@ NSString *const NSInvocationOperationCancelledException =
 
 - initWithTarget: target selector: (SEL) selector object: argument {
     NSMethodSignature *signature =
-        [target methodSignatureForSelector: selector];
+            [target methodSignatureForSelector: selector];
     NSInvocation *invocation =
-        [NSInvocation invocationWithMethodSignature: signature];
+            [NSInvocation invocationWithMethodSignature: signature];
 
     [invocation setTarget: target];
     [invocation setSelector: selector];
@@ -226,8 +226,8 @@ NSString *const NSInvocationOperationCancelledException =
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"%@, selector: %@", [super description],
-                          NSStringFromSelector([_invocation selector])];
+            stringWithFormat: @"%@, selector: %@", [super description],
+                              NSStringFromSelector([_invocation selector])];
 }
 
 @end

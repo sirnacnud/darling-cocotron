@@ -68,41 +68,41 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (void) initialize {
     [self setKeys: [NSArray arrayWithObjects: @"content", nil]
-        triggerChangeNotificationsForDependentKey: @"contentArray"];
+            triggerChangeNotificationsForDependentKey: @"contentArray"];
     [self setKeys: [NSArray arrayWithObjects: @"content", @"contentArray",
                                               @"selectionIndexes", nil]
-        triggerChangeNotificationsForDependentKey: @"selection"];
+            triggerChangeNotificationsForDependentKey: @"selection"];
     [self setKeys: [NSArray arrayWithObjects: @"content", @"contentArray",
                                               @"selectionIndexes", @"selection",
                                               nil]
-        triggerChangeNotificationsForDependentKey: @"selectionIndex"];
+            triggerChangeNotificationsForDependentKey: @"selectionIndex"];
     [self setKeys: [NSArray arrayWithObjects: @"content", @"contentArray",
                                               @"selectionIndexes", @"selection",
                                               nil]
-        triggerChangeNotificationsForDependentKey: @"selectedObjects"];
+            triggerChangeNotificationsForDependentKey: @"selectedObjects"];
 
     [self setKeys: [NSArray arrayWithObjects: @"selectionIndexes", nil]
-        triggerChangeNotificationsForDependentKey: @"canRemove"];
+            triggerChangeNotificationsForDependentKey: @"canRemove"];
     [self setKeys: [NSArray arrayWithObjects: @"selectionIndexes", nil]
-        triggerChangeNotificationsForDependentKey: @"canSelectNext"];
+            triggerChangeNotificationsForDependentKey: @"canSelectNext"];
     [self setKeys: [NSArray arrayWithObjects: @"selectionIndexes", nil]
-        triggerChangeNotificationsForDependentKey: @"canSelectPrevious"];
+            triggerChangeNotificationsForDependentKey: @"canSelectPrevious"];
 }
 
 - (id) initWithCoder: (NSCoder *) coder {
     if ((self = [super initWithCoder: coder])) {
         _flags.avoidsEmptySelection =
-            [coder decodeBoolForKey: @"NSAvoidsEmptySelection"];
+                [coder decodeBoolForKey: @"NSAvoidsEmptySelection"];
         _flags.clearsFilterPredicateOnInsertion =
-            [coder decodeBoolForKey: @"NSClearsFilterPredicateOnInsertion"];
+                [coder decodeBoolForKey: @"NSClearsFilterPredicateOnInsertion"];
         _flags.filterRestrictsInsertion =
-            [coder decodeBoolForKey: @"NSFilterRestrictsInsertion"];
+                [coder decodeBoolForKey: @"NSFilterRestrictsInsertion"];
         _flags.preservesSelection =
-            [coder decodeBoolForKey: @"NSPreservesSelection"];
+                [coder decodeBoolForKey: @"NSPreservesSelection"];
         _flags.selectsInsertedObjects =
-            [coder decodeBoolForKey: @"NSSelectsInsertedObjects"];
+                [coder decodeBoolForKey: @"NSSelectsInsertedObjects"];
         _flags.alwaysUsesMultipleValuesMarker =
-            [coder decodeBoolForKey: @"NSAlwaysUsesMultipleValuesMarker"];
+                [coder decodeBoolForKey: @"NSAlwaysUsesMultipleValuesMarker"];
 
         id declaredKeys = [coder decodeObjectForKey: @"NSDeclaredKeys"];
 
@@ -173,13 +173,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     id sortedObjects = objects;
 
     if ([self filterPredicate]) {
-        sortedObjects =
-            [sortedObjects filteredArrayUsingPredicate: [self filterPredicate]];
+        sortedObjects = [sortedObjects
+                filteredArrayUsingPredicate: [self filterPredicate]];
     }
 
     if ([self sortDescriptors]) {
-        sortedObjects =
-            [sortedObjects sortedArrayUsingDescriptors: [self sortDescriptors]];
+        sortedObjects = [sortedObjects
+                sortedArrayUsingDescriptors: [self sortDescriptors]];
     }
 
     return sortedObjects;
@@ -381,8 +381,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     id set = [NSMutableIndexSet indexSet];
     int i, count = [objects count];
     for (i = 0; i < [objects count]; i++) {
-        NSUInteger idx =
-            [[self arrangedObjects] indexOfObject: [objects objectAtIndex: i]];
+        NSUInteger idx = [[self arrangedObjects]
+                indexOfObject: [objects objectAtIndex: i]];
         if (idx != NSNotFound) {
             [set addIndex: idx];
         }
@@ -499,7 +499,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // Don't check canAdd here as this can be used programmatically to add
     // objects
     [self insertObject: object
-        atArrangedObjectIndex: [[self arrangedObjects] count]];
+            atArrangedObjectIndex: [[self arrangedObjects] count]];
 }
 
 - (void) addObjects: (NSArray *) objects {
@@ -530,7 +530,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) insertObjects: (NSArray *) objects
-    atArrangedObjectIndexes: (NSIndexSet *) indices
+        atArrangedObjectIndexes: (NSIndexSet *) indices
 {
     if (_flags.clearsFilterPredicateOnInsertion) {
         [self setFilterPredicate: nil];
@@ -677,8 +677,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@ %x> content: %@ arrangedObjects: %@",
-                          [self class], self, _content, _arrangedObjects];
+            stringWithFormat: @"<%@ %x> content: %@ arrangedObjects: %@",
+                              [self class], self, _content, _arrangedObjects];
 }
 
 @end

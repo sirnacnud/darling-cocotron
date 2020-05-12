@@ -60,7 +60,7 @@ invertStruct(NSAffineTransformStruct matrix)
     result.m21 = -matrix.m21 / determinant;
     result.m22 = matrix.m11 / determinant;
     result.tX =
-        (-matrix.m22 * matrix.tX + matrix.m21 * matrix.tY) / determinant;
+            (-matrix.m22 * matrix.tX + matrix.m21 * matrix.tY) / determinant;
     result.tY = (matrix.m12 * matrix.tX - matrix.m11 * matrix.tY) / determinant;
 
     return result;
@@ -176,7 +176,7 @@ invertStruct(NSAffineTransformStruct matrix)
 
 - (void) rotateByRadians: (CGFloat) radians {
     NSAffineTransformStruct rotate = {
-        cos(radians), sin(radians), -sin(radians), cos(radians), 0, 0};
+            cos(radians), sin(radians), -sin(radians), cos(radians), 0, 0};
     _matrix = multiplyStruct(_matrix, rotate);
 }
 

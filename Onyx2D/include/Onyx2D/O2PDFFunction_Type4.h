@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithDomain: (O2PDFArray *) domain
-           range: (O2PDFArray *) range
-      calculator: (NSData *) calculator;
+             range: (O2PDFArray *) range
+        calculator: (NSData *) calculator;
 
 @end

@@ -106,7 +106,7 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
             [result addObject: [Win32FORMATETC formatEtcWithFORMATETC: format]];
         } else if ([type isEqualToString: NSPDFPboardType]) {
             format.cfFormat =
-                RegisterClipboardFormat("Portable Document Format");
+                    RegisterClipboardFormat("Portable Document Format");
             [result addObject: [Win32FORMATETC formatEtcWithFORMATETC: format]];
         } else if ([type isEqualToString: NSFilenamesPboardType]) {
             format.cfFormat = CF_HDROP;
@@ -161,7 +161,7 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
         char *buffer;
 
         storageMediump->hGlobal = GlobalAlloc(
-            GMEM_FIXED, ([string cStringLength] + 1) * sizeof(char));
+                GMEM_FIXED, ([string cStringLength] + 1) * sizeof(char));
         buffer = GlobalLock(storageMediump->hGlobal);
 
         [string getCString: buffer];
@@ -171,8 +171,8 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
         NSString *string = [_pasteboard stringForType: NSStringPboardType];
         unichar *buffer;
 
-        storageMediump->hGlobal =
-            GlobalAlloc(GMEM_FIXED, ([string length] + 1) * sizeof(unichar));
+        storageMediump->hGlobal = GlobalAlloc(
+                GMEM_FIXED, ([string length] + 1) * sizeof(unichar));
         buffer = GlobalLock(storageMediump->hGlobal);
 
         [string getCharacters: buffer];
@@ -181,7 +181,7 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
         GlobalUnlock(storageMediump->hGlobal);
     } else if (format->cfFormat == CF_HDROP) {
         NSArray *files =
-            [_pasteboard propertyListForType: NSFilenamesPboardType];
+                [_pasteboard propertyListForType: NSFilenamesPboardType];
         int filesSize = sizeof(DROPFILES), i, count = [files count];
         DROPFILES *dropFiles;
         unichar *buffer;
@@ -256,8 +256,8 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
                         uint8_t *buf;
 
                         HBITMAP bitmap = CreateDIBSection(
-                            NULL, (BITMAPINFO *) &bi, DIB_RGB_COLORS,
-                            (void **) &buf, NULL, 0);
+                                NULL, (BITMAPINFO *) &bi, DIB_RGB_COLORS,
+                                (void **) &buf, NULL, 0);
 
                         // Flip the image - in a perfect world, we could just
                         // set the bV5Height to a negative value, but it seems a
@@ -268,8 +268,8 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
                                               bits, buf);
 
                         storageMediump->tymed = TYMED_GDI;
-                        storageMediump->hBitmap =
-                            (HBITMAP) OleDuplicateData(bitmap, CF_BITMAP, 0);
+                        storageMediump->hBitmap = (HBITMAP) OleDuplicateData(
+                                bitmap, CF_BITMAP, 0);
                         ;
                         DeleteObject(bitmap);
                     } else {
@@ -316,7 +316,7 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
                 void *buffer;
 
                 storageMediump->hGlobal =
-                    GlobalAlloc(GMEM_MOVEABLE, [data length]);
+                        GlobalAlloc(GMEM_MOVEABLE, [data length]);
                 buffer = GlobalLock(storageMediump->hGlobal);
 
                 [data getBytes: buffer];
@@ -358,7 +358,7 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
               dwDirection: (IEnumFORMATETC **) ppenumFormatEtc
 {
     Win32IEnumFORMATETCServer *server =
-        [[Win32IEnumFORMATETCServer alloc] initAsIEnumFORMATETC];
+            [[Win32IEnumFORMATETCServer alloc] initAsIEnumFORMATETC];
 
     [server setFormatEtcs: [self formatEtcs]];
 

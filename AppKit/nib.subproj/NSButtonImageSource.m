@@ -86,7 +86,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSImage *) alternateImage {
     NSString *name = [@"NSHighlighted"
-        stringByAppendingString: [_imageName substringFromIndex: 2]];
+            stringByAppendingString: [_imageName substringFromIndex: 2]];
 
     return [NSImage imageNamed: name];
 }

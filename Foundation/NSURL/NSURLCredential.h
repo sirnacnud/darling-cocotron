@@ -29,11 +29,11 @@ typedef int NSURLCredentialPersistence;
 + (NSURLCredential *) credentialWithUser: (NSString *) user
                                 password: (NSString *) password
                              persistence:
-                                 (NSURLCredentialPersistence) persistence;
+                                     (NSURLCredentialPersistence) persistence;
 
 - initWithUser: (NSString *) user
-       password: (NSString *) password
-    persistence: (NSURLCredentialPersistence) persistence;
+           password: (NSString *) password
+        persistence: (NSURLCredentialPersistence) persistence;
 
 - (NSString *) user;
 - (NSString *) password;

@@ -58,7 +58,7 @@ NSMutableArray_concreteInitWithCapacity(NSMutableArray_concrete *self,
 NSArray *NSMutableArray_concreteNew(NSZone *zone, id *objects, NSUInteger count)
 {
     NSMutableArray_concrete *self =
-        NSAllocateObject([NSMutableArray_concrete class], 0, zone);
+            NSAllocateObject([NSMutableArray_concrete class], 0, zone);
     if (self) {
         self = NSMutableArray_concreteInit(self, objects, count, zone);
     }
@@ -69,7 +69,7 @@ NSArray *NSMutableArray_concreteNewWithCapacity(NSZone *zone,
                                                 NSUInteger capacity)
 {
     NSMutableArray_concrete *self =
-        NSAllocateObject([NSMutableArray_concrete class], 0, zone);
+            NSAllocateObject([NSMutableArray_concrete class], 0, zone);
     if (self) {
         self = NSMutableArray_concreteInitWithCapacity(self, capacity, zone);
     }
@@ -242,8 +242,8 @@ static void removeObjectAtIndex(NSMutableArray_concrete *self, NSUInteger index)
     if (self->_capacity > self->_count * 2) {
         self->_capacity = self->_count;
         self->_objects =
-            NSZoneRealloc(NSZoneFromPointer(self->_objects), self->_objects,
-                          sizeof(id) * self->_capacity);
+                NSZoneRealloc(NSZoneFromPointer(self->_objects), self->_objects,
+                              sizeof(id) * self->_capacity);
     }
 }
 
@@ -276,8 +276,8 @@ static void removeObjectAtIndex(NSMutableArray_concrete *self, NSUInteger index)
     if (self->_capacity > 8) {
         self->_capacity = 8;
         self->_objects =
-            NSZoneRealloc(NSZoneFromPointer(self->_objects), self->_objects,
-                          sizeof(id) * self->_capacity);
+                NSZoneRealloc(NSZoneFromPointer(self->_objects), self->_objects,
+                              sizeof(id) * self->_capacity);
     }
 }
 
@@ -342,7 +342,7 @@ static inline NSUInteger indexOfObject(NSMutableArray_concrete *self, id object)
     for (j = iLeft; j < iEnd; j++) {
         /* If left list head exists and is <= existing right list head */
         if (i0 < iRight && (i1 >= iEnd || compare(A[i0], A[i1], context) !=
-                                              NSOrderedDescending)) {
+                                                  NSOrderedDescending)) {
             B[j] = A[i0++];
         } else {
             B[j] = A[i1++];

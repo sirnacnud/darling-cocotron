@@ -23,18 +23,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSEvent_keyboard
 
 - (instancetype) initWithType: (NSEventType) type
-                       location: (NSPoint) location
-                  modifierFlags: (NSEventModifierFlags) modifierFlags
-                         window: (NSWindow *) window
-                     characters: (NSString *) characters
-    charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
-                      isARepeat: (BOOL) isARepeat
-                        keyCode: (unsigned short) keyCode
+                           location: (NSPoint) location
+                      modifierFlags: (NSEventModifierFlags) modifierFlags
+                             window: (NSWindow *) window
+                         characters: (NSString *) characters
+        charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
+                          isARepeat: (BOOL) isARepeat
+                            keyCode: (unsigned short) keyCode
 {
     [super initWithType: type
-               location: location
-          modifierFlags: modifierFlags
-                 window: window];
+                 location: location
+            modifierFlags: modifierFlags
+                   window: window];
 
     _characters = [characters copy];
     _charactersIgnoringModifiers = [charactersIgnoringModifiers copy];

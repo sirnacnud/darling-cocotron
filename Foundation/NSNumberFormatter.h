@@ -291,7 +291,7 @@ typedef NSUInteger NSNumberFormatterRoundingMode;
 - (void) setAttributedStringForZero: (NSAttributedString *) attributedString;
 - (void) setAttributedStringForNil: (NSAttributedString *) attributedString;
 - (void) setAttributedStringForNotANumber:
-    (NSAttributedString *) attributedString;
+        (NSAttributedString *) attributedString;
 - (void) setRoundingBehavior: (NSDecimalNumberHandler *) value;
 
 @end

@@ -34,12 +34,12 @@ NSString *const NSInvalidArgumentException = @"NSInvalidArgumentException";
 NSString *const NSRangeException = @"NSRangeException";
 
 NSString *const NSInternalInconsistencyException =
-    @"NSInternalInconsistencyException";
+        @"NSInternalInconsistencyException";
 NSString *const NSMallocException = @"NSMallocException";
 
 NSString *const NSParseErrorException = @"NSParseErrorException";
 NSString *const NSInconsistentArchiveException =
-    @"NSInconsistentArchiveException";
+        @"NSInconsistentArchiveException";
 
 @implementation NSException
 
@@ -52,8 +52,8 @@ NSString *const NSInconsistentArchiveException =
 }
 
 + (void) raise: (NSString *) name
-        format: (NSString *) format
-     arguments: (va_list) arguments
+           format: (NSString *) format
+        arguments: (va_list) arguments
 {
     [[self exceptionWithName: name
                       reason: NSStringWithFormatArguments(format, arguments)
@@ -61,8 +61,8 @@ NSString *const NSInconsistentArchiveException =
 }
 
 - initWithName: (NSString *) name
-        reason: (NSString *) reason
-      userInfo: (NSDictionary *) userInfo
+          reason: (NSString *) reason
+        userInfo: (NSDictionary *) userInfo
 {
     _name = [name copy];
     _reason = [reason copy];

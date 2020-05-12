@@ -97,9 +97,9 @@ static void copyRegularAtInto(NSFileManager *fileManager, NSString *original,
         if (![fileManager createSymbolicLinkAtPath: copy
                                withDestinationPath: original
                                              error: &error])
-            NSLog(
-                @"createSymbolicLinkAtPath:%@ pathContent:%@ FAILED, error=%@",
-                copy, original, error);
+            NSLog(@"createSymbolicLinkAtPath:%@ pathContent:%@ FAILED, "
+                  @"error=%@",
+                  copy, original, error);
     } else {
         if (![fileManager copyItemAtPath: original toPath: copy error: &error])
             NSLog(@"copyPath:%@ toPath:%@ FAILED, error=%@", original, copy,
@@ -130,7 +130,7 @@ static void copyPathAtInto(NSFileManager *fileManager, NSString *original,
             return;
         }
         original = [[original stringByDeletingLastPathComponent]
-            stringByAppendingPathComponent: dest];
+                stringByAppendingPathComponent: dest];
         attributes = [fileManager attributesOfItemAtPath: original
                                                    error: &error];
         fileType = [attributes objectForKey: NSFileType];
@@ -144,14 +144,14 @@ static void copyPathAtInto(NSFileManager *fileManager, NSString *original,
         unsigned i, count = [children count];
 
         [fileManager createDirectoryAtPath: copy
-               withIntermediateDirectories: YES
-                                attributes: nil
-                                     error: &error];
+                withIntermediateDirectories: YES
+                                 attributes: nil
+                                      error: &error];
 
         for (i = 0; i < count; i++) {
             NSString *check = [children objectAtIndex: i];
             NSString *originalChild =
-                [original stringByAppendingPathComponent: check];
+                    [original stringByAppendingPathComponent: check];
             NSString *copyChild = [copy stringByAppendingPathComponent: check];
 
             copyPathAtInto(fileManager, originalChild, copyChild, ignore);
@@ -183,7 +183,7 @@ static void copyChangedFilesAtInto(NSFileManager *fileManager,
             return;
         }
         original = [[original stringByDeletingLastPathComponent]
-            stringByAppendingPathComponent: dest];
+                stringByAppendingPathComponent: dest];
         attributes = [fileManager attributesOfItemAtPath: original
                                                    error: &error];
         fileType = [attributes objectForKey: NSFileType];
@@ -206,11 +206,12 @@ static void copyChangedFilesAtInto(NSFileManager *fileManager,
         exit(-1);
     } else if ([fileType isEqual: NSFileTypeRegular]) {
         if (![[attributes objectForKey: NSFileSize]
-                isEqual: [shouldBe objectForKey: NSFileSize]])
+                    isEqual: [shouldBe objectForKey: NSFileSize]])
             copyRegularAtInto(fileManager, original, copy);
         if (ignoreTime ||
             ([[attributes objectForKey: NSFileModificationDate]
-                 compare: [shouldBe objectForKey: NSFileModificationDate]] ==
+                     compare: [shouldBe
+                                      objectForKey: NSFileModificationDate]] ==
              NSOrderedDescending))
             copyRegularAtInto(fileManager, original, copy);
     } else if ([fileType isEqual: NSFileTypeDirectory]) {
@@ -221,7 +222,7 @@ static void copyChangedFilesAtInto(NSFileManager *fileManager,
         for (i = 0; i < count; i++) {
             NSString *check = [children objectAtIndex: i];
             NSString *originalChild =
-                [original stringByAppendingPathComponent: check];
+                    [original stringByAppendingPathComponent: check];
             NSString *copyChild = [copy stringByAppendingPathComponent: check];
 
             copyChangedFilesAtInto(fileManager, originalChild, copyChild,
@@ -256,16 +257,16 @@ static NSMutableArray *ignoredFilesInFramework(NSFileManager *fileManager,
                                                NSString *original)
 {
     NSString *name =
-        [[original lastPathComponent] stringByDeletingPathExtension];
+            [[original lastPathComponent] stringByDeletingPathExtension];
     NSMutableArray *result = [NSMutableArray array];
 
     [result addObject: [[[original stringByAppendingPathComponent: @"lib"]
-                           stringByAppendingString: name]
-                           stringByAppendingPathExtension: @"a"]];
+                               stringByAppendingString: name]
+                               stringByAppendingPathExtension: @"a"]];
     [result addObject: [original stringByAppendingPathComponent: @"Versions"]];
     [result addObject: [original stringByAppendingPathComponent: @"Headers"]];
-    [result addObject: [original
-                           stringByAppendingPathComponent: @"PrivateHeaders"]];
+    [result addObject: [original stringByAppendingPathComponent:
+                                         @"PrivateHeaders"]];
 
     return result;
 }
@@ -279,7 +280,7 @@ static void copyFrameworkAtIntoDirectory(NSFileManager *fileManager,
     NSString *soFile = sharedObjectFileInFramework(fileManager, original);
     NSString *soOriginal = [original stringByAppendingPathComponent: soFile];
     NSString *soDestination =
-        [destination stringByAppendingPathComponent: soFile];
+            [destination stringByAppendingPathComponent: soFile];
 
     [ignore addObject: soOriginal];
 
@@ -287,7 +288,7 @@ static void copyFrameworkAtIntoDirectory(NSFileManager *fileManager,
     copyChangedFilesAtInto(fileManager, soOriginal, soDestination, nil);
 
     NSString *copy = [destination
-        stringByAppendingPathComponent: [original lastPathComponent]];
+            stringByAppendingPathComponent: [original lastPathComponent]];
 
     if (useSymlinks) {
         copyRegularAtInto(fileManager, original, copy);
@@ -303,7 +304,7 @@ NSString *resolveFrameworkWithPath(NSFileManager *fileManager, NSString *name,
     for (i = 0; i < count; i++) {
         NSString *directory = [path objectAtIndex: i];
         NSString *check = [[directory stringByAppendingPathComponent: name]
-            stringByAppendingPathExtension: @"framework"];
+                stringByAppendingPathExtension: @"framework"];
         BOOL isDirectory;
 
         if ([fileManager fileExistsAtPath: check isDirectory: &isDirectory] &&
@@ -324,8 +325,8 @@ int main(int argc, char **argv) {
     NSString *destination = nil;
 
     NSArray *settingsPath =
-        [[environment objectForKey: @"FRAMEWORK_SEARCH_PATHS"]
-            componentsSeparatedByString: @" "];
+            [[environment objectForKey: @"FRAMEWORK_SEARCH_PATHS"]
+                    componentsSeparatedByString: @" "];
 
     [searchPath addObjectsFromArray: settingsPath];
 
@@ -341,7 +342,7 @@ int main(int argc, char **argv) {
             else {
                 NSString *name = [arguments objectAtIndex: i];
                 NSString *path =
-                    resolveFrameworkWithPath(fileManager, name, searchPath);
+                        resolveFrameworkWithPath(fileManager, name, searchPath);
 
                 if (path == nil) {
                     NSLog(@"Unable to find -framework %@ on path %@", name,
@@ -394,12 +395,12 @@ int main(int argc, char **argv) {
     NSString *gdbserverPort = [environment objectForKey: @"GDBSERVER_PORT"];
     NSString *gdbserverHost = [environment objectForKey: @"GDBSERVER_HOST"];
     NSString *builtProductsDir =
-        [environment objectForKey: @"BUILT_PRODUCTS_DIR"];
+            [environment objectForKey: @"BUILT_PRODUCTS_DIR"];
 
     if (gdbserver != nil) {
         NSString *debugger =
-            [[destination stringByAppendingPathComponent: @"gdbserver"]
-                stringByAppendingPathExtension: @"exe"];
+                [[destination stringByAppendingPathComponent: @"gdbserver"]
+                        stringByAppendingPathExtension: @"exe"];
 
         copyPathAtInto(fileManager, gdbserver, debugger, nil);
 
@@ -407,28 +408,29 @@ int main(int argc, char **argv) {
             gdbserverPort = @"999";
 
         NSString *startline = [NSString
-            stringWithFormat: @"START \"GDBServer listening at port %@\" "
-                              @"gdbserver --multi localhost:%@\x0D\x0A",
-                              gdbserverPort, gdbserverPort];
+                stringWithFormat: @"START \"GDBServer listening at port %@\" "
+                                  @"gdbserver --multi localhost:%@\x0D\x0A",
+                                  gdbserverPort, gdbserverPort];
         NSData *data = [startline dataUsingEncoding: NSASCIIStringEncoding];
         NSString *debug =
-            [[destination stringByAppendingPathComponent: @"debug"]
-                stringByAppendingPathExtension: @"bat"];
+                [[destination stringByAppendingPathComponent: @"debug"]
+                        stringByAppendingPathExtension: @"bat"];
 
         [fileManager createFileAtPath: debug contents: data attributes: nil];
 
         NSString *wrapperName = [environment objectForKey: @"WRAPPER_NAME"];
         NSString *executableName =
-            [environment objectForKey: @"EXECUTABLE_NAME"];
+                [environment objectForKey: @"EXECUTABLE_NAME"];
         NSString *remoteTarget = [NSString
-            stringWithFormat: @"cd %@/Contents/Windows\nset remote exec-file "
-                              @"%@\ntarget extended-remote %@:%@\n",
-                              wrapperName, executableName, gdbserverHost,
-                              gdbserverPort];
+                stringWithFormat:
+                        @"cd %@/Contents/Windows\nset remote exec-file "
+                        @"%@\ntarget extended-remote %@:%@\n",
+                        wrapperName, executableName, gdbserverHost,
+                        gdbserverPort];
         NSData *remoteTargetData =
-            [remoteTarget dataUsingEncoding: NSASCIIStringEncoding];
+                [remoteTarget dataUsingEncoding: NSASCIIStringEncoding];
         NSString *remoteTargetTxt = [builtProductsDir
-            stringByAppendingPathComponent: @"Remote-Target.txt"];
+                stringByAppendingPathComponent: @"Remote-Target.txt"];
 
         [fileManager createFileAtPath: remoteTargetTxt
                              contents: remoteTargetData

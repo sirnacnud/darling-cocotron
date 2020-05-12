@@ -57,7 +57,7 @@
     CGContextSaveGState(context);
 
     CGAffineTransform xform =
-        CGPDFPageGetDrawingTransform(page, kCGPDFMediaBox, bounds, 0, NO);
+            CGPDFPageGetDrawingTransform(page, kCGPDFMediaBox, bounds, 0, NO);
 
     CGContextConcatCTM(context, xform);
 

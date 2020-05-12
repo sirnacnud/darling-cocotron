@@ -34,7 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _data = [data retain];
     _previous = nil;
     _numberToEntries = NSCreateMapTable(
-        NSIntegerMapKeyCallBacks, NSNonRetainedObjectMapValueCallBacks, 0);
+            NSIntegerMapKeyCallBacks, NSNonRetainedObjectMapValueCallBacks, 0);
     _entryToObject = NSCreateMapTable(NSNonRetainedObjectMapKeyCallBacks,
                                       NSObjectMapValueCallBacks, 0);
     _entriesInOrder = [NSMutableArray new];

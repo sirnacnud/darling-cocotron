@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
           colorPanel: (NSColorPanel *) colorPanel
 {
     NSEnumerator *colorListsEnumerator =
-        [[NSColorList availableColorLists] objectEnumerator];
+            [[NSColorList availableColorLists] objectEnumerator];
     NSColorList *colorList;
 
     [super initWithPickerMask: mask colorPanel: colorPanel];
@@ -50,20 +50,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) colorListPopUpClicked: (id) sender {
     [_pickedColorList release];
     _pickedColorList = [[NSColorList
-        colorListNamed: [[sender itemAtIndex: [sender indexOfSelectedItem]]
-                            title]] retain];
+            colorListNamed: [[sender itemAtIndex: [sender indexOfSelectedItem]]
+                                    title]] retain];
 
     [colorBrowser reloadColumn: 0];
 }
 
 - (void) colorListBrowserClicked: (id) sender {
     [[NSColorPanel sharedColorPanel]
-        setColor: [_pickedColorList
-                      colorWithKey: [[sender selectedCell] stringValue]]];
+            setColor: [_pickedColorList colorWithKey: [[sender selectedCell]
+                                                              stringValue]]];
 }
 
 - (NSInteger) browser: (NSBrowser *) sender
-    numberOfRowsInColumn: (NSInteger) column
+        numberOfRowsInColumn: (NSInteger) column
 {
     return [[_pickedColorList allKeys] count];
 }
@@ -73,15 +73,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) browser: (NSBrowser *) sender
-    willDisplayCell: (id) cell
-              atRow: (NSInteger) row
-             column: (NSInteger) column
+        willDisplayCell: (id) cell
+                  atRow: (NSInteger) row
+                 column: (NSInteger) column
 {
     [cell setStringValue: [[_pickedColorList allKeys] objectAtIndex: row]];
     [cell setLeaf: YES];
     [cell setLoaded: YES];
-    [cell setColor: [_pickedColorList colorWithKey: [[_pickedColorList allKeys]
-                                                        objectAtIndex: row]]];
+    [cell setColor: [_pickedColorList
+                            colorWithKey: [[_pickedColorList allKeys]
+                                                  objectAtIndex: row]]];
 }
 
 - (void) setColor: (NSColor *) color {

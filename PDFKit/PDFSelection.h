@@ -3,7 +3,7 @@
 #import <PDFKit/PDFPage.h>
 
 @class PDFDocument, NSColor, NSArray, NSMutableArray, NSAttributedString,
-    PDFPage;
+        PDFPage;
 
 @interface PDFSelection : NSObject <NSCopying> {
     PDFDocument *_document;

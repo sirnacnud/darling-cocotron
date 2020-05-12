@@ -23,7 +23,7 @@
 + (NSSize) printingAdjustmentInLayoutManager: (NSLayoutManager *) layoutManager
                 forNominallySpacedGlyphRange: (NSRange) glyphRange
                                 packedGlyphs:
-                                    (const unsigned char *) packedGlyphs
+                                        (const unsigned char *) packedGlyphs
                                        count: (NSUInteger) count
 {
     return NSMakeSize(0, 0);
@@ -34,8 +34,8 @@
 }
 
 + sharedSystemTypesetter {
-    return [self
-        sharedSystemTypesetterForBehavior: [self defaultTypesetterBehavior]];
+    return [self sharedSystemTypesetterForBehavior:
+                         [self defaultTypesetterBehavior]];
 }
 
 - (void) dealloc {
@@ -112,13 +112,13 @@
 }
 
 - (void) getLineFragmentRect: (NSRect *) fragmentRect
-                    usedRect: (NSRect *) usedRect
-               remainingRect: (NSRect *) remainingRect
-     forStartingGlyphAtIndex: (NSUInteger) startingGlyphIndex
-                proposedRect: (NSRect) proposedRect
-                 lineSpacing: (CGFloat) lineSpacing
-      paragraphSpacingBefore: (CGFloat) paragraphSpacingBefore
-       paragraphSpacingAfter: (CGFloat) paragraphSpacingAfter
+                       usedRect: (NSRect *) usedRect
+                  remainingRect: (NSRect *) remainingRect
+        forStartingGlyphAtIndex: (NSUInteger) startingGlyphIndex
+                   proposedRect: (NSRect) proposedRect
+                    lineSpacing: (CGFloat) lineSpacing
+         paragraphSpacingBefore: (CGFloat) paragraphSpacingBefore
+          paragraphSpacingAfter: (CGFloat) paragraphSpacingAfter
 {
     NSInvalidAbstractInvocation();
 }
@@ -140,8 +140,8 @@
 }
 
 - (void) insertGlyph: (NSGlyph) glyph
-        atGlyphIndex: (NSUInteger) glyphIndex
-      characterIndex: (NSUInteger) characterIndex
+          atGlyphIndex: (NSUInteger) glyphIndex
+        characterIndex: (NSUInteger) characterIndex
 {
     [_layoutManager insertGlyph: glyph
                    atGlyphIndex: glyphIndex
@@ -169,8 +169,8 @@
 }
 
 - (void) setLocation: (NSPoint) location
-        withAdvancements: (const CGFloat *) nominalAdvancements
-    forStartOfGlyphRange: (NSRange) glyphRange
+            withAdvancements: (const CGFloat *) nominalAdvancements
+        forStartOfGlyphRange: (NSRange) glyphRange
 {
     [_layoutManager setLocation: location forStartOfGlyphRange: glyphRange];
 }
@@ -195,14 +195,14 @@
 }
 
 - (BOOL) shouldBreakLineByHyphenatingBeforeCharacterAtIndex:
-    (NSUInteger) characterIndex
+        (NSUInteger) characterIndex
 {
     NSInvalidAbstractInvocation();
     return NO;
 }
 
 - (BOOL) shouldBreakLineByWordBeforeCharacterAtIndex:
-    (NSUInteger) characterIndex
+        (NSUInteger) characterIndex
 {
     NSInvalidAbstractInvocation();
     return NO;
@@ -272,7 +272,7 @@
 }
 
 - (NSTypesetterControlCharacterAction) actionForControlCharacterAtIndex:
-    (NSUInteger) characterIndex
+        (NSUInteger) characterIndex
 {
     unichar c = [[_attributedString string] characterAtIndex: characterIndex];
     if ([[NSCharacterSet newlineCharacterSet] characterIsMember: c]) {
@@ -361,9 +361,9 @@
 }
 
 - (void) getLineFragmentRect: (NSRect *) fragmentRect
-                           usedRect: (NSRect *) usedRect
-    forParagraphSeparatorGlyphRange: (NSRange) glyphRange
-                   atProposedOrigin: (NSPoint) proposedOrigin
+                               usedRect: (NSRect *) usedRect
+        forParagraphSeparatorGlyphRange: (NSRange) glyphRange
+                       atProposedOrigin: (NSPoint) proposedOrigin
 {
     NSInvalidAbstractInvocation();
 }
@@ -395,7 +395,7 @@
                   withProposedLineFragmentRect: (NSRect) rect
 {
     return [[self _paragraphStyleBeforeGlyphIndex: glyphIndex]
-        paragraphSpacingBefore];
+            paragraphSpacingBefore];
 }
 
 - (NSUInteger) layoutParagraphAtPoint: (NSPoint *) point {
@@ -421,9 +421,9 @@
 }
 
 - (void) insertGlyphs: (const NSGlyph *) glyphs
-                     length: (NSUInteger) length
-    forStartingGlyphAtIndex: (NSUInteger) glyphIndex
-             characterIndex: (NSUInteger) characterIndex
+                         length: (NSUInteger) length
+        forStartingGlyphAtIndex: (NSUInteger) glyphIndex
+                 characterIndex: (NSUInteger) characterIndex
 {
     NSInvalidAbstractInvocation();
 }

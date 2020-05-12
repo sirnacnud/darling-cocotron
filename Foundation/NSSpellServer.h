@@ -12,9 +12,9 @@ FOUNDATION_EXPORT NSString *const NSGrammarCorrections;
 //@optional
 
 - (NSRange) spellServer: (NSSpellServer *) sender
-    checkGrammarInString: (NSString *) string
-                language: (NSString *) language
-                 details: (NSArray **) outDetails;
+        checkGrammarInString: (NSString *) string
+                    language: (NSString *) language
+                     details: (NSArray **) outDetails;
 
 - (NSArray *) spellServer: (NSSpellServer *) sender
               checkString: (NSString *) stringToCheck
@@ -25,27 +25,27 @@ FOUNDATION_EXPORT NSString *const NSGrammarCorrections;
                 wordCount: (NSInteger *) wordCount;
 
 - (void) spellServer: (NSSpellServer *) sender
-       didForgetWord: (NSString *) word
-          inLanguage: (NSString *) language;
+        didForgetWord: (NSString *) word
+           inLanguage: (NSString *) language;
 
 - (void) spellServer: (NSSpellServer *) sender
         didLearnWord: (NSString *) word
           inLanguage: (NSString *) language;
 
 - (NSRange) spellServer: (NSSpellServer *) sender
-    findMisspelledWordInString: (NSString *) stringToCheck
-                      language: (NSString *) language
-                     wordCount: (NSInteger *) wordCount
-                     countOnly: (BOOL) countOnly;
+        findMisspelledWordInString: (NSString *) stringToCheck
+                          language: (NSString *) language
+                         wordCount: (NSInteger *) wordCount
+                         countOnly: (BOOL) countOnly;
 
 - (NSArray *) spellServer: (NSSpellServer *) sender
-    suggestCompletionsForPartialWordRange: (NSRange) range
-                                 inString: (NSString *) string
-                                 language: (NSString *) language;
+        suggestCompletionsForPartialWordRange: (NSRange) range
+                                     inString: (NSString *) string
+                                     language: (NSString *) language;
 
 - (NSArray *) spellServer: (NSSpellServer *) sender
-    suggestGuessesForWord: (NSString *) word
-               inLanguage: (NSString *) language;
+        suggestGuessesForWord: (NSString *) word
+                   inLanguage: (NSString *) language;
 
 @end
 

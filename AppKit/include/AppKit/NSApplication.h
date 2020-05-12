@@ -30,15 +30,15 @@ APPKIT_EXPORT const NSRunLoopMode NSModalPanelRunLoopMode;
 APPKIT_EXPORT const NSRunLoopMode NSEventTrackingRunLoopMode;
 
 APPKIT_EXPORT const NSNotificationName
-    NSApplicationWillFinishLaunchingNotification;
+        NSApplicationWillFinishLaunchingNotification;
 APPKIT_EXPORT const NSNotificationName
-    NSApplicationDidFinishLaunchingNotification;
+        NSApplicationDidFinishLaunchingNotification;
 
 APPKIT_EXPORT const NSNotificationName
-    NSApplicationWillBecomeActiveNotification;
+        NSApplicationWillBecomeActiveNotification;
 APPKIT_EXPORT const NSNotificationName NSApplicationDidBecomeActiveNotification;
 APPKIT_EXPORT const NSNotificationName
-    NSApplicationWillResignActiveNotification;
+        NSApplicationWillResignActiveNotification;
 APPKIT_EXPORT const NSNotificationName NSApplicationDidResignActiveNotification;
 
 APPKIT_EXPORT const NSNotificationName NSApplicationWillUpdateNotification;
@@ -52,7 +52,7 @@ APPKIT_EXPORT const NSNotificationName NSApplicationDidUnhideNotification;
 APPKIT_EXPORT const NSNotificationName NSApplicationWillTerminateNotification;
 
 APPKIT_EXPORT const NSNotificationName
-    NSApplicationDidChangeScreenParametersNotification;
+        NSApplicationDidChangeScreenParametersNotification;
 
 typedef double NSAppKitVersion;
 APPKIT_EXPORT const NSAppKitVersion NSAppKitVersionNumber;
@@ -197,10 +197,10 @@ typedef enum {
 - (void) abortModal;
 
 - (void) beginSheet: (NSWindow *) sheet
-     modalForWindow: (NSWindow *) window
-      modalDelegate: (id) modalDelegate
-     didEndSelector: (SEL) didEndSelector
-        contextInfo: (void *) contextInfo;
+        modalForWindow: (NSWindow *) window
+         modalDelegate: (id) modalDelegate
+        didEndSelector: (SEL) didEndSelector
+           contextInfo: (void *) contextInfo;
 
 - (void) endSheet: (NSWindow *) sheet returnCode: (NSModalResponse) returnCode;
 - (void) endSheet: (NSWindow *) sheet;
@@ -289,7 +289,7 @@ APPKIT_EXPORT __kindof NSApplication *NSApp;
 - (void) application: (NSApplication *) application
            openFiles: (NSArray *) pathArray;
 - (BOOL) application: (NSApplication *) application
-    openFileWithoutUI: (NSString *) path;
+        openFileWithoutUI: (NSString *) path;
 - (BOOL) application: (NSApplication *) applicationsender
         openTempFile: (NSString *) path;
 - (BOOL) applicationShouldHandleReopen: (NSApplication *) application
@@ -304,15 +304,15 @@ APPKIT_EXPORT __kindof NSApplication *NSApp;
 
 - (NSMenu *) applicationDockMenu: (NSApplication *) application;
 - (BOOL) application: (NSApplication *) application
-    delegateHandlesKey: (NSString *) key;
+        delegateHandlesKey: (NSString *) key;
 
 - (NSError *) application: (NSApplication *) application
          willPresentError: (NSError *) error;
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:
-    (NSApplication *) application;
+        (NSApplication *) application;
 - (NSApplicationTerminateReply) applicationShouldTerminate:
-    (NSApplication *) application;
+        (NSApplication *) application;
 
 @end
 
@@ -348,9 +348,9 @@ APPKIT_EXPORT __kindof NSApplication *NSApp;
                      hasVisibleWindows: (BOOL) flag;
 - (BOOL) applicationShouldOpenUntitledFile: (NSApplication *) sender;
 - (NSApplicationTerminateReply) applicationShouldTerminate:
-    (NSApplication *) sender;
+        (NSApplication *) sender;
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:
-    (NSApplication *) theApplication;
+        (NSApplication *) theApplication;
 - (void) applicationWillBecomeActive: (NSNotification *) aNotification;
 - (void) applicationWillFinishLaunching: (NSNotification *) aNotification;
 - (void) applicationWillHide: (NSNotification *) aNotification;

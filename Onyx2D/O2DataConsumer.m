@@ -40,7 +40,7 @@ static void O2DataConsumerFileReleaseInfoCallback(void *info) {
 }
 
 - initWithInfo: (void *) info
-     callbacks: (const O2DataConsumerCallbacks *) callbacks
+        callbacks: (const O2DataConsumerCallbacks *) callbacks
 {
     if ((self = [super init])) {
         _info = info;
@@ -66,11 +66,11 @@ static void O2DataConsumerFileReleaseInfoCallback(void *info) {
                                                 contents: nil
                                               attributes: nil];
         NSFileHandle *fileHandle =
-            [NSFileHandle fileHandleForWritingAtPath: path];
+                [NSFileHandle fileHandleForWritingAtPath: path];
 
         O2DataConsumerCallbacks callbacks = {
-            O2DataConsumerFilePutBytesCallback,
-            O2DataConsumerFileReleaseInfoCallback};
+                O2DataConsumerFilePutBytesCallback,
+                O2DataConsumerFileReleaseInfoCallback};
         [fileHandle retain]; // Will be released by the release callback
         return [self initWithInfo: fileHandle callbacks: &callbacks];
     } else {

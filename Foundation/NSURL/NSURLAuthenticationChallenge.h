@@ -33,15 +33,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithProtectionSpace: (NSURLProtectionSpace *) space
-       proposedCredential: (NSURLCredential *) credential
-     previousFailureCount: (int) failureCount
-          failureResponse: (NSURLResponse *) failureResponse
-                    error: (NSError *) error
-                   sender: (id<NSURLAuthenticationChallengeSender>) sender;
+          proposedCredential: (NSURLCredential *) credential
+        previousFailureCount: (int) failureCount
+             failureResponse: (NSURLResponse *) failureResponse
+                       error: (NSError *) error
+                      sender: (id<NSURLAuthenticationChallengeSender>) sender;
 
 - initWithAuthenticationChallenge: (NSURLAuthenticationChallenge *) challenge
-                           sender:
-                               (id<NSURLAuthenticationChallengeSender>) sender;
+                           sender: (id<NSURLAuthenticationChallengeSender>)
+                                           sender;
 
 - (NSURLProtectionSpace *) protectionSpace;
 - (NSURLCredential *) proposedCredential;

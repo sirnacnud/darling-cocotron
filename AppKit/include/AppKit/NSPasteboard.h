@@ -69,14 +69,14 @@ APPKIT_EXPORT const NSPasteboardName NSPasteboardNameGeneral;
 typedef NSString *NSPasteboardReadingOptionKey;
 
 APPKIT_EXPORT const NSPasteboardReadingOptionKey
-    NSPasteboardURLReadingContentsConformToTypesKey;
+        NSPasteboardURLReadingContentsConformToTypesKey;
 
 @class NSPasteboard;
 
 // @interface NSObject (NSPasteboard)
 @protocol NSPasteboardTypeOwner
 - (void) pasteboard: (NSPasteboard *) sender
-    provideDataForType: (NSPasteboardType) type;
+        provideDataForType: (NSPasteboardType) type;
 - (void) pasteboardChangedOwner: (NSPasteboard *) sender;
 @end
 
@@ -93,7 +93,7 @@ APPKIT_EXPORT const NSPasteboardReadingOptionKey
 
 - (NSArray<NSPasteboardType> *) types;
 - (NSPasteboardType) availableTypeFromArray:
-    (NSArray<NSPasteboardType> *) types;
+        (NSArray<NSPasteboardType> *) types;
 
 - (NSData *) dataForType: (NSPasteboardType) type;
 - (NSString *) stringForType: (NSPasteboardType) type;

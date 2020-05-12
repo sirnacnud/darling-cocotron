@@ -58,9 +58,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + (void) setHiddenUntilMouseMoves: (BOOL) flag;
 
 - initWithImage: (NSImage *) image
-    foregroundColorHint: (NSColor *) foregroundHint
-    backgroundColorHint: (NSColor *) backgroundHint
-                hotSpot: (NSPoint) hotSpot;
+        foregroundColorHint: (NSColor *) foregroundHint
+        backgroundColorHint: (NSColor *) backgroundHint
+                    hotSpot: (NSPoint) hotSpot;
 - initWithImage: (NSImage *) image hotSpot: (NSPoint) hotSpot;
 
 - (NSImage *) image;

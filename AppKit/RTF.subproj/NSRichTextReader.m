@@ -86,7 +86,7 @@ static const NSString *kStateCharacterBytesCountKey = @"characterBytesCount";
             return [self initWithData: data];
     } else if ([type isEqualToString: @"rtfd"]) {
         NSString *txt = [[path stringByAppendingPathComponent: @"TXT"]
-            stringByAppendingPathExtension: @"rtf"];
+                stringByAppendingPathExtension: @"rtf"];
         NSData *data = [NSData dataWithContentsOfFile: txt];
 
         if (data != nil)
@@ -116,7 +116,7 @@ static const NSString *kStateCharacterBytesCountKey = @"characterBytesCount";
 + (NSAttributedString *) attributedStringWithData: (NSData *) data {
     NSRichTextReader *reader = [[self alloc] initWithData: data];
     NSAttributedString *result =
-        [[[reader parseAttributedString] retain] autorelease];
+            [[[reader parseAttributedString] retain] autorelease];
 
     [reader release];
 
@@ -126,7 +126,7 @@ static const NSString *kStateCharacterBytesCountKey = @"characterBytesCount";
 + (NSAttributedString *) attributedStringWithContentsOfFile: (NSString *) path {
     NSRichTextReader *reader = [[self alloc] initWithContentsOfFile: path];
     NSAttributedString *result =
-        [[[reader parseAttributedString] retain] autorelease];
+            [[[reader parseAttributedString] retain] autorelease];
 
     [reader release];
 
@@ -207,7 +207,7 @@ static NSInteger codePageFromCharset(NSInteger charset) {
 - (void) pushState {
     // Save a copy of the current state on the stack
     NSMutableDictionary *state =
-        [[[self currentState] mutableCopy] autorelease];
+            [[[self currentState] mutableCopy] autorelease];
     if (state == nil) {
         state = [NSMutableDictionary dictionary];
     }
@@ -232,7 +232,7 @@ static NSInteger codePageFromCharset(NSInteger charset) {
     // Default value is 1
     int bytesCount = 1;
     NSNumber *n =
-        [[self currentState] objectForKey: kStateCharacterBytesCountKey];
+            [[self currentState] objectForKey: kStateCharacterBytesCountKey];
     if (n) {
         bytesCount = [n intValue];
     }
@@ -255,13 +255,13 @@ static inline void flushPreviousString(NSRichTextReader *self) {
         if ([self currentDestination] == DESTINATION_STRING) {
             UInt32 codePage = codePageFromCharset(self->_currentCharset);
             CFStringEncoding encoding =
-                CFStringConvertWindowsCodepageToEncoding(codePage);
+                    CFStringConvertWindowsCodepageToEncoding(codePage);
             NSStringEncoding nsencoding =
-                CFStringConvertEncodingToNSStringEncoding(encoding);
+                    CFStringConvertEncodingToNSStringEncoding(encoding);
             NSString *string =
-                [[[NSString alloc] initWithBytes: self->_bufferIn.bytes
-                                          length: self->_bufferIn.length
-                                        encoding: nsencoding] autorelease];
+                    [[[NSString alloc] initWithBytes: self->_bufferIn.bytes
+                                              length: self->_bufferIn.length
+                                            encoding: nsencoding] autorelease];
             if (string) {
                 [self appendStringWithCurrentAttributes: string];
             }
@@ -275,9 +275,9 @@ static inline void flushPreviousString(NSRichTextReader *self) {
     if ([_bufferIn length] > 0) {
         NSStringEncoding encoding = NSWindowsCP1252StringEncoding;
         NSString *fontName =
-            [[[NSString alloc] initWithBytes: _bufferIn.bytes
-                                      length: _bufferIn.length
-                                    encoding: encoding] autorelease];
+                [[[NSString alloc] initWithBytes: _bufferIn.bytes
+                                          length: _bufferIn.length
+                                        encoding: encoding] autorelease];
         [self->_bufferIn setLength: 0];
         [_currentFontInfo setObject: fontName forKey: @"fontname"];
     }
@@ -306,10 +306,12 @@ static inline void flushPreviousString(NSRichTextReader *self) {
 - (void) createColorInfo {
     [_currentColorInfo release];
     _currentColorInfo = [[NSMutableDictionary
-        dictionaryWithObjectsAndKeys: [NSNumber numberWithFloat: 0.], @"red",
-                                      [NSNumber numberWithFloat: 0.], @"green",
-                                      [NSNumber numberWithFloat: 0.], @"blue",
-                                      nil] retain];
+            dictionaryWithObjectsAndKeys: [NSNumber numberWithFloat: 0.],
+                                          @"red",
+                                          [NSNumber numberWithFloat: 0.],
+                                          @"green",
+                                          [NSNumber numberWithFloat: 0.],
+                                          @"blue", nil] retain];
 }
 
 - (void) flushColorInfo {
@@ -317,8 +319,9 @@ static inline void flushPreviousString(NSRichTextReader *self) {
         [self createColorInfo];
     }
     [_colorTable
-        setObject: _currentColorInfo
-           forKey: [NSNumber numberWithUnsignedInteger: [_colorTable count]]];
+            setObject: _currentColorInfo
+               forKey: [NSNumber
+                               numberWithUnsignedInteger: [_colorTable count]]];
     [_currentColorInfo release];
     _currentColorInfo = nil;
 }
@@ -362,8 +365,8 @@ static inline void flushPreviousString(NSRichTextReader *self) {
         [self setCurrentDestination: DESTINATION_IGNORE];
     } else if ([self isEqualToString: @"ul"]) {
         [_currentAttributes
-            setObject: [NSNumber numberWithInteger: NSUnderlineStyleSingle]
-               forKey: NSUnderlineStyleAttributeName];
+                setObject: [NSNumber numberWithInteger: NSUnderlineStyleSingle]
+                   forKey: NSUnderlineStyleAttributeName];
     } else if ([self isEqualToString: @"ulnone"]) {
         [_currentAttributes removeObjectForKey: NSUnderlineStyleAttributeName];
     } else if ([self isEqualToString: @"ulc"]) {
@@ -371,12 +374,12 @@ static inline void flushPreviousString(NSRichTextReader *self) {
         [_currentAttributes setObject: c forKey: NSUnderlineColorAttributeName];
     } else if ([self isEqualToString: @"uldb"]) {
         [_currentAttributes
-            setObject: [NSNumber numberWithInteger: NSUnderlineStyleDouble]
-               forKey: NSUnderlineStyleAttributeName];
+                setObject: [NSNumber numberWithInteger: NSUnderlineStyleDouble]
+                   forKey: NSUnderlineStyleAttributeName];
     } else if ([self isEqualToString: @"ulth"]) {
         [_currentAttributes
-            setObject: [NSNumber numberWithInteger: NSUnderlineStyleThick]
-               forKey: NSUnderlineStyleAttributeName];
+                setObject: [NSNumber numberWithInteger: NSUnderlineStyleThick]
+                   forKey: NSUnderlineStyleAttributeName];
     } else if ([self isEqualToString: @"uc"]) {
         [self setCurrentUnicodeCharacterBytesCount: argument];
     } else if ([self isEqualToString: @"u"]) {
@@ -392,15 +395,15 @@ static inline void flushPreviousString(NSRichTextReader *self) {
         NSFont *font = [_currentAttributes objectForKey: NSFontAttributeName];
 
         font = [[NSFontManager sharedFontManager]
-            convertFont: font
-            toHaveTrait: argument ? NSBoldFontMask : NSUnboldFontMask];
+                convertFont: font
+                toHaveTrait: argument ? NSBoldFontMask : NSUnboldFontMask];
         [_currentAttributes setObject: font forKey: NSFontAttributeName];
     } else if ([self isEqualToString: @"i"]) {
         NSFont *font = [_currentAttributes objectForKey: NSFontAttributeName];
 
         font = [[NSFontManager sharedFontManager]
-            convertFont: font
-            toHaveTrait: argument ? NSItalicFontMask : NSUnitalicFontMask];
+                convertFont: font
+                toHaveTrait: argument ? NSItalicFontMask : NSUnitalicFontMask];
         [_currentAttributes setObject: font forKey: NSFontAttributeName];
     } else if ([self isEqualToString: @"par"]) {
         if ([self currentDestination] == DESTINATION_STRING) {
@@ -429,7 +432,7 @@ static inline void flushPreviousString(NSRichTextReader *self) {
                                    forKey: NSBackgroundColorAttributeName];
         } else {
             [_currentAttributes
-                removeObjectForKey: NSBackgroundColorAttributeName];
+                    removeObjectForKey: NSBackgroundColorAttributeName];
         }
     } else if ([self isEqualToString: @"fonttbl"]) {
         _currentFontInfo = [NSMutableDictionary new];
@@ -455,7 +458,7 @@ static inline void flushPreviousString(NSRichTextReader *self) {
             // that we only ask for fonts we have... Of course this is a general
             // problem... so the full fix is elsewhere...
             NSArray *availableFonts =
-                [[NSFontManager sharedFontManager] availableFonts];
+                    [[NSFontManager sharedFontManager] availableFonts];
             if ([availableFonts containsObject: fontname]) {
                 font = [NSFont fontWithName: fontname size: 12];
             }
@@ -473,9 +476,9 @@ static inline void flushPreviousString(NSRichTextReader *self) {
                 else if ([family isEqualToString: @"symbol"])
                     font = [NSFont fontWithName: @"Symbol" size: 12];
                 else if ([family isEqualToString: @"nil"]) {
-                    font =
-                        [NSFont fontWithName: [info objectForKey: @"fontname"]
-                                        size: 12];
+                    font = [NSFont
+                            fontWithName: [info objectForKey: @"fontname"]
+                                    size: 12];
                 }
             }
             if (font == nil) {
@@ -483,13 +486,13 @@ static inline void flushPreviousString(NSRichTextReader *self) {
             }
             if (font) {
                 NSFont *currentFont =
-                    [_currentAttributes objectForKey: NSFontAttributeName];
+                        [_currentAttributes objectForKey: NSFontAttributeName];
                 if (currentFont) {
                     // We'll try to keep the traits, size of the current font
                     // and just change the family name
                     font = [[NSFontManager sharedFontManager]
-                        convertFont: currentFont
-                           toFamily: [font familyName]];
+                            convertFont: currentFont
+                               toFamily: [font familyName]];
                 }
                 [_currentAttributes setObject: font
                                        forKey: NSFontAttributeName];
@@ -539,9 +542,9 @@ static inline void flushPreviousString(NSRichTextReader *self) {
         }
         _range.length--; {
             NSString *path =
-                [_imageDirectory stringByAppendingPathComponent: self];
+                    [_imageDirectory stringByAppendingPathComponent: self];
             NSTextAttachment *attachment = [[[NSTextAttachment alloc]
-                initWithContentsOfFile: path] autorelease];
+                    initWithContentsOfFile: path] autorelease];
             unichar attachChar = NSAttachmentCharacter;
 
             if (attachment != nil) {
@@ -549,11 +552,11 @@ static inline void flushPreviousString(NSRichTextReader *self) {
                                        forKey: NSAttachmentAttributeName];
 
                 [self appendStringWithCurrentAttributes:
-                          [NSString stringWithCharacters: &attachChar
-                                                  length: 1]];
+                                [NSString stringWithCharacters: &attachChar
+                                                        length: 1]];
 
                 [_currentAttributes
-                    removeObjectForKey: NSAttachmentAttributeName];
+                        removeObjectForKey: NSAttachmentAttributeName];
             }
         }
         _range.length++;
@@ -761,8 +764,8 @@ static inline void flushPreviousString(NSRichTextReader *self) {
                 flushPreviousString(self);
                 if ([self currentDestination] == DESTINATION_STRING) {
                     [self appendStringWithCurrentAttributes:
-                              [NSString stringWithCharacters: &_univalue
-                                                      length: 1]];
+                                    [NSString stringWithCharacters: &_univalue
+                                                            length: 1]];
                 }
                 _state = STATE_SKIPLAST;
             }

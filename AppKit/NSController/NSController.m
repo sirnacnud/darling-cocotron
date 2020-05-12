@@ -36,11 +36,11 @@ BOOL NSIsControllerMarker(id object) {
 + (void) initialize {
     if (self == [NSController class]) {
         NSNoSelectionMarker = [[_NSControllerMarker alloc]
-            initWithString: @"NSNoSelectionMarker"];
+                initWithString: @"NSNoSelectionMarker"];
         NSMultipleValuesMarker = [[_NSControllerMarker alloc]
-            initWithString: @"NSMultipleValuesMarker"];
+                initWithString: @"NSMultipleValuesMarker"];
         NSNotApplicableMarker = [[_NSControllerMarker alloc]
-            initWithString: @"NSNotApplicableMarker"];
+                initWithString: @"NSNotApplicableMarker"];
     }
 }
 

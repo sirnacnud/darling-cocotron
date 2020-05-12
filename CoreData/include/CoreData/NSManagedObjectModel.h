@@ -44,12 +44,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSArray *) configurations;
 - (NSArray *) entitiesForConfiguration: (NSString *) configuration;
 - (void) setEntities: (NSArray *) entities
-    forConfiguration: (NSString *) configuration;
+        forConfiguration: (NSString *) configuration;
 
 - (NSFetchRequest *) fetchRequestTemplateForName: (NSString *) name;
 - (NSFetchRequest *) fetchRequestFromTemplateWithName: (NSString *) name
                                 substitutionVariables:
-                                    (NSDictionary *) variables;
+                                        (NSDictionary *) variables;
 
 - (void) setFetchRequestTemplate: (NSFetchRequest *) fetchRequest
                          forName: (NSString *) name;

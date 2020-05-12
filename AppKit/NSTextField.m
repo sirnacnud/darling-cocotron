@@ -53,18 +53,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithCoder: (NSCoder *) coder {
     NSLog(@"NSTextField initWithCoder");
     [super initWithCoder: coder];
-    [self
-        registerForDraggedTypes: [NSArray arrayWithObject: NSStringPboardType]];
+    [self registerForDraggedTypes:
+                    [NSArray arrayWithObject: NSStringPboardType]];
 
     if ([coder allowsKeyedCoding]) {
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
 
         [self setDelegate: [keyed decodeObjectForKey: @"NSDelegate"]];
-        _errorAction =
-            NSSelectorFromString([keyed decodeObjectForKey: @"NSErrorAction"]);
+        _errorAction = NSSelectorFromString(
+                [keyed decodeObjectForKey: @"NSErrorAction"]);
 
         double maxLayoutWidth =
-            [keyed decodeDoubleForKey: @"NSPreferredMaxLayoutWidth"];
+                [keyed decodeDoubleForKey: @"NSPreferredMaxLayoutWidth"];
         // TODO
     } else {
         NSInteger version = [coder versionForClassName: @"NSTextField"];
@@ -86,8 +86,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_cell setEditable: YES];
     [_cell setSelectable: YES];
     [_cell setBezeled: YES];
-    [self
-        registerForDraggedTypes: [NSArray arrayWithObject: NSStringPboardType]];
+    [self registerForDraggedTypes:
+                    [NSArray arrayWithObject: NSStringPboardType]];
     return self;
 }
 
@@ -112,13 +112,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     struct {
         SEL selector;
         NSString *name;
-    } notes[] = {
-        {@selector(controlTextDidBeginEditing:),
-         NSControlTextDidBeginEditingNotification},
-        {@selector(controlTextDidChange:), NSControlTextDidChangeNotification},
-        {@selector(controlTextDidEndEditing:),
-         NSControlTextDidEndEditingNotification},
-        {NULL, nil}};
+    } notes[] = {{@selector(controlTextDidBeginEditing:),
+                  NSControlTextDidBeginEditingNotification},
+                 {@selector(controlTextDidChange:),
+                  NSControlTextDidChangeNotification},
+                 {@selector(controlTextDidEndEditing:),
+                  NSControlTextDidEndEditingNotification},
+                 {NULL, nil}};
     int i;
 
     if (_delegate != nil)
@@ -175,7 +175,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setPlaceholderAttributedString:
-    (NSAttributedString *) placeholderAttributedString
+        (NSAttributedString *) placeholderAttributedString
 {
     [_cell setPlaceholderAttributedString: placeholderAttributedString];
 }
@@ -271,7 +271,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             } else {
                 // Ask the delegate what to do
                 SEL sel = @selector(control:
-                      didFailToFormatString:errorDescription:);
+                        didFailToFormatString:errorDescription:);
                 if ([_delegate respondsToSelector: sel]) {
                     acceptsString = [_delegate control: self
                                  didFailToFormatString: string
@@ -285,7 +285,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     NSTextView *textview = (NSTextView *) _currentEditor;
                     NSAttributedString *text = [textview textStorage];
                     NSAttributedString *string = [[[NSAttributedString alloc]
-                        initWithAttributedString: text] autorelease];
+                            initWithAttributedString: text] autorelease];
                     [[self selectedCell] setAttributedStringValue: string];
                 } else {
                     [[self selectedCell] setStringValue: string];
@@ -340,7 +340,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) textShouldBeginEditing: (NSText *) text {
     if ([_delegate respondsToSelector: @selector(control:
-                                           textShouldBeginEditing:)])
+                                               textShouldBeginEditing:)])
         if ([_delegate control: self textShouldBeginEditing: text] == NO) {
             NSBeep();
             return NO;
@@ -350,7 +350,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) textShouldEndEditing: (NSText *) text {
     if ([_delegate respondsToSelector: @selector(control:
-                                           textShouldEndEditing:)])
+                                               textShouldEndEditing:)])
         if ([_delegate control: self textShouldEndEditing: text] == NO) {
             NSBeep();
             return NO;
@@ -368,7 +368,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSError *error = nil;
         if ([formatter isKindOfClass: [NSNumberFormatter class]]) {
             NSNumberFormatter *numberFormatter =
-                (NSNumberFormatter *) formatter;
+                    (NSNumberFormatter *) formatter;
             acceptsString = [numberFormatter getObjectValue: &objectValue
                                                   forString: string
                                                       range: NULL
@@ -384,12 +384,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 if (errorString == nil) {
                     // Just in case we get no error from the formatter
                     errorString = NSLocalizedStringFromTableInBundle(
-                        @"Invalid number", nil,
-                        [NSBundle bundleForClass: [NSTextField class]], @"");
+                            @"Invalid number", nil,
+                            [NSBundle bundleForClass: [NSTextField class]],
+                            @"");
                 }
                 info = [NSDictionary
-                    dictionaryWithObject: errorString
-                                  forKey: NSLocalizedDescriptionKey];
+                        dictionaryWithObject: errorString
+                                      forKey: NSLocalizedDescriptionKey];
                 error = [NSError errorWithDomain: NSCocoaErrorDomain
                                             code: 2048
                                         userInfo: info];
@@ -417,8 +418,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [super setStringValue: value];
     else {
         NSRange selectedRange = [_currentEditor selectedRange];
-        BOOL isEntireString = NSEqualRanges(
-            selectedRange, NSMakeRange(0, [[_currentEditor string] length]));
+        BOOL isEntireString =
+                NSEqualRanges(selectedRange,
+                              NSMakeRange(0, [[_currentEditor string] length]));
 
         [super setStringValue: value];
         [_currentEditor setString: [self stringValue]];

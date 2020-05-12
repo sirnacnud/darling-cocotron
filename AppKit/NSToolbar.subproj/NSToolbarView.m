@@ -127,10 +127,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSInteger totalVisible = 0;
 
     NSInteger priorities[4] = {
-        NSToolbarItemVisibilityPriorityUser,
-        NSToolbarItemVisibilityPriorityHigh,
-        NSToolbarItemVisibilityPriorityStandard,
-        NSToolbarItemVisibilityPriorityLow,
+            NSToolbarItemVisibilityPriorityUser,
+            NSToolbarItemVisibilityPriorityHigh,
+            NSToolbarItemVisibilityPriorityStandard,
+            NSToolbarItemVisibilityPriorityLow,
     };
     int priorityCount = 4;
 
@@ -149,12 +149,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         notSpace[i] = NO;
 
         if ([identifier
-                isEqualToString: NSToolbarFlexibleSpaceItemIdentifier]) {
+                    isEqualToString: NSToolbarFlexibleSpaceItemIdentifier]) {
             isFlexible[i] = YES;
         } else if (![identifier
-                       isEqualToString: NSToolbarSeparatorItemIdentifier] &&
+                           isEqualToString: NSToolbarSeparatorItemIdentifier] &&
                    ![identifier
-                       isEqualToString: NSToolbarSpaceItemIdentifier]) {
+                           isEqualToString: NSToolbarSpaceItemIdentifier]) {
             notSpace[i] = YES;
             totalNonSpace++;
         }
@@ -200,7 +200,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     while (consumedWidth < desiredWidth && totalConsumers > 0) {
         CGFloat availablePerItem =
-            floor((desiredWidth - consumedWidth) / totalConsumers);
+                floor((desiredWidth - consumedWidth) / totalConsumers);
 
         if (availablePerItem < 1)
             break;
@@ -280,7 +280,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) _removeItemAtIndex: (NSInteger) index {
     [[[[self subviews] copy] autorelease]
-        makeObjectsPerformSelector: @selector(removeFromSuperview)];
+            makeObjectsPerformSelector: @selector(removeFromSuperview)];
     [self layoutViews];
 }
 
@@ -330,9 +330,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSPasteboard *pboard = [sender draggingPasteboard];
     if ([_toolbar customizationPaletteIsRunning]) {
         if ([[pboard types]
-                containsObject: NSToolbarItemIdentifierPboardType]) {
+                    containsObject: NSToolbarItemIdentifierPboardType]) {
             NSData *data =
-                [pboard dataForType: NSToolbarItemIdentifierPboardType];
+                    [pboard dataForType: NSToolbarItemIdentifierPboardType];
             id droppedObject = [NSUnarchiver unarchiveObjectWithData: data];
 
             if ([droppedObject isKindOfClass: [NSArray class]]) {
@@ -374,9 +374,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSRect frame = NSMakeRect(0, 0, [subview frame].size.width + 4,
                                   [subview frame].size.height + 4);
         NSImage *image =
-            [[[NSImage alloc] initWithSize: frame.size] autorelease];
+                [[[NSImage alloc] initWithSize: frame.size] autorelease];
         NSData *data =
-            [NSArchiver archivedDataWithRootObject: [item itemIdentifier]];
+                [NSArchiver archivedDataWithRootObject: [item itemIdentifier]];
 
         [image setCachedSeparately: YES];
         [image lockFocus];
@@ -392,13 +392,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [_toolbar removeItemAtIndex: index];
 
         [self dragImage: image
-                     at: NSMakePoint([[item image] size].width / 2,
-                                     [[item image] size].height / 2)
-                 offset: NSZeroSize
-                  event: event
-             pasteboard: pboard
-                 source: self
-              slideBack: YES];
+                        at: NSMakePoint([[item image] size].width / 2,
+                                        [[item image] size].height / 2)
+                    offset: NSZeroSize
+                     event: event
+                pasteboard: pboard
+                    source: self
+                 slideBack: YES];
 
         [item release];
         return;
@@ -414,8 +414,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     NSArray *items = [_toolbar items];
     NSString *menuTitle = NSLocalizedStringFromTableInBundle(
-        @"Overflow", nil, [NSBundle bundleForClass: [NSToolbarView class]],
-        @"Describes the overflow area of the toolbar");
+            @"Overflow", nil, [NSBundle bundleForClass: [NSToolbarView class]],
+            @"Describes the overflow area of the toolbar");
     NSMenu *menu = [[NSMenu alloc] initWithTitle: menuTitle];
     NSRect menuFrame = [self frame];
 
@@ -423,7 +423,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSToolbarItemIdentifier identifier = [item itemIdentifier];
 
         if ([identifier
-                isEqualToString: NSToolbarFlexibleSpaceItemIdentifier] ||
+                    isEqualToString: NSToolbarFlexibleSpaceItemIdentifier] ||
             [identifier isEqualToString: NSToolbarSeparatorItemIdentifier] ||
             [identifier isEqualToString: NSToolbarSpaceItemIdentifier]) {
             continue;
@@ -439,7 +439,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         if ([[item label] sizeWithAttributes: nil].width > menuFrame.size.width)
             menuFrame.size.width =
-                [[item label] sizeWithAttributes: nil].width + 20.0; // argh
+                    [[item label] sizeWithAttributes: nil].width + 20.0; // argh
     }
 
     NSMenuWindow *window = [[NSMenuWindow alloc] initWithMenu: menu];

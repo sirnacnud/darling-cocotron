@@ -48,7 +48,7 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
     NSInputSource *parentDeath;
 
     _modes = NSCreateMapTableWithZone(
-        NSObjectMapKeyCallBacks, NSObjectMapValueCallBacks, 0, [self zone]);
+            NSObjectMapKeyCallBacks, NSObjectMapValueCallBacks, 0, [self zone]);
     _commonModes = [[NSMutableArray alloc] init];
     [_commonModes addObject: NSDefaultRunLoopMode];
     _currentMode = NSDefaultRunLoopMode;
@@ -187,8 +187,8 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
     NSString *mode;
     NSRunLoopState *modeState;
 
-    while (
-        NSNextMapEnumeratorPair(&state, (void **) &mode, (void **) &modeState))
+    while (NSNextMapEnumeratorPair(&state, (void **) &mode,
+                                   (void **) &modeState))
         [modeState invalidateTimerWithDelayedPerform: delayed];
 }
 
@@ -213,7 +213,7 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
         NSRunLoopState *state = [self stateForMode: mode];
 
         if ([[NSNotificationQueue defaultQueue]
-                hasIdleNotificationsInMode: mode]) {
+                    hasIdleNotificationsInMode: mode]) {
             if ([state pollInputForMode: mode]) {
                 [pool release];
                 return YES;
@@ -302,11 +302,11 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
                    modes: (NSArray *) modes
 {
     NSOrderedPerform *perform = [NSOrderedPerform
-        orderedPerformWithSelector: selector
-                            target: target
-                          argument: argument
-                             order: order
-                             modes: [self resolveCommonModes: modes]];
+            orderedPerformWithSelector: selector
+                                target: target
+                              argument: argument
+                                 order: order
+                                 modes: [self resolveCommonModes: modes]];
     @synchronized(_orderedPerforms) {
         NSInteger count = [_orderedPerforms count];
 
@@ -361,18 +361,18 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
                                           object: argument
 {
     NSDelayedPerform *delayed =
-        [NSDelayedPerform delayedPerformWithObject: target
-                                          selector: selector
-                                          argument: argument];
+            [NSDelayedPerform delayedPerformWithObject: target
+                                              selector: selector
+                                              argument: argument];
 
     [[NSRunLoop currentRunLoop] invalidateTimerWithDelayedPerform: delayed];
 }
 
 + (void) cancelPreviousPerformRequestsWithTarget: target {
     NSDelayedPerform *delayed =
-        [NSDelayedPerform delayedPerformWithObject: target
-                                          selector: NULL
-                                          argument: nil];
+            [NSDelayedPerform delayedPerformWithObject: target
+                                              selector: NULL
+                                              argument: nil];
 
     [[NSRunLoop currentRunLoop] invalidateTimerWithDelayedPerform: delayed];
 }
@@ -384,15 +384,15 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
 }
 
 + (void) object: object
-    performSelector: (SEL) selector
-         withObject: argument
-         afterDelay: (NSTimeInterval) delay
-            inModes: (NSArray *) modes
+        performSelector: (SEL) selector
+             withObject: argument
+             afterDelay: (NSTimeInterval) delay
+                inModes: (NSArray *) modes
 {
     NSDelayedPerform *delayed =
-        [NSDelayedPerform delayedPerformWithObject: object
-                                          selector: selector
-                                          argument: argument];
+            [NSDelayedPerform delayedPerformWithObject: object
+                                              selector: selector
+                                              argument: argument];
     NSTimer *timer = [NSTimer timerWithTimeInterval: delay
                                              target: [NSObject class]
                                            selector: @selector(_delayedPerform:)
@@ -410,10 +410,10 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
               afterDelay: (NSTimeInterval) delay
 {
     [[self class] object: self
-         performSelector: selector
-              withObject: object
-              afterDelay: delay
-                 inModes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+            performSelector: selector
+                 withObject: object
+                 afterDelay: delay
+                    inModes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
 }
 
 - (void) performSelector: (SEL) selector
@@ -422,10 +422,10 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
                  inModes: (NSArray *) modes
 {
     [[self class] object: self
-         performSelector: selector
-              withObject: object
-              afterDelay: delay
-                 inModes: modes];
+            performSelector: selector
+                 withObject: object
+                 afterDelay: delay
+                    inModes: modes];
 }
 
 @end

@@ -12,7 +12,7 @@ void usage() {
 int main(int argc, const char *argv[]) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *path =
-        [[NSUserDefaults standardUserDefaults] stringForKey: @"Path"];
+            [[NSUserDefaults standardUserDefaults] stringForKey: @"Path"];
 
     if (path == nil)
         usage();
@@ -20,7 +20,7 @@ int main(int argc, const char *argv[]) {
     NSData *pdf = [NSData dataWithContentsOfFile: path];
     O2DataProviderRef provider = O2DataProviderCreateWithCFData(pdf);
     O2PDFDocument *document =
-        [[O2PDFDocument alloc] initWithDataProvider: provider];
+            [[O2PDFDocument alloc] initWithDataProvider: provider];
     int i, pageCount = [document pageCount];
     O2ColorSpaceRef rgbColor = O2ColorSpaceCreateDeviceRGB();
 
@@ -41,8 +41,8 @@ int main(int argc, const char *argv[]) {
         }
 
         context = O2BitmapContextCreate(
-            NULL, mediaBox.size.width, mediaBox.size.height, 8, 0, rgbColor,
-            kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Host);
+                NULL, mediaBox.size.width, mediaBox.size.height, 8, 0, rgbColor,
+                kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Host);
 
         if (context == NULL) {
             NSLog(@"Unable to create context for media box %f %f",

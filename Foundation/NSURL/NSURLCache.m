@@ -35,8 +35,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @interface NSHTTPURLResponse (private)
 - initWithURL: (NSURL *) url
-    statusCode: (NSInteger) statusCode
-       headers: (NSDictionary *) headers;
+        statusCode: (NSInteger) statusCode
+           headers: (NSDictionary *) headers;
 @end
 
 @implementation NSURLCache
@@ -46,7 +46,7 @@ static NSURLCache *shared = nil;
 + (NSURLCache *) sharedURLCache {
     if (shared == nil) {
         NSString *path = [NSSearchPathForDirectoriesInDomains(
-            NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+                NSCachesDirectory, NSUserDomainMask, YES) lastObject];
 
         path = [path stringByAppendingPathComponent: @"NSURLCache"];
 
@@ -80,8 +80,8 @@ static NSURLCache *shared = nil;
     _memoryAccess = [[NSMutableArray alloc] init];
 
     _diskCache = [[NSMutableDictionary alloc]
-        initWithContentsOfFile: [_path
-                                    stringByAppendingPathComponent: @"cache"]];
+            initWithContentsOfFile:
+                    [_path stringByAppendingPathComponent: @"cache"]];
 
     if (_diskCache == nil)
         _diskCache = [[NSMutableDictionary alloc] init];
@@ -118,49 +118,51 @@ static NSURLCache *shared = nil;
 
     if (result == nil) {
         NSMutableDictionary *properties =
-            [_diskCache objectForKey: [[request URL] absoluteString]];
+                [_diskCache objectForKey: [[request URL] absoluteString]];
 
         if (properties != nil) {
-            NSString *dataPath = [[_path
-                stringByAppendingPathComponent: [properties
-                                                    objectForKey: @"file"]]
-                stringByAppendingPathExtension: @"data"];
+            NSString *dataPath =
+                    [[_path stringByAppendingPathComponent:
+                                    [properties objectForKey: @"file"]]
+                            stringByAppendingPathExtension: @"data"];
             NSData *data = [NSData dataWithContentsOfFile: dataPath];
-            NSString *headerPath = [[_path
-                stringByAppendingPathComponent: [properties
-                                                    objectForKey: @"file"]]
-                stringByAppendingPathExtension: @"headers"];
+            NSString *headerPath =
+                    [[_path stringByAppendingPathComponent:
+                                    [properties objectForKey: @"file"]]
+                            stringByAppendingPathExtension: @"headers"];
             NSDictionary *headers =
-                [NSDictionary dictionaryWithContentsOfFile: headerPath];
+                    [NSDictionary dictionaryWithContentsOfFile: headerPath];
 
             if (data != nil && headers != nil) {
                 NSHTTPURLResponse *response = [[[NSHTTPURLResponse alloc]
-                    initWithURL: [request URL]
-                     statusCode: 200
-                        headers: headers] autorelease];
+                        initWithURL: [request URL]
+                         statusCode: 200
+                            headers: headers] autorelease];
 
                 result = [[[NSCachedURLResponse alloc]
-                    initWithResponse: response
-                                data: data
-                            userInfo: nil
-                       storagePolicy: NSURLCacheStorageNotAllowed] autorelease];
+                        initWithResponse: response
+                                    data: data
+                                userInfo: nil
+                           storagePolicy: NSURLCacheStorageNotAllowed]
+                        autorelease];
 
                 properties = [[properties mutableCopy] autorelease];
                 [properties
-                    setObject: [NSString
-                                   stringWithFormat:
-                                       @"%f",
-                                       [[NSDate date]
-                                           timeIntervalSinceReferenceDate]]
-                       forKey: @"lastAccess"];
+                        setObject:
+                                [NSString
+                                        stringWithFormat:
+                                                @"%f",
+                                                [[NSDate date]
+                                                        timeIntervalSinceReferenceDate]]
+                           forKey: @"lastAccess"];
 
                 [_diskCache setObject: properties
                                forKey: [[request URL] absoluteString]];
 
                 if (![_diskCache
-                        writeToFile:
-                            [_path stringByAppendingPathComponent: @"cache"]
-                         atomically: YES]) {
+                            writeToFile: [_path stringByAppendingPathComponent:
+                                                         @"cache"]
+                             atomically: YES]) {
                 }
             }
         }
@@ -180,7 +182,7 @@ static NSURLCache *shared = nil;
 - (NSString *) nextFileForDiskCache {
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     NSString *result =
-        [(NSString *) CFUUIDCreateString(NULL, uuid) autorelease];
+            [(NSString *) CFUUIDCreateString(NULL, uuid) autorelease];
 
     CFRelease(uuid);
 
@@ -192,7 +194,8 @@ static NSURLCache *shared = nil;
     // files will purge them
     NSMutableArray *bySize = [[[_diskCache allValues] mutableCopy] autorelease];
     NSSortDescriptor *sort =
-        [NSSortDescriptor sortDescriptorWithKey: @"lastAccess" ascending: NO];
+            [NSSortDescriptor sortDescriptorWithKey: @"lastAccess"
+                                          ascending: NO];
 
     [bySize sortUsingDescriptors: [NSArray arrayWithObject: sort]];
 
@@ -223,15 +226,16 @@ static NSURLCache *shared = nil;
         NSDictionary *properties = [_diskCache objectForKey: key];
 
         [allValidFiles
-            addObject: [[properties objectForKey: @"file"]
-                           stringByAppendingPathExtension: @"headers"]];
-        [allValidFiles addObject: [[properties objectForKey: @"file"]
-                                      stringByAppendingPathExtension: @"data"]];
+                addObject: [[properties objectForKey: @"file"]
+                                   stringByAppendingPathExtension: @"headers"]];
+        [allValidFiles
+                addObject: [[properties objectForKey: @"file"]
+                                   stringByAppendingPathExtension: @"data"]];
     }
 
     NSArray *allFiles =
-        [[NSFileManager defaultManager] contentsOfDirectoryAtPath: _path
-                                                            error: NULL];
+            [[NSFileManager defaultManager] contentsOfDirectoryAtPath: _path
+                                                                error: NULL];
 
     for (NSString *check in allFiles) {
 
@@ -258,22 +262,23 @@ static NSURLCache *shared = nil;
     NSString *file = [self nextFileForDiskCache];
     [properties setObject: file forKey: @"file"];
     [properties
-        setObject: [NSString
-                       stringWithFormat: @"%f",
-                                         [[NSDate date]
-                                             timeIntervalSinceReferenceDate]]
-           forKey: @"lastAccess"];
+            setObject: [NSString
+                               stringWithFormat:
+                                       @"%f",
+                                       [[NSDate date]
+                                               timeIntervalSinceReferenceDate]]
+               forKey: @"lastAccess"];
     // duplicative but makes cache purging simpler
     [properties setObject: [[request URL] absoluteString] forKey: @"url"];
 
     NSString *headersPath = [[_path stringByAppendingPathComponent: file]
-        stringByAppendingPathExtension: @"headers"];
+            stringByAppendingPathExtension: @"headers"];
     NSString *dataPath = [[_path stringByAppendingPathComponent: file]
-        stringByAppendingPathExtension: @"data"];
+            stringByAppendingPathExtension: @"data"];
 
     if (![[(NSHTTPURLResponse *) response allHeaderFields]
-            writeToFile: headersPath
-             atomically: YES]) {
+                writeToFile: headersPath
+                 atomically: YES]) {
         return;
     }
 
@@ -284,8 +289,8 @@ static NSURLCache *shared = nil;
     [_diskCache setObject: properties forKey: [[request URL] absoluteString]];
 
     if (![_diskCache
-            writeToFile: [_path stringByAppendingPathComponent: @"cache"]
-             atomically: YES]) {
+                writeToFile: [_path stringByAppendingPathComponent: @"cache"]
+                 atomically: YES]) {
     }
 }
 
@@ -317,8 +322,8 @@ static NSURLCache *shared = nil;
     [_diskCache removeObjectForKey: [[request URL] absoluteString]];
 
     if (![_diskCache
-            writeToFile: [_path stringByAppendingPathComponent: @"cache"]
-             atomically: YES]) {
+                writeToFile: [_path stringByAppendingPathComponent: @"cache"]
+                 atomically: YES]) {
     }
 }
 

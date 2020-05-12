@@ -68,15 +68,16 @@ CF_IMPLICIT_BRIDGING_ENABLED
 COREGRAPHICS_EXPORT CGImageRef CGImageRetain(CGImageRef image);
 COREGRAPHICS_EXPORT void CGImageRelease(CGImageRef image);
 
-COREGRAPHICS_EXPORT CGImageRef CGImageCreate(
-    size_t width, size_t height, size_t bitsPerComponent, size_t bitsPerPixel,
-    size_t bytesPerRow, CGColorSpaceRef colorSpace, CGBitmapInfo bitmapInfo,
-    CGDataProviderRef dataProvider, const CGFloat *decode, bool interpolate,
-    CGColorRenderingIntent renderingIntent);
+COREGRAPHICS_EXPORT CGImageRef
+CGImageCreate(size_t width, size_t height, size_t bitsPerComponent,
+              size_t bitsPerPixel, size_t bytesPerRow,
+              CGColorSpaceRef colorSpace, CGBitmapInfo bitmapInfo,
+              CGDataProviderRef dataProvider, const CGFloat *decode,
+              bool interpolate, CGColorRenderingIntent renderingIntent);
 COREGRAPHICS_EXPORT CGImageRef CGImageMaskCreate(
-    size_t width, size_t height, size_t bitsPerComponent, size_t bitsPerPixel,
-    size_t bytesPerRow, CGDataProviderRef dataProvider, const CGFloat *decode,
-    bool interpolate);
+        size_t width, size_t height, size_t bitsPerComponent,
+        size_t bitsPerPixel, size_t bytesPerRow, CGDataProviderRef dataProvider,
+        const CGFloat *decode, bool interpolate);
 
 COREGRAPHICS_EXPORT CGImageRef CGImageCreateCopy(CGImageRef self);
 COREGRAPHICS_EXPORT CGImageRef
@@ -86,11 +87,11 @@ COREGRAPHICS_EXPORT CGImageRef CGImageCreateWithImageInRect(CGImageRef self,
                                                             CGRect rect);
 
 COREGRAPHICS_EXPORT CGImageRef CGImageCreateWithJPEGDataProvider(
-    CGDataProviderRef jpegProvider, const CGFloat *decode, bool interpolate,
-    CGColorRenderingIntent renderingIntent);
+        CGDataProviderRef jpegProvider, const CGFloat *decode, bool interpolate,
+        CGColorRenderingIntent renderingIntent);
 COREGRAPHICS_EXPORT CGImageRef CGImageCreateWithPNGDataProvider(
-    CGDataProviderRef pngProvider, const CGFloat *decode, bool interpolate,
-    CGColorRenderingIntent renderingIntent);
+        CGDataProviderRef pngProvider, const CGFloat *decode, bool interpolate,
+        CGColorRenderingIntent renderingIntent);
 
 COREGRAPHICS_EXPORT CGImageRef CGImageCreateWithMask(CGImageRef self,
                                                      CGImageRef mask);

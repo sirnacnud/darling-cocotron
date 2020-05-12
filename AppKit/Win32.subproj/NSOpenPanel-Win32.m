@@ -58,12 +58,12 @@ static int CALLBACK browseFolderHook(HWND hdlg, UINT uMsg, LPARAM lParam,
     unichar displayName[MAX_PATH + 1];
 
     @synchronized(self) {
-        browseInfo.hwndOwner =
-            [(Win32Window *) [[NSApp keyWindow] platformWindow] windowHandle];
+        browseInfo.hwndOwner = [(Win32Window *) [[NSApp keyWindow]
+                platformWindow] windowHandle];
         browseInfo.pidlRoot = NULL;
         browseInfo.pszDisplayName = displayName;
         browseInfo.lpszTitle = (const unichar *) [_dialogTitle
-            cStringUsingEncoding: NSUnicodeStringEncoding];
+                cStringUsingEncoding: NSUnicodeStringEncoding];
         browseInfo.ulFlags = BIF_NEWDIALOGSTYLE;
         if ([initialPath length]) {
             browseInfo.lpfn = browseFolderHook;
@@ -94,10 +94,10 @@ static int CALLBACK browseFolderHook(HWND hdlg, UINT uMsg, LPARAM lParam,
     @synchronized(self) {
         [_filenames release];
         _filenames = [[NSArray
-            arrayWithObject: [NSString
-                                 stringWithCharacters: displayName
-                                               length: wcslen(displayName)]]
-            retain];
+                arrayWithObject:
+                        [NSString stringWithCharacters: displayName
+                                                length: wcslen(displayName)]]
+                retain];
 
         if ([_filenames count] > 0) {
             [_filename release];
@@ -161,33 +161,34 @@ static unsigned *openFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
     unichar *fileTypes, *p, *q;
     int i, j, fileTypesLength, check;
     NSArray *allTypes =
-        [[NSDocumentController sharedDocumentController] _allFileTypes];
+            [[NSDocumentController sharedDocumentController] _allFileTypes];
     NSDictionary *typeDict;
     NSArray *typeExtensions;
 
     if (types) {
         types = [types
-            sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
+                sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
         fileTypesLength = strlen("Supported (");
         for (j = 0; j < [types count]; j++)
             // 2 x length of *.<EXT> + semicolon
             fileTypesLength +=
-                2 * (2 + [[types objectAtIndex: j] cStringLength] + 1);
+                    2 * (2 + [[types objectAtIndex: j] cStringLength] + 1);
         fileTypesLength += 1; // space for one \0
 
         for (i = 0; i < [allTypes count]; i++) {
             typeDict = [allTypes objectAtIndex: i];
             // length of the full name of the document type + blank + opening
             // bracket
-            fileTypesLength +=
-                [[typeDict objectForKey: @"CFBundleTypeName"] cStringLength] +
-                2;
+            fileTypesLength += [[typeDict objectForKey: @"CFBundleTypeName"]
+                                       cStringLength] +
+                               2;
             typeExtensions = [typeDict objectForKey: @"CFBundleTypeExtensions"];
             for (j = 0; j < [typeExtensions count]; j++)
                 // 2 x length of *.<EXT> + semicolon
                 fileTypesLength +=
-                    2 *
-                    (2 + [[typeExtensions objectAtIndex: j] cStringLength] + 1);
+                        2 *
+                        (2 + [[typeExtensions objectAtIndex: j] cStringLength] +
+                         1);
             fileTypesLength += 1; // space for one \0
         }
         fileTypesLength++; // the final \0
@@ -240,8 +241,8 @@ static unsigned *openFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
 
     @synchronized(self) {
         openFileName.lStructSize = sizeof(OPENFILENAME);
-        openFileName.hwndOwner =
-            [(Win32Window *) [[NSApp keyWindow] platformWindow] windowHandle];
+        openFileName.hwndOwner = [(Win32Window *) [[NSApp keyWindow]
+                platformWindow] windowHandle];
         openFileName.hInstance = NULL;
         openFileName.lpstrFilter = fileTypes;
         openFileName.lpstrCustomFilter = NULL;
@@ -254,11 +255,11 @@ static unsigned *openFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
         openFileName.nMaxFileTitle = 0;
         openFileName.lpstrInitialDir = [_directory fileSystemRepresentationW];
         openFileName.lpstrTitle = (const unichar *) [_dialogTitle
-            cStringUsingEncoding: NSUnicodeStringEncoding];
+                cStringUsingEncoding: NSUnicodeStringEncoding];
         openFileName.Flags =
-            (_allowsMultipleSelection ? OFN_ALLOWMULTISELECT : 0) |
-            OFN_NOTESTFILECREATE | OFN_EXPLORER | OFN_HIDEREADONLY |
-            OFN_ENABLEHOOK | OFN_ENABLESIZING;
+                (_allowsMultipleSelection ? OFN_ALLOWMULTISELECT : 0) |
+                OFN_NOTESTFILECREATE | OFN_EXPLORER | OFN_HIDEREADONLY |
+                OFN_ENABLEHOOK | OFN_ENABLESIZING;
         openFileName.nFileOffset = 0;
         openFileName.nFileExtension = 0;
         openFileName.lpstrDefExt = NULL;
@@ -279,9 +280,9 @@ static unsigned *openFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
     @synchronized(self) {
 
         [_filenames release]; {
-            NSString *firstFile =
-                [NSString stringWithCharacters: openFileName.lpstrFile
-                                        length: wcslen(openFileName.lpstrFile)];
+            NSString *firstFile = [NSString
+                    stringWithCharacters: openFileName.lpstrFile
+                                  length: wcslen(openFileName.lpstrFile)];
             int offset = openFileName.nFileOffset;
 
             if (offset < [firstFile length])
@@ -291,15 +292,17 @@ static unsigned *openFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
 
                 while (YES) {
                     NSString *next = [NSString
-                        stringWithCharacters: openFileName.lpstrFile + offset
-                                      length: wcslen(openFileName.lpstrFile +
-                                                     offset)];
+                            stringWithCharacters: openFileName.lpstrFile +
+                                                  offset
+                                          length: wcslen(openFileName
+                                                                 .lpstrFile +
+                                                         offset)];
 
                     if ([next length] == 0)
                         break;
 
-                    [list addObject: [firstFile
-                                         stringByAppendingPathComponent: next]];
+                    [list addObject: [firstFile stringByAppendingPathComponent:
+                                                        next]];
                     offset += [next length] + 1;
                 }
                 _filenames = [list retain];

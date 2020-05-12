@@ -85,29 +85,29 @@ void O2DeviceContextEstablishDeviceSpacePath_gdi(HDC dc, O2Path *path,
 
         case kO2PathElementMoveToPoint: {
             NSPoint point =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
 
             MoveToEx(dc, float2int(point.x), float2int(point.y), NULL);
         } break;
 
         case kO2PathElementAddLineToPoint: {
             NSPoint point =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
 
             LineTo(dc, float2int(point.x), float2int(point.y));
         } break;
 
         case kO2PathElementAddCurveToPoint: {
             NSPoint cp1 =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
             NSPoint cp2 =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
             NSPoint end =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
             POINT points[3] = {
-                {float2int(cp1.x), float2int(cp1.y)},
-                {float2int(cp2.x), float2int(cp2.y)},
-                {float2int(end.x), float2int(end.y)},
+                    {float2int(cp1.x), float2int(cp1.y)},
+                    {float2int(cp2.x), float2int(cp2.y)},
+                    {float2int(end.x), float2int(end.y)},
             };
 
             PolyBezierTo(dc, points, 3);
@@ -116,14 +116,14 @@ void O2DeviceContextEstablishDeviceSpacePath_gdi(HDC dc, O2Path *path,
             // FIX, this is wrong
         case kO2PathElementAddQuadCurveToPoint: {
             NSPoint cp1 =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
             NSPoint cp2 =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
             NSPoint end = cp2;
             POINT points[3] = {
-                {float2int(cp1.x), float2int(cp1.y)},
-                {float2int(cp2.x), float2int(cp2.y)},
-                {float2int(end.x), float2int(end.y)},
+                    {float2int(cp1.x), float2int(cp1.y)},
+                    {float2int(cp2.x), float2int(cp2.y)},
+                    {float2int(end.x), float2int(end.y)},
             };
 
             PolyBezierTo(dc, points, 3);

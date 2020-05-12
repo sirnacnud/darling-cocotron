@@ -26,8 +26,8 @@ static inline unibuffer NewUnibufferWithString(NSString *string) {
     unibuffer result;
 
     result.length = [string length];
-    result.characters =
-        NSZoneMalloc(NSDefaultMallocZone(), sizeof(unichar) * result.length);
+    result.characters = NSZoneMalloc(NSDefaultMallocZone(),
+                                     sizeof(unichar) * result.length);
 
     [string getCharacters: result.characters];
 

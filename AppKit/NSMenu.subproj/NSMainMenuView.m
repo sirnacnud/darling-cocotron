@@ -36,9 +36,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (CGFloat) menuHeight {
-    NSDictionary *attributes =
-        [NSDictionary dictionaryWithObjectsAndKeys: [self menuFont],
-                                                    NSFontAttributeName, nil];
+    NSDictionary *attributes = [NSDictionary
+            dictionaryWithObjectsAndKeys: [self menuFont], NSFontAttributeName,
+                                          nil];
     CGFloat result = [@"Menu" sizeWithAttributes: attributes].height;
 
     result += 3; // border top/bottom margin
@@ -88,9 +88,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSRect result;
     NSSize titleSize = [[self graphicsStyle] menuItemTextSize: [item title]];
 
-    result.origin =
-        NSMakePoint(NSMaxX(previousBorderRect) + 6,
-                    floor(([self bounds].size.height - titleSize.height) / 2));
+    result.origin = NSMakePoint(
+            NSMaxX(previousBorderRect) + 6,
+            floor(([self bounds].size.height - titleSize.height) / 2));
     result.size = titleSize;
 
     return result;
@@ -161,16 +161,16 @@ static void drawSunkenBorder(NSRect rect) {
 
 - (NSImage *) overflowImage {
     return [[self window] isKeyWindow]
-               ? [NSImage imageNamed: @"NSMenuViewDoubleRightArrow"]
-               : [NSImage imageNamed: @"NSMenuViewDoubleRightArrowGray"];
+                   ? [NSImage imageNamed: @"NSMenuViewDoubleRightArrow"]
+                   : [NSImage imageNamed: @"NSMenuViewDoubleRightArrowGray"];
 }
 
 - (NSRect) overflowRect {
     NSRect bounds = [self bounds];
     NSImage *image = [self overflowImage];
     NSSize size = [image size];
-    NSRect rect =
-        NSInsetRect(NSMakeRect(0, 0, size.width, bounds.size.height), -3, 0);
+    NSRect rect = NSInsetRect(NSMakeRect(0, 0, size.width, bounds.size.height),
+                              -3, 0);
 
     rect.origin.x = NSMaxX(bounds) - rect.size.width;
 
@@ -197,11 +197,10 @@ static void drawSunkenBorder(NSRect rect) {
         NSRect borderRect = [self borderRectFromTitleRect: titleRect];
 
         [[self graphicsStyle]
-            drawMenuBarItemBorderInRect: borderRect
-                                  hover:
-                                      (i ==
-                                       _selectedItemIndex) /*NSPointInRect(mouseLoc,borderRect)*/
-                               selected: (i == _selectedItemIndex)];
+                drawMenuBarItemBorderInRect: borderRect
+                                      hover: (i ==
+                                              _selectedItemIndex) /*NSPointInRect(mouseLoc,borderRect)*/
+                                   selected: (i == _selectedItemIndex)];
 
         titleRect.origin.x = borderRect.origin.x +
                              (NSWidth(borderRect) - NSWidth(titleRect)) / 2;
@@ -351,8 +350,8 @@ static void drawSunkenBorder(NSRect rect) {
 
     if (_selectedItemIndex == [items count]) {
         NSMenuWindow *branch =
-            [[NSMenuWindow alloc] initWithMenu: [self menu]
-                               overflowAtIndex: [self overflowIndex]];
+                [[NSMenuWindow alloc] initWithMenu: [self menu]
+                                   overflowAtIndex: [self overflowIndex]];
 
         [self positionBranchForSelectedItem: branch screen: screen];
 
@@ -366,7 +365,7 @@ static void drawSunkenBorder(NSRect rect) {
         if ([item hasSubmenu]) {
             if ([[[item submenu] itemArray] count] > 0) {
                 NSMenuWindow *branch =
-                    [[NSMenuWindow alloc] initWithMenu: [item submenu]];
+                        [[NSMenuWindow alloc] initWithMenu: [item submenu]];
 
                 [self positionBranchForSelectedItem: branch screen: screen];
 

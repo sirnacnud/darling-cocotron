@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [[[NSSortDescriptor allocWithZone: NULL] initWithKey: key
                                                       ascending: ascending
                                                        selector: NULL]
-        autorelease];
+            autorelease];
 }
 
 + sortDescriptorWithKey: (NSString *) key
@@ -40,7 +40,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [[[NSSortDescriptor allocWithZone: NULL] initWithKey: key
                                                       ascending: ascending
                                                        selector: selector]
-        autorelease];
+            autorelease];
 }
 
 - initWithKey: (NSString *) key ascending: (BOOL) ascending {
@@ -48,8 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithKey: (NSString *) key
-    ascending: (BOOL) ascending
-     selector: (SEL) selector
+        ascending: (BOOL) ascending
+         selector: (SEL) selector
 {
     _key = [key copy];
     _ascending = ascending;
@@ -122,7 +122,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _key = [[keyed decodeObjectForKey: @"Key"] copy];
         _ascending = [keyed decodeBoolForKey: @"Ascending"];
         _selector =
-            NSSelectorFromString([keyed decodeObjectForKey: @"Selector"]);
+                NSSelectorFromString([keyed decodeObjectForKey: @"Selector"]);
     }
 
     else {

@@ -39,7 +39,7 @@ NSString *const NSGregorianCalendar = @"NSGregorianCalendar";
 
 + currentCalendar {
     return [[[self alloc] initWithCalendarIdentifier: NSGregorianCalendar]
-        autorelease];
+            autorelease];
 }
 
 - initWithCalendarIdentifier: (NSString *) identifier {
@@ -126,8 +126,8 @@ NSString *const NSGregorianCalendar = @"NSGregorianCalendar";
     NSDateComponents *result = [[[NSDateComponents alloc] init] autorelease];
     NSTimeInterval interval = [date timeIntervalSinceReferenceDate];
 
-    interval =
-        NSMoveIntervalFromTimeZoneToGMT(interval, [NSTimeZone localTimeZone]);
+    interval = NSMoveIntervalFromTimeZoneToGMT(interval,
+                                               [NSTimeZone localTimeZone]);
 
     if (flags & NSEraCalendarUnit)
         NSUnimplementedMethod();
@@ -200,10 +200,10 @@ NSString *const NSGregorianCalendar = @"NSGregorianCalendar";
         second = check;
 
     NSTimeInterval interval = NSTimeIntervalWithComponents(
-        year, month, day, hour, minute, second, milliseconds);
+            year, month, day, hour, minute, second, milliseconds);
 
-    interval =
-        NSMoveIntervalFromGMTToTimeZone(interval, [NSTimeZone localTimeZone]);
+    interval = NSMoveIntervalFromGMTToTimeZone(interval,
+                                               [NSTimeZone localTimeZone]);
 
     return [NSDate dateWithTimeIntervalSinceReferenceDate: interval];
 }

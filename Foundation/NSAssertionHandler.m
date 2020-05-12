@@ -27,13 +27,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSAssertionHandler *) currentHandler {
     id currentHandlerForThread = [[[NSThread currentThread] threadDictionary]
-        objectForKey: [self className]];
+            objectForKey: [self className]];
 
     if ((currentHandlerForThread == NULL) &&
         ((currentHandlerForThread = [[self alloc] init]) != NULL)) {
         [[[NSThread currentThread] threadDictionary]
-            setObject: currentHandlerForThread
-               forKey: [self className]];
+                setObject: currentHandlerForThread
+                   forKey: [self className]];
     }
 
     return (currentHandlerForThread);

@@ -34,8 +34,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithName: (NSString *) name
-        object: object
-      userInfo: (NSDictionary *) userInfo
+          object: object
+        userInfo: (NSDictionary *) userInfo
 {
     NSInvalidAbstractInvocation();
     return nil;
@@ -73,7 +73,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                  userInfo: (NSDictionary *) userInfo
 {
     return NSAutorelease(
-        NSNotification_concreteNew(NULL, name, object, userInfo));
+            NSNotification_concreteNew(NULL, name, object, userInfo));
 }
 
 - (NSString *) name {

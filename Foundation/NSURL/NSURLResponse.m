@@ -23,9 +23,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSURLResponse
 
 - initWithURL: (NSURL *) url
-                 MIMEType: (NSString *) mimeType
-    expectedContentLength: (NSInteger) expectedLength
-         textEncodingName: (NSString *) encoding
+                     MIMEType: (NSString *) mimeType
+        expectedContentLength: (NSInteger) expectedLength
+             textEncodingName: (NSString *) encoding
 {
     _url = [url retain];
     _mimeType = [mimeType retain];

@@ -60,9 +60,9 @@ CGRect CGRectIntersection(CGRect rect0, CGRect rect1) {
     result.origin.x = MAX(CGRectGetMinX(rect0), CGRectGetMinX(rect1));
     result.origin.y = MAX(CGRectGetMinY(rect0), CGRectGetMinY(rect1));
     result.size.width =
-        MIN(CGRectGetMaxX(rect0), CGRectGetMaxX(rect1)) - result.origin.x;
+            MIN(CGRectGetMaxX(rect0), CGRectGetMaxX(rect1)) - result.origin.x;
     result.size.height =
-        MIN(CGRectGetMaxY(rect0), CGRectGetMaxY(rect1)) - result.origin.y;
+            MIN(CGRectGetMaxY(rect0), CGRectGetMaxY(rect1)) - result.origin.y;
 
     return result;
 }
@@ -105,8 +105,8 @@ CFDictionaryRef CGPointCreateDictionaryRepresentation(CGPoint point) {
     values[1] = CFNumberCreate(NULL, kCFNumberCGFloatType, &point.y);
 
     dict = CFDictionaryCreate(
-        NULL, (const void **) keys, (const void **) values, 2,
-        &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+            NULL, (const void **) keys, (const void **) values, 2,
+            &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
     CFRelease(values[0]);
     CFRelease(values[1]);
@@ -148,8 +148,8 @@ CFDictionaryRef CGSizeCreateDictionaryRepresentation(CGSize size) {
     values[1] = CFNumberCreate(NULL, kCFNumberCGFloatType, &size.height);
 
     dict = CFDictionaryCreate(
-        NULL, (const void **) keys, (const void **) values, 2,
-        &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+            NULL, (const void **) keys, (const void **) values, 2,
+            &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
     CFRelease(values[0]);
     CFRelease(values[1]);
@@ -193,8 +193,8 @@ CFDictionaryRef CGRectCreateDictionaryRepresentation(CGRect rect) {
     values[3] = CFNumberCreate(NULL, kCFNumberCGFloatType, &rect.size.height);
 
     dict = CFDictionaryCreate(
-        NULL, (const void **) keys, (const void **) values, 4,
-        &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+            NULL, (const void **) keys, (const void **) values, 4,
+            &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
     CFRelease(values[0]);
     CFRelease(values[1]);

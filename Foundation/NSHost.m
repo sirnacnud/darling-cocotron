@@ -60,7 +60,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSHost *) hostWithAddress: (NSString *) address {
     NSString *hostName =
-        [[NSPlatform currentPlatform] hostNameByAddress: address];
+            [[NSPlatform currentPlatform] hostNameByAddress: address];
 
     if (hostName == nil) {
         return nil;
@@ -81,7 +81,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) _resolveAddressesIfNeeded {
     if ([_addresses count] == 0) {
         _addresses = [[[NSPlatform currentPlatform]
-            addressesForDNSHostName: _name] retain];
+                addressesForDNSHostName: _name] retain];
     }
 }
 

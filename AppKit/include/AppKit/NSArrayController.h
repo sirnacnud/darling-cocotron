@@ -102,7 +102,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) addObjects: (NSArray *) objects;
 - (void) insertObject: (id) object atArrangedObjectIndex: (unsigned) index;
 - (void) insertObjects: (NSArray *) objects
-    atArrangedObjectIndexes: (NSIndexSet *) indices;
+        atArrangedObjectIndexes: (NSIndexSet *) indices;
 - (void) removeObjectAtArrangedObjectIndex: (unsigned) index;
 - (void) removeObjectsAtArrangedObjectIndexes: (NSIndexSet *) indices;
 - (void) remove: (id) sender;

@@ -32,7 +32,7 @@ static const NSTimeInterval kAnimationDuration = .3;
 + (NSSize) poofImageSize {
     NSSize poofImageSize = [[self poofImages] size];
     poofImageSize.width = poofImageSize.height =
-        MIN(poofImageSize.width, poofImageSize.height);
+            MIN(poofImageSize.width, poofImageSize.height);
     return poofImageSize;
 }
 
@@ -94,10 +94,10 @@ static const NSTimeInterval kAnimationDuration = .3;
 
 @implementation NSPoofAnimation
 + (void) poofAtLocation: (NSPoint) location
-                   size: (NSSize) size
-      animationDelegate: (id) animationDelegate
-         didEndSelector: (SEL) didEndSelector
-            contextInfo: (void *) contextInfo
+                     size: (NSSize) size
+        animationDelegate: (id) animationDelegate
+           didEndSelector: (SEL) didEndSelector
+              contextInfo: (void *) contextInfo
 {
     if (size.width == 0 || size.height == 0) {
         size.width = size.height = 48;
@@ -109,14 +109,14 @@ static const NSTimeInterval kAnimationDuration = .3;
     // Create a transparent window with a poof view - it will be closed when the
     // animation is done
     NSWindow *window =
-        [[NSWindow alloc] initWithContentRect: r
-                                    styleMask: NSBorderlessWindowMask
-                                      backing: NSBackingStoreBuffered
-                                        defer: NO];
+            [[NSWindow alloc] initWithContentRect: r
+                                        styleMask: NSBorderlessWindowMask
+                                          backing: NSBackingStoreBuffered
+                                            defer: NO];
     [window setHasShadow: NO];
 
     NSPoofView *poofView =
-        [[[NSPoofView alloc] initWithFrame: window.frame] autorelease];
+            [[[NSPoofView alloc] initWithFrame: window.frame] autorelease];
     [poofView setAnimationDelegate: animationDelegate];
     [poofView setDidEndSelector: didEndSelector];
     [poofView setContextInfo: contextInfo];
@@ -130,13 +130,13 @@ static const NSTimeInterval kAnimationDuration = .3;
     [window setBackgroundColor: [NSColor clearColor]];
     [window orderFront: nil];
 
-    NSTimer *timer =
-        [NSTimer timerWithTimeInterval: kAnimationDuration /
-                                        ([NSPoofView numberOfPoofImages] - 1)
-                                target: poofView
-                              selector: @selector(poof:)
-                              userInfo: nil
-                               repeats: YES];
+    NSTimer *timer = [NSTimer
+            timerWithTimeInterval: kAnimationDuration /
+                                   ([NSPoofView numberOfPoofImages] - 1)
+                           target: poofView
+                         selector: @selector(poof:)
+                         userInfo: nil
+                          repeats: YES];
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer: timer forMode: NSDefaultRunLoopMode];
 }

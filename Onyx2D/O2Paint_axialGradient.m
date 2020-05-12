@@ -71,7 +71,7 @@ ONYX2D_STATIC int linear_span_largb8u_PRE(O2Paint *selfX, int x, int y,
         for (i = 0; i < length; i++, x++, point.x += delta.width) {
             int skip = 0;
             O2argb8u value =
-                O2PaintFastAxialRamp(self, 1.0f, self->_rho, &skip);
+                    O2PaintFastAxialRamp(self, 1.0f, self->_rho, &skip);
 
             if (skip != previous) {
                 if (previous == -1)
@@ -147,7 +147,7 @@ ONYX2D_STATIC int linear_span_largb32f_PRE(O2Paint *selfX, int x, int y,
 }
 
 - initWithShading: (O2Shading *) shading
-    deviceTransform: (O2AffineTransform) deviceTransform
+        deviceTransform: (O2AffineTransform) deviceTransform
 {
 
     // Calculate the number of samples based on the length of the gradient in
@@ -155,7 +155,7 @@ ONYX2D_STATIC int linear_span_largb32f_PRE(O2Paint *selfX, int x, int y,
     O2Point startPoint = [shading startPoint];
     O2Point endPoint = [shading endPoint];
     O2Point deviceStart =
-        O2PointApplyAffineTransform(startPoint, deviceTransform);
+            O2PointApplyAffineTransform(startPoint, deviceTransform);
     O2Point deviceEnd = O2PointApplyAffineTransform(endPoint, deviceTransform);
     O2Float deltax = deviceStart.x - deviceEnd.x;
     O2Float deltay = deviceStart.y - deviceEnd.y;
@@ -163,8 +163,8 @@ ONYX2D_STATIC int linear_span_largb32f_PRE(O2Paint *selfX, int x, int y,
     int numberOfSamples = RI_INT_CLAMP(distance, 2, 8192);
 
     [super initWithShading: shading
-           deviceTransform: deviceTransform
-           numberOfSamples: numberOfSamples];
+            deviceTransform: deviceTransform
+            numberOfSamples: numberOfSamples];
 
     _paint_largb8u_PRE = linear_span_largb8u_PRE;
     _paint_largb32f_PRE = linear_span_largb32f_PRE;

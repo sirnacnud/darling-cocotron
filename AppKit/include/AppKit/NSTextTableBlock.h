@@ -30,10 +30,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithTable: (NSTextTable *) table
-       startingRow: (int) startingRow
-           rowSpan: (int) rowSpan
-    startingColumn: (int) startingColumn
-        columnSpan: (int) columnSpan;
+           startingRow: (int) startingRow
+               rowSpan: (int) rowSpan
+        startingColumn: (int) startingColumn
+            columnSpan: (int) columnSpan;
 
 - (NSTextTable *) table;
 

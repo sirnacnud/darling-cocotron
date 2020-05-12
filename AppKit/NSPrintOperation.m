@@ -43,10 +43,10 @@ static NSPrintOperation *_currentOperation = nil;
 }
 
 - initWithView: (NSView *) view
-     printInfo: (NSPrintInfo *) printInfo
-    insideRect: (NSRect) rect
-        toData: (NSMutableData *) data
-          type: (int) type
+         printInfo: (NSPrintInfo *) printInfo
+        insideRect: (NSRect) rect
+            toData: (NSMutableData *) data
+              type: (int) type
 {
     _view = [view retain];
     _printInfo = [printInfo copy];
@@ -87,7 +87,7 @@ static NSPrintOperation *_currentOperation = nil;
 + (NSPrintOperation *) printOperationWithView: (NSView *) view {
     return [[[self alloc] initWithView: view
                              printInfo: [NSPrintInfo sharedPrintInfo]]
-        autorelease];
+            autorelease];
 }
 
 + (NSPrintOperation *) printOperationWithView: (NSView *) view
@@ -202,8 +202,8 @@ static NSPrintOperation *_currentOperation = nil;
         CGFloat bottom = isFlipped ? top + imageableRect.size.height
                                    : top - imageableRect.size.height;
         CGFloat bottomLimit =
-            isFlipped ? top + imageableRect.size.height * heightAdjustLimit
-                      : top - imageableRect.size.height * heightAdjustLimit;
+                isFlipped ? top + imageableRect.size.height * heightAdjustLimit
+                          : top - imageableRect.size.height * heightAdjustLimit;
 
         if (orientation == NSLandscapeOrientation) {
             // FIX
@@ -263,11 +263,11 @@ static NSPrintOperation *_currentOperation = nil;
 
     if ([self showsProgressPanel]) {
         printProgressPanelController =
-            [NSPrintProgressPanelController printProgressPanelController];
+                [NSPrintProgressPanelController printProgressPanelController];
         if ([[[self printInfo] jobDisposition]
-                isEqualToString: NSPrintSaveJob]) {
+                    isEqualToString: NSPrintSaveJob]) {
             [printProgressPanelController
-                setTitle: NSLocalizedString(@"Save", @"Save a print job")];
+                    setTitle: NSLocalizedString(@"Save", @"Save a print job")];
         }
         [printProgressPanelController setMaxPages: pageRange.length];
         [printProgressPanelController showPanel];
@@ -314,15 +314,16 @@ static NSPrintOperation *_currentOperation = nil;
         }
 
         if ((context = (CGContextRef)
-                 [[_printInfo dictionary] objectForKey: @"_KGContext"]) == nil)
+                     [[_printInfo dictionary] objectForKey: @"_KGContext"]) ==
+            nil)
             return nil;
     } else if (_type == NSPrintOperationPDFInRect) {
         NSDictionary *auxiliaryInfo = [NSDictionary
-            dictionaryWithObject: [[_view window] title]
-                          forKey: (NSString *) kCGPDFContextTitle];
+                dictionaryWithObject: [[_view window] title]
+                              forKey: (NSString *) kCGPDFContextTitle];
 
         CGDataConsumerRef consumer =
-            CGDataConsumerCreateWithCFData((CFMutableDataRef) _mutableData);
+                CGDataConsumerCreateWithCFData((CFMutableDataRef) _mutableData);
 
         context = CGPDFContextCreate(consumer, &_insideRect,
                                      (CFDictionaryRef) auxiliaryInfo);
@@ -331,13 +332,13 @@ static NSPrintOperation *_currentOperation = nil;
         CGDataConsumerRelease(consumer);
     } else if (_type == NSPrintOperationFile) {
         NSDictionary *auxiliaryInfo = [NSDictionary
-            dictionaryWithObject: [[_view window] title]
-                          forKey: (NSString *) kCGPDFContextTitle];
+                dictionaryWithObject: [[_view window] title]
+                              forKey: (NSString *) kCGPDFContextTitle];
 
         NSString *filePath =
-            [_printInfo.dictionary objectForKey: NSPrintSavePath];
+                [_printInfo.dictionary objectForKey: NSPrintSavePath];
         CGDataConsumerRef consumer = CGDataConsumerCreateWithURL(
-            (CFURLRef) [NSURL fileURLWithPath: filePath]);
+                (CFURLRef) [NSURL fileURLWithPath: filePath]);
 
         context = CGPDFContextCreate(consumer, &_insideRect,
                                      (CFDictionaryRef) auxiliaryInfo);

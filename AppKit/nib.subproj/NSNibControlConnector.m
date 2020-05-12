@@ -34,9 +34,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (selector == NULL)
         [NSException
-             raise: NSInvalidArgumentException
-            format: @"-[%@ %s] selector %@ does not exist:", [self class],
-                    sel_getName(_cmd), selectorName];
+                 raise: NSInvalidArgumentException
+                format: @"-[%@ %s] selector %@ does not exist:", [self class],
+                        sel_getName(_cmd), selectorName];
 
     if ([_source respondsToSelector: @selector(setAction:)])
         [_source setAction: selector];

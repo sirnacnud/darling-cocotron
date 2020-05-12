@@ -5,11 +5,11 @@
 NSString *const kCAMediaTimingFunctionLinear = @"kCAMediaTimingFunctionLinear";
 NSString *const kCAMediaTimingFunctionEaseIn = @"kCAMediaTimingFunctionEaseIn";
 NSString *const kCAMediaTimingFunctionEaseOut =
-    @"kCAMediaTimingFunctionEaseOut";
+        @"kCAMediaTimingFunctionEaseOut";
 NSString *const kCAMediaTimingFunctionEaseInEaseOut =
-    @"kCAMediaTimingFunctionEaseInEaseOut";
+        @"kCAMediaTimingFunctionEaseInEaseOut";
 NSString *const kCAMediaTimingFunctionDefault =
-    @"kCAMediaTimingFunctionDefault";
+        @"kCAMediaTimingFunctionDefault";
 
 @implementation CAMediaTimingFunction
 

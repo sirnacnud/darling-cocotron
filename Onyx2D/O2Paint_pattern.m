@@ -65,8 +65,8 @@ static int O2PaintReadPremultipliedPatternSpan(O2Paint *selfX,int x,int y,O2argb
 #endif
 
 - initWithImage: (O2Image *) image
-    surfaceToPaintTransform: (O2AffineTransform) xform
-                      phase: (O2Size) phase
+        surfaceToPaintTransform: (O2AffineTransform) xform
+                          phase: (O2Size) phase
 {
     //   O2PaintInitWithTransform(self,O2AffineTransformMakeTranslation(phase.width,phase.height));
     O2PaintInitWithTransform(self, O2AffineTransformIdentity);

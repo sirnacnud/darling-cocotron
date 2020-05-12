@@ -27,9 +27,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithWindow: (NSWindow *) window rect: (NSRect) rect;
 - initWithSize: (NSSize) size
-         depth: (NSWindowDepth) windowDepth
-      separate: (BOOL) separateWindow
-         alpha: (BOOL) hasAlpha;
+           depth: (NSWindowDepth) windowDepth
+        separate: (BOOL) separateWindow
+           alpha: (BOOL) hasAlpha;
 
 - (NSWindow *) window;
 - (NSRect) rect;

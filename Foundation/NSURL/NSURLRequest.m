@@ -51,8 +51,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithURL: (NSURL *) url
-        cachePolicy: (NSURLRequestCachePolicy) cachePolicy
-    timeoutInterval: (NSTimeInterval) timeout
+            cachePolicy: (NSURLRequestCachePolicy) cachePolicy
+        timeoutInterval: (NSTimeInterval) timeout
 {
     _url = [url copy];
     _cachePolicy = cachePolicy;
@@ -81,8 +81,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + requestWithURL: (NSURL *) url
-        cachePolicy: (NSURLRequestCachePolicy) cachePolicy
-    timeoutInterval: (NSTimeInterval) timeout
+            cachePolicy: (NSURLRequestCachePolicy) cachePolicy
+        timeoutInterval: (NSTimeInterval) timeout
 {
     return [[[self alloc] initWithURL: url
                           cachePolicy: cachePolicy
@@ -147,7 +147,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@ %x: url=%@>", [self class], self, _url];
+            stringWithFormat: @"<%@ %x: url=%@>", [self class], self, _url];
 }
 
 @end

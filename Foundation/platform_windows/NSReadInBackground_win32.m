@@ -53,8 +53,8 @@ static DWORD WINAPI readInBackground(LPVOID arg) {
 
     _modes = [modes copy];
     _threadHandle = CreateThread(NULL, 0, readInBackground, self, 0, &threadID);
-    _threadMonitor =
-        [[NSHandleMonitor_win32 handleMonitorWithHandle: _threadHandle] retain];
+    _threadMonitor = [[NSHandleMonitor_win32
+            handleMonitorWithHandle: _threadHandle] retain];
     [_threadMonitor setDelegate: self];
 
     for (i = 0; i < count; i++)
@@ -92,8 +92,8 @@ static DWORD WINAPI readInBackground(LPVOID arg) {
 
     for (i = 0; i < count; i++)
         [[NSRunLoop currentRunLoop]
-            removeInputSource: _threadMonitor
-                      forMode: [_modes objectAtIndex: i]];
+                removeInputSource: _threadMonitor
+                          forMode: [_modes objectAtIndex: i]];
 
     [_threadMonitor setDelegate: nil];
 }

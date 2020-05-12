@@ -28,7 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 NSString *const NSDrawerWillOpenNotification = @"NSDrawerWillOpenNotification";
 NSString *const NSDrawerDidOpenNotification = @"NSDrawerDidOpenNotification";
 NSString *const NSDrawerWillCloseNotification =
-    @"NSDrawerWillCloseNotification";
+        @"NSDrawerWillCloseNotification";
 NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
 
 @implementation NSDrawer
@@ -53,24 +53,24 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
 {
     NSRect parentFrame = [parentWindow frame];
     NSRect parentContentRect =
-        [parentWindow contentRectForFrameRect: parentFrame];
-    NSRect drawerFrame =
-        [NSWindow frameRectForContentRect: NSMakeRect(0, 0, contentSize.width,
-                                                      contentSize.height)
-                                styleMask: NSDrawerWindowMask];
+            [parentWindow contentRectForFrameRect: parentFrame];
+    NSRect drawerFrame = [NSWindow
+            frameRectForContentRect: NSMakeRect(0, 0, contentSize.width,
+                                                contentSize.height)
+                          styleMask: NSDrawerWindowMask];
 
     if (edge == NSMinXEdge || edge == NSMaxXEdge) {
         drawerFrame.origin.x = parentFrame.origin.x - 12.0;
         drawerFrame.origin.y =
-            parentContentRect.origin.y + trailingOffset - 12.0;
+                parentContentRect.origin.y + trailingOffset - 12.0;
         drawerFrame.size.height = parentContentRect.size.height -
                                   (leadingOffset + trailingOffset) + 9.0;
     } else {
         drawerFrame.origin.x =
-            parentContentRect.origin.x + leadingOffset - 12.0;
+                parentContentRect.origin.x + leadingOffset - 12.0;
         drawerFrame.origin.y = parentContentRect.origin.y - 12.0;
         drawerFrame.size.width =
-            parentContentRect.size.width - (leadingOffset + trailingOffset);
+                parentContentRect.size.width - (leadingOffset + trailingOffset);
     }
 
     // Initially I was only computing the open-state frame. Code added to
@@ -168,37 +168,36 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
         _state = 0;
         _edge = 0;
         if ([keyed containsValueForKey: @"NSPreferredEdge"])
-            [self
-                setPreferredEdge: [keyed decodeIntForKey: @"NSPreferredEdge"]];
+            [self setPreferredEdge:
+                            [keyed decodeIntForKey: @"NSPreferredEdge"]];
         else
             _preferredEdge = 0;
 
         if ([keyed containsValueForKey: @"NSLeadingOffset"])
-            [self setLeadingOffset: [keyed
-                                        decodeFloatForKey: @"NSLeadingOffset"]];
+            [self setLeadingOffset:
+                            [keyed decodeFloatForKey: @"NSLeadingOffset"]];
         else
             _leadingOffset = 0;
 
         if ([keyed containsValueForKey: @"NSTrailingOffset"])
-            [self
-                setTrailingOffset: [keyed
-                                       decodeFloatForKey: @"NSTrailingOffset"]];
+            [self setTrailingOffset:
+                            [keyed decodeFloatForKey: @"NSTrailingOffset"]];
         else
             _trailingOffset = 0;
 
         _drawerWindow = [[[NSDrawerWindow alloc]
-            initWithContentRect: NSMakeRect(0, 0, _contentSize.width,
-                                            _contentSize.height)
-                      styleMask: NSDrawerWindowMask
-                        backing: NSBackingStoreBuffered
-                          defer: NO] retain];
+                initWithContentRect: NSMakeRect(0, 0, _contentSize.width,
+                                                _contentSize.height)
+                          styleMask: NSDrawerWindowMask
+                            backing: NSBackingStoreBuffered
+                              defer: NO] retain];
         [_drawerWindow setDrawer: self];
         [self setContentSize: _contentSize];
 
         _parentWindow = _nextParentWindow = nil;
         if ([keyed containsValueForKey: @"NSParentWindow"])
-            [self
-                setParentWindow: [keyed decodeObjectForKey: @"NSParentWindow"]];
+            [self setParentWindow:
+                            [keyed decodeObjectForKey: @"NSParentWindow"]];
 
         if ([keyed containsValueForKey: @"NSDelegate"])
             [self setDelegate: [keyed decodeObjectForKey: @"NSDelegate"]];
@@ -206,18 +205,16 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
             _delegate = nil;
 
         if ([keyed containsValueForKey: @"NSMinContentSize"]) {
-            [self
-                setMinContentSize: [keyed
-                                       decodeSizeForKey: @"NSMinContentSize"]];
+            [self setMinContentSize:
+                            [keyed decodeSizeForKey: @"NSMinContentSize"]];
             _minContentSize.width += 12.0;
             _minContentSize.height += 12.0;
         } else
             _minContentSize = NSZeroSize;
 
         if ([keyed containsValueForKey: @"NSMaxContentSize"]) {
-            [self
-                setMaxContentSize: [keyed
-                                       decodeSizeForKey: @"NSMaxContentSize"]];
+            [self setMaxContentSize:
+                            [keyed decodeSizeForKey: @"NSMaxContentSize"]];
             _maxContentSize.width += 12.0;
             _maxContentSize.height += 12.0;
         } else
@@ -231,11 +228,11 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
              preferredEdge: (NSRectEdge) edge
 {
     _drawerWindow = [[NSDrawerWindow alloc]
-        initWithContentRect: NSMakeRect(0, 0, contentSize.width,
-                                        contentSize.height)
-                  styleMask: NSDrawerWindowMask
-                    backing: NSBackingStoreBuffered
-                      defer: NO];
+            initWithContentRect: NSMakeRect(0, 0, contentSize.width,
+                                            contentSize.height)
+                      styleMask: NSDrawerWindowMask
+                        backing: NSBackingStoreBuffered
+                          defer: NO];
     [_drawerWindow setDrawer: self];
     [self setContentSize: contentSize];
     [self setPreferredEdge: edge];
@@ -379,10 +376,10 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
 }
 
 - (void) open {
-    [self
-        openOnEdge: [[self class] visibleEdgeWithPreferredEdge: _preferredEdge
-                                                  parentWindow: _parentWindow
-                                                  drawerWindow: _drawerWindow]];
+    [self openOnEdge: [[self class]
+                              visibleEdgeWithPreferredEdge: _preferredEdge
+                                              parentWindow: _parentWindow
+                                              drawerWindow: _drawerWindow]];
 }
 
 - (void) _resetWindowOrdering: sender {
@@ -403,14 +400,14 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
     // if we've moved to a different edge, recompute...
     if (_edge != edge)
         [self setContentSize: [self drawerWindow: _drawerWindow
-                                   constrainSize: [self contentSize]
-                                            edge: edge]];
+                                      constrainSize: [self contentSize]
+                                               edge: edge]];
 
     _edge = edge;
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSDrawerWillOpenNotification
-                      object: self];
+            postNotificationName: NSDrawerWillOpenNotification
+                          object: self];
 
     frame = [[self class] drawerFrameWithContentSize: [self contentSize]
                                         parentWindow: [self parentWindow]
@@ -437,10 +434,10 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
     [_drawerWindow setFrame: start display: YES animate: NO];
 
     [[NSNotificationCenter defaultCenter]
-        addObserver: self
-           selector: @selector(drawerDidOpen:)
-               name: NSWindowDidAnimateNotification
-             object: _drawerWindow];
+            addObserver: self
+               selector: @selector(drawerDidOpen:)
+                   name: NSWindowDidAnimateNotification
+                 object: _drawerWindow];
     _state = NSDrawerOpeningState;
     [self _resetWindowOrdering: nil];
     [_drawerWindow setFrame: frame display: YES animate: YES];
@@ -469,14 +466,14 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
                                edge: _edge];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSDrawerWillCloseNotification
-                      object: self];
+            postNotificationName: NSDrawerWillCloseNotification
+                          object: self];
 
     [[NSNotificationCenter defaultCenter]
-        addObserver: self
-           selector: @selector(drawerDidClose:)
-               name: NSWindowDidAnimateNotification
-             object: _drawerWindow];
+            addObserver: self
+               selector: @selector(drawerDidClose:)
+                   name: NSWindowDidAnimateNotification
+                 object: _drawerWindow];
     _state = NSDrawerClosingState;
 
     [_drawerWindow setFrame: frame display: YES animate: YES];
@@ -528,12 +525,12 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
 - (void) parentWindowDidChangeFrame: (NSWindow *) window {
     if (_state == NSDrawerOpenState) {
         NSRect frame =
-            [[self class] drawerFrameWithContentSize: [self contentSize]
-                                        parentWindow: [self parentWindow]
-                                       leadingOffset: _leadingOffset
-                                      trailingOffset: _trailingOffset
-                                                edge: _edge
-                                               state: _state];
+                [[self class] drawerFrameWithContentSize: [self contentSize]
+                                            parentWindow: [self parentWindow]
+                                           leadingOffset: _leadingOffset
+                                          trailingOffset: _trailingOffset
+                                                    edge: _edge
+                                                   state: _state];
 
         if (_edge == NSMinXEdge || _edge == NSMaxXEdge) {
             if (frame.size.width > _maxContentSize.width &&
@@ -620,8 +617,8 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
     [[NSNotificationCenter defaultCenter] removeObserver: self];
     _state = NSDrawerOpenState;
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSDrawerDidOpenNotification
-                      object: self];
+            postNotificationName: NSDrawerDidOpenNotification
+                          object: self];
 }
 
 - (void) drawerDidClose: (NSNotification *) nilObject {
@@ -629,8 +626,8 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
     [_drawerWindow orderOut: nil];
     _state = NSDrawerClosedState;
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSDrawerDidCloseNotification
-                      object: self];
+            postNotificationName: NSDrawerDidCloseNotification
+                          object: self];
 
     if (_nextParentWindow != nil)
         [self setNextParentWindow];

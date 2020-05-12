@@ -62,12 +62,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + stringWithCString: (const char *) bytes length: (NSUInteger) length {
     return NSAutorelease(
-        NSMutableString_unicodePtrNewWithCString(NULL, bytes, length));
+            NSMutableString_unicodePtrNewWithCString(NULL, bytes, length));
 }
 
 + stringWithCString: (const char *) bytes {
-    return NSAutorelease(
-        NSMutableString_unicodePtrNewWithCString(NULL, bytes, strlen(bytes)));
+    return NSAutorelease(NSMutableString_unicodePtrNewWithCString(
+            NULL, bytes, strlen(bytes)));
 }
 
 + stringWithFormat: (NSString *) format, ... {
@@ -81,7 +81,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     va_end(arguments);
 
     return NSAutorelease(
-        NSMutableString_unicodePtrNewNoCopy(NULL, unicode, length));
+            NSMutableString_unicodePtrNewNoCopy(NULL, unicode, length));
 }
 
 + stringWithContentsOfFile: (NSString *) path {
@@ -92,7 +92,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         return nil;
 
     return NSAutorelease(
-        NSMutableString_unicodePtrNewNoCopy(NULL, unicode, length));
+            NSMutableString_unicodePtrNewNoCopy(NULL, unicode, length));
 }
 
 + localizedStringWithFormat: (NSString *) format, ... {
@@ -106,12 +106,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     va_end(arguments);
 
     return NSAutorelease(
-        NSMutableString_unicodePtrNewNoCopy(NULL, unicode, length));
+            NSMutableString_unicodePtrNewNoCopy(NULL, unicode, length));
 }
 
 + stringWithCapacity: (NSUInteger) capacity {
     return NSAutorelease(
-        NSMutableString_unicodePtrNewWithCapacity(NULL, capacity));
+            NSMutableString_unicodePtrNewWithCapacity(NULL, capacity));
 }
 
 - (void) appendString: (NSString *) string {
@@ -195,12 +195,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     while ((subrange = [self rangeOfString: target
                                    options: opts
                                      range: searchRange])
-               .location != NSNotFound) {
+                   .location != NSNotFound) {
         [self replaceCharactersInRange: subrange withString: replacement];
 
         if (!isBackwards) {
-            searchRange.length -=
-                (subrange.location - searchRange.location) + subrange.length;
+            searchRange.length -= (subrange.location - searchRange.location) +
+                                  subrange.length;
             searchRange.location = subrange.location + replacementLen;
         } else {
             searchRange.length = subrange.location - searchRange.location;

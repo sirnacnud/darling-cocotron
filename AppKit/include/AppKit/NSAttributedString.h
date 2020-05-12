@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/Foundation.h>
 
 @class NSFont, NSColor, NSParagraphStyle, NSTextAttachment, NSFileWrapper,
-    NSTextList, NSTextBlock, NSTextTable;
+        NSTextList, NSTextBlock, NSTextTable;
 
 APPKIT_EXPORT NSString *const NSFontAttributeName;
 APPKIT_EXPORT NSString *const NSParagraphStyleAttributeName;
@@ -148,38 +148,38 @@ enum {
 #pragma mark Creating an NSAttributedString
 
 + (NSAttributedString *) attributedStringWithAttachment:
-    (NSTextAttachment *) attachment;
+        (NSTextAttachment *) attachment;
 
 - initWithData: (NSData *) data
-               options: (NSDictionary *) options
-    documentAttributes: (NSDictionary **) attributes
-                 error: (NSError **) error;
+                   options: (NSDictionary *) options
+        documentAttributes: (NSDictionary **) attributes
+                     error: (NSError **) error;
 - initWithDocFormat: (NSData *) werd
-    documentAttributes: (NSDictionary **) attributes;
+        documentAttributes: (NSDictionary **) attributes;
 
 - initWithHTML: (NSData *) html
-               baseURL: (NSURL *) url
-    documentAttributes: (NSDictionary **) attributes;
+                   baseURL: (NSURL *) url
+        documentAttributes: (NSDictionary **) attributes;
 - initWithHTML: (NSData *) html
-    documentAttributes: (NSDictionary **) attributes;
+        documentAttributes: (NSDictionary **) attributes;
 - initWithHTML: (NSData *) html
-               options: (NSDictionary *) options
-    documentAttributes: (NSDictionary **) attributes;
+                   options: (NSDictionary *) options
+        documentAttributes: (NSDictionary **) attributes;
 - initWithPath: (NSString *) path
-    documentAttributes: (NSDictionary **) attributes;
+        documentAttributes: (NSDictionary **) attributes;
 
 - initWithRTF: (NSData *) rtf documentAttributes: (NSDictionary **) attributes;
 
 - initWithRTFD: (NSData *) rtfd
-    documentAttributes: (NSDictionary **) attributes;
+        documentAttributes: (NSDictionary **) attributes;
 - initWithRTFDFileWrapper: (NSFileWrapper *) wrapper
-       documentAttributes: (NSDictionary **) attributes;
+        documentAttributes: (NSDictionary **) attributes;
 
 - initWithURL: (NSURL *) url documentAttributes: (NSDictionary **) attributes;
 - initWithURL: (NSURL *) url
-               options: (NSDictionary *) options
-    documentAttributes: (NSDictionary **) attributes
-                 error: (NSError **) error;
+                   options: (NSDictionary *) options
+        documentAttributes: (NSDictionary **) attributes
+                     error: (NSError **) error;
 
 #pragma mark -
 #pragma mark Retrieving Font Attribute Information
@@ -219,7 +219,7 @@ enum {
 - (NSData *) docFormatFromRange: (NSRange) range
              documentAttributes: (NSDictionary *) attributes;
 - (NSData *) RTFFromRange: (NSRange) range
-       documentAttributes: (NSDictionary *) attributes;
+        documentAttributes: (NSDictionary *) attributes;
 - (NSData *) RTFDFromRange: (NSRange) range
         documentAttributes: (NSDictionary *) attributes;
 - (NSFileWrapper *) RTFDFileWrapperFromRange: (NSRange) range

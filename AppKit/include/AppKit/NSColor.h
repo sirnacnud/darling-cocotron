@@ -133,9 +133,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
            blue: (CGFloat *) blue
           alpha: (CGFloat *) alpha;
 - (void) getHue: (CGFloat *) hue
-     saturation: (CGFloat *) saturation
-     brightness: (CGFloat *) brightness
-          alpha: (CGFloat *) alpha;
+        saturation: (CGFloat *) saturation
+        brightness: (CGFloat *) brightness
+             alpha: (CGFloat *) alpha;
 - (void) getCyan: (CGFloat *) cyan
          magenta: (CGFloat *) magenta
           yellow: (CGFloat *) yellow

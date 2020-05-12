@@ -82,7 +82,7 @@ static inline void O2PDFByteBufferAppend(O2PDFByteBuffer *buffer,
         } else {
             buffer->capacity *= 2;
             buffer->bytes =
-                NSZoneRealloc(NULL, buffer->bytes, buffer->capacity);
+                    NSZoneRealloc(NULL, buffer->bytes, buffer->capacity);
         }
     }
     buffer->bytes[buffer->length++] = c;
@@ -145,9 +145,9 @@ static void debugTracev(const char *bytes, unsigned length,
                         va_list arguments)
 {
     NSString *dump = [[[NSString alloc]
-        initWithBytes: bytes + position
-               length: MIN(80, (length - position))
-             encoding: NSISOLatin1StringEncoding] autorelease];
+            initWithBytes: bytes + position
+                   length: MIN(80, (length - position))
+                 encoding: NSISOLatin1StringEncoding] autorelease];
 
     NSLogv(format, arguments);
     NSLog(@"position=%d,dump=[%@]", position, dump);
@@ -322,8 +322,8 @@ BOOL O2PDFScanVersion(const char *bytes, unsigned length,
         return debugError(bytes, length, 0, @"Does not begin with %%PDF-");
 
     *versionp =
-        [O2PDFString pdfObjectWithBytes: (const unsigned char *) bytes + 5
-                                 length: 3];
+            [O2PDFString pdfObjectWithBytes: (const unsigned char *) bytes + 5
+                                     length: 3];
 
     position = length;
 
@@ -472,7 +472,7 @@ BOOL O2PDFScanObject(const char *bytes, unsigned length, O2PDFInteger position,
                 currentInt = currentInt * 10 + code - '0';
             else {
                 *objectp = [O2PDFObject_Integer
-                    pdfObjectWithInteger: currentSign * currentInt];
+                        pdfObjectWithInteger: currentSign * currentInt];
                 *lastPosition = position;
                 return YES;
             }
@@ -484,7 +484,7 @@ BOOL O2PDFScanObject(const char *bytes, unsigned length, O2PDFInteger position,
                 currentFraction *= 0.1;
             } else {
                 *objectp = [O2PDFObject_Real
-                    pdfObjectWithReal: currentSign * currentReal];
+                        pdfObjectWithReal: currentSign * currentReal];
                 *lastPosition = position;
                 return YES;
             }
@@ -493,10 +493,11 @@ BOOL O2PDFScanObject(const char *bytes, unsigned length, O2PDFInteger position,
         case STATE_STRING_NOFREE:
             if (code == ')') {
                 *objectp = [O2PDFString
-                    pdfObjectWithBytesNoCopyNoFree: (const unsigned char *)
-                                                        bytes +
-                                                    inlineLocation
-                                            length: position - inlineLocation];
+                        pdfObjectWithBytesNoCopyNoFree: (const unsigned char *)
+                                                                bytes +
+                                                        inlineLocation
+                                                length: position -
+                                                        inlineLocation];
                 *lastPosition = position + 1;
                 return YES;
             } else if (code == '\\') {
@@ -637,8 +638,8 @@ BOOL O2PDFScanObject(const char *bytes, unsigned length, O2PDFInteger position,
                                       code);
 
                 *objectp = [O2PDFObject_Name
-                    pdfObjectWithBytes: bytes + inlineLocation
-                                length: (position - inlineLocation)];
+                        pdfObjectWithBytes: bytes + inlineLocation
+                                    length: (position - inlineLocation)];
                 *lastPosition = position;
                 return YES;
             }
@@ -661,7 +662,7 @@ BOOL O2PDFScanObject(const char *bytes, unsigned length, O2PDFInteger position,
                 const char *name = bytes + inlineLocation;
                 unsigned length = position - inlineLocation;
                 O2PDFIdentifier identifier =
-                    O2PDFClassifyIdentifier(name, length);
+                        O2PDFClassifyIdentifier(name, length);
 
                 if (identifier == O2PDFIdentifier_true)
                     *objectp = [O2PDFObject_Boolean pdfObjectWithTrue];
@@ -671,9 +672,9 @@ BOOL O2PDFScanObject(const char *bytes, unsigned length, O2PDFInteger position,
                     *objectp = [O2PDFObject_const pdfObjectWithNull];
                 else
                     *objectp = [O2PDFObject_identifier
-                        pdfObjectWithIdentifier: identifier
-                                           name: name
-                                         length: length];
+                            pdfObjectWithIdentifier: identifier
+                                               name: name
+                                             length: length];
 
                 *lastPosition = position;
                 return YES;
@@ -824,8 +825,8 @@ BOOL O2PDFParseObject(const char *bytes, unsigned length, O2PDFInteger position,
                 if (![[stack lastObject] checkForType: kO2PDFObjectTypeName
                                                 value: &key])
                     return debugError(
-                        bytes, length, position,
-                        @"Expecting name on stack for dictionary");
+                            bytes, length, position,
+                            @"Expecting name on stack for dictionary");
 
                 [dictionary setObjectForKey: key value: check];
                 [stack removeLastObject];
@@ -837,7 +838,7 @@ BOOL O2PDFParseObject(const char *bytes, unsigned length, O2PDFInteger position,
 
         case O2PDFObjectType_identifier: {
             O2PDFIdentifier identifier =
-                [(O2PDFObject_identifier *) check identifier];
+                    [(O2PDFObject_identifier *) check identifier];
 
             if (identifier == O2PDFIdentifier_R) {
                 O2PDFInteger generation;
@@ -972,10 +973,10 @@ BOOL O2PDFParse_xrefAtPosition(NSData *data, O2PDFInteger position,
                 break;
 
             case O2PDFIdentifier_n:
-                [table
-                    addEntry: [O2PDFxrefEntry xrefEntryWithPosition: fieldOne
-                                                             number: number
-                                                         generation: fieldTwo]];
+                [table addEntry: [O2PDFxrefEntry
+                                         xrefEntryWithPosition: fieldOne
+                                                        number: number
+                                                    generation: fieldTwo]];
                 break;
 
             default:
@@ -1048,17 +1049,17 @@ BOOL O2PDFParseIndirectObject(NSData *data, O2PDFInteger position,
         return debugError(bytes, length, position, @"Expecting integer");
     if (check != number)
         return debugError(
-            bytes, length, position,
-            @"Object number %d does not match indirect reference %d", check,
-            number);
+                bytes, length, position,
+                @"Object number %d does not match indirect reference %d", check,
+                number);
 
     if (!O2PDFScanInteger(bytes, length, position, &position, &check))
         return debugError(bytes, length, position, @"Expecting integer");
     if (check != generation)
         return debugError(
-            bytes, length, position,
-            @"Generation number %d does not match indirect reference %d", check,
-            number);
+                bytes, length, position,
+                @"Generation number %d does not match indirect reference %d",
+                check, number);
 
     if (!O2PDFScanIdentifier(bytes, length, position, &position, &identifier))
         return debugError(bytes, length, position, @"Expecting obj identifier");
@@ -1095,10 +1096,10 @@ BOOL O2PDFParseIndirectObject(NSData *data, O2PDFInteger position,
         if (bytes[position] == LF)
             position++;
 
-        object =
-            [[[O2PDFStream alloc] initWithDictionary: dictionary
-                                                xref: xref
-                                            position: position] autorelease];
+        object = [[[O2PDFStream alloc] initWithDictionary: dictionary
+                                                     xref: xref
+                                                 position: position]
+                autorelease];
 
         position += streamLength;
 
@@ -1127,7 +1128,7 @@ BOOL O2PDFParseIndirectObject(NSData *data, O2PDFInteger position,
 
 + (void) initialize {
     O2PDFScannerDumpStream = [[NSUserDefaults standardUserDefaults]
-        boolForKey: @"O2PDFScannerDumpStream"];
+            boolForKey: @"O2PDFScannerDumpStream"];
 }
 
 - initWithContentStream: (O2PDFContentStream *) stream
@@ -1166,8 +1167,8 @@ BOOL O2PDFScannerPopObject(O2PDFScanner *self, O2PDFObject **value) {
 
 BOOL O2PDFScannerPopBoolean(O2PDFScanner *self, O2PDFBoolean *value) {
     BOOL result =
-        [[self->_stack lastObject] checkForType: kO2PDFObjectTypeBoolean
-                                          value: value];
+            [[self->_stack lastObject] checkForType: kO2PDFObjectTypeBoolean
+                                              value: value];
 
     [self->_stack removeLastObject];
 
@@ -1176,8 +1177,8 @@ BOOL O2PDFScannerPopBoolean(O2PDFScanner *self, O2PDFBoolean *value) {
 
 BOOL O2PDFScannerPopInteger(O2PDFScanner *self, O2PDFInteger *value) {
     BOOL result =
-        [[self->_stack lastObject] checkForType: kO2PDFObjectTypeInteger
-                                          value: value];
+            [[self->_stack lastObject] checkForType: kO2PDFObjectTypeInteger
+                                              value: value];
 
     [self->_stack removeLastObject];
 
@@ -1259,7 +1260,7 @@ NSData *O2PDFScannerCreateDataWithLength(O2PDFScanner *self, size_t length) {
     NSData *data = [stream data];
 
     NSData *result =
-        [data subdataWithRange: NSMakeRange(self->_position, length)];
+            [data subdataWithRange: NSMakeRange(self->_position, length)];
 
     self->_position += length;
 
@@ -1278,7 +1279,7 @@ NSData *O2PDFScannerCreateDataWithLength(O2PDFScanner *self, size_t length) {
         NSLog(@"data[%d]=%@", [data length],
               [[[NSString alloc] initWithData: data
                                      encoding: NSISOLatin1StringEncoding]
-                  autorelease]);
+                      autorelease]);
 
     while (_position < length) {
         O2PDFObject *object;
@@ -1294,7 +1295,7 @@ NSData *O2PDFScannerCreateDataWithLength(O2PDFScanner *self, size_t length) {
             [_stack addObject: object];
         else {
             O2PDFOperatorCallback callback = [_operatorTable
-                callbackForName: [(O2PDFObject_identifier *) object name]];
+                    callbackForName: [(O2PDFObject_identifier *) object name]];
 
             if (callback != NULL) {
                 callback(self, _info);

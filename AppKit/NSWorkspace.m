@@ -24,35 +24,35 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 NSString *const NSWorkspaceApplicationKey = @"NSWorkspaceApplicationKey";
 
 NSString *const NSWorkspaceWillPowerOffNotification =
-    @"NSWorkspaceWillPowerOffNotification";
+        @"NSWorkspaceWillPowerOffNotification";
 
 NSString *const NSWorkspaceRecycleOperation = @"NSWorkspaceRecycleOperation";
 
 NSString *const NSWorkspaceLaunchConfigurationAppleEvent =
-    @"NSWorkspaceLaunchConfigurationAppleEvent";
+        @"NSWorkspaceLaunchConfigurationAppleEvent";
 NSString *const NSWorkspaceLaunchConfigurationArguments =
-    @"NSWorkspaceLaunchConfigurationArguments";
+        @"NSWorkspaceLaunchConfigurationArguments";
 NSString *const NSWorkspaceLaunchConfigurationEnvironment =
-    @"NSWorkspaceLaunchConfigurationEnvironment";
+        @"NSWorkspaceLaunchConfigurationEnvironment";
 NSString *const NSWorkspaceLaunchConfigurationArchitecture =
-    @"NSWorkspaceLaunchConfigurationArchitecture";
+        @"NSWorkspaceLaunchConfigurationArchitecture";
 
 NSString *const NSWorkspaceActiveSpaceDidChangeNotification =
-    @"NSWorkspaceActiveSpaceDidChangeNotification";
+        @"NSWorkspaceActiveSpaceDidChangeNotification";
 const NSNotificationName NSWorkspaceDidDeactivateApplicationNotification =
-    @"NSWorkspaceDidDeactivateApplicationNotification";
+        @"NSWorkspaceDidDeactivateApplicationNotification";
 NSString *const NSWorkspaceDidLaunchApplicationNotification =
-    @"NSWorkspaceDidLaunchApplicationNotification";
+        @"NSWorkspaceDidLaunchApplicationNotification";
 NSString *const NSWorkspaceDidTerminateApplicationNotification =
-    @"NSWorkspaceDidTerminateApplicationNotification";
+        @"NSWorkspaceDidTerminateApplicationNotification";
 const NSNotificationName NSWorkspaceSessionDidBecomeActiveNotification =
-    @"NSWorkspaceSessionDidBecomeActiveNotification";
+        @"NSWorkspaceSessionDidBecomeActiveNotification";
 const NSNotificationName NSWorkspaceSessionDidResignActiveNotification =
-    @"NSWorkspaceSessionDidResignActiveNotification";
+        @"NSWorkspaceSessionDidResignActiveNotification";
 
 const NSNotificationName
-    NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification =
-        @"NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification";
+        NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification =
+                @"NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification";
 
 @implementation NSWorkspace
 
@@ -136,8 +136,8 @@ const NSNotificationName
 }
 
 - (BOOL) openFile: (NSString *) path
-    withApplication: (NSString *) application
-      andDeactivate: (BOOL) deactivate
+        withApplication: (NSString *) application
+          andDeactivate: (BOOL) deactivate
 {
     NSInvalidAbstractInvocation();
     return 0;
@@ -149,7 +149,7 @@ const NSNotificationName
 }
 
 - (BOOL) selectFile: (NSString *) path
-    inFileViewerRootedAtPath: (NSString *) rootedAtPath
+        inFileViewerRootedAtPath: (NSString *) rootedAtPath
 {
     NSInvalidAbstractInvocation();
     return 0;

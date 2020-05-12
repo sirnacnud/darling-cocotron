@@ -2,7 +2,7 @@
 #import <ImageKit/IKImageBrowserView.h>
 
 NSString *const IKImageBrowserQuickLookPathRepresentationType =
-    @"IKImageBrowserQuickLookPathRepresentationType";
+        @"IKImageBrowserQuickLookPathRepresentationType";
 
 NSString *const IKImageBrowserGroupRangeKey = @"IKImageBrowserGroupRangeKey";
 NSString *const IKImageBrowserGroupTitleKey = @"IKImageBrowserGroupTitleKey";

@@ -24,14 +24,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + (NSColorSpace *) sRGBColorSpace {
     CGColorSpaceRef srgb = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
     NSColorSpace *colorSpace =
-        [[[self alloc] initWithCGColorSpace: srgb] autorelease];
+            [[[self alloc] initWithCGColorSpace: srgb] autorelease];
     return colorSpace;
 }
 
 + (NSColorSpace *) deviceRGBColorSpace {
     CGColorSpaceRef device = CGColorSpaceCreateDeviceRGB();
     NSColorSpace *result =
-        [[[self alloc] initWithCGColorSpace: device] autorelease];
+            [[[self alloc] initWithCGColorSpace: device] autorelease];
 
     CGColorSpaceRelease(device);
 

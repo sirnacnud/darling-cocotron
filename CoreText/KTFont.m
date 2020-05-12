@@ -123,8 +123,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) getGlyphs: (CGGlyph *) glyphs
-     forCharacters: (const unichar *) characters
-            length: (NSUInteger) length
+        forCharacters: (const unichar *) characters
+               length: (NSUInteger) length
 {
     int i;
 
@@ -149,7 +149,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     CGFontGetGlyphAdvances(_font, glyphs, count, advances);
     for (int i = 0; i < count; i++) {
         advancements[i].width =
-            ((CGFloat) advances[i] / (CGFloat) _unitsPerEm) * _size;
+                ((CGFloat) advances[i] / (CGFloat) _unitsPerEm) * _size;
         advancements[i].height = 0;
     }
 }

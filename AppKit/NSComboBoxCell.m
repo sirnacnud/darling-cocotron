@@ -38,11 +38,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         _dataSource = [keyed decodeObjectForKey: @"NSDataSource"];
         _objectValues = [[NSMutableArray alloc]
-            initWithArray: [keyed decodeObjectForKey: @"NSPopUpListData"]];
+                initWithArray: [keyed decodeObjectForKey: @"NSPopUpListData"]];
         _numberOfVisibleItems = [keyed decodeIntForKey: @"NSVisibleItemCount"];
         _usesDataSource = [keyed decodeBoolForKey: @"NSUsesDataSource"];
         _hasVerticalScroller =
-            [keyed decodeBoolForKey: @"NSHasVerticalScroller"];
+                [keyed decodeBoolForKey: @"NSHasVerticalScroller"];
         _completes = [keyed decodeBoolForKey: @"NSCompletes"];
         _isButtonBordered = YES;
         _buttonEnabled = YES;
@@ -238,7 +238,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (_usesDataSource == YES) // not supported yet, well...
         if ([_dataSource respondsToSelector: @selector(comboBoxCell:
-                                                    completedString:)] == YES)
+                                                     completedString:)] == YES)
             return [_dataSource comboBoxCell: self completedString: string];
 
     for (i = 0; i < count; ++i) {
@@ -271,9 +271,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) cellFrame
-             ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) flag
+              inRect: (NSRect) cellFrame
+              ofView: (NSView *) controlView
+        untilMouseUp: (BOOL) flag
 {
     NSComboBoxWindow *window;
     NSPoint origin = [controlView bounds].origin;
@@ -281,7 +281,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSPoint check = [controlView convertPoint: [event locationInWindow]
                                      fromView: nil];
     NSUInteger selectedIndex =
-        [_objectValues indexOfObject: [self objectValue]];
+            [_objectValues indexOfObject: [self objectValue]];
 
     if ([_objectValues count] == 0)
         return NO;
@@ -329,7 +329,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 else if ([object respondsToSelector: @selector
                                  (descriptionWithLocale:)])
                     string = [object
-                        descriptionWithLocale: [NSLocale currentLocale]];
+                            descriptionWithLocale: [NSLocale currentLocale]];
                 else if ([object respondsToSelector: @selector(description)])
                     string = [object description];
                 else
@@ -337,7 +337,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
             if (attstr)
                 [[(NSTextView *) editor textStorage]
-                    setAttributedString: attstr];
+                        setAttributedString: attstr];
             else
                 [editor setString: string];
 
@@ -345,8 +345,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             [self endEditing: editor];
             if (_sendsActionOnEndEditing)
                 [(NSControl *) controlView
-                    sendAction: [(NSControl *) controlView action]
-                            to: [(NSControl *) controlView target]];
+                        sendAction: [(NSControl *) controlView action]
+                                to: [(NSControl *) controlView target]];
         }
     }
 
@@ -372,10 +372,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [super drawWithFrame: frame inView: controlView];
 
     [[controlView graphicsStyle]
-        drawComboBoxButtonInRect: [self buttonRectForBounds: frame]
-                         enabled: _buttonEnabled
-                        bordered: _isButtonBordered
-                         pressed: _buttonPressed];
+            drawComboBoxButtonInRect: [self buttonRectForBounds: frame]
+                             enabled: _buttonEnabled
+                            bordered: _isButtonBordered
+                             pressed: _buttonPressed];
 }
 
 @end

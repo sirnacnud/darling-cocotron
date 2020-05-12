@@ -84,7 +84,7 @@ APPKIT_EXPORT NSBitmapImageRepPropertyKey NSImageCurrentFrame;
 + (NSData *) TIFFRepresentationOfImageRepsInArray: (NSArray *) array;
 + (NSData *) TIFFRepresentationOfImageRepsInArray: (NSArray *) array
                                  usingCompression:
-                                     (NSTIFFCompression) compression
+                                         (NSTIFFCompression) compression
                                            factor: (float) factor;
 
 + (NSData *) representationOfImageRepsInArray: (NSArray *) array

@@ -13,15 +13,15 @@
 - (BOOL) pathControl: (NSPathControl *) pathControl
           acceptDrop: (id<NSDraggingInfo>) info;
 - (BOOL) pathControl: (NSPathControl *) pathControl
-    shouldDragPathComponentCell: (NSPathComponentCell *) pathComponentCell
-                 withPasteboard: (NSPasteboard *) pasteboard;
+        shouldDragPathComponentCell: (NSPathComponentCell *) pathComponentCell
+                     withPasteboard: (NSPasteboard *) pasteboard;
 - (NSDragOperation) pathControl: (NSPathControl *) pathControl
                    validateDrop: (id<NSDraggingInfo>) info;
 
 - (void) pathControl: (NSPathControl *) pathControl
-    willDisplayOpenPanel: (NSOpenPanel *) openPanel;
+        willDisplayOpenPanel: (NSOpenPanel *) openPanel;
 - (void) pathControl: (NSPathControl *) pathControl
-       willPopUpMenu: (NSMenu *) menu;
+        willPopUpMenu: (NSMenu *) menu;
 
 @end
 

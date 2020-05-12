@@ -99,7 +99,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSMethodSignature *) signatureWithObjCTypes: (const char *) typesCString {
     return [[[NSMethodSignature allocWithZone: NULL]
-        initWithTypes: typesCString] autorelease];
+            initWithTypes: typesCString] autorelease];
 }
 
 - (NSString *) description {
@@ -138,8 +138,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSUInteger promotedSize;
 
         NSGetSizeAndAlignment(_types[i], &naturalSize, &align);
-        promotedSize =
-            ((naturalSize + sizeof(long) - 1) / sizeof(long)) * sizeof(long);
+        promotedSize = ((naturalSize + sizeof(long) - 1) / sizeof(long)) *
+                       sizeof(long);
 
         result += promotedSize;
     }

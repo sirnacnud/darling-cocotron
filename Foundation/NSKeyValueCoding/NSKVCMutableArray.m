@@ -29,18 +29,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     id ukey = [key capitalizedString];
 
     insertSel = NSSelectorFromString(
-        [NSString stringWithFormat: @"insertObject:in%@AtIndex:", ukey]);
+            [NSString stringWithFormat: @"insertObject:in%@AtIndex:", ukey]);
     removeSel = NSSelectorFromString(
-        [NSString stringWithFormat: @"removeObjectFrom%@AtIndex:", ukey]);
+            [NSString stringWithFormat: @"removeObjectFrom%@AtIndex:", ukey]);
     replaceSel = NSSelectorFromString([NSString
-        stringWithFormat: @"replaceObjectIn%@AtIndex:withObject:", ukey]);
+            stringWithFormat: @"replaceObjectIn%@AtIndex:withObject:", ukey]);
     accessorSel = NSSelectorFromString(key);
     objectAtIndexSel = NSSelectorFromString(
-        [NSString stringWithFormat: @"objectIn%@AtIndex:", ukey]);
+            [NSString stringWithFormat: @"objectIn%@AtIndex:", ukey]);
     setterSel =
-        NSSelectorFromString([NSString stringWithFormat: @"set%@:", ukey]);
-    countSel =
-        NSSelectorFromString([NSString stringWithFormat: @"countOf%@", ukey]);
+            NSSelectorFromString([NSString stringWithFormat: @"set%@:", ukey]);
+    countSel = NSSelectorFromString(
+            [NSString stringWithFormat: @"countOf%@", ukey]);
 
     if ([proxyObject respondsToSelector: insertSel])
         insert = [proxyObject methodForSelector: insertSel];

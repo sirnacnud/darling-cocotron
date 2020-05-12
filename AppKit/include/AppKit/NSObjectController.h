@@ -18,7 +18,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSController.h>
 @class NSString, NSPredicate, NSFetchRequest, NSManagedObjectContext,
-    NSMenuItem, NSError, NSArray, NSCountedSet;
+        NSMenuItem, NSError, NSArray, NSCountedSet;
 
 @interface NSObjectController : NSController {
     NSString *_objectClassName;

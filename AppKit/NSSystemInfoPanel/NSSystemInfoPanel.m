@@ -48,23 +48,24 @@ static NSSystemInfoPanel *_sharedInfoPanel = nil;
 
 - (void) _resetInfoPanel {
     NSImage *icon =
-        [NSImage imageNamed: [[[NSBundle mainBundle] infoDictionary]
-                                 objectForKey: @"CFBundleIconFile"]];
+            [NSImage imageNamed: [[[NSBundle mainBundle] infoDictionary]
+                                         objectForKey: @"CFBundleIconFile"]];
     if (icon != nil)
         [appIconView setImage: icon];
 
     [appNameField setStringValue: [[[NSBundle mainBundle] infoDictionary]
-                                      objectForKey: @"CFBundleName"]];
+                                          objectForKey: @"CFBundleName"]];
 
     NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary]
-        objectForKey: @"CFBundleVersion"];
+            objectForKey: @"CFBundleVersion"];
     NSString *bundleShortVersion = [[[NSBundle mainBundle] infoDictionary]
-        objectForKey: @"CFBundleShortVersionString"];
+            objectForKey: @"CFBundleShortVersionString"];
     NSString *versionString = bundleVersion;
 
     if (bundleShortVersion != nil)
-        versionString = [NSString
-            stringWithFormat: @"%@ (%@)", bundleShortVersion, bundleVersion];
+        versionString =
+                [NSString stringWithFormat: @"%@ (%@)", bundleShortVersion,
+                                            bundleVersion];
 
     if (versionString != nil)
         [versionField setStringValue: versionString];
@@ -75,7 +76,7 @@ static NSSystemInfoPanel *_sharedInfoPanel = nil;
         resetFrameSize = frame.size.height;
     frame.size.height = resetFrameSize;
     NSString *resourceFileName =
-        [[NSBundle mainBundle] pathForResource: @"Credits" ofType: @"rtf"];
+            [[NSBundle mainBundle] pathForResource: @"Credits" ofType: @"rtf"];
     if (resourceFileName != nil) {
         frame.size.height += 170;
         [creditView readRTFDFromFile: resourceFileName];
@@ -83,15 +84,16 @@ static NSSystemInfoPanel *_sharedInfoPanel = nil;
         [creditScrollView setFrame: NSMakeRect(0, 0, 0, 0)];
 
     [legalTextField
-        setStringValue: [[NSBundle mainBundle]
+            setStringValue:
+                    [[NSBundle mainBundle]
                             localizedStringForKey: @"NSHumanReadableCopyright"
                                             value: @" "
                                             table: @"InfoPlist"]];
 
     frame.origin.y =
-        [[NSScreen mainScreen] frame].size.height - 150 - frame.size.height;
+            [[NSScreen mainScreen] frame].size.height - 150 - frame.size.height;
     frame.origin.x =
-        ([[NSScreen mainScreen] frame].size.width - frame.size.width) / 2.0;
+            ([[NSScreen mainScreen] frame].size.width - frame.size.width) / 2.0;
     [infoPanel setFrame: frame display: YES];
     // [[infoPanel contentView] setNeedsDisplay:YES];
 }
@@ -113,14 +115,14 @@ static NSSystemInfoPanel *_sharedInfoPanel = nil;
     NSString *ApplicationName = [options objectForKey: @"ApplicationName"];
     NSString *Version = [options objectForKey: @"Version"];
     NSString *ApplicationVersion =
-        [options objectForKey: @"ApplicationVersion"];
+            [options objectForKey: @"ApplicationVersion"];
     NSString *Copyright = [options objectForKey: @"Copyright"];
 
     // read plist contents
     NSString *CFBundleVersion = [[[NSBundle mainBundle] infoDictionary]
-        objectForKey: @"CFBundleVersion"];
+            objectForKey: @"CFBundleVersion"];
     NSString *CFBundleShortVersionString = [[[NSBundle mainBundle]
-        infoDictionary] objectForKey: @"CFBundleShortVersionString"];
+            infoDictionary] objectForKey: @"CFBundleShortVersionString"];
 
     // now begin setup
 
@@ -135,23 +137,23 @@ static NSSystemInfoPanel *_sharedInfoPanel = nil;
     // construct version string according to docs
     NSString *VerUsed = Version ? Version : CFBundleVersion;
     NSString *AppVerUsed =
-        ApplicationVersion
-            ? ApplicationVersion
-            : [NSString
-                  stringWithFormat: @"Version %@", CFBundleShortVersionString];
+            ApplicationVersion
+                    ? ApplicationVersion
+                    : [NSString stringWithFormat: @"Version %@",
+                                                  CFBundleShortVersionString];
     if (!AppVerUsed) {
         if (VerUsed)
             [versionField
-                setStringValue: [NSString
-                                    stringWithFormat: @"Version %@", VerUsed]];
+                    setStringValue: [NSString stringWithFormat: @"Version %@",
+                                                                VerUsed]];
         else
             [versionField setStringValue: @""];
     } else {
         if (VerUsed)
             [versionField
-                setStringValue: [NSString stringWithFormat: @"%@ (%@)",
-                                                            AppVerUsed,
-                                                            VerUsed]];
+                    setStringValue: [NSString stringWithFormat: @"%@ (%@)",
+                                                                AppVerUsed,
+                                                                VerUsed]];
         else
             [versionField setStringValue: AppVerUsed];
     }

@@ -48,7 +48,7 @@ static void *bonjour_function(const char *name) {
 
 int bonjour_DNSServiceRefSockFD(bonjour_DNSServiceRef service) {
     BONJOUR_CALL typeof(bonjour_DNSServiceRefSockFD) *function =
-        (typeof(function)) bonjour_function("DNSServiceRefSockFD");
+            (typeof(function)) bonjour_function("DNSServiceRefSockFD");
 
     if (function != NULL)
         return function(service);
@@ -60,7 +60,7 @@ bonjour_DNSServiceErrorType
 bonjour_DNSServiceProcessResult(bonjour_DNSServiceRef service)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceProcessResult) *function =
-        (typeof(function)) bonjour_function("DNSServiceProcessResult");
+            (typeof(function)) bonjour_function("DNSServiceProcessResult");
 
     if (function != NULL)
         return function(service);
@@ -70,19 +70,19 @@ bonjour_DNSServiceProcessResult(bonjour_DNSServiceRef service)
 
 void bonjour_DNSServiceRefDeallocate(bonjour_DNSServiceRef service) {
     BONJOUR_CALL typeof(bonjour_DNSServiceRefDeallocate) *function =
-        (typeof(function)) bonjour_function("DNSServiceRefDeallocate");
+            (typeof(function)) bonjour_function("DNSServiceRefDeallocate");
 
     if (function != NULL)
         function(service);
 }
 
 bonjour_DNSServiceErrorType bonjour_DNSServiceEnumerateDomains(
-    bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, bonjour_DNSServiceDomainEnumReply callBack,
-    void *context)
+        bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, bonjour_DNSServiceDomainEnumReply callBack,
+        void *context)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceEnumerateDomains) *function =
-        (typeof(function)) bonjour_function("DNSServiceEnumerateDomains");
+            (typeof(function)) bonjour_function("DNSServiceEnumerateDomains");
 
     if (function != NULL)
         return function(service, flags, interfaceIndex, callBack, context);
@@ -91,14 +91,14 @@ bonjour_DNSServiceErrorType bonjour_DNSServiceEnumerateDomains(
 }
 
 bonjour_DNSServiceErrorType bonjour_DNSServiceRegister(
-    bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, const char *name, const char *regtype,
-    const char *domain, const char *host, uint16_t port, uint16_t txtLen,
-    const void *txtRecord, bonjour_DNSServiceRegisterReply callBack,
-    void *context)
+        bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, const char *name, const char *regtype,
+        const char *domain, const char *host, uint16_t port, uint16_t txtLen,
+        const void *txtRecord, bonjour_DNSServiceRegisterReply callBack,
+        void *context)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceRegister) *function =
-        (typeof(function)) bonjour_function("DNSServiceRegister");
+            (typeof(function)) bonjour_function("DNSServiceRegister");
 
     if (function != NULL)
         return function(service, flags, interfaceIndex, name, regtype, domain,
@@ -114,7 +114,7 @@ bonjour_DNSServiceAddRecord(bonjour_DNSServiceRef service,
                             uint16_t rdlen, const void *rdata, uint32_t ttl)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceAddRecord) *function =
-        (typeof(function)) bonjour_function("DNSServiceAddRecord");
+            (typeof(function)) bonjour_function("DNSServiceAddRecord");
 
     if (function != NULL)
         return function(service, RecordRef, flags, rrtype, rdlen, rdata, ttl);
@@ -129,7 +129,7 @@ bonjour_DNSServiceUpdateRecord(bonjour_DNSServiceRef service,
                                const void *rdata, uint32_t ttl)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceUpdateRecord) *function =
-        (typeof(function)) bonjour_function("DNSServiceUpdateRecord");
+            (typeof(function)) bonjour_function("DNSServiceUpdateRecord");
 
     if (function != NULL)
         return function(service, RecordRef, flags, rdlen, rdata, ttl);
@@ -143,7 +143,7 @@ bonjour_DNSServiceRemoveRecord(bonjour_DNSServiceRef service,
                                bonjour_DNSServiceFlags flags)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceRemoveRecord) *function =
-        (typeof(function)) bonjour_function("DNSServiceRemoveRecord");
+            (typeof(function)) bonjour_function("DNSServiceRemoveRecord");
 
     if (function != NULL)
         return function(service, RecordRef, flags);
@@ -158,7 +158,7 @@ bonjour_DNSServiceBrowse(bonjour_DNSServiceRef *service,
                          bonjour_DNSServiceBrowseReply callBack, void *context)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceBrowse) *function =
-        (typeof(function)) bonjour_function("DNSServiceBrowse");
+            (typeof(function)) bonjour_function("DNSServiceBrowse");
 
     if (function != NULL)
         return function(service, flags, interfaceIndex, regtype, domain,
@@ -168,12 +168,13 @@ bonjour_DNSServiceBrowse(bonjour_DNSServiceRef *service,
 }
 
 bonjour_DNSServiceErrorType bonjour_DNSServiceResolve(
-    bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, const char *name, const char *regtype,
-    const char *domain, bonjour_DNSServiceResolveReply callBack, void *context)
+        bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, const char *name, const char *regtype,
+        const char *domain, bonjour_DNSServiceResolveReply callBack,
+        void *context)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceResolve) *function =
-        (typeof(function)) bonjour_function("DNSServiceResolve");
+            (typeof(function)) bonjour_function("DNSServiceResolve");
 
     if (function != NULL)
         return function(service, flags, interfaceIndex, name, regtype, domain,
@@ -186,7 +187,7 @@ bonjour_DNSServiceErrorType
 bonjour_DNSServiceCreateConnection(bonjour_DNSServiceRef *service)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceCreateConnection) *function =
-        (typeof(function)) bonjour_function("DNSServiceCreateConnection");
+            (typeof(function)) bonjour_function("DNSServiceCreateConnection");
 
     if (function != NULL)
         return function(service);
@@ -195,14 +196,14 @@ bonjour_DNSServiceCreateConnection(bonjour_DNSServiceRef *service)
 }
 
 bonjour_DNSServiceErrorType bonjour_DNSServiceRegisterRecord(
-    bonjour_DNSServiceRef service, bonjour_DNSRecordRef *RecordRef,
-    bonjour_DNSServiceFlags flags, uint32_t interfaceIndex,
-    const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen,
-    const void *rdata, uint32_t ttl,
-    bonjour_DNSServiceRegisterRecordReply callBack, void *context)
+        bonjour_DNSServiceRef service, bonjour_DNSRecordRef *RecordRef,
+        bonjour_DNSServiceFlags flags, uint32_t interfaceIndex,
+        const char *fullname, uint16_t rrtype, uint16_t rrclass, uint16_t rdlen,
+        const void *rdata, uint32_t ttl,
+        bonjour_DNSServiceRegisterRecordReply callBack, void *context)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceRegisterRecord) *function =
-        (typeof(function)) bonjour_function("DNSServiceRegisterRecord");
+            (typeof(function)) bonjour_function("DNSServiceRegisterRecord");
 
     if (function != NULL)
         return function(service, RecordRef, flags, interfaceIndex, fullname,
@@ -212,13 +213,13 @@ bonjour_DNSServiceErrorType bonjour_DNSServiceRegisterRecord(
 }
 
 bonjour_DNSServiceErrorType bonjour_DNSServiceQueryRecord(
-    bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
-    uint32_t interfaceIndex, const char *fullname, uint16_t rrtype,
-    uint16_t rrclass, bonjour_DNSServiceQueryRecordReply callBack,
-    void *context)
+        bonjour_DNSServiceRef *service, bonjour_DNSServiceFlags flags,
+        uint32_t interfaceIndex, const char *fullname, uint16_t rrtype,
+        uint16_t rrclass, bonjour_DNSServiceQueryRecordReply callBack,
+        void *context)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceQueryRecord) *function =
-        (typeof(function)) bonjour_function("DNSServiceQueryRecord");
+            (typeof(function)) bonjour_function("DNSServiceQueryRecord");
 
     if (function != NULL)
         return function(service, flags, interfaceIndex, fullname, rrtype,
@@ -234,7 +235,7 @@ bonjour_DNSServiceReconfirmRecord(bonjour_DNSServiceFlags flags,
                                   uint16_t rdlen, const void *rdata)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceReconfirmRecord) *function =
-        (typeof(function)) bonjour_function("DNSServiceReconfirmRecord");
+            (typeof(function)) bonjour_function("DNSServiceReconfirmRecord");
 
     if (function != NULL)
         return function(flags, interfaceIndex, fullname, rrtype, rrclass, rdlen,
@@ -247,7 +248,7 @@ int bonjour_DNSServiceConstructFullName(char *fullName, const char *service,
                                         const char *regtype, const char *domain)
 {
     BONJOUR_CALL typeof(bonjour_DNSServiceConstructFullName) *function =
-        (typeof(function)) bonjour_function("DNSServiceConstructFullName");
+            (typeof(function)) bonjour_function("DNSServiceConstructFullName");
 
     if (function != NULL)
         return function(fullName, service, regtype, domain);
@@ -259,7 +260,7 @@ void bonjour_TXTRecordCreate(bonjour_TXTRecordRef *txtRecord,
                              uint16_t bufferLen, void *buffer)
 {
     BONJOUR_CALL typeof(bonjour_TXTRecordCreate) *function =
-        (typeof(function)) bonjour_function("TXTRecordCreate");
+            (typeof(function)) bonjour_function("TXTRecordCreate");
 
     if (function != NULL)
         function(txtRecord, bufferLen, buffer);
@@ -267,7 +268,7 @@ void bonjour_TXTRecordCreate(bonjour_TXTRecordRef *txtRecord,
 
 void bonjour_TXTRecordDeallocate(bonjour_TXTRecordRef *txtRecord) {
     BONJOUR_CALL typeof(bonjour_TXTRecordDeallocate) *function =
-        (typeof(function)) bonjour_function("TXTRecordDeallocate");
+            (typeof(function)) bonjour_function("TXTRecordDeallocate");
 
     if (function != NULL)
         function(txtRecord);
@@ -278,7 +279,7 @@ bonjour_TXTRecordSetValue(bonjour_TXTRecordRef *txtRecord, const char *key,
                           uint8_t valueSize, const void *value)
 {
     BONJOUR_CALL typeof(bonjour_TXTRecordSetValue) *function =
-        (typeof(function)) bonjour_function("TXTRecordSetValue");
+            (typeof(function)) bonjour_function("TXTRecordSetValue");
 
     if (function != NULL)
         return function(txtRecord, key, valueSize, value);
@@ -290,7 +291,7 @@ bonjour_DNSServiceErrorType
 bonjour_TXTRecordRemoveValue(bonjour_TXTRecordRef *txtRecord, const char *key)
 {
     BONJOUR_CALL typeof(bonjour_TXTRecordRemoveValue) *function =
-        (typeof(function)) bonjour_function("TXTRecordRemoveValue");
+            (typeof(function)) bonjour_function("TXTRecordRemoveValue");
 
     if (function != NULL)
         return function(txtRecord, key);
@@ -300,7 +301,7 @@ bonjour_TXTRecordRemoveValue(bonjour_TXTRecordRef *txtRecord, const char *key)
 
 uint16_t bonjour_TXTRecordGetLength(const bonjour_TXTRecordRef *txtRecord) {
     BONJOUR_CALL typeof(bonjour_TXTRecordGetLength) *function =
-        (typeof(function)) bonjour_function("TXTRecordGetLength");
+            (typeof(function)) bonjour_function("TXTRecordGetLength");
 
     if (function != NULL)
         return function(txtRecord);
@@ -311,7 +312,7 @@ uint16_t bonjour_TXTRecordGetLength(const bonjour_TXTRecordRef *txtRecord) {
 const void *bonjour_TXTRecordGetBytesPtr(const bonjour_TXTRecordRef *txtRecord)
 {
     BONJOUR_CALL typeof(bonjour_TXTRecordGetBytesPtr) *function =
-        (typeof(function)) bonjour_function("TXTRecordGetBytesPtr");
+            (typeof(function)) bonjour_function("TXTRecordGetBytesPtr");
 
     if (function != NULL)
         return function(txtRecord);
@@ -323,7 +324,7 @@ int bonjour_TXTRecordContainsKey(uint16_t txtLen, const void *txtRecord,
                                  const char *key)
 {
     BONJOUR_CALL typeof(bonjour_TXTRecordContainsKey) *function =
-        (typeof(function)) bonjour_function("TXTRecordContainsKey");
+            (typeof(function)) bonjour_function("TXTRecordContainsKey");
 
     if (function != NULL)
         return function(txtLen, txtRecord, key);
@@ -335,7 +336,7 @@ const void *bonjour_TXTRecordGetValuePtr(uint16_t txtLen, const void *txtRecord,
                                          const char *key, uint8_t *valueLen)
 {
     BONJOUR_CALL typeof(bonjour_TXTRecordGetValuePtr) *function =
-        (typeof(function)) bonjour_function("TXTRecordGetValuePtr");
+            (typeof(function)) bonjour_function("TXTRecordGetValuePtr");
 
     if (function != NULL)
         return function(txtLen, txtRecord, key, valueLen);
@@ -345,7 +346,7 @@ const void *bonjour_TXTRecordGetValuePtr(uint16_t txtLen, const void *txtRecord,
 
 uint16_t bonjour_TXTRecordGetCount(uint16_t txtLen, const void *txtRecord) {
     BONJOUR_CALL typeof(bonjour_TXTRecordGetCount) *function =
-        (typeof(function)) bonjour_function("TXTRecordGetCount");
+            (typeof(function)) bonjour_function("TXTRecordGetCount");
 
     if (function != NULL)
         return function(txtLen, txtRecord);
@@ -359,7 +360,7 @@ bonjour_TXTRecordGetItemAtIndex(uint16_t txtLen, const void *txtRecord,
                                 uint8_t *valueLen, const void **value)
 {
     BONJOUR_CALL typeof(bonjour_TXTRecordGetItemAtIndex) *function =
-        (typeof(function)) bonjour_function("TXTRecordGetItemAtIndex");
+            (typeof(function)) bonjour_function("TXTRecordGetItemAtIndex");
 
     if (function != NULL)
         return function(txtLen, txtRecord, index, keyBufLen, key, valueLen,

@@ -30,9 +30,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSKeyedArchiver.h>
 
 NSString *const NSSplitViewDidResizeSubviewsNotification =
-    @"NSSplitViewDidResizeSubviewsNotification";
+        @"NSSplitViewDidResizeSubviewsNotification";
 NSString *const NSSplitViewWillResizeSubviewsNotification =
-    @"NSSplitViewWillResizeSubviewsNotification";
+        @"NSSplitViewWillResizeSubviewsNotification";
 
 @implementation NSSplitView
 
@@ -68,42 +68,42 @@ NSString *const NSSplitViewWillResizeSubviewsNotification =
 
 - (void) _postNoteWillResize {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSSplitViewWillResizeSubviewsNotification
-                      object: self];
+            postNotificationName: NSSplitViewWillResizeSubviewsNotification
+                          object: self];
 }
 
 - (void) _postNoteDidResize {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSSplitViewDidResizeSubviewsNotification
-                      object: self];
+            postNotificationName: NSSplitViewDidResizeSubviewsNotification
+                          object: self];
 }
 
 - (void) setDelegate: (id) delegate {
     if ([_delegate respondsToSelector: @selector(splitViewDidResizeSubviews:)])
         [[NSNotificationCenter defaultCenter]
-            removeObserver: _delegate
-                      name: NSSplitViewDidResizeSubviewsNotification
-                    object: self];
+                removeObserver: _delegate
+                          name: NSSplitViewDidResizeSubviewsNotification
+                        object: self];
     if ([_delegate respondsToSelector: @selector(splitViewWillResizeSubviews:)])
         [[NSNotificationCenter defaultCenter]
-            removeObserver: _delegate
-                      name: NSSplitViewWillResizeSubviewsNotification
-                    object: self];
+                removeObserver: _delegate
+                          name: NSSplitViewWillResizeSubviewsNotification
+                        object: self];
 
     _delegate = delegate;
 
     if ([_delegate respondsToSelector: @selector(splitViewDidResizeSubviews:)])
         [[NSNotificationCenter defaultCenter]
-            addObserver: _delegate
-               selector: @selector(splitViewDidResizeSubviews:)
-                   name: NSSplitViewDidResizeSubviewsNotification
-                 object: self];
+                addObserver: _delegate
+                   selector: @selector(splitViewDidResizeSubviews:)
+                       name: NSSplitViewDidResizeSubviewsNotification
+                     object: self];
     if ([_delegate respondsToSelector: @selector(splitViewWillResizeSubviews:)])
         [[NSNotificationCenter defaultCenter]
-            addObserver: _delegate
-               selector: @selector(splitViewWillResizeSubviews:)
-                   name: NSSplitViewWillResizeSubviewsNotification
-                 object: self];
+                addObserver: _delegate
+                   selector: @selector(splitViewWillResizeSubviews:)
+                       name: NSSplitViewWillResizeSubviewsNotification
+                     object: self];
 }
 
 - (void) setVertical: (BOOL) flag {
@@ -153,7 +153,7 @@ NSString *const NSSplitViewWillResizeSubviewsNotification =
 
     // The available width to the subviews
     CGFloat totalWidthAfter =
-        [self bounds].size.width - [self dividerThickness] * (count - 1);
+            [self bounds].size.width - [self dividerThickness] * (count - 1);
 
     for (i = 0; i < count; i++) {
         NSView *subview = [_subviews objectAtIndex: i];
@@ -193,7 +193,7 @@ NSString *const NSSplitViewWillResizeSubviewsNotification =
     // (or something like that...) Apple says They resize proportionally
     CGFloat totalHeightBefore = 0.;
     CGFloat totalHeightAfter =
-        [self bounds].size.height - [self dividerThickness] * (count - 1);
+            [self bounds].size.height - [self dividerThickness] * (count - 1);
 
     for (i = 0; i < count; i++) {
         NSView *subview = [_subviews objectAtIndex: i];
@@ -311,7 +311,7 @@ NSString *const NSSplitViewWillResizeSubviewsNotification =
         oldSize.height = 1;
 
     if ([_delegate respondsToSelector: @selector(splitView:
-                                           resizeSubviewsWithOldSize:)]) {
+                                               resizeSubviewsWithOldSize:)]) {
         [_delegate splitView: self resizeSubviewsWithOldSize: oldSize];
     } else {
 
@@ -382,8 +382,8 @@ static CGFloat constrainTo(CGFloat value, CGFloat min, CGFloat max) {
         NSAutoreleasePool *pool = [NSAutoreleasePool new];
         NSPoint point;
 
-        event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
         eventType = [event type];
 
         point = [self convertPoint: [event locationInWindow] fromView: nil];
@@ -516,22 +516,22 @@ static CGFloat constrainTo(CGFloat value, CGFloat min, CGFloat max) {
                         constrainMaxCoordinate: maxPosition
                                    ofSubviewAt: index];
         }
-    } else if ([_delegate
-                   respondsToSelector: @selector
-                   (splitView:
-                       constrainMinCoordinate:maxCoordinate:ofSubviewAt:)]) {
+    } else if ([_delegate respondsToSelector: @selector
+                          (splitView:
+                                  constrainMinCoordinate:maxCoordinate
+                                                        :ofSubviewAt:)]) {
         // Use the deprecated API
 
         [_delegate splitView: self
-            constrainMinCoordinate: &minPosition
-                     maxCoordinate: &maxPosition
-                       ofSubviewAt: index];
+                constrainMinCoordinate: &minPosition
+                         maxCoordinate: &maxPosition
+                           ofSubviewAt: index];
     }
 
     // And if it wants to constrain the divider position
     BOOL delegateWantsTrackConstraining = [_delegate
-        respondsToSelector: @selector(splitView:
-                                constrainSplitPosition:ofSubviewAt:)];
+            respondsToSelector: @selector(splitView:
+                                        constrainSplitPosition:ofSubviewAt:)];
 
     if (delegateWantsTrackConstraining) {
         position = [_delegate splitView: self
@@ -545,7 +545,7 @@ static CGFloat constrainTo(CGFloat value, CGFloat min, CGFloat max) {
 
     BOOL subviewsWereCollapsedOrExpanded = NO;
     BOOL checkWithDelegateAboutCollapsingViews = [_delegate
-        respondsToSelector: @selector(splitView:canCollapseSubview:)];
+            respondsToSelector: @selector(splitView:canCollapseSubview:)];
     if ([self isVertical]) {
 
         CGFloat lastPosition = NSMaxX(resize0);
@@ -581,11 +581,11 @@ static CGFloat constrainTo(CGFloat value, CGFloat min, CGFloat max) {
 
         // Figure out the adjusted widths
         resize0.size.width =
-            constrainTo(NSWidth(resize0), minPosition, maxPosition);
+                constrainTo(NSWidth(resize0), minPosition, maxPosition);
         resize1.size.width =
-            constrainTo(NSWidth(resize1), minPosition, maxPosition);
+                constrainTo(NSWidth(resize1), minPosition, maxPosition);
         resize1.origin.x =
-            (NSMinX(frame1) + NSWidth(frame1)) - NSWidth(resize1);
+                (NSMinX(frame1) + NSWidth(frame1)) - NSWidth(resize1);
     } else {
 
         CGFloat lastPosition = NSMaxY(resize0);
@@ -620,11 +620,11 @@ static CGFloat constrainTo(CGFloat value, CGFloat min, CGFloat max) {
 
         // Figure out the adjusted heights
         resize0.size.height =
-            constrainTo(NSHeight(resize0), minPosition, maxPosition);
+                constrainTo(NSHeight(resize0), minPosition, maxPosition);
         resize1.size.height =
-            constrainTo(NSHeight(resize1), minPosition, maxPosition);
+                constrainTo(NSHeight(resize1), minPosition, maxPosition);
         resize1.origin.y =
-            (NSMinY(frame1) + NSHeight(frame1)) - NSHeight(resize1);
+                (NSMinY(frame1) + NSHeight(frame1)) - NSHeight(resize1);
     }
 
     if (subviewsWereCollapsedOrExpanded) {

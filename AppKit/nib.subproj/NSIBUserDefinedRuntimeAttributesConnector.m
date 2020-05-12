@@ -6,7 +6,7 @@
 - (id) initWithCoder: (NSCoder *) decoder {
     _object = [[decoder decodeObjectForKey: @"NSObject"] retain];
     _keyPaths =
-        [[[decoder decodeObjectForKey: @"NSKeyPaths"] mutableCopy] retain];
+            [[[decoder decodeObjectForKey: @"NSKeyPaths"] mutableCopy] retain];
     _values = [[[decoder decodeObjectForKey: @"NSValues"] mutableCopy] retain];
     return self;
 }

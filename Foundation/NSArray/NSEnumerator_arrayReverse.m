@@ -24,7 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSEnumerator *NSEnumerator_arrayReverseNew(NSArray *array) {
     NSEnumerator_arrayReverse *self =
-        NSAllocateObject([NSEnumerator_arrayReverse class], 0, NULL);
+            NSAllocateObject([NSEnumerator_arrayReverse class], 0, NULL);
     if (self) {
         self->_index = [array count];
         self->_array = [array retain];

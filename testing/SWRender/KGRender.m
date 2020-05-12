@@ -32,11 +32,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _data = NSZoneMalloc([self zone], _bytesPerRow * _pixelsHigh);
 
     CGDataProviderRef provider = CGDataProviderCreateWithData(
-        NULL, _data, _pixelsWide * _pixelsHigh * 4, NULL);
+            NULL, _data, _pixelsWide * _pixelsHigh * 4, NULL);
     _imageRef = CGImageCreate(_pixelsWide, _pixelsHigh, _bitsPerComponent,
                               _bitsPerPixel, _bytesPerRow, _colorSpace,
                               kCGImageAlphaPremultipliedLast |
-                                  kCGBitmapByteOrder32Little,
+                                      kCGBitmapByteOrder32Little,
                               provider, NULL, NO, kCGRenderingIntentDefault);
     return self;
 }
@@ -56,7 +56,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
     CGDataProviderRef provider = CGDataProviderCreateWithData(
-        NULL, diff, _pixelsWide * _pixelsHigh * 4, NULL);
+            NULL, diff, _pixelsWide * _pixelsHigh * 4, NULL);
     return CGImageCreate(_pixelsWide, _pixelsHigh, _bitsPerComponent,
                          _bitsPerPixel, _bytesPerRow, _colorSpace,
                          kCGBitmapByteOrder32Little, provider, NULL, NO,
@@ -78,31 +78,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) drawPath: (CGPathRef) path
-             drawingMode: (CGPathDrawingMode) drawingMode
-               blendMode: (CGBlendMode) blendMode
-    interpolationQuality: (CGInterpolationQuality) interpolationQuality
-               fillColor: (NSColor *) fillColor
-             strokeColor: (NSColor *) strokeColor
-               lineWidth: (float) lineWidth
-                 lineCap: (CGLineCap) lineCap
-                lineJoin: (CGLineJoin) lineJoin
-              miterLimit: (float) miterLimit
-               dashPhase: (float) dashPhase
-        dashLengthsCount: (unsigned) dashLengthsCount
-             dashLengths: (float *) dashLengths
-                flatness: (float) flatness
-               transform: (CGAffineTransform) xform
-               antialias: (BOOL) antialias
+                 drawingMode: (CGPathDrawingMode) drawingMode
+                   blendMode: (CGBlendMode) blendMode
+        interpolationQuality: (CGInterpolationQuality) interpolationQuality
+                   fillColor: (NSColor *) fillColor
+                 strokeColor: (NSColor *) strokeColor
+                   lineWidth: (float) lineWidth
+                     lineCap: (CGLineCap) lineCap
+                    lineJoin: (CGLineJoin) lineJoin
+                  miterLimit: (float) miterLimit
+                   dashPhase: (float) dashPhase
+            dashLengthsCount: (unsigned) dashLengthsCount
+                 dashLengths: (float *) dashLengths
+                    flatness: (float) flatness
+                   transform: (CGAffineTransform) xform
+                   antialias: (BOOL) antialias
 {
     [self doesNotRecognizeSelector: _cmd];
 }
 
 - (void) drawBitmapImageRep: (NSBitmapImageRep *) imageRep
-                  antialias: (BOOL) antialias
-       interpolationQuality: (CGInterpolationQuality) interpolationQuality
-                  blendMode: (CGBlendMode) blendMode
-                  fillColor: (NSColor *) fillColor
-                  transform: (CGAffineTransform) xform
+                   antialias: (BOOL) antialias
+        interpolationQuality: (CGInterpolationQuality) interpolationQuality
+                   blendMode: (CGBlendMode) blendMode
+                   fillColor: (NSColor *) fillColor
+                   transform: (CGAffineTransform) xform
 {
     [self doesNotRecognizeSelector: _cmd];
 }

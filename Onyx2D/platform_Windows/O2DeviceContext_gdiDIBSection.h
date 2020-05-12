@@ -33,8 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                height: (size_t) height
         deviceContext: (O2DeviceContext_gdi *) compatible;
 - initGray8WithWidth: (size_t) width
-              height: (size_t) height
-       deviceContext: (O2DeviceContext_gdi *) compatible;
+               height: (size_t) height
+        deviceContext: (O2DeviceContext_gdi *) compatible;
 
 - (void *) bitmapBytes;
 

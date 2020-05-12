@@ -49,9 +49,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 {
 
     return NSAutorelease([NSAllocateObject([NSTimer_invocation class], 0, NULL)
-        initWithTimeInterval: timeInterval
-                     repeats: repeats
-                  invocation: invocation]);
+            initWithTimeInterval: timeInterval
+                         repeats: repeats
+                      invocation: invocation]);
 }
 
 + (NSTimer *) timerWithTimeInterval: (NSTimeInterval) timeInterval
@@ -62,12 +62,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 {
 
     return NSAutorelease(
-        [NSAllocateObject([NSTimer_targetAction class], 0, NULL)
-            initWithTimeInterval: timeInterval
-                         repeats: repeats
-                        userInfo: userInfo
-                          target: target
-                        selector: selector]);
+            [NSAllocateObject([NSTimer_targetAction class], 0, NULL)
+                    initWithTimeInterval: timeInterval
+                                 repeats: repeats
+                                userInfo: userInfo
+                                  target: target
+                                selector: selector]);
 }
 
 + (NSTimer *) scheduledTimerWithTimeInterval: (NSTimeInterval) timeInterval

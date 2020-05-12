@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSNumber *NSNumber_unsignedIntNew(NSZone *zone, unsigned int value) {
     NSNumber_unsignedInt *self =
-        NSAllocateObject([NSNumber_unsignedInt class], 0, zone);
+            NSAllocateObject([NSNumber_unsignedInt class], 0, zone);
     if (self) {
         self->_type = kCFNumberIntType;
         self->_value = value;

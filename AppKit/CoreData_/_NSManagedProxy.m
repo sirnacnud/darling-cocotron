@@ -42,7 +42,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         _entityName = [[coder decodeObjectForKey: @"NSEntityName"] retain];
         NSPredicate *fetchPredicate =
-            [coder decodeObjectForKey: @"NSFetchPredicate"];
+                [coder decodeObjectForKey: @"NSFetchPredicate"];
 
         _fetchRequest = [[NSFetchRequest alloc] init];
         [_fetchRequest setEntity: _entity];
@@ -119,7 +119,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if (!_context || !_fetchRequest)
         return nil;
     id object =
-        [[_fetchRequest _resultsInContext: _context] objectAtIndex: index];
+            [[_fetchRequest _resultsInContext: _context] objectAtIndex: index];
     return [[_NSManagedProxy alloc] initWithParent: self object: object];
 }
 
@@ -135,16 +135,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) addObserver: (NSObject *) observer
-    toObjectsAtIndexes: (NSIndexSet *) indexes
-            forKeyPath: (NSString *) keyPath
-               options: (NSKeyValueObservingOptions) options
-               context: (void *) context
+        toObjectsAtIndexes: (NSIndexSet *) indexes
+                forKeyPath: (NSString *) keyPath
+                   options: (NSKeyValueObservingOptions) options
+                   context: (void *) context
 {
-    NSLog(
-        @"Proxy for %@ asked to observe by %@ for keypath %@ options 0x%08x\n",
-        _object, observer, keyPath, options);
+    NSLog(@"Proxy for %@ asked to observe by %@ for keypath %@ options "
+          @"0x%08x\n",
+          _object, observer, keyPath, options);
     _NSManagedProxy_observerInfo *observerInfo =
-        [[_NSManagedProxy_observerInfo alloc] init];
+            [[_NSManagedProxy_observerInfo alloc] init];
     [observerInfo setObserver: observer];
     [observerInfo setIndexSet: indexes];
     [observerInfo setKeyPath: keyPath];
@@ -155,8 +155,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) removeObserver: (NSObject *) observer
-    fromObjectsAtIndexes: (NSIndexSet *) indexes
-              forKeyPath: (NSString *) keyPath
+        fromObjectsAtIndexes: (NSIndexSet *) indexes
+                  forKeyPath: (NSString *) keyPath
 {
 }
 

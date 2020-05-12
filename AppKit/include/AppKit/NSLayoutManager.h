@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/Foundation.h>
 
 @class NSTextStorage, NSGlyphGenerator, NSTypesetter, NSTextContainer,
-    NSTextView, NSRulerView;
+        NSTextView, NSRulerView;
 @class NSWindow, NSColor, NSCell;
 
 typedef enum {
@@ -83,8 +83,8 @@ typedef enum {
                      atIndex: (NSUInteger) index;
 
 - (void) insertGlyph: (NSGlyph) glyph
-        atGlyphIndex: (NSUInteger) glyphIndex
-      characterIndex: (NSUInteger) characterIndex;
+          atGlyphIndex: (NSUInteger) glyphIndex
+        characterIndex: (NSUInteger) characterIndex;
 - (void) replaceGlyphAtIndex: (NSUInteger) glyphIndex
                    withGlyph: (NSGlyph) glyph;
 - (void) deleteGlyphsInRange: (NSRange) glyphRange;
@@ -112,15 +112,15 @@ typedef enum {
                      bidiLevels: (unsigned char *) bidiLevels;
 
 - (NSTextContainer *) textContainerForGlyphAtIndex: (NSUInteger) glyphIndex
-                                    effectiveRange:
-                                        (NSRangePointer) effectiveGlyphRange;
+                                    effectiveRange: (NSRangePointer)
+                                                            effectiveGlyphRange;
 - (NSRect) lineFragmentRectForGlyphAtIndex: (NSUInteger) glyphIndex
                             effectiveRange:
-                                (NSRangePointer) effectiveGlyphRange;
+                                    (NSRangePointer) effectiveGlyphRange;
 - (NSPoint) locationForGlyphAtIndex: (NSUInteger) glyphIndex;
 - (NSRect) lineFragmentUsedRectForGlyphAtIndex: (NSUInteger) glyphIndex
                                 effectiveRange:
-                                    (NSRangePointer) effectiveGlyphRange;
+                                        (NSRangePointer) effectiveGlyphRange;
 - (NSRect) usedRectForTextContainer: (NSTextContainer *) container;
 - (NSRect) extraLineFragmentRect;
 - (NSRect) extraLineFragmentUsedRect;
@@ -132,7 +132,7 @@ typedef enum {
                forGlyphRange: (NSRange) glyphRange
                     usedRect: (NSRect) usedRect;
 - (void) setLocation: (NSPoint) location
-    forStartOfGlyphRange: (NSRange) glyphRange;
+        forStartOfGlyphRange: (NSRange) glyphRange;
 
 - (void) setExtraLineFragmentRect: (NSRect) fragmentRect
                          usedRect: (NSRect) usedRect
@@ -148,22 +148,22 @@ typedef enum {
 - (void) invalidateDisplayForCharacterRange: (NSRange) charRange;
 
 - (void) textStorage: (NSTextStorage *) storage
-              edited: (NSUInteger) editedMask
-               range: (NSRange) range
-      changeInLength: (NSInteger) changeInLength
-    invalidatedRange: (NSRange) invalidateRange;
+                  edited: (NSUInteger) editedMask
+                   range: (NSRange) range
+          changeInLength: (NSInteger) changeInLength
+        invalidatedRange: (NSRange) invalidateRange;
 
 - (void) textContainerChangedGeometry: (NSTextContainer *) container;
 - (void) ensureLayoutForTextContainer: (NSTextContainer *) container;
 
 - (NSUInteger) glyphIndexForPoint: (NSPoint) point
-                   inTextContainer: (NSTextContainer *) container
-    fractionOfDistanceThroughGlyph: (CGFloat *) fraction;
+                       inTextContainer: (NSTextContainer *) container
+        fractionOfDistanceThroughGlyph: (CGFloat *) fraction;
 - (NSUInteger) glyphIndexForPoint: (NSPoint) point
                   inTextContainer: (NSTextContainer *) container;
 - (CGFloat) fractionOfDistanceThroughGlyphForPoint: (NSPoint) point
                                    inTextContainer:
-                                       (NSTextContainer *) container;
+                                           (NSTextContainer *) container;
 
 - (NSRange) glyphRangeForTextContainer: (NSTextContainer *) container;
 - (NSRange) glyphRangeForCharacterRange: (NSRange) charRange
@@ -172,9 +172,10 @@ typedef enum {
                       inTextContainer: (NSTextContainer *) container;
 - (NSRange) glyphRangeForBoundingRectWithoutAdditionalLayout: (NSRect) bounds
                                              inTextContainer:
-                                                 (NSTextContainer *) container;
+                                                     (NSTextContainer *)
+                                                             container;
 - (NSRange) rangeOfNominallySpacedGlyphsContainingIndex:
-    (NSUInteger) glyphIndex;
+        (NSUInteger) glyphIndex;
 
 - (NSRect) boundingRectForGlyphRange: (NSRange) glyphRange
                      inTextContainer: (NSTextContainer *) container;
@@ -197,12 +198,12 @@ typedef enum {
                            glyphIndex: (NSUInteger *) glyphIndex;
 
 - (void) showPackedGlyphs: (char *) glyphs
-                   length: (NSUInteger) length
-               glyphRange: (NSRange) glyphRange
-                  atPoint: (NSPoint) point
-                     font: (NSFont *) font
-                    color: (NSColor *) color
-       printingAdjustment: (NSSize) printingAdjustment;
+                    length: (NSUInteger) length
+                glyphRange: (NSRange) glyphRange
+                   atPoint: (NSPoint) point
+                      font: (NSFont *) font
+                     color: (NSColor *) color
+        printingAdjustment: (NSSize) printingAdjustment;
 
 - (void) drawBackgroundForGlyphRange: (NSRange) glyphRange
                              atPoint: (NSPoint) origin;
@@ -216,10 +217,10 @@ typedef enum {
              lineFragmentGlyphRange: (NSRange) lineGlyphRange
                     containerOrigin: (NSPoint) containerOrigin;
 - (void) underlineGlyphRange: (NSRange) glyphRange
-               underlineType: (NSInteger) underlineVal
-            lineFragmentRect: (NSRect) lineRect
-      lineFragmentGlyphRange: (NSRange) lineGlyphRange
-             containerOrigin: (NSPoint) containerOrigin;
+                 underlineType: (NSInteger) underlineVal
+              lineFragmentRect: (NSRect) lineRect
+        lineFragmentGlyphRange: (NSRange) lineGlyphRange
+               containerOrigin: (NSPoint) containerOrigin;
 
 - (void) drawStrikethroughForGlyphRange: (NSRange) glyphRange
                       strikethroughType: (NSInteger) strikethroughVal
@@ -237,7 +238,8 @@ typedef enum {
 
 - (NSDictionary *) temporaryAttributesAtCharacterIndex: (NSUInteger) charIndex
                                         effectiveRange:
-                                            (NSRangePointer) effectiveCharRange;
+                                                (NSRangePointer)
+                                                        effectiveCharRange;
 - (void) setTemporaryAttributes: (NSDictionary *) attrs
               forCharacterRange: (NSRange) charRange;
 - (void) addTemporaryAttributes: (NSDictionary *) attrs
@@ -249,9 +251,9 @@ typedef enum {
          atCharacterIndex: (NSUInteger) location
            effectiveRange: (NSRangePointer) range;
 - (id) temporaryAttribute: (NSString *) attrName
-         atCharacterIndex: (NSUInteger) location
-    longestEffectiveRange: (NSRangePointer) range
-                  inRange: (NSRange) rangeLimit;
+             atCharacterIndex: (NSUInteger) location
+        longestEffectiveRange: (NSRangePointer) range
+                      inRange: (NSRange) rangeLimit;
 - (NSDictionary *) temporaryAttributesAtCharacterIndex: (NSUInteger) location
                                  longestEffectiveRange: (NSRangePointer) range
                                                inRange: (NSRange) rangeLimit;
@@ -271,11 +273,11 @@ typedef enum {
 @protocol NSLayoutManagerDelegate <NSObject>
 @optional
 - (void) layoutManager: (NSLayoutManager *) layoutManager
-    didCompleteLayoutForTextContainer: (NSTextContainer *) textContainer
-                                atEnd: (BOOL) layoutFinishedFlag;
+        didCompleteLayoutForTextContainer: (NSTextContainer *) textContainer
+                                    atEnd: (BOOL) layoutFinishedFlag;
 - (NSDictionary *) layoutManager: (NSLayoutManager *) layoutManager
-    shouldUseTemporaryAttributes: (NSDictionary *) attrs
-              forDrawingToScreen: (BOOL) toScreen
-                atCharacterIndex: (NSUInteger) charIndex
-                  effectiveRange: (NSRangePointer) effectiveCharRange;
+        shouldUseTemporaryAttributes: (NSDictionary *) attrs
+                  forDrawingToScreen: (BOOL) toScreen
+                    atCharacterIndex: (NSUInteger) charIndex
+                      effectiveRange: (NSRangePointer) effectiveCharRange;
 @end

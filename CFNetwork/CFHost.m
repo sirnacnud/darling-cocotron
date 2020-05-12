@@ -96,9 +96,9 @@ static int preXP_getaddrinfo(const char *host, const char *service,
         addr_list = (uint32_t **) hp->h_addr_list;
         for (; *addr_list != NULL; addr_list++) {
             struct addrinfo *node =
-                NSZoneCalloc(NULL, 1, sizeof(struct addrinfo));
+                    NSZoneCalloc(NULL, 1, sizeof(struct addrinfo));
             struct sockaddr_in *ipv4 =
-                NSZoneCalloc(NULL, 1, sizeof(struct sockaddr_in));
+                    NSZoneCalloc(NULL, 1, sizeof(struct sockaddr_in));
 
             node->ai_family = AF_INET;
             node->ai_addrlen = sizeof(struct sockaddr_in);
@@ -136,7 +136,7 @@ static int any_getaddrinfo(const char *host, const char *service,
 {
     HANDLE library = LoadLibrary("WS2_32");
     typeof(getaddrinfo) *function =
-        (typeof(getaddrinfo) *) GetProcAddress(library, "getaddrinfo");
+            (typeof(getaddrinfo) *) GetProcAddress(library, "getaddrinfo");
 
     if (function == NULL) {
         return preXP_getaddrinfo(host, service, hints, result);
@@ -148,7 +148,7 @@ static int any_getaddrinfo(const char *host, const char *service,
 static void any_freeaddrinfo(struct addrinfo *info) {
     HANDLE library = LoadLibrary("WS2_32");
     typeof(freeaddrinfo) *function =
-        (typeof(freeaddrinfo) *) GetProcAddress(library, "freeaddrinfo");
+            (typeof(freeaddrinfo) *) GetProcAddress(library, "freeaddrinfo");
 
     if (function == NULL) {
         return preXP_freeaddrinfo(info);
@@ -260,8 +260,8 @@ static __stdcall unsigned addressResolverThread(void *arg) {
         for (; check != NULL; check = next) {
             next = check->ai_next;
 
-            CFDataRef data =
-                CFDataCreate(NULL, (void *) check->ai_addr, check->ai_addrlen);
+            CFDataRef data = CFDataCreate(NULL, (void *) check->ai_addr,
+                                          check->ai_addrlen);
 
             CFArrayAppendValue(_addressing, data);
             CFRelease(data);
@@ -295,7 +295,7 @@ static CFAddressResolverThreadInfo *startResolverThreadIfNeeded() {
         asyncInfo->queueCapacity = 1;
         asyncInfo->queueCount = 0;
         asyncInfo->queue = NSZoneMalloc(NULL, sizeof(CFHostRequest *) *
-                                                  asyncInfo->queueCapacity);
+                                                      asyncInfo->queueCapacity);
 
         unsigned threadAddr;
         _beginthreadex(NULL, 0, addressResolverThread, asyncInfo, 0,
@@ -328,9 +328,9 @@ static void queueHostToAddressResolver(CFHostRef host) {
         EnterCriticalSection(&(info->queueLock));
         if (info->queueCount + 1 >= info->queueCapacity) {
             info->queueCapacity *= 2;
-            info->queue =
-                NSZoneRealloc(NULL, info->queue,
-                              sizeof(CFHostRequest *) * info->queueCapacity);
+            info->queue = NSZoneRealloc(NULL, info->queue,
+                                        sizeof(CFHostRequest *) *
+                                                info->queueCapacity);
         }
         info->queue[info->queueCount++] = host->_request;
         LeaveCriticalSection(&(info->queueLock));
@@ -461,7 +461,7 @@ Boolean CFHostSetClient(CFHostRef self, CFHostClientCallBack callback,
     if (self->_callback != NULL) {
         if (self->_context.info != NULL && self->_context.retain != NULL)
             self->_context.info =
-                (void *) self->_context.retain(self->_context.info);
+                    (void *) self->_context.retain(self->_context.info);
     }
 
     return TRUE;
@@ -472,7 +472,7 @@ static void CFHostCreateEventIfNeeded(CFHostRef self) {
     if (self->_event == NULL) {
         self->_event = CreateEvent(NULL, FALSE, FALSE, NULL);
         self->_monitor = [[NSHandleMonitor_win32
-            handleMonitorWithHandle: self->_event] retain];
+                handleMonitorWithHandle: self->_event] retain];
         [self->_monitor setDelegate: self];
         [self->_monitor setCurrentActivity: Win32HandleSignaled];
     }
@@ -531,11 +531,10 @@ Boolean CFHostStartInfoResolution(CFHostRef self, CFHostInfoType infoType,
         return FALSE;
 
     default:
-        [NSException
-             raise: NSInvalidArgumentException
-            format:
-                @"CFHostStartInfoResolution CFHostInfoType is not valid (%d)",
-                infoType];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"CFHostStartInfoResolution CFHostInfoType is not "
+                            @"valid (%d)",
+                            infoType];
         return FALSE;
     }
 }
@@ -556,11 +555,10 @@ void CFHostCancelInfoResolution(CFHostRef self, CFHostInfoType infoType) {
         break;
 
     default:
-        [NSException
-             raise: NSInvalidArgumentException
-            format:
-                @"CFHostCancelInfoResolution CFHostInfoType is not valid (%d)",
-                infoType];
+        [NSException raise: NSInvalidArgumentException
+                    format: @"CFHostCancelInfoResolution CFHostInfoType is not "
+                            @"valid (%d)",
+                            infoType];
         break;
     }
 }

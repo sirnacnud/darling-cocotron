@@ -54,7 +54,7 @@ native_set *native_set_new(int max) {
     while (result->max < max)
         result->max *= 2;
     result->fdset =
-        NSZoneCalloc(NULL, 1, sizeof(fd_mask) * (result->max / NFDBITS));
+            NSZoneCalloc(NULL, 1, sizeof(fd_mask) * (result->max / NFDBITS));
 
     return result;
 }
@@ -70,7 +70,7 @@ void native_set_clear(native_set *set, int descriptor) {
     [descriptor / NFDBITS] &= ~(1 << (descriptor % NFDBITS));
 #else
     set->fdset->fds_bits[descriptor / NFDBITS] &=
-        ~(1 << (descriptor % NFDBITS));
+            ~(1 << (descriptor % NFDBITS));
 #endif
 }
 
@@ -101,13 +101,13 @@ BOOL native_set_is_set(native_set *native, int descriptor) {
 #ifdef LINUX
     return (__FDS_BITS(native->fdset)[descriptor / NFDBITS] &
             (1 << (descriptor % NFDBITS)))
-               ? YES
-               : NO;
+                   ? YES
+                   : NO;
 #else
     return (native->fdset->fds_bits[descriptor / NFDBITS] &
             (1 << (descriptor % NFDBITS)))
-               ? YES
-               : NO;
+                   ? YES
+                   : NO;
 #endif
 }
 
@@ -172,7 +172,7 @@ static void transferNativeToSetWithOriginals(native_set *sset,
     NSError *result = nil;
     NSSocket_bsd *cheater = [NSSocket_bsd socketWithDescriptor: -1];
     int maxDescriptor =
-        maxDescriptorInThreeSets(_readSet, _writeSet, _exceptionSet);
+            maxDescriptorInThreeSets(_readSet, _writeSet, _exceptionSet);
     native_set *activeRead = native_set_new(maxDescriptor);
     native_set *activeWrite = native_set_new(maxDescriptor);
     native_set *activeExcept = native_set_new(maxDescriptor);
@@ -221,14 +221,15 @@ static void transferNativeToSetWithOriginals(native_set *sset,
 
     if (result == nil) {
         NSSelectSet_bsd *outputSet =
-            (NSSelectSet_bsd *) [[[NSSelectSet alloc] init] autorelease];
+                (NSSelectSet_bsd *) [[[NSSelectSet alloc] init] autorelease];
         if (numFds) {
             transferNativeToSetWithOriginals(activeRead, outputSet->_readSet,
                                              _readSet, cheater);
             transferNativeToSetWithOriginals(activeWrite, outputSet->_writeSet,
                                              _writeSet, cheater);
-            transferNativeToSetWithOriginals(
-                activeExcept, outputSet->_exceptionSet, _exceptionSet, cheater);
+            transferNativeToSetWithOriginals(activeExcept,
+                                             outputSet->_exceptionSet,
+                                             _exceptionSet, cheater);
         }
         *outputSetX = outputSet;
     }

@@ -37,7 +37,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _path = [[_path stringByAppendingPathExtension: @"plist"] retain];
 
     serializedDictionary =
-        [NSPropertyListReader dictionaryWithContentsOfFile: _path];
+            [NSPropertyListReader dictionaryWithContentsOfFile: _path];
     if (serializedDictionary != nil)
         _mutableDomain = [serializedDictionary mutableCopy];
     else
@@ -86,7 +86,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     for (i = 0; i < count; i++) {
         // leave the error checking up to -synchronize
         check = [check
-            stringByAppendingPathComponent: [components objectAtIndex: i]];
+                stringByAppendingPathComponent: [components objectAtIndex: i]];
         if (i > 0 &&
             ![[NSFileManager defaultManager] fileExistsAtPath: check
                                                   isDirectory: &isDirectory]) {

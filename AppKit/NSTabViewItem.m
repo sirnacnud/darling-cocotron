@@ -38,8 +38,8 @@ NSString *_NSTruncatedStringWithAttributesInRect(NSString *string,
 
     while ([string length] > 1 &&
            [string sizeWithAttributes: attributes].width > rect.size.width) {
-        string =
-            [string substringWithRange: NSMakeRange(0, [string length] - 1)];
+        string = [string
+                substringWithRange: NSMakeRange(0, [string length] - 1)];
     }
 
     if (length == [string length])
@@ -164,9 +164,9 @@ NSString *_NSTruncatedStringWithAttributesInRect(NSString *string,
 
 - (NSDictionary *) labelAttributes {
     return [NSDictionary
-        dictionaryWithObjectsAndKeys: [_tabView font], NSFontAttributeName,
-                                      [self _labelColor],
-                                      NSForegroundColorAttributeName, nil];
+            dictionaryWithObjectsAndKeys: [_tabView font], NSFontAttributeName,
+                                          [self _labelColor],
+                                          NSForegroundColorAttributeName, nil];
 }
 
 // our tabs draw too closely to the left mragin.
@@ -176,7 +176,7 @@ NSString *_NSTruncatedStringWithAttributesInRect(NSString *string,
     rect.origin.x += ORIGIN_PADDING;
     if ([self sizeOfLabel: NO].width > rect.size.width && truncateLabel) {
         NSString *truncatedLabel = _NSTruncatedStringWithAttributesInRect(
-            _label, [self labelAttributes], rect);
+                _label, [self labelAttributes], rect);
         [truncatedLabel _clipAndDrawInRect: rect
                             withAttributes: [self labelAttributes]];
     } else
@@ -192,7 +192,7 @@ NSString *_NSTruncatedStringWithAttributesInRect(NSString *string,
     // make sure that we don't return the uninitialized lastRect
     if (truncateLabel && _lastRect.size.width > 0) {
         NSString *truncatedLabel = _NSTruncatedStringWithAttributesInRect(
-            _label, [self labelAttributes], _lastRect);
+                _label, [self labelAttributes], _lastRect);
         size = [truncatedLabel sizeWithAttributes: [self labelAttributes]];
     }
     size.width += SIZE_PADDING;

@@ -58,8 +58,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSString *) description {
-    return
-        [NSString stringWithFormat: @"<%@ %@=%@>", [self class], _name, _value];
+    return [NSString
+            stringWithFormat: @"<%@ %@=%@>", [self class], _name, _value];
 }
 
 @end

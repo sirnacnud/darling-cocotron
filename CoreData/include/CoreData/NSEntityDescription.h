@@ -19,7 +19,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/Foundation.h>
 
 @class NSManagedObject, NSManagedObjectContext, NSManagedObjectModel,
-    NSPropertyDescription, NSAttributeDescription;
+        NSPropertyDescription, NSAttributeDescription;
 
 @interface NSEntityDescription : NSObject {
     NSString *_className;
@@ -65,6 +65,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSDictionary *) propertiesByName;
 - (NSDictionary *) relationshipsByName;
 - (NSArray *) relationshipsWithDestinationEntity:
-    (NSEntityDescription *) entity;
+        (NSEntityDescription *) entity;
 
 @end

@@ -20,7 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSRaise.h>
 
 NSString *const NSLocalNotificationCenterType =
-    @"NSLocalNotificationCenterType";
+        @"NSLocalNotificationCenterType";
 
 @implementation NSDistributedNotificationCenter
 
@@ -29,7 +29,7 @@ NSString *const NSLocalNotificationCenterType =
 }
 
 + (NSDistributedNotificationCenter *) notificationCenterForType:
-    (NSString *) type
+        (NSString *) type
 {
     NSUnimplementedMethod();
     return nil;
@@ -53,10 +53,10 @@ NSString *const NSLocalNotificationCenterType =
 }
 
 - (void) addObserver: observer
-              selector: (SEL) selector
-                  name: (NSString *) name
-                object: (NSString *) object
-    suspensionBehavior: (NSNotificationSuspensionBehavior) behavior
+                  selector: (SEL) selector
+                      name: (NSString *) name
+                    object: (NSString *) object
+        suspensionBehavior: (NSNotificationSuspensionBehavior) behavior
 {
     NSUnimplementedMethod();
 }

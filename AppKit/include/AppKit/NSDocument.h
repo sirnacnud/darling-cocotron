@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/Foundation.h>
 
 @class NSWindow, NSWindowController, NSSavePanel, NSMenuItem, NSFileWrapper,
-    NSPrintOperation, NSPrintInfo, NSPageLayout, NSView;
+        NSPrintOperation, NSPrintInfo, NSPageLayout, NSView;
 
 typedef enum {
     NSChangeDone,
@@ -64,9 +64,9 @@ typedef enum {
                  ofType: (NSString *) type
                   error: (NSError **) error;
 - initForURL: (NSURL *) url
-    withContentsOfURL: (NSURL *) contentsURL
-               ofType: (NSString *) type
-                error: (NSError **) error;
+        withContentsOfURL: (NSURL *) contentsURL
+                   ofType: (NSString *) type
+                    error: (NSError **) error;
 
 - (NSURL *) autosavedContentsFileURL;
 - (NSDate *) fileModificationDate;
@@ -127,10 +127,10 @@ typedef enum {
              ofType: (NSString *) type
               error: (NSError **) error;
 - (BOOL) writeToURL: (NSURL *) url
-                 ofType: (NSString *) type
-       forSaveOperation: (NSSaveOperationType) operation
-    originalContentsURL: (NSURL *) contentsURL
-                  error: (NSError **) error;
+                     ofType: (NSString *) type
+           forSaveOperation: (NSSaveOperationType) operation
+        originalContentsURL: (NSURL *) contentsURL
+                      error: (NSError **) error;
 - (BOOL) writeSafelyToURL: (NSURL *) url
                    ofType: (NSString *) type
          forSaveOperation: (NSSaveOperationType) operation
@@ -150,10 +150,10 @@ typedef enum {
 - (NSError *) willPresentError: (NSError *) error;
 - (BOOL) presentError: (NSError *) error;
 - (void) presentError: (NSError *) error
-        modalForWindow: (NSWindow *) window
-              delegate: delegate
-    didPresentSelector: (SEL) selector
-           contextInfo: (void *) info;
+            modalForWindow: (NSWindow *) window
+                  delegate: delegate
+        didPresentSelector: (SEL) selector
+               contextInfo: (void *) info;
 
 - (NSArray *) writableTypesForSaveOperation: (NSSaveOperationType) operation;
 - (BOOL) shouldRunSavePanelWithAccessoryView;
@@ -168,15 +168,15 @@ typedef enum {
                   didSaveSelector: (SEL) selector
                       contextInfo: (void *) info;
 - (BOOL) saveToURL: (NSURL *) url
-              ofType: (NSString *) type
-    forSaveOperation: (NSSaveOperationType) operation
-               error: (NSError **) error;
+                  ofType: (NSString *) type
+        forSaveOperation: (NSSaveOperationType) operation
+                   error: (NSError **) error;
 - (void) saveToURL: (NSURL *) url
-              ofType: (NSString *) type
-    forSaveOperation: (NSSaveOperationType) operation
-            delegate: delegate
-     didSaveSelector: (SEL) selector
-         contextInfo: (void *) info;
+                  ofType: (NSString *) type
+        forSaveOperation: (NSSaveOperationType) operation
+                delegate: delegate
+         didSaveSelector: (SEL) selector
+             contextInfo: (void *) info;
 
 - (BOOL) preparePageLayout: (NSPageLayout *) pageLayout;
 - (BOOL) shouldChangePrintInfo: (NSPrintInfo *) printInfo;
@@ -227,7 +227,7 @@ typedef enum {
                                  saveOperation: (NSSaveOperationType) operation;
 - (NSString *) fileName;
 - (NSString *) fileNameFromRunningSavePanelForSaveOperation:
-    (NSSaveOperationType) operation;
+        (NSSaveOperationType) operation;
 - (NSFileWrapper *) fileWrapperRepresentationOfType: (NSString *) type;
 - initWithContentsOfFile: (NSString *) path ofType: (NSString *) type;
 - initWithContentsOfURL: (NSURL *) url ofType: (NSString *) type;
@@ -244,16 +244,16 @@ typedef enum {
 - (int) runModalPageLayoutWithPrintInfo: (NSPrintInfo *) printInfo;
 - (void) setFileName: (NSString *) path;
 - (void) saveToFile: (NSString *) path
-      saveOperation: (NSSaveOperationType) operation
-           delegate: delegate
-    didSaveSelector: (SEL) selector
-        contextInfo: (void *) info;
+          saveOperation: (NSSaveOperationType) operation
+               delegate: delegate
+        didSaveSelector: (SEL) selector
+            contextInfo: (void *) info;
 - (BOOL) shouldCloseWindowController: (NSWindowController *) controller;
 - (BOOL) writeToFile: (NSString *) path ofType: (NSString *) type;
 - (BOOL) writeToFile: (NSString *) path
-              ofType: (NSString *) type
-        originalFile: (NSString *) original
-       saveOperation: (NSSaveOperationType) operation;
+               ofType: (NSString *) type
+         originalFile: (NSString *) original
+        saveOperation: (NSSaveOperationType) operation;
 - (BOOL) writeToURL: (NSURL *) url ofType: (NSString *) type;
 - (BOOL) writeWithBackupToFile: (NSString *) path
                         ofType: (NSString *) type

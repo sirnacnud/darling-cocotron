@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSMutableString_proxyToMutableAttributedString
 
 - initWithMutableAttributedString:
-    (NSMutableAttributedString *) attributedString
+        (NSMutableAttributedString *) attributedString
 {
     _attributedString = [attributedString retain];
     return self;

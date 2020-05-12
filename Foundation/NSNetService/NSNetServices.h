@@ -25,7 +25,7 @@
 #import <Foundation/NSObject.h>
 
 @class NSInputStream, NSOutputStream, NSRunLoop, NSSelectInputSource, NSTimer,
-    NSMutableDictionary;
+        NSMutableDictionary;
 
 typedef enum {
     NSNetServicesUnknownError = -72000L,
@@ -122,14 +122,14 @@ FOUNDATION_EXPORT NSString *const NSNetServicesErrorDomain;
 - (void) netServiceWillPublish: (NSNetService *) sender;
 - (void) netServiceDidPublish: (NSNetService *) sender;
 - (void) netService: (NSNetService *) sender
-      didNotPublish: (NSDictionary *) errorDict;
+        didNotPublish: (NSDictionary *) errorDict;
 - (void) netServiceWillResolve: (NSNetService *) sender;
 - (void) netServiceDidResolveAddress: (NSNetService *) sender;
 - (void) netService: (NSNetService *) sender
-      didNotResolve: (NSDictionary *) errorDict;
+        didNotResolve: (NSDictionary *) errorDict;
 - (void) netServiceDidStop: (NSNetService *) sender;
 - (void) netService: (NSNetService *) sender
-    didUpdateTXTRecordData: (NSData *) data;
+        didUpdateTXTRecordData: (NSData *) data;
 
 @end
 
@@ -138,7 +138,7 @@ FOUNDATION_EXPORT NSString *const NSNetServicesErrorDomain;
 @end
 
 @class NSRunLoop, NSDictionary, NSNetService, NSSelectInputSource,
-    NSMutableDictionary;
+        NSMutableDictionary;
 
 @interface NSNetServiceBrowser : NSObject {
   @private
@@ -178,7 +178,7 @@ FOUNDATION_EXPORT NSString *const NSNetServicesErrorDomain;
 - (void) netServiceBrowser: (NSNetServiceBrowser *) netServiceBrowser
               didNotSearch: (NSDictionary *) errorDict;
 - (void) netServiceBrowserDidStopSearch:
-    (NSNetServiceBrowser *) netServiceBrowser;
+        (NSNetServiceBrowser *) netServiceBrowser;
 - (void) netServiceBrowser: (NSNetServiceBrowser *) netServiceBrowser
              didFindDomain: (NSString *) domainString
                 moreComing: (BOOL) moreComing;

@@ -51,7 +51,8 @@
                                 range: (NSRange) range
 {
     NSRichTextWriter *writer =
-        [[self alloc] initWithAttributedString: attributedString range: range];
+            [[self alloc] initWithAttributedString: attributedString
+                                             range: range];
     NSData *result = [[[writer generateData] retain] autorelease];
 
     [writer release];
@@ -113,27 +114,27 @@
     while (location < limit) {
         NSRange effectiveRange;
         NSDictionary *attributes =
-            [_attributedString attributesAtIndex: location
-                                  effectiveRange: &effectiveRange];
+                [_attributedString attributesAtIndex: location
+                                      effectiveRange: &effectiveRange];
         NSFont *font = [attributes objectForKey: NSFontAttributeName];
         NSColor *fontColor =
-            [attributes objectForKey: NSForegroundColorAttributeName];
+                [attributes objectForKey: NSForegroundColorAttributeName];
         NSColor *backgroundColor =
-            [attributes objectForKey: NSBackgroundColorAttributeName];
+                [attributes objectForKey: NSBackgroundColorAttributeName];
         NSColor *underlineColor =
-            [attributes objectForKey: NSUnderlineColorAttributeName];
+                [attributes objectForKey: NSUnderlineColorAttributeName];
 
         fontColor =
-            [fontColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+                [fontColor colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
         backgroundColor = [backgroundColor
-            colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+                colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
         underlineColor = [underlineColor
-            colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+                colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 
         // Put there the font name without the italic/bold.. attributes
         NSFont *plainFont =
-            [[NSFontManager sharedFontManager] convertFont: font
-                                            toNotHaveTrait: 0xFFFFFF];
+                [[NSFontManager sharedFontManager] convertFont: font
+                                                toNotHaveTrait: 0xFFFFFF];
         NSString *fontName = [plainFont fontName];
         if (fontName && [fonts containsObject: fontName] == NO) {
             [fonts addObject: fontName];
@@ -169,11 +170,11 @@
     if (colors.count) {
         [self appendCString: "{\\colortbl "];
         for (NSColor *color in colors) {
-            NSString *str =
-                [NSString stringWithFormat: @"\\red%ld\\green%ld\\blue%ld;",
-                                            lroundf(color.redComponent * 255),
-                                            lroundf(color.greenComponent * 255),
-                                            lroundf(color.blueComponent * 255)];
+            NSString *str = [NSString
+                    stringWithFormat: @"\\red%ld\\green%ld\\blue%ld;",
+                                      lroundf(color.redComponent * 255),
+                                      lroundf(color.greenComponent * 255),
+                                      lroundf(color.blueComponent * 255)];
             [self appendCString: [str UTF8String]];
         }
         [self appendCString: "}"];
@@ -182,8 +183,9 @@
         [self appendCString: "{\\fonttbl "];
         int i = 0;
         for (NSString *fontName in fonts) {
-            NSString *str = [NSString
-                stringWithFormat: @"\\f%d\\fnil\\fcharset0 %@;", i++, fontName];
+            NSString *str =
+                    [NSString stringWithFormat: @"\\f%d\\fnil\\fcharset0 %@;",
+                                                i++, fontName];
             [self appendCString: [str UTF8String]];
         }
         [self appendCString: "}"];
@@ -202,22 +204,22 @@
     while (location < limit) {
         NSRange effectiveRange;
         NSDictionary *attributes =
-            [_attributedString attributesAtIndex: location
-                                  effectiveRange: &effectiveRange];
+                [_attributedString attributesAtIndex: location
+                                      effectiveRange: &effectiveRange];
         NSFont *font = [attributes objectForKey: NSFontAttributeName];
         NSFont *plainFont =
-            [[NSFontManager sharedFontManager] convertFont: font
-                                            toNotHaveTrait: 0xFFFFFF];
+                [[NSFontManager sharedFontManager] convertFont: font
+                                                toNotHaveTrait: 0xFFFFFF];
         NSFontTraitMask traits =
-            [[NSFontManager sharedFontManager] traitsOfFont: font];
+                [[NSFontManager sharedFontManager] traitsOfFont: font];
         NSColor *color =
-            [attributes objectForKey: NSForegroundColorAttributeName];
+                [attributes objectForKey: NSForegroundColorAttributeName];
         NSColor *backgroundColor =
-            [attributes objectForKey: NSBackgroundColorAttributeName];
+                [attributes objectForKey: NSBackgroundColorAttributeName];
         NSColor *underlineColor =
-            [attributes objectForKey: NSUnderlineColorAttributeName];
+                [attributes objectForKey: NSUnderlineColorAttributeName];
         NSInteger underlineStyle = [[attributes
-            objectForKey: NSUnderlineStyleAttributeName] integerValue];
+                objectForKey: NSUnderlineStyleAttributeName] integerValue];
 
         if (effectiveRange.location < location) {
             effectiveRange.length = NSMaxRange(effectiveRange) - location;
@@ -265,18 +267,18 @@
             NSUInteger idx = [colors indexOfObject: color];
             if (idx != NSNotFound && idx != currentColorIdx) {
                 NSString *colorNum = [NSString
-                    stringWithFormat: @"\\cf%ld ", (unsigned long) idx];
+                        stringWithFormat: @"\\cf%ld ", (unsigned long) idx];
                 [self appendCString: [colorNum UTF8String]];
                 currentColorIdx = idx;
             }
         }
         if (underlineColor) {
             underlineColor = [underlineColor
-                colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+                    colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
             NSUInteger idx = [colors indexOfObject: underlineColor];
             if (idx != NSNotFound && idx != currentUnderlineColorIdx) {
                 NSString *colorNum = [NSString
-                    stringWithFormat: @"\\ulc%ld ", (unsigned long) idx];
+                        stringWithFormat: @"\\ulc%ld ", (unsigned long) idx];
                 [self appendCString: [colorNum UTF8String]];
                 currentUnderlineColorIdx = idx;
             }
@@ -286,11 +288,11 @@
         }
         if (backgroundColor) {
             backgroundColor = [backgroundColor
-                colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+                    colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
             NSUInteger idx = [colors indexOfObject: backgroundColor];
             if (idx != NSNotFound && idx != currentBackgroundColorIdx) {
                 NSString *colorNum = [NSString
-                    stringWithFormat: @"\\cb%ld ", (unsigned long) idx];
+                        stringWithFormat: @"\\cb%ld ", (unsigned long) idx];
                 [self appendCString: [colorNum UTF8String]];
                 currentBackgroundColorIdx = idx;
             }
@@ -300,12 +302,13 @@
             NSUInteger idx = [fonts indexOfObject: [plainFont fontName]];
             if (idx != NSNotFound && idx != currentFontIdx) {
                 NSString *fontNum = [NSString
-                    stringWithFormat: @"\\f%ld ", (unsigned long) idx];
+                        stringWithFormat: @"\\f%ld ", (unsigned long) idx];
                 [self appendCString: [fontNum UTF8String]];
                 currentFontIdx = idx;
             }
-            NSString *fontSize = [NSString
-                stringWithFormat: @"\\fs%d ", (int) ([font pointSize] * 2.)];
+            NSString *fontSize =
+                    [NSString stringWithFormat: @"\\fs%d ",
+                                                (int) ([font pointSize] * 2.)];
             [self appendCString: [fontSize UTF8String]];
         }
 

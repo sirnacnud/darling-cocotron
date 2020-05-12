@@ -52,7 +52,7 @@ void O2PNGEncoderWriteImage(O2PNGEncoderRef self, O2ImageRef image,
     png_byte bit_depth = 8;
 
     png_structp png_ptr =
-        png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+            png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     png_infop info_ptr = png_create_info_struct(png_ptr);
 
     png_set_error_fn(png_ptr, NULL, O2PNGEncoderError, NULL);
@@ -61,8 +61,8 @@ void O2PNGEncoderWriteImage(O2PNGEncoderRef self, O2ImageRef image,
     // These settings speed it up a lot without sacrificing a lot of disk space
     png_set_filter(png_ptr, PNG_FILTER_TYPE_BASE, PNG_FILTER_SUB);
     png_set_compression_level(
-        png_ptr,
-        3); // range is 0 (NONE) to 9 (BEST) - 3 is a reasonable compromise
+            png_ptr,
+            3); // range is 0 (NONE) to 9 (BEST) - 3 is a reasonable compromise
 
     @try {
         png_set_write_fn(png_ptr, self, o2png_write_data, NULL);
@@ -218,14 +218,14 @@ typedef int stb_image_write_test[sizeof(stbiw_uint32) == 4 ? 1 : -1];
 #define stbi__sbgrow(a, n) stbi__sbgrowf((void **) &(a), (n), sizeof(*(a)))
 
 #define stbi__sbpush(a, v)                                                     \
-    (stbi__sbmaybegrow(a, 1), (a)[stbi__sbn(a)++] = (v))
+        (stbi__sbmaybegrow(a, 1), (a)[stbi__sbn(a)++] = (v))
 #define stbi__sbcount(a) ((a) ? stbi__sbn(a) : 0)
 #define stbi__sbfree(a) ((a) ? free(stbi__sbraw(a)), 0 : 0)
 
 static void *stbi__sbgrowf(void **arr, int increment, int itemsize) {
     int m = *arr ? 2 * stbi__sbm(*arr) + increment : increment + 1;
-    void *p =
-        realloc(*arr ? stbi__sbraw(*arr) : 0, itemsize * m + sizeof(int) * 2);
+    void *p = realloc(*arr ? stbi__sbraw(*arr) : 0,
+                      itemsize * m + sizeof(int) * 2);
     assert(p);
     if (p) {
         if (!*arr)
@@ -300,15 +300,15 @@ unsigned char *stbi_zlib_compress(unsigned char *data, int data_len,
                                   int *out_len, int quality)
 {
     static unsigned short lengthc[] = {
-        3,  4,  5,  6,  7,  8,  9,  10, 11,  13,  15,  17,  19,  23,  27,
-        31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 259};
+            3,  4,  5,  6,  7,  8,  9,  10, 11,  13,  15,  17,  19,  23,  27,
+            31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 259};
     static unsigned char lengtheb[] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
                                        1, 1, 2, 2, 2, 2, 3, 3, 3, 3,
                                        4, 4, 4, 4, 5, 5, 5, 5, 0};
     static unsigned short distc[] = {
-        1,    2,    3,    4,    5,    7,     9,     13,    17,   25,   33,
-        49,   65,   97,   129,  193,  257,   385,   513,   769,  1025, 1537,
-        2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 32768};
+            1,    2,    3,    4,    5,    7,     9,     13,    17,   25,   33,
+            49,   65,   97,   129,  193,  257,   385,   513,   769,  1025, 1537,
+            2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, 32768};
     static unsigned char disteb[] = {0, 0, 0,  0,  1,  1,  2,  2,  3,  3,
                                      4, 4, 5,  5,  6,  6,  7,  7,  8,  8,
                                      9, 9, 10, 10, 11, 11, 12, 12, 13, 13};
@@ -425,8 +425,8 @@ unsigned int stbi__crc32(unsigned char *buffer, int len) {
     if (crc_table[1] == 0)
         for (i = 0; i < 256; i++)
             for (crc_table[i] = i, j = 0; j < 8; ++j)
-                crc_table[i] =
-                    (crc_table[i] >> 1) ^ (crc_table[i] & 1 ? 0xedb88320 : 0);
+                crc_table[i] = (crc_table[i] >> 1) ^
+                               (crc_table[i] & 1 ? 0xedb88320 : 0);
     for (i = 0; i < len; ++i)
         crc = (crc >> 8) ^ crc_table[buffer[i] ^ (crc & 0xff)];
     return ~crc;
@@ -520,7 +520,8 @@ unsigned char *stbi_write_png_to_mem(O2ImageRef image, int x, int y,
                         break;
                     case 4:
                         line_buffer[i] =
-                            (signed char) (z[i] - stbi__paeth(0, lastZ[i], 0));
+                                (signed char) (z[i] -
+                                               stbi__paeth(0, lastZ[i], 0));
                         break;
                     case 5:
                         line_buffer[i] = z[i];
@@ -579,9 +580,9 @@ unsigned char *stbi_write_png_to_mem(O2ImageRef image, int x, int y,
     free(pixelBuffer);
     free(line_buffer);
 
-    zlib =
-        stbi_zlib_compress(filt, y * (x * n + 1), &zlen,
-                           8); // increase 8 to get smaller but use more memory
+    zlib = stbi_zlib_compress(
+            filt, y * (x * n + 1), &zlen,
+            8); // increase 8 to get smaller but use more memory
     free(filt);
     if (!zlib)
         return 0;
@@ -636,7 +637,7 @@ void O2PNGEncoderWriteImage(O2PNGEncoderRef self, O2ImageRef image,
     int length;
 
     unsigned char *png = stbi_write_png_to_mem(
-        image, O2ImageGetWidth(image), O2ImageGetHeight(image), &length);
+            image, O2ImageGetWidth(image), O2ImageGetHeight(image), &length);
 
     if (png == NULL)
         return;

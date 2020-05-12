@@ -88,9 +88,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSEvent *event = [events objectAtIndex: i];
         NSString *string = [event charactersIgnoringModifiers];
         NSKeyboardBinding *keyBinding =
-            [[NSKeyboardBindingManager defaultKeyBindingManager]
-                keyBindingWithString: string
-                       modifierFlags: [event modifierFlags]];
+                [[NSKeyboardBindingManager defaultKeyBindingManager]
+                        keyBindingWithString: string
+                               modifierFlags: [event modifierFlags]];
         NSArray *selectorNames = [keyBinding selectorNames];
 
         if (selectorNames != nil) {
@@ -100,7 +100,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 //  NSLog(@"doing %@ for %@", [selectorNames objectAtIndex:j],
                 //  keyBinding);
                 [self doCommandBySelector: NSSelectorFromString([selectorNames
-                                               objectAtIndex: j])];
+                                                   objectAtIndex: j])];
             }
         } else if ([self respondsToSelector: @selector(insertText:)]) {
             string = [event characters];
@@ -175,7 +175,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSError *newError; // error after being modified by delegate
         id delegate = [NSApp delegate];
         if ([delegate respondsToSelector: @selector(application:
-                                               willPresentError:)])
+                                                  willPresentError:)])
             newError = [delegate application: NSApp willPresentError: error];
         else
             newError = error;
@@ -205,16 +205,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         }
         if (needToRemoveOptions) {
             NSMutableDictionary *newUserInfo = [NSMutableDictionary
-                dictionaryWithDictionary: [newError userInfo]];
+                    dictionaryWithDictionary: [newError userInfo]];
             [newUserInfo
-                removeObjectForKey: NSLocalizedRecoveryOptionsErrorKey];
+                    removeObjectForKey: NSLocalizedRecoveryOptionsErrorKey];
             strippedError = [NSError errorWithDomain: [newError domain]
                                                 code: [newError code]
                                             userInfo: newUserInfo];
         } else
             strippedError = newError;
         NSInteger alertButton =
-            [[NSAlert alertWithError: strippedError] runModal];
+                [[NSAlert alertWithError: strippedError] runModal];
         if (validRecoveryAttempter)
             result = [recoveryAttempter attemptRecoveryFromError: strippedError
                                                      optionIndex: alertButton];
@@ -222,16 +222,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         // Forward message to nextResponder or to NSApp if there is no
         // nextResponder
         result = [_nextResponder ? _nextResponder : NSApp
-            presentError: [self willPresentError: error]];
+                presentError: [self willPresentError: error]];
     }
     return result;
 }
 
 - (void) presentError: (NSError *) error
-        modalForWindow: (NSWindow *) window
-              delegate: delegate
-    didPresentSelector: (SEL) selector
-           contextInfo: (void *) info
+            modalForWindow: (NSWindow *) window
+                  delegate: delegate
+        didPresentSelector: (SEL) selector
+               contextInfo: (void *) info
 {
     NSUnimplementedMethod();
 }

@@ -28,30 +28,30 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + calendarDate;
 
 - initWithYear: (NSInteger) year
-         month: (NSUInteger) month
-           day: (NSUInteger) day
-          hour: (NSUInteger) hour
-        minute: (NSUInteger) minute
-        second: (NSUInteger) second
-      timeZone: (NSTimeZone *) timeZone;
+           month: (NSUInteger) month
+             day: (NSUInteger) day
+            hour: (NSUInteger) hour
+          minute: (NSUInteger) minute
+          second: (NSUInteger) second
+        timeZone: (NSTimeZone *) timeZone;
 
 - initWithString: (NSString *) string
-    calendarFormat: (NSString *) format
-            locale: (NSDictionary *) locale;
+        calendarFormat: (NSString *) format
+                locale: (NSDictionary *) locale;
 - initWithString: (NSString *) string calendarFormat: (NSString *) format;
 - initWithString: (NSString *) string;
 
 + dateWithYear: (NSInteger) year
-         month: (NSUInteger) month
-           day: (NSUInteger) day
-          hour: (NSUInteger) hour
-        minute: (NSUInteger) minute
-        second: (NSUInteger) second
-      timeZone: (NSTimeZone *) timeZone;
+           month: (NSUInteger) month
+             day: (NSUInteger) day
+            hour: (NSUInteger) hour
+          minute: (NSUInteger) minute
+          second: (NSUInteger) second
+        timeZone: (NSTimeZone *) timeZone;
 
 + dateWithString: (NSString *) string
-    calendarFormat: (NSString *) format
-            locale: (NSDictionary *) locale;
+        calendarFormat: (NSString *) format
+                locale: (NSDictionary *) locale;
 
 + dateWithString: (NSString *) string calendarFormat: (NSString *) format;
 
@@ -72,12 +72,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSInteger) dayOfCommonEra;
 
 - (void) years: (NSInteger *) yearsp
-        months: (NSInteger *) monthsp
-          days: (NSInteger *) daysp
-         hours: (NSInteger *) hoursp
-       minutes: (NSInteger *) minutesp
-       seconds: (NSInteger *) secondsp
-     sinceDate: (NSCalendarDate *) date;
+           months: (NSInteger *) monthsp
+             days: (NSInteger *) daysp
+            hours: (NSInteger *) hoursp
+          minutes: (NSInteger *) minutesp
+          seconds: (NSInteger *) secondsp
+        sinceDate: (NSCalendarDate *) date;
 
 - (NSCalendarDate *) dateByAddingYears: (NSInteger) years
                                 months: (NSInteger) months

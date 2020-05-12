@@ -37,8 +37,8 @@ NSUInteger NSPageSize(void) {
 }
 
 void *NSAllocateMemoryPages(NSUInteger byteCount) {
-    void *buffer =
-        VirtualAlloc(NULL, byteCount, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+    void *buffer = VirtualAlloc(NULL, byteCount, MEM_RESERVE | MEM_COMMIT,
+                                PAGE_READWRITE);
     if (buffer == NULL) {
         DWORD lastError = GetLastError();
         fprintf(stderr, "NSAllocateMemoryPages(%d) failed: WinErr: %d\n",
@@ -186,7 +186,7 @@ NSUInteger NSPlatformDetachThread(unsigned (*__stdcall func)(void *arg),
 {
     uint32_t threadId = 0;
     HANDLE win32Handle =
-        (HANDLE) _beginthreadex(NULL, 0, func, arg, 0, &threadId);
+            (HANDLE) _beginthreadex(NULL, 0, func, arg, 0, &threadId);
 
     if (!win32Handle) {
         threadId = 0; // just to be sure

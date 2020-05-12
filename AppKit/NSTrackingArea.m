@@ -46,12 +46,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (id) _initWithRect: (NSRect) rect
-             options: (NSTrackingAreaOptions) options
-               owner: (id) owner
-            userData: (void *) userData
-      retainUserData: (BOOL) retainUserData
-           isToolTip: (BOOL) isToolTip
-            isLegacy: (BOOL) legacy
+               options: (NSTrackingAreaOptions) options
+                 owner: (id) owner
+              userData: (void *) userData
+        retainUserData: (BOOL) retainUserData
+             isToolTip: (BOOL) isToolTip
+              isLegacy: (BOOL) legacy
 {
     self = [super init];
     if (self != nil) {
@@ -138,13 +138,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat:
-            @"<%@[%p] rect:%@ options:%d owner:%@ userInfo:%p view:%@ "
-            @"rectInWindow:%@ mouseInside:%@ isToolTip:%@>",
-            [self class], self, NSStringFromRect(_rect), _options,
-            [_owner class], _userData, [_view class],
-            NSStringFromRect(_rectInWindow), _mouseInside ? @"YES" : @"NO",
-            _isToolTip ? @"YES" : @"NO"];
+            stringWithFormat:
+                    @"<%@[%p] rect:%@ options:%d owner:%@ userInfo:%p view:%@ "
+                    @"rectInWindow:%@ mouseInside:%@ isToolTip:%@>",
+                    [self class], self, NSStringFromRect(_rect), _options,
+                    [_owner class], _userData, [_view class],
+                    NSStringFromRect(_rectInWindow),
+                    _mouseInside ? @"YES" : @"NO", _isToolTip ? @"YES" : @"NO"];
 }
 
 @end

@@ -141,9 +141,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         CGFloat endGray = 0.90;
         int place = (i - offset < 0) ? numberOfRays + (i - offset) : i - offset;
         CGFloat gray =
-            startGray + ((endGray - startGray) / numberOfRays) * place;
+                startGray + ((endGray - startGray) / numberOfRays) * place;
         CGAffineTransform rotate =
-            CGAffineTransformMakeRotation(angle + arc * i);
+                CGAffineTransformMakeRotation(angle + arc * i);
         CGPoint ray;
 
         CGContextSetGrayStrokeColor(context, gray, 1.0);
@@ -166,10 +166,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         if (_isIndeterminate) {
             if ([self isDisplayedWhenStopped] || (_animationTimer != nil)) {
                 [[self graphicsStyle]
-                    drawProgressIndicatorIndeterminate: _bounds
-                                              clipRect: clipRect
-                                               bezeled: _isBezeled
-                                             animation: _animationValue];
+                        drawProgressIndicatorIndeterminate: _bounds
+                                                  clipRect: clipRect
+                                                   bezeled: _isBezeled
+                                                 animation: _animationValue];
             }
         } else {
             double value = (_value - _minValue) / (_maxValue - _minValue);
@@ -318,8 +318,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     BOOL isRunning = YES;
     do {
         isRunning =
-            [[NSRunLoop currentRunLoop] runMode: NSDefaultRunLoopMode
-                                     beforeDate: [NSDate distantFuture]];
+                [[NSRunLoop currentRunLoop] runMode: NSDefaultRunLoopMode
+                                         beforeDate: [NSDate distantFuture]];
     } while (isRunning && _endThreadedAnimation == NO);
 
     [self _invalidateTimer];

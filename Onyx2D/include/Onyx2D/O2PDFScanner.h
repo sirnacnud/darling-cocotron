@@ -26,7 +26,7 @@ typedef O2PDFScanner *O2PDFScannerRef;
 @class NSData, NSMutableArray;
 @class O2PDFContentStream, O2PDFOperatorTable;
 @class O2PDFString, O2PDFArray, O2PDFDictionary, O2PDFStream, O2PDFxref,
-    O2PDFObject_identifier;
+        O2PDFObject_identifier;
 
 BOOL O2PDFScanBackwardsByLines(const char *bytes, unsigned length,
                                O2PDFInteger position,

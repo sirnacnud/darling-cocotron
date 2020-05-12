@@ -22,10 +22,10 @@
         _controller = controller;
         _cachedValues = [NSMutableDictionary new];
         [[NSNotificationCenter defaultCenter]
-            addObserver: self
-               selector: @selector(userDefaultsDidChange:)
-                   name: NSUserDefaultsDidChangeNotification
-                 object: [_controller defaults]];
+                addObserver: self
+                   selector: @selector(userDefaultsDidChange:)
+                       name: NSUserDefaultsDidChangeNotification
+                     object: [_controller defaults]];
     }
     return self;
 }

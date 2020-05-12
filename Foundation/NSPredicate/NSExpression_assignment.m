@@ -39,9 +39,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + (NSExpression *) expressionWithVariable: (NSExpression *) variable
                                expression: (NSExpression *) expression
 {
-    return
-        [[[self allocWithZone: NULL] initWithVariable: variable
-                                           expression: expression] autorelease];
+    return [[[self allocWithZone: NULL] initWithVariable: variable
+                                              expression: expression]
+            autorelease];
 }
 
 - (NSString *) description {
@@ -54,7 +54,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSExpression *) _expressionWithSubstitutionVariables:
-    (NSDictionary *) variables
+        (NSDictionary *) variables
 {
     // FIX?
     return self;

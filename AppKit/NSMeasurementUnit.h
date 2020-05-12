@@ -43,10 +43,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                   stepDownCycle: (NSArray *) downCycle;
 
 - (id) initWithName: (NSString *) name
-       abbreviation: (NSString *) abbreviation
-      pointsPerUnit: (CGFloat) points
-        stepUpCycle: (NSArray *) upCycle
-      stepDownCycle: (NSArray *) downCycle;
+         abbreviation: (NSString *) abbreviation
+        pointsPerUnit: (CGFloat) points
+          stepUpCycle: (NSArray *) upCycle
+        stepDownCycle: (NSArray *) downCycle;
 
 - (NSString *) name;
 - (NSString *) abbreviation;

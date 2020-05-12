@@ -24,9 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation O2Path
 
 - initWithOperators: (unsigned char *) elements
-    numberOfElements: (size_t) numberOfElements
-              points: (O2Point *) points
-      numberOfPoints: (size_t) numberOfPoints
+        numberOfElements: (size_t) numberOfElements
+                  points: (O2Point *) points
+          numberOfPoints: (size_t) numberOfPoints
 {
     return O2PathInitWithOperators(self, elements, numberOfElements, points,
                                    numberOfPoints);
@@ -40,14 +40,14 @@ id O2PathInitWithOperators(O2Path *self, unsigned char *elements,
 
     self->_numberOfElements = numberOfElements;
     self->_elements = NSZoneMalloc(
-        NULL, (self->_numberOfElements == 0) ? 1 : self->_numberOfElements);
+            NULL, (self->_numberOfElements == 0) ? 1 : self->_numberOfElements);
     for (i = 0; i < self->_numberOfElements; i++)
         self->_elements[i] = elements[i];
 
     self->_numberOfPoints = numberOfPoints;
     self->_points = NSZoneMalloc(
-        NULL, (self->_numberOfPoints == 0 ? 1 : self->_numberOfPoints) *
-                  sizeof(O2Point));
+            NULL, (self->_numberOfPoints == 0 ? 1 : self->_numberOfPoints) *
+                          sizeof(O2Point));
     for (i = 0; i < self->_numberOfPoints; i++)
         self->_points[i] = points[i];
 
@@ -88,10 +88,10 @@ O2PathRef O2PathCreateCopy(O2PathRef self) {
 
 O2MutablePathRef O2PathCreateMutableCopy(O2PathRef self) {
     return [[O2MutablePath allocWithZone: NULL]
-        initWithOperators: self->_elements
-         numberOfElements: self->_numberOfElements
-                   points: self->_points
-           numberOfPoints: self->_numberOfPoints];
+            initWithOperators: self->_elements
+             numberOfElements: self->_numberOfElements
+                       points: self->_points
+               numberOfPoints: self->_numberOfPoints];
 }
 
 size_t O2PathNumberOfElements(O2PathRef self) {
@@ -113,8 +113,8 @@ const O2Point *O2PathPoints(O2PathRef self) {
 O2Point O2PathGetCurrentPoint(O2PathRef self) {
     // this is wrong w/ closepath last
     return (self->_numberOfPoints == 0)
-               ? O2PointZero
-               : self->_points[self->_numberOfPoints - 1];
+                   ? O2PointZero
+                   : self->_points[self->_numberOfPoints - 1];
 }
 
 BOOL O2PathEqualToPath(O2PathRef self, O2PathRef other) {
@@ -225,7 +225,7 @@ int _countEvenOddCrossingOfPointAndLine(O2Point point, O2Point lineStart,
 
         // compute the actual edge-ray intersect x-coordinate
         O2Float vt =
-            (O2Float)(point.y - lineStart.y) / (lineEnd.y - lineStart.y);
+                (O2Float)(point.y - lineStart.y) / (lineEnd.y - lineStart.y);
 
         if (point.x < lineStart.x + vt * (lineEnd.x -
                                           lineStart.x)) { // point.x < intersect
@@ -267,9 +267,9 @@ int _countYCrossingFromPointToCurve(O2Point point, O2Point curveFromPoint,
 
     // No need to test if there no chance of any crossing
     O2Float minY =
-        MIN(MIN(curveFromPoint.y, curveToPoint.y), MIN(tan1.y, tan2.y));
+            MIN(MIN(curveFromPoint.y, curveToPoint.y), MIN(tan1.y, tan2.y));
     O2Float maxY =
-        MAX(MAX(curveFromPoint.y, curveToPoint.y), MAX(tan1.y, tan2.y));
+            MAX(MAX(curveFromPoint.y, curveToPoint.y), MAX(tan1.y, tan2.y));
     if (minY > point.y || maxY < point.y) {
         return 0;
     }
@@ -291,12 +291,12 @@ int _countYCrossingFromPointToCurve(O2Point point, O2Point curveFromPoint,
                                        (curveFromPoint.y + tan1.y) / 2);
         O2Point T = O2PointMake((tan1.x + tan2.x) / 2, (tan1.y + tan2.y) / 2);
         O2Point sub1_cp2 =
-            O2PointMake((sub1_cp1.x + T.x) / 2, (sub1_cp1.y + T.y) / 2);
+                O2PointMake((sub1_cp1.x + T.x) / 2, (sub1_cp1.y + T.y) / 2);
         O2Point sub2_end = curveToPoint;
         O2Point sub2_cp2 = O2PointMake((tan2.x + curveToPoint.x) / 2,
                                        (tan2.y + curveToPoint.y) / 2);
         O2Point sub2_cp1 =
-            O2PointMake((T.x + sub2_cp2.x) / 2, (T.y + sub2_cp2.y) / 2);
+                O2PointMake((T.x + sub2_cp2.x) / 2, (T.y + sub2_cp2.y) / 2);
         O2Point sub2_start = O2PointMake((sub1_cp2.x + sub2_cp1.x) / 2,
                                          (sub1_cp2.y + sub2_cp1.y) / 2);
         O2Point sub1_end = sub2_start;
@@ -372,8 +372,9 @@ BOOL O2PathContainsPoint(O2PathRef self, const O2AffineTransform *xform,
 
         case kO2PathElementAddCurveToPoint:
             toPoint = points[2];
-            cn += _countYCrossingFromPointToCurve(
-                point, currentPoint, toPoint, points[0], points[1], evenOdd);
+            cn += _countYCrossingFromPointToCurve(point, currentPoint, toPoint,
+                                                  points[0], points[1],
+                                                  evenOdd);
             currentPoint = toPoint;
             points += 3;
             break;

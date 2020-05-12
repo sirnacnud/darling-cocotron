@@ -68,13 +68,13 @@ typedef uint32_t NSOpenGLPixelFormatAttribute;
 }
 
 - (instancetype) initWithAttributes:
-    (const NSOpenGLPixelFormatAttribute *) attributes;
+        (const NSOpenGLPixelFormatAttribute *) attributes;
 
 - (void *) CGLPixelFormatObj;
 - (GLint) numberOfVirtualScreens;
 
 - (void) getValues: (long *) values
-        forAttribute: (NSOpenGLPixelFormatAttribute) attribute
-    forVirtualScreen: (int) screen;
+            forAttribute: (NSOpenGLPixelFormatAttribute) attribute
+        forVirtualScreen: (int) screen;
 
 @end

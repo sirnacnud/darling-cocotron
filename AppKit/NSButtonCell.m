@@ -116,7 +116,7 @@ static const CGFloat kImageMargin = 2.;
         _highlightsBy |= NSChangeGrayCellMask;
 
     _isBordered =
-        (flags & 0x00800000) ? YES : NO; // err, this flag is in NSCell too
+            (flags & 0x00800000) ? YES : NO; // err, this flag is in NSCell too
 
     _bezelStyle = (flags2 & 0x7) | (flags2 & 0x20 >> 2);
 
@@ -145,12 +145,12 @@ static const CGFloat kImageMargin = 2.;
     } else {
         if (([[[self image] name] isEqualToString: @"NSRadioButton"] &&
              [[[self alternateImage] name]
-                 isEqualToString: @"NSHighlightedRadioButton"]) &&
+                     isEqualToString: @"NSHighlightedRadioButton"]) &&
             (flags & 0x20000) == 0) {
             [self setButtonType: NSRadioButton];
         } else if (([[[self image] name] isEqualToString: @"NSSwitch"] &&
                     [[[self alternateImage] name]
-                        isEqualToString: @"NSHighlightedSwitch"]) &&
+                            isEqualToString: @"NSHighlightedSwitch"]) &&
                    (flags & 0x20000) == 0) {
             [self setButtonType: NSMomentaryPushInButton];
         }
@@ -169,9 +169,9 @@ static const CGFloat kImageMargin = 2.;
         id check;
 
         _titleOrAttributedTitle =
-            [[keyed decodeObjectForKey: @"NSContents"] retain];
+                [[keyed decodeObjectForKey: @"NSContents"] retain];
         _alternateTitle =
-            [[keyed decodeObjectForKey: @"NSAlternateContents"] retain];
+                [[keyed decodeObjectForKey: @"NSAlternateContents"] retain];
 
         [self _applyButtonCellAppleFlags: flags flags2: flags2];
 
@@ -191,7 +191,7 @@ static const CGFloat kImageMargin = 2.;
         _normalImage = [_image retain];
 
         _keyEquivalent =
-            [[keyed decodeObjectForKey: @"NSKeyEquivalent"] retain];
+                [[keyed decodeObjectForKey: @"NSKeyEquivalent"] retain];
         _keyEquivalentModifierMask = flags2 >> 8;
         [self setIntValue: _state]; // make the int value of NSButtonCell to be
                                     // in synch with the bare _state of NSCell
@@ -222,16 +222,16 @@ static const CGFloat kImageMargin = 2.;
             unichar keyEquivalent = inFlags2 >> 8;
             if (keyEquivalent != 0) {
                 _keyEquivalent =
-                    [[NSString alloc] initWithCharacters: &keyEquivalent
-                                                  length: 1];
+                        [[NSString alloc] initWithCharacters: &keyEquivalent
+                                                      length: 1];
             }
 
             if (altContents) {
-                _alternateTitle =
-                    [[NSString alloc] initWithBytesNoCopy: altContents
-                                                   length: strlen(altContents)
-                                                 encoding: NSUTF8StringEncoding
-                                             freeWhenDone: TRUE];
+                _alternateTitle = [[NSString alloc]
+                        initWithBytesNoCopy: altContents
+                                     length: strlen(altContents)
+                                   encoding: NSUTF8StringEncoding
+                               freeWhenDone: TRUE];
             }
 
             if (flags & 0x20000) {
@@ -366,13 +366,14 @@ static const CGFloat kImageMargin = 2.;
 
         if (version <= 40) {
             if (([[self image]
-                     isEqual: [NSImage imageNamed: @"NSRadioButton"]] &&
+                         isEqual: [NSImage imageNamed: @"NSRadioButton"]] &&
                  [[self alternateImage]
-                     isEqual: [NSImage
-                                  imageNamed: @"NSHighlightedRadioButton"]]) ||
+                         isEqual: [NSImage imageNamed: @"NSHighlightedRadioButt"
+                                                       @"on"]]) ||
                 ([[self image] isEqual: [NSImage imageNamed: @"NSSwitch"]] &&
                  [[self alternateImage]
-                     isEqual: [NSImage imageNamed: @"NSHighlightedSwitch"]])) {
+                         isEqual: [NSImage imageNamed:
+                                                   @"NSHighlightedSwitch"]])) {
                 flags |= 0x1000;
             }
         }
@@ -384,7 +385,7 @@ static const CGFloat kImageMargin = 2.;
             if ([[self keyEquivalent] isEqualToString: @"\r"]) {
                 if ([[[self image] name] isEqualToString: @"NSReturnSign"] ||
                     [[[self alternateImage] name]
-                        isEqualToString: @"NXreturnSignH"]) {
+                            isEqualToString: @"NXreturnSignH"]) {
                     [self setImage: nil];
                     [self setAlternateImage: nil];
                     flags &= 0xB70000;
@@ -500,13 +501,13 @@ static const CGFloat kImageMargin = 2.;
         // attributed string when title is nil
         return [[NSAttributedString alloc] initWithString: @""];
     } else if ([_titleOrAttributedTitle
-                   isKindOfClass: [NSAttributedString class]])
+                       isKindOfClass: [NSAttributedString class]])
         return _titleOrAttributedTitle;
     else {
         NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
         NSMutableParagraphStyle *paraStyle =
-            [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
-                autorelease];
+                [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
+                        autorelease];
         NSFont *font = [self font];
 
         if (font != nil)
@@ -525,14 +526,15 @@ static const CGFloat kImageMargin = 2.;
 
         return [[[NSAttributedString alloc] initWithString: [self title]
                                                 attributes: attributes]
-            autorelease];
+                autorelease];
     }
 }
 
 - (NSAttributedString *) attributedAlternateTitle {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     NSMutableParagraphStyle *paraStyle =
-        [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+            [[[NSParagraphStyle defaultParagraphStyle] mutableCopy]
+                    autorelease];
     NSFont *font = [self font];
 
     if (font != nil)
@@ -549,9 +551,9 @@ static const CGFloat kImageMargin = 2.;
         [attributes setObject: [NSColor disabledControlTextColor]
                        forKey: NSForegroundColorAttributeName];
 
-    return
-        [[[NSAttributedString alloc] initWithString: [self alternateTitle]
-                                         attributes: attributes] autorelease];
+    return [[[NSAttributedString alloc] initWithString: [self alternateTitle]
+                                            attributes: attributes]
+            autorelease];
 }
 
 - (int) highlightsBy {
@@ -763,8 +765,8 @@ static const CGFloat kImageMargin = 2.;
         _imagePosition = NSImageLeft;
         _imageDimsWhenDisabled = NO;
         [self setImage: [NSImage imageNamed: @"NSRadioButton"]];
-        [self setAlternateImage: [NSImage
-                                     imageNamed: @"NSHighlightedRadioButton"]];
+        [self setAlternateImage:
+                        [NSImage imageNamed: @"NSHighlightedRadioButton"]];
         [self setAlignment: NSLeftTextAlignment];
         [self setBordered: NO];
         [self setBezeled: NO];
@@ -857,9 +859,9 @@ static const CGFloat kImageMargin = 2.;
         BOOL enabled = [self isEnabled] ? YES : ![self imageDimsWhenDisabled];
         BOOL mixed = [self state] == NSMixedState;
         imageSize =
-            [[[self controlView] graphicsStyle] sizeOfButtonImage: image
-                                                          enabled: enabled
-                                                            mixed: mixed];
+                [[[self controlView] graphicsStyle] sizeOfButtonImage: image
+                                                              enabled: enabled
+                                                                mixed: mixed];
     }
     return NSMakeRect(rect.origin.x, rect.origin.y, imageSize.width,
                       imageSize.height);
@@ -932,7 +934,7 @@ static const CGFloat kImageMargin = 2.;
             frame.size.height = 10 - _controlSize * 2;
             frame.origin.x = 5 - _controlSize;
             frame.origin.y =
-                flipped ? _controlSize * 2 - 3 : 7 - _controlSize * 2;
+                    flipped ? _controlSize * 2 - 3 : 7 - _controlSize * 2;
             break;
 
         case NSMiniControlSize:
@@ -947,7 +949,7 @@ static const CGFloat kImageMargin = 2.;
 - (void) _drawTexturedBezelWithFrame: (NSRect) frame {
     BOOL highlighted = [self isHighlighted];
     BOOL pressed =
-        [self state] && ([self showsStateBy] & NSChangeBackgroundCellMask);
+            [self state] && ([self showsStateBy] & NSChangeBackgroundCellMask);
 
     BOOL renderDarkenBg = NO, renderOutlineShadow = NO;
     // CGFloat topGray=0.76, bottomGray=0.98, strokeGray=0.4;
@@ -972,10 +974,11 @@ static const CGFloat kImageMargin = 2.;
 
     const CGFloat baseY = floor(frame.origin.y);
     const CGFloat maxY = baseY + frame.size.height - 1.0;
-    CGRect r =
-        CGRectMake(floor(frame.origin.x), baseY, ceil(frame.size.width), 1.0);
+    CGRect r = CGRectMake(floor(frame.origin.x), baseY, ceil(frame.size.width),
+                          1.0);
     while (r.origin.y <= maxY) {
-        CGFloat g = bottomGray + (topGray - bottomGray) *
+        CGFloat g =
+                bottomGray + (topGray - bottomGray) *
                                      ((r.origin.y - baseY) / (maxY - baseY));
         CGFloat components[4] = {g, g, g, 1.0};
         CGContextSetFillColor(ctx, components);
@@ -1060,7 +1063,7 @@ static void drawRoundedBezel(CGContextRef context, CGRect frame) {
     BOOL defaulted = ([[controlView window] defaultButtonCell] == self);
 
     NSRect adjustment =
-        [self getControlSizeAdjustment: [controlView isFlipped]];
+            [self getControlSizeAdjustment: [controlView isFlipped]];
     frame.size.width -= adjustment.size.width;
     frame.size.height -= adjustment.size.height;
     frame.origin.x += adjustment.origin.x;
@@ -1107,7 +1110,7 @@ static void drawRoundedBezel(CGContextRef context, CGRect frame) {
     case NSRecessedBezelStyle:;
         if ([self isBordered] && [self isVisuallyHighlighted]) {
             CGContextRef context =
-                [[NSGraphicsContext currentContext] graphicsPort];
+                    [[NSGraphicsContext currentContext] graphicsPort];
 
             frame.size.height--;
             frame.origin.y += [controlView isFlipped] ? 1 : 0;
@@ -1130,20 +1133,20 @@ static void drawRoundedBezel(CGContextRef context, CGRect frame) {
     default:
         if (![self isBordered]) {
             [[_controlView graphicsStyle]
-                drawUnborderedButtonInRect: frame
-                                 defaulted: defaulted];
+                    drawUnborderedButtonInRect: frame
+                                     defaulted: defaulted];
         } else {
             if (([self highlightsBy] & NSPushInCellMask) &&
                 [self isHighlighted])
                 [[_controlView graphicsStyle]
-                    drawPushButtonPressedInRect: frame];
+                        drawPushButtonPressedInRect: frame];
             else if ([self isVisuallyHighlighted])
                 [[_controlView graphicsStyle]
-                    drawPushButtonHighlightedInRect: frame];
+                        drawPushButtonHighlightedInRect: frame];
             else
                 [[_controlView graphicsStyle]
-                    drawPushButtonNormalInRect: frame
-                                     defaulted: defaulted];
+                        drawPushButtonNormalInRect: frame
+                                         defaulted: defaulted];
         }
         break;
     }
@@ -1164,10 +1167,10 @@ static void drawRoundedBezel(CGContextRef context, CGRect frame) {
         CGContextScaleCTM(ctx, 1, -1);
     }
     [[controlView graphicsStyle]
-        drawButtonImage: image
-                 inRect: NSMakeRect(0, 0, rect.size.width, rect.size.height)
-                enabled: enabled
-                  mixed: mixed];
+            drawButtonImage: image
+                     inRect: NSMakeRect(0, 0, rect.size.width, rect.size.height)
+                    enabled: enabled
+                      mixed: mixed];
     CGContextRestoreGState(ctx);
 }
 
@@ -1243,7 +1246,7 @@ static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
      */
     BOOL defaulted = ([[controlView window] defaultButtonCell] == self);
     NSRect adjustment =
-        [self getControlSizeAdjustment: [controlView isFlipped]];
+            [self getControlSizeAdjustment: [controlView isFlipped]];
     frame.size.width -= adjustment.size.width;
     frame.size.height -= adjustment.size.height;
     frame.origin.x += adjustment.origin.x;
@@ -1278,8 +1281,8 @@ static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
     if ([self bezelStyle] == NSDisclosureBezelStyle)
         imagePosition = NSImageOnly;
 
-    imageSize =
-        scaledImageSizeInFrameSize(imageSize, frame.size, [self imageScaling]);
+    imageSize = scaledImageSizeInFrameSize(imageSize, frame.size,
+                                           [self imageScaling]);
 
     imageOrigin.x += floor((frame.size.width - imageSize.width) / 2);
     imageOrigin.y += floor((frame.size.height - imageSize.height) / 2);
@@ -1314,16 +1317,16 @@ static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
         titleRect.origin.y += imageSize.height;
         imageOrigin.y = MAX(frame.origin.y, imageOrigin.y);
         titleRect.origin.y =
-            MIN(frame.origin.y + frame.size.height - titleRect.size.height,
-                titleRect.origin.y);
+                MIN(frame.origin.y + frame.size.height - titleRect.size.height,
+                    titleRect.origin.y);
         break;
 
     case NSImageAbove:
         imageOrigin.y = frame.origin.y + (frame.size.height - imageSize.height);
         titleRect.origin.y -= imageSize.height;
         imageOrigin.y =
-            MIN(frame.origin.y + frame.size.height - imageSize.height,
-                imageOrigin.y);
+                MIN(frame.origin.y + frame.size.height - imageSize.height,
+                    imageOrigin.y);
         titleRect.origin.y = MAX(frame.origin.y, titleRect.origin.y);
         break;
 
@@ -1368,29 +1371,29 @@ static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
             const CGFloat shadowAlpha = ([self isHighlighted]) ? 0.15 : 0.25;
             NSString *baseTitle = [NSString stringWithString: [title string]];
             NSMutableDictionary *shadowAttrs =
-                [[[title attributesAtIndex: 0
-                            effectiveRange: NULL] mutableCopy] autorelease];
+                    [[[title attributesAtIndex: 0
+                                effectiveRange: NULL] mutableCopy] autorelease];
 
             if (titleRect.origin.y >
                 frame.origin.y + 1) { // only draw the shadow if it doesn't come
                                       // too close to the edge
                 [shadowAttrs
-                    setObject: [NSColor colorWithDeviceRed: shadowGray
-                                                     green: shadowGray
-                                                      blue: shadowGray
-                                                     alpha: shadowAlpha]
-                       forKey: NSForegroundColorAttributeName];
+                        setObject: [NSColor colorWithDeviceRed: shadowGray
+                                                         green: shadowGray
+                                                          blue: shadowGray
+                                                         alpha: shadowAlpha]
+                           forKey: NSForegroundColorAttributeName];
 
                 NSAttributedString *shadowTitle = [[[NSAttributedString alloc]
-                    initWithString: baseTitle
-                        attributes: shadowAttrs] autorelease];
+                        initWithString: baseTitle
+                            attributes: shadowAttrs] autorelease];
                 NSRect shadowRect = NSOffsetRect(titleRect, 0, 1);
 
                 [shadowTitle _clipAndDrawInRect: shadowRect];
             }
 
             NSMutableDictionary *fgAttrs =
-                [[shadowAttrs mutableCopy] autorelease];
+                    [[shadowAttrs mutableCopy] autorelease];
             if ([self isEnabled])
                 [fgAttrs setObject: [NSColor colorWithDeviceRed: fgGray
                                                           green: fgGray
@@ -1405,7 +1408,7 @@ static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
                             forKey: NSForegroundColorAttributeName];
             title = [[[NSAttributedString alloc] initWithString: baseTitle
                                                      attributes: fgAttrs]
-                autorelease];
+                    autorelease];
         }
 
         [self drawTitle: title withFrame: titleRect inView: controlView];

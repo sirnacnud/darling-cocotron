@@ -37,12 +37,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithDomain: (O2PDFArray *) domain
-            range: (O2PDFArray *) range
-             size: (O2PDFArray *) size
-    bitsPerSample: (O2PDFInteger) bps
-            order: (O2PDFInteger) order
-           encode: (O2PDFArray *) encode
-           decode: (O2PDFArray *) decode
-             data: (NSData *) data;
+                range: (O2PDFArray *) range
+                 size: (O2PDFArray *) size
+        bitsPerSample: (O2PDFInteger) bps
+                order: (O2PDFInteger) order
+               encode: (O2PDFArray *) encode
+               decode: (O2PDFArray *) decode
+                 data: (NSData *) data;
 
 @end

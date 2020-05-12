@@ -130,7 +130,7 @@ static Class _fontPanelFactory;
     NSArray *families = [NSFontFamily allFontFamilyNames];
 
     if (![_delegate respondsToSelector: @selector(fontManager:
-                                              willIncludeFont:)])
+                                                willIncludeFont:)])
         return families;
     else {
         NSMutableArray *result = [NSMutableArray array];
@@ -139,7 +139,7 @@ static Class _fontPanelFactory;
         for (i = 0; i < count; i++) {
             NSString *familyName = [families objectAtIndex: i];
             NSFontFamily *family =
-                [NSFontFamily fontFamilyWithName: familyName];
+                    [NSFontFamily fontFamilyWithName: familyName];
             NSArray *typefaces = [family typefaces];
             int t, tcount = [typefaces count];
 
@@ -170,18 +170,19 @@ static Class _fontPanelFactory;
         NSString *traitName = [typeface traitName];
 
         // Callers expect an array of four objects
-        [result
-            addObject: [NSArray arrayWithObjects: name, traitName,
-                                                  [NSNumber numberWithInt: 0],
-                                                  [NSNumber numberWithInt: 0],
-                                                  nil]];
+        [result addObject: [NSArray arrayWithObjects: name, traitName,
+                                                      [NSNumber
+                                                              numberWithInt: 0],
+                                                      [NSNumber
+                                                              numberWithInt: 0],
+                                                      nil]];
     }
 
     return result;
 }
 
 - (NSArray *) availableFontNamesMatchingFontDescriptor:
-    (NSFontDescriptor *) descriptor
+        (NSFontDescriptor *) descriptor
 {
     NSUnimplementedMethod();
     return nil;
@@ -247,7 +248,7 @@ static Class _fontPanelFactory;
 
 - (NSFontTraitMask) traitsOfFont: (NSFont *) font {
     NSFontTypeface *typeface =
-        [NSFontFamily fontTypefaceWithName: [font fontName]];
+            [NSFontFamily fontTypefaceWithName: [font fontName]];
 
     return [typeface traits];
 }
@@ -318,34 +319,38 @@ static Class _fontPanelFactory;
                 if (traits & NSItalicFontMask) {
                     [item setTag: NSUnitalicFontMask];
                     [item setTitle: NSLocalizedStringFromTableInBundle(
-                                        @"Unitalic", nil,
-                                        [NSBundle bundleForClass: [NSFontManager
+                                            @"Unitalic", nil,
+                                            [NSBundle bundleForClass:
+                                                              [NSFontManager
                                                                       class]],
-                                        @"Remove the italic font trait")];
+                                            @"Remove the italic font trait")];
                 } else {
                     [item setTag: NSItalicFontMask];
                     [item setTitle: NSLocalizedStringFromTableInBundle(
-                                        @"Italic", nil,
-                                        [NSBundle bundleForClass: [NSFontManager
+                                            @"Italic", nil,
+                                            [NSBundle bundleForClass:
+                                                              [NSFontManager
                                                                       class]],
-                                        @"Add the italic font trait")];
+                                            @"Add the italic font trait")];
                 }
             }
             if (tag & (NSBoldFontMask | NSUnboldFontMask)) {
                 if (traits & NSBoldFontMask) {
                     [item setTag: NSUnboldFontMask];
                     [item setTitle: NSLocalizedStringFromTableInBundle(
-                                        @"Unbold", nil,
-                                        [NSBundle bundleForClass: [NSFontManager
+                                            @"Unbold", nil,
+                                            [NSBundle bundleForClass:
+                                                              [NSFontManager
                                                                       class]],
-                                        @"Remove the bold font trait")];
+                                            @"Remove the bold font trait")];
                 } else {
                     [item setTag: NSBoldFontMask];
                     [item setTitle: NSLocalizedStringFromTableInBundle(
-                                        @"Bold", nil,
-                                        [NSBundle bundleForClass: [NSFontManager
+                                            @"Bold", nil,
+                                            [NSBundle bundleForClass:
+                                                              [NSFontManager
                                                                       class]],
-                                        @"Add the bold font trait")];
+                                            @"Add the bold font trait")];
                 }
             }
         }
@@ -427,7 +432,7 @@ static Class _fontPanelFactory;
              toHaveTrait: (NSFontTraitMask) addTraits
 {
     NSFontFamily *family =
-        [NSFontFamily fontFamilyWithTypefaceName: [font fontName]];
+            [NSFontFamily fontFamilyWithTypefaceName: [font fontName]];
     NSFontTypeface *typeface = [family typefaceWithName: [font fontName]];
     NSFontTraitMask traits = [typeface traits];
 
@@ -459,7 +464,7 @@ static Class _fontPanelFactory;
     }
 
     NSFontFamily *family =
-        [NSFontFamily fontFamilyWithTypefaceName: [font fontName]];
+            [NSFontFamily fontFamilyWithTypefaceName: [font fontName]];
     NSFontTypeface *typeface = [family typefaceWithName: [font fontName]];
     NSFontTraitMask traits = [typeface traits];
     NSFontTypeface *newface;
@@ -526,7 +531,7 @@ static Class _fontPanelFactory;
 
     // Get the current traits so we try and match them...
     NSFontFamily *fontFamily =
-        [NSFontFamily fontFamilyWithName: [font familyName]];
+            [NSFontFamily fontFamilyWithName: [font familyName]];
     NSFontTypeface *typeface = [fontFamily typefaceWithName: [font fontName]];
     NSFontTraitMask traits = [typeface traits];
     return [self fontWithFamily: family

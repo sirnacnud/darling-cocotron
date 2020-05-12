@@ -32,7 +32,7 @@ NSString *const NSIsNotNilTransformerName = @"NSIsNotNil";
 NSString *const NSNegateBooleanTransformerName = @"NSNegateBoolean";
 NSString *const NSUnarchiveFromDataTransformerName = @"NSUnarchiveFromData";
 NSString *const NSKeyedUnarchiveFromDataTransformerName =
-    @"NSKeyedUnarchiveFromData";
+        @"NSKeyedUnarchiveFromData";
 
 @implementation NSValueTransformer
 
@@ -47,14 +47,14 @@ static NSMapTable *_nameToTransformer = NULL;
         NSMapInsert(_nameToTransformer, NSIsNotNilTransformerName,
                     [[[NSValueTransformer_IsNotNil alloc] init] autorelease]);
         NSMapInsert(
-            _nameToTransformer, NSNegateBooleanTransformerName,
-            [[[NSValueTransformer_NegateBoolean alloc] init] autorelease]);
-        NSMapInsert(
-            _nameToTransformer, NSUnarchiveFromDataTransformerName,
-            [[[NSValueTransformer_UnarchiveFromData alloc] init] autorelease]);
+                _nameToTransformer, NSNegateBooleanTransformerName,
+                [[[NSValueTransformer_NegateBoolean alloc] init] autorelease]);
+        NSMapInsert(_nameToTransformer, NSUnarchiveFromDataTransformerName,
+                    [[[NSValueTransformer_UnarchiveFromData alloc] init]
+                            autorelease]);
         NSMapInsert(_nameToTransformer, NSKeyedUnarchiveFromDataTransformerName,
                     [[[NSValueTransformer_KeyedUnarchiveFromData alloc] init]
-                        autorelease]);
+                            autorelease]);
     }
 }
 

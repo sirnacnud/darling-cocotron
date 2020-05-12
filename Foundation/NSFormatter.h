@@ -28,8 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
              errorDescription: (NSString **) error;
 
 - (BOOL) getObjectValue: (id *) object
-              forString: (NSString *) string
-       errorDescription: (NSString **) error;
+               forString: (NSString *) string
+        errorDescription: (NSString **) error;
 
 - (NSString *) stringForObjectValue: object;
 
@@ -37,7 +37,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSAttributedString *) attributedStringForObjectValue: object
                                   withDefaultAttributes:
-                                      (NSDictionary *) attributes;
+                                          (NSDictionary *) attributes;
 
 - (BOOL) isPartialStringValid: (NSString **) partialStringp
         proposedSelectedRange: (NSRange *) proposedRangep

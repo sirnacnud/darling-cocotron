@@ -26,7 +26,7 @@ NSNumber *NSNumber_floatNew(NSZone *zone, float value) {
     NSNumber *result = NSNumber_doubleSpecial(value);
     if (result == nil) {
         NSNumber_float *self =
-            NSAllocateObject([NSNumber_float class], 0, zone);
+                NSAllocateObject([NSNumber_float class], 0, zone);
         if (self) {
             self->_type = kCFNumberFloatType;
             self->_value = value;

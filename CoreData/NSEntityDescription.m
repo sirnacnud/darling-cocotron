@@ -35,20 +35,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static id getValue(id self, SEL selector) {
     NSPropertyDescription *property =
-        [[self entity] _propertyForSelector: selector];
+            [[self entity] _propertyForSelector: selector];
     id result = [self valueForKey: [property name]];
     return result;
 }
 
 static void setValue(id self, SEL selector, id newValue) {
     NSPropertyDescription *property =
-        [[self entity] _propertyForSelector: selector];
+            [[self entity] _propertyForSelector: selector];
     [self setValue: newValue forKey: [property name]];
 }
 
 static void addObject(id self, SEL selector, id value) {
     NSPropertyDescription *property =
-        [[self entity] _propertyForSelector: selector];
+            [[self entity] _propertyForSelector: selector];
     NSMutableSet *set = [self mutableSetValueForKey: [property name]];
 
     [set addObject: value];
@@ -56,21 +56,21 @@ static void addObject(id self, SEL selector, id value) {
 
 static void removeObject(id self, SEL selector, id value) {
     NSPropertyDescription *property =
-        [[self entity] _propertyForSelector: selector];
+            [[self entity] _propertyForSelector: selector];
     NSMutableSet *set = [self mutableSetValueForKey: [property name]];
     [set removeObject: value];
 }
 
 static void addObjectSet(id self, SEL selector, NSSet *values) {
     NSPropertyDescription *property =
-        [[self entity] _propertyForSelector: selector];
+            [[self entity] _propertyForSelector: selector];
     NSMutableSet *set = [self mutableSetValueForKey: [property name]];
     [set unionSet: values];
 }
 
 static void removeObjectSet(id self, SEL selector, NSSet *values) {
     NSPropertyDescription *property =
-        [[self entity] _propertyForSelector: selector];
+            [[self entity] _propertyForSelector: selector];
     NSMutableSet *set = [self mutableSetValueForKey: [property name]];
     [set minusSet: values];
 }
@@ -106,7 +106,7 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
     _superentity = [[coder decodeObjectForKey: @"NSSuperentity"] retain];
     _userInfo = [[coder decodeObjectForKey: @"NSUserInfo"] retain];
     _versionHashModifier =
-        [[coder decodeObjectForKey: @"NSVersionHashModifier"] retain];
+            [[coder decodeObjectForKey: @"NSVersionHashModifier"] retain];
 
     _selectorPropertyMap = [[NSMutableDictionary alloc] init];
 
@@ -118,8 +118,9 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
         for (NSPropertyDescription *property in [_properties allValues]) {
             NSString *propertyName = [property name];
             NSString *upperName = [[[propertyName substringToIndex: 1]
-                uppercaseString]
-                stringByAppendingString: [propertyName substringFromIndex: 1]];
+                    uppercaseString]
+                    stringByAppendingString: [propertyName
+                                                     substringFromIndex: 1]];
             NSString *selectorName;
             SEL selector;
 
@@ -129,48 +130,50 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
                                      forKey: keyObjectForSelector(selector)];
 
             appendMethodToList(
-                class, [NSString stringWithFormat: @"set%@:", upperName],
-                (IMP) setValue, "v@:@", &selector);
+                    class, [NSString stringWithFormat: @"set%@:", upperName],
+                    (IMP) setValue, "v@:@", &selector);
             [_selectorPropertyMap setObject: property
                                      forKey: keyObjectForSelector(selector)];
 
             if ([property isKindOfClass: [NSRelationshipDescription class]]) {
                 NSRelationshipDescription *relationship =
-                    (NSRelationshipDescription *) property;
+                        (NSRelationshipDescription *) property;
 
                 if ([relationship isToMany]) {
                     appendMethodToList(
-                        class,
-                        [NSString stringWithFormat: @"add%@Object:", upperName],
-                        (IMP) addObject, "v@:@", &selector);
+                            class,
+                            [NSString stringWithFormat: @"add%@Object:",
+                                                        upperName],
+                            (IMP) addObject, "v@:@", &selector);
                     [_selectorPropertyMap
-                        setObject: property
-                           forKey: keyObjectForSelector(selector)];
+                            setObject: property
+                               forKey: keyObjectForSelector(selector)];
 
                     appendMethodToList(
-                        class,
-                        [NSString
-                            stringWithFormat: @"remove%@Object:", upperName],
-                        (IMP) removeObject, "v@:@", &selector);
+                            class,
+                            [NSString stringWithFormat: @"remove%@Object:",
+                                                        upperName],
+                            (IMP) removeObject, "v@:@", &selector);
                     [_selectorPropertyMap
-                        setObject: property
-                           forKey: keyObjectForSelector(selector)];
+                            setObject: property
+                               forKey: keyObjectForSelector(selector)];
 
                     appendMethodToList(
-                        class,
-                        [NSString stringWithFormat: @"add%@:", upperName],
-                        (IMP) addObjectSet, "v@:@", &selector);
+                            class,
+                            [NSString stringWithFormat: @"add%@:", upperName],
+                            (IMP) addObjectSet, "v@:@", &selector);
                     [_selectorPropertyMap
-                        setObject: property
-                           forKey: keyObjectForSelector(selector)];
+                            setObject: property
+                               forKey: keyObjectForSelector(selector)];
 
-                    appendMethodToList(
-                        class,
-                        [NSString stringWithFormat: @"remove%@:", upperName],
-                        (IMP) removeObjectSet, "v@:@", &selector);
+                    appendMethodToList(class,
+                                       [NSString stringWithFormat: @"remove%@:",
+                                                                   upperName],
+                                       (IMP) removeObjectSet, "v@:@",
+                                       &selector);
                     [_selectorPropertyMap
-                        setObject: property
-                           forKey: keyObjectForSelector(selector)];
+                            setObject: property
+                               forKey: keyObjectForSelector(selector)];
                 }
             }
         }
@@ -188,7 +191,7 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
 
     for (entity = self; entity; entity = [entity superentity]) {
         NSPropertyDescription *result =
-            [entity->_selectorPropertyMap objectForKey: keyObject];
+                [entity->_selectorPropertyMap objectForKey: keyObject];
 
         if (result)
             return result;
@@ -278,7 +281,7 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
                  inManagedObjectContext: (NSManagedObjectContext *) context
 {
     NSDictionary *entities = [[[context persistentStoreCoordinator]
-        managedObjectModel] entitiesByName];
+            managedObjectModel] entitiesByName];
 
     return [entities objectForKey: entityName];
 }
@@ -301,7 +304,7 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
     }
 
     return [[class alloc] initWithEntity: entity
-          insertIntoManagedObjectContext: context];
+            insertIntoManagedObjectContext: context];
 }
 
 - (NSManagedObjectModel *) managedObjectModel {

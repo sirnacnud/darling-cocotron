@@ -100,16 +100,17 @@ static void objectReleaseCallBack(CFAllocatorRef allocator, const void *value) {
 }
 
 static CFDictionaryKeyCallBacks objectKeyCallBacks = {
-    0,
-    objectCopyCallBack,
-    objectReleaseCallBack,
-    CFCopyDescription,
-    CFEqual,
-    CFHash,
+        0,
+        objectCopyCallBack,
+        objectReleaseCallBack,
+        CFCopyDescription,
+        CFEqual,
+        CFHash,
 };
 
 static CFDictionaryValueCallBacks objectValueCallbacks = {
-    0, objectRetainCallBack, objectReleaseCallBack, CFCopyDescription, CFEqual};
+        0, objectRetainCallBack, objectReleaseCallBack, CFCopyDescription,
+        CFEqual};
 
 const void *defaultRetainCallBack(CFAllocatorRef allocator, const void *value) {
     return value;
@@ -160,7 +161,7 @@ static CFDictionaryEnumerator keyEnumeratorState(NSMutableDictionary_CF *self) {
 
 - (NSEnumerator *) keyEnumerator {
     return [[[NSEnumerator_CFDictionaryKeys allocWithZone: NULL]
-        initWithState: keyEnumeratorState(self)] autorelease];
+            initWithState: keyEnumeratorState(self)] autorelease];
 }
 
 static void NSDictInsert(NSMutableDictionary_CF *self, const void *key,
@@ -194,12 +195,12 @@ static void NSDictInsert(NSMutableDictionary_CF *self, const void *key,
 
         self->_nBuckets = nBuckets * 2;
         self->_buckets =
-            NSZoneCalloc(zone, self->_nBuckets, sizeof(NSDictNode *));
+                NSZoneCalloc(zone, self->_nBuckets, sizeof(NSDictNode *));
 
         for (i = 0; i < nBuckets; i++)
             for (j = buckets[i]; j != NULL; j = next) {
                 NSUInteger newi =
-                    self->_keyCallBacks.hash(j->key) % self->_nBuckets;
+                        self->_keyCallBacks.hash(j->key) % self->_nBuckets;
 
                 next = j->next;
                 j->next = self->_buckets[newi];
@@ -276,35 +277,35 @@ static void NSDictRemove(NSMutableDictionary_CF *self, const void *key) {
 }
 
 - initWithKeys: (const void **) keys
-            values: (const void **) values
-             count: (NSUInteger) count
-      keyCallBacks: (const CFDictionaryKeyCallBacks *) keyCallBacks
-    valueCallBacks: (const CFDictionaryValueCallBacks *) valueCallBacks
+                values: (const void **) values
+                 count: (NSUInteger) count
+          keyCallBacks: (const CFDictionaryKeyCallBacks *) keyCallBacks
+        valueCallBacks: (const CFDictionaryValueCallBacks *) valueCallBacks
 {
 
-    _keyCallBacks.hash =
-        (keyCallBacks->hash != NULL) ? keyCallBacks->hash : defaultHashCallBack;
+    _keyCallBacks.hash = (keyCallBacks->hash != NULL) ? keyCallBacks->hash
+                                                      : defaultHashCallBack;
     _keyCallBacks.equal = (keyCallBacks->equal != NULL) ? keyCallBacks->equal
                                                         : defaultEqualCallBack;
     _keyCallBacks.retain = (keyCallBacks->retain != NULL)
-                               ? keyCallBacks->retain
-                               : defaultRetainCallBack;
+                                   ? keyCallBacks->retain
+                                   : defaultRetainCallBack;
     _keyCallBacks.release = (keyCallBacks->release != NULL)
-                                ? keyCallBacks->release
-                                : defaultReleaseCallBack;
+                                    ? keyCallBacks->release
+                                    : defaultReleaseCallBack;
     _keyCallBacks.copyDescription = (keyCallBacks->copyDescription != NULL)
-                                        ? keyCallBacks->copyDescription
-                                        : defaultCopyDescription;
+                                            ? keyCallBacks->copyDescription
+                                            : defaultCopyDescription;
 
     _valueCallBacks.retain = (valueCallBacks->retain != NULL)
-                                 ? valueCallBacks->retain
-                                 : defaultRetainCallBack;
+                                     ? valueCallBacks->retain
+                                     : defaultRetainCallBack;
     _valueCallBacks.release = (valueCallBacks->release != NULL)
-                                  ? valueCallBacks->release
-                                  : defaultReleaseCallBack;
+                                      ? valueCallBacks->release
+                                      : defaultReleaseCallBack;
     _valueCallBacks.copyDescription = (valueCallBacks->copyDescription != NULL)
-                                          ? valueCallBacks->copyDescription
-                                          : defaultCopyDescription;
+                                              ? valueCallBacks->copyDescription
+                                              : defaultCopyDescription;
 
     _count = 0;
     _nBuckets = 4;

@@ -99,8 +99,8 @@ APPKIT_EXPORT NSString *const NSOldSelectedCharacterRange;
     BOOL _allowsUndo;
 
     NSMutableArray *_selectedRanges;
-    NSArray
-        *_initialRanges; // selected ranges at the start of a selection change
+    NSArray *_initialRanges; // selected ranges at the start of a selection
+                             // change
     NSSelectionAffinity _selectionAffinity;
     NSSelectionGranularity _selectionGranularity;
     NSDictionary *_selectedTextAttributes;
@@ -113,8 +113,8 @@ APPKIT_EXPORT NSString *const NSOldSelectedCharacterRange;
                                 // memory hog
 
     NSRange _rangeForUserCompletion; // range of original user completion text.
-    NSString
-        *_userCompletionHint;  // original "hint" text which started completion
+    NSString *_userCompletionHint;   // original "hint" text which started
+                                     // completion
     NSArray *_userCompletions; // current list of completions. shouldn't change
                                // while modal
     NSInteger _userCompletionSelectedItem; // index within completion array
@@ -167,7 +167,7 @@ APPKIT_EXPORT NSString *const NSOldSelectedCharacterRange;
 
 - (NSRange) selectionRangeForProposedRange: (NSRange) range
                                granularity:
-                                   (NSSelectionGranularity) granularity;
+                                       (NSSelectionGranularity) granularity;
 
 - (void) setSelectedRange: (NSRange) range
                  affinity: (NSSelectionAffinity) affinity
@@ -182,9 +182,9 @@ APPKIT_EXPORT NSString *const NSOldSelectedCharacterRange;
 - (NSArray *) completionsForPartialWordRange: (NSRange) range
                          indexOfSelectedItem: (NSInteger *) index;
 - (void) insertCompletion: (NSString *) string
-      forPartialWordRange: (NSRange) range
-                 movement: (NSInteger) movement
-                  isFinal: (BOOL) isFinal;
+        forPartialWordRange: (NSRange) range
+                   movement: (NSInteger) movement
+                    isFinal: (BOOL) isFinal;
 
 - (NSArray *) writablePasteboardTypes;
 - (BOOL) writeSelectionToPasteboard: (NSPasteboard *) pasteboard
@@ -260,22 +260,24 @@ APPKIT_EXPORT NSString *const NSOldSelectedCharacterRange;
 
 - (BOOL) textView: (NSTextView *) textView doCommandBySelector: (SEL) selector;
 - (NSArray *) textView: (NSTextView *) textView
-            completions: (NSArray *) words
-    forPartialWordRange: (NSRange) range
-    indexOfSelectedItem: (NSInteger *) index;
+                completions: (NSArray *) words
+        forPartialWordRange: (NSRange) range
+        indexOfSelectedItem: (NSInteger *) index;
 
 - (void) textViewDidChangeSelection: (NSNotification *) note;
 
 - (NSRange) textView: (NSTextView *) textView
-    willChangeSelectionFromCharacterRange: (NSRange) oldSelectedCharRange
-                         toCharacterRange: (NSRange) newSelectedCharRange;
+        willChangeSelectionFromCharacterRange: (NSRange) oldSelectedCharRange
+                             toCharacterRange: (NSRange) newSelectedCharRange;
 - (NSArray *) textView: (NSTextView *) textView
-    willChangeSelectionFromCharacterRanges: (NSArray *) oldSelectedCharRanges
-                         toCharacterRanges: (NSArray *) newSelectedCharRanges;
+        willChangeSelectionFromCharacterRanges:
+                (NSArray *) oldSelectedCharRanges
+                             toCharacterRanges:
+                                     (NSArray *) newSelectedCharRanges;
 
 - (BOOL) textView: (NSTextView *) textView
-    shouldChangeTextInRange: (NSRange) affectedCharRange
-          replacementString: (NSString *) replacementString;
+        shouldChangeTextInRange: (NSRange) affectedCharRange
+              replacementString: (NSString *) replacementString;
 
 @end
 

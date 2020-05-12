@@ -236,7 +236,7 @@ typedef enum {
 
 - (NSIndexSet *) selectedRowIndexes;
 - (void) selectRowIndexes: (NSIndexSet *) indexes
-     byExtendingSelection: (BOOL) extend;
+        byExtendingSelection: (BOOL) extend;
 
 - (NSArray *) sortDescriptors;
 - (void) setSortDescriptors: (NSArray *) value;
@@ -245,40 +245,40 @@ typedef enum {
 @interface NSObject (NSTableView_dataSource)
 - (NSInteger) numberOfRowsInTableView: (NSTableView *) tableView;
 - (id) tableView: (NSTableView *) tableView
-    objectValueForTableColumn: (NSTableColumn *) tableColumn
-                          row: (NSInteger) row;
+        objectValueForTableColumn: (NSTableColumn *) tableColumn
+                              row: (NSInteger) row;
 - (void) tableView: (NSTableView *) tableView
-    setObjectValue: object
-    forTableColumn: (NSTableColumn *) tableColumn
-               row: (NSInteger) row;
+        setObjectValue: object
+        forTableColumn: (NSTableColumn *) tableColumn
+                   row: (NSInteger) row;
 - (BOOL) tableView: (NSTableView *) tableView
-    writeRowsWithIndexes: (NSIndexSet *) indexes
-            toPasteboard: (NSPasteboard *) pasteboard;
+        writeRowsWithIndexes: (NSIndexSet *) indexes
+                toPasteboard: (NSPasteboard *) pasteboard;
 - (NSDragOperation) tableView: (NSTableView *) tableView
                  validateDrop: (id<NSDraggingInfo>) draggingInfo
                   proposedRow: (NSInteger) proposedRow
         proposedDropOperation: (NSTableViewDropOperation) dropOperation;
 - (BOOL) tableView: (NSTableView *) tableView
-        acceptDrop: (id<NSDraggingInfo>) draggingInfo
-               row: (NSInteger) row
-     dropOperation: (NSTableViewDropOperation) dropOperation;
+           acceptDrop: (id<NSDraggingInfo>) draggingInfo
+                  row: (NSInteger) row
+        dropOperation: (NSTableViewDropOperation) dropOperation;
 @end
 
 @interface NSObject (NSTableView_delegate)
 - (BOOL) tableView: (NSTableView *) tableView
-    shouldEditTableColumn: (NSTableColumn *) tableColumn
-                      row: (NSInteger) row;
+        shouldEditTableColumn: (NSTableColumn *) tableColumn
+                          row: (NSInteger) row;
 - (BOOL) selectionShouldChangeInTableView: (NSTableView *) tableView;
 - (CGFloat) tableView: (NSTableView *) tableView heightOfRow: (NSInteger) row;
 - (BOOL) tableView: (NSTableView *) tableView shouldSelectRow: (NSInteger) row;
 - (BOOL) tableView: (NSTableView *) tableView
-    shouldSelectTableColumn: (NSTableColumn *) tableColumn;
+        shouldSelectTableColumn: (NSTableColumn *) tableColumn;
 - (void) tableView: (NSTableView *) tableView
-    mouseDownInHeaderOfTableColumn: (NSTableColumn *) tableColumn;
+        mouseDownInHeaderOfTableColumn: (NSTableColumn *) tableColumn;
 - (void) tableView: (NSTableView *) tableView
-    willDisplayCell: cell
-     forTableColumn: (NSTableColumn *) tableColumn
-                row: (NSInteger) row;
+        willDisplayCell: cell
+         forTableColumn: (NSTableColumn *) tableColumn
+                    row: (NSInteger) row;
 @end
 
 @interface NSObject (NSTableView_notifications)

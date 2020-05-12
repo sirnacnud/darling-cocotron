@@ -31,8 +31,8 @@ void NSRegisterZombie(NSObject *object) {
 
     if (objectToClassName == NULL) {
         objectToClassName =
-            NSCreateMapTable(NSNonOwnedPointerMapKeyCallBacks,
-                             NSNonOwnedPointerMapValueCallBacks, 0);
+                NSCreateMapTable(NSNonOwnedPointerMapKeyCallBacks,
+                                 NSNonOwnedPointerMapValueCallBacks, 0);
     }
 
     NSMapInsert(objectToClassName, object, object_getClass(object));

@@ -31,15 +31,16 @@ static NSMapTable *_globalNameToClass = NULL;
 
 + (void) initialize {
     if (self == [NSKeyedArchiver class]) {
-        _globalNameToClass = NSCreateMapTable(
-            NSNonRetainedObjectMapKeyCallBacks, NSObjectMapValueCallBacks, 0);
+        _globalNameToClass =
+                NSCreateMapTable(NSNonRetainedObjectMapKeyCallBacks,
+                                 NSObjectMapValueCallBacks, 0);
     }
 }
 
 + (NSData *) archivedDataWithRootObject: rootObject {
     NSMutableData *data = [NSMutableData data];
     NSKeyedArchiver *archiver =
-        [[[self class] alloc] initForWritingWithMutableData: data];
+            [[[self class] alloc] initForWritingWithMutableData: data];
 
     [archiver encodeObject: rootObject forKey: @"root"];
     [archiver finishEncoding];
@@ -75,7 +76,7 @@ static NSMapTable *_globalNameToClass = NULL;
     _pass = 0;
 
     NSMapTableKeyCallBacks objectToUidKeyCb =
-        NSNonRetainedObjectMapKeyCallBacks;
+            NSNonRetainedObjectMapKeyCallBacks;
     objectToUidKeyCb.isEqual = NULL;
     // setting the equality callback to NULL means that the maptable will use
     // pointer comparison. this is necessary to properly archive classes like
@@ -84,7 +85,7 @@ static NSMapTable *_globalNameToClass = NULL;
     // all without this change)
 
     _objectToUid =
-        NSCreateMapTable(objectToUidKeyCb, NSObjectMapValueCallBacks, 0);
+            NSCreateMapTable(objectToUidKeyCb, NSObjectMapValueCallBacks, 0);
 
     _outputFormat = NSPropertyListXMLFormat_v1_0;
     return self;
@@ -216,8 +217,8 @@ static NSMapTable *_globalNameToClass = NULL;
     NSMutableString *str = [NSMutableString stringWithString: @"{"];
     NSUInteger i;
     for (i = 0; i < count; i++) {
-        [str
-            appendFormat: @"%.12f%@", array[i], (i < count - 1) ? @", " : @"}"];
+        [str appendFormat: @"%.12f%@", array[i],
+                           (i < count - 1) ? @", " : @"}"];
     }
 
     [self encodeObject: [NSString stringWithString: str] forKey: key];
@@ -256,7 +257,8 @@ static NSMapTable *_globalNameToClass = NULL;
 
         if ([archClass isEqualToString: @"NSString"]) {
             [_objects
-                addObject: [NSString stringWithString: [object description]]];
+                    addObject: [NSString
+                                       stringWithString: [object description]]];
         } else if ([archClass isEqualToString: @"NSNumber"]) {
             [_objects addObject: object];
         } else if ([archClass isEqualToString: @"NSData"]) {
@@ -280,8 +282,9 @@ static NSMapTable *_globalNameToClass = NULL;
             }
 
             NSDictionary *classMap = [NSDictionary
-                dictionaryWithObjectsAndKeys: supers, @"$classes", archClass,
-                                              @"$classname", nil];
+                    dictionaryWithObjectsAndKeys: supers, @"$classes",
+                                                  archClass, @"$classname",
+                                                  nil];
 
             [supers release];
 
@@ -339,9 +342,9 @@ static NSMapTable *_globalNameToClass = NULL;
 
 - (void) finishEncoding {
     NSData *newData = [NSPropertyListSerialization
-        dataFromPropertyList: [_plistStack lastObject]
-                      format: _outputFormat
-            errorDescription: NULL];
+            dataFromPropertyList: [_plistStack lastObject]
+                          format: _outputFormat
+                errorDescription: NULL];
 
     [_data appendData: newData];
 }

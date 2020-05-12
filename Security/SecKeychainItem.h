@@ -20,9 +20,9 @@
 }
 
 - initWithItemClass: (SecItemClass) itemClass
-      attributeList: (SecKeychainAttributeList *) attributeList
-             length: (UInt32) length
-              bytes: (const void *) bytes;
+        attributeList: (SecKeychainAttributeList *) attributeList
+               length: (UInt32) length
+                bytes: (const void *) bytes;
 
 - (SecItemClass) itemClass;
 - (SecKeychainAttributeList *) attributeList;

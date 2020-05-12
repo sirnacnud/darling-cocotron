@@ -55,8 +55,8 @@ typedef struct _REG_TZI_FORMAT {
 // this function (without suffix '_priv') should be in kernel32, but in mingw
 // its not :-(
 WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
-    LPTIME_ZONE_INFORMATION lpTimeZoneInformation, LPSYSTEMTIME lpLocalTime,
-    LPSYSTEMTIME lpUniversalTime)
+        LPTIME_ZONE_INFORMATION lpTimeZoneInformation, LPSYSTEMTIME lpLocalTime,
+        LPSYSTEMTIME lpUniversalTime)
 {
     DWORD dwTzID = 0;
     FILETIME ft = {0};
@@ -122,9 +122,9 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
             NSArray *values = [abbDict objectForKey: key];
 
             if ([values indexOfObject: name] != NSNotFound) {
-                data =
-                    [NSTimeZone_win32 _getDataWithWindowsName: key
-                                                 registryName: &registryName];
+                data = [NSTimeZone_win32
+                        _getDataWithWindowsName: key
+                                   registryName: &registryName];
                 break;
             }
         }
@@ -135,8 +135,8 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
         }
     }
 
-    _abbreviation =
-        [[NSTimeZone_win32 _registryNameToAbbreviation: registryName] retain];
+    _abbreviation = [[NSTimeZone_win32
+            _registryNameToAbbreviation: registryName] retain];
     _data = [data retain];
     _name = [name retain];
 
@@ -171,7 +171,7 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 
     GetTimeZoneInformation(&timeZoneInformation);
     timeZoneName =
-        NSStringFromNullTerminatedUnicode(timeZoneInformation.StandardName);
+            NSStringFromNullTerminatedUnicode(timeZoneInformation.StandardName);
 
     return [self timeZoneWithName: timeZoneName];
 }
@@ -220,9 +220,9 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 }
 
 - (NSString *) description {
-    return
-        [NSString stringWithFormat: @"<%@[0x%lx] name: %@ (%@)>", [self class],
-                                    self, [self name], [self abbreviation]];
+    return [NSString stringWithFormat: @"<%@[0x%lx] name: %@ (%@)>",
+                                       [self class], self, [self name],
+                                       [self abbreviation]];
 }
 
 - (TIME_ZONE_INFORMATION) _timeZoneInformation {
@@ -246,10 +246,10 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
     DWORD retCode;
     TCHAR valueName[MAX_VALUE_NAME];
 
-    NSString *regPath = [NSString
-        stringWithFormat:
-            @"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Time Zones\\%@",
-            registryname];
+    NSString *regPath =
+            [NSString stringWithFormat: @"SOFTWARE\\Microsoft\\Windows "
+                                        @"NT\\CurrentVersion\\Time Zones\\%@",
+                                        registryname];
 
     if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, TEXT([regPath cString]), 0, KEY_READ,
                      &hTimeZoneKey) == ERROR_SUCCESS) {
@@ -277,9 +277,9 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
                     DWORD valueLength = MAX_VALUE_NAME;
                     valueName[0] = '\0';
 
-                    retCode =
-                        RegEnumValue(hTimeZoneKey, j, valueName, &valueLength,
-                                     NULL, NULL, lpData, &dataSize);
+                    retCode = RegEnumValue(hTimeZoneKey, j, valueName,
+                                           &valueLength, NULL, NULL, lpData,
+                                           &dataSize);
                     if (retCode == ERROR_SUCCESS) {
                         if (strcmp(valueName, "Std") == 0) {
                             strcpy(stdname, lpData);
@@ -299,11 +299,11 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 
                             if (stdName != NULL) {
                                 *stdName =
-                                    [NSString stringWithCString: stdname];
+                                        [NSString stringWithCString: stdname];
                             }
                             if (daylightName != NULL) {
-                                *daylightName =
-                                    [NSString stringWithCString: daylightname];
+                                *daylightName = [NSString
+                                        stringWithCString: daylightname];
                             }
                             RegCloseKey(hTimeZoneKey);
 
@@ -329,10 +329,10 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 {
     HKEY hTimeZonesKey;
 
-    if (RegOpenKeyEx(
-            HKEY_LOCAL_MACHINE,
-            TEXT("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Time Zones"),
-            0, KEY_READ, &hTimeZonesKey) == ERROR_SUCCESS) {
+    if (RegOpenKeyEx(HKEY_LOCAL_MACHINE,
+                     TEXT("SOFTWARE\\Microsoft\\Windows "
+                          "NT\\CurrentVersion\\Time Zones"),
+                     0, KEY_READ, &hTimeZonesKey) == ERROR_SUCCESS) {
         @try {
             TCHAR achKey[MAX_KEY_LENGTH]; // buffer for subkey name
             DWORD cbName;                 // size of name string
@@ -360,18 +360,20 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
                         NSString *normname;
 
                         if ((data = [NSTimeZone_win32
-                                 _windowsDataFromRegistry:
-                                     [NSString stringWithCString: achKey]
-                                                  stdName: &normname
-                                             daylightName: &daylightName]) !=
+                                     _windowsDataFromRegistry:
+                                             [NSString
+                                                     stringWithCString: achKey]
+                                                      stdName: &normname
+                                                 daylightName: &
+                                                               daylightName]) !=
                             nil) {
-                            if ([name
-                                    isEqualToString:
-                                        [NSString stringWithCString: achKey]] ||
+                            if ([name isEqualToString:
+                                                [NSString stringWithCString:
+                                                                  achKey]] ||
                                 [name isEqualToString: normname]) {
                                 if (registryName != NULL) {
-                                    *registryName =
-                                        [NSString stringWithCString: achKey];
+                                    *registryName = [NSString
+                                            stringWithCString: achKey];
                                 }
                                 return data;
                             }
@@ -399,9 +401,8 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 
     SystemTimeToFileTime(&systemtime, &filetime);
 
-    return [NSDate
-        dateWithTimeIntervalSinceReferenceDate: Win32TimeIntervalFromFileTime(
-                                                    filetime)];
+    return [NSDate dateWithTimeIntervalSinceReferenceDate:
+                           Win32TimeIntervalFromFileTime(filetime)];
 }
 
 + (SYSTEMTIME) _dateToSystemTime: (NSDate *) date {
@@ -425,10 +426,10 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 
     if (windowsZonesDictionary == nil) {
         NSString *pathToPlist = [[NSBundle bundleForClass: self]
-            pathForResource: @"NSTimeZoneWindowsZones"
-                     ofType: @"plist"];
+                pathForResource: @"NSTimeZoneWindowsZones"
+                         ofType: @"plist"];
         windowsZonesDictionary = [[NSDictionary allocWithZone: NULL]
-            initWithContentsOfFile: pathToPlist];
+                initWithContentsOfFile: pathToPlist];
     }
 
     return windowsZonesDictionary;

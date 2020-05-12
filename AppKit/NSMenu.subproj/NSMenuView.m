@@ -169,8 +169,8 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
         // so a tactical autorelease pool keeps a lid on things
         NSAutoreleasePool *pool = [NSAutoreleasePool new];
         int count = [viewStack count];
-        NSScreen *screen =
-            [self _screenForPoint: [[event window] convertBaseToScreen: point]];
+        NSScreen *screen = [self
+                _screenForPoint: [[event window] convertBaseToScreen: point]];
 
         point = [[event window] convertBaseToScreen: point];
 
@@ -191,7 +191,7 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
 
                 // And find out where the mouse is relative to it
                 NSPoint checkPoint =
-                    [[checkView window] convertScreenToBase: point];
+                        [[checkView window] convertScreenToBase: point];
 
                 checkPoint = [checkView convertPoint: checkPoint fromView: nil];
 
@@ -203,7 +203,7 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
 
                     // Which item is the cursor on top of?
                     NSUInteger itemIndex =
-                        [checkView itemIndexAtPoint: checkPoint];
+                            [checkView itemIndexAtPoint: checkPoint];
 
                     MENUDEBUG(@"found an item index: %u", itemIndex);
 
@@ -226,9 +226,9 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
 
                         // If it's got a cascading menu then push that on the
                         // stack
-                        if ((branch =
-                                 [checkView viewAtSelectedIndexPositionOnScreen:
-                                                screen]) != nil) {
+                        if ((branch = [checkView
+                                     viewAtSelectedIndexPositionOnScreen:
+                                             screen]) != nil) {
                             MENUDEBUG(@"adding a new cascading view: %@",
                                       branch);
                             [viewStack addObject: branch];
@@ -259,9 +259,9 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
 
         // Let's take a look at what's come in on the event queue
         event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSMouseMovedMask |
-                                   NSLeftMouseDraggedMask | NSKeyDownMask |
-                                   NSAppKitDefinedMask];
+                nextEventMatchingMask: NSLeftMouseUpMask | NSMouseMovedMask |
+                                       NSLeftMouseDraggedMask | NSKeyDownMask |
+                                       NSAppKitDefinedMask];
         [event retain];
 
         if (keyboardNavigationAction != kNSMenuKeyboardNavigationNone) {
@@ -428,7 +428,8 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
                 NSMenuView *branch = nil;
                 // If there's a submenu at the current  selected index
                 if ((branch = [activeMenuView
-                         viewAtSelectedIndexPositionOnScreen: screen]) != nil) {
+                             viewAtSelectedIndexPositionOnScreen: screen]) !=
+                    nil) {
                     MENUDEBUG(@"adding a new cascading view: %@", branch);
                     [viewStack addObject: branch];
                 } else {
@@ -445,8 +446,8 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
             case kNSMenuKeyboardNavigationLetter: {
                 MENUDEBUG(@"Letter...");
                 NSString *letterString =
-                    [[NSString stringWithCharacters: &ch
-                                             length: 1] uppercaseString];
+                        [[NSString stringWithCharacters: &ch
+                                                 length: 1] uppercaseString];
                 NSUInteger oldIndex = [activeMenuView selectedItemIndex];
                 NSArray *items = [activeMenuView itemArray];
                 // Look for the next enabled item by search down and wrapping
@@ -469,7 +470,7 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
                     if ((ignoreEnabledState || [item isEnabled] == YES) ||
                         [item hasSubmenu] == YES) {
                         NSRange range =
-                            [[item title] rangeOfString: letterString];
+                                [[item title] rangeOfString: letterString];
                         if (range.location != NSNotFound) {
                             MENUDEBUG(@"selecting item: %u", item);
                             [activeMenuView setSelectedItemIndex: newIndex];
@@ -532,7 +533,7 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
                     // the menu will stay sticky)... The timestamp is to avoid
                     // false clicks - make sure there's a delay so the user can
                     if ([event timestamp] - firstTimestamp >
-                            kMenuInitialClickThreshold &&
+                                kMenuInitialClickThreshold &&
                         [viewStack count] == 1 && [item isEnabled]) {
                         MENUDEBUG(@"Handling selected item - exiting");
                         state = STATE_EXIT;

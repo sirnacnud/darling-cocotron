@@ -73,7 +73,7 @@ void NSDetermineBindingDebugLoggingLevel(void) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
         NSBindingDebugLogLevel =
-            [defaults integerForKey: @"NSBindingDebugLogLevel"];
+                [defaults integerForKey: @"NSBindingDebugLogLevel"];
         if (NSBindingDebugLogLevel > 0) {
             NSLog(@"set NSBindingDebugLogLevel to: '%d'",
                   NSBindingDebugLogLevel);
@@ -90,16 +90,16 @@ void NSDetermineBindingDebugLoggingLevel(void) {
         NSString *path = [bundle pathForResource: @"defaultBindingOptions"
                                           ofType: @"plist"];
 
-        if ((defaultBindingOptions =
-                 [[NSDictionary alloc] initWithContentsOfFile: path]) == nil)
+        if ((defaultBindingOptions = [[NSDictionary alloc]
+                     initWithContentsOfFile: path]) == nil)
             defaultBindingOptions = [NSDictionary new];
     }
 
     NSString *className = NSStringFromClass(self);
     NSString *bindingKey = [[className stringByAppendingString: @"."]
-        stringByAppendingString: binding];
+            stringByAppendingString: binding];
     NSDictionary *defaults =
-        [defaultBindingOptionsCache objectForKey: bindingKey];
+            [defaultBindingOptionsCache objectForKey: bindingKey];
 
     if (defaults == nil) {
         NSMutableDictionary *values;
@@ -107,12 +107,12 @@ void NSDetermineBindingDebugLoggingLevel(void) {
         if (self == [NSObject class])
             values = [NSMutableDictionary dictionary];
         else
-            values =
-                [[[[self superclass] _defaultBindingOptionsForBinding: binding]
-                    mutableCopy] autorelease];
+            values = [[[[self superclass]
+                    _defaultBindingOptionsForBinding: binding] mutableCopy]
+                    autorelease];
 
         [values addEntriesFromDictionary: [defaultBindingOptions
-                                              objectForKey: bindingKey]];
+                                                  objectForKey: bindingKey]];
 
         if (defaultBindingOptionsCache == nil)
             defaultBindingOptionsCache = [NSMutableDictionary new];
@@ -152,8 +152,8 @@ void NSDetermineBindingDebugLoggingLevel(void) {
     id binder = [ownBinders objectForKey: binding];
 
     if (!binder && create) {
-        binder =
-            [[[[self class] _binderClassForBinding: binding] new] autorelease];
+        binder = [[[[self class] _binderClassForBinding: binding] new]
+                autorelease];
         [ownBinders setObject: binder forKey: binding];
     }
 
@@ -176,14 +176,14 @@ void NSDetermineBindingDebugLoggingLevel(void) {
 }
 
 - (void) bind: (id) binding
-       toObject: (id) destination
-    withKeyPath: (NSString *) keyPath
-        options: (NSDictionary *) options
+           toObject: (id) destination
+        withKeyPath: (NSString *) keyPath
+            options: (NSDictionary *) options
 {
     NSBindingDebugLog(
-        kNSBindingDebugLogLevel1,
-        @"binding: %@\n   toObject: %@\n   withKeyPath: %@\n   options: %@",
-        binding, destination, keyPath, options);
+            kNSBindingDebugLogLevel1,
+            @"binding: %@\n   toObject: %@\n   withKeyPath: %@\n   options: %@",
+            binding, destination, keyPath, options);
 
     if (![[self class] _binderClassForBinding: binding]) {
         NSBindingDebugLog(kNSBindingDebugLogLevel1,
@@ -243,9 +243,10 @@ void NSDetermineBindingDebugLoggingLevel(void) {
 - (NSDictionary *) infoForBinding: (id) binding {
     _NSBinder *binder = [self _binderForBinding: binding create: NO];
     NSDictionary *result = [NSDictionary
-        dictionaryWithObjectsAndKeys: [binder destination], NSObservedObjectKey,
-                                      [binder keyPath], NSObservedKeyPathKey,
-                                      [binder options], NSOptionsKey, nil];
+            dictionaryWithObjectsAndKeys: [binder destination],
+                                          NSObservedObjectKey, [binder keyPath],
+                                          NSObservedKeyPathKey,
+                                          [binder options], NSOptionsKey, nil];
 
     return result;
 }

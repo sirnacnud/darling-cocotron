@@ -51,7 +51,7 @@ O2argb32f O2PaintColorRamp(O2Paint_ramp *self, O2Float gradient, O2Float rho,
                            int *skip);
 
 - initWithShading: (O2Shading *) shading
-    deviceTransform: (O2AffineTransform) deviceTransform
-    numberOfSamples: (int) numberOfSamples;
+        deviceTransform: (O2AffineTransform) deviceTransform
+        numberOfSamples: (int) numberOfSamples;
 
 @end

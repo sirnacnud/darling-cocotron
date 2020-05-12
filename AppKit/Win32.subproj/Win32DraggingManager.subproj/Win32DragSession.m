@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation Win32DragSession
 
 - initWithWindow: (Win32Window *) window
-      pasteboard: (NSPasteboard *) pasteboard
+        pasteboard: (NSPasteboard *) pasteboard
 {
     _window = [window retain];
     _pasteboard = [pasteboard retain];
@@ -59,9 +59,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) pasteboardTypesIntersectTypes: (NSArray *) check {
     return ([[[self draggingPasteboard] types]
-                firstObjectCommonWithArray: check] != nil)
-               ? YES
-               : NO;
+                    firstObjectCommonWithArray: check] != nil)
+                   ? YES
+                   : NO;
 }
 
 - (NSWindow *) draggingDestinationWindow {
@@ -73,8 +73,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSPoint) draggingLocation {
-    return
-        [[self draggingDestinationWindow] convertScreenToBase: _screenLocation];
+    return [[self draggingDestinationWindow]
+            convertScreenToBase: _screenLocation];
 }
 
 - (NSPoint) draggedImageLocation {

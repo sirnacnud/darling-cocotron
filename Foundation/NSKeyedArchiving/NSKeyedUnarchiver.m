@@ -32,7 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSRaise.h>
 
 NSString *NSInvalidUnarchiveOperationException =
-    @"NSInvalidUnarchiveOperationException";
+        @"NSInvalidUnarchiveOperationException";
 
 @interface NSObject (NSKeyedUnarchiverPrivate)
 + (id) allocWithKeyedUnarchiver: (NSKeyedUnarchiver *) keyed;
@@ -58,8 +58,8 @@ NSString *NSInvalidUnarchiveOperationException =
                                     NSNonOwnedPointerMapValueCallBacks, 0);
     _objectToUid = NSCreateMapTable(NSNonOwnedPointerMapKeyCallBacks,
                                     NSIntMapValueCallBacks, 0);
-    _classVersions =
-        NSCreateMapTable(NSObjectMapKeyCallBacks, NSIntMapValueCallBacks, 0);
+    _classVersions = NSCreateMapTable(NSObjectMapKeyCallBacks,
+                                      NSIntMapValueCallBacks, 0);
     return self;
 }
 
@@ -139,7 +139,7 @@ static inline int integerFromCFUID(id object) {
             result = [result awakeAfterUsingCoder: self];
             [result autorelease];
             if ([_delegate respondsToSelector: @selector(unarchiver:
-                                                    didDecodeObject:)])
+                                                       didDecodeObject:)])
                 result = [_delegate unarchiver: self didDecodeObject: result];
             NSMapInsert(_uidToObject, (void *) uidIntValue, result);
             NSMapInsert(_objectToUid, result, (void *) uidIntValue);
@@ -175,7 +175,7 @@ static inline int integerFromCFUID(id object) {
 
 + unarchiveObjectWithData: (NSData *) data {
     NSKeyedUnarchiver *unarchiver =
-        [[[self alloc] initForReadingWithData: data] autorelease];
+            [[[self alloc] initForReadingWithData: data] autorelease];
 
     return [unarchiver decodeRootObject];
 }
@@ -385,7 +385,7 @@ static inline NSNumber *_numberForKey(NSKeyedUnarchiver *self, NSString *key) {
         case expectingFraction:
             if (code >= '0' && code <= '9') {
                 result[resultLength] =
-                    result[resultLength] + multiplier * (code - '0');
+                        result[resultLength] + multiplier * (code - '0');
                 multiplier /= 10;
             } else if (code == 'e' || code == 'E') {
                 state = expectingExponent;
@@ -414,13 +414,13 @@ static inline NSNumber *_numberForKey(NSKeyedUnarchiver *self, NSString *key) {
                 exponent = exponent * 10 + (code - '0');
             else if (code == ',') {
                 result[resultLength++] *=
-                    sign * powf(10.0f, expsign * exponent);
+                        sign * powf(10.0f, expsign * exponent);
                 sign = expsign = 1;
                 exponent = 0;
                 state = expectingSpaceOrInteger;
             } else if (code == '}') {
                 result[resultLength++] *=
-                    sign * powf(10.0f, expsign * exponent);
+                        sign * powf(10.0f, expsign * exponent);
                 sign = expsign = 1;
                 exponent = 0;
                 state = expectingCommaBraceOrSpace;
@@ -633,8 +633,8 @@ static inline NSNumber *_numberForKey(NSKeyedUnarchiver *self, NSString *key) {
         if ([_delegate respondsToSelector: @selector
                        (unarchiver:willReplaceObject:withObject:)]) {
             [_delegate unarchiver: self
-                willReplaceObject: object
-                       withObject: replacement];
+                    willReplaceObject: object
+                           withObject: replacement];
         }
 
         NSMapInsert(_uidToObject, (void *) uid, replacement);

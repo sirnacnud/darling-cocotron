@@ -111,8 +111,8 @@ APPKIT_EXPORT const NSNotificationName NSMenuDidEndTrackingNotification;
 - (NSInteger) numberOfItemsInMenu: (NSMenu *) menu;
 - (void) menu: (NSMenu *) menu willHighlightItem: (NSMenuItem *) item;
 - (BOOL) menu: (NSMenu *) menu
-      updateItem: (NSMenuItem *) item
-         atIndex: (NSInteger) index
-    shouldCancel: (BOOL) shouldCancel;
+          updateItem: (NSMenuItem *) item
+             atIndex: (NSInteger) index
+        shouldCancel: (BOOL) shouldCancel;
 
 @end

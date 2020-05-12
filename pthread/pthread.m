@@ -139,7 +139,7 @@ int pthread_cond_init(pthread_cond_t *cond, const pthread_condattr_t *attr) {
     if (!cond)
         return EINVAL;
     pthread_cond_impl *impl =
-        (pthread_cond_impl *) calloc(1, sizeof(pthread_cond_impl));
+            (pthread_cond_impl *) calloc(1, sizeof(pthread_cond_impl));
 
     impl->events[condEvent_signal] = CreateEvent(0, FALSE, FALSE, 0);
     impl->events[condEvent_broadcast] = CreateEvent(0, TRUE, FALSE, 0);
@@ -220,9 +220,9 @@ abstime_to_win32_millisec_timeout(const struct timespec *abstime)
     filetime_to_timespec(&ft, &curtime);
 
     double t0 =
-        (double) curtime.tv_sec + ((double) curtime.tv_nsec / 1000000000.0);
-    double t1 =
-        (double) abstime->tv_sec + ((double) abstime->tv_nsec / 1000000000.0);
+            (double) curtime.tv_sec + ((double) curtime.tv_nsec / 1000000000.0);
+    double t1 = (double) abstime->tv_sec +
+                ((double) abstime->tv_nsec / 1000000000.0);
 
     if (t1 <= t0)
         return 0;
@@ -248,8 +248,8 @@ static int impl_win32_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex,
 
     pthread_mutex_unlock(mutex);
 
-    int result =
-        WaitForMultipleObjects(condEventCount, impl->events, FALSE, timeout);
+    int result = WaitForMultipleObjects(condEventCount, impl->events, FALSE,
+                                        timeout);
 
     LONG newWaitersCount = InterlockedDecrement(&impl->waitersCount);
     _Bool lastWaiter = (result != WAIT_TIMEOUT) &&
@@ -285,7 +285,7 @@ int pthread_attr_init(pthread_attr_t *attr) {
     if (!attr)
         return EINVAL;
     pthread_attr_impl *impl =
-        (pthread_attr_impl *) calloc(1, sizeof(pthread_attr_impl));
+            (pthread_attr_impl *) calloc(1, sizeof(pthread_attr_impl));
     *attr = impl;
     return 0;
 }
@@ -333,8 +333,8 @@ typedef struct pthread_start_routine_args_win32 {
 // Be sure the stack is aligned in case the thread wants to do exotic things
 // like SSE2
 unsigned
-    __attribute__((force_align_arg_pointer)) __stdcall startroutine_thunk_for_win32_beginthreadex(
-        void *arg)
+        __attribute__((force_align_arg_pointer)) __stdcall startroutine_thunk_for_win32_beginthreadex(
+                void *arg)
 #else
 unsigned __stdcall startroutine_thunk_for_win32_beginthreadex(void *arg)
 #endif
@@ -358,15 +358,15 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
     // object holds the function and its arguments. the thread thunk function
     // will release this object when the real start_routine finishes.
     pthread_start_routine_args *threadArgs =
-        (pthread_start_routine_args *) malloc(
-            sizeof(pthread_start_routine_args));
+            (pthread_start_routine_args *) malloc(
+                    sizeof(pthread_start_routine_args));
     threadArgs->pthreadStyleFunc = start_routine;
     threadArgs->arg = arg;
 
     uint32_t threadId = 0;
     HANDLE win32Handle = (HANDLE) _beginthreadex(
-        NULL, 0, startroutine_thunk_for_win32_beginthreadex, threadArgs, 0,
-        &threadId);
+            NULL, 0, startroutine_thunk_for_win32_beginthreadex, threadArgs, 0,
+            &threadId);
     if (!win32Handle) {
         free(threadArgs);
         return EAGAIN;

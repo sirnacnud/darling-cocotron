@@ -53,8 +53,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSString *) description {
-    return [NSString
-        stringWithFormat: @"<%@ %s>", [self class], _value ? "true" : "false"];
+    return [NSString stringWithFormat: @"<%@ %s>", [self class],
+                                       _value ? "true" : "false"];
 }
 
 - (void) encodeWithPDFContext: (O2PDFContext *) encoder {

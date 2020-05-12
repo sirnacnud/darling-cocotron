@@ -29,15 +29,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setDefaultNameServerPortNumber: (uint16_t) number;
 
 - (NSPort *) portForName: (NSString *) name
-                    host: (NSString *) host
-    nameServerPortNumber: (uint16_t) number;
+                        host: (NSString *) host
+        nameServerPortNumber: (uint16_t) number;
 - (NSPort *) portForName: (NSString *) name host: (NSString *) host;
 - (NSPort *) portForName: (NSString *) name;
 
 - (BOOL) registerPort: (NSPort *) port name: (NSString *) name;
 - (BOOL) registerPort: (NSPort *) port
-                    name: (NSString *) name
-    nameServerPortNumber: (uint16_t) number;
+                        name: (NSString *) name
+        nameServerPortNumber: (uint16_t) number;
 
 - (BOOL) removePortForName: (NSString *) name;
 

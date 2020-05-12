@@ -169,147 +169,149 @@ typedef struct tEXIFTagToLabel {
 
 // Put "nil" in the label to ignore the tag
 static tEXIFTagToLabel EXIFTagToLabel[] = {
-    {kImage, kImage_ImageDescription, @"ImageDescription"},
-    {kImage, kImage_Make, @"Make"},
-    {kImage, kImage_Model, @"Model"},
-    {kImage, kImage_Orientation, @"Orientation"},
-    {kImage, kImage_XResolution, @"XResolution"},
-    {kImage, kImage_YResolution, @"YResolution"},
-    {kImage, kImage_ResolutionUnit, @"ResolutionUnit"},
-    {kImage, kImage_Software, @"Software"},
-    {kImage, kImage_DateTime, @"DateTime"},
-    {kImage, kImage_Artist, @"Artist"},
-    {kImage, kImage_WhitePoint, @"WhitePoint"},
-    {kImage, kImage_PrimaryChromaticities, @"PrimaryChromaticities"},
-    {kImage, kImage_YCbCrCoefficients, @"YCbCrCoefficients"},
-    {kImage, kImage_YCbCrSubSampling, @"YCbCrSubSampling"},
-    {kImage, kImage_YCbCrPositioning, @"YCbCrPositioning"},
-    {kImage, kImage_ReferenceBlackWhite, @"ReferenceBlackWhite"},
-    {kImage, kImage_Copyright, @"Copyright"},
-    {kImage, kImage_ExifIFDOffset, 0},
-    {kImage, kImage_GPSIFDOffset, 0},
+        {kImage, kImage_ImageDescription, @"ImageDescription"},
+        {kImage, kImage_Make, @"Make"},
+        {kImage, kImage_Model, @"Model"},
+        {kImage, kImage_Orientation, @"Orientation"},
+        {kImage, kImage_XResolution, @"XResolution"},
+        {kImage, kImage_YResolution, @"YResolution"},
+        {kImage, kImage_ResolutionUnit, @"ResolutionUnit"},
+        {kImage, kImage_Software, @"Software"},
+        {kImage, kImage_DateTime, @"DateTime"},
+        {kImage, kImage_Artist, @"Artist"},
+        {kImage, kImage_WhitePoint, @"WhitePoint"},
+        {kImage, kImage_PrimaryChromaticities, @"PrimaryChromaticities"},
+        {kImage, kImage_YCbCrCoefficients, @"YCbCrCoefficients"},
+        {kImage, kImage_YCbCrSubSampling, @"YCbCrSubSampling"},
+        {kImage, kImage_YCbCrPositioning, @"YCbCrPositioning"},
+        {kImage, kImage_ReferenceBlackWhite, @"ReferenceBlackWhite"},
+        {kImage, kImage_Copyright, @"Copyright"},
+        {kImage, kImage_ExifIFDOffset, 0},
+        {kImage, kImage_GPSIFDOffset, 0},
 
-    {kTIFF, kTIFF_TIFFNewSubfileType, @"NewSubfileType"},
-    {kTIFF, kTIFF_TIFFSubfileType, @"SubfileType"},
-    {kTIFF, kTIFF_TIFFImageWidth, @"ImageWidth"},
-    {kTIFF, kTIFF_TIFFImageHeight, @"ImageHeight"},
-    {kTIFF, kTIFF_TIFFBitsPerSample, @"BitsPerSample"},
-    {kTIFF, kTIFF_TIFFCompression, @"Compression"},
-    {kTIFF, kTIFF_TIFFPhotometricInterpretation, @"PhotometricInterpretation"},
-    {kTIFF, kTIFF_TIFFThreshholding, @"Threshholding"},
-    {kTIFF, kTIFF_TIFFCellWidth, @"CellWidth"},
-    {kTIFF, kTIFF_TIFFCellLength, @"CellLength"},
-    {kTIFF, kTIFF_TIFFFillOrder, @"FillOrder"},
-    {kTIFF, kTIFF_TIFFImageDescription, @"ImageDescription"},
-    {kTIFF, kTIFF_TIFFMake, @"Make"},
-    {kTIFF, kTIFF_TIFFModel, @"Model"},
-    {kTIFF, kTIFF_TIFFStripOffsets, 0},
-    {kTIFF, kTIFF_TIFFOrientation, @"Orientation"},
-    {kTIFF, kTIFF_TIFFSamplesPerPixel, @"SamplesPerPixel"},
-    {kTIFF, kTIFF_TIFFRowsPerStrip, @"RowsPerStrip"},
-    {kTIFF, kTIFF_TIFFStripByteCounts, @"StripByteCounts"},
-    {kTIFF, kTIFF_TIFFMinSampleValue, @"MinSampleValue"},
-    {kTIFF, kTIFF_TIFFMaxSampleValue, @"MaxSampleValue"},
-    {kTIFF, kTIFF_TIFFXResolution, @"XResolution"},
-    {kTIFF, kTIFF_TIFFYResolution, @"YResolution"},
-    {kTIFF, kTIFF_TIFFPlanarConfiguration, @"PlanarConfiguration"},
-    {kTIFF, kTIFF_TIFFGrayResponseUnit, @"GrayResponseUnit"},
-    {kTIFF, kTIFF_TIFFGrayResponseCurve, @"GrayResponseCurve"},
-    {kTIFF, kTIFF_TIFFResolutionUnit, @"ResolutionUnit"},
-    {kTIFF, kTIFF_TIFFSoftware, @"Software"},
-    {kTIFF, kTIFF_TIFFDateTime, @"DateTime"},
-    {kTIFF, kTIFF_TIFFArtist, @"Artist"},
-    {kTIFF, kTIFF_TIFFHostComputer, @"HostComputer"},
-    {kTIFF, kTIFF_TIFFColorMap, @"ColorMap"},
-    {kTIFF, kTIFF_TIFFExtraSamples, @"ExtraSamples"},
-    {kTIFF, kTIFF_TIFFJFIFOffset, nil},
-    {kTIFF, kTIFF_TIFFJFIFLength, nil},
-    {kTIFF, kTIFF_TIFFYCbCrCoefficients, @"YCbCrCoefficients"},
-    {kTIFF, kTIFF_TIFFYCbCrSubSampling, @"YCbCrSubSampling"},
-    {kTIFF, kTIFF_TIFFYCbCrPositioning, @"YCbCrPositioning"},
-    {kTIFF, kTIFF_TIFFReferenceBlackWhite, @"ReferenceBlackWhite"},
-    {kTIFF, kTIFF_TIFFCopyright, @"Copyright"},
-    {kTIFF, kTIFF_TIFFUserComment, @"UserComment"},
+        {kTIFF, kTIFF_TIFFNewSubfileType, @"NewSubfileType"},
+        {kTIFF, kTIFF_TIFFSubfileType, @"SubfileType"},
+        {kTIFF, kTIFF_TIFFImageWidth, @"ImageWidth"},
+        {kTIFF, kTIFF_TIFFImageHeight, @"ImageHeight"},
+        {kTIFF, kTIFF_TIFFBitsPerSample, @"BitsPerSample"},
+        {kTIFF, kTIFF_TIFFCompression, @"Compression"},
+        {kTIFF, kTIFF_TIFFPhotometricInterpretation,
+         @"PhotometricInterpretation"},
+        {kTIFF, kTIFF_TIFFThreshholding, @"Threshholding"},
+        {kTIFF, kTIFF_TIFFCellWidth, @"CellWidth"},
+        {kTIFF, kTIFF_TIFFCellLength, @"CellLength"},
+        {kTIFF, kTIFF_TIFFFillOrder, @"FillOrder"},
+        {kTIFF, kTIFF_TIFFImageDescription, @"ImageDescription"},
+        {kTIFF, kTIFF_TIFFMake, @"Make"},
+        {kTIFF, kTIFF_TIFFModel, @"Model"},
+        {kTIFF, kTIFF_TIFFStripOffsets, 0},
+        {kTIFF, kTIFF_TIFFOrientation, @"Orientation"},
+        {kTIFF, kTIFF_TIFFSamplesPerPixel, @"SamplesPerPixel"},
+        {kTIFF, kTIFF_TIFFRowsPerStrip, @"RowsPerStrip"},
+        {kTIFF, kTIFF_TIFFStripByteCounts, @"StripByteCounts"},
+        {kTIFF, kTIFF_TIFFMinSampleValue, @"MinSampleValue"},
+        {kTIFF, kTIFF_TIFFMaxSampleValue, @"MaxSampleValue"},
+        {kTIFF, kTIFF_TIFFXResolution, @"XResolution"},
+        {kTIFF, kTIFF_TIFFYResolution, @"YResolution"},
+        {kTIFF, kTIFF_TIFFPlanarConfiguration, @"PlanarConfiguration"},
+        {kTIFF, kTIFF_TIFFGrayResponseUnit, @"GrayResponseUnit"},
+        {kTIFF, kTIFF_TIFFGrayResponseCurve, @"GrayResponseCurve"},
+        {kTIFF, kTIFF_TIFFResolutionUnit, @"ResolutionUnit"},
+        {kTIFF, kTIFF_TIFFSoftware, @"Software"},
+        {kTIFF, kTIFF_TIFFDateTime, @"DateTime"},
+        {kTIFF, kTIFF_TIFFArtist, @"Artist"},
+        {kTIFF, kTIFF_TIFFHostComputer, @"HostComputer"},
+        {kTIFF, kTIFF_TIFFColorMap, @"ColorMap"},
+        {kTIFF, kTIFF_TIFFExtraSamples, @"ExtraSamples"},
+        {kTIFF, kTIFF_TIFFJFIFOffset, nil},
+        {kTIFF, kTIFF_TIFFJFIFLength, nil},
+        {kTIFF, kTIFF_TIFFYCbCrCoefficients, @"YCbCrCoefficients"},
+        {kTIFF, kTIFF_TIFFYCbCrSubSampling, @"YCbCrSubSampling"},
+        {kTIFF, kTIFF_TIFFYCbCrPositioning, @"YCbCrPositioning"},
+        {kTIFF, kTIFF_TIFFReferenceBlackWhite, @"ReferenceBlackWhite"},
+        {kTIFF, kTIFF_TIFFCopyright, @"Copyright"},
+        {kTIFF, kTIFF_TIFFUserComment, @"UserComment"},
 
-    {kEXIF, kEXIF_ExposureTime, @"ExposureTime"},
-    {kEXIF, kEXIF_FNumber, @"FNumber"},
-    {kEXIF, kEXIF_ExposureProgram, @"ExposureProgram"},
-    {kEXIF, kEXIF_SpectralSensitivity, @"SpectralSensitivity"},
-    {kEXIF, kEXIF_ISOSpeedRatings, @"ISOSpeedRatings"},
-    {kEXIF, kEXIF_OECF, @"OECF"},
-    {kEXIF, kEXIF_EXIFVersion, @"EXIFVersion"},
-    {kEXIF, kEXIF_DatetimeOriginal, @"DatetimeOriginal"},
-    {kEXIF, kEXIF_DatetimeDigitized, @"DatetimeDigitized"},
-    {kEXIF, kEXIF_ComponentsConfiguration, @"ComponentsConfiguration"},
-    {kEXIF, kEXIF_CompressedBitsPerPixel, @"CompressedBitsPerPixel"},
-    {kEXIF, kEXIF_ShutterSpeedValue, @"ShutterSpeedValue"},
-    {kEXIF, kEXIF_ApertureValue, @"ApertureValue"},
-    {kEXIF, kEXIF_BrightnessValue, @"BrightnessValue"},
-    {kEXIF, kEXIF_ExposureBiasValue, @"ExposureBiasValue"},
-    {kEXIF, kEXIF_MaxApertureValue, @"MaxApertureValue"},
-    {kEXIF, kEXIF_SubjectDistance, @"SubjectDistance"},
-    {kEXIF, kEXIF_MeteringMode, @"MeteringMode"},
-    {kEXIF, kEXIF_LightSource, @"LightSource"},
-    {kEXIF, kEXIF_Flash, @"Flash"},
-    {kEXIF, kEXIF_FocalLength, @"FocalLength"},
-    {kEXIF, kEXIF_MakerNote, @"MakerNote"},
-    {kEXIF, kEXIF_UserComment, @"UserComment"},
-    {kEXIF, kEXIF_SubSecTime, @"SubSecTime"},
-    {kEXIF, kEXIF_SubSecTimeOriginal, @"SubSecTimeOriginal"},
-    {kEXIF, kEXIF_SubSecTimeDigitized, @"SubSecTimeDigitized"},
-    {kEXIF, kEXIF_FlashPixVersion, @"FlashPixVersion"},
-    {kEXIF, kEXIF_ColorSpace, @"ColorSpace"},
-    {kEXIF, kEXIF_PixelXDimension, @"PixelXDimension"},
-    {kEXIF, kEXIF_PixelYDimension, @"PixelYDimension"},
-    {kEXIF, kEXIF_RelatedSoundFile, @"RelatedSoundFile"},
-    {kEXIF, kEXIF_InteropIFDOffset, nil},
-    {kEXIF, kEXIF_FlashEnergy, @"FlashEnergy"},
-    {kEXIF, kEXIF_SpatialFrequencyResponse, @"SpatialFrequencyResponse"},
-    {kEXIF, kEXIF_FocalPlaneXResolution, @"FocalPlaneXResolution"},
-    {kEXIF, kEXIF_FocalPlaneYResolution, @"FocalPlaneYResolution"},
-    {kEXIF, kEXIF_FocalPlaneResolutionUnit, @"FocalPlaneResolutionUnit"},
-    {kEXIF, kEXIF_SubjectLocation, @"SubjectLocation"},
-    {kEXIF, kEXIF_ExposureIndex, @"ExposureIndex"},
-    {kEXIF, kEXIF_SensingMethod, @"SensingMethod"},
-    {kEXIF, kEXIF_FileSource, @"FileSource"},
-    {kEXIF, kEXIF_SceneType, @"SceneType"},
-    {kEXIF, kEXIF_CFAPattern, @"CFAPattern"},
+        {kEXIF, kEXIF_ExposureTime, @"ExposureTime"},
+        {kEXIF, kEXIF_FNumber, @"FNumber"},
+        {kEXIF, kEXIF_ExposureProgram, @"ExposureProgram"},
+        {kEXIF, kEXIF_SpectralSensitivity, @"SpectralSensitivity"},
+        {kEXIF, kEXIF_ISOSpeedRatings, @"ISOSpeedRatings"},
+        {kEXIF, kEXIF_OECF, @"OECF"},
+        {kEXIF, kEXIF_EXIFVersion, @"EXIFVersion"},
+        {kEXIF, kEXIF_DatetimeOriginal, @"DatetimeOriginal"},
+        {kEXIF, kEXIF_DatetimeDigitized, @"DatetimeDigitized"},
+        {kEXIF, kEXIF_ComponentsConfiguration, @"ComponentsConfiguration"},
+        {kEXIF, kEXIF_CompressedBitsPerPixel, @"CompressedBitsPerPixel"},
+        {kEXIF, kEXIF_ShutterSpeedValue, @"ShutterSpeedValue"},
+        {kEXIF, kEXIF_ApertureValue, @"ApertureValue"},
+        {kEXIF, kEXIF_BrightnessValue, @"BrightnessValue"},
+        {kEXIF, kEXIF_ExposureBiasValue, @"ExposureBiasValue"},
+        {kEXIF, kEXIF_MaxApertureValue, @"MaxApertureValue"},
+        {kEXIF, kEXIF_SubjectDistance, @"SubjectDistance"},
+        {kEXIF, kEXIF_MeteringMode, @"MeteringMode"},
+        {kEXIF, kEXIF_LightSource, @"LightSource"},
+        {kEXIF, kEXIF_Flash, @"Flash"},
+        {kEXIF, kEXIF_FocalLength, @"FocalLength"},
+        {kEXIF, kEXIF_MakerNote, @"MakerNote"},
+        {kEXIF, kEXIF_UserComment, @"UserComment"},
+        {kEXIF, kEXIF_SubSecTime, @"SubSecTime"},
+        {kEXIF, kEXIF_SubSecTimeOriginal, @"SubSecTimeOriginal"},
+        {kEXIF, kEXIF_SubSecTimeDigitized, @"SubSecTimeDigitized"},
+        {kEXIF, kEXIF_FlashPixVersion, @"FlashPixVersion"},
+        {kEXIF, kEXIF_ColorSpace, @"ColorSpace"},
+        {kEXIF, kEXIF_PixelXDimension, @"PixelXDimension"},
+        {kEXIF, kEXIF_PixelYDimension, @"PixelYDimension"},
+        {kEXIF, kEXIF_RelatedSoundFile, @"RelatedSoundFile"},
+        {kEXIF, kEXIF_InteropIFDOffset, nil},
+        {kEXIF, kEXIF_FlashEnergy, @"FlashEnergy"},
+        {kEXIF, kEXIF_SpatialFrequencyResponse, @"SpatialFrequencyResponse"},
+        {kEXIF, kEXIF_FocalPlaneXResolution, @"FocalPlaneXResolution"},
+        {kEXIF, kEXIF_FocalPlaneYResolution, @"FocalPlaneYResolution"},
+        {kEXIF, kEXIF_FocalPlaneResolutionUnit, @"FocalPlaneResolutionUnit"},
+        {kEXIF, kEXIF_SubjectLocation, @"SubjectLocation"},
+        {kEXIF, kEXIF_ExposureIndex, @"ExposureIndex"},
+        {kEXIF, kEXIF_SensingMethod, @"SensingMethod"},
+        {kEXIF, kEXIF_FileSource, @"FileSource"},
+        {kEXIF, kEXIF_SceneType, @"SceneType"},
+        {kEXIF, kEXIF_CFAPattern, @"CFAPattern"},
 
-    {kInterop, kInterop_InteroperabilityIndex, @"InteroperabilityIndex"},
-    {kInterop, kInterop_InteroperabilityVersion, @"InteroperabilityVersion"},
-    {kInterop, kInterop_RelatedImageFileFormat, @"RelatedImageFileFormat"},
-    {kInterop, kInterop_RelatedImageWidth, @"RelatedImageWidth"},
-    {kInterop, kInterop_RelatedImageLength, @"RelatedImageLength"},
+        {kInterop, kInterop_InteroperabilityIndex, @"InteroperabilityIndex"},
+        {kInterop, kInterop_InteroperabilityVersion,
+         @"InteroperabilityVersion"},
+        {kInterop, kInterop_RelatedImageFileFormat, @"RelatedImageFileFormat"},
+        {kInterop, kInterop_RelatedImageWidth, @"RelatedImageWidth"},
+        {kInterop, kInterop_RelatedImageLength, @"RelatedImageLength"},
 
-    {kGPS, kGPS_GPSVersionID, @"GPSVersionID"},
-    {kGPS, kGPS_GPSLatitudeRef, @"GPSLatitudeRef"},
-    {kGPS, kGPS_GPSLatitude, @"GPSLatitude"},
-    {kGPS, kGPS_GPSLongitudeRef, @"GPSLongitudeRef"},
-    {kGPS, kGPS_GPSLongitude, @"GPSLongitude"},
-    {kGPS, kGPS_GPSAltitudeRef, @"GPSAltitudeRef"},
-    {kGPS, kGPS_GPSAltitude, @"GPSAltitude"},
-    {kGPS, kGPS_GPSTimeStamp, @"GPSTimeStamp"},
-    {kGPS, kGPS_GPSSatellites, @"GPSSatellites"},
-    {kGPS, kGPS_GPSStatus, @"GPSStatus"},
-    {kGPS, kGPS_GPSMeasureMode, @"GPSMeasureMode"},
-    {kGPS, kGPS_GPSDOP, @"GPSDOP"},
-    {kGPS, kGPS_GPSSpeedRef, @"GPSSpeedRef"},
-    {kGPS, kGPS_GPSSpeed, @"GPSSpeed"},
-    {kGPS, kGPS_GPSTrackRef, @"GPSTrackRef"},
-    {kGPS, kGPS_GPSTrack, @"GPSTrack"},
-    {kGPS, kGPS_GPSImgDirectionRef, @"GPSImgDirectionRef"},
-    {kGPS, kGPS_GPSImgDirection, @"GPSImgDirection"},
-    {kGPS, kGPS_GPSMapDatum, @"GPSMapDatum"},
-    {kGPS, kGPS_GPSDestLatitudeRef, @"GPSDestLatitudeRef"},
-    {kGPS, kGPS_GPSDestLatitude, @"GPSDestLatitude"},
-    {kGPS, kGPS_GPSDestLongitudeRef, @"GPSDestLongitudeRef"},
-    {kGPS, kGPS_GPSDestLongitude, @"GPSDestLongitude"},
-    {kGPS, kGPS_GPSDestBearingRef, @"GPSDestBearingRef"},
-    {kGPS, kGPS_GPSDestBearing, @"GPSDestBearing"},
-    {kGPS, kGPS_GPSDestDistanceRef, @"GPSDestDistanceRef"},
-    {kGPS, kGPS_GPSDestDistance, @"GPSDestDistance"},
+        {kGPS, kGPS_GPSVersionID, @"GPSVersionID"},
+        {kGPS, kGPS_GPSLatitudeRef, @"GPSLatitudeRef"},
+        {kGPS, kGPS_GPSLatitude, @"GPSLatitude"},
+        {kGPS, kGPS_GPSLongitudeRef, @"GPSLongitudeRef"},
+        {kGPS, kGPS_GPSLongitude, @"GPSLongitude"},
+        {kGPS, kGPS_GPSAltitudeRef, @"GPSAltitudeRef"},
+        {kGPS, kGPS_GPSAltitude, @"GPSAltitude"},
+        {kGPS, kGPS_GPSTimeStamp, @"GPSTimeStamp"},
+        {kGPS, kGPS_GPSSatellites, @"GPSSatellites"},
+        {kGPS, kGPS_GPSStatus, @"GPSStatus"},
+        {kGPS, kGPS_GPSMeasureMode, @"GPSMeasureMode"},
+        {kGPS, kGPS_GPSDOP, @"GPSDOP"},
+        {kGPS, kGPS_GPSSpeedRef, @"GPSSpeedRef"},
+        {kGPS, kGPS_GPSSpeed, @"GPSSpeed"},
+        {kGPS, kGPS_GPSTrackRef, @"GPSTrackRef"},
+        {kGPS, kGPS_GPSTrack, @"GPSTrack"},
+        {kGPS, kGPS_GPSImgDirectionRef, @"GPSImgDirectionRef"},
+        {kGPS, kGPS_GPSImgDirection, @"GPSImgDirection"},
+        {kGPS, kGPS_GPSMapDatum, @"GPSMapDatum"},
+        {kGPS, kGPS_GPSDestLatitudeRef, @"GPSDestLatitudeRef"},
+        {kGPS, kGPS_GPSDestLatitude, @"GPSDestLatitude"},
+        {kGPS, kGPS_GPSDestLongitudeRef, @"GPSDestLongitudeRef"},
+        {kGPS, kGPS_GPSDestLongitude, @"GPSDestLongitude"},
+        {kGPS, kGPS_GPSDestBearingRef, @"GPSDestBearingRef"},
+        {kGPS, kGPS_GPSDestBearing, @"GPSDestBearing"},
+        {kGPS, kGPS_GPSDestDistanceRef, @"GPSDestDistanceRef"},
+        {kGPS, kGPS_GPSDestDistance, @"GPSDestDistance"},
 
-    {-1, -1, nil}};
+        {-1, -1, nil}};
 
 typedef enum valueType {
     tByte = 1,
@@ -523,7 +525,7 @@ static unsigned long _getLong(const unsigned char *data, size_t offset,
             val = [[[NSString alloc] initWithBytes: rawValue
                                             length: count
                                           encoding: NSUTF8StringEncoding]
-                autorelease];
+                    autorelease];
             break;
         case tShort:
             if (count == 1) {
@@ -616,24 +618,24 @@ static unsigned long _getLong(const unsigned char *data, size_t offset,
 
         if ((mode == kIFD0) && (tag == kImage_ExifIFDOffset)) { // ExifIFDOffset
             [self _readIFD: data
-                    offset: value
-                 bigendian: bigendian
-                      mode: kEXIF
-                      size: size];
+                       offset: value
+                    bigendian: bigendian
+                         mode: kEXIF
+                         size: size];
         } else if ((mode == kIFD0) &&
                    (tag == kImage_GPSIFDOffset)) { // GPSIFDOffset
             [self _readIFD: data
-                    offset: value
-                 bigendian: bigendian
-                      mode: kGPS
-                      size: size];
+                       offset: value
+                    bigendian: bigendian
+                         mode: kGPS
+                         size: size];
         } else if ((mode == kEXIF) &&
                    (tag == kEXIF_InteropIFDOffset)) { // InteropIFDOffset
             [self _readIFD: data
-                    offset: value
-                 bigendian: bigendian
-                      mode: kInterop
-                      size: size];
+                       offset: value
+                    bigendian: bigendian
+                         mode: kInterop
+                         size: size];
         }
 
         if (val) {
@@ -677,12 +679,10 @@ static unsigned long _getLong(const unsigned char *data, size_t offset,
                      value: [NSNumber numberWithInt: yResolution]];
     [self setTagForTypeKey: typekey
                  numberKey: @"JFIFVersion"
-                     value: [NSArray
-                                arrayWithObjects: [NSNumber
-                                                      numberWithInt: versionH],
-                                                  [NSNumber
-                                                      numberWithInt: versionL],
-                                                  nil]];
+                     value: [NSArray arrayWithObjects:
+                                             [NSNumber numberWithInt: versionH],
+                                             [NSNumber numberWithInt: versionL],
+                                             nil]];
     float DPIWidth = 0;
     float DPIHeight = 0;
     if (density == 1 || density == 2) {
@@ -743,10 +743,10 @@ static unsigned long _getLong(const unsigned char *data, size_t offset,
             if ([_tags objectForKey: typeKey] == nil) {
                 // No tiff data yet - let's try to decode this block
                 [self _readIFD: bytes
-                        offset: offset
-                     bigendian: bigendian
-                          mode: kIFD1
-                          size: length];
+                           offset: offset
+                        bigendian: bigendian
+                             mode: kIFD1
+                             size: length];
             }
         }
     }

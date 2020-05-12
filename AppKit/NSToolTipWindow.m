@@ -41,10 +41,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (singleton == nil) {
         singleton = [[NSToolTipWindow alloc]
-            initWithContentRect: NSMakeRect(0, 0, 20, 20)
-                      styleMask: NSBorderlessWindowMask
-                        backing: NSBackingStoreBuffered
-                          defer: NO];
+                initWithContentRect: NSMakeRect(0, 0, 20, 20)
+                          styleMask: NSBorderlessWindowMask
+                            backing: NSBackingStoreBuffered
+                              defer: NO];
         [singleton setLevel: NSPopUpMenuWindowLevel];
     }
 
@@ -62,7 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                          defer: defer];
 
     _textField = [[NSTextField alloc]
-        initWithFrame: contentRect]; // Will be adjusted later.
+            initWithFrame: contentRect]; // Will be adjusted later.
     [_textField setFrameOrigin: NSMakePoint(2., -3.)]; // Should be (0., 0.).
     [_textField setFont: [NSFont toolTipsFontOfSize: 0.]];
     [_textField setEditable: NO];
@@ -103,7 +103,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         messageSize = [[NSScreen mainScreen] visibleFrame].size;
         if ([[NSUserDefaults standardUserDefaults]
-                boolForKey: @"NSToolTipAutoWrappingDisabled"] == NO) {
+                    boolForKey: @"NSToolTipAutoWrappingDisabled"] == NO) {
             messageSize.width /= 4.;
         } else {
             messageSize.width = NSStringDrawerLargeDimension;
@@ -111,11 +111,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         NSStringDrawer *stringDrawer = [NSStringDrawer sharedStringDrawer];
         messageSize = [stringDrawer
-              sizeOfString: [_textField stringValue]
-            withAttributes: @{
-                NSFontAttributeName : [NSFont toolTipsFontOfSize: 0.]
-            }
-                    inSize: messageSize];
+                  sizeOfString: [_textField stringValue]
+                withAttributes: @{
+                    NSFontAttributeName : [NSFont toolTipsFontOfSize: 0.]
+                }
+                        inSize: messageSize];
         messageSize.width += TEXTFIELD_MARGIN * 2;
         messageSize.width += 2.; // Shouldn't be neccessary.
         messageSize.height += TEXTFIELD_MARGIN * 2;

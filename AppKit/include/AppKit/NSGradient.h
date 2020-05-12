@@ -36,8 +36,8 @@ typedef enum {
 }
 
 - initWithColors: (NSArray *) colors
-     atLocations: (const CGFloat *) locations
-      colorSpace: (NSColorSpace *) colorSpace;
+        atLocations: (const CGFloat *) locations
+         colorSpace: (NSColorSpace *) colorSpace;
 - initWithStartingColor: (NSColor *) startingColor
             endingColor: (NSColor *) endingColor;
 - initWithColors: (NSArray *) colors;
@@ -57,7 +57,7 @@ typedef enum {
 
 - (void) drawInRect: (NSRect) rect relativeCenterPosition: (NSPoint) center;
 - (void) drawInBezierPath: (NSBezierPath *) path
-    relativeCenterPosition: (NSPoint) center;
+        relativeCenterPosition: (NSPoint) center;
 
 - (NSColorSpace *) colorSpace;
 - (NSInteger) numberOfColorStops;

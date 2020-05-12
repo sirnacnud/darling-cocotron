@@ -23,13 +23,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation O2Surface_DIBSection
 
 - initWithWidth: (int) width
-                         height: (int) height
-    compatibleWithDeviceContext: (O2DeviceContext_gdi *) compatible
+                             height: (int) height
+        compatibleWithDeviceContext: (O2DeviceContext_gdi *) compatible
 {
-    _deviceContext =
-        [[O2DeviceContext_gdiDIBSection alloc] initARGB32WithWidth: width
-                                                            height: height
-                                                     deviceContext: compatible];
+    _deviceContext = [[O2DeviceContext_gdiDIBSection alloc]
+            initARGB32WithWidth: width
+                         height: height
+                  deviceContext: compatible];
 
     // we support -height for flipped DIB sections
 
@@ -42,13 +42,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     O2ColorSpaceRef colorSpace = O2ColorSpaceCreateDeviceRGB();
 
     if ([super initWithBytes: [_deviceContext bitmapBytes]
-                       width: width
-                      height: height
-            bitsPerComponent: [_deviceContext bitsPerComponent]
-                 bytesPerRow: [_deviceContext bytesPerRow]
-                  colorSpace: colorSpace
-                  bitmapInfo: kO2ImageAlphaPremultipliedFirst |
-                              kO2BitmapByteOrder32Little] == nil) {
+                           width: width
+                          height: height
+                bitsPerComponent: [_deviceContext bitsPerComponent]
+                     bytesPerRow: [_deviceContext bytesPerRow]
+                      colorSpace: colorSpace
+                      bitmapInfo: kO2ImageAlphaPremultipliedFirst |
+                                  kO2BitmapByteOrder32Little] == nil) {
         [colorSpace release];
         return nil;
     }
@@ -58,20 +58,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithBytes: (void *) bytes
-               width: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-         bytesPerRow: (size_t) bytesPerRow
-          colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo
+                   width: (size_t) width
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+             bytesPerRow: (size_t) bytesPerRow
+              colorSpace: (O2ColorSpaceRef) colorSpace
+              bitmapInfo: (O2BitmapInfo) bitmapInfo
 {
     if (bytes == NULL && bitsPerComponent == 8 &&
         bitmapInfo ==
-            (kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Host) &&
+                (kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Host) &&
         O2ColorSpaceGetModel(colorSpace) == kO2ColorSpaceModelRGB) {
         return [self initWithWidth: width
-                                 height: height
-            compatibleWithDeviceContext: nil];
+                                     height: height
+                compatibleWithDeviceContext: nil];
     }
 
     height = ABS(height);

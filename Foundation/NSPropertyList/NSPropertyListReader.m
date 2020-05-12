@@ -47,10 +47,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     } @catch (NSException *exception) {
         // Don't use NSLog here as we might be called from some early NSLog,
         // when formating the timestamp...
-        fprintf(
-            stderr,
-            "propertyListFromData: error while decoding plist content : %s\n",
-            [[exception description] UTF8String]);
+        fprintf(stderr,
+                "propertyListFromData: error while decoding plist content : "
+                "%s\n",
+                [[exception description] UTF8String]);
         result = nil;
     } @finally {
     }

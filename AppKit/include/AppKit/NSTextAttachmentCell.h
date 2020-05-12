@@ -40,14 +40,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                   atCharacterIndex: (unsigned) characterIndex;
 
 - (BOOL) trackMouse: (NSEvent *) event
+                  inRect: (NSRect) rect
+                  ofView: (NSView *) view
+        atCharacterIndex: (unsigned) characterIndex
+            untilMouseUp: (BOOL) untilMouseUp;
+- (BOOL) trackMouse: (NSEvent *) event
               inRect: (NSRect) rect
               ofView: (NSView *) view
-    atCharacterIndex: (unsigned) characterIndex
         untilMouseUp: (BOOL) untilMouseUp;
-- (BOOL) trackMouse: (NSEvent *) event
-             inRect: (NSRect) rect
-             ofView: (NSView *) view
-       untilMouseUp: (BOOL) untilMouseUp;
 
 - (void) highlight: (BOOL) highlight
          withFrame: (NSRect) frame

@@ -26,7 +26,7 @@
         CGContextSetLineWidth(context, 0.01);
         for (i = 0; i < numberOfCircles; i++) {
             CGContextAddEllipseInRect(
-                context, CGRectMake(x, y, delta, yDelta - yDelta * 0.1));
+                    context, CGRectMake(x, y, delta, yDelta - yDelta * 0.1));
             x += delta / 1.5;
         }
         CGContextDrawPath(context, mode);

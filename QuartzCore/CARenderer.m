@@ -101,7 +101,7 @@ static CGFloat mediaTimingScale(CAAnimation *animation,
 
     if (function == nil)
         function = [CAMediaTimingFunction
-            functionWithName: kCAMediaTimingFunctionDefault];
+                functionWithName: kCAMediaTimingFunctionDefault];
 
     return applyMediaTimingFunction(function, zeroToOne);
 }
@@ -195,17 +195,17 @@ static CGRect interpolateRectInLayerKey(CALayer *layer, NSString *key,
         CGRect resultRect;
 
         resultRect.origin.x =
-            fromRect.origin.x +
-            (toRect.origin.x - fromRect.origin.x) * timingScale;
+                fromRect.origin.x +
+                (toRect.origin.x - fromRect.origin.x) * timingScale;
         resultRect.origin.y =
-            fromRect.origin.y +
-            (toRect.origin.y - fromRect.origin.y) * timingScale;
+                fromRect.origin.y +
+                (toRect.origin.y - fromRect.origin.y) * timingScale;
         resultRect.size.width =
-            fromRect.size.width +
-            (toRect.size.width - fromRect.size.width) * timingScale;
+                fromRect.size.width +
+                (toRect.size.width - fromRect.size.width) * timingScale;
         resultRect.size.height =
-            fromRect.size.height +
-            (toRect.size.height - fromRect.size.height) * timingScale;
+                fromRect.size.height +
+                (toRect.size.height - fromRect.size.height) * timingScale;
 
         return resultRect;
     }
@@ -314,12 +314,12 @@ void CATexImage2DCGImage(CGImageRef image) {
     }
 
     CGPoint anchorPoint =
-        interpolatePointInLayerKey(layer, @"anchorPoint", currentTime);
+            interpolatePointInLayerKey(layer, @"anchorPoint", currentTime);
     CGPoint position =
-        interpolatePointInLayerKey(layer, @"position", currentTime);
+            interpolatePointInLayerKey(layer, @"position", currentTime);
     CGRect bounds = interpolateRectInLayerKey(layer, @"bounds", currentTime);
     CGFloat opacity =
-        interpolateFloatInLayerKey(layer, @"opacity", currentTime);
+            interpolateFloatInLayerKey(layer, @"opacity", currentTime);
 
     GLfloat textureVertices[4 * 2];
     GLfloat vertices[4 * 3];

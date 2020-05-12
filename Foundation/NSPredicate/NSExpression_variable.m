@@ -48,13 +48,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSExpression *) _expressionWithSubstitutionVariables:
-    (NSDictionary *) variables
+        (NSDictionary *) variables
 {
     id constant = [variables objectForKey: _name];
 
     return (constant == nil)
-               ? (NSExpression *) self
-               : [NSExpression expressionForConstantValue: constant];
+                   ? (NSExpression *) self
+                   : [NSExpression expressionForConstantValue: constant];
 }
 
 @end

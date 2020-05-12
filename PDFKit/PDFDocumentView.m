@@ -56,8 +56,8 @@
 
     // clipview bounds, this is wrong, need to translate
     float availableWidth =
-        [[self superview] bounds].size.width -
-        ([PDFPageView leftMargin] + [PDFPageView rightMargin]);
+            [[self superview] bounds].size.width -
+            ([PDFPageView leftMargin] + [PDFPageView rightMargin]);
 
     _scaleFactor = availableWidth / maxPageWidth;
 

@@ -55,7 +55,7 @@ static NSMutableDictionary<NSPasteboardName, X11Pasteboard *> *nameToPboard;
                                   -10, 1, 1, 0, 0, 0);
     XSelectInput(_display, _window,
                  SelectionClear | SelectionRequest | SelectionNotify |
-                     PropertyNotify);
+                         PropertyNotify);
 
     [x11Display setWindow: self forID: _window];
 
@@ -193,10 +193,10 @@ static NSMutableDictionary<NSPasteboardName, X11Pasteboard *> *nameToPboard;
     _selectionNotifyResult = WAITING;
     while (_selectionNotifyResult == WAITING) {
         [[NSDisplay currentDisplay]
-            nextEventMatchingMask: NSAnyEventMask
-                        untilDate: [NSDate distantFuture]
-                           inMode: NSDefaultRunLoopMode
-                          dequeue: NO];
+                nextEventMatchingMask: NSAnyEventMask
+                            untilDate: [NSDate distantFuture]
+                               inMode: NSDefaultRunLoopMode
+                              dequeue: NO];
     }
 
     return [self readDataFromReceivingProperty];
@@ -253,7 +253,7 @@ static NSMutableDictionary<NSPasteboardName, X11Pasteboard *> *nameToPboard;
 
 - (NSArray<NSPasteboardType> *) types {
     return [[_typeToData allKeys]
-        arrayByAddingObjectsFromArray: [_typeToOwner allKeys]];
+            arrayByAddingObjectsFromArray: [_typeToOwner allKeys]];
 }
 
 - (void) selectionNotify: (XSelectionEvent *) event {

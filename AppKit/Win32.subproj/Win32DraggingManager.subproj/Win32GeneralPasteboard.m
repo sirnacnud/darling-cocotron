@@ -26,8 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (int) declareTypes: (NSArray *) types owner: (id) owner {
     int result = [super declareTypes: types owner: owner];
-    Win32IDataObjectServer *dataServer =
-        [[[Win32IDataObjectServer alloc] initWithPasteboard: self] autorelease];
+    Win32IDataObjectServer *dataServer = [[[Win32IDataObjectServer alloc]
+            initWithPasteboard: self] autorelease];
 
     if (![dataServer setOnClipboard]) {
         NSLog(@"unable to set on clipboard");
@@ -39,8 +39,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (int) addTypes: (NSArray *) types owner: (id) owner {
     int result = [super addTypes: types owner: owner];
-    Win32IDataObjectServer *dataServer =
-        [[[Win32IDataObjectServer alloc] initWithPasteboard: self] autorelease];
+    Win32IDataObjectServer *dataServer = [[[Win32IDataObjectServer alloc]
+            initWithPasteboard: self] autorelease];
 
     if (![dataServer setOnClipboard]) {
         NSLog(@"unable to set on clipboard");
@@ -52,8 +52,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSArray *) types {
     if ([self isClient]) {
-        Win32IDataObjectClient *dataClient =
-            [[[Win32IDataObjectClient alloc] initWithClipboard] autorelease];
+        Win32IDataObjectClient *dataClient = [[[Win32IDataObjectClient alloc]
+                initWithClipboard] autorelease];
 
         return [dataClient availableTypes];
     } else
@@ -70,8 +70,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSData *) dataForType: (NSString *) type {
     if ([self isClient]) {
-        Win32IDataObjectClient *dataClient =
-            [[[Win32IDataObjectClient alloc] initWithClipboard] autorelease];
+        Win32IDataObjectClient *dataClient = [[[Win32IDataObjectClient alloc]
+                initWithClipboard] autorelease];
 
         return [dataClient dataForType: type];
     } else {
@@ -83,8 +83,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if ([self isClient]) {
         if ([type isEqualToString: NSFilenamesPboardType]) {
             Win32IDataObjectClient *dataClient =
-                [[[Win32IDataObjectClient alloc] initWithClipboard]
-                    autorelease];
+                    [[[Win32IDataObjectClient alloc] initWithClipboard]
+                            autorelease];
 
             return [dataClient filenames];
         } else

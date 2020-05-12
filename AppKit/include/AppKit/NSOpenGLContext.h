@@ -47,7 +47,7 @@ typedef enum {
 + (void) clearCurrentContext;
 
 - initWithFormat: (NSOpenGLPixelFormat *) pixelFormat
-    shareContext: (NSOpenGLContext *) shareContext;
+        shareContext: (NSOpenGLContext *) shareContext;
 
 - (NSView *) view;
 - (NSOpenGLPixelBuffer *) pixelBuffer;
@@ -56,9 +56,9 @@ typedef enum {
 - (void *) CGLContextObj;
 
 - (void) getValues: (GLint *) vals
-      forParameter: (NSOpenGLContextParameter) parameter;
+        forParameter: (NSOpenGLContextParameter) parameter;
 - (void) setValues: (const GLint *) vals
-      forParameter: (NSOpenGLContextParameter) parameter;
+        forParameter: (NSOpenGLContextParameter) parameter;
 - (void) setView: (NSView *) view;
 
 - (void) makeCurrentContext;
@@ -71,9 +71,9 @@ typedef enum {
                height: (long) height
              rowbytes: (long) rowbytes;
 - (void) setPixelBuffer: (NSOpenGLPixelBuffer *) pixelBuffer
-             cubeMapFace: (unsigned long) cubeMapFace
-              mipMapLeve: (long) mipMapLevel
-    currentVirtualScreen: (int) screen;
+                 cubeMapFace: (unsigned long) cubeMapFace
+                  mipMapLeve: (long) mipMapLevel
+        currentVirtualScreen: (int) screen;
 - (void) setTextureImageToPixelBuffer: (NSOpenGLPixelBuffer *) pixelBuffer
                           colorBuffer: (unsigned long) source;
 

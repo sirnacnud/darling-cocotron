@@ -78,12 +78,12 @@ typedef NSUInteger NSTrackingAreaOptions;
 
 // undocumented
 - (id) _initWithRect: (NSRect) rect
-             options: (NSTrackingAreaOptions) options
-               owner: (id) owner
-            userData: (void *) userData
-      retainUserData: (BOOL) retainUserData
-           isToolTip: (BOOL) isToolTip
-            isLegacy: (BOOL) legacy;
+               options: (NSTrackingAreaOptions) options
+                 owner: (id) owner
+              userData: (void *) userData
+        retainUserData: (BOOL) retainUserData
+             isToolTip: (BOOL) isToolTip
+              isLegacy: (BOOL) legacy;
 
 //-(void)_setRect:(NSRect)rect;
 - (NSRect) _rectInWindow;

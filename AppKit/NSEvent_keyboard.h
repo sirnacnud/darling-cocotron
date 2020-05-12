@@ -27,12 +27,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (instancetype) initWithType: (NSEventType) type
-                       location: (NSPoint) location
-                  modifierFlags: (NSEventModifierFlags) flags
-                         window: (NSWindow *) window
-                     characters: (NSString *) characters
-    charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
-                      isARepeat: (BOOL) isARepeat
-                        keyCode: (unsigned short) keyCode;
+                           location: (NSPoint) location
+                      modifierFlags: (NSEventModifierFlags) flags
+                             window: (NSWindow *) window
+                         characters: (NSString *) characters
+        charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
+                          isARepeat: (BOOL) isARepeat
+                            keyCode: (unsigned short) keyCode;
 
 @end

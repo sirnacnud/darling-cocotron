@@ -115,8 +115,8 @@ FOUNDATION_EXPORT const NSUInteger NSMaximumStringLength;
 - initWithString: (NSString *) string;
 
 - initWithFormat: (NSString *) format
-          locale: (id) locale
-       arguments: (va_list) arguments;
+           locale: (id) locale
+        arguments: (va_list) arguments;
 - initWithFormat: (NSString *) format locale: (id) locale, ...;
 - initWithFormat: (NSString *) format arguments: (va_list) arguments;
 - initWithFormat: (NSString *) format, ...;
@@ -124,8 +124,8 @@ FOUNDATION_EXPORT const NSUInteger NSMaximumStringLength;
 - initWithData: (NSData *) data encoding: (NSStringEncoding) encoding;
 - initWithUTF8String: (const char *) utf8;
 - initWithBytes: (const void *) bytes
-         length: (NSUInteger) length
-       encoding: (NSStringEncoding) encoding;
+          length: (NSUInteger) length
+        encoding: (NSStringEncoding) encoding;
 - initWithBytesNoCopy: (void *) bytes
                length: (NSUInteger) length
              encoding: (NSStringEncoding) encoding
@@ -232,11 +232,11 @@ FOUNDATION_EXPORT const NSUInteger NSMaximumStringLength;
                                        withString: (NSString *) substitute;
 - (NSString *) stringByReplacingOccurrencesOfString: (NSString *) original
                                          withString: (NSString *) substitute;
-- (NSString *) stringByReplacingOccurrencesOfString: (NSString *) original
-                                         withString: (NSString *) substitute
-                                            options:
-                                                (NSStringCompareOptions) options
-                                              range: (NSRange) range;
+- (NSString *)
+        stringByReplacingOccurrencesOfString: (NSString *) original
+                                  withString: (NSString *) substitute
+                                     options: (NSStringCompareOptions) options
+                                       range: (NSRange) range;
 
 - (NSString *) stringByFoldingWithOptions: (NSStringCompareOptions) options
                                    locale: (NSLocale *) locale;
@@ -274,19 +274,19 @@ FOUNDATION_EXPORT const NSUInteger NSMaximumStringLength;
 - (NSData *) dataUsingEncoding: (NSStringEncoding) encoding;
 
 - (BOOL) getBytes: (void *) buffer
-         maxLength: (NSUInteger) maxLength
-        usedLength: (NSUInteger *) usedLength
-          encoding: (NSStringEncoding) encoding
-           options: (NSStringEncodingConversionOptions) options
-             range: (NSRange) range
-    remainingRange: (NSRange *) remainingRange;
+             maxLength: (NSUInteger) maxLength
+            usedLength: (NSUInteger *) usedLength
+              encoding: (NSStringEncoding) encoding
+               options: (NSStringEncodingConversionOptions) options
+                 range: (NSRange) range
+        remainingRange: (NSRange *) remainingRange;
 
 - (const char *) UTF8String;
 
 - (NSString *) stringByReplacingPercentEscapesUsingEncoding:
-    (NSStringEncoding) encoding;
+        (NSStringEncoding) encoding;
 - (NSString *) stringByAddingPercentEscapesUsingEncoding:
-    (NSStringEncoding) encoding;
+        (NSStringEncoding) encoding;
 
 - (NSString *) stringByTrimmingCharactersInSet: (NSCharacterSet *) set;
 
@@ -300,9 +300,9 @@ FOUNDATION_EXPORT const NSUInteger NSMaximumStringLength;
 + (NSStringEncoding) defaultCStringEncoding;
 
 - (void) getCString: (char *) buffer
-          maxLength: (NSUInteger) maxLength
-              range: (NSRange) range
-     remainingRange: (NSRange *) remainingRange;
+             maxLength: (NSUInteger) maxLength
+                 range: (NSRange) range
+        remainingRange: (NSRange *) remainingRange;
 - (void) getCString: (char *) buffer maxLength: (NSUInteger) maxLength;
 - (void) getCString: (char *) buffer;
 

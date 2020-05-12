@@ -84,7 +84,7 @@
 
 - (NSAttributedString *) attributedString {
     return [[[NSAttributedString alloc] initWithString: [self string]]
-        autorelease];
+            autorelease];
 }
 
 - (void) addSelection: (PDFSelection *) selection {
@@ -119,8 +119,8 @@
 
         if (length > 0) {
             PDFSelectedRange *extendRange = [[[PDFSelectedRange alloc]
-                initWithPage: page
-                       range: NSMakeRange(location, length)] autorelease];
+                    initWithPage: page
+                           range: NSMakeRange(location, length)] autorelease];
             NSMutableArray *changes = [[_ranges mutableCopy] autorelease];
             [changes addObject: extendRange];
             [self _setSelectedRanges: changes];
@@ -143,8 +143,8 @@
         NSInteger length = range.location - location;
 
         PDFSelectedRange *extendRange = [[[PDFSelectedRange alloc]
-            initWithPage: page
-                   range: NSMakeRange(location, length)] autorelease];
+                initWithPage: page
+                       range: NSMakeRange(location, length)] autorelease];
         NSMutableArray *changes = [[_ranges mutableCopy] autorelease];
         [changes insertObject: extendRange atIndex: 0];
         [self _setSelectedRanges: changes];

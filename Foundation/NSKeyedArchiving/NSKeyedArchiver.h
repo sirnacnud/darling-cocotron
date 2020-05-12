@@ -70,8 +70,8 @@ FOUNDATION_EXPORT NSString *const NSInvalidArchiveOperationException;
 
 @interface NSObject (NSKeyedArchiverDelegate)
 - (void) archiver: (NSKeyedArchiver *) archiver
-    willReplaceObject: object
-           withObject: other;
+        willReplaceObject: object
+               withObject: other;
 - (void) archiver: (NSKeyedArchiver *) archiver willEncodeObject: object;
 - (void) archiver: (NSKeyedArchiver *) archiver didEncodeObject: object;
 - (void) archiverWllFinish: (NSKeyedArchiver *) archiver;

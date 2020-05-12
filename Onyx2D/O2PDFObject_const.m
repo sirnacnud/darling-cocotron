@@ -29,37 +29,39 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + pdfObjectArrayMark {
     return [[[self alloc] initWithObjectType: O2PDFObjectTypeMark_array_open]
-        autorelease];
+            autorelease];
 }
 
 + pdfObjectArrayMarkEnd {
     return [[[self alloc] initWithObjectType: O2PDFObjectTypeMark_array_close]
-        autorelease];
+            autorelease];
 }
 
 + pdfObjectDictionaryMark {
     return [[[self alloc]
-        initWithObjectType: O2PDFObjectTypeMark_dictionary_open] autorelease];
+            initWithObjectType: O2PDFObjectTypeMark_dictionary_open]
+            autorelease];
 }
 
 + pdfObjectDictionaryMarkEnd {
     return [[[self alloc]
-        initWithObjectType: O2PDFObjectTypeMark_dictionary_close] autorelease];
+            initWithObjectType: O2PDFObjectTypeMark_dictionary_close]
+            autorelease];
 }
 
 + pdfObjectWithNull {
-    return
-        [[[self alloc] initWithObjectType: kO2PDFObjectTypeNull] autorelease];
+    return [[[self alloc] initWithObjectType: kO2PDFObjectTypeNull]
+            autorelease];
 }
 
 + pdfObjectProcMark {
     return [[[self alloc] initWithObjectType: O2PDFObjectTypeMark_proc_open]
-        autorelease];
+            autorelease];
 }
 
 + pdfObjectProcMarkEnd {
     return [[[self alloc] initWithObjectType: O2PDFObjectTypeMark_proc_close]
-        autorelease];
+            autorelease];
 }
 
 - (O2PDFObjectType) objectType {

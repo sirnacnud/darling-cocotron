@@ -33,19 +33,19 @@ enum _NSUndoManagerState {
 };
 
 NSString *const NSUndoManagerCheckpointNotification =
-    @"NSUndoManagerCheckpointNotification";
+        @"NSUndoManagerCheckpointNotification";
 NSString *const NSUndoManagerDidOpenUndoGroupNotification =
-    @"NSUndoManagerDidOpenUndoGroupNotification";
+        @"NSUndoManagerDidOpenUndoGroupNotification";
 NSString *const NSUndoManagerWillCloseUndoGroupNotification =
-    @"NSUndoManagerWillCloseUndoGroupNotification";
+        @"NSUndoManagerWillCloseUndoGroupNotification";
 NSString *const NSUndoManagerWillUndoChangeNotification =
-    @"NSUndoManagerWillUndoChangeNotification";
+        @"NSUndoManagerWillUndoChangeNotification";
 NSString *const NSUndoManagerDidUndoChangeNotification =
-    @"NSUndoManagerDidUndoChangeNotification";
+        @"NSUndoManagerDidUndoChangeNotification";
 NSString *const NSUndoManagerWillRedoChangeNotification =
-    @"NSUndoManagerWillRedoChangeNotification";
+        @"NSUndoManagerWillRedoChangeNotification";
 NSString *const NSUndoManagerDidRedoChangeNotification =
-    @"NSUndoManagerDidRedoChangeNotification";
+        @"NSUndoManagerDidRedoChangeNotification";
 
 @implementation NSUndoManager
 
@@ -53,11 +53,11 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
     if (!_performRegistered) {
         _performRegistered = YES;
         [[NSRunLoop currentRunLoop]
-            performSelector: @selector(runLoopUndo:)
-                     target: self
-                   argument: nil
-                      order: NSUndoCloseGroupingRunLoopOrdering
-                      modes: _modes];
+                performSelector: @selector(runLoopUndo:)
+                         target: self
+                       argument: nil
+                          order: NSUndoCloseGroupingRunLoopOrdering
+                          modes: _modes];
     }
 }
 
@@ -65,9 +65,9 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
     if (_performRegistered) {
         _performRegistered = NO;
         [[NSRunLoop currentRunLoop]
-            cancelPerformSelector: @selector(runLoopUndo:)
-                           target: self
-                         argument: nil];
+                cancelPerformSelector: @selector(runLoopUndo:)
+                               target: self
+                             argument: nil];
     }
 }
 
@@ -150,19 +150,19 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
 
 - (void) beginUndoGrouping {
     NSUndoGroup *undoGroup =
-        [NSUndoGroup undoGroupWithParentGroup: _currentGroup];
+            [NSUndoGroup undoGroupWithParentGroup: _currentGroup];
 
     if (!([_currentGroup parentGroup] == nil && _state == NSUndoManagerUndoing))
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSUndoManagerCheckpointNotification
-                          object: self];
+                postNotificationName: NSUndoManagerCheckpointNotification
+                              object: self];
 
     [_currentGroup release];
     _currentGroup = [undoGroup retain];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerDidOpenUndoGroupNotification
-                      object: self];
+            postNotificationName: NSUndoManagerDidOpenUndoGroupNotification
+                          object: self];
 }
 
 - (void) endUndoGrouping {
@@ -175,16 +175,16 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
                             @"beginUndoGrouping"];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerCheckpointNotification
-                      object: self];
+            postNotificationName: NSUndoManagerCheckpointNotification
+                          object: self];
 
     if (parentGroup == nil && [[_currentGroup invocations] count] > 0) {
         switch (_state) {
         case NSUndoManagerNormal:
             [[NSNotificationCenter defaultCenter]
-                postNotificationName:
-                    NSUndoManagerWillCloseUndoGroupNotification
-                              object: self];
+                    postNotificationName:
+                            NSUndoManagerWillCloseUndoGroupNotification
+                                  object: self];
 
         case NSUndoManagerRedoing:
             stack = _undoStack;
@@ -245,12 +245,12 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
                     format: @"undo called with open nested group"];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerCheckpointNotification
-                      object: self];
+            postNotificationName: NSUndoManagerCheckpointNotification
+                          object: self];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerWillUndoChangeNotification
-                      object: self];
+            postNotificationName: NSUndoManagerWillUndoChangeNotification
+                          object: self];
 
     _state = NSUndoManagerUndoing;
     undoGroup = [[_undoStack lastObject] retain];
@@ -262,8 +262,8 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
     _state = NSUndoManagerNormal;
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerDidUndoChangeNotification
-                      object: self];
+            postNotificationName: NSUndoManagerDidUndoChangeNotification
+                          object: self];
 }
 
 - (void) undo {
@@ -279,8 +279,8 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
 
 - (BOOL) canRedo {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerCheckpointNotification
-                      object: self];
+            postNotificationName: NSUndoManagerCheckpointNotification
+                          object: self];
     return ([_redoStack count] > 0);
 }
 
@@ -292,12 +292,12 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
                     format: @"redo called while undoing"];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerCheckpointNotification
-                      object: self];
+            postNotificationName: NSUndoManagerCheckpointNotification
+                          object: self];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerWillRedoChangeNotification
-                      object: self];
+            postNotificationName: NSUndoManagerWillRedoChangeNotification
+                          object: self];
 
     _state = NSUndoManagerRedoing;
     undoGroup = [[_redoStack lastObject] retain];
@@ -309,8 +309,8 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
     _state = NSUndoManagerNormal;
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSUndoManagerDidRedoChangeNotification
-                      object: self];
+            postNotificationName: NSUndoManagerDidRedoChangeNotification
+                          object: self];
 }
 
 - (BOOL) isRedoing {
@@ -394,10 +394,9 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
         return;
 
     if (_preparedTarget == nil)
-        [NSException
-             raise: NSInternalInconsistencyException
-            format:
-                @"forwardInvocation called without first preparing a target"];
+        [NSException raise: NSInternalInconsistencyException
+                    format: @"forwardInvocation called without first preparing "
+                            @"a target"];
 
     if (_groupsByEvent && _currentGroup == nil) {
         [self _registerPerform];

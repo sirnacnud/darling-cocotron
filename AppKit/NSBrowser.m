@@ -52,7 +52,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
         unsigned flags = [keyed decodeIntForKey: @"NSBrFlags"];
         NSString *firstTitle =
-            [keyed decodeObjectForKey: @"NSFirstColumnTitle"];
+                [keyed decodeObjectForKey: @"NSFirstColumnTitle"];
 
         _explicitTitles = [NSMutableArray new];
         if (firstTitle != nil)
@@ -69,7 +69,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _cellPrototype = nil;
 
         _numberOfVisibleColumns =
-            [keyed decodeIntForKey: @"NSNumberOfVisibleColumns"];
+                [keyed decodeIntForKey: @"NSNumberOfVisibleColumns"];
         _selectedColumn = -1;
 
         _allowsMultipleSelection = (flags & 0x80000000) ? YES : NO;
@@ -299,9 +299,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     column -= [self firstVisibleColumn];
 
-    result.size.width =
-        ([self bounds].size.width - (_numberOfVisibleColumns - 1) * columnGap) /
-        _numberOfVisibleColumns;
+    result.size.width = ([self bounds].size.width -
+                         (_numberOfVisibleColumns - 1) * columnGap) /
+                        _numberOfVisibleColumns;
     result.size.height = [self titleHeight];
     result.origin.x = column * (result.size.width + columnGap);
     result.origin.y = [self bounds].size.height - result.size.height;
@@ -354,11 +354,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setDelegate: delegate {
     // check delegate validity
     if (![delegate respondsToSelector: @selector(browser:
-                                           createRowsForColumn:inMatrix:)])
+                                               createRowsForColumn:inMatrix:)])
         if (![delegate respondsToSelector: @selector(browser:
-                                               numberOfRowsInColumn:)] &&
-            ![delegate respondsToSelector: @selector(browser:
-                                               willDisplayCell:atRow:column:)])
+                                                   numberOfRowsInColumn:)] &&
+            ![delegate respondsToSelector: @selector
+                       (browser:willDisplayCell:atRow:column:)])
             [NSException raise: NSInternalInconsistencyException
                         format: @"-[NSBrowser setDelegate:] doesn't implement "
                                 @"delegate methods"];
@@ -396,7 +396,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if (flag) {
         if (_horizontalScroller == nil) {
             _horizontalScroller =
-                [[NSScroller alloc] initWithFrame: [self frameOfScroller]];
+                    [[NSScroller alloc] initWithFrame: [self frameOfScroller]];
             [_horizontalScroller setTarget: self];
             [_horizontalScroller setAction: @selector(scrollViaScroller:)];
         }
@@ -569,7 +569,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     while ([_matrices count] <= column) {
         NSRect frame = [self frameOfInsideOfColumn: column];
         NSMatrix *matrix =
-            [[[_matrixClass alloc] initWithFrame: frame] autorelease];
+                [[[_matrixClass alloc] initWithFrame: frame] autorelease];
 
         [matrix setTarget: self];
         [matrix setAction: @selector(doClick:)];
@@ -600,14 +600,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (column >= [self firstVisibleColumn] &&
         column <= [self lastVisibleColumn]) {
-        NSScrollView *scrollView =
-            [_scrollViews objectAtIndex: column - [self firstVisibleColumn]];
+        NSScrollView *scrollView = [_scrollViews
+                objectAtIndex: column - [self firstVisibleColumn]];
 
         [scrollView setDocumentView: [_matrices objectAtIndex: column]];
+        [scrollView setLineScroll: [[_matrices objectAtIndex: column] cellSize]
+                                           .height];
         [scrollView
-            setLineScroll: [[_matrices objectAtIndex: column] cellSize].height];
-        [scrollView
-            setPageScroll: [[scrollView contentView] frame].size.height];
+                setPageScroll: [[scrollView contentView] frame].size.height];
     }
 
     [self updateScroller];
@@ -625,7 +625,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [matrix renewRows: 0 columns: 1];
 
     if ([_delegate respondsToSelector: @selector(browser:
-                                           createRowsForColumn:inMatrix:)])
+                                               createRowsForColumn:inMatrix:)])
         [_delegate browser: self createRowsForColumn: column inMatrix: matrix];
     else {
         NSInteger nrows = [_delegate browser: self
@@ -636,9 +636,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         for (i = 0; i < nrows; i++) {
             [_delegate browser: self
-                willDisplayCell: [matrix cellAtRow: i column: 0]
-                          atRow: i
-                         column: column];
+                    willDisplayCell: [matrix cellAtRow: i column: 0]
+                              atRow: i
+                             column: column];
         }
     }
 
@@ -655,8 +655,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         title = [_delegate browser: self titleOfColumn: column];
     else if (_takesTitleFromPreviousColumn) {
         if (column > 0) {
-            title =
-                [[[self matrixInColumn: column - 1] selectedCell] stringValue];
+            title = [[[self matrixInColumn: column - 1] selectedCell]
+                    stringValue];
         }
     }
 
@@ -716,10 +716,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     for (i = _firstVisibleColumn;
          i <= [self lastVisibleColumn] && i < [_matrices count]; i++) {
         NSView *matrix =
-            (i < [_matrices count]) ? [_matrices objectAtIndex: i] : nil;
+                (i < [_matrices count]) ? [_matrices objectAtIndex: i] : nil;
 
         [[_scrollViews objectAtIndex: scrollViewIndex++]
-            setDocumentView: matrix];
+                setDocumentView: matrix];
     }
 
     [self updateScroller];
@@ -741,7 +741,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     scrollViewIndex = [_scrollViews count] - 1;
     for (i = [self lastVisibleColumn]; i >= _firstVisibleColumn; --i) {
         [[_scrollViews objectAtIndex: scrollViewIndex--]
-            setDocumentView: [_matrices objectAtIndex: i]];
+                setDocumentView: [_matrices objectAtIndex: i]];
     }
 
     [self updateScroller];
@@ -794,7 +794,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         CGFloat val = (CGFloat) _firstVisibleColumn /
                       (CGFloat)([_matrices count] - _numberOfVisibleColumns);
         CGFloat knobP =
-            (CGFloat) _numberOfVisibleColumns / (CGFloat)[_matrices count];
+                (CGFloat) _numberOfVisibleColumns / (CGFloat)[_matrices count];
 
         [_horizontalScroller setFloatValue: val knobProportion: knobP];
         [_horizontalScroller setEnabled: YES];
@@ -820,7 +820,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSInteger column = _firstVisibleColumn + [_scrollViews count];
         NSRect frame = [self frameOfColumn: column];
         NSScrollView *view =
-            [[[NSScrollView alloc] initWithFrame: frame] autorelease];
+                [[[NSScrollView alloc] initWithFrame: frame] autorelease];
 
         [view setBorderType: NSBezelBorder];
         [view setHasVerticalScroller: YES];
@@ -882,10 +882,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
     if ([self hasHorizontalScroller])
-        [[self graphicsStyle]
-            drawBrowserHorizontalScrollerWellInRect: [self
-                                                         frameOfScrollerBorder]
-                                           clipRect: rect];
+        [[self graphicsStyle] drawBrowserHorizontalScrollerWellInRect:
+                                      [self frameOfScrollerBorder]
+                                                             clipRect: rect];
 }
 
 - (void) resizeSubviewsWithOldSize: (NSSize) oldSize {
@@ -951,9 +950,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) moveRight: sender {
     if (![[self selectedCell] isLeaf]) {
-        [self
-            selectRow: 0
-             inColumn: _selectedColumn + 1]; // nb this changes _selectedColumn
+        [self selectRow: 0
+                inColumn: _selectedColumn +
+                          1]; // nb this changes _selectedColumn
         [self doClick: [self matrixInColumn: _selectedColumn]];
     }
 }

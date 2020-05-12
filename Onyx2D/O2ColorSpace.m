@@ -26,30 +26,30 @@ const CFStringRef kO2ColorSpaceGenericGray = CFSTR("kCGColorSpaceGenericGray");
 const CFStringRef kO2ColorSpaceGenericRGB = CFSTR("kCGColorSpaceGenericRGB");
 const CFStringRef kO2ColorSpaceGenericCMYK = CFSTR("kCGColorSpaceGenericCMYK");
 const CFStringRef kO2ColorSpaceGenericRGBLinear =
-    CFSTR("kCGColorSpaceGenericRGBLinear");
+        CFSTR("kCGColorSpaceGenericRGBLinear");
 const CFStringRef kO2ColorSpaceAdobeRGB1998 =
-    CFSTR("kCGColorSpaceAdobeRGB1998");
+        CFSTR("kCGColorSpaceAdobeRGB1998");
 const CFStringRef kO2ColorSpaceSRGB = CFSTR("kCGColorSpaceSRGB");
 const CFStringRef kO2ColorSpaceGenericGrayGamma2_2 =
-    CFSTR("kCGColorSpaceGenericGrayGamma2_2");
+        CFSTR("kCGColorSpaceGenericGrayGamma2_2");
 const CFStringRef kO2ColorSpaceGenericXYZ = CFSTR("kCGColorSpaceGenericXYZ");
 const CFStringRef kO2ColorSpaceGenericLab = CFSTR("kCGColorSpaceGenericLab");
 const CFStringRef kO2ColorSpaceACESCGLinear =
-    CFSTR("kCGColorSpaceACESCGLinear");
+        CFSTR("kCGColorSpaceACESCGLinear");
 const CFStringRef kO2ColorSpaceITUR_709 = CFSTR("kCGColorSpaceITUR_709");
 const CFStringRef kO2ColorSpaceITUR_2020 = CFSTR("kCGColorSpaceITUR_2020");
 const CFStringRef kO2ColorSpaceROMMRGB = CFSTR("kCGColorSpaceROMMRGB");
 const CFStringRef kO2ColorSpaceDCIP3 = CFSTR("kCGColorSpaceDCIP3");
 const CFStringRef kO2ColorSpaceExtendedSRGB =
-    CFSTR("kCGColorSpaceExtendedSRGB");
+        CFSTR("kCGColorSpaceExtendedSRGB");
 const CFStringRef kO2ColorSpaceLinearSRGB = CFSTR("kCGColorSpaceLinearSRGB");
 const CFStringRef kO2ColorSpaceExtendedLinearSRGB =
-    CFSTR("kCGColorSpaceExtendedLinearSRGB");
+        CFSTR("kCGColorSpaceExtendedLinearSRGB");
 const CFStringRef kO2ColorSpaceExtendedGray =
-    CFSTR("kCGColorSpaceExtendedGray");
+        CFSTR("kCGColorSpaceExtendedGray");
 const CFStringRef kO2ColorSpaceLinearGray = CFSTR("kCGColorSpaceLinearGray");
 const CFStringRef kO2ColorSpaceExtendedLinearGray =
-    CFSTR("kCGColorSpaceExtendedLinearGray");
+        CFSTR("kCGColorSpaceExtendedLinearGray");
 
 @implementation O2ColorSpace
 
@@ -188,7 +188,7 @@ O2ColorSpaceModel O2ColorSpaceGetModel(O2ColorSpaceRef self) {
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@: %p, type=%d>", [self class], self, _type];
+            stringWithFormat: @"<%@: %p, type=%d>", [self class], self, _type];
 }
 
 @end
@@ -199,8 +199,8 @@ O2ColorSpaceModel O2ColorSpaceGetModel(O2ColorSpaceRef self) {
                hival: (size_t) hival
                bytes: (const unsigned char *) bytes
 {
-    size_t i,
-        max = O2ColorSpaceGetNumberOfComponents(baseColorSpace) * (hival + 1);
+    size_t i, max = O2ColorSpaceGetNumberOfComponents(baseColorSpace) *
+                    (hival + 1);
 
     _type = kO2ColorSpaceModelIndexed;
     _base = [baseColorSpace retain];

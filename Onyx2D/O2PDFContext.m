@@ -52,15 +52,15 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 }
 
 - initWithConsumer: (O2DataConsumer *) consumer
-          mediaBox: (const O2Rect *) mediaBox
-     auxiliaryInfo: (NSDictionary *) auxiliaryInfo
+             mediaBox: (const O2Rect *) mediaBox
+        auxiliaryInfo: (NSDictionary *) auxiliaryInfo
 {
     [super init];
 
     _dataConsumer = [consumer retain];
     _fontCache = [NSMutableDictionary new];
-    _objectToRef =
-        NSCreateMapTable(NSObjectMapKeyCallBacks, NSObjectMapValueCallBacks, 0);
+    _objectToRef = NSCreateMapTable(NSObjectMapKeyCallBacks,
+                                    NSObjectMapValueCallBacks, 0);
     _indirectObjects = [NSMutableArray new];
     _indirectEntries = [NSMutableArray new];
     _nextNumber = 1;
@@ -70,19 +70,19 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
     [self appendCString: "%PDF-1.3\n"];
 
     _info = [[O2PDFDictionary pdfDictionary] retain];
-    [_info
-        setObjectForKey: "Author"
-                  value: [O2PDFString pdfObjectWithString: NSFullUserName()]];
-    [_info
-        setObjectForKey: "Creator"
-                  value: [O2PDFString
-                             pdfObjectWithString: [[NSProcessInfo processInfo]
-                                                      processName]]];
-    [_info setObjectForKey: "Producer"
+    [_info setObjectForKey: "Author"
                      value: [O2PDFString
-                                pdfObjectWithCString:
-                                    "THE COCOTRON http://www.cocotron.org "
-                                    "O2PDFContext"]];
+                                    pdfObjectWithString: NSFullUserName()]];
+    [_info setObjectForKey: "Creator"
+                     value: [O2PDFString
+                                    pdfObjectWithString: [[NSProcessInfo
+                                                                 processInfo]
+                                                                 processName]]];
+    [_info setObjectForKey: "Producer"
+                     value: [O2PDFString pdfObjectWithCString:
+                                                 "THE COCOTRON "
+                                                 "http://www.cocotron.org "
+                                                 "O2PDFContext"]];
     [[_xref trailer] setObjectForKey: "Info" value: _info];
 
     _catalog = [[O2PDFDictionary pdfDictionary] retain];
@@ -229,9 +229,9 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 
     if (result == nil) {
         O2PDFxrefEntry *entry =
-            [O2PDFxrefEntry xrefEntryWithPosition: 0
-                                           number: _nextNumber
-                                       generation: 0];
+                [O2PDFxrefEntry xrefEntryWithPosition: 0
+                                               number: _nextNumber
+                                           generation: 0];
 
         result = [O2PDFObject_R pdfObjectWithNumber: _nextNumber
                                          generation: 0
@@ -289,19 +289,19 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
     [self appendPDFStringWithBytes: bytes
                             length: length
                           toObject: [[_contentStreamStack lastObject]
-                                        mutableData]];
+                                            mutableData]];
 }
 
 - (O2PDFObject *) referenceForFontWithName: (NSString *) name
                                       size: (O2Float) size
 {
     return [(NSDictionary *) [_fontCache objectForKey: name]
-        objectForKey: [NSNumber numberWithFloat: size]];
+            objectForKey: [NSNumber numberWithFloat: size]];
 }
 
 - (void) setReference: (O2PDFObject *) reference
-      forFontWithName: (NSString *) name
-                 size: (O2Float) size
+        forFontWithName: (NSString *) name
+                   size: (O2Float) size
 {
     NSMutableDictionary *sizes = [_fontCache objectForKey: name];
 
@@ -336,8 +336,9 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
     next = [NSNumber numberWithInt: (next == nil) ? 0 : [next intValue] + 1];
     [_categoryToNext setObject: next forKey: key];
 
-    const char *objectName = [[NSString
-        stringWithFormat: @"%s%d", categoryName, [next intValue]] UTF8String];
+    const char *objectName =
+            [[NSString stringWithFormat: @"%s%d", categoryName, [next intValue]]
+                    UTF8String];
     [category setObjectForKey: objectName value: pdfObject];
 
     return [O2PDFObject_Name pdfObjectWithCString: objectName];
@@ -349,21 +350,21 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
     const O2Point *points = O2PathPoints(path);
     NSInteger pi = 0;
     O2AffineTransform invertUserSpaceTransform = O2AffineTransformInvert(
-        O2GStateUserSpaceTransform(O2ContextCurrentGState(self)));
+            O2GStateUserSpaceTransform(O2ContextCurrentGState(self)));
 
     for (i = 0; i < numberOfElements; i++) {
         switch (elements[i]) {
 
         case kO2PathElementMoveToPoint: {
             O2Point point = O2PointApplyAffineTransform(
-                points[pi++], invertUserSpaceTransform);
+                    points[pi++], invertUserSpaceTransform);
 
             [self contentWithFormat: @"%g %g m ", point.x, point.y];
         } break;
 
         case kO2PathElementAddLineToPoint: {
             O2Point point = O2PointApplyAffineTransform(
-                points[pi++], invertUserSpaceTransform);
+                    points[pi++], invertUserSpaceTransform);
 
             [self contentWithFormat: @"%g %g l ", point.x, point.y];
         } break;
@@ -374,8 +375,8 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
             O2Point end = O2PointApplyAffineTransform(points[pi++],
                                                       invertUserSpaceTransform);
 
-            [self
-                contentWithFormat: @"%g %g %g %g v ", c1.x, c1.y, end.x, end.y];
+            [self contentWithFormat: @"%g %g %g %g v ", c1.x, c1.y, end.x,
+                                     end.y];
         } break;
 
         case kO2PathElementAddCurveToPoint: {
@@ -585,8 +586,8 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 
     O2GState *state = O2ContextCurrentGState(self);
     O2PDFObject *pdfObject = [O2GStateFont(state)
-        encodeReferenceWithContext: self
-                              size: O2GStatePointSize(state)];
+            encodeReferenceWithContext: self
+                                  size: O2GStatePointSize(state)];
     O2PDFObject *name = [self nameForResource: pdfObject inCategory: "Font"];
 
     [self contentWithFormat: @"%@ %g Tf ", name,
@@ -683,7 +684,7 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
     for (i = 0; i < [_indirectObjects count];
          i++) { // do not cache 'count', can grow during encoding
         O2PDFObject *object =
-            [[[_indirectObjects objectAtIndex: i] retain] autorelease];
+                [[[_indirectObjects objectAtIndex: i] retain] autorelease];
         if (![array containsObject: object]) {
             O2PDFxrefEntry *entry = [_indirectEntries objectAtIndex: i];
             [_indirectObjects replaceObjectAtIndex: i

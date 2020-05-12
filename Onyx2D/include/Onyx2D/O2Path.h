@@ -53,9 +53,9 @@ typedef void (*O2PathApplierFunction)(void *info, const O2PathElement *element);
 }
 
 - initWithOperators: (unsigned char *) elements
-    numberOfElements: (size_t) numberOfElements
-              points: (O2Point *) points
-      numberOfPoints: (size_t) numberOfPoints;
+        numberOfElements: (size_t) numberOfElements
+                  points: (O2Point *) points
+          numberOfPoints: (size_t) numberOfPoints;
 
 // internal
 id O2PathInitWithOperators(O2Path *self, unsigned char *elements,

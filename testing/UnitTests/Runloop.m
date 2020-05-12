@@ -50,7 +50,7 @@
     while (![self isCancelled]) {
         id pool2 = [NSAutoreleasePool new];
         [runLoop runMode: NSDefaultRunLoopMode
-              beforeDate: [NSDate distantFuture]];
+                beforeDate: [NSDate distantFuture]];
         __sync_add_and_fetch(&_loopCount, 1);
         [pool2 drain];
     }

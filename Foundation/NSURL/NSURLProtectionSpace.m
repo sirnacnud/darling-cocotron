@@ -22,10 +22,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSURLProtectionSpace
 
 - initWithHost: (NSString *) host
-                    port: (int) port
-                protocol: (NSString *) protocol
-                   realm: (NSString *) realm
-    authenticationMethod: (NSString *) authenticationMethod
+                        port: (int) port
+                    protocol: (NSString *) protocol
+                       realm: (NSString *) realm
+        authenticationMethod: (NSString *) authenticationMethod
 {
     _host = [host copy];
     _port = port;
@@ -37,10 +37,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithProxyHost: (NSString *) host
-                    port: (int) port
-                protocol: (NSString *) protocol
-                   realm: (NSString *) realm
-    authenticationMethod: (NSString *) authenticationMethod
+                        port: (int) port
+                    protocol: (NSString *) protocol
+                       realm: (NSString *) realm
+        authenticationMethod: (NSString *) authenticationMethod
 {
     _host = [host copy];
     _port = port;

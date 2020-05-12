@@ -42,7 +42,7 @@
 
     while (_arrayCursor < CFArrayGetCount(_array)) {
         SecKeychainRef keychain =
-            (id) CFArrayGetValueAtIndex(_array, _arrayCursor);
+                (id) CFArrayGetValueAtIndex(_array, _arrayCursor);
         ("%s %d", __FUNCTION__, __LINE__);
 
         if (_keychainCursor == nil)

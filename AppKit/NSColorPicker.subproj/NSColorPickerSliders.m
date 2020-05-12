@@ -87,10 +87,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         color = [color colorUsingColorSpaceName: NSDeviceCMYKColorSpace];
         [color getCyan: &cyan
-               magenta: &magenta
-                yellow: &yellow
-                 black: &black
-                 alpha: &alpha];
+                magenta: &magenta
+                 yellow: &yellow
+                  black: &black
+                  alpha: &alpha];
 
         [_cyanSlider setIntValue: cyan * 100];
         [_magentaSlider setIntValue: magenta * 100];
@@ -111,9 +111,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         color = [color colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
         [color getHue: &hue
-            saturation: &saturation
-            brightness: &brightness
-                 alpha: &alpha];
+                saturation: &saturation
+                brightness: &brightness
+                     alpha: &alpha];
 
         [_hueSlider setIntValue: hue * 359];
         [_saturationSlider setIntValue: saturation * 100];
@@ -193,9 +193,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [greyscaleSlider setIntValue: intValue];
 
     [[self colorPanel]
-        setColor: [NSColor
-                      colorWithCalibratedWhite: intValue / 100.0
-                                         alpha: [[self colorPanel] alpha]]];
+            setColor: [NSColor colorWithCalibratedWhite: intValue / 100.0
+                                                  alpha: [[self colorPanel]
+                                                                 alpha]]];
 }
 
 - (void) grayscaleConstant: sender {
@@ -223,10 +223,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [[rgbTextFieldMatrix cellAtRow: 2 column: 0] setIntValue: [blue intValue]];
 
     [[self colorPanel]
-        setColor: [NSColor colorWithCalibratedRed: [red doubleValue] / 255.0
-                                            green: [green doubleValue] / 255.0
-                                             blue: [blue doubleValue] / 255.0
-                                            alpha: [[self colorPanel] alpha]]];
+            setColor: [NSColor
+                              colorWithCalibratedRed: [red doubleValue] / 255.0
+                                               green: [green doubleValue] /
+                                                      255.0
+                                                blue: [blue doubleValue] / 255.0
+                                               alpha: [[self colorPanel]
+                                                              alpha]]];
 }
 
 - (void) rgbSliderChanged: sender {
@@ -254,11 +257,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_blackSlider setIntValue: [black intValue]];
 
     [[self colorPanel]
-        setColor: [NSColor colorWithDeviceCyan: [cyan doubleValue] / 100.0
-                                       magenta: [magenta doubleValue] / 100.0
-                                        yellow: [yellow doubleValue] / 100.0
-                                         black: [black doubleValue] / 100.0
-                                         alpha: [[self colorPanel] alpha]]];
+            setColor: [NSColor
+                              colorWithDeviceCyan: [cyan doubleValue] / 100.0
+                                          magenta: [magenta doubleValue] / 100.0
+                                           yellow: [yellow doubleValue] / 100.0
+                                            black: [black doubleValue] / 100.0
+                                            alpha: [[self colorPanel] alpha]]];
 }
 
 - (void) cmykSliderChanged: sender {
@@ -287,23 +291,26 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_brightnessSlider setIntValue: [brightness intValue]];
 
     [[self colorPanel]
-        setColor: [NSColor
-                      colorWithCalibratedHue: [hue doubleValue] / 359.0
-                                  saturation: [saturation doubleValue] / 100.0
-                                  brightness: [brightness doubleValue] / 100.0
-                                       alpha: [[self colorPanel] alpha]]];
+            setColor: [NSColor
+                              colorWithCalibratedHue: [hue doubleValue] / 359.0
+                                          saturation: [saturation doubleValue] /
+                                                      100.0
+                                          brightness: [brightness doubleValue] /
+                                                      100.0
+                                               alpha: [[self colorPanel]
+                                                              alpha]]];
 }
 
 - (void) hsbSliderChanged: sender {
     [self _updateHue: _hueSlider
-          saturation: _saturationSlider
-          brightness: _brightnessSlider];
+            saturation: _saturationSlider
+            brightness: _brightnessSlider];
 }
 
 - (void) hsbTextChanged: sender {
     [self _updateHue: [hsbTextFieldMatrix cellAtRow: 0 column: 0]
-          saturation: [hsbTextFieldMatrix cellAtRow: 1 column: 0]
-          brightness: [hsbTextFieldMatrix cellAtRow: 2 column: 0]];
+            saturation: [hsbTextFieldMatrix cellAtRow: 1 column: 0]
+            brightness: [hsbTextFieldMatrix cellAtRow: 2 column: 0]];
 }
 
 @end

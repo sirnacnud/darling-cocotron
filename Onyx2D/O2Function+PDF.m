@@ -30,21 +30,21 @@
 
     [dictionary setIntegerForKey: "FunctionType" value: 0];
     [dictionary
-        setObjectForKey: "Domain"
-                  value: [O2PDFArray pdfArrayWithNumbers: _domain
-                                                   count: _domainCount]];
+            setObjectForKey: "Domain"
+                      value: [O2PDFArray pdfArrayWithNumbers: _domain
+                                                       count: _domainCount]];
     [dictionary setObjectForKey: "Range"
                           value: [O2PDFArray pdfArrayWithNumbers: _range
                                                            count: _rangeCount]];
     [dictionary
-        setObjectForKey: "Size"
-                  value: [O2PDFArray pdfArrayWithIntegers: &numberOfSamples
-                                                    count: 1]];
+            setObjectForKey: "Size"
+                      value: [O2PDFArray pdfArrayWithIntegers: &numberOfSamples
+                                                        count: 1]];
     [dictionary setIntegerForKey: "BitsPerSample" value: 8];
     [dictionary setIntegerForKey: "Order" value: 1];
     for (i = 0; i < numberOfSamples; i++) {
         O2Float x = _domain[0] + ((O2Float) i / (O2Float) numberOfSamples) *
-                                     (_domain[1] - _domain[0]);
+                                         (_domain[1] - _domain[0]);
         O2Float output[numberOfChannels];
         int j;
 
@@ -52,9 +52,9 @@
 
         for (j = 0; j < numberOfChannels; j++) {
             samples[i * numberOfChannels + j] =
-                ((output[j] - _range[j * 2]) /
-                 (_range[j * 2 + 1] - _range[j * 2])) *
-                255;
+                    ((output[j] - _range[j * 2]) /
+                     (_range[j * 2 + 1] - _range[j * 2])) *
+                    255;
         }
     }
     [[result mutableData] appendBytes: samples
@@ -131,7 +131,7 @@
             }
 
             if ((subfn = [O2Function
-                     createFunctionWithDictionary: subfnDictionary]) == nil)
+                         createFunctionWithDictionary: subfnDictionary]) == nil)
                 return nil;
 
             [functions addObject: subfn];
@@ -142,12 +142,12 @@
         if (![dictionary getArrayForKey: "Encode" value: &encode])
             return nil;
 
-        return
-            [[[O2PDFFunction_Type3 alloc] initWithDomain: domain
-                                                   range: range
-                                               functions: functions
-                                                  bounds: bounds
-                                                  encode: encode] autorelease];
+        return [[[O2PDFFunction_Type3 alloc] initWithDomain: domain
+                                                      range: range
+                                                  functions: functions
+                                                     bounds: bounds
+                                                     encode: encode]
+                autorelease];
     } else if (type == 4) {
         NSLog(@"PostScript calculator functions unimplemented");
         return nil;
@@ -197,9 +197,9 @@
 
         [dictionary getIntegerForKey: "Order" value: &order];
         if (order == 3)
-            O2PDFFix(
-                __FILE__, __LINE__,
-                @"Cubic spline interpolation unimplemented in Type0 functions");
+            O2PDFFix(__FILE__, __LINE__,
+                     @"Cubic spline interpolation unimplemented in Type0 "
+                     @"functions");
 
         [dictionary getArrayForKey: "Encode" value: &encode];
         [dictionary getArrayForKey: "Decode" value: &decode];

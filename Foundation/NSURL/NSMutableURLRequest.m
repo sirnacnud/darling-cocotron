@@ -90,7 +90,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     existing = [_headerFields objectForKey: field];
     if (existing != nil)
         value = [[existing stringByAppendingString: @","]
-            stringByAppendingString: value];
+                stringByAppendingString: value];
 
     [_headerFields setObject: value forKey: field];
 }

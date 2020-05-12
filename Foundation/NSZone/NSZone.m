@@ -48,8 +48,8 @@ NSUInteger NSExtraRefCount(id object) {
 BOOL NSShouldRetainWithZone(id object, NSZone *zone) {
     return (zone == NULL || zone == NSDefaultMallocZone() ||
             zone == [object zone])
-               ? YES
-               : NO;
+                   ? YES
+                   : NO;
 }
 
 static void (*__NSAllocateObjectHook)(id object) = 0;

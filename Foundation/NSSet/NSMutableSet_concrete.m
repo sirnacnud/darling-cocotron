@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSSet *NSMutableSet_concreteNew(NSZone *zone, NSUInteger capacity) {
     NSMutableSet_concrete *self =
-        NSAllocateObject([NSMutableSet_concrete class], 0, zone);
+            NSAllocateObject([NSMutableSet_concrete class], 0, zone);
     if (self) {
         NSSetTableInit(&(self->_table), capacity, zone);
     }
@@ -37,7 +37,7 @@ NSSet *NSMutableSet_concreteNewWithObjects(NSZone *zone, id *objects,
                                            NSUInteger count)
 {
     NSMutableSet_concrete *self =
-        NSAllocateObject([NSMutableSet_concrete class], 0, zone);
+            NSAllocateObject([NSMutableSet_concrete class], 0, zone);
     if (self) {
         NSUInteger i;
 

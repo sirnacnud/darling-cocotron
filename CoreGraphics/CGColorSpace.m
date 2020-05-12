@@ -25,30 +25,30 @@ const CFStringRef kCGColorSpaceGenericGray = CFSTR("kCGColorSpaceGenericGray");
 const CFStringRef kCGColorSpaceGenericRGB = CFSTR("kCGColorSpaceGenericRGB");
 const CFStringRef kCGColorSpaceGenericCMYK = CFSTR("kCGColorSpaceGenericCMYK");
 const CFStringRef kCGColorSpaceGenericRGBLinear =
-    CFSTR("kCGColorSpaceGenericRGBLinear");
+        CFSTR("kCGColorSpaceGenericRGBLinear");
 const CFStringRef kCGColorSpaceAdobeRGB1998 =
-    CFSTR("kCGColorSpaceAdobeRGB1998");
+        CFSTR("kCGColorSpaceAdobeRGB1998");
 const CFStringRef kCGColorSpaceSRGB = CFSTR("kCGColorSpaceSRGB");
 const CFStringRef kCGColorSpaceGenericGrayGamma2_2 =
-    CFSTR("kCGColorSpaceGenericGrayGamma2_2");
+        CFSTR("kCGColorSpaceGenericGrayGamma2_2");
 const CFStringRef kCGColorSpaceGenericXYZ = CFSTR("kCGColorSpaceGenericXYZ");
 const CFStringRef kCGColorSpaceGenericLab = CFSTR("kCGColorSpaceGenericLab");
 const CFStringRef kCGColorSpaceACESCGLinear =
-    CFSTR("kCGColorSpaceACESCGLinear");
+        CFSTR("kCGColorSpaceACESCGLinear");
 const CFStringRef kCGColorSpaceITUR_709 = CFSTR("kCGColorSpaceITUR_709");
 const CFStringRef kCGColorSpaceITUR_2020 = CFSTR("kCGColorSpaceITUR_2020");
 const CFStringRef kCGColorSpaceROMMRGB = CFSTR("kCGColorSpaceROMMRGB");
 const CFStringRef kCGColorSpaceDCIP3 = CFSTR("kCGColorSpaceDCIP3");
 const CFStringRef kCGColorSpaceExtendedSRGB =
-    CFSTR("kCGColorSpaceExtendedSRGB");
+        CFSTR("kCGColorSpaceExtendedSRGB");
 const CFStringRef kCGColorSpaceLinearSRGB = CFSTR("kCGColorSpaceLinearSRGB");
 const CFStringRef kCGColorSpaceExtendedLinearSRGB =
-    CFSTR("kCGColorSpaceExtendedLinearSRGB");
+        CFSTR("kCGColorSpaceExtendedLinearSRGB");
 const CFStringRef kCGColorSpaceExtendedGray =
-    CFSTR("kCGColorSpaceExtendedGray");
+        CFSTR("kCGColorSpaceExtendedGray");
 const CFStringRef kCGColorSpaceLinearGray = CFSTR("kCGColorSpaceLinearGray");
 const CFStringRef kCGColorSpaceExtendedLinearGray =
-    CFSTR("kCGColorSpaceExtendedLinearGray");
+        CFSTR("kCGColorSpaceExtendedLinearGray");
 
 CGColorSpaceRef CGColorSpaceRetain(CGColorSpaceRef colorSpace) {
     return O2ColorSpaceRetain(colorSpace);

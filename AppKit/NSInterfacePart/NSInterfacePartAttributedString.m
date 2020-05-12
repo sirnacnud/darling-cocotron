@@ -32,8 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSString *string = [NSString stringWithCharacters: &character length: 1];
     NSFont *font = [NSFont fontWithName: fontName size: pointSize];
     NSDictionary *attributes = [NSDictionary
-        dictionaryWithObjectsAndKeys: font, NSFontAttributeName, color,
-                                      NSForegroundColorAttributeName, nil];
+            dictionaryWithObjectsAndKeys: font, NSFontAttributeName, color,
+                                          NSForegroundColorAttributeName, nil];
 
     _attributedString = [[NSAttributedString alloc] initWithString: string
                                                         attributes: attributes];

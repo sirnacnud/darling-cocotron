@@ -37,9 +37,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) getCString: (char *) buffer
-          maxLength: (NSUInteger) maxLength
-              range: (NSRange) range
-     remainingRange: (NSRange *) leftoverRange
+             maxLength: (NSUInteger) maxLength
+                 range: (NSRange) range
+        remainingRange: (NSRange *) leftoverRange
 {
     NSInteger i, rloc;
 
@@ -64,8 +64,8 @@ NSString *NSNEXTSTEPCStringNewWithBytes(NSZone *zone, const char *bytes,
                                         NSUInteger length)
 {
     NSString_nextstepCString *self =
-        NSAllocateObject(objc_lookUpClass("NSString_nextstepCString"),
-                         length * sizeof(char), zone);
+            NSAllocateObject(objc_lookUpClass("NSString_nextstepCString"),
+                             length * sizeof(char), zone);
 
     if (self) {
         self->_length = length;
@@ -85,8 +85,8 @@ NSString *NSNEXTSTEPCStringNewWithCharacters(NSZone *zone,
     NSUInteger bytesLength;
     char *bytes;
 
-    bytes =
-        NSUnicodeToNEXTSTEP(characters, length, lossy, &bytesLength, zone, NO);
+    bytes = NSUnicodeToNEXTSTEP(characters, length, lossy, &bytesLength, zone,
+                                NO);
 
     if (bytes == NULL)
         string = nil;
@@ -102,8 +102,8 @@ NSString *NSNEXTSTEPCStringNewWithCapacity(NSZone *zone, NSUInteger capacity,
                                            char **ptr)
 {
     NSString_nextstepCString *self =
-        NSAllocateObject(objc_lookUpClass("NSString_nextstepCString"),
-                         capacity * sizeof(char), zone);
+            NSAllocateObject(objc_lookUpClass("NSString_nextstepCString"),
+                             capacity * sizeof(char), zone);
 
     if (self) {
         self->_length = capacity;

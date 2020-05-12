@@ -4,6 +4,6 @@
 
 @interface NSManagedObjectContext (private)
 - (NSAtomicStoreCacheNode *) _cacheNodeForObjectID:
-    (NSManagedObjectID *) objectID;
+        (NSManagedObjectID *) objectID;
 - (void) _registerObject: (NSManagedObject *) object;
 @end

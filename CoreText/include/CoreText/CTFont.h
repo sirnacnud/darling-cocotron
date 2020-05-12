@@ -54,10 +54,10 @@ typedef enum {
 CF_IMPLICIT_BRIDGING_ENABLED
 
 CORETEXT_EXPORT CTFontRef CTFontCreateWithGraphicsFont(
-    CGFontRef cgFont, CGFloat size, CGAffineTransform *xform,
-    /* CTFontDescriptorRef */ void *attributes);
+        CGFontRef cgFont, CGFloat size, CGAffineTransform *xform,
+        /* CTFontDescriptorRef */ void *attributes);
 CORETEXT_EXPORT CTFontRef CTFontCreateUIFontForLanguage(
-    CTFontUIFontType uiFontType, CGFloat size, CFStringRef language);
+        CTFontUIFontType uiFontType, CGFloat size, CFStringRef language);
 CORETEXT_EXPORT CFStringRef CTFontCopyFullName(CTFontRef self);
 CORETEXT_EXPORT CGFloat CTFontGetSize(CTFontRef self);
 CORETEXT_EXPORT size_t CTFontGetGlyphCount(CTFontRef self);

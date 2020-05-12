@@ -55,7 +55,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _numberOfTickMarks = [keyed decodeIntForKey: @"NSNumberOfTickMarks"];
         _tickMarkPosition = [keyed decodeIntForKey: @"NSTickMarkPosition"];
         _allowsTickMarkValuesOnly =
-            [keyed decodeBoolForKey: @"NSAllowsTickMarkValuesOnly"];
+                [keyed decodeBoolForKey: @"NSAllowsTickMarkValuesOnly"];
     } else {
         NSInteger version = [coder versionForClassName: @"NSSliderCell"];
         double value;
@@ -119,8 +119,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             [coder decodeValuesOfObjCTypes: "dddf@", &_maxValue, _minValue,
                                             &value, &f1, &obj];
         } else {
-            [coder
-                decodeValuesOfObjCTypes: "ddd", &_maxValue, _minValue, &value];
+            [coder decodeValuesOfObjCTypes: "ddd", &_maxValue, _minValue,
+                                            &value];
             [self setTitle: @""];
             _altIncrementValue = 0;
         }
@@ -250,9 +250,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (double) tickMarkValueAtIndex: (NSInteger) index {
     double scale =
-        (_numberOfTickMarks == 1)
-            ? 0.5
-            : (((double) index) / ((double) (_numberOfTickMarks - 1)));
+            (_numberOfTickMarks == 1)
+                    ? 0.5
+                    : (((double) index) / ((double) (_numberOfTickMarks - 1)));
 
     return _minValue + (_maxValue - _minValue) * scale;
 }
@@ -282,11 +282,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSRect) rectOfTickMarkAtIndex: (NSInteger) index {
     NSRect result;
     CGFloat length =
-        (_isVertical ? _lastRect.size.height : _lastRect.size.width) -
-        2 * PIXELINSET;
-    CGFloat position = floor((_numberOfTickMarks == 1)
-                                 ? length / 2
-                                 : index * (length / (_numberOfTickMarks - 1)));
+            (_isVertical ? _lastRect.size.height : _lastRect.size.width) -
+            2 * PIXELINSET;
+    CGFloat position =
+            floor((_numberOfTickMarks == 1)
+                          ? length / 2
+                          : index * (length / (_numberOfTickMarks - 1)));
 
     if (_isVertical) {
         result.origin.x = _lastRect.origin.x;
@@ -309,9 +310,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) drawBarInside: (NSRect) frame flipped: (BOOL) isFlipped {
     [[_controlView graphicsStyle]
-        drawSliderTrackInRect: frame
-                     vertical: [self isVertical]
-                 hasTickMarks: (_numberOfTickMarks > 0) ? YES : NO];
+            drawSliderTrackInRect: frame
+                         vertical: [self isVertical]
+                     hasTickMarks: (_numberOfTickMarks > 0) ? YES : NO];
 }
 
 - (NSRect) _sliderRect {
@@ -338,28 +339,28 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSRect sliderRect = [self _sliderRect];
     NSRect knobRect;
     NSSize knobSize = [[_controlView graphicsStyle]
-        sliderKnobSizeForControlSize: [self controlSize]];
+            sliderKnobSizeForControlSize: [self controlSize]];
 
     if ([self isVertical]) {
         knobRect.size.height = knobSize.width;
         knobRect.size.width = knobSize.height;
         knobRect.origin.x =
-            floor(sliderRect.origin.x +
-                  (sliderRect.size.width - knobSize.height) / 2);
+                floor(sliderRect.origin.x +
+                      (sliderRect.size.width - knobSize.height) / 2);
         knobRect.origin.y =
-            floor(sliderRect.origin.y + PIXELINSET +
-                  percent * (sliderRect.size.height - (PIXELINSET * 2)) -
-                  knobSize.width / 2);
+                floor(sliderRect.origin.y + PIXELINSET +
+                      percent * (sliderRect.size.height - (PIXELINSET * 2)) -
+                      knobSize.width / 2);
     } else {
         knobRect.size.width = knobSize.width;
         knobRect.size.height = knobSize.height;
         knobRect.origin.x =
-            floor(sliderRect.origin.x + PIXELINSET +
-                  percent * (sliderRect.size.width - (PIXELINSET * 2)) -
-                  knobSize.width / 2);
+                floor(sliderRect.origin.x + PIXELINSET +
+                      percent * (sliderRect.size.width - (PIXELINSET * 2)) -
+                      knobSize.width / 2);
         knobRect.origin.y =
-            floor(sliderRect.origin.y +
-                  (sliderRect.size.height - knobSize.height) / 2);
+                floor(sliderRect.origin.y +
+                      (sliderRect.size.height - knobSize.height) / 2);
     }
 
     return knobRect;
@@ -371,11 +372,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) drawKnob: (NSRect) rect {
     [[_controlView graphicsStyle]
-        drawSliderKnobInRect: rect
-                    vertical: [self isVertical]
-                 highlighted: [self isHighlighted]
-                hasTickMarks: (_numberOfTickMarks > 0) ? YES : NO
-            tickMarkPosition: _tickMarkPosition];
+            drawSliderKnobInRect: rect
+                        vertical: [self isVertical]
+                     highlighted: [self isHighlighted]
+                    hasTickMarks: (_numberOfTickMarks > 0) ? YES : NO
+                tickMarkPosition: _tickMarkPosition];
 }
 
 - (void) drawTickMarks {
@@ -400,9 +401,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     static NSGradient *gradient = nil;
     if (gradient == nil) {
         gradient = [[NSGradient alloc]
-            initWithColorsAndLocations: [NSColor whiteColor], 0,
-                                        [NSColor lightGrayColor], 0.5,
-                                        [NSColor whiteColor], 1, nil];
+                initWithColorsAndLocations: [NSColor whiteColor], 0,
+                                            [NSColor lightGrayColor], 0.5,
+                                            [NSColor whiteColor], 1, nil];
     }
     return gradient;
 }
@@ -411,10 +412,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     static NSGradient *gradient = nil;
     if (gradient == nil) {
         gradient = [[NSGradient alloc]
-            initWithColorsAndLocations: [NSColor grayColor], 0,
-                                        [NSColor clearColor], 0.3,
-                                        [NSColor clearColor], 0.7,
-                                        [NSColor grayColor], 1, nil];
+                initWithColorsAndLocations: [NSColor grayColor], 0,
+                                            [NSColor clearColor], 0.3,
+                                            [NSColor clearColor], 0.7,
+                                            [NSColor grayColor], 1, nil];
     }
     return gradient;
 }
@@ -423,10 +424,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     static NSGradient *gradient = nil;
     if (gradient == nil) {
         gradient = [[NSGradient alloc]
-            initWithColorsAndLocations: [NSColor darkGrayColor], 0,
-                                        [NSColor darkGrayColor], 0.49,
-                                        [NSColor lightGrayColor], 0.51,
-                                        [NSColor lightGrayColor], 1, nil];
+                initWithColorsAndLocations: [NSColor darkGrayColor], 0,
+                                            [NSColor darkGrayColor], 0.49,
+                                            [NSColor lightGrayColor], 0.51,
+                                            [NSColor lightGrayColor], 1, nil];
     }
     return gradient;
 }
@@ -438,7 +439,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // Square it up
     if (frame.size.width > frame.size.height) {
         sliderRect = NSInsetRect(
-            sliderRect, (frame.size.width - frame.size.height) / 2.f, 0);
+                sliderRect, (frame.size.width - frame.size.height) / 2.f, 0);
     } else {
         sliderRect = NSInsetRect(sliderRect, 0,
                                  (frame.size.height - frame.size.width) / 2.f);
@@ -619,7 +620,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
     // Get the angle and ensure it's in 0..2*PI - 0˙ is top center
     double angle = fmod(atan2(center.y - point.y, center.x - point.x) - M_PI_2 +
-                            M_PI * 2.f,
+                                M_PI * 2.f,
                         M_PI * 2.f);
 
     // Convert to degrees

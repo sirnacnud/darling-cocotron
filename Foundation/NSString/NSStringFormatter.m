@@ -40,7 +40,7 @@ static inline void prepForUse(NSStringBuffer *buffer, NSZone *zone) {
     buffer->max = 1024;
     buffer->length = 0;
     buffer->characters =
-        NSZoneMalloc(buffer->zone, sizeof(unichar) * buffer->max);
+            NSZoneMalloc(buffer->zone, sizeof(unichar) * buffer->max);
 }
 
 static inline void makeRoomForNcharacters(NSStringBuffer *buffer, NSUInteger n)
@@ -293,8 +293,8 @@ static inline void appendFloat(NSStringBuffer *buffer, double value,
         unichar characters[100];
         // copysign will give the correct result for negatve zero
         unichar sign = (copysign(1.0, value) < 0)
-                           ? '-'
-                           : plusSign ? '+' : spaceSign ? ' ' : '\0';
+                               ? '-'
+                               : plusSign ? '+' : spaceSign ? ' ' : '\0';
         NSUInteger groupingLength = [groupingSeparator length];
         unichar groupingBuffer[groupingLength];
 
@@ -335,8 +335,8 @@ static inline void appendFloat(NSStringBuffer *buffer, double value,
             if (groupingSize) {
                 if ((numberOfIntegralDigits % groupingSize) == 0) {
                     NSInteger count =
-                        groupingLength; // we append backwards because the
-                                        // string gets reversed
+                            groupingLength; // we append backwards because the
+                                            // string gets reversed
 
                     while (--count >= 0)
                         characters[length++] = groupingBuffer[count];
@@ -360,14 +360,14 @@ static inline void appendFloat(NSStringBuffer *buffer, double value,
 
             if (locale)
                 seperatorString =
-                    [locale objectForKey: NSLocaleDecimalSeparator];
+                        [locale objectForKey: NSLocaleDecimalSeparator];
             else
                 seperatorString = [[NSLocale systemLocale]
-                    objectForKey: NSLocaleDecimalSeparator];
+                        objectForKey: NSLocaleDecimalSeparator];
 
             decimalSeperator = ([seperatorString length] > 0)
-                                   ? [seperatorString characterAtIndex: 0]
-                                   : '.';
+                                       ? [seperatorString characterAtIndex: 0]
+                                       : '.';
 
             unsigned start = length;
             BOOL fractZero = YES;
@@ -375,7 +375,7 @@ static inline void appendFloat(NSStringBuffer *buffer, double value,
             for (i = 0, j = 0; i < precision; i++, j++, length++) {
                 fractional *= 10.0;
                 if ((characters[length] =
-                         (unichar) fmod(fractional, 10.0) + '0') != '0')
+                             (unichar) fmod(fractional, 10.0) + '0') != '0')
                     fractZero = NO;
                 else if (gFormat && intZero && fractZero && (j - i) < 5)
                     i--;
@@ -782,7 +782,7 @@ NSString *NSStringNewWithFormat(NSString *format, NSDictionary *locale,
     unichar *unicode;
 
     unicode =
-        NSCharactersNewWithFormat(format, locale, arguments, &length, NULL);
+            NSCharactersNewWithFormat(format, locale, arguments, &length, NULL);
 
     return NSString_unicodePtrNewNoCopy(zone, unicode, length, YES);
 }
@@ -793,7 +793,7 @@ NSString *NSStringWithFormat(NSString *format, ...) {
     va_start(arguments, format);
 
     NSString *result =
-        NSAutorelease(NSStringNewWithFormat(format, nil, arguments, NULL));
+            NSAutorelease(NSStringNewWithFormat(format, nil, arguments, NULL));
     va_end(arguments);
     return result;
 }
@@ -809,8 +809,8 @@ NSString *NSStringWithFormatAndLocale(NSString *format, NSDictionary *locale,
 
     va_start(arguments, locale);
 
-    NSString *result =
-        NSAutorelease(NSStringNewWithFormat(format, locale, arguments, NULL));
+    NSString *result = NSAutorelease(
+            NSStringNewWithFormat(format, locale, arguments, NULL));
 
     va_end(arguments);
 

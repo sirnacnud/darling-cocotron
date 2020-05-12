@@ -101,7 +101,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setValuePath: (NSString *) path {
     NSImage *image =
-        [[[NSImage alloc] initWithContentsOfFile: path] autorelease];
+            [[[NSImage alloc] initWithContentsOfFile: path] autorelease];
     [_cell setImage: image];
     [self setNeedsDisplay: YES];
 }

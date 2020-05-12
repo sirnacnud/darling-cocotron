@@ -21,9 +21,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSCachedURLResponse
 
 - initWithResponse: (NSURLResponse *) response
-              data: (NSData *) data
-          userInfo: (NSDictionary *) userInfo
-     storagePolicy: (NSURLCacheStoragePolicy) storagePolicy
+                 data: (NSData *) data
+             userInfo: (NSDictionary *) userInfo
+        storagePolicy: (NSURLCacheStoragePolicy) storagePolicy
 {
     _response = [response copy];
     _data = [data copy];

@@ -20,5 +20,5 @@
 #import <AppKit/NSCollectionViewLayout.h>
 
 NSCollectionViewSupplementaryElementKind const
-    NSCollectionElementKindInterItemGapIndicator =
-        @"NSCollectionElementKindInterItemGapIndicator";
+        NSCollectionElementKindInterItemGapIndicator =
+                @"NSCollectionElementKindInterItemGapIndicator";

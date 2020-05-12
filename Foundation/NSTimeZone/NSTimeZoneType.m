@@ -29,12 +29,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [[[self allocWithZone: NULL] initWithSecondsFromGMT: seconds
                                           isDaylightSavingTime: isDST
                                                   abbreviation: abbreviation]
-        autorelease];
+            autorelease];
 }
 
 - initWithSecondsFromGMT: (NSInteger) seconds
-    isDaylightSavingTime: (BOOL) isDST
-            abbreviation: (NSString *) abbreviation
+        isDaylightSavingTime: (BOOL) isDST
+                abbreviation: (NSString *) abbreviation
 {
     _secondsFromGMT = seconds;
     _isDaylightSavingTime = isDST;
@@ -63,11 +63,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[0x%lx] secondsFromGMT: %d "
-                          @"isDaylightSavingTime: %@ abbreviation: %@>",
-                          [self class], self, _secondsFromGMT,
-                          _isDaylightSavingTime ? @"YES" : @"NO",
-                          _abbreviation];
+            stringWithFormat: @"<%@[0x%lx] secondsFromGMT: %d "
+                              @"isDaylightSavingTime: %@ abbreviation: %@>",
+                              [self class], self, _secondsFromGMT,
+                              _isDaylightSavingTime ? @"YES" : @"NO",
+                              _abbreviation];
 }
 
 - copyWithZone: (NSZone *) zone {

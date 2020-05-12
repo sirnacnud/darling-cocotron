@@ -32,7 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _pattern = [pattern retain];
     _numberOfComponents = O2ColorSpaceGetNumberOfComponents(_colorSpace) + 1;
     _components =
-        NSZoneMalloc([self zone], sizeof(O2Float) * _numberOfComponents);
+            NSZoneMalloc([self zone], sizeof(O2Float) * _numberOfComponents);
     for (i = 0; i < _numberOfComponents; i++)
         _components[i] = components[i];
 
@@ -48,9 +48,9 @@ O2ColorRef O2ColorInitWithColorSpace(O2ColorRef self,
     self->_colorSpace = [colorSpace retain];
     self->_pattern = nil;
     self->_numberOfComponents =
-        O2ColorSpaceGetNumberOfComponents(self->_colorSpace) + 1;
-    self->_components =
-        NSZoneMalloc([self zone], sizeof(O2Float) * self->_numberOfComponents);
+            O2ColorSpaceGetNumberOfComponents(self->_colorSpace) + 1;
+    self->_components = NSZoneMalloc(
+            [self zone], sizeof(O2Float) * self->_numberOfComponents);
     for (i = 0; i < self->_numberOfComponents; i++)
         self->_components[i] = components[i];
 
@@ -239,9 +239,9 @@ int O2ColorConvertComponentsToDeviceRGB(O2ColorSpaceRef inputSpace,
         return 1;
 
     case kO2ColorSpaceModelLab:
-        NSLog(
-            @"O2ColorConvertComponentsToDeviceRGB unimplemented conversion %d",
-            model);
+        NSLog(@"O2ColorConvertComponentsToDeviceRGB unimplemented conversion "
+              @"%d",
+              model);
         rgbComponents[0] = 0;
         rgbComponents[1] = 0;
         rgbComponents[2] = 0;
@@ -251,11 +251,11 @@ int O2ColorConvertComponentsToDeviceRGB(O2ColorSpaceRef inputSpace,
     case kO2ColorSpaceModelDeviceN: {
         O2ColorSpace_DeviceN *deviceN = (O2ColorSpace_DeviceN *) inputSpace;
         size_t deviceNNumberOfComponents =
-            O2ColorSpaceGetNumberOfComponents(deviceN);
+                O2ColorSpaceGetNumberOfComponents(deviceN);
         O2ColorSpaceRef altSpace = [deviceN alternateSpace];
         O2FunctionRef tintTransform = [deviceN tintTransform];
         size_t altNumberOfComponents =
-            O2ColorSpaceGetNumberOfComponents(altSpace) + 1;
+                O2ColorSpaceGetNumberOfComponents(altSpace) + 1;
         CGFloat altComponents[altNumberOfComponents];
 
         if (deviceNNumberOfComponents != 1) {
@@ -273,9 +273,9 @@ int O2ColorConvertComponentsToDeviceRGB(O2ColorSpaceRef inputSpace,
     } break;
 
     case kO2ColorSpaceModelIndexed:
-        NSLog(
-            @"O2ColorConvertComponentsToDeviceRGB unimplemented conversion %d",
-            model);
+        NSLog(@"O2ColorConvertComponentsToDeviceRGB unimplemented conversion "
+              @"%d",
+              model);
         rgbComponents[0] = 0;
         rgbComponents[1] = 0;
         rgbComponents[2] = 0;
@@ -284,9 +284,9 @@ int O2ColorConvertComponentsToDeviceRGB(O2ColorSpaceRef inputSpace,
 
     case kO2ColorSpaceModelPattern:
     default:
-        NSLog(
-            @"O2ColorConvertComponentsToDeviceRGB unimplemented conversion %d",
-            model);
+        NSLog(@"O2ColorConvertComponentsToDeviceRGB unimplemented conversion "
+              @"%d",
+              model);
         rgbComponents[0] = 0;
         rgbComponents[1] = 0;
         rgbComponents[2] = 0;

@@ -133,7 +133,7 @@ NSMutableString_unicodePtrInitWithCString(NSMutableString_unicodePtr *self,
                                           NSUInteger length, NSZone *zone)
 {
     self->_unicode =
-        NSCharactersFromCString(cString, length, &(self->_length), zone);
+            NSCharactersFromCString(cString, length, &(self->_length), zone);
     self->_capacity = self->_length;
 
     return self;
@@ -184,7 +184,7 @@ NSString *NSMutableString_unicodePtrNewWithCString(NSZone *zone,
                                                    NSUInteger length)
 {
     NSMutableString_unicodePtr *self = NSAllocateObject(
-        objc_lookUpClass("NSMutableString_unicodePtr"), 0, zone);
+            objc_lookUpClass("NSMutableString_unicodePtr"), 0, zone);
     if (self) {
         self = NSMutableString_unicodePtrInitWithCString(self, cString, length,
                                                          zone);
@@ -196,7 +196,7 @@ NSString *NSMutableString_unicodePtrNew(NSZone *zone, const unichar *unicode,
                                         NSUInteger length)
 {
     NSMutableString_unicodePtr *self = NSAllocateObject(
-        objc_lookUpClass("NSMutableString_unicodePtr"), 0, zone);
+            objc_lookUpClass("NSMutableString_unicodePtr"), 0, zone);
     if (self) {
         self = NSMutableString_unicodePtrInit(self, unicode, length, zone);
     }
@@ -211,8 +211,8 @@ NSString *NSMutableString_unicodePtrNewNoCopy(NSZone *zone, unichar *unicode,
     self = NSAllocateObject(objc_lookUpClass("NSMutableString_unicodePtr"), 0,
                             zone);
     if (self) {
-        self =
-            NSMutableString_unicodePtrInitNoCopy(self, unicode, length, zone);
+        self = NSMutableString_unicodePtrInitNoCopy(self, unicode, length,
+                                                    zone);
     }
     return self;
 }
@@ -247,7 +247,7 @@ NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
               freeWhenDone: (BOOL) freeWhenDone
 {
     NSMutableString_unicodePtr *string = NSMutableString_unicodePtrInit(
-        self, characters, length, NSZoneFromPointer(self));
+            self, characters, length, NSZoneFromPointer(self));
 
     if (freeWhenDone) {
         NSZoneFree(NSZoneFromPointer(characters), characters);
@@ -266,8 +266,8 @@ NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
            freeWhenDone: (BOOL) freeWhenDone
 {
     NSMutableString_unicodePtr *string =
-        NSMutableString_unicodePtrInitWithCString(self, bytes, length,
-                                                  NSZoneFromPointer(self));
+            NSMutableString_unicodePtrInitWithCString(self, bytes, length,
+                                                      NSZoneFromPointer(self));
 
     if (freeWhenDone) {
         NSZoneFree(NSZoneFromPointer(bytes), bytes);
@@ -346,22 +346,22 @@ NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
 }
 
 - initWithBytes: (const void *) bytes
-         length: (NSUInteger) length
-       encoding: (NSStringEncoding) encoding
+          length: (NSUInteger) length
+        encoding: (NSStringEncoding) encoding
 {
     NSUInteger resultLength;
     unichar *characters;
 
     characters = NSString_anyCStringToUnicode(
-        encoding, bytes, length, &resultLength, NSZoneFromPointer(self));
+            encoding, bytes, length, &resultLength, NSZoneFromPointer(self));
 
     return NSMutableString_unicodePtrInitNoCopy(self, characters, resultLength,
                                                 NSZoneFromPointer(self));
 }
 
 - initWithFormat: (NSString *) format
-          locale: (NSDictionary *) locale
-       arguments: (va_list) arguments
+           locale: (NSDictionary *) locale
+        arguments: (va_list) arguments
 {
     NSUInteger length;
     unichar *unicode;
@@ -384,7 +384,7 @@ NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
     unichar *unicode;
 
     if ((unicode = NSCharactersWithContentsOfFile(
-             path, &length, NSZoneFromPointer(self))) == NULL) {
+                 path, &length, NSZoneFromPointer(self))) == NULL) {
         NSDeallocateObject(self);
         return nil;
     }

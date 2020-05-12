@@ -47,13 +47,13 @@ typedef enum {
 }
 
 - initWithDateFormat: (NSString *) format
-    allowNaturalLanguage: (BOOL) flag; // shouldn't this be "allows" ?
+        allowNaturalLanguage: (BOOL) flag; // shouldn't this be "allows" ?
 
 // added because NSDateFormatter is the backend for
 // initWithString:calendarFormat:locale shouldn't this really exist anyway?
 - initWithDateFormat: (NSString *) format
-    allowNaturalLanguage: (BOOL) flag
-                  locale: (NSDictionary *) locale;
+        allowNaturalLanguage: (BOOL) flag
+                      locale: (NSDictionary *) locale;
 
 - (NSString *) dateFormat;
 - (BOOL) allowsNaturalLanguage;

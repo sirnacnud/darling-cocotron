@@ -226,9 +226,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (strcmp(checkType, type) != 0)
         [NSException
-             raise: @"NSUnarchiverTypeMismatchException"
-            format: @"NSUnarchiver type mismatch decoding %s, contains %s",
-                    type, checkType];
+                 raise: @"NSUnarchiverTypeMismatchException"
+                format: @"NSUnarchiver type mismatch decoding %s, contains %s",
+                        type, checkType];
 
     switch (*type) {
     case 'c':
@@ -276,7 +276,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         NSString *string = [self _extractCStringString];
 
         *cString =
-            NSZoneMalloc(NSDefaultMallocZone(), [string cStringLength] + 1);
+                NSZoneMalloc(NSDefaultMallocZone(), [string cStringLength] + 1);
         [string getCString: *cString];
     } break;
 
@@ -393,8 +393,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _version = [self _extractWordFour];
     if (_version > 0)
         [NSException
-             raise: @"NSUnarchiverInvalidVersionException"
-            format: @"NSUnarchiver cannot unarchive version %d", _version];
+                 raise: @"NSUnarchiverInvalidVersionException"
+                format: @"NSUnarchiver cannot unarchive version %d", _version];
 
     return NO;
 }
@@ -411,10 +411,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                 NSNonRetainedObjectMapValueCallBacks, 0);
     _classes = NSCreateMapTable(NSIntMapKeyCallBacks,
                                 NSNonRetainedObjectMapValueCallBacks, 0);
-    _cStrings =
-        NSCreateMapTable(NSIntMapKeyCallBacks, NSObjectMapValueCallBacks, 0);
-    _classVersions =
-        NSCreateMapTable(NSObjectMapKeyCallBacks, NSIntMapValueCallBacks, 0);
+    _cStrings = NSCreateMapTable(NSIntMapKeyCallBacks,
+                                 NSObjectMapValueCallBacks, 0);
+    _classVersions = NSCreateMapTable(NSObjectMapKeyCallBacks,
+                                      NSIntMapValueCallBacks, 0);
 
     _allObjects = [NSMutableArray new];
 
@@ -437,7 +437,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (id) unarchiveObjectWithData: (NSData *) data {
     NSUnarchiver *unarchiver = [[[NSUnarchiver allocWithZone: NULL]
-        initForReadingWithData: data] autorelease];
+            initForReadingWithData: data] autorelease];
 
     return [unarchiver decodeObject];
 }
@@ -450,7 +450,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         return nil;
 
     unarchiver = [[[NSUnarchiver allocWithZone: NULL]
-        initForReadingWithData: data] autorelease];
+            initForReadingWithData: data] autorelease];
 
     return [unarchiver decodeObject];
 }

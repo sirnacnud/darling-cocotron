@@ -33,7 +33,7 @@ COREDATA_EXPORT NSString *const NSBinaryStoreType;
 COREDATA_EXPORT NSString *const NSMigratePersistentStoresAutomaticallyOption;
 
 COREDATA_EXPORT NSString
-    *const NSPersistentStoreCoordinatorStoresDidChangeNotification;
+        *const NSPersistentStoreCoordinatorStoresDidChangeNotification;
 COREDATA_EXPORT NSString *const NSAddedPersistentStoresKey;
 COREDATA_EXPORT NSString *const NSRemovedPersistentStoresKey;
 COREDATA_EXPORT NSString *const NSUUIDChangedPersistentStoresKey;
@@ -83,11 +83,11 @@ COREDATA_EXPORT NSString *const NSReadOnlyPersistentStoreOption;
 
 - (NSDictionary *) metadataForPersistentStore: (NSPersistentStore *) store;
 - (void) setMetadata: (NSDictionary *) metadata
-    forPersistentStore: (NSPersistentStore *) store;
+        forPersistentStore: (NSPersistentStore *) store;
 + (BOOL) setMetadata: (NSDictionary *) metadata
-    forPersistentStoreOfType: (NSString *) storeType
-                         URL: (NSURL *) url
-                       error: (NSError **) error;
+        forPersistentStoreOfType: (NSString *) storeType
+                             URL: (NSURL *) url
+                           error: (NSError **) error;
 + (NSDictionary *) metadataForPersistentStoreOfType: (NSString *) storeType
                                                 URL: (NSURL *) url
                                               error: (NSError **) error;

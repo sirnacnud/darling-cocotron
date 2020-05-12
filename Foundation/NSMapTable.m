@@ -92,32 +92,33 @@ const NSMapTableKeyCallBacks NSIntegerMapKeyCallBacks = {NULL, NULL, NULL, NULL,
 const NSMapTableValueCallBacks NSIntegerMapValueCallBacks = {NULL, NULL, NULL};
 
 const NSMapTableKeyCallBacks NSNonOwnedPointerMapKeyCallBacks = {
-    NULL, NULL, NULL, NULL, NULL};
+        NULL, NULL, NULL, NULL, NULL};
 
 const NSMapTableValueCallBacks NSNonOwnedPointerMapValueCallBacks = {NULL, NULL,
                                                                      NULL};
 
 const NSMapTableKeyCallBacks NSNonOwnedPointerOrNullMapKeyCallBacks = {
-    NULL, NULL, NULL, NULL, NULL};
+        NULL, NULL, NULL, NULL, NULL};
 
 const NSMapTableKeyCallBacks NSNonRetainedObjectMapKeyCallBacks = {
-    _NSMapObjectHash, _NSMapObjectIsEqual, NULL, NULL, _NSMapObjectDescribe};
+        _NSMapObjectHash, _NSMapObjectIsEqual, NULL, NULL,
+        _NSMapObjectDescribe};
 
 const NSMapTableValueCallBacks NSNonRetainedObjectMapValueCallBacks = {
-    NULL, NULL, _NSMapObjectDescribe};
+        NULL, NULL, _NSMapObjectDescribe};
 
 const NSMapTableKeyCallBacks NSObjectMapKeyCallBacks = {
-    _NSMapObjectHash, _NSMapObjectIsEqual, _NSMapObjectRetain,
-    _NSMapObjectRelease, _NSMapObjectDescribe};
+        _NSMapObjectHash, _NSMapObjectIsEqual, _NSMapObjectRetain,
+        _NSMapObjectRelease, _NSMapObjectDescribe};
 
 const NSMapTableValueCallBacks NSObjectMapValueCallBacks = {
-    _NSMapObjectRetain, _NSMapObjectRelease, _NSMapObjectDescribe};
+        _NSMapObjectRetain, _NSMapObjectRelease, _NSMapObjectDescribe};
 
 const NSMapTableKeyCallBacks NSOwnedPointerMapKeyCallBacks = {
-    NULL, NULL, NULL, _NSMapPointerRelease, NULL};
+        NULL, NULL, NULL, _NSMapPointerRelease, NULL};
 
 const NSMapTableValueCallBacks NSOwnedPointerMapValueCallBacks = {
-    NULL, _NSMapPointerRelease, NULL};
+        NULL, _NSMapPointerRelease, NULL};
 
 NSMapTable *NSCreateMapTable(NSMapTableKeyCallBacks keyCallBacks,
                              NSMapTableValueCallBacks valueCallBacks,
@@ -137,30 +138,31 @@ NSMapTable *NSCreateMapTableWithZone(NSMapTableKeyCallBacks keyCallBacks,
 
     table->keyCallBacks = NSZoneMalloc(zone, sizeof(NSMapTableKeyCallBacks));
     table->keyCallBacks->hash =
-        (keyCallBacks.hash != NULL) ? keyCallBacks.hash : _NSMapPointerHash;
+            (keyCallBacks.hash != NULL) ? keyCallBacks.hash : _NSMapPointerHash;
     table->keyCallBacks->isEqual = (keyCallBacks.isEqual != NULL)
-                                       ? keyCallBacks.isEqual
-                                       : _NSMapPointerIsEqual;
-    table->keyCallBacks->retain =
-        (keyCallBacks.retain != NULL) ? keyCallBacks.retain : _NSMapEmptyRetain;
+                                           ? keyCallBacks.isEqual
+                                           : _NSMapPointerIsEqual;
+    table->keyCallBacks->retain = (keyCallBacks.retain != NULL)
+                                          ? keyCallBacks.retain
+                                          : _NSMapEmptyRetain;
     table->keyCallBacks->release = (keyCallBacks.release != NULL)
-                                       ? keyCallBacks.release
-                                       : _NSMapEmptyRelease;
+                                           ? keyCallBacks.release
+                                           : _NSMapEmptyRelease;
     table->keyCallBacks->describe = (keyCallBacks.describe != NULL)
-                                        ? keyCallBacks.describe
-                                        : _NSMapEmptyDescribe;
+                                            ? keyCallBacks.describe
+                                            : _NSMapEmptyDescribe;
 
     table->valueCallBacks =
-        NSZoneMalloc(zone, sizeof(NSMapTableValueCallBacks));
+            NSZoneMalloc(zone, sizeof(NSMapTableValueCallBacks));
     table->valueCallBacks->retain = (valueCallBacks.retain != NULL)
-                                        ? valueCallBacks.retain
-                                        : _NSMapEmptyRetain;
+                                            ? valueCallBacks.retain
+                                            : _NSMapEmptyRetain;
     table->valueCallBacks->release = (valueCallBacks.release != NULL)
-                                         ? valueCallBacks.release
-                                         : _NSMapEmptyRelease;
+                                             ? valueCallBacks.release
+                                             : _NSMapEmptyRelease;
     table->valueCallBacks->describe = (valueCallBacks.describe != NULL)
-                                          ? valueCallBacks.describe
-                                          : _NSMapEmptyDescribe;
+                                              ? valueCallBacks.describe
+                                              : _NSMapEmptyDescribe;
 
     table->count = 0;
     table->nBuckets = (capacity < 4) ? 4 : capacity;
@@ -170,8 +172,9 @@ NSMapTable *NSCreateMapTableWithZone(NSMapTableKeyCallBacks keyCallBacks,
 }
 
 NSMapTable *NSCopyMapTableWithZone(NSMapTable *table, NSZone *zone) {
-    NSMapTable *newTable = NSCreateMapTableWithZone(
-        *(table->keyCallBacks), *(table->valueCallBacks), table->count, zone);
+    NSMapTable *newTable = NSCreateMapTableWithZone(*(table->keyCallBacks),
+                                                    *(table->valueCallBacks),
+                                                    table->count, zone);
     NSMapEnumerator state = NSEnumerateMapTable(table);
     void *key, *val;
 
@@ -301,7 +304,7 @@ NSArray *NSAllMapTableKeys(NSMapTable *table) {
     NSMapNode *j;
 
     array = [[[NSMutableArray allocWithZone: NULL]
-        initWithCapacity: table->count] autorelease];
+            initWithCapacity: table->count] autorelease];
 
     for (i = 0; i < table->nBuckets; i++)
         for (j = table->buckets[i]; j != NULL; j = j->next)
@@ -316,7 +319,7 @@ NSArray *NSAllMapTableValues(NSMapTable *table) {
     NSMapNode *j;
 
     array = [[[NSMutableArray allocWithZone: NULL]
-        initWithCapacity: table->count] autorelease];
+            initWithCapacity: table->count] autorelease];
 
     for (i = 0; i < table->nBuckets; i++)
         for (j = table->buckets[i]; j != NULL; j = j->next)
@@ -354,12 +357,12 @@ void NSMapInsert(NSMapTable *table, const void *key, const void *value) {
 
         table->nBuckets = nBuckets * 2;
         table->buckets =
-            NSZoneCalloc(zone, table->nBuckets, sizeof(NSMapNode *));
+                NSZoneCalloc(zone, table->nBuckets, sizeof(NSMapNode *));
 
         for (i = 0; i < nBuckets; i++)
             for (j = buckets[i]; j != NULL; j = next) {
-                NSUInteger newi =
-                    table->keyCallBacks->hash(table, j->key) % table->nBuckets;
+                NSUInteger newi = table->keyCallBacks->hash(table, j->key) %
+                                  table->nBuckets;
 
                 next = j->next;
                 j->next = table->buckets[newi];
@@ -453,9 +456,9 @@ NSString *NSStringFromMapTable(NSMapTable *table) {
 }
 
 + mapTableWithStrongToWeakObjects {
-    return
-        [NSCreateMapTable(NSObjectMapKeyCallBacks,
-                          NSNonRetainedObjectMapValueCallBacks, 0) autorelease];
+    return [NSCreateMapTable(NSObjectMapKeyCallBacks,
+                             NSNonRetainedObjectMapValueCallBacks, 0)
+            autorelease];
 }
 
 + mapTableWithWeakToStrongObjects {
@@ -464,9 +467,9 @@ NSString *NSStringFromMapTable(NSMapTable *table) {
 }
 
 + mapTableWithWeakToWeakObjects {
-    return
-        [NSCreateMapTable(NSNonRetainedObjectMapKeyCallBacks,
-                          NSNonRetainedObjectMapValueCallBacks, 0) autorelease];
+    return [NSCreateMapTable(NSNonRetainedObjectMapKeyCallBacks,
+                             NSNonRetainedObjectMapValueCallBacks, 0)
+            autorelease];
 }
 
 + strongToStrongObjectsMapTable {

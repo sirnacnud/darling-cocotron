@@ -44,11 +44,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         // find operator selector (e.g. _kvo_operator_count for @count)
                 SEL operatorSelector=NSSelectorFromString([NSString stringWithFormat:@"_kvo_operator_%@", operator]);
                 if (![self respondsToSelector: operatorSelector])
-                    [NSException
-                         raise: @"NSKeyValueCodingException"
-                        format:
-                            @"operator %@: NSArray selector %@ not implemented",
-                            operator, NSStringFromSelector(operatorSelector)];
+                    [NSException raise: @"NSKeyValueCodingException"
+                                format: @"operator %@: NSArray selector %@ not "
+                                        @"implemented",
+                                        operator,
+                                        NSStringFromSelector(operatorSelector)];
 
                 return [self performSelector: operatorSelector];
     }
@@ -210,10 +210,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSArray (KVO)
 
 - (void) addObserver: (NSObject *) observer
-    toObjectsAtIndexes: (NSIndexSet *) indexes
-            forKeyPath: (NSString *) keyPath
-               options: (NSKeyValueObservingOptions) options
-               context: (void *) context
+        toObjectsAtIndexes: (NSIndexSet *) indexes
+                forKeyPath: (NSString *) keyPath
+                   options: (NSKeyValueObservingOptions) options
+                   context: (void *) context
 {
     NSUInteger idx = [indexes firstIndex];
     while (idx != NSNotFound) {
@@ -226,8 +226,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) removeObserver: (NSObject *) observer
-    fromObjectsAtIndexes: (NSIndexSet *) indexes
-              forKeyPath: (NSString *) keyPath
+        fromObjectsAtIndexes: (NSIndexSet *) indexes
+                  forKeyPath: (NSString *) keyPath
 {
     NSUInteger idx = [indexes firstIndex];
     while (idx != NSNotFound) {

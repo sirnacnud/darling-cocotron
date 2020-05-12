@@ -27,7 +27,7 @@
 #import <Foundation/Foundation.h>
 
 static void *NSCachingBinderChangeContext =
-    (void *) @"NSCachingBinderChangeContext";
+        (void *) @"NSCachingBinderChangeContext";
 
 @implementation _NSCachingBinder
 
@@ -121,7 +121,7 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
                 if (newValue != nil &&
                     ![newValue isKindOfClass: [NSDate class]])
                     newValue =
-                        [NSDate dateWithTimeIntervalSinceReferenceDate: 0];
+                            [NSDate dateWithTimeIntervalSinceReferenceDate: 0];
             }
         }
         [_source setValue: newValue forKeyPath: _bindingPath];

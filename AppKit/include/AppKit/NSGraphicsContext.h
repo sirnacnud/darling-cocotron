@@ -34,9 +34,9 @@ typedef enum {
 typedef enum {
     NSColorRenderingIntentDefault = kCGRenderingIntentDefault,
     NSColorRenderingIntentAbsoluteColorimetric =
-        kCGRenderingIntentAbsoluteColorimetric,
+            kCGRenderingIntentAbsoluteColorimetric,
     NSColorRenderingIntentRelativeColorimetric =
-        kCGRenderingIntentRelativeColorimetric,
+            kCGRenderingIntentRelativeColorimetric,
     NSColorRenderingIntentPerceptual = kCGRenderingIntentPerceptual,
     NSColorRenderingIntentSaturation = kCGRenderingIntentSaturation,
 } NSColorRenderingIntent;
@@ -59,7 +59,7 @@ typedef enum {
 + (NSGraphicsContext *) graphicsContextWithGraphicsPort: (CGContextRef) context
                                                 flipped: (BOOL) flipped;
 + (NSGraphicsContext *) graphicsContextWithBitmapImageRep:
-    (NSBitmapImageRep *) imageRep;
+        (NSBitmapImageRep *) imageRep;
 
 + (NSGraphicsContext *) currentContext;
 + (void) setCurrentContext: (NSGraphicsContext *) context;

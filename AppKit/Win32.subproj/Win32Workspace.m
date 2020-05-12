@@ -32,7 +32,7 @@ static NSString *DriveLetterInPath(NSString *path) {
     NSArray *components = [path componentsSeparatedByString: @":"];
     if ([components count] > 0) {
         NSString *driveLetter = [NSString
-            stringWithFormat: @"%@:\\", [components objectAtIndex: 0]];
+                stringWithFormat: @"%@:\\", [components objectAtIndex: 0]];
         return driveLetter;
     }
     return nil;
@@ -72,7 +72,8 @@ static NSString *DriveLetterInPath(NSString *path) {
     *isRemovable = NO;
     *isUnmountable = NO;
     *type = NSLocalizedStringFromTableInBundle(
-        @"WinFS", nil, [NSBundle bundleForClass: [Win32Workspace class]], @"");
+            @"WinFS", nil, [NSBundle bundleForClass: [Win32Workspace class]],
+            @"");
 
     NSString *driveLetter = DriveLetterInPath(path);
 
@@ -80,49 +81,49 @@ static NSString *DriveLetterInPath(NSString *path) {
     switch (driveType) {
     case DRIVE_UNKNOWN:
         *description = NSLocalizedStringFromTableInBundle(
-            @"Unrecognized drive", nil,
-            [NSBundle bundleForClass: [Win32Workspace class]],
-            @"Error description for a disk drive");
+                @"Unrecognized drive", nil,
+                [NSBundle bundleForClass: [Win32Workspace class]],
+                @"Error description for a disk drive");
         break;
     case DRIVE_NO_ROOT_DIR:
         *description = NSLocalizedStringFromTableInBundle(
-            @"Corrupted drive", nil,
-            [NSBundle bundleForClass: [Win32Workspace class]],
-            @"Error description for a disk drive");
+                @"Corrupted drive", nil,
+                [NSBundle bundleForClass: [Win32Workspace class]],
+                @"Error description for a disk drive");
         break;
     case DRIVE_REMOVABLE:
         *description = NSLocalizedStringFromTableInBundle(
-            @"Removable drive", nil,
-            [NSBundle bundleForClass: [Win32Workspace class]],
-            @"Describes a removable disk drive");
+                @"Removable drive", nil,
+                [NSBundle bundleForClass: [Win32Workspace class]],
+                @"Describes a removable disk drive");
         *isRemovable = YES;
         break;
     case DRIVE_FIXED:
         *description = NSLocalizedStringFromTableInBundle(
-            @"Fixed drive", nil,
-            [NSBundle bundleForClass: [Win32Workspace class]],
-            @"Describes a standard hard disk drive");
+                @"Fixed drive", nil,
+                [NSBundle bundleForClass: [Win32Workspace class]],
+                @"Describes a standard hard disk drive");
         break;
     case DRIVE_REMOTE:
         *description = NSLocalizedStringFromTableInBundle(
-            @"Network drive", nil,
-            [NSBundle bundleForClass: [Win32Workspace class]],
-            @"Describes a disk drive accessable over a network");
+                @"Network drive", nil,
+                [NSBundle bundleForClass: [Win32Workspace class]],
+                @"Describes a disk drive accessable over a network");
         *isUnmountable = YES;
         break;
     case DRIVE_CDROM:
         *description = NSLocalizedStringFromTableInBundle(
-            @"CD-ROM drive", nil,
-            [NSBundle bundleForClass: [Win32Workspace class]],
-            @"Describes a CD-ROM drive");
+                @"CD-ROM drive", nil,
+                [NSBundle bundleForClass: [Win32Workspace class]],
+                @"Describes a CD-ROM drive");
         *isUnmountable = YES;
         *isRemovable = YES;
         break;
     case DRIVE_RAMDISK:
         *description = NSLocalizedStringFromTableInBundle(
-            @"RAM drive", nil,
-            [NSBundle bundleForClass: [Win32Workspace class]],
-            @"Describes a RAM drive");
+                @"RAM drive", nil,
+                [NSBundle bundleForClass: [Win32Workspace class]],
+                @"Describes a RAM drive");
         *isUnmountable = YES;
         break;
     }
@@ -131,12 +132,12 @@ static NSString *DriveLetterInPath(NSString *path) {
 
 - (BOOL) openURL: (NSURL *) url {
     return ((int) ShellExecuteW(
-                GetDesktopWindow(), L"open",
-                (const unichar *) [[url absoluteString]
-                    cStringUsingEncoding: NSUnicodeStringEncoding],
-                NULL, NULL, SW_SHOWNORMAL) <= 32)
-               ? NO
-               : YES;
+                    GetDesktopWindow(), L"open",
+                    (const unichar *) [[url absoluteString]
+                            cStringUsingEncoding: NSUnicodeStringEncoding],
+                    NULL, NULL, SW_SHOWNORMAL) <= 32)
+                   ? NO
+                   : YES;
 }
 
 - (BOOL) openFile: (NSString *) path {
@@ -144,7 +145,7 @@ static NSString *DriveLetterInPath(NSString *path) {
 
     if ([extension isEqualToString: @"app"]) {
         NSString *name =
-            [[path lastPathComponent] stringByDeletingPathExtension];
+                [[path lastPathComponent] stringByDeletingPathExtension];
 
         path = [path stringByAppendingPathComponent: @"Contents"];
         path = [path stringByAppendingPathComponent: @"Windows"];
@@ -155,8 +156,8 @@ static NSString *DriveLetterInPath(NSString *path) {
     return ((int) ShellExecuteW(GetDesktopWindow(), L"open",
                                 [path fileSystemRepresentationW], NULL, NULL,
                                 SW_SHOWNORMAL) <= 32)
-               ? NO
-               : YES;
+                   ? NO
+                   : YES;
 }
 
 static BOOL openFileWithHelpViewer(const char *helpFilePath) {
@@ -173,12 +174,12 @@ static BOOL openFileWithHelpViewer(const char *helpFilePath) {
         NSBundle *bundle = [NSBundle bundleForClass: [self class]];
         NSString *bundlePath = [bundle bundlePath];
         NSString *app = [[[[[[[bundlePath stringByDeletingLastPathComponent]
-            stringByDeletingLastPathComponent]
-            stringByAppendingPathComponent: @"Applications"]
-            stringByAppendingPathComponent: appName]
-            stringByAppendingPathExtension: @"app"]
-            stringByAppendingPathComponent: appName]
-            stringByAppendingPathExtension: @"exe"];
+                stringByDeletingLastPathComponent]
+                stringByAppendingPathComponent: @"Applications"]
+                stringByAppendingPathComponent: appName]
+                stringByAppendingPathExtension: @"app"]
+                stringByAppendingPathComponent: appName]
+                stringByAppendingPathExtension: @"exe"];
         NSMutableData *args = [NSMutableData data];
 
         [args appendData: NSTaskArgumentDataFromStringW(@"-NSOpen")];
@@ -189,15 +190,15 @@ static BOOL openFileWithHelpViewer(const char *helpFilePath) {
         return ((int) ShellExecuteW(GetDesktopWindow(), L"open",
                                     [app fileSystemRepresentationW],
                                     [args bytes], NULL, SW_SHOWNORMAL) <= 32)
-                   ? NO
-                   : YES;
+                       ? NO
+                       : YES;
     }
 #else
     return ((int) ShellExecuteW(GetDesktopWindow(), L"open",
                                 [path fileSystemRepresentationW], NULL, NULL,
                                 SW_SHOWNORMAL) <= 32)
-               ? NO
-               : YES;
+                   ? NO
+                   : YES;
 #endif
 }
 
@@ -205,19 +206,19 @@ static BOOL openFileWithHelpViewer(const char *helpFilePath) {
     return ((int) ShellExecuteW(GetDesktopWindow(), L"open",
                                 [path fileSystemRepresentationW], NULL, NULL,
                                 SW_SHOWNORMAL) <= 32)
-               ? NO
-               : YES;
+                   ? NO
+                   : YES;
 }
 
 - (BOOL) selectFile: (NSString *) path
-    inFileViewerRootedAtPath: (NSString *) rootFullpath
+        inFileViewerRootedAtPath: (NSString *) rootFullpath
 {
     BOOL isDir = NO;
 
     if ([[NSFileManager defaultManager] fileExistsAtPath: path
                                              isDirectory: &isDir]) {
-        NSString *win32Path =
-            NSStringFromNullTerminatedUnicode([path fileSystemRepresentationW]);
+        NSString *win32Path = NSStringFromNullTerminatedUnicode(
+                [path fileSystemRepresentationW]);
 
         NSMutableData *args = [NSMutableData data];
         [args appendBytes: L"/select," length: 16];
@@ -226,8 +227,8 @@ static BOOL openFileWithHelpViewer(const char *helpFilePath) {
 
         return ((int) ShellExecuteW(GetDesktopWindow(), L"open", L"explorer",
                                     [args bytes], NULL, SW_SHOWNORMAL) <= 32)
-                   ? NO
-                   : YES;
+                       ? NO
+                       : YES;
     }
     return NO;
 }
@@ -260,8 +261,9 @@ static NSImageRep *imageRepForIcon(HICON icon) {
         if (w > 0 && h > 0) {
             CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
             CGContextRef ctx = CGBitmapContextCreate(
-                NULL, w, h, 8, 4 * w, colorspace,
-                kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+                    NULL, w, h, 8, 4 * w, colorspace,
+                    kCGBitmapByteOrder32Little |
+                            kCGImageAlphaPremultipliedFirst);
             CGColorSpaceRelease(colorspace);
             // Contexts created on the Win32 platform are supposed to have an
             // "dc" method
@@ -271,7 +273,7 @@ static NSImageRep *imageRepForIcon(HICON icon) {
                 CGImageRef image = CGBitmapContextCreateImage(ctx);
                 if (image) {
                     imageRep = [[[NSBitmapImageRep alloc]
-                        initWithCGImage: image] autorelease];
+                            initWithCGImage: image] autorelease];
                     CGImageRelease(image);
                 }
             }
@@ -291,8 +293,9 @@ static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
         if (ImageList_GetIconSize(imageListH, &w, &h)) {
             CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
             CGContextRef ctx = CGBitmapContextCreate(
-                NULL, w, h, 8, 4 * w, colorspace,
-                kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+                    NULL, w, h, 8, 4 * w, colorspace,
+                    kCGBitmapByteOrder32Little |
+                            kCGImageAlphaPremultipliedFirst);
             CGColorSpaceRelease(colorspace);
             // Contexts created on the Win32 platform are supposed to have an
             // "dc" method
@@ -302,7 +305,7 @@ static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
                 CGImageRef image = CGBitmapContextCreateImage(ctx);
                 if (image) {
                     imageRep = [[[NSBitmapImageRep alloc]
-                        initWithCGImage: image] autorelease];
+                            initWithCGImage: image] autorelease];
                     CGImageRelease(image);
                 }
             }
@@ -326,7 +329,7 @@ static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
     if (FileIconInitPtr == NULL) {
         HANDLE library = LoadLibrary("SHELL32");
         FileIconInitPtr = (void *) GetProcAddress(
-            library, (char *) 660); // 660 is the magic number for it
+                library, (char *) 660); // 660 is the magic number for it
         if (FileIconInitPtr) {
             // Call the init function the first time we get called - MS says it
             // should be done before using SHGetImageList
@@ -334,10 +337,10 @@ static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
         }
         if (SHGetImageListPtr == NULL) {
             SHGetImageListPtr =
-                (void *) GetProcAddress(library, "SHGetImageList");
+                    (void *) GetProcAddress(library, "SHGetImageList");
             if (SHGetImageListPtr == NULL) {
                 SHGetImageListPtr =
-                    (void *) GetProcAddress(library, (char *) 727);
+                        (void *) GetProcAddress(library, (char *) 727);
             }
         }
     }
@@ -372,15 +375,15 @@ static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
             int imageIndex = fileInfo.iIcon;
 
             static const IID IID_IImageList = {
-                0x46EB5926L,
-                0x582E,
-                0x4017,
-                {0x9F, 0xDF, 0xE8, 0x99, 0x8D, 0xAA, 0x09, 0x50}};
+                    0x46EB5926L,
+                    0x582E,
+                    0x4017,
+                    {0x9F, 0xDF, 0xE8, 0x99, 0x8D, 0xAA, 0x09, 0x50}};
             if (isRunningVistaOrBetter) {
                 if (SHGetImageListPtr(SHIL_JUMBO, &IID_IImageList,
                                       &imageList) == S_OK) {
                     NSImageRep *rep =
-                        imageRepForImageListAndIndex(imageList, imageIndex);
+                            imageRepForImageListAndIndex(imageList, imageIndex);
                     if (rep) {
                         [icon addRepresentation: rep];
                     }
@@ -389,7 +392,7 @@ static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
             if (SHGetImageListPtr(SHIL_EXTRALARGE, &IID_IImageList,
                                   &imageList) == S_OK) {
                 NSImageRep *rep =
-                    imageRepForImageListAndIndex(imageList, imageIndex);
+                        imageRepForImageListAndIndex(imageList, imageIndex);
                 if (rep) {
                     [icon addRepresentation: rep];
                 }
@@ -397,7 +400,7 @@ static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
             if (SHGetImageListPtr(SHIL_LARGE, &IID_IImageList, &imageList) ==
                 S_OK) {
                 NSImageRep *rep =
-                    imageRepForImageListAndIndex(imageList, imageIndex);
+                        imageRepForImageListAndIndex(imageList, imageIndex);
                 if (rep) {
                     [icon addRepresentation: rep];
                 }
@@ -405,7 +408,7 @@ static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
             if (SHGetImageListPtr(SHIL_SMALL, &IID_IImageList, &imageList) ==
                 S_OK) {
                 NSImageRep *rep =
-                    imageRepForImageListAndIndex(imageList, imageIndex);
+                        imageRepForImageListAndIndex(imageList, imageIndex);
                 if (rep) {
                     [icon addRepresentation: rep];
                 }

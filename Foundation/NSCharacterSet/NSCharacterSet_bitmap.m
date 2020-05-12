@@ -48,9 +48,9 @@ what it was exactly { uint8_t _stageOne[256]; uint8_t _stageTwo[8];
     NSUInteger i;
 
     if ([data length] != NSBitmapCharacterSetSize)
-        [NSException
-             raise: @"NSCharacterSetFailedException"
-            format: @"NSCharacterSet bitmap short %d in init", [data length]];
+        [NSException raise: @"NSCharacterSetFailedException"
+                    format: @"NSCharacterSet bitmap short %d in init",
+                            [data length]];
 
     for (i = 0; i < NSBitmapCharacterSetSize; i++)
         _bitmap[i] = bytes[i];

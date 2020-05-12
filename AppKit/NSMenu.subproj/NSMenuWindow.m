@@ -43,8 +43,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithMenu: (NSMenu *) menu overflowAtIndex: (NSUInteger) overflowIndex {
     NSOverflowMenuView *view =
-        [[NSOverflowMenuView alloc] initWithMenu: menu
-                                 overflowAtIndex: overflowIndex];
+            [[NSOverflowMenuView alloc] initWithMenu: menu
+                                     overflowAtIndex: overflowIndex];
     NSRect contentRect = [view frame];
 
     [self initWithContentRect: contentRect

@@ -13,17 +13,17 @@
 - (void) renderInContext: (CGContextRef) context {
     int i, numberOfModes = 11;
     CGBlendMode modes[] = {
-        kCGBlendModeNormal,
-        kCGBlendModeClear,
-        kCGBlendModeCopy,
-        kCGBlendModeSourceIn,
-        kCGBlendModeSourceOut,
-        kCGBlendModeSourceAtop,
-        kCGBlendModeDestinationOver,
-        kCGBlendModeDestinationIn,
-        kCGBlendModeDestinationOut,
-        kCGBlendModeDestinationAtop,
-        kCGBlendModeXOR,
+            kCGBlendModeNormal,
+            kCGBlendModeClear,
+            kCGBlendModeCopy,
+            kCGBlendModeSourceIn,
+            kCGBlendModeSourceOut,
+            kCGBlendModeSourceAtop,
+            kCGBlendModeDestinationOver,
+            kCGBlendModeDestinationIn,
+            kCGBlendModeDestinationOut,
+            kCGBlendModeDestinationAtop,
+            kCGBlendModeXOR,
     };
 
     CGFloat height = 1.0 / numberOfModes;

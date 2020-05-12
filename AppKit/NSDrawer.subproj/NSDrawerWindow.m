@@ -51,7 +51,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // constrain resize size.
 - (NSSize) platformWindow: (CGWindow *) window
-      frameSizeWillChange: (NSSize) size
+        frameSizeWillChange: (NSSize) size
 {
     size = [super platformWindow: window frameSizeWillChange: size];
 

@@ -70,9 +70,9 @@ FOUNDATION_EXPORT NSString *NSInvalidUnarchiveOperationException;
 @interface NSObject (NSKeyedUnarchiverDelegate)
 - unarchiver: (NSKeyedUnarchiver *) unarchiver didDecodeObject: object;
 - (void) unarchiver: (NSKeyedUnarchiver *) unarchiver
-    willReplaceObject: object
-           withObject: replacement;
+        willReplaceObject: object
+               withObject: replacement;
 - (Class) unarchiver: (NSKeyedUnarchiver *) unarchiver
-    cannotDecodeObjectOfClassName: (NSString *) className
-                  originalClasses: (NSArray *) classHierarchy;
+        cannotDecodeObjectOfClassName: (NSString *) className
+                      originalClasses: (NSArray *) classHierarchy;
 @end

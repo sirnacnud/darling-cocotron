@@ -70,7 +70,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (HRESULT) Clone: (IEnumFORMATETC **) ppenum {
     Win32IEnumFORMATETCServer *server =
-        [[Win32IEnumFORMATETCServer alloc] initAsIEnumFORMATETC];
+            [[Win32IEnumFORMATETCServer alloc] initAsIEnumFORMATETC];
 
     [server setFormatEtcs: _formatEtcs];
     [server setIndex: _index];

@@ -96,8 +96,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setValue: (CGFloat) value
-             type: (NSTextBlockValueType) type
-     forDimension: (NSTextBlockDimension) dimension
+                type: (NSTextBlockValueType) type
+        forDimension: (NSTextBlockDimension) dimension
 {
     _dimensionValues[dimension] = value;
     _dimensionValueTypes[dimension] = type;

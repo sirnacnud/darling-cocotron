@@ -27,7 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @interface NSInvocation (private)
 + (NSInvocation *) invocationWithMethodSignature:
-                       (NSMethodSignature *) signature
+                           (NSMethodSignature *) signature
                                        arguments: (void *) arguments;
 @end
 
@@ -90,8 +90,8 @@ exception, so we may not, either
         return nil;
     } else {
         NSInvocation *invocation =
-            [NSInvocation invocationWithMethodSignature: signature
-                                              arguments: arguments];
+                [NSInvocation invocationWithMethodSignature: signature
+                                                  arguments: arguments];
         // char          result[[signature methodReturnLength]];
         id result;
 
@@ -162,7 +162,7 @@ exception, so we may not, either
 - (BOOL) isKindOfClass: (Class) class {
     NSMethodSignature *signature = [self methodSignatureForSelector: _cmd];
     NSInvocation *invocation =
-        [NSInvocation invocationWithMethodSignature: signature];
+            [NSInvocation invocationWithMethodSignature: signature];
     BOOL returnValue;
 
     [self forwardInvocation: invocation];
@@ -175,7 +175,7 @@ exception, so we may not, either
 - (BOOL) isMemberOfClass: (Class) class {
     NSMethodSignature *signature = [self methodSignatureForSelector: _cmd];
     NSInvocation *invocation =
-        [NSInvocation invocationWithMethodSignature: signature];
+            [NSInvocation invocationWithMethodSignature: signature];
     BOOL returnValue;
 
     [self forwardInvocation: invocation];
@@ -188,7 +188,7 @@ exception, so we may not, either
 - (BOOL) conformsToProtocol: (Protocol *) protocol {
     NSMethodSignature *signature = [self methodSignatureForSelector: _cmd];
     NSInvocation *invocation =
-        [NSInvocation invocationWithMethodSignature: signature];
+            [NSInvocation invocationWithMethodSignature: signature];
     BOOL returnValue;
 
     [self forwardInvocation: invocation];
@@ -201,7 +201,7 @@ exception, so we may not, either
 - (BOOL) respondsToSelector: (SEL) selector {
     NSMethodSignature *signature = [self methodSignatureForSelector: _cmd];
     NSInvocation *invocation =
-        [NSInvocation invocationWithMethodSignature: signature];
+            [NSInvocation invocationWithMethodSignature: signature];
     BOOL returnValue;
 
     [self forwardInvocation: invocation];

@@ -36,7 +36,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _maxSize = [keyed decodeSizeForKey: @"NSMaxSize"];
         _minSize = [keyed decodeSizeForKey: @"NSMinSize"];
         _screenRect =
-            [keyed decodeRectForKey: @"NSScreenRect"]; // screen created on
+                [keyed decodeRectForKey: @"NSScreenRect"]; // screen created on
         _viewClass = [[keyed decodeObjectForKey: @"NSViewClass"] retain];
         _wtFlags = [keyed decodeIntForKey: @"NSWTFlags"];
         _windowBacking = [keyed decodeIntForKey: @"NSWindowBacking"];
@@ -46,15 +46,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _windowTitle = [[keyed decodeObjectForKey: @"NSWindowTitle"] retain];
         _windowView = [[keyed decodeObjectForKey: @"NSWindowView"] retain];
         _windowAutosave =
-            [[keyed decodeObjectForKey: @"NSFrameAutosaveName"] retain];
+                [[keyed decodeObjectForKey: @"NSFrameAutosaveName"] retain];
 
         if ([NSScreen mainScreen])
             _windowRect.origin.y -= _screenRect.size.height -
                                     [[NSScreen mainScreen] frame].size.height;
         if ([NSClassFromString(_windowClass)
-                hasMainMenuForStyleMask: _windowStyleMask])
+                    hasMainMenuForStyleMask: _windowStyleMask])
             _windowRect.origin.y -= [NSMainMenuView
-                menuHeight]; // compensation for the additional menu bar
+                    menuHeight]; // compensation for the additional menu bar
     } else {
         [NSException raise: NSInvalidArgumentException
                     format: @"%@ can not initWithCoder:%@", [self class],
@@ -79,9 +79,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if ((class = NSClassFromString(_windowClass)) == Nil) {
         [NSException
-             raise: NSInvalidArgumentException
-            format: @"Unable to locate NSWindow class %@, using NSWindow",
-                    _windowClass];
+                 raise: NSInvalidArgumentException
+                format: @"Unable to locate NSWindow class %@, using NSWindow",
+                        _windowClass];
         class = [NSWindow class];
     }
     defer = (_wtFlags & 0x20000000) ? YES : NO;

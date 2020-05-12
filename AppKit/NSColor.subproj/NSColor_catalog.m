@@ -110,8 +110,8 @@ NSColor *NSColorGetCatalogColor(NSString *catalogName, NSString *colorName);
         return self;
 
     result = [NSColorGetCatalogColor(_catalogName, _colorName)
-        colorUsingColorSpaceName: colorSpace
-                          device: device];
+            colorUsingColorSpaceName: colorSpace
+                              device: device];
 
     if (result == nil)
         NSLog(@"result ==nil %@ %@", _colorName, colorSpace);

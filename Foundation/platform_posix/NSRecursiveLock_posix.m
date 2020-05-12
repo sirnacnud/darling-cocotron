@@ -56,9 +56,9 @@
             [_lock unlock];
         }
     } else
-        NSCLog(
-            "tried to unlock lock 0x%x owned by thread 0x%x from thread 0x%x",
-            self, _lockingThread, [NSThread currentThread]);
+        NSCLog("tried to unlock lock 0x%x owned by thread 0x%x from thread "
+               "0x%x",
+               self, _lockingThread, [NSThread currentThread]);
 }
 
 - (BOOL) tryLock {
@@ -93,9 +93,9 @@
 }
 
 - (id) description {
-    return
-        [NSString stringWithFormat: @"(%@, name %@, locked %i times",
-                                    [super description], _name, _numberOfLocks];
+    return [NSString stringWithFormat: @"(%@, name %@, locked %i times",
+                                       [super description], _name,
+                                       _numberOfLocks];
 }
 @end
 #endif

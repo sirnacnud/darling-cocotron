@@ -45,7 +45,7 @@ static const NSTimeInterval kMenuInitialClickThreshold = .3f;
 // Note: moved these above init to avoid compiler warnings
 - (NSDictionary *) itemAttributes {
     return [NSDictionary
-        dictionaryWithObjectsAndKeys: _font, NSFontAttributeName, nil];
+            dictionaryWithObjectsAndKeys: _font, NSFontAttributeName, nil];
 }
 
 - (NSArray *) visibleItemArray {
@@ -77,8 +77,8 @@ static const NSTimeInterval kMenuInitialClickThreshold = .3f;
     BOOL anItemHasAnImage = NO;
     CGFloat maxKeyWidth = 0.0f;
     CGFloat totalHeight =
-        WINDOW_BORDER_THICKNESS; // border. Magic constants that may not be
-                                 // right for Win7 vs XP
+            WINDOW_BORDER_THICKNESS; // border. Magic constants that may not be
+                                     // right for Win7 vs XP
     NSSize gutterSize = [[self graphicsStyle] menuItemGutterSize];
     NSSize rightArrowSize = [[self graphicsStyle] menuItemBranchArrowSize];
     unsigned i, count = [items count];
@@ -109,19 +109,19 @@ static const NSTimeInterval kMenuInitialClickThreshold = .3f;
 
             if ([item attributedTitle]) {
                 size = [[self graphicsStyle]
-                    menuItemAttributedTextSize: [item attributedTitle]];
+                        menuItemAttributedTextSize: [item attributedTitle]];
             } else {
                 if (useCustomFont) {
                     NSDictionary *attributes = [self itemAttributes];
                     NSAttributedString *attributedTitle =
-                        [[[NSAttributedString alloc]
-                            initWithString: [item title]
-                                attributes: attributes] autorelease];
+                            [[[NSAttributedString alloc]
+                                    initWithString: [item title]
+                                        attributes: attributes] autorelease];
                     size = [[self graphicsStyle]
-                        menuItemAttributedTextSize: attributedTitle];
+                            menuItemAttributedTextSize: attributedTitle];
                 } else {
-                    size =
-                        [[self graphicsStyle] menuItemTextSize: [item title]];
+                    size = [[self graphicsStyle]
+                            menuItemTextSize: [item title]];
                 }
             }
             titleAndIconWidth += size.width;
@@ -130,7 +130,7 @@ static const NSTimeInterval kMenuInitialClickThreshold = .3f;
 
             if ([[item keyEquivalent] length] != 0) {
                 size = [[self graphicsStyle]
-                    menuItemTextSize: [item _keyEquivalentDescription]];
+                        menuItemTextSize: [item _keyEquivalentDescription]];
                 maxKeyWidth = MAX(maxKeyWidth, size.width);
                 height = MAX(height, size.height);
             }
@@ -277,9 +277,9 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
         origin = itemRect.origin;
 
         if ([item isSeparatorItem]) {
-            NSRect separatorRect =
-                NSMakeRect(origin.x, origin.y, NSWidth(itemArea),
-                           [[self graphicsStyle] menuItemSeparatorSize].height);
+            NSRect separatorRect = NSMakeRect(
+                    origin.x, origin.y, NSWidth(itemArea),
+                    [[self graphicsStyle] menuItemSeparatorSize].height);
 
             [[self graphicsStyle] drawMenuSeparatorInRect: separatorRect];
 
@@ -299,8 +299,8 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
             NSSize partSize;
             BOOL showsEnabled = ([item isEnabled] || [item hasSubmenu]);
 
-            partRect =
-                NSMakeRect(origin.x, origin.y, itemArea.size.width, itemHeight);
+            partRect = NSMakeRect(origin.x, origin.y, itemArea.size.width,
+                                  itemHeight);
 
             if (selected)
                 [[self graphicsStyle] drawMenuSelectionInRect: partRect
@@ -308,7 +308,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
 
             // Draw the gutter and checkmark (if any)
             CENTER_PART_RECT_VERTICALLY(
-                [[self graphicsStyle] menuItemGutterSize]);
+                    [[self graphicsStyle] menuItemGutterSize]);
             if ([item state] || _initialSelectedIndex == i) {
                 [[self graphicsStyle] drawMenuGutterInRect: partRect];
                 [[self graphicsStyle] drawMenuCheckmarkInRect: partRect
@@ -326,7 +326,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
                 CENTER_PART_RECT_VERTICALLY([image size]);
 
                 CGContextRef ctx =
-                    [[NSGraphicsContext currentContext] graphicsPort];
+                        [[NSGraphicsContext currentContext] graphicsPort];
                 CGContextSaveGState(ctx);
                 CGContextTranslateCTM(ctx, partRect.origin.x,
                                       partRect.origin.y);
@@ -350,8 +350,8 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
 
             NSAttributedString *atitle = [item attributedTitle];
             if (atitle != nil && [atitle length] > 0) {
-                CENTER_PART_RECT_VERTICALLY(
-                    [[self graphicsStyle] menuItemAttributedTextSize: atitle]);
+                CENTER_PART_RECT_VERTICALLY([[self graphicsStyle]
+                        menuItemAttributedTextSize: atitle]);
 #if WINDOWS
                 // On Windows, when using the AGG graphics context, enabling
                 // font smoothing switches to using AGG for text drawing,
@@ -365,9 +365,9 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
                 // without any special attributes It would probably be better to
                 // add font caching to the regular Win32 drawing context
                 CGContextSetShouldSmoothFonts(
-                    (CGContextRef)[
-                        [NSGraphicsContext currentContext] graphicsPort],
-                    YES);
+                        (CGContextRef)[[NSGraphicsContext
+                                currentContext] graphicsPort],
+                        YES);
 #endif
                 [[self graphicsStyle] drawAttributedMenuItemText: atitle
                                                           inRect: partRect
@@ -387,27 +387,27 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
                 // without any special attributes It would probably be better to
                 // add font caching to the regular Win32 drawing context
                 CGContextSetShouldSmoothFonts(
-                    (CGContextRef)[
-                        [NSGraphicsContext currentContext] graphicsPort],
-                    NO);
+                        (CGContextRef)[[NSGraphicsContext
+                                currentContext] graphicsPort],
+                        NO);
 #endif
                 NSString *title = [item title];
                 if (useCustomFont) {
                     NSDictionary *attributes = [self itemAttributes];
                     NSAttributedString *attributedTitle =
-                        [[[NSAttributedString alloc] initWithString: title
-                                                         attributes: attributes]
-                            autorelease];
+                            [[[NSAttributedString alloc]
+                                    initWithString: title
+                                        attributes: attributes] autorelease];
                     CENTER_PART_RECT_VERTICALLY([[self graphicsStyle]
-                        menuItemAttributedTextSize: attributedTitle]);
+                            menuItemAttributedTextSize: attributedTitle]);
                     [[self graphicsStyle]
-                        drawAttributedMenuItemText: attributedTitle
-                                            inRect: partRect
-                                           enabled: showsEnabled
-                                          selected: selected];
+                            drawAttributedMenuItemText: attributedTitle
+                                                inRect: partRect
+                                               enabled: showsEnabled
+                                              selected: selected];
                 } else {
                     CENTER_PART_RECT_VERTICALLY(
-                        [[self graphicsStyle] menuItemTextSize: title]);
+                            [[self graphicsStyle] menuItemTextSize: title]);
                     [[self graphicsStyle] drawMenuItemText: title
                                                     inRect: partRect
                                                    enabled: showsEnabled
@@ -419,9 +419,9 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
             if ([[item keyEquivalent] length] != 0) {
                 NSString *keyString = [item _keyEquivalentDescription];
                 NSSize branchArrowSize =
-                    [[self graphicsStyle] menuItemBranchArrowSize];
+                        [[self graphicsStyle] menuItemBranchArrowSize];
                 NSSize keyEquivalentSize =
-                    [[self graphicsStyle] menuItemTextSize: keyString];
+                        [[self graphicsStyle] menuItemTextSize: keyString];
 
                 partRect.origin.x = origin.x + NSWidth(itemArea) -
                                     branchArrowSize.width -
@@ -436,9 +436,9 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
             // Draw the submenu arrow
             if ([item hasSubmenu]) {
                 NSSize branchArrowSize =
-                    [[self graphicsStyle] menuItemBranchArrowSize];
+                        [[self graphicsStyle] menuItemBranchArrowSize];
                 partRect.origin.x =
-                    origin.x + NSWidth(itemArea) - branchArrowSize.width;
+                        origin.x + NSWidth(itemArea) - branchArrowSize.width;
                 partRect.size.width = branchArrowSize.width;
                 CENTER_PART_RECT_VERTICALLY(branchArrowSize);
                 [[self graphicsStyle] drawMenuBranchArrowInRect: partRect
@@ -534,7 +534,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
     BOOL cancelled = NO;
 
     NSRect screenVisible =
-        NSInsetRect([[[self window] screen] visibleFrame], 0, 4);
+            NSInsetRect([[[self window] screen] visibleFrame], 0, 4);
 
     [NSEvent startPeriodicEventsAfterDelay: .0 withPeriod: .02];
     BOOL mouseMoved = NO;
@@ -553,9 +553,10 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
         }
 
         event = [[self window]
-            nextEventMatchingMask: NSPeriodicMask | NSLeftMouseUpMask |
-                                   NSMouseMovedMask | NSLeftMouseDraggedMask |
-                                   NSKeyDownMask | NSAppKitDefinedMask];
+                nextEventMatchingMask: NSPeriodicMask | NSLeftMouseUpMask |
+                                       NSMouseMovedMask |
+                                       NSLeftMouseDraggedMask | NSKeyDownMask |
+                                       NSAppKitDefinedMask];
         if (firstTimestamp == 0.) {
             // Note: we don't do that using the first event, because in case the
             // menu takes a long of time to display, the next event we get will
@@ -629,7 +630,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
         case STATE_FIRSTMOUSEDOWN:
             if ([event type] == NSLeftMouseUp) {
                 if (mouseMoved || [event timestamp] - firstTimestamp >
-                                      kMenuInitialClickThreshold) {
+                                          kMenuInitialClickThreshold) {
                     // Long click - accept the selection
                     state = STATE_EXIT;
                 } else {
@@ -726,7 +727,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
     // We're intercepting insertText: so we can do menu navigation by letter
     unichar ch = [aString characterAtIndex: 0];
     NSString *letterString =
-        [[NSString stringWithCharacters: &ch length: 1] uppercaseString];
+            [[NSString stringWithCharacters: &ch length: 1] uppercaseString];
 
     NSInteger oldIndex = _selectedIndex;
 

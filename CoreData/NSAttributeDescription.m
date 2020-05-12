@@ -32,10 +32,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     _attributeType = [coder decodeIntForKey: @"NSAttributeType"];
     _valueClassName =
-        [[coder decodeObjectForKey: @"NSAttributeValueClassName"] retain];
+            [[coder decodeObjectForKey: @"NSAttributeValueClassName"] retain];
     _defaultValue = [[coder decodeObjectForKey: @"NSDefaultValue"] retain];
     _valueTransformerName =
-        [[coder decodeObjectForKey: @"NSValueTransformerName"] retain];
+            [[coder decodeObjectForKey: @"NSValueTransformerName"] retain];
     if (_valueTransformerName != nil)
         NSLog(@"UNIMPLEMENTED _valueTransformerName=%@", _valueTransformerName);
 

@@ -15,7 +15,7 @@
     CGLError error;
 
     CGLPixelFormatAttribute attributes[1] = {
-        0,
+            0,
     };
     GLint numberOfVirtualScreens;
 

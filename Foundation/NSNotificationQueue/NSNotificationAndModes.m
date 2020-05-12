@@ -46,7 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + queuedWithNotification: (NSNotification *) note modes: (NSArray *) modes {
     return [[[self allocWithZone: NULL] initWithNotification: note modes: modes]
-        autorelease];
+            autorelease];
 }
 
 @end

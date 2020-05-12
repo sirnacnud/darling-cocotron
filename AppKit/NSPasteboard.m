@@ -50,11 +50,11 @@ const NSPasteboardType NSURLPboardType = @"NSURLPboardType";
 const NSPasteboardType NSHTMLPboardType = @"Apple HTML pasteboard type";
 
 const NSPasteboardType NSFilesPromisePboardType =
-    @"Apple files promise pasteboard type";
+        @"Apple files promise pasteboard type";
 
 const NSPasteboardName NSPasteboardNameDrag = @"Apple CFPasteboard drag";
 NSString *const NSPasteboardURLReadingFileURLsOnlyKey =
-    @"NSPasteboardURLReadingFileURLsOnlyKey";
+        @"NSPasteboardURLReadingFileURLsOnlyKey";
 
 const NSPasteboardName NSDragPboard = @"NSDragPboard";
 const NSPasteboardName NSFindPboard = @"NSFindPboard";
@@ -65,8 +65,8 @@ const NSPasteboardName NSRulerPboard = @"NSRulerPboard";
 const NSPasteboardName NSPasteboardNameGeneral = @"Apple CFPasteboard general";
 
 const NSPasteboardReadingOptionKey
-    NSPasteboardURLReadingContentsConformToTypesKey =
-        @"NSPasteboardURLReadingContentsConformToTypesKey";
+        NSPasteboardURLReadingContentsConformToTypesKey =
+                @"NSPasteboardURLReadingContentsConformToTypesKey";
 
 @implementation NSPasteboard
 
@@ -121,19 +121,19 @@ const NSPasteboardReadingOptionKey
 - (NSString *) stringForType: (NSPasteboardType) type {
     NSData *data = [self dataForType: type];
 
-    return
-        [[[NSString alloc] initWithData: data
-                               encoding: NSUnicodeStringEncoding] autorelease];
+    return [[[NSString alloc] initWithData: data
+                                  encoding: NSUnicodeStringEncoding]
+            autorelease];
 }
 
 - (id) propertyListForType: (NSPasteboardType) type {
     NSData *data = [self dataForType: type];
     NSString *errorDesc = nil;
     id plist = [NSPropertyListSerialization
-        propertyListFromData: data
-            mutabilityOption: NSPropertyListImmutable
-                      format: NULL
-            errorDescription: &errorDesc];
+            propertyListFromData: data
+                mutabilityOption: NSPropertyListImmutable
+                          format: NULL
+                errorDescription: &errorDesc];
     if (plist && errorDesc == nil) {
         return plist;
     }
@@ -168,9 +168,9 @@ const NSPasteboardReadingOptionKey
 - (BOOL) setPropertyList: (id) plist forType: (NSPasteboardType) type {
     NSString *errorDesc = nil;
     NSData *data = [NSPropertyListSerialization
-        dataFromPropertyList: plist
-                      format: NSPropertyListXMLFormat_v1_0
-            errorDescription: &errorDesc];
+            dataFromPropertyList: plist
+                          format: NSPropertyListXMLFormat_v1_0
+                errorDescription: &errorDesc];
     if (data && errorDesc == nil) {
         return [self setData: data forType: type];
     }

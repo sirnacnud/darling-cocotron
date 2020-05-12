@@ -64,24 +64,24 @@ void evaluate(void *info, const float *in, float *output) {
         *dest = point;
 
         [self setNeedsDisplay: YES];
-        event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
     } while ([event type] != NSLeftMouseUp);
 
     _mouseFirst = !_mouseFirst;
 }
 
 - (IBAction) takeStartColorFromSender: sender {
-    NSColor *color =
-        [[sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+    NSColor *color = [[sender color]
+            colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 
     [color getRed: _C0 green: _C0 + 1 blue: _C0 + 2 alpha: _C0 + 3];
     [self setNeedsDisplay: YES];
 }
 
 - (IBAction) takeEndColorFromSender: sender {
-    NSColor *color =
-        [[sender color] colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
+    NSColor *color = [[sender color]
+            colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
 
     [color getRed: _C1 green: _C1 + 1 blue: _C1 + 2 alpha: _C1 + 3];
     [self setNeedsDisplay: YES];

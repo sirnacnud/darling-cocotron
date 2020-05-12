@@ -55,12 +55,13 @@
 
     for (int i = 0; i < 100; i++) {
         [array _insertObject: [NSNumber numberWithInt: rand()]
-            inArraySortedByDescriptors: descArray];
+                inArraySortedByDescriptors: descArray];
         id other = [array mutableCopy];
         [other sortUsingDescriptors: descArray];
 
         STAssertEqualObjects(
-            array, other, @"sorted array not equal to array after insertion");
+                array, other,
+                @"sorted array not equal to array after insertion");
 
         [other release];
     }

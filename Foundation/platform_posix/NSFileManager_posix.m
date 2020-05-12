@@ -146,14 +146,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
              operation: (NSString *) op
 {
     if ([handler respondsToSelector: @selector(fileManager:
-                                         shouldProceedAfterError:)]) {
+                                             shouldProceedAfterError:)]) {
         NSDictionary *errorInfo = [NSDictionary
-            dictionaryWithObjectsAndKeys: src, @"Path",
-                                          [NSString
-                                              stringWithFormat: @"%@: %s", op,
-                                                                strerror(
-                                                                    errno)],
-                                          @"Error", dest, @"ToPath", nil];
+                dictionaryWithObjectsAndKeys:
+                        src, @"Path",
+                        [NSString stringWithFormat: @"%@: %s", op,
+                                                    strerror(errno)],
+                        @"Error", dest, @"ToPath", nil];
 
         if ([handler fileManager: self shouldProceedAfterError: errorInfo])
             return YES;

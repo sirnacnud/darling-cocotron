@@ -29,27 +29,27 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSString *const NSFontAttributeName = @"NSFontAttributeName";
 NSString *const NSParagraphStyleAttributeName =
-    @"NSParagraphStyleAttributeName";
+        @"NSParagraphStyleAttributeName";
 NSString *const NSForegroundColorAttributeName =
-    @"NSForegroundColorAttributeName";
+        @"NSForegroundColorAttributeName";
 NSString *const NSBackgroundColorAttributeName =
-    @"NSBackgroundColorAttributeName";
+        @"NSBackgroundColorAttributeName";
 NSString *const NSUnderlineStyleAttributeName =
-    @"NSUnderlineStyleAttributeName";
+        @"NSUnderlineStyleAttributeName";
 NSString *const NSUnderlineColorAttributeName =
-    @"NSUnderlineColorAttributeName";
+        @"NSUnderlineColorAttributeName";
 NSString *const NSAttachmentAttributeName = @"NSAttachmentAttributeName";
 NSString *const NSKernAttributeName = @"NSKernAttributeName";
 NSString *const NSLigatureAttributeName = @"NSLigatureAttributeName";
 NSString *const NSStrikethroughStyleAttributeName =
-    @"NSStrikethroughStyleAttributeName";
+        @"NSStrikethroughStyleAttributeName";
 NSString *const NSStrikethroughColorAttributeName =
-    @"NSStrikethroughColorAttributeName";
+        @"NSStrikethroughColorAttributeName";
 NSString *const NSObliquenessAttributeName = @"NSObliquenessAttributeName";
 NSString *const NSStrokeWidthAttributeName = @"NSStrokeWidthAttributeName";
 NSString *const NSStrokeColorAttributeName = @"NSStrokeColorAttributeName";
 NSString *const NSBaselineOffsetAttributeName =
-    @"NSBaselineOffsetAttributeName";
+        @"NSBaselineOffsetAttributeName";
 NSString *const NSSuperscriptAttributeName = @"NSSuperscriptAttributeName";
 NSString *const NSLinkAttributeName = @"NSLinkAttributeName";
 NSString *const NSShadowAttributeName = @"NSShadowAttributeName";
@@ -57,7 +57,7 @@ NSString *const NSExpansionAttributeName = @"NSExpansionAttributeName";
 NSString *const NSCursorAttributeName = @"NSCursorAttributeName";
 NSString *const NSToolTipAttributeName = @"NSToolTipAttributeName";
 NSString *const NSSpellingStateAttributeName =
-    @"NSSpellingStateAttributeName"; // temporary attribute
+        @"NSSpellingStateAttributeName"; // temporary attribute
 
 NSString *const NSDocumentTypeDocumentAttribute = @"DocumentType";
 NSString *const NSConvertedDocumentAttribute = @"Converted";
@@ -71,13 +71,13 @@ NSString *const NSKeywordsDocumentAttribute = @"NSKeywordsDocumentAttribute";
 NSString *const NSCommentDocumentAttribute = @"NSCommentDocumentAttribute";
 NSString *const NSEditorDocumentAttribute = @"NSEditorDocumentAttribute";
 NSString *const NSCreationTimeDocumentAttribute =
-    @"NSCreationTimeDocumentAttribute";
+        @"NSCreationTimeDocumentAttribute";
 NSString *const NSModificationTimeDocumentAttribute =
-    @"NSModificationTimeDocumentAttribute";
+        @"NSModificationTimeDocumentAttribute";
 NSString *const NSManagerDocumentAttribute = @"NSManagerDocumentAttribute";
 NSString *const NSCategoryDocumentAttribute = @"NSCategoryDocumentAttribute";
 NSString *const NSAppearanceDocumentAttribute =
-    @"NSAppearanceDocumentAttribute";
+        @"NSAppearanceDocumentAttribute";
 NSString *const NSCharacterEncodingDocumentAttribute = @"CharacterEncoding";
 NSString *const NSDefaultAttributesDocumentAttribute = @"DefaultAttributes";
 NSString *const NSPaperSizeDocumentAttribute = @"PaperSize";
@@ -93,7 +93,7 @@ NSString *const NSBackgroundColorDocumentAttribute = @"BackgroundColor";
 NSString *const NSHyphenationFactorDocumentAttribute = @"HyphenationFactor";
 NSString *const NSDefaultTabIntervalDocumentAttribute = @"DefaultTabInterval";
 NSString *const NSTextLayoutSectionsAttribute =
-    @"NSTextLayoutSectionsAttribute";
+        @"NSTextLayoutSectionsAttribute";
 NSString *const NSExcludedElementsDocumentAttribute = @"ExcludedElements";
 NSString *const NSTextEncodingNameDocumentAttribute = @"TextEncodingName";
 NSString *const NSPrefixSpacesDocumentAttribute = @"PrefixSpaces";
@@ -106,7 +106,7 @@ NSString *const NSBaseURLDocumentOption = @"BaseURL";
 NSString *const NSTimeoutDocumentOption = @"Timeout";
 NSString *const NSWebPreferencesDocumentOption = @"WebPreferences";
 NSString *const NSWebResourceLoadDelegateDocumentOption =
-    @"WebResourceLoadDelegate";
+        @"WebResourceLoadDelegate";
 NSString *const NSTextSizeMultiplierDocumentOption = @"TextSizeMultiplier";
 NSString *const NSFileTypeDocumentOption = @"UTI";
 
@@ -122,7 +122,7 @@ NSString *const NSOfficeOpenXMLTextDocumentType = @"NSOfficeOpenXML";
 NSString *const NSOpenDocumentTextDocumentType = @"NSOpenDocument";
 
 NSString *const NSTextLayoutSectionOrientation =
-    @"NSTextLayoutSectionOrientation";
+        @"NSTextLayoutSectionOrientation";
 NSString *const NSTextLayoutSectionRange = @"NSTextLayoutSectionRange";
 
 NSString *const NSCharacterShapeAttributeName = @"NSCharacterShape";
@@ -139,62 +139,62 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 #pragma mark Creating an NSAttributedString
 
 + (NSAttributedString *) attributedStringWithAttachment:
-    (NSTextAttachment *) attachment
+        (NSTextAttachment *) attachment
 {
     unichar unicode = NSAttachmentCharacter;
     NSString *string = [NSString stringWithCharacters: &unicode length: 1];
     NSDictionary *attributes =
-        [NSDictionary dictionaryWithObject: attachment
-                                    forKey: NSAttachmentAttributeName];
+            [NSDictionary dictionaryWithObject: attachment
+                                        forKey: NSAttachmentAttributeName];
 
     return [[[self alloc] initWithString: string
                               attributes: attributes] autorelease];
 }
 
 - initWithData: (NSData *) data
-               options: (NSDictionary *) options
-    documentAttributes: (NSDictionary **) attributes
-                 error: (NSError **) error
+                   options: (NSDictionary *) options
+        documentAttributes: (NSDictionary **) attributes
+                     error: (NSError **) error
 {
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithDocFormat: (NSData *) werd
-    documentAttributes: (NSDictionary **) attributes
+        documentAttributes: (NSDictionary **) attributes
 {
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithHTML: (NSData *) html
-               baseURL: (NSURL *) url
-    documentAttributes: (NSDictionary **) attributes
+                   baseURL: (NSURL *) url
+        documentAttributes: (NSDictionary **) attributes
 {
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithHTML: (NSData *) html
-    documentAttributes: (NSDictionary **) attributes
+        documentAttributes: (NSDictionary **) attributes
 {
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithHTML: (NSData *) html
-               options: (NSDictionary *) options
-    documentAttributes: (NSDictionary **) attributes
+                   options: (NSDictionary *) options
+        documentAttributes: (NSDictionary **) attributes
 {
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithPath: (NSString *) path
-    documentAttributes: (NSDictionary **) attributes
+        documentAttributes: (NSDictionary **) attributes
 {
     NSAttributedString *string =
-        [NSRichTextReader attributedStringWithContentsOfFile: path];
+            [NSRichTextReader attributedStringWithContentsOfFile: path];
     if (string == nil) {
         [self release];
         return nil;
@@ -204,7 +204,7 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 
 - initWithRTF: (NSData *) rtf documentAttributes: (NSDictionary **) attributes {
     NSAttributedString *string =
-        [NSRichTextReader attributedStringWithData: rtf];
+            [NSRichTextReader attributedStringWithData: rtf];
     if (string == nil) {
         [self release];
         return nil;
@@ -213,14 +213,14 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 }
 
 - initWithRTFD: (NSData *) rtfd
-    documentAttributes: (NSDictionary **) attributes
+        documentAttributes: (NSDictionary **) attributes
 {
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithRTFDFileWrapper: (NSFileWrapper *) wrapper
-       documentAttributes: (NSDictionary **) attributes
+        documentAttributes: (NSDictionary **) attributes
 {
     NSUnimplementedMethod();
     return nil;
@@ -232,9 +232,9 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 }
 
 - initWithURL: (NSURL *) url
-               options: (NSDictionary *) options
-    documentAttributes: (NSDictionary **) attributes
-                 error: (NSError **) error
+                   options: (NSDictionary *) options
+        documentAttributes: (NSDictionary **) attributes
+                     error: (NSError **) error
 {
     NSUnimplementedMethod();
     return nil;
@@ -285,16 +285,14 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 
     if (expand) {
         for (; result.location != 0; result.location--, result.length++) {
-            if (![set characterIsMember: [string
-                                             characterAtIndex: result.location -
-                                                               1]])
+            if (![set characterIsMember:
+                                [string characterAtIndex: result.location - 1]])
                 break;
         }
 
         for (; NSMaxRange(result) < length; result.length++) {
-            if (![set
-                    characterIsMember: [string characterAtIndex: NSMaxRange(
-                                                                     result)]])
+            if (![set characterIsMember:
+                                [string characterAtIndex: NSMaxRange(result)]])
                 break;
         }
     } else if (location < length)
@@ -440,7 +438,7 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 }
 
 - (NSData *) RTFFromRange: (NSRange) range
-       documentAttributes: (NSDictionary *) attributes
+        documentAttributes: (NSDictionary *) attributes
 {
     return [NSRichTextWriter dataWithAttributedString: self range: range];
 }
@@ -565,7 +563,7 @@ NSParagraphStyle *
 NSParagraphStyleAttributeInDictionary(NSDictionary *dictionary)
 {
     NSParagraphStyle *style =
-        [dictionary objectForKey: NSParagraphStyleAttributeName];
+            [dictionary objectForKey: NSParagraphStyleAttributeName];
 
     if (style == nil)
         style = [NSParagraphStyle defaultParagraphStyle];

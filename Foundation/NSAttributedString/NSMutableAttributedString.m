@@ -50,7 +50,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (id) copyWithZone: (NSZone *) zone {
     return [[NSAttributedString allocWithZone: NULL]
-        initWithAttributedString: self];
+            initWithAttributedString: self];
 }
 
 - (NSMutableString *) mutableString {
@@ -72,9 +72,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     while (location < limit) {
         NSRange effectiveRange;
-        NSMutableDictionary *modify =
-            [[[self attributesAtIndex: location effectiveRange: &effectiveRange]
-                mutableCopy] autorelease];
+        NSMutableDictionary *modify = [[[self
+                attributesAtIndex: location
+                   effectiveRange: &effectiveRange] mutableCopy] autorelease];
         NSRange replace;
 
         [modify addEntriesFromDictionary: attributes];
@@ -111,7 +111,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         replace.location = location;
         replace.length =
-            MIN(NSMaxRange(range), NSMaxRange(effectiveRange)) - location;
+                MIN(NSMaxRange(range), NSMaxRange(effectiveRange)) - location;
 
         if ([check objectForKey: name] != nil) {
             NSMutableDictionary *modify = [[check mutableCopy] autorelease];

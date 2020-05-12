@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSPanel.h>
 
 @class NSButton, NSColorWell, NSMatrix, NSView, NSColorList, NSSplitView,
-    NSTextField, NSSlider;
+        NSTextField, NSSlider;
 
 enum {
     NSColorPanelGrayModeMask = (1 << 0),

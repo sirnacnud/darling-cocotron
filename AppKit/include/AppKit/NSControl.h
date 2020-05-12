@@ -134,17 +134,17 @@ APPKIT_EXPORT const NSNotificationName NSControlTextDidEndEditingNotification;
 @protocol NSControlTextEditingDelegate <NSObject>
 @optional
 - (BOOL) control: (NSControl *) control
-               textView: (NSTextView *) textView
-    doCommandBySelector: (SEL) selector;
+                   textView: (NSTextView *) textView
+        doCommandBySelector: (SEL) selector;
 - (BOOL) control: (NSControl *) control
-    textShouldBeginEditing: (NSText *) fieldEditor;
+        textShouldBeginEditing: (NSText *) fieldEditor;
 - (BOOL) control: (NSControl *) control
-    textShouldEndEditing: (NSText *) fieldEditor;
+        textShouldEndEditing: (NSText *) fieldEditor;
 - (BOOL) control: (NSControl *) control
-    didFailToFormatString: (NSString *) string
-         errorDescription: (NSString *) error;
+        didFailToFormatString: (NSString *) string
+             errorDescription: (NSString *) error;
 - (void) control: (NSControl *) control
-    didFailToValidatePartialString: (NSString *) string
-                  errorDescription: (NSString *) error;
+        didFailToValidatePartialString: (NSString *) string
+                      errorDescription: (NSString *) error;
 - (BOOL) control: (NSControl *) control isValidObject: (id) obj;
 @end

@@ -284,7 +284,7 @@ class context_renderer {
     class context_renderer_helper : public context_renderer_helper_base {
         typedef o2agg::pixfmt_custom_blend_rgba<blender_type,
                                                 agg::rendering_buffer>
-            pixfmt_type;
+                pixfmt_type;
 
         typedef o2agg::pixfmt_bgra32_pre pixfmt_shadow_type;
 
@@ -363,10 +363,10 @@ class context_renderer {
                 int bytesPerRow = ren_base->ren().stride();
                 pixelShadowBytes = new uint8_t[height * bytesPerRow];
                 renderingBufferShadow = new agg::rendering_buffer(
-                    pixelShadowBytes, width, height, bytesPerRow);
+                        pixelShadowBytes, width, height, bytesPerRow);
 
                 pixelFormatShadow =
-                    new pixfmt_shadow_type(*renderingBufferShadow);
+                        new pixfmt_shadow_type(*renderingBufferShadow);
                 ren_shadow = new renderer_shadow(*pixelFormatShadow);
             }
             ren_shadow->reset_clipping(1);
@@ -478,26 +478,26 @@ class context_renderer {
 
             agg::span_allocator<typename pixfmt_shadow_type::color_type> sa;
             typedef agg::image_accessor_clone<pixfmt_shadow_type>
-                img_accessor_type;
+                    img_accessor_type;
             typedef agg::span_interpolator_linear<agg::trans_affine>
-                interpolator_type;
+                    interpolator_type;
 
             img_accessor_type ia(*pixelFormatShadow);
             agg::trans_affine transform;
             transform.translate(
-                -fract(shadowOffset.width),
-                fract(shadowOffset.height)); // Translate using the fract part
-                                             // of the shadow offset
+                    -fract(shadowOffset.width),
+                    fract(shadowOffset.height)); // Translate using the fract
+                                                 // part of the shadow offset
             interpolator_type interpolator(transform);
             typedef agg::span_image_filter_rgba_nn<img_accessor_type,
                                                    interpolator_type>
-                span_gen_type;
+                    span_gen_type;
             span_gen_type sg(ia, interpolator);
 
             unsigned oldBlendMode = pixelFormat->comp_op();
             pixelFormat->comp_op(
-                o2agg::comp_op_src_over); // Always use src_over when copying
-                                          // the shadow
+                    o2agg::comp_op_src_over); // Always use src_over when
+                                              // copying the shadow
             agg::render_scanlines_aa(r, sl, *ren_base, sa, sg);
             pixelFormat->comp_op(oldBlendMode);
         }
@@ -538,11 +538,11 @@ class context_renderer {
                     // we can skip the blur pass which is also applying the
                     // color
                     o2agg::rgba8 color =
-                        o2agg::rgba(shadowColor.r, shadowColor.g, shadowColor.b,
-                                    shadowColor.a * alpha);
+                            o2agg::rgba(shadowColor.r, shadowColor.g,
+                                        shadowColor.b, shadowColor.a * alpha);
                     span_color_converter color_converter(color, premultiply);
                     agg::span_converter<T, span_color_converter> converter(
-                        type, color_converter);
+                            type, color_converter);
 
                     // Render to the shadow location (rounded - we are working
                     // with pixels here) so we're sure we can properly blur the
@@ -590,7 +590,7 @@ class context_renderer {
                 span_alpha_converter<o2agg::rgba8> alpha_converter(alpha,
                                                                    premultiply);
                 agg::span_converter<T, span_alpha_converter<o2agg::rgba8>>
-                    converter(type, alpha_converter);
+                        converter(type, alpha_converter);
                 agg::render_scanlines_aa(rasterizer, sl, *ren_base,
                                          span_allocator, converter);
             }
@@ -624,8 +624,8 @@ class context_renderer {
                 // Draw using our shadow rendererer using our shadow color (and
                 // global alpha)
                 T color =
-                    o2agg::rgba(shadowColor.r, shadowColor.g, shadowColor.b,
-                                shadowColor.a * type.opacity());
+                        o2agg::rgba(shadowColor.r, shadowColor.g, shadowColor.b,
+                                    shadowColor.a * type.opacity());
                 color.premultiply();
 
                 // Render to the shadow location (rounded - we are working with
@@ -633,8 +633,9 @@ class context_renderer {
                 // We'll take into account the fractional part when copying the
                 // shadow to the final buffer
                 render_scanlines_aa_solid_translate(
-                    rasterizer, sl, *ren_shadow, color,
-                    truncf(shadowOffset.width), -truncf(shadowOffset.height));
+                        rasterizer, sl, *ren_shadow, color,
+                        truncf(shadowOffset.width),
+                        -truncf(shadowOffset.height));
 
                 // Get the used part of the rasterizer - we don't need to blur a
                 // bigger area than that
@@ -681,29 +682,29 @@ class context_renderer {
 
     context_renderer_helper_base *helper;
     typedef class context_renderer_helper<
-        o2agg::comp_op_adaptor_rgba<o2agg::rgba8, agg::order_rgba>>
-        rgba_helper;
+            o2agg::comp_op_adaptor_rgba<o2agg::rgba8, agg::order_rgba>>
+            rgba_helper;
     typedef class context_renderer_helper<
-        o2agg::comp_op_adaptor_rgba<o2agg::rgba8, agg::order_bgra>>
-        bgra_helper;
+            o2agg::comp_op_adaptor_rgba<o2agg::rgba8, agg::order_bgra>>
+            bgra_helper;
     typedef class context_renderer_helper<
-        o2agg::comp_op_adaptor_rgba<o2agg::rgba8, agg::order_argb>>
-        argb_helper;
+            o2agg::comp_op_adaptor_rgba<o2agg::rgba8, agg::order_argb>>
+            argb_helper;
     typedef class context_renderer_helper<
-        o2agg::comp_op_adaptor_rgba<o2agg::rgba8, agg::order_abgr>>
-        abgr_helper;
+            o2agg::comp_op_adaptor_rgba<o2agg::rgba8, agg::order_abgr>>
+            abgr_helper;
     typedef class context_renderer_helper<
-        o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, agg::order_rgba>>
-        rgba_helper_pre;
+            o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, agg::order_rgba>>
+            rgba_helper_pre;
     typedef class context_renderer_helper<
-        o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, agg::order_bgra>>
-        bgra_helper_pre;
+            o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, agg::order_bgra>>
+            bgra_helper_pre;
     typedef class context_renderer_helper<
-        o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, agg::order_argb>>
-        argb_helper_pre;
+            o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, agg::order_argb>>
+            argb_helper_pre;
     typedef class context_renderer_helper<
-        o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, agg::order_abgr>>
-        abgr_helper_pre;
+            o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, agg::order_abgr>>
+            abgr_helper_pre;
 
   public:
     bool premultiplied;
@@ -720,7 +721,7 @@ class context_renderer {
     template <class Order>
     void init_pre(agg::rendering_buffer &renderingBuffer) {
         typedef o2agg::comp_op_adaptor_rgba_pre<o2agg::rgba8, Order>
-            blender_type;
+                blender_type;
         premultiplied = true;
         helper = new context_renderer_helper<blender_type>(renderingBuffer);
         helper->setPremultiply(premultiplied);
@@ -735,30 +736,30 @@ class context_renderer {
         if (premultiplied) {
             if (helper->isRGBA()) {
                 ((rgba_helper_pre *) helper)
-                    ->render_scanlines(rasterizer, sl, type);
+                        ->render_scanlines(rasterizer, sl, type);
             } else if (helper->isABGR()) {
                 ((abgr_helper_pre *) helper)
-                    ->render_scanlines(rasterizer, sl, type);
+                        ->render_scanlines(rasterizer, sl, type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper_pre *) helper)
-                    ->render_scanlines(rasterizer, sl, type);
+                        ->render_scanlines(rasterizer, sl, type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper_pre *) helper)
-                    ->render_scanlines(rasterizer, sl, type);
+                        ->render_scanlines(rasterizer, sl, type);
             }
         } else {
             if (helper->isRGBA()) {
                 ((rgba_helper *) helper)
-                    ->render_scanlines(rasterizer, sl, type);
+                        ->render_scanlines(rasterizer, sl, type);
             } else if (helper->isABGR()) {
                 ((abgr_helper *) helper)
-                    ->render_scanlines(rasterizer, sl, type);
+                        ->render_scanlines(rasterizer, sl, type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper *) helper)
-                    ->render_scanlines(rasterizer, sl, type);
+                        ->render_scanlines(rasterizer, sl, type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper *) helper)
-                    ->render_scanlines(rasterizer, sl, type);
+                        ->render_scanlines(rasterizer, sl, type);
             }
         }
     }
@@ -769,30 +770,38 @@ class context_renderer {
         if (premultiplied) {
             if (helper->isRGBA()) {
                 ((rgba_helper_pre *) helper)
-                    ->render_scanlines_aa(rasterizer, sl, span_allocator, type);
+                        ->render_scanlines_aa(rasterizer, sl, span_allocator,
+                                              type);
             } else if (helper->isABGR()) {
                 ((abgr_helper_pre *) helper)
-                    ->render_scanlines_aa(rasterizer, sl, span_allocator, type);
+                        ->render_scanlines_aa(rasterizer, sl, span_allocator,
+                                              type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper_pre *) helper)
-                    ->render_scanlines_aa(rasterizer, sl, span_allocator, type);
+                        ->render_scanlines_aa(rasterizer, sl, span_allocator,
+                                              type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper_pre *) helper)
-                    ->render_scanlines_aa(rasterizer, sl, span_allocator, type);
+                        ->render_scanlines_aa(rasterizer, sl, span_allocator,
+                                              type);
             }
         } else {
             if (helper->isRGBA()) {
                 ((rgba_helper *) helper)
-                    ->render_scanlines_aa(rasterizer, sl, span_allocator, type);
+                        ->render_scanlines_aa(rasterizer, sl, span_allocator,
+                                              type);
             } else if (helper->isABGR()) {
                 ((abgr_helper *) helper)
-                    ->render_scanlines_aa(rasterizer, sl, span_allocator, type);
+                        ->render_scanlines_aa(rasterizer, sl, span_allocator,
+                                              type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper *) helper)
-                    ->render_scanlines_aa(rasterizer, sl, span_allocator, type);
+                        ->render_scanlines_aa(rasterizer, sl, span_allocator,
+                                              type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper *) helper)
-                    ->render_scanlines_aa(rasterizer, sl, span_allocator, type);
+                        ->render_scanlines_aa(rasterizer, sl, span_allocator,
+                                              type);
             }
         }
     }
@@ -802,30 +811,30 @@ class context_renderer {
         if (premultiplied) {
             if (helper->isRGBA()) {
                 ((rgba_helper_pre *) helper)
-                    ->render_scanlines_aa_solid(rasterizer, sl, type);
+                        ->render_scanlines_aa_solid(rasterizer, sl, type);
             } else if (helper->isABGR()) {
                 ((abgr_helper_pre *) helper)
-                    ->render_scanlines_aa_solid(rasterizer, sl, type);
+                        ->render_scanlines_aa_solid(rasterizer, sl, type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper_pre *) helper)
-                    ->render_scanlines_aa_solid(rasterizer, sl, type);
+                        ->render_scanlines_aa_solid(rasterizer, sl, type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper_pre *) helper)
-                    ->render_scanlines_aa_solid(rasterizer, sl, type);
+                        ->render_scanlines_aa_solid(rasterizer, sl, type);
             }
         } else {
             if (helper->isRGBA()) {
                 ((rgba_helper *) helper)
-                    ->render_scanlines_aa_solid(rasterizer, sl, type);
+                        ->render_scanlines_aa_solid(rasterizer, sl, type);
             } else if (helper->isABGR()) {
                 ((abgr_helper *) helper)
-                    ->render_scanlines_aa_solid(rasterizer, sl, type);
+                        ->render_scanlines_aa_solid(rasterizer, sl, type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper *) helper)
-                    ->render_scanlines_aa_solid(rasterizer, sl, type);
+                        ->render_scanlines_aa_solid(rasterizer, sl, type);
             } else if (helper->isBGRA()) {
                 ((bgra_helper *) helper)
-                    ->render_scanlines_aa_solid(rasterizer, sl, type);
+                        ->render_scanlines_aa_solid(rasterizer, sl, type);
             }
         }
     }
@@ -954,14 +963,14 @@ void O2AGGContextDrawShading(O2Context_AntiGrain *self, O2Shading *shading,
                              float x, float y, float width, float height)
 {
     typedef o2agg::pixfmt_bgra32_pre
-        pixfmt_type; // That should be the same pixel type as the context ?
+            pixfmt_type; // That should be the same pixel type as the context ?
     typedef pixfmt_type::color_type color_type;
     typedef gradient_evaluator color_func_type;
     typedef agg::span_interpolator_linear<> interpolator_type;
     typedef agg::span_allocator<color_type> span_allocator_type;
     typedef agg::span_gradient<color_type, interpolator_type,
                                gradient_func_type, color_func_type>
-        span_gradient_type;
+            span_gradient_type;
 
     O2GState *gState = O2ContextCurrentGState(self);
     O2ClipState *clipState = O2GStateClipState(gState);
@@ -971,9 +980,9 @@ void O2AGGContextDrawShading(O2Context_AntiGrain *self, O2Shading *shading,
                                    deviceTransform.tx, deviceTransform.ty);
 
     O2Point deviceStart =
-        O2PointApplyAffineTransform([shading startPoint], deviceTransform);
+            O2PointApplyAffineTransform([shading startPoint], deviceTransform);
     O2Point deviceEnd =
-        O2PointApplyAffineTransform([shading endPoint], deviceTransform);
+            O2PointApplyAffineTransform([shading endPoint], deviceTransform);
 
     double x1 = deviceStart.x;
     double y1 = deviceStart.y;
@@ -1061,7 +1070,7 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
         case kImageInterpolationNone: {
             typedef agg::span_image_filter_rgba_nn<img_accessor_type,
                                                    interpolator_type>
-                span_gen_type;
+                    span_gen_type;
             span_gen_type sg(ia, interpolator);
 
             render_scanlines_aa(self, sa, sg);
@@ -1070,7 +1079,7 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
         case kImageInterpolationBilinear: {
             typedef agg::span_image_filter_rgba_bilinear<img_accessor_type,
                                                          interpolator_type>
-                span_gen_type;
+                    span_gen_type;
             span_gen_type sg(ia, interpolator);
 
             render_scanlines_aa(self, sa, sg);
@@ -1081,7 +1090,7 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
 
             typedef agg::span_image_filter_rgba<img_accessor_type,
                                                 interpolator_type>
-                span_gen_type;
+                    span_gen_type;
             span_gen_type sg(ia, interpolator, filter);
 
             render_scanlines_aa(self, sa, sg);
@@ -1102,12 +1111,12 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
         case kImageInterpolationRepeat: {
             typedef agg::image_accessor_wrap<pixfmt, agg::wrap_mode_repeat,
                                              agg::wrap_mode_repeat>
-                img_accessor_type;
+                    img_accessor_type;
             img_accessor_type ia(img_pixf);
 
             typedef agg::span_image_filter_rgba_bilinear<img_accessor_type,
                                                          interpolator_type>
-                span_gen_type;
+                    span_gen_type;
             span_gen_type sg(ia, interpolator);
 
             render_scanlines_aa(self, sa, sg);
@@ -1123,7 +1132,7 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
             agg::image_filter_lut filter(filter_kernel, true);
 
             typedef o2agg::span_image_resample_rgba_affine<img_accessor_type>
-                span_gen_type;
+                    span_gen_type;
             span_gen_type sg(ia, interpolator, filter);
 
             render_scanlines_aa(self, sa, sg);
@@ -1133,7 +1142,7 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
             agg::image_filter_lut filter(filter_kernel, true);
 
             typedef o2agg::span_image_resample_rgba_affine<img_accessor_type>
-                span_gen_type;
+                    span_gen_type;
             span_gen_type sg(ia, interpolator, filter);
 
             render_scanlines_aa(self, sa, sg);
@@ -1154,7 +1163,7 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
         case kImageInterpolationRepeat: {
             typedef agg::image_accessor_wrap<pixfmt, agg::wrap_mode_repeat,
                                              agg::wrap_mode_repeat>
-                img_accessor_type;
+                    img_accessor_type;
             img_accessor_type ia(img_pixf);
 
             agg::image_filter_bilinear filter_kernel;
@@ -1163,7 +1172,7 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
             // seems some y wrapping is missing in the optimized resampling code
             // - so use the slower plain AGG version for now
             typedef agg::span_image_resample_rgba_affine<img_accessor_type>
-                span_gen_type;
+                    span_gen_type;
             span_gen_type sg(ia, interpolator, filter);
 
             render_scanlines_aa(self, sa, sg);
@@ -1289,7 +1298,7 @@ static void O2AGGContextFillPathWithRule(O2Context_AntiGrain *self,
 {
     agg::conv_curve<agg::path_storage> curve(*(self->path));
     agg::conv_transform<agg::conv_curve<agg::path_storage>, agg::trans_affine>
-        trans(curve, deviceMatrix);
+            trans(curve, deviceMatrix);
 
     curve.approximation_scale(deviceMatrix.scale());
 
@@ -1310,7 +1319,7 @@ static void O2AGGContextStrokePath(O2Context_AntiGrain *self, o2agg::rgba color,
     if (gState->_dashLengthsCount > 1) {
         agg::conv_dash<agg::conv_curve<agg::path_storage>> dash(curve);
         agg::conv_stroke<agg::conv_dash<agg::conv_curve<agg::path_storage>>>
-            stroke(dash);
+                stroke(dash);
         dash.dash_start(gState->_dashPhase);
         for (int i = 0; i < gState->_dashLengthsCount; i += 2) {
             if (i == gState->_dashLengthsCount - 1) {
@@ -1343,7 +1352,7 @@ static void O2AGGReplaceStrokedPath(O2Context_AntiGrain *self,
     if (gState->_dashLengthsCount > 1) {
         agg::conv_dash<agg::conv_curve<agg::path_storage>> dash(curve);
         agg::conv_stroke<agg::conv_dash<agg::conv_curve<agg::path_storage>>>
-            stroke(dash);
+                stroke(dash);
         dash.dash_start(gState->_dashPhase);
         for (int i = 0; i < gState->_dashLengthsCount; i += 2) {
             if (i == gState->_dashLengthsCount - 1) {
@@ -1386,34 +1395,34 @@ static void buildAGGPathFromO2PathAndTransform(agg::path_storage *aggPath,
 
         case kO2PathElementMoveToPoint: {
             O2Point point =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
 
             aggPath->move_to(point.x, point.y);
         } break;
 
         case kO2PathElementAddLineToPoint: {
             O2Point point =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
 
             aggPath->line_to(point.x, point.y);
         } break;
 
         case kO2PathElementAddCurveToPoint: {
             O2Point cp1 =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
             O2Point cp2 =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
             O2Point end =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
 
             aggPath->curve4(cp1.x, cp1.y, cp2.x, cp2.y, end.x, end.y);
         } break;
 
         case kO2PathElementAddQuadCurveToPoint: {
             O2Point cp1 =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
             O2Point cp2 =
-                O2PointApplyAffineTransform(points[pointIndex++], xform);
+                    O2PointApplyAffineTransform(points[pointIndex++], xform);
 
             aggPath->curve3(cp1.x, cp1.y, cp2.x, cp2.y);
         } break;
@@ -1441,7 +1450,7 @@ static void transferPath(O2Context_AntiGrain *self, O2PathRef path,
     static NSMutableArray *kfontLRU = nil;
     if (kfontCache == nil) {
         kfontCache =
-            [[NSMutableDictionary alloc] initWithCapacity: kKFontCacheSize];
+                [[NSMutableDictionary alloc] initWithCapacity: kKFontCacheSize];
     }
     if (kfontLRU == nil) {
         kfontLRU = [[NSMutableArray alloc] initWithCapacity: kKFontCacheSize];
@@ -1481,14 +1490,14 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
 
         // Pipeline to process the vectors glyph paths (curves)
         typedef agg::conv_curve<font_manager_type::path_adaptor_type>
-            conv_curve_type;
+                conv_curve_type;
         conv_curve_type curves(font_manager->path_adaptor());
 
         O2GState *gState = O2ContextCurrentGState(self);
 
         O2Font *font = O2GStateFont(gState);
         NSString *fontName =
-            [(NSString *) O2FontCopyFullName(font) autorelease];
+                [(NSString *) O2FontCopyFullName(font) autorelease];
 
         float pointSize = O2GStatePointSize(gState);
         O2AffineTransform Trm = self->_textMatrix;
@@ -1514,7 +1523,7 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
         self->rasterizer->filling_rule(agg::fill_non_zero);
 
         font_engine->hinting(
-            false); // For some reason, it looks better without hinting...
+                false); // For some reason, it looks better without hinting...
         font_engine->height((int) pointSize);
         font_engine->width(0.); // Automatic width
         font_engine->flip_y(false);
@@ -1524,7 +1533,7 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
         if (font_engine->create_font([fontName UTF8String],
                                      agg::glyph_ren_outline)) {
             agg::conv_transform<conv_curve_type, agg::trans_affine> trans(
-                curves, transformMatrix);
+                    curves, transformMatrix);
 
             CGSize defaultAdvances[count];
             if (advances == NULL) {
@@ -1589,8 +1598,9 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
 
     int bytesPerRow = O2SurfaceGetBytesPerRow(surface);
     renderingBuffer = new agg::rendering_buffer(
-        (unsigned char *) O2SurfaceGetPixelBytes(surface),
-        O2SurfaceGetWidth(surface), O2SurfaceGetHeight(surface), bytesPerRow);
+            (unsigned char *) O2SurfaceGetPixelBytes(surface),
+            O2SurfaceGetWidth(surface), O2SurfaceGetHeight(surface),
+            bytesPerRow);
 
     rasterizer = new RasterizerType();
     scanline_u8 = new agg::scanline_u8;
@@ -1701,16 +1711,15 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
         void *alphaBuffer = malloc(O2SurfaceGetWidth(surface) *
                                    (O2SurfaceGetHeight(surface) + 1));
         rBufAlphaMask[i] = new agg::rendering_buffer(
-            (unsigned char *) alphaBuffer, O2SurfaceGetWidth(surface),
-            O2SurfaceGetHeight(surface), O2SurfaceGetWidth(surface));
+                (unsigned char *) alphaBuffer, O2SurfaceGetWidth(surface),
+                O2SurfaceGetHeight(surface), O2SurfaceGetWidth(surface));
         alphaMask[i] = new MaskType(*rBufAlphaMask[i]);
         pixelFormatAlphaMask[i] = new pixfmt_alphaMaskType(*rBufAlphaMask[i]);
         baseRendererAlphaMask[i] =
-            new BaseRendererWithAlphaMaskType(*pixelFormatAlphaMask[i]);
+                new BaseRendererWithAlphaMaskType(*pixelFormatAlphaMask[i]);
 
-        solidScanlineRendererAlphaMask[i] =
-            new agg::renderer_scanline_aa_solid<BaseRendererWithAlphaMaskType>(
-                *baseRendererAlphaMask[i]);
+        solidScanlineRendererAlphaMask[i] = new agg::renderer_scanline_aa_solid<
+                BaseRendererWithAlphaMaskType>(*baseRendererAlphaMask[i]);
         solidScanlineRendererAlphaMask[i]->color(agg::gray8(255, 255));
     }
 }
@@ -1752,23 +1761,23 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
     // Onyx2D -> AGG blend mode conversion
     //	O2Log("Setting blend mode to %d", blendMode);
     enum o2agg::comp_op_e blendModeMap[28] = {
-        o2agg::comp_op_src_over,    o2agg::comp_op_multiply,
-        o2agg::comp_op_screen,      o2agg::comp_op_overlay,
-        o2agg::comp_op_darken,      o2agg::comp_op_lighten,
-        o2agg::comp_op_color_dodge, o2agg::comp_op_color_burn,
-        o2agg::comp_op_hard_light,  o2agg::comp_op_soft_light,
-        o2agg::comp_op_difference,  o2agg::comp_op_exclusion,
-        o2agg::comp_op_src_over, // should be Hue
-        o2agg::comp_op_src_over, // should be Saturation
-        o2agg::comp_op_color,
-        o2agg::comp_op_src_over, // should be Luminosity
-        o2agg::comp_op_clear,       o2agg::comp_op_src,
-        o2agg::comp_op_src_in,      o2agg::comp_op_src_out,
-        o2agg::comp_op_src_atop,    o2agg::comp_op_dst_over,
-        o2agg::comp_op_dst_in,      o2agg::comp_op_dst_out,
-        o2agg::comp_op_dst_atop,    o2agg::comp_op_xor,
-        o2agg::comp_op_plus_darker,
-        o2agg::comp_op_minus, // shoud be MinusLighter
+            o2agg::comp_op_src_over,    o2agg::comp_op_multiply,
+            o2agg::comp_op_screen,      o2agg::comp_op_overlay,
+            o2agg::comp_op_darken,      o2agg::comp_op_lighten,
+            o2agg::comp_op_color_dodge, o2agg::comp_op_color_burn,
+            o2agg::comp_op_hard_light,  o2agg::comp_op_soft_light,
+            o2agg::comp_op_difference,  o2agg::comp_op_exclusion,
+            o2agg::comp_op_src_over, // should be Hue
+            o2agg::comp_op_src_over, // should be Saturation
+            o2agg::comp_op_color,
+            o2agg::comp_op_src_over, // should be Luminosity
+            o2agg::comp_op_clear,       o2agg::comp_op_src,
+            o2agg::comp_op_src_in,      o2agg::comp_op_src_out,
+            o2agg::comp_op_src_atop,    o2agg::comp_op_dst_over,
+            o2agg::comp_op_dst_in,      o2agg::comp_op_dst_out,
+            o2agg::comp_op_dst_atop,    o2agg::comp_op_xor,
+            o2agg::comp_op_plus_darker,
+            o2agg::comp_op_minus, // shoud be MinusLighter
     };
     O2GState *gState = O2ContextCurrentGState(self);
 
@@ -1831,29 +1840,31 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
                             [self createMaskRenderer];
                         }
                         baseRendererAlphaMask[0]->clip_box(
-                            self->_vpx - 1, self->_vpy,
-                            self->_vpx + self->_vpwidth,
-                            self->_vpy + self->_vpheight);
+                                self->_vpx - 1, self->_vpy,
+                                self->_vpx + self->_vpwidth,
+                                self->_vpy + self->_vpheight);
 
                         // We only need to fill the clipped rect area
                         baseRendererAlphaMask[0]->copy_bar(
-                            self->_vpx, self->_vpy, self->_vpx + self->_vpwidth,
-                            self->_vpy + self->_vpheight, agg::gray8(255, 255));
+                                self->_vpx, self->_vpy,
+                                self->_vpx + self->_vpwidth,
+                                self->_vpy + self->_vpheight,
+                                agg::gray8(255, 255));
                     }
                     // Switch masks
                     currentMask = !currentMask;
                     // Clear the new mask
                     baseRendererAlphaMask[currentMask]->clip_box(
-                        self->_vpx, self->_vpy, self->_vpx + self->_vpwidth,
-                        self->_vpy + self->_vpheight);
+                            self->_vpx, self->_vpy, self->_vpx + self->_vpwidth,
+                            self->_vpy + self->_vpheight);
 
                     // We only need to clear the clipped rect area
                     baseRendererAlphaMask[currentMask]->copy_bar(
-                        self->_vpx, self->_vpy, self->_vpx + self->_vpwidth,
-                        self->_vpy + self->_vpheight, agg::gray8(0));
+                            self->_vpx, self->_vpy, self->_vpx + self->_vpwidth,
+                            self->_vpy + self->_vpheight, agg::gray8(0));
 
                     buildAGGPathFromO2PathAndTransform(
-                        &aggPath, maskPath, O2AffineTransformIdentity);
+                            &aggPath, maskPath, O2AffineTransformIdentity);
 
                     agg::conv_curve<agg::path_storage> curve(aggPath);
                     curve.approximation_scale(deviceMatrix.scale());
@@ -1868,8 +1879,8 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
                     // Render the path masked by the previous mask
                     scanline_mask_type sl(*self->alphaMask[!currentMask]);
                     renderer->render_scanlines(
-                        *rasterizer, sl,
-                        *solidScanlineRendererAlphaMask[currentMask]);
+                            *rasterizer, sl,
+                            *solidScanlineRendererAlphaMask[currentMask]);
                 }
                 break;
             }
@@ -1886,7 +1897,7 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
 // Clip the viewport with the path bounds
 static void O2ContextClipViewportToPath(O2Context_builtin *self, O2Path *path) {
     O2Rect viewport =
-        O2RectMake(self->_vpx, self->_vpy, self->_vpwidth, self->_vpheight);
+            O2RectMake(self->_vpx, self->_vpy, self->_vpwidth, self->_vpheight);
     O2Rect rect = O2PathGetBoundingBox(path);
 
     rect = O2RectIntegral(rect);
@@ -2023,7 +2034,7 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
             O2Surface *surface = [self createSurfaceWithWidth: [pattern xstep]
                                                        height: [pattern ystep]];
             O2Context_AntiGrain *context =
-                [[self->isa alloc] initWithSurface: surface flipped: YES];
+                    [[self->isa alloc] initWithSurface: surface flipped: YES];
 
             // Draw the pattern tile
             [pattern drawInContext: context];
@@ -2031,8 +2042,8 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
 
             // Build the global transform from the pattern to the device
             O2AffineTransform matrix = O2AffineTransformConcat(
-                ([pattern matrix]),
-                O2AffineTransformInvert(gState->_userSpaceTransform));
+                    ([pattern matrix]),
+                    O2AffineTransformInvert(gState->_userSpaceTransform));
 
             agg::trans_affine globalTransform(matrix.a, matrix.b, matrix.c,
                                               matrix.d, matrix.tx, matrix.ty);
@@ -2041,33 +2052,37 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
 
             // Create an agg buffer from the Surface content
             uint8_t *imgBytes = (uint8_t *) [surface pixelBytes];
-            agg::rendering_buffer imageBuffer(
-                imgBytes, O2SurfaceGetWidth(surface),
-                O2SurfaceGetHeight(surface), O2SurfaceGetBytesPerRow(surface));
+            agg::rendering_buffer imageBuffer(imgBytes,
+                                              O2SurfaceGetWidth(surface),
+                                              O2SurfaceGetHeight(surface),
+                                              O2SurfaceGetBytesPerRow(surface));
 
             // Fill the current agg path with the repeated tile
             agg::conv_curve<agg::path_storage> curve(*(self->path));
             agg::conv_transform<agg::conv_curve<agg::path_storage>,
                                 agg::trans_affine>
-                trans(curve, aggDeviceMatrix);
+                    trans(curve, aggDeviceMatrix);
             self->rasterizer->add_path(trans);
             renderer->premultiplied = YES;
             O2AGGContextDrawImage<o2agg::pixfmt_bgra32_pre>(
-                self, imageBuffer, globalTransform, kImageInterpolationRepeat);
+                    self, imageBuffer, globalTransform,
+                    kImageInterpolationRepeat);
 
             [surface release];
         } else {
             O2ColorRef fillColor =
-                O2ColorConvertToDeviceRGB(gState->_fillColor);
+                    O2ColorConvertToDeviceRGB(gState->_fillColor);
             const float *fillComps = O2ColorGetComponents(fillColor);
             o2agg::rgba aggFillColor(fillComps[0], fillComps[1], fillComps[2],
                                      fillComps[3]);
             if (doFill) {
-                O2AGGContextFillPathWithRule(
-                    self, aggFillColor, aggDeviceMatrix, agg::fill_non_zero);
+                O2AGGContextFillPathWithRule(self, aggFillColor,
+                                             aggDeviceMatrix,
+                                             agg::fill_non_zero);
             } else {
-                O2AGGContextFillPathWithRule(
-                    self, aggFillColor, aggDeviceMatrix, agg::fill_even_odd);
+                O2AGGContextFillPathWithRule(self, aggFillColor,
+                                             aggDeviceMatrix,
+                                             agg::fill_even_odd);
             }
             O2ColorRelease(fillColor);
         }
@@ -2076,7 +2091,7 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
     if (doStroke) {
         // Note: pattern stroking not supported for now
         O2ColorRef strokeColor =
-            O2ColorConvertToDeviceRGB(gState->_strokeColor);
+                O2ColorConvertToDeviceRGB(gState->_strokeColor);
         const float *strokeComps = O2ColorGetComponents(strokeColor);
         o2agg::rgba aggStrokeColor(strokeComps[0], strokeComps[1],
                                    strokeComps[2], strokeComps[3]);
@@ -2134,16 +2149,16 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
                                     deviceTransform.tx, deviceTransform.ty);
 
         agg::conv_transform<agg::path_storage> trans(
-            p2, transform); // Global Affine transformer
+                p2, transform); // Global Affine transformer
         rasterizer->add_path(trans);
 
         // Flipped scaled transfrom from the original image bounds to the
         // destination rect
         O2AffineTransform imageTransform = O2AffineTransformMakeTranslation(
-            rect.origin.x, rect.origin.y + rect.size.height);
+                rect.origin.x, rect.origin.y + rect.size.height);
         imageTransform = O2AffineTransformScale(
-            imageTransform, rect.size.width / float(width),
-            -rect.size.height / float(height));
+                imageTransform, rect.size.width / float(width),
+                -rect.size.height / float(height));
 
         agg::trans_affine globalTransform(imageTransform.a, imageTransform.b,
                                           imageTransform.c, imageTransform.d,
@@ -2219,22 +2234,22 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
             case kO2ImageAlphaPremultipliedLast:
                 renderer->premultiplied = YES;
                 O2AGGContextDrawImage<o2agg::pixfmt_rgba32_pre>(
-                    self, imageBuffer, globalTransform, interpolationType);
+                        self, imageBuffer, globalTransform, interpolationType);
                 break;
             case kO2ImageAlphaLast:
                 renderer->premultiplied = NO;
                 O2AGGContextDrawImage<o2agg::pixfmt_rgba32>(
-                    self, imageBuffer, globalTransform, interpolationType);
+                        self, imageBuffer, globalTransform, interpolationType);
                 break;
             case kO2ImageAlphaPremultipliedFirst:
                 renderer->premultiplied = YES;
                 O2AGGContextDrawImage<o2agg::pixfmt_argb32_pre>(
-                    self, imageBuffer, globalTransform, interpolationType);
+                        self, imageBuffer, globalTransform, interpolationType);
                 break;
             case kO2ImageAlphaFirst:
                 renderer->premultiplied = NO;
                 O2AGGContextDrawImage<o2agg::pixfmt_argb32>(
-                    self, imageBuffer, globalTransform, interpolationType);
+                        self, imageBuffer, globalTransform, interpolationType);
                 break;
             default:
                 O2Log("UNKNOW ALPHA");
@@ -2250,22 +2265,22 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
             case kO2ImageAlphaPremultipliedLast:
                 renderer->premultiplied = YES;
                 O2AGGContextDrawImage<o2agg::pixfmt_abgr32_pre>(
-                    self, imageBuffer, globalTransform, interpolationType);
+                        self, imageBuffer, globalTransform, interpolationType);
                 break;
             case kO2ImageAlphaLast:
                 renderer->premultiplied = NO;
                 O2AGGContextDrawImage<o2agg::pixfmt_abgr32>(
-                    self, imageBuffer, globalTransform, interpolationType);
+                        self, imageBuffer, globalTransform, interpolationType);
                 break;
             case kO2ImageAlphaPremultipliedFirst:
                 renderer->premultiplied = YES;
                 O2AGGContextDrawImage<o2agg::pixfmt_bgra32_pre>(
-                    self, imageBuffer, globalTransform, interpolationType);
+                        self, imageBuffer, globalTransform, interpolationType);
                 break;
             case kO2ImageAlphaFirst:
                 renderer->premultiplied = NO;
                 O2AGGContextDrawImage<o2agg::pixfmt_bgra32>(
-                    self, imageBuffer, globalTransform, interpolationType);
+                        self, imageBuffer, globalTransform, interpolationType);
                 break;
             default:
                 // Fallback to the default implementation - that means clipping,
@@ -2354,7 +2369,7 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
     // any or the context one)
     O2LayerRef newTopLayer = [self->_layerStack lastObject];
     O2Surface *surface =
-        newTopLayer ? O2LayerGetSurface(newTopLayer) : _surface;
+            newTopLayer ? O2LayerGetSurface(newTopLayer) : _surface;
     renderingBuffer->attach((unsigned char *) O2SurfaceGetPixelBytes(surface),
                             O2SurfaceGetWidth(surface),
                             O2SurfaceGetHeight(surface),

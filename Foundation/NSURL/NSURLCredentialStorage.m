@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSURLCredentialStorage.h>
 
 NSString *const NSURLCredentialStorageChangedNotification =
-    @"NSURLCredentialStorageChangedNotification";
+        @"NSURLCredentialStorageChangedNotification";
 
 @implementation NSURLCredentialStorage
 
@@ -41,21 +41,21 @@ NSString *const NSURLCredentialStorageChangedNotification =
 }
 
 - (NSDictionary *) credentialsForProtectionSpace:
-    (NSURLProtectionSpace *) protectionSpace
+        (NSURLProtectionSpace *) protectionSpace
 {
     NSUnimplementedMethod();
     return nil;
 }
 
 - (NSURLCredential *) defaultCredentialForProtectionSpace:
-    (NSURLProtectionSpace *) protectionSpace
+        (NSURLProtectionSpace *) protectionSpace
 {
     NSUnimplementedMethod();
     return nil;
 }
 
 - (void) setCredential: (NSURLCredential *) credential
-    forProtectionSpace: (NSURLProtectionSpace *) protectionSpace
+        forProtectionSpace: (NSURLProtectionSpace *) protectionSpace
 {
     NSUnimplementedMethod();
 }
@@ -67,7 +67,7 @@ NSString *const NSURLCredentialStorageChangedNotification =
 }
 
 - (void) removeCredential: (NSURLCredential *) credential
-       forProtectionSpace: (NSURLProtectionSpace *) protectionSpace
+        forProtectionSpace: (NSURLProtectionSpace *) protectionSpace
 {
     NSUnimplementedMethod();
 }

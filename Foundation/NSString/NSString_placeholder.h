@@ -23,13 +23,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // For maximum compatibility with Mac OS X, this is the minimum set:
 - initWithBytes: (const void *) bytes
-         length: (NSUInteger) length
-       encoding: (NSStringEncoding) encoding;
+          length: (NSUInteger) length
+        encoding: (NSStringEncoding) encoding;
 - initWithCharactersNoCopy: (unichar *) characters
                     length: (NSUInteger) length
               freeWhenDone: (BOOL) freeWhenDone;
 - initWithFormat: (NSString *) format
-          locale: (NSDictionary *) locale
-       arguments: (va_list) arguments;
+           locale: (NSDictionary *) locale
+        arguments: (va_list) arguments;
 
 @end

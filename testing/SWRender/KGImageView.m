@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) drawRect: (NSRect) rect {
     CGContextRef context =
-        (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
+            (CGContextRef)[[NSGraphicsContext currentContext] graphicsPort];
 
     [[NSColor blackColor] set];
     NSRectFill([self bounds]);

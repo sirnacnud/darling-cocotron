@@ -22,10 +22,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSSheetContext
 
 - initWithSheet: (NSWindow *) sheet
-     modalDelegate: modalDelegate
-    didEndSelector: (SEL) didEndSelector
-       contextInfo: (void *) contextInfo
-             frame: (NSRect) frame
+         modalDelegate: modalDelegate
+        didEndSelector: (SEL) didEndSelector
+           contextInfo: (void *) contextInfo
+                 frame: (NSRect) frame
 {
     if (sheet == nil)
         [NSException raise: NSInvalidArgumentException format: @"sheet==nil"];

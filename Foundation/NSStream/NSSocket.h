@@ -51,4 +51,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @end
 
 NSData *NSSocketAddressDataForNetworkOrderAddressBytesAndPort(
-    const void *address, NSUInteger length, uint16_t port, uint32_t interface);
+        const void *address, NSUInteger length, uint16_t port,
+        uint32_t interface);

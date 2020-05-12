@@ -15,11 +15,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 
@@ -28,11 +28,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 
@@ -41,11 +41,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 
@@ -54,11 +54,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 
@@ -67,11 +67,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 
@@ -80,11 +80,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 
@@ -93,11 +93,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 
@@ -106,11 +106,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 
@@ -119,11 +119,11 @@
 {
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
-    NSRulerMarker *marker =
-        [[[NSRulerMarker alloc] initWithRulerView: ruler
-                                   markerLocation: location
-                                            image: image
-                                      imageOrigin: imageOrigin] autorelease];
+    NSRulerMarker *marker = [[[NSRulerMarker alloc]
+            initWithRulerView: ruler
+               markerLocation: location
+                        image: image
+                  imageOrigin: imageOrigin] autorelease];
     return marker;
 }
 @end

@@ -39,8 +39,8 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
 
     bounds[0] = (i == 0) ? self->_domain[0] : self->_bounds[i - 1];
     bounds[1] = (i == self->_boundsCount)
-                    ? self->_domain[self->_domainCount - 1]
-                    : self->_bounds[i];
+                        ? self->_domain[self->_domainCount - 1]
+                        : self->_bounds[i];
     encode[0] = self->_encode[i * 2];
     encode[1] = self->_encode[i * 2 + 1];
 
@@ -53,10 +53,10 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
 }
 
 - initWithDomain: (O2PDFArray *) domain
-           range: (O2PDFArray *) range
-       functions: (NSArray *) functions
-          bounds: (O2PDFArray *) bounds
-          encode: (O2PDFArray *) encode
+            range: (O2PDFArray *) range
+        functions: (NSArray *) functions
+           bounds: (O2PDFArray *) bounds
+           encode: (O2PDFArray *) encode
 {
     NSInteger i;
 
@@ -147,7 +147,7 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
     O2PDFArray *fnArray = [O2PDFArray pdfArray];
     for (i = 0; i < _functionCount; i++)
         [fnArray
-            addObject: [_functions[i] encodeReferenceWithContext: context]];
+                addObject: [_functions[i] encodeReferenceWithContext: context]];
     [result setObjectForKey: "Functions" value: fnArray];
 
     return [context encodeIndirectPDFObject: result];

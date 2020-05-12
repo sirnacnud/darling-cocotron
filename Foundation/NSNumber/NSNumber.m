@@ -360,28 +360,28 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSNumber *) numberWithUnsignedChar: (unsigned char) value {
-    return
-        [[[self allocWithZone: NULL] initWithUnsignedChar: value] autorelease];
+    return [[[self allocWithZone: NULL] initWithUnsignedChar: value]
+            autorelease];
 }
 
 + (NSNumber *) numberWithUnsignedShort: (unsigned short) value {
-    return
-        [[[self allocWithZone: NULL] initWithUnsignedShort: value] autorelease];
+    return [[[self allocWithZone: NULL] initWithUnsignedShort: value]
+            autorelease];
 }
 
 + (NSNumber *) numberWithUnsignedInt: (unsigned int) value {
-    return
-        [[[self allocWithZone: NULL] initWithUnsignedInt: value] autorelease];
+    return [[[self allocWithZone: NULL] initWithUnsignedInt: value]
+            autorelease];
 }
 
 + (NSNumber *) numberWithUnsignedLong: (unsigned long) value {
-    return
-        [[[self allocWithZone: NULL] initWithUnsignedLong: value] autorelease];
+    return [[[self allocWithZone: NULL] initWithUnsignedLong: value]
+            autorelease];
 }
 
 + (NSNumber *) numberWithUnsignedLongLong: (unsigned long long) value {
     return [[[self allocWithZone: NULL] initWithUnsignedLongLong: value]
-        autorelease];
+            autorelease];
 }
 
 + (NSNumber *) numberWithUnsignedInteger: (NSUInteger) value {

@@ -26,13 +26,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSKeyedArchiver.h>
 
 NSString *const NSTableViewSelectionIsChangingNotification =
-    @"NSTableViewSelectionIsChangingNotification";
+        @"NSTableViewSelectionIsChangingNotification";
 NSString *const NSTableViewSelectionDidChangeNotification =
-    @"NSTableViewSelectionDidChangeNotification";
+        @"NSTableViewSelectionDidChangeNotification";
 NSString *const NSTableViewColumnDidMoveNotification =
-    @"NSTableViewColumnDidMoveNotification";
+        @"NSTableViewColumnDidMoveNotification";
 NSString *const NSTableViewColumnDidResizeNotification =
-    @"NSTableViewColumnDidResizeNotification";
+        @"NSTableViewColumnDidResizeNotification";
 
 NSString *const NSTableViewRowViewKey = @"NSTableViewRowViewKey";
 
@@ -81,17 +81,17 @@ const CGFloat NSTableViewDefaultRowHeight = 16.0f;
     // established
     if ([[self _allUsedBinders] count] == 0) {
         [self bind: @"content"
-               toObject: destination
-            withKeyPath: @"arrangedObjects"
-                options: nil];
+                   toObject: destination
+                withKeyPath: @"arrangedObjects"
+                    options: nil];
         [self bind: @"sortDescriptors"
-               toObject: destination
-            withKeyPath: @"sortDescriptors"
-                options: nil];
+                   toObject: destination
+                withKeyPath: @"sortDescriptors"
+                    options: nil];
         [self bind: @"selectionIndexes"
-               toObject: destination
-            withKeyPath: @"selectionIndexes"
-                options: nil];
+                   toObject: destination
+                withKeyPath: @"selectionIndexes"
+                    options: nil];
     }
 }
 
@@ -110,11 +110,11 @@ const CGFloat NSTableViewDefaultRowHeight = 16.0f;
         [_headerView setTableView: self];
         _cornerView = [[keyed decodeObjectForKey: @"NSCornerView"] retain];
         _tableColumns = [[NSMutableArray alloc]
-            initWithArray: [keyed decodeObjectForKey: @"NSTableColumns"]];
+                initWithArray: [keyed decodeObjectForKey: @"NSTableColumns"]];
         [_tableColumns makeObjectsPerformSelector: @selector(setTableView:)
                                        withObject: self];
         _backgroundColor =
-            [[keyed decodeObjectForKey: @"NSBackgroundColor"] retain];
+                [[keyed decodeObjectForKey: @"NSBackgroundColor"] retain];
         _gridColor = [[keyed decodeObjectForKey: @"NSGridColor"] retain];
         _rowHeightsCount = 0;
         _rowHeights = NULL;
@@ -163,21 +163,21 @@ const CGFloat NSTableViewDefaultRowHeight = 16.0f;
     _allowsColumnReordering = YES;
     _allowsColumnResizing = YES;
     _autoresizesAllColumnsToFit =
-        NO; // the default isn't actually given in the spec, but this seems more
-            // like default behavior
+            NO; // the default isn't actually given in the spec, but this seems
+                // more like default behavior
     _allowsMultipleSelection = NO;
     _allowsEmptySelection = YES;
     _allowsColumnSelection = YES;
 
     _headerView = [[NSTableHeaderView alloc]
-        initWithFrame: NSMakeRect(0, 0, [self bounds].size.width,
-                                  _standardRowHeight +
-                                      _intercellSpacing.height)];
+            initWithFrame: NSMakeRect(0, 0, [self bounds].size.width,
+                                      _standardRowHeight +
+                                              _intercellSpacing.height)];
     [_headerView setTableView: self];
 
     _cornerView = [[NSTableCornerView alloc]
-        initWithFrame: NSMakeRect(0, 0, _standardRowHeight,
-                                  _standardRowHeight)];
+            initWithFrame: NSMakeRect(0, 0, _standardRowHeight,
+                                      _standardRowHeight)];
 
     _tableColumns = [[NSMutableArray alloc] init];
     _backgroundColor = [[NSColor controlBackgroundColor] retain];
@@ -386,8 +386,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     rect.size.width = 0.;
     count = [_tableColumns count];
     for (i = 0; i < count; i++)
-        rect.size.width +=
-            [[_tableColumns objectAtIndex: i] width] + _intercellSpacing.width;
+        rect.size.width += [[_tableColumns objectAtIndex: i] width] +
+                           _intercellSpacing.width;
     rect.size.height = rowHeightAtIndex(self, row) + _intercellSpacing.height;
 
     return rect;
@@ -406,18 +406,18 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
     rect.origin.x = 0.;
     for (i = 0; i < column; i++)
-        rect.origin.x +=
-            [[_tableColumns objectAtIndex: i] width] + _intercellSpacing.width;
+        rect.origin.x += [[_tableColumns objectAtIndex: i] width] +
+                         _intercellSpacing.width;
     rect.origin.y = 0.;
 
-    rect.size.width =
-        [[_tableColumns objectAtIndex: column] width] + _intercellSpacing.width;
+    rect.size.width = [[_tableColumns objectAtIndex: column] width] +
+                      _intercellSpacing.width;
     rect.size.height = 0.;
     for (i = 0; i < numberOfRows; i++)
         rect.size.height +=
-            rowHeightAtIndex(self, i) + _intercellSpacing.height;
+                rowHeightAtIndex(self, i) + _intercellSpacing.height;
     rect.size.height =
-        MAX(rect.size.height, [[self superview] bounds].size.height);
+            MAX(rect.size.height, [[self superview] bounds].size.height);
 
     return rect;
 }
@@ -460,8 +460,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     CGFloat width = 0.;
 
     for (i = 0; i < numberOfColumns; i++) {
-        width +=
-            [[_tableColumns objectAtIndex: i] width] + _intercellSpacing.width;
+        width += [[_tableColumns objectAtIndex: i] width] +
+                 _intercellSpacing.width;
 
         if (width > rect.origin.x)
             break;
@@ -517,15 +517,15 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
     frame.origin.x = 0.;
     for (i = 0; i < column; i++)
-        frame.origin.x +=
-            [[_tableColumns objectAtIndex: i] width] + _intercellSpacing.width;
+        frame.origin.x += [[_tableColumns objectAtIndex: i] width] +
+                          _intercellSpacing.width;
 
     frame.origin.y = 0.;
     for (i = 0; i < row; i++)
         frame.origin.y += rowHeightAtIndex(self, i) + _intercellSpacing.height;
 
-    frame.size.width =
-        [[_tableColumns objectAtIndex: column] width] + _intercellSpacing.width;
+    frame.size.width = [[_tableColumns objectAtIndex: column] width] +
+                       _intercellSpacing.width;
     frame.size.height = rowHeightAtIndex(self, row) + _intercellSpacing.height;
 
     return frame;
@@ -722,12 +722,12 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         [_dataSource respondsToSelector: @selector
                      (tableView:objectValueForTableColumn:row:)] == YES)
         return [_dataSource tableView: self
-            objectValueForTableColumn: tableColumn
-                                  row: row];
+                objectValueForTableColumn: tableColumn
+                                      row: row];
 
     id binder = [tableColumn _binderForBinding: @"value"];
     id vals = [[binder destination]
-        valueForKeyPath: [binder valueForKey: @"keyPath"]];
+            valueForKeyPath: [binder valueForKey: @"keyPath"]];
     if (vals != nil) {
         return [vals objectAtIndex: row];
     }
@@ -815,7 +815,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         [_currentEditor setDelegate: nil];
         NSText *editor = [[self window] fieldEditor: YES forObject: self];
         _currentEditor =
-            [[_editingCell setUpFieldEditorAttributes: editor] retain];
+                [[_editingCell setUpFieldEditorAttributes: editor] retain];
         [_currentEditor setDelegate: self];
         [oldEditor release];
 
@@ -886,7 +886,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
 // That's the setter for _selectedRowIndexes.
 - (void) selectRowIndexes: (NSIndexSet *) indexes
-     byExtendingSelection: (BOOL) extend
+        byExtendingSelection: (BOOL) extend
 {
     unsigned index;
     NSIndexSet *newIndexes;
@@ -911,11 +911,11 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     }
 
     if (extend) {
-        NSMutableIndexSet *mutableIndexes =
-            [[NSMutableIndexSet alloc] initWithIndexSet: _selectedRowIndexes];
+        NSMutableIndexSet *mutableIndexes = [[NSMutableIndexSet alloc]
+                initWithIndexSet: _selectedRowIndexes];
         [mutableIndexes addIndexes: indexes];
-        newIndexes =
-            [[[NSIndexSet alloc] initWithIndexSet: mutableIndexes] autorelease];
+        newIndexes = [[[NSIndexSet alloc] initWithIndexSet: mutableIndexes]
+                autorelease];
         [mutableIndexes release];
     } else
         newIndexes = indexes;
@@ -988,8 +988,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 }
 
 - (BOOL) isColumnSelected: (NSInteger) col {
-    return
-        [_selectedColumns containsObject: [_tableColumns objectAtIndex: col]];
+    return [_selectedColumns
+            containsObject: [_tableColumns objectAtIndex: col]];
 }
 
 - (NSEnumerator *) selectedColumnEnumerator {
@@ -1002,7 +1002,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
     for (i = 0; i < count; i++) {
         NSInteger index = [_tableColumns
-            indexOfObjectIdenticalTo: [_selectedColumns objectAtIndex: i]];
+                indexOfObjectIdenticalTo: [_selectedColumns objectAtIndex: i]];
         [result addIndex: index];
     }
 
@@ -1032,13 +1032,14 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
             startRow = row;
         }
         [self selectRowIndexes: [NSIndexSet
-                                    indexSetWithIndexesInRange:
-                                        NSMakeRange(startRow,
-                                                    endRow - startRow + 1)]
-            byExtendingSelection: NO];
+                                        indexSetWithIndexesInRange:
+                                                NSMakeRange(startRow,
+                                                            endRow - startRow +
+                                                                    1)]
+                byExtendingSelection: NO];
     } else
         [self selectRowIndexes: [NSIndexSet indexSetWithIndex: row]
-            byExtendingSelection: NO];
+                byExtendingSelection: NO];
 }
 
 - (void) selectColumn: (NSInteger) column byExtendingSelection: (BOOL) extend {
@@ -1065,7 +1066,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
     if ([selectedRowIndexes containsIndex: row]) {
         NSMutableIndexSet *newSelection =
-            [[selectedRowIndexes mutableCopy] autorelease];
+                [[selectedRowIndexes mutableCopy] autorelease];
 
         [newSelection removeIndex: row];
         [self selectRowIndexes: newSelection byExtendingSelection: NO];
@@ -1074,7 +1075,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
 - (void) deselectColumn: (NSInteger) column {
     if ([_selectedColumns
-            containsObject: [_tableColumns objectAtIndex: column]]) {
+                containsObject: [_tableColumns objectAtIndex: column]]) {
         [_selectedColumns removeObject: [_tableColumns objectAtIndex: column]];
         [self setNeedsDisplayInRect: [self rectOfColumn: column]];
         [_headerView setNeedsDisplay: YES];
@@ -1082,9 +1083,10 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 }
 
 - (void) selectAll: sender {
-    [self selectRowIndexes: [NSIndexSet indexSetWithIndexesInRange:
+    [self selectRowIndexes: [NSIndexSet
+                                    indexSetWithIndexesInRange:
                                             NSMakeRange(0, [self numberOfRows])]
-        byExtendingSelection: NO];
+            byExtendingSelection: NO];
 }
 
 - (void) deselectAll: sender {
@@ -1138,8 +1140,10 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     // There isn't much point in trying to validate the heights of
     // visible rows only, as the often used -rectOfColumn: needs them all.
     [self noteHeightOfRowsWithIndexesChanged:
-              [NSIndexSet
-                  indexSetWithIndexesInRange: NSMakeRange(0, numberOfRows)]];
+                    [NSIndexSet
+                            indexSetWithIndexesInRange: NSMakeRange(
+                                                                0,
+                                                                numberOfRows)]];
 
     // if there's any editing going on, we'd better stop it.
     if (_editingCell != nil)
@@ -1157,7 +1161,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     [_headerView setFrameSize: headerSize];
 
     NSMutableIndexSet *selection =
-        [[_selectedRowIndexes mutableCopy] autorelease];
+            [[_selectedRowIndexes mutableCopy] autorelease];
     NSInteger count = [selection count];
     NSUInteger indexes[count];
     [selection getIndexes: indexes maxCount: count inIndexRange: NULL];
@@ -1197,7 +1201,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     [_headerView setFrameSize: rect.size];
 
     [[self enclosingScrollView]
-        setVerticalLineScroll: _standardRowHeight + _intercellSpacing.height];
+            setVerticalLineScroll: _standardRowHeight +
+                                   _intercellSpacing.height];
 
     [self setNeedsDisplay: YES];
     [_headerView setNeedsDisplay: YES];
@@ -1240,15 +1245,11 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         for (row = 0; row < numberOfRows; ++row)
             if ([self isColumnSelected: column] || [self isRowSelected: row])
                 if (!(row == _editedRow && column == _editedColumn))
-                    [self
-                        drawHighlightedSelectionForColumn: column
-                                                      row: row
-                                                   inRect:
-                                                       [self
-                                                           frameOfCellAtColumn:
-                                                               column
-                                                                           row:
-                                                                               row]];
+                    [self drawHighlightedSelectionForColumn: column
+                                                        row: row
+                                                     inRect: [self frameOfCellAtColumn:
+                                                                             column
+                                                                                   row: row]];
 }
 
 - (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber
@@ -1269,11 +1270,11 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         if ([self isRowSelected: row] ||
             [self isColumnSelected: columnNumber]) {
             [(NSTextFieldCell *) dataCell
-                setDrawsBackground: NO]; // so the selection shows properly,
-                                         // dont just set the color so custom
-                                         // background works
+                    setDrawsBackground: NO]; // so the selection shows properly,
+                                             // dont just set the color so
+                                             // custom background works
             [(NSTextFieldCell *) dataCell
-                setTextColor: [NSColor selectedTextColor]];
+                    setTextColor: [NSColor selectedTextColor]];
         } else
             [(NSTextFieldCell *) dataCell setTextColor: [NSColor textColor]];
     }
@@ -1283,9 +1284,9 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     if ([_delegate respondsToSelector: @selector
                    (tableView:willDisplayCell:forTableColumn:row:)])
         [_delegate tableView: self
-             willDisplayCell: dataCell
-              forTableColumn: column
-                         row: row];
+                willDisplayCell: dataCell
+                 forTableColumn: column
+                            row: row];
 
     return dataCell;
 }
@@ -1315,10 +1316,10 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         } else {
             NSCell *dataCell = [self preparedCellAtColumn: drawThisColumn
                                                       row: row];
-            NSRect cellRect =
-                [self _adjustedFrame: [self frameOfCellAtColumn: drawThisColumn
-                                                            row: row]
-                             forCell: dataCell];
+            NSRect cellRect = [self
+                    _adjustedFrame: [self frameOfCellAtColumn: drawThisColumn
+                                                          row: row]
+                           forCell: dataCell];
 
             [dataCell drawWithFrame: cellRect inView: self];
         }
@@ -1348,12 +1349,12 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
             [(NSColor *) [rowColors objectAtIndex: i % colorCount] setFill];
             NSRectFill(rectToFill);
             rectToFill.origin.y +=
-                rectToFill.size.height; // This is for beyond the loop.
+                    rectToFill.size.height; // This is for beyond the loop.
             heightFilled = rectToFill.origin.y;
         }
         if (_standardRowHeight > 0.) {
             rectToFill.size.height =
-                _standardRowHeight + _intercellSpacing.height;
+                    _standardRowHeight + _intercellSpacing.height;
             while (heightFilled < clipRect.size.height) {
                 [(NSColor *) [rowColors objectAtIndex: i % colorCount] setFill];
                 NSRectFill(rectToFill);
@@ -1407,7 +1408,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                 y += _standardRowHeight + _intercellSpacing.height;
                 [line moveToPoint: NSMakePoint(clipRect.origin.x, y)];
                 [line lineToPoint: NSMakePoint(clipRect.origin.x +
-                                                   clipRect.size.width,
+                                                       clipRect.size.width,
                                                y)];
             }
         }
@@ -1422,8 +1423,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     CGFloat result = 0;
 
     for (i = 0; i < count; ++i)
-        result +=
-            [[_tableColumns objectAtIndex: i] width] + _intercellSpacing.width;
+        result += [[_tableColumns objectAtIndex: i] width] +
+                  _intercellSpacing.width;
 
     return result;
 }
@@ -1458,7 +1459,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
 - (BOOL) delegateShouldSelectTableColumn: (NSTableColumn *) tableColumn {
     if ([_delegate respondsToSelector: @selector(tableView:
-                                           shouldSelectTableColumn:)])
+                                               shouldSelectTableColumn:)])
         return [_delegate tableView: self shouldSelectTableColumn: tableColumn];
 
     return YES;
@@ -1497,7 +1498,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 - (void) textDidEndEditing: (NSNotification *) note {
     NSTableColumn *editedColumn = [_tableColumns objectAtIndex: _editedColumn];
     NSInteger textMovement =
-        [[[note userInfo] objectForKey: @"NSTextMovement"] intValue];
+            [[[note userInfo] objectForKey: @"NSTextMovement"] intValue];
     NSInteger numberOfRows = [self numberOfRows];
 
     [_editingCell endEditing: _currentEditor];
@@ -1529,9 +1530,9 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
         [self selectRow: nextRow byExtendingSelection: NO];
         [self editColumn: _editedColumn
-                     row: nextRow
-               withEvent: [[self window] currentEvent]
-                  select: YES];
+                      row: nextRow
+                withEvent: [[self window] currentEvent]
+                   select: YES];
     } else if (textMovement == NSTabTextMovement) {
         NSInteger nextColumn = _editedColumn;
         NSInteger nextRow = _editedRow;
@@ -1551,9 +1552,9 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
         [self selectRow: nextRow byExtendingSelection: NO];
         [self editColumn: nextColumn
-                     row: nextRow
-               withEvent: [[self window] currentEvent]
-                  select: YES];
+                      row: nextRow
+                withEvent: [[self window] currentEvent]
+                   select: YES];
     } else if (textMovement == NSBacktabTextMovement) {
         NSInteger prevColumn = _editedColumn - 1;
         NSInteger prevRow = _editedRow;
@@ -1567,9 +1568,9 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
         [self selectRow: prevRow byExtendingSelection: NO];
         [self editColumn: prevColumn
-                     row: prevRow
-               withEvent: [[self window] currentEvent]
-                  select: YES];
+                      row: prevRow
+                withEvent: [[self window] currentEvent]
+                   select: YES];
     } else {
         _editedColumn = -1;
         _editedRow = -1;
@@ -1580,10 +1581,10 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                                    row: (NSInteger) row
 {
     if ([_delegate respondsToSelector: @selector(tableView:
-                                           shouldEditTableColumn:row:)])
+                                               shouldEditTableColumn:row:)])
         return [_delegate tableView: self
-              shouldEditTableColumn: tableColumn
-                                row: row];
+                shouldEditTableColumn: tableColumn
+                                  row: row];
 
     return YES;
 }
@@ -1625,33 +1626,38 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         [[NSColor blackColor] setStroke];
         if ([self numberOfRows] == 0)
             [NSBezierPath
-                strokeLineFromPoint: NSMakePoint(0, 0)
-                            toPoint: NSMakePoint([self bounds].size.width, 0)];
+                    strokeLineFromPoint: NSMakePoint(0, 0)
+                                toPoint: NSMakePoint([self bounds].size.width,
+                                                     0)];
         else {
             if (_draggingRow == [self numberOfRows]) {
                 rowRect = NSIntersectionRect([self rectOfRow: _draggingRow - 1],
                                              [self visibleRect]);
                 [NSBezierPath
-                    strokeLineFromPoint: NSMakePoint(0, rowRect.origin.y +
-                                                            rowRect.size.height)
-                                toPoint: NSMakePoint(rowRect.size.width,
+                        strokeLineFromPoint: NSMakePoint(
+                                                     0, rowRect.origin.y +
+                                                                rowRect.size
+                                                                        .height)
+                                    toPoint: NSMakePoint(
+                                                     rowRect.size.width,
                                                      rowRect.origin.y +
-                                                         rowRect.size.height)];
+                                                             rowRect.size
+                                                                     .height)];
             } else {
                 rowRect = NSIntersectionRect([self rectOfRow: _draggingRow],
                                              [self visibleRect]);
                 [NSBezierPath
-                    strokeLineFromPoint: NSMakePoint(0, rowRect.origin.y)
-                                toPoint: NSMakePoint(rowRect.size.width,
-                                                     rowRect.origin.y)];
+                        strokeLineFromPoint: NSMakePoint(0, rowRect.origin.y)
+                                    toPoint: NSMakePoint(rowRect.size.width,
+                                                         rowRect.origin.y)];
             }
         }
     }
 }
 
 - (BOOL) delegateSelectionShouldChange {
-    if ([_delegate
-            respondsToSelector: @selector(selectionShouldChangeInTableView:)])
+    if ([_delegate respondsToSelector: @selector
+                   (selectionShouldChangeInTableView:)])
         return [_delegate selectionShouldChangeInTableView: self];
 
     return YES;
@@ -1659,24 +1665,25 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
 - (void) noteSelectionIsChanging {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSTableViewSelectionIsChangingNotification
-                      object: self];
+            postNotificationName: NSTableViewSelectionIsChangingNotification
+                          object: self];
 }
 
 - (void) noteSelectionDidChange {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSTableViewSelectionDidChangeNotification
-                      object: self];
+            postNotificationName: NSTableViewSelectionDidChangeNotification
+                          object: self];
 }
 
 - (void) noteColumnDidResizeWithOldWidth: (CGFloat) oldWidth {
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSTableViewColumnDidResizeNotification
-                      object: self
-                    userInfo: [NSDictionary
-                                  dictionaryWithObjectsAndKeys:
-                                      [NSNumber numberWithFloat: oldWidth],
-                                      @"NSOldWidth", nil]];
+            postNotificationName: NSTableViewColumnDidResizeNotification
+                          object: self
+                        userInfo: [NSDictionary
+                                          dictionaryWithObjectsAndKeys:
+                                                  [NSNumber numberWithFloat:
+                                                                    oldWidth],
+                                                  @"NSOldWidth", nil]];
 }
 
 - (BOOL) dataSourceCanSetObjectValue {
@@ -1701,7 +1708,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     }
 
     NSTableColumn *clickedColumnObject =
-        [_tableColumns objectAtIndex: _clickedColumn];
+            [_tableColumns objectAtIndex: _clickedColumn];
 
     if (![self delegateShouldSelectTableColumn: clickedColumnObject])
         return;
@@ -1713,9 +1720,10 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     [clickedCell setControlView: self];
     if ([clickedCell isKindOfClass: [NSButtonCell class]]) {
         [clickedCell
-            setObjectValue:
-                [self dataSourceObjectValueForTableColumn: clickedColumnObject
-                                                      row: _clickedRow]];
+                setObjectValue:
+                        [self dataSourceObjectValueForTableColumn:
+                                        clickedColumnObject
+                                                              row: _clickedRow]];
 
         if ([clickedCell trackMouse: event
                              inRect: [self frameOfCellAtColumn: _clickedColumn
@@ -1726,8 +1734,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
             NSNumber *value = nil;
             if ([clickedCell isKindOfClass: [NSPopUpButtonCell class]]) {
                 value = [NSNumber
-                    numberWithInt: [(NSPopUpButtonCell *)
-                                           clickedCell indexOfSelectedItem]];
+                        numberWithInt: [(NSPopUpButtonCell *) clickedCell
+                                               indexOfSelectedItem]];
             } else {
                 value = [NSNumber numberWithInt: [clickedCell state]];
             }
@@ -1758,8 +1766,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                     [self deselectRow: _clickedRow];
             } else if ([self allowsMultipleSelection]) {
                 [self selectRowIndexes: [NSIndexSet
-                                            indexSetWithIndex: _clickedRow]
-                    byExtendingSelection: YES]; // add to selection
+                                                indexSetWithIndex: _clickedRow]
+                        byExtendingSelection: YES]; // add to selection
             }
         } else if ([event modifierFlags] & NSShiftKeyMask) {
             if ([self allowsMultipleSelection] && [self selectedRow] != -1) {
@@ -1771,16 +1779,17 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                     startRow = _clickedRow;
                 }
 
-                [self selectRowIndexes: [NSIndexSet
-                                            indexSetWithIndexesInRange:
+                [self selectRowIndexes:
+                                [NSIndexSet
+                                        indexSetWithIndexesInRange:
                                                 NSMakeRange(startRow,
                                                             endRow - startRow +
-                                                                1)]
-                    byExtendingSelection: NO];
+                                                                    1)]
+                        byExtendingSelection: NO];
             } else
                 [self selectRowIndexes: [NSIndexSet
-                                            indexSetWithIndex: _clickedRow]
-                    byExtendingSelection: NO];
+                                                indexSetWithIndex: _clickedRow]
+                        byExtendingSelection: NO];
         } else { // normal selection, allow for dragging
             BOOL dragging = NO;
             if ([_dataSource respondsToSelector: @selector
@@ -1788,15 +1797,15 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                 NSPoint currentPoint;
                 do {
                     event = [_window
-                        nextEventMatchingMask: NSLeftMouseUpMask |
-                                               NSLeftMouseDraggedMask
-                                    untilDate: [NSDate distantFuture]
-                                       inMode: NSEventTrackingRunLoopMode
-                                      dequeue: NO];
+                            nextEventMatchingMask: NSLeftMouseUpMask |
+                                                   NSLeftMouseDraggedMask
+                                        untilDate: [NSDate distantFuture]
+                                           inMode: NSEventTrackingRunLoopMode
+                                          dequeue: NO];
                     if ([event type] == NSLeftMouseDragged)
                         event = [_window
-                            nextEventMatchingMask: NSLeftMouseUpMask |
-                                                   NSLeftMouseDraggedMask];
+                                nextEventMatchingMask: NSLeftMouseUpMask |
+                                                       NSLeftMouseDraggedMask];
                     else
                         break;
                     currentPoint = [self convertPoint: [event locationInWindow]
@@ -1814,21 +1823,21 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                     rowIndexes = [NSIndexSet indexSetWithIndex: _clickedRow];
 
                 NSPasteboard *pasteboard =
-                    [NSPasteboard pasteboardWithName: NSDragPboard];
+                        [NSPasteboard pasteboardWithName: NSDragPboard];
                 if ([_dataSource tableView: self
-                        writeRowsWithIndexes: rowIndexes
-                                toPasteboard: pasteboard] == NO)
+                            writeRowsWithIndexes: rowIndexes
+                                    toPasteboard: pasteboard] == NO)
                     dragging = NO;
                 else {
                     NSImage *image = [[[NSImage alloc]
-                        initWithSize: NSMakeSize(0, 0)] autorelease];
+                            initWithSize: NSMakeSize(0, 0)] autorelease];
                     [self dragImage: image
-                                 at: NSMakePoint(0, 0)
-                             offset: NSMakeSize(0, 0)
-                              event: event
-                         pasteboard: pasteboard
-                             source: self
-                          slideBack: YES];
+                                    at: NSMakePoint(0, 0)
+                                offset: NSMakeSize(0, 0)
+                                 event: event
+                            pasteboard: pasteboard
+                                source: self
+                             slideBack: YES];
                 }
             }
 
@@ -1837,16 +1846,16 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                 NSInteger firstClickedRow = _clickedRow;
 
                 [self selectRowIndexes: [NSIndexSet
-                                            indexSetWithIndex: _clickedRow]
-                    byExtendingSelection: NO];
+                                                indexSetWithIndex: _clickedRow]
+                        byExtendingSelection: NO];
                 if ([self allowsMultipleSelection] == YES) {
                     do {
                         NSPoint point;
                         NSInteger row;
 
                         event = [_window
-                            nextEventMatchingMask: NSLeftMouseUpMask |
-                                                   NSLeftMouseDraggedMask];
+                                nextEventMatchingMask: NSLeftMouseUpMask |
+                                                       NSLeftMouseDraggedMask];
                         point = [self convertPoint: [event locationInWindow]
                                           fromView: nil];
 
@@ -1868,8 +1877,10 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                             for (i = 0; i < numberOfRows; i++) {
                                 if (i >= startRow && i <= endRow)
                                     [self selectRowIndexes:
-                                              [NSIndexSet indexSetWithIndex: i]
-                                        byExtendingSelection: YES];
+                                                    [NSIndexSet
+                                                            indexSetWithIndex:
+                                                                    i]
+                                            byExtendingSelection: YES];
                                 else
                                     [self deselectRow: i];
                             }
@@ -1886,21 +1897,22 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         // nb this logic was backwards previously
 
         id binder = [[_tableColumns objectAtIndex: _clickedColumn]
-            _binderForBinding: @"value"
-                       create: NO];
+                _binderForBinding: @"value"
+                           create: NO];
         BOOL interpretedAsEdit = NO;
         if ([[_tableColumns objectAtIndex: _clickedColumn] isEditable]) {
             if ([self dataSourceCanSetObjectValue] ||
                 [binder allowsEditingForRow: _clickedRow]) {
                 if (_clickedColumn != -1 && _clickedRow != -1) {
                     if ([self delegateShouldEditTableColumn:
-                                  [_tableColumns objectAtIndex: _clickedColumn]
+                                        [_tableColumns
+                                                objectAtIndex: _clickedColumn]
                                                         row: _clickedRow]) {
                         interpretedAsEdit = YES;
                         [self editColumn: [self clickedColumn]
-                                     row: _clickedRow
-                               withEvent: event
-                                  select: YES];
+                                      row: _clickedRow
+                                withEvent: event
+                                   select: YES];
                     }
                 }
             }
@@ -1918,9 +1930,9 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         NSCell *dataCell = [column dataCellForRow: i];
 
         [dataCell setControlView: self];
-        [dataCell
-            setObjectValue: [self dataSourceObjectValueForTableColumn: column
-                                                                  row: i]];
+        [dataCell setObjectValue:
+                          [self dataSourceObjectValueForTableColumn: column
+                                                                row: i]];
 
         width = [[dataCell attributedStringValue] size].width;
         if (width > minWidth)
@@ -1966,9 +1978,9 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     BOOL result;
     NSInteger proposedRow = [self _getDraggedRow: info];
 
-    if ([_dataSource respondsToSelector: @selector
-                     (tableView:
-                         validateDrop:proposedRow:proposedDropOperation:)]) {
+    if ([_dataSource
+                respondsToSelector: @selector
+                (tableView:validateDrop:proposedRow:proposedDropOperation:)]) {
         if ((result = [_dataSource tableView: self
                                 validateDrop: info
                                  proposedRow: proposedRow
@@ -1986,7 +1998,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 - (NSDragOperation) draggingEntered: (id<NSDraggingInfo>) sender {
     for (NSInteger i = 0; i < [[self _draggedTypes] count]; i++) {
         if ([[[sender draggingPasteboard] types]
-                containsObject: [[self _draggedTypes] objectAtIndex: i]])
+                    containsObject: [[self _draggedTypes] objectAtIndex: i]])
             return [self _validateDraggedRow: sender];
     }
     return NSDragOperationNone;
@@ -1995,7 +2007,7 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 - (NSDragOperation) draggingUpdated: (id<NSDraggingInfo>) sender {
     for (NSInteger i = 0; i < [[self _draggedTypes] count]; i++) {
         if ([[[sender draggingPasteboard] types]
-                containsObject: [[self _draggedTypes] objectAtIndex: i]])
+                    containsObject: [[self _draggedTypes] objectAtIndex: i]])
             return [self _validateDraggedRow: sender];
     }
     return NSDragOperationNone;

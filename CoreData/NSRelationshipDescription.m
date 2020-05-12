@@ -38,9 +38,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _minCount = [coder decodeIntForKey: @"NSMinCount"];
 
     _destinationEntityName =
-        [coder decodeObjectForKey: @"_NSDestinationEntityName"];
+            [coder decodeObjectForKey: @"_NSDestinationEntityName"];
     _inverseRelationshipName =
-        [coder decodeObjectForKey: @"_NSInverseRelationshipName"];
+            [coder decodeObjectForKey: @"_NSInverseRelationshipName"];
 
     return self;
 }

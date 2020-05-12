@@ -73,18 +73,18 @@ typedef void (*O2SurfaceWriteSpan_argb32f)(O2Surface *self, int x, int y,
 }
 
 - initWithBytes: (void *) bytes
-               width: (size_t) width
-              height: (size_t) height
-    bitsPerComponent: (size_t) bitsPerComponent
-         bytesPerRow: (size_t) bytesPerRow
-          colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo;
+                   width: (size_t) width
+                  height: (size_t) height
+        bitsPerComponent: (size_t) bitsPerComponent
+             bytesPerRow: (size_t) bytesPerRow
+              colorSpace: (O2ColorSpaceRef) colorSpace
+              bitmapInfo: (O2BitmapInfo) bitmapInfo;
 
 - (void *) pixelBytes;
 
 - (void) setWidth: (size_t) width
-                      height: (size_t) height
-    reallocateOnlyIfRequired: (BOOL) roir;
+                          height: (size_t) height
+        reallocateOnlyIfRequired: (BOOL) roir;
 
 void *O2SurfaceGetPixelBytes(O2Surface *surface);
 size_t O2SurfaceGetWidth(O2Surface *surface);

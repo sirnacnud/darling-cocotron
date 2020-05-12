@@ -28,13 +28,15 @@ static NSMutableArray *_measurementUnits = nil;
 
 + (NSMeasurementUnit *) inchesMeasurementUnit {
     return [self
-        measurementUnitWithName: @"Inches"
-                   abbreviation: @"in"
-                  pointsPerUnit: 72.0
-                    stepUpCycle: [NSArray
-                                     arrayWithObject: [NSNumber
-                                                          numberWithFloat: 2.0]]
-                  stepDownCycle: [NSArray arrayWithObjects:
+            measurementUnitWithName: @"Inches"
+                       abbreviation: @"in"
+                      pointsPerUnit: 72.0
+                        stepUpCycle: [NSArray arrayWithObject:
+                                                      [NSNumber numberWithFloat:
+                                                                        2.0]]
+                      stepDownCycle:
+                              [NSArray
+                                      arrayWithObjects:
                                               [NSNumber numberWithFloat: 0.5],
                                               [NSNumber numberWithFloat: 0.25],
                                               [NSNumber numberWithFloat: 0.125],
@@ -43,38 +45,43 @@ static NSMutableArray *_measurementUnits = nil;
 
 + (NSMeasurementUnit *) centimetersMeasurementUnit {
     return [self
-        measurementUnitWithName: @"Centimeters"
-                   abbreviation: @"cm"
-                  pointsPerUnit: 28.35
-                    stepUpCycle: [NSArray
-                                     arrayWithObject: [NSNumber
-                                                          numberWithFloat: 2.0]]
-                  stepDownCycle: [NSArray arrayWithObjects:
-                                              [NSNumber numberWithFloat: 0.5],
-                                              [NSNumber numberWithFloat: 0.2],
-                                              nil]];
+            measurementUnitWithName: @"Centimeters"
+                       abbreviation: @"cm"
+                      pointsPerUnit: 28.35
+                        stepUpCycle: [NSArray arrayWithObject:
+                                                      [NSNumber numberWithFloat:
+                                                                        2.0]]
+                      stepDownCycle:
+                              [NSArray arrayWithObjects:
+                                               [NSNumber numberWithFloat: 0.5],
+                                               [NSNumber numberWithFloat: 0.2],
+                                               nil]];
 }
 
 + (NSMeasurementUnit *) pointsMeasurementUnit {
     return [self
-        measurementUnitWithName: @"Points"
-                   abbreviation: @"pt"
-                  pointsPerUnit: 1.0
-                    stepUpCycle: [NSArray arrayWithObject:
-                                              [NSNumber numberWithFloat: 10.0]]
-                  stepDownCycle: [NSArray arrayWithObject:
-                                              [NSNumber numberWithFloat: 0.5]]];
+            measurementUnitWithName: @"Points"
+                       abbreviation: @"pt"
+                      pointsPerUnit: 1.0
+                        stepUpCycle: [NSArray arrayWithObject:
+                                                      [NSNumber numberWithFloat:
+                                                                        10.0]]
+                      stepDownCycle: [NSArray arrayWithObject:
+                                                      [NSNumber numberWithFloat:
+                                                                        0.5]]];
 }
 
 + (NSMeasurementUnit *) picasMeasurementUnit {
     return [self
-        measurementUnitWithName: @"Picas"
-                   abbreviation: @"pc"
-                  pointsPerUnit: 12.0
-                    stepUpCycle: [NSArray arrayWithObject:
-                                              [NSNumber numberWithFloat: 10.0]]
-                  stepDownCycle: [NSArray arrayWithObject:
-                                              [NSNumber numberWithFloat: 0.5]]];
+            measurementUnitWithName: @"Picas"
+                       abbreviation: @"pc"
+                      pointsPerUnit: 12.0
+                        stepUpCycle: [NSArray arrayWithObject:
+                                                      [NSNumber numberWithFloat:
+                                                                        10.0]]
+                      stepDownCycle: [NSArray arrayWithObject:
+                                                      [NSNumber numberWithFloat:
+                                                                        0.5]]];
 }
 
 + (NSArray *) allMeasurementUnits {
@@ -119,10 +126,10 @@ static NSMutableArray *_measurementUnits = nil;
 }
 
 - (id) initWithName: (NSString *) name
-       abbreviation: (NSString *) abbreviation
-      pointsPerUnit: (CGFloat) points
-        stepUpCycle: (NSArray *) upCycle
-      stepDownCycle: (NSArray *) downCycle;
+         abbreviation: (NSString *) abbreviation
+        pointsPerUnit: (CGFloat) points
+          stepUpCycle: (NSArray *) upCycle
+        stepDownCycle: (NSArray *) downCycle;
 {
     _name = [name retain];
     _abbreviation = [abbreviation retain];

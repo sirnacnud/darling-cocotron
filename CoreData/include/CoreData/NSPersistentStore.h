@@ -14,8 +14,8 @@
 + (NSDictionary *) metadataForPersistentStoreWithURL: (NSURL *) url
                                                error: (NSError **) error;
 + (BOOL) setMetadata: (NSDictionary *) metadata
-    forPersistentStoreWithURL: (NSURL *) url
-                        error: (NSError **) error;
+        forPersistentStoreWithURL: (NSURL *) url
+                            error: (NSError **) error;
 
 + (Class) migrationManagerClass;
 
@@ -42,8 +42,8 @@
 - (BOOL) loadMetadata: (NSError **) error;
 
 - (void) willRemoveFromPersistentStoreCoordinator:
-    (NSPersistentStoreCoordinator *) coordinator;
+        (NSPersistentStoreCoordinator *) coordinator;
 - (void) didAddToPersistentStoreCoordinator:
-    (NSPersistentStoreCoordinator *) coordinator;
+        (NSPersistentStoreCoordinator *) coordinator;
 
 @end

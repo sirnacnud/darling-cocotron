@@ -17,7 +17,7 @@
     bytes[0] = 128;
 
     CGDataProviderRef provider =
-        CGDataProviderCreateWithData(NULL, bytes, 1, NULL);
+            CGDataProviderCreateWithData(NULL, bytes, 1, NULL);
     _mask = CGImageMaskCreate(1, 1, 8, 8, 1, provider, NULL, YES);
     _maskedImage = CGImageCreateWithMask(_image, _mask);
 

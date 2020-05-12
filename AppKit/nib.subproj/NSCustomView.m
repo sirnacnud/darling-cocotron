@@ -24,8 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (id) initWithCoder: (NSCoder *) coder {
     if ([coder allowsKeyedCoding]) {
-        NSString *className =
-            [(NSKeyedUnarchiver *) coder decodeObjectForKey: @"NSClassName"];
+        NSString *className = [(NSKeyedUnarchiver *) coder
+                decodeObjectForKey: @"NSClassName"];
         Class class = NSClassFromString(className);
         if (class == nil) {
             NSLog(@"NSCustomView unknown class %@", className);
@@ -63,16 +63,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             }
 
             [newView->_subviews
-                makeObjectsPerformSelector: @selector(_setSuperview:)
-                                withObject: newView];
+                    makeObjectsPerformSelector: @selector(_setSuperview:)
+                                    withObject: newView];
             [_subviews removeAllObjects];
 
-            [newView
-                setWantsLayer: [coder
-                                   decodeBoolForKey: @"NSViewIsLayerTreeHost"]];
+            [newView setWantsLayer: [coder decodeBoolForKey:
+                                                    @"NSViewIsLayerTreeHost"]];
             [newView setLayerContentsRedrawPolicy:
-                         [coder decodeIntegerForKey:
-                                    @"NSViewLayerContentsRedrawPolicy"]];
+                             [coder decodeIntegerForKey: @"NSViewLayerContentsR"
+                                                         @"edrawPolicy"]];
             [self release];
             return newView;
         }

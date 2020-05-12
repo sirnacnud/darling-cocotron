@@ -40,10 +40,10 @@ typedef enum { NSHorizontalRuler, NSVerticalRuler } NSRulerOrientation;
 }
 
 + (void) registerUnitWithName: (NSString *) name
-                    abbreviation: (NSString *) abbreviation
-    unitToPointsConversionFactor: (CGFloat) conversionFactor
-                     stepUpCycle: (NSArray *) stepUpCycle
-                   stepDownCycle: (NSArray *) stepDownCycle;
+                        abbreviation: (NSString *) abbreviation
+        unitToPointsConversionFactor: (CGFloat) conversionFactor
+                         stepUpCycle: (NSArray *) stepUpCycle
+                       stepDownCycle: (NSArray *) stepDownCycle;
 
 - initWithScrollView: (NSScrollView *) scrollView
          orientation: (NSRulerOrientation) orientation;
@@ -75,7 +75,7 @@ typedef enum { NSHorizontalRuler, NSVerticalRuler } NSRulerOrientation;
 - (void) setOriginOffset: (CGFloat) value;
 
 - (BOOL) trackMarker: (NSRulerMarker *) marker
-      withMouseEvent: (NSEvent *) event;
+        withMouseEvent: (NSEvent *) event;
 
 - (void) moveRulerlineFromLocation: (CGFloat) fromLocation
                         toLocation: (CGFloat) toLocation;
@@ -90,30 +90,30 @@ typedef enum { NSHorizontalRuler, NSVerticalRuler } NSRulerOrientation;
 @interface NSView (NSRulerMarker_clientView)
 
 - (void) rulerView: (NSRulerView *) rulerView
-    willSetClientView: (NSView *) clientView;
+        willSetClientView: (NSView *) clientView;
 
 - (void) rulerView: (NSRulerView *) rulerView
-    handleMouseDown: (NSEvent *) event;
+        handleMouseDown: (NSEvent *) event;
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldAddMarker: (NSRulerMarker *) marker;
+        shouldAddMarker: (NSRulerMarker *) marker;
 - (CGFloat) rulerView: (NSRulerView *) rulerView
         willAddMarker: (NSRulerMarker *) marker
            atLocation: (CGFloat) location;
 - (void) rulerView: (NSRulerView *) rulerView
-      didAddMarker: (NSRulerMarker *) marker;
+        didAddMarker: (NSRulerMarker *) marker;
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldRemoveMarker: (NSRulerMarker *) marker;
+        shouldRemoveMarker: (NSRulerMarker *) marker;
 - (void) rulerView: (NSRulerView *) rulerView
-    didRemoveMarker: (NSRulerMarker *) marker;
+        didRemoveMarker: (NSRulerMarker *) marker;
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldMoveMarker: (NSRulerMarker *) marker;
+        shouldMoveMarker: (NSRulerMarker *) marker;
 - (CGFloat) rulerView: (NSRulerView *) rulerView
-       willMoveMarker: (NSRulerMarker *) marker
-           toLocation: (CGFloat) location;
+        willMoveMarker: (NSRulerMarker *) marker
+            toLocation: (CGFloat) location;
 - (void) rulerView: (NSRulerView *) rulerView
-     didMoveMarker: (NSRulerMarker *) marker;
+        didMoveMarker: (NSRulerMarker *) marker;
 
 @end

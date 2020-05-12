@@ -41,9 +41,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #endif
 
 NSString *const NSDidBecomeSingleThreadedNotification =
-    @"NSDidBecomeSingleThreadedNotification";
+        @"NSDidBecomeSingleThreadedNotification";
 NSString *const NSWillBecomeMultiThreadedNotification =
-    @"NSWillBecomeMultiThreadedNotification";
+        @"NSWillBecomeMultiThreadedNotification";
 NSString *const NSThreadWillExitNotification = @"NSThreadWillExitNotification";
 
 @implementation NSThread
@@ -91,7 +91,7 @@ static NSThread *mainThread = nil;
 // Be sure the stack is aligned in case the thread wants to do exotic things
 // like SSE2
 static __attribute__((
-    force_align_arg_pointer)) unsigned __stdcall nsThreadStartThread(void *t)
+        force_align_arg_pointer)) unsigned __stdcall nsThreadStartThread(void *t)
 #else
 static void *nsThreadStartThread(void *t)
 #endif
@@ -155,9 +155,9 @@ static void *nsThreadStartThread(void *t)
     char **symbols = backtrace_symbols(callstack, frameCount);
     // ignore current frame
     for (i = 1; i < frameCount; ++i) {
-        [ret
-            addObject: [NSString stringWithCString: callstack[i]
-                                          encoding: NSISOLatin1StringEncoding]];
+        [ret addObject: [NSString
+                                stringWithCString: callstack[i]
+                                         encoding: NSISOLatin1StringEncoding]];
     }
     free(symbols);
 
@@ -215,9 +215,9 @@ static void *nsThreadStartThread(void *t)
 
 - (void) dealloc {
     if ([self isExecuting])
-        [NSException
-             raise: NSInternalInconsistencyException
-            format: @"trying to dealloc thread %@ while it's running", self];
+        [NSException raise: NSInternalInconsistencyException
+                    format: @"trying to dealloc thread %@ while it's running",
+                            self];
     [_dictionary release];
     _dictionary = nil;
 
@@ -241,9 +241,9 @@ static void *nsThreadStartThread(void *t)
 
     if (!isMultiThreaded) {
         [[NSNotificationCenter defaultCenter]
-            postNotificationName: NSWillBecomeMultiThreadedNotification
-                          object: nil
-                        userInfo: nil];
+                postNotificationName: NSWillBecomeMultiThreadedNotification
+                              object: nil
+                            userInfo: nil];
         isMultiThreaded = YES;
         // lazily initialize mainThread's lock
         mainThread->_sharedObjectLock = [NSLock new];
@@ -260,8 +260,8 @@ static void *nsThreadStartThread(void *t)
         // No thread has been created. Don't leak:
         [self release];
         [NSException
-             raise: @"NSThreadCreationFailedException"
-            format: @"Creation of Objective-C thread failed [%@].", error];
+                 raise: @"NSThreadCreationFailedException"
+                format: @"Creation of Objective-C thread failed [%@].", error];
     }
 }
 
@@ -367,8 +367,9 @@ FOUNDATION_EXPORT id NSThreadSharedInstanceDoNotCreate(NSString *className) {
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[0x%lx] threadDictionary: %@ currentPool: %@>",
-                          [self class], self, _dictionary, _currentPool];
+            stringWithFormat:
+                    @"<%@[0x%lx] threadDictionary: %@ currentPool: %@>",
+                    [self class], self, _dictionary, _currentPool];
 }
 
 NSAutoreleasePool *NSThreadCurrentPool(void) {
@@ -386,7 +387,7 @@ void NSThreadSetCurrentPool(NSAutoreleasePool *pool) {
 - (void) _performSelectorOnThreadHelper: (NSArray *) selectorAndArguments {
     NSConditionLock *waitingLock = [selectorAndArguments objectAtIndex: 0];
     SEL selector =
-        NSSelectorFromString([selectorAndArguments objectAtIndex: 1]);
+            NSSelectorFromString([selectorAndArguments objectAtIndex: 1]);
     id object = [[selectorAndArguments objectAtIndex: 2] pointerValue];
 
     [waitingLock lockWhenCondition: 0];
@@ -418,20 +419,21 @@ void NSThreadSetCurrentPool(NSAutoreleasePool *pool) {
                             format: @"thread %@ has no runloop in %@", thread,
                                     NSStringFromSelector(_cmd)];
             NSConditionLock *waitingLock =
-                [[NSConditionLock alloc] initWithCondition: 0];
+                    [[NSConditionLock alloc] initWithCondition: 0];
 
             // array retain balanced in _performSelectorOnThreadHelper:
-            [runloop
-                performSelector: @selector(_performSelectorOnThreadHelper:)
-                         target: self
-                       argument: [[NSArray
-                                     arrayWithObjects:
-                                         waitingLock,
-                                         NSStringFromSelector(selector),
-                                         [NSValue valueWithPointer: object],
-                                         nil] retain]
-                          order: 0
-                          modes: modes];
+            [runloop performSelector: @selector(_performSelectorOnThreadHelper:)
+                              target: self
+                            argument: [[NSArray
+                                              arrayWithObjects:
+                                                      waitingLock,
+                                                      NSStringFromSelector(
+                                                              selector),
+                                                      [NSValue valueWithPointer:
+                                                                       object],
+                                                      nil] retain]
+                               order: 0
+                               modes: modes];
 
             [waitingLock lockWhenCondition: 1];
             [waitingLock unlock];
@@ -483,7 +485,7 @@ void NSThreadSetCurrentPool(NSAutoreleasePool *pool) {
                            withObject: object
                         waitUntilDone: waitUntilDone
                                 modes: [NSArray arrayWithObject:
-                                                    NSRunLoopCommonModes]];
+                                                        NSRunLoopCommonModes]];
 }
 
 - (void) performSelectorInBackground: (SEL) selector withObject: object {

@@ -19,7 +19,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSObject.h>
 
 @class NSURLRequest, NSURLResponse, NSURLAuthenticationChallenge, NSData,
-    NSError, NSURLConnection, NSOutputStream;
+        NSError, NSURLConnection, NSOutputStream;
 
 @interface NSURLDownload : NSObject {
     NSURLRequest *_request;
@@ -57,32 +57,32 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             willSendRequest: (NSURLRequest *) request
            redirectResponse: (NSURLResponse *) redirect;
 - (void) download: (NSURLDownload *) download
-    didReceiveAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) authChallenge;
+        didReceiveAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) authChallenge;
 - (void) download: (NSURLDownload *) download
-    didCancelAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) authChallenge;
+        didCancelAuthenticationChallenge:
+                (NSURLAuthenticationChallenge *) authChallenge;
 - (void) download: (NSURLDownload *) download
-    didReceiveResponse: (NSURLResponse *) response;
+        didReceiveResponse: (NSURLResponse *) response;
 - (void) download: (NSURLDownload *) download
-    didReceiveDataOfLength: (NSUInteger) length;
+        didReceiveDataOfLength: (NSUInteger) length;
 
 - (void) download: (NSURLDownload *) download
-    didFailWithError: (NSError *) error;
+        didFailWithError: (NSError *) error;
 - (void) downloadDidFinish: (NSURLDownload *) download;
 
 - (void) download: (NSURLDownload *) download
-    decideDestinationWithSuggestedFilename: (NSString *) suggested;
+        decideDestinationWithSuggestedFilename: (NSString *) suggested;
 - (void) download: (NSURLDownload *) download
-    didCreateDestination: (NSString *) destPath;
+        didCreateDestination: (NSString *) destPath;
 - (BOOL) download: (NSURLDownload *) download
-    shouldDecodeSourceDataOfMIMEType: (NSString *) mimeType;
+        shouldDecodeSourceDataOfMIMEType: (NSString *) mimeType;
 
 - (void) download: (NSURLDownload *) download
-    willResumeWithResponse: (NSURLResponse *) response
-                  fromByte: (long long) position;
+        willResumeWithResponse: (NSURLResponse *) response
+                      fromByte: (long long) position;
 
 - (void) download: (NSURLDownload *) download
-    didReceiveDataOfLength: (NSUInteger) length;
+        didReceiveDataOfLength: (NSUInteger) length;
 
 @end

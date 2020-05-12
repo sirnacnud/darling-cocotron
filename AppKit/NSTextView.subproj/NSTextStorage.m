@@ -24,9 +24,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSKeyedArchiver.h>
 
 NSString *const NSTextStorageWillProcessEditingNotification =
-    @"NSTextStorageWillProcessEditingNotification";
+        @"NSTextStorageWillProcessEditingNotification";
 NSString *const NSTextStorageDidProcessEditingNotification =
-    @"NSTextStorageDidProcessEditingNotification";
+        @"NSTextStorageDidProcessEditingNotification";
 
 @implementation NSTextStorage
 
@@ -116,49 +116,50 @@ NSString *const NSTextStorageDidProcessEditingNotification =
 - (void) processEditing {
     int i, count;
 
-    if ([_delegate
-            respondsToSelector: @selector(textStorageWillProcessEditing:)]) {
+    if ([_delegate respondsToSelector: @selector
+                   (textStorageWillProcessEditing:)]) {
         NSNotification *note = [NSNotification
-            notificationWithName: NSTextStorageWillProcessEditingNotification
-                          object: self
-                        userInfo: nil];
+                notificationWithName:
+                        NSTextStorageWillProcessEditingNotification
+                              object: self
+                            userInfo: nil];
         [_delegate textStorageWillProcessEditing: note];
     }
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSTextStorageWillProcessEditingNotification
-                      object: self];
+            postNotificationName: NSTextStorageWillProcessEditingNotification
+                          object: self];
 
     [self fixAttributesInRange: _editedRange];
 
     if ([_delegate
-            respondsToSelector: @selector(textStorageDidProcessEditing:)]) {
+                respondsToSelector: @selector(textStorageDidProcessEditing:)]) {
         NSNotification *note = [NSNotification
-            notificationWithName: NSTextStorageDidProcessEditingNotification
-                          object: self
-                        userInfo: nil];
+                notificationWithName: NSTextStorageDidProcessEditingNotification
+                              object: self
+                            userInfo: nil];
         [_delegate textStorageDidProcessEditing: note];
     }
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSTextStorageDidProcessEditingNotification
-                      object: self];
+            postNotificationName: NSTextStorageDidProcessEditingNotification
+                          object: self];
 
     count = [_layoutManagers count];
     for (i = 0; i < count; i++) {
         NSLayoutManager *layout = [_layoutManagers objectAtIndex: i];
 
         [layout textStorage: self
-                      edited: [self editedMask]
-                       range: [self editedRange]
-              changeInLength: [self changeInLength]
-            invalidatedRange: [self invalidatedRange]];
+                          edited: [self editedMask]
+                           range: [self editedRange]
+                  changeInLength: [self changeInLength]
+                invalidatedRange: [self invalidatedRange]];
     }
 }
 
 - (void) edited: (unsigned) editedMask
-             range: (NSRange) range
-    changeInLength: (int) delta
+                 range: (NSRange) range
+        changeInLength: (int) delta
 {
 
     if (_beginEditing == 0) {

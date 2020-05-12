@@ -55,7 +55,7 @@ static void ensureByteCount(O2TIFFEncoderRef self, size_t count) {
             self->_bufferCapacity *= 2;
 
         self->_mutableBytes =
-            NSZoneRealloc(NULL, self->_mutableBytes, self->_bufferCapacity);
+                NSZoneRealloc(NULL, self->_mutableBytes, self->_bufferCapacity);
     }
 }
 
@@ -314,7 +314,7 @@ void O2TIFFEncoderWriteImage(O2TIFFEncoderRef self, O2ImageRef image,
     size_t tiffPixelByteCount = imageHeight * tiffBytesPerRow;
 
     uint32_t idealStripSize =
-        MAX(8192, tiffBytesPerRow); // 8k recommended by spec.
+            MAX(8192, tiffBytesPerRow); // 8k recommended by spec.
     uint32_t rowsPerStrip = (idealStripSize / tiffBytesPerRow);
     uint32_t stripSize = rowsPerStrip * tiffBytesPerRow;
     uint32_t stripCount = (tiffPixelByteCount + (stripSize - 1)) / stripSize;
@@ -369,8 +369,8 @@ void O2TIFFEncoderWriteImage(O2TIFFEncoderRef self, O2ImageRef image,
     putUnsigned32(self, 0);
 
     for (strip = 0; strip < stripCount; strip++) {
-        int row,
-            rowCount = MIN(rowsPerStrip, imageHeight - (strip * rowsPerStrip));
+        int row, rowCount = MIN(rowsPerStrip,
+                                imageHeight - (strip * rowsPerStrip));
 
         stripOffsets[strip] = currentPosition(self);
 
@@ -378,8 +378,8 @@ void O2TIFFEncoderWriteImage(O2TIFFEncoderRef self, O2ImageRef image,
 
         for (row = 0; row < rowCount; row++, y++) {
 
-            imageRow =
-                image->_read_argb8u(image, 0, y, imageRowBuffer, imageWidth);
+            imageRow = image->_read_argb8u(image, 0, y, imageRowBuffer,
+                                           imageWidth);
             if (imageRow == NULL)
                 imageRow = imageRowBuffer;
 

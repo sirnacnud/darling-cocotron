@@ -505,8 +505,9 @@ stbi_uc *stbi_bmp_load_from_memory(const stbi_uc *buffer, int len, int *x,
 {
     int width, height;
     int comp;
-    unsigned char *pixels = stbi_bmp_load_from_memory(
-        [_bmp bytes], [_bmp length], &width, &height, &comp, STBI_rgb_alpha);
+    unsigned char *pixels =
+            stbi_bmp_load_from_memory([_bmp bytes], [_bmp length], &width,
+                                      &height, &comp, STBI_rgb_alpha);
     int bitsPerPixel = 32;
     int bytesPerRow = (bitsPerPixel / (sizeof(char) * 8)) * width;
     NSData *bitmap;
@@ -518,22 +519,22 @@ stbi_uc *stbi_bmp_load_from_memory(const stbi_uc *buffer, int len, int *x,
                                           length: bytesPerRow * height];
 
     O2DataProvider *provider =
-        O2DataProviderCreateWithCFData((CFDataRef) bitmap);
+            O2DataProviderCreateWithCFData((CFDataRef) bitmap);
     O2ColorSpace *colorSpace = O2ColorSpaceCreateDeviceRGB();
     O2Image *image =
-        [[O2Image alloc] initWithWidth: width
-                                height: height
-                      bitsPerComponent: 8
-                          bitsPerPixel: bitsPerPixel
-                           bytesPerRow: bytesPerRow
-                            colorSpace: colorSpace
-                            bitmapInfo: kO2BitmapByteOrder32Big |
-                                        kO2ImageAlphaPremultipliedLast
-                               decoder: NULL
-                              provider: provider
-                                decode: NULL
-                           interpolate: NO
-                       renderingIntent: kO2RenderingIntentDefault];
+            [[O2Image alloc] initWithWidth: width
+                                    height: height
+                          bitsPerComponent: 8
+                              bitsPerPixel: bitsPerPixel
+                               bytesPerRow: bytesPerRow
+                                colorSpace: colorSpace
+                                bitmapInfo: kO2BitmapByteOrder32Big |
+                                            kO2ImageAlphaPremultipliedLast
+                                   decoder: NULL
+                                  provider: provider
+                                    decode: NULL
+                               interpolate: NO
+                           renderingIntent: kO2RenderingIntentDefault];
 
     [colorSpace release];
     [provider release];

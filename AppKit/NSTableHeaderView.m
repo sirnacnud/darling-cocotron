@@ -73,17 +73,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSSize spacing = [_tableView intercellSpacing];
 
     if (column < 0 || column >= [[_tableView tableColumns] count]) {
-        [NSException
-             raise: NSInternalInconsistencyException
-            format: @"headerRectOfColumn: invalid index %d (valid {%d, %d})",
-                    column, 0, [tableColumns count]];
+        [NSException raise: NSInternalInconsistencyException
+                    format: @"headerRectOfColumn: invalid index %d (valid {%d, "
+                            @"%d})",
+                            column, 0, [tableColumns count]];
     }
 
     headerRect.size.width =
-        [[tableColumns objectAtIndex: column--] width] + spacing.width;
+            [[tableColumns objectAtIndex: column--] width] + spacing.width;
     while (column >= 0)
         headerRect.origin.x +=
-            [[tableColumns objectAtIndex: column--] width] + spacing.width;
+                [[tableColumns objectAtIndex: column--] width] + spacing.width;
 
     return headerRect;
 }
@@ -116,9 +116,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         columnRect.size.width = [column width] + spacing.width;
         [[column headerCell]
-            setHighlighted: [_tableView
-                                isColumnSelected: [[_tableView tableColumns]
-                                                      indexOfObject: column]]];
+                setHighlighted:
+                        [_tableView isColumnSelected:
+                                            [[_tableView tableColumns]
+                                                    indexOfObject: column]]];
         [[column headerCell] setControlView: self];
         [[column headerCell] drawWithFrame: columnRect inView: self];
         columnRect.origin.x += [column width] + spacing.width;
@@ -142,8 +143,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     if ([[_tableView delegate] respondsToSelector: @selector
                                (tableView:mouseDownInHeaderOfTableColumn:)])
         [[_tableView delegate] tableView: _tableView
-            mouseDownInHeaderOfTableColumn: [[_tableView tableColumns]
-                                                objectAtIndex: clickedColumn]];
+                mouseDownInHeaderOfTableColumn:
+                        [[_tableView tableColumns]
+                                objectAtIndex: clickedColumn]];
 
     if ([_tableView allowsColumnResizing]) {
         NSInteger i, count = [[_tableView tableColumns] count];
@@ -159,7 +161,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             if (NSMouseInRect(location, [self _resizeRectBeforeColumn: i],
                               [self isFlipped])) {
                 NSTableColumn *resizingColumn =
-                    [[_tableView tableColumns] objectAtIndex: i - 1];
+                        [[_tableView tableColumns] objectAtIndex: i - 1];
                 CGFloat resizedColumnWidth = [resizingColumn width];
 
                 if (![resizingColumn isResizable])
@@ -175,15 +177,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     CGFloat newWidth = newPoint.x;
 
                     theEvent = [[self window]
-                        nextEventMatchingMask: NSLeftMouseUpMask |
-                                               NSLeftMouseDraggedMask];
+                            nextEventMatchingMask: NSLeftMouseUpMask |
+                                                   NSLeftMouseDraggedMask];
                     newPoint = [self convertPoint: [theEvent locationInWindow]
                                          fromView: nil];
 
                     newWidth = newPoint.x;
                     for (q = 0; q < _resizedColumn; ++q) {
                         newWidth -= [[[_tableView tableColumns]
-                            objectAtIndex: q] width];
+                                objectAtIndex: q] width];
                         newWidth -= [_tableView intercellSpacing].width;
                     }
 
@@ -201,7 +203,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 [[self window] invalidateCursorRectsForView: self];
 
                 [_tableView
-                    noteColumnDidResizeWithOldWidth: resizedColumnWidth];
+                        noteColumnDidResizeWithOldWidth: resizedColumnWidth];
 
                 _resizedColumn = -1;
                 return;
@@ -213,12 +215,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         if ([theEvent modifierFlags] &
             NSAlternateKeyMask) { // extend/change selection
             if ([_tableView
-                    isColumnSelected: clickedColumn]) // deselect previously
-                                                      // selected?
+                        isColumnSelected: clickedColumn]) // deselect previously
+                                                          // selected?
                 [_tableView deselectColumn: clickedColumn];
             else if ([_tableView allowsMultipleSelection] == YES) {
                 [_tableView selectColumn: clickedColumn
-                    byExtendingSelection: YES]; // add to selection
+                        byExtendingSelection: YES]; // add to selection
             }
         } else if ([theEvent modifierFlags] & NSShiftKeyMask) {
             NSInteger startColumn = [_tableView selectedColumn];
@@ -234,7 +236,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             [_tableView deselectAll: nil];
             while (startColumn <= endColumn)
                 [_tableView selectColumn: startColumn++
-                    byExtendingSelection: YES];
+                        byExtendingSelection: YES];
         } else
             [_tableView selectColumn: clickedColumn byExtendingSelection: NO];
     }

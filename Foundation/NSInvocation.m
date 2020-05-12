@@ -48,8 +48,8 @@ id objc_msgSendv(id self, SEL selector, unsigned arg_size, void *arg_frame);
 
         NSGetSizeAndAlignment([_signature getArgumentTypeAtIndex: i],
                               &naturalSize, &align);
-        promotedSize =
-            ((naturalSize + sizeof(long) - 1) / sizeof(long)) * sizeof(long);
+        promotedSize = ((naturalSize + sizeof(long) - 1) / sizeof(long)) *
+                       sizeof(long);
 
         _argumentSizes[i] = naturalSize;
         _argumentFrameSize += promotedSize;
@@ -191,19 +191,19 @@ static void *bufferForType(void *buffer, const char *type) {
 }
 
 + (NSInvocation *) invocationWithMethodSignature:
-    (NSMethodSignature *) signature
+        (NSMethodSignature *) signature
 {
     return [[[self allocWithZone: NULL] initWithMethodSignature: signature]
-        autorelease];
+            autorelease];
 }
 
 + (NSInvocation *) invocationWithMethodSignature:
-                       (NSMethodSignature *) signature
+                           (NSMethodSignature *) signature
                                        arguments: (void *) arguments
 {
     return [[[self allocWithZone: NULL] initWithMethodSignature: signature
                                                       arguments: arguments]
-        autorelease];
+            autorelease];
 }
 
 - (NSMethodSignature *) methodSignature {
@@ -228,7 +228,7 @@ static void byteCopy(void *src, void *dst, NSUInteger length) {
 - (void) getArgument: (void *) pointerToValue atIndex: (NSInteger) index {
     NSUInteger naturalSize = _argumentSizes[index];
     NSUInteger promotedSize =
-        ((naturalSize + sizeof(long) - 1) / sizeof(long)) * sizeof(long);
+            ((naturalSize + sizeof(long) - 1) / sizeof(long)) * sizeof(long);
 
     if (naturalSize == promotedSize) {
         byteCopy(_argumentFrame + _argumentOffsets[index], pointerToValue,
@@ -247,16 +247,16 @@ static void byteCopy(void *src, void *dst, NSUInteger length) {
         }
     } else {
         [NSException
-             raise: NSInvalidArgumentException
-            format: @"Unable to convert naturalSize=%d to promotedSize=%d",
-                    naturalSize, promotedSize];
+                 raise: NSInvalidArgumentException
+                format: @"Unable to convert naturalSize=%d to promotedSize=%d",
+                        naturalSize, promotedSize];
     }
 }
 
 - (void) setArgument: (void *) pointerToValue atIndex: (NSInteger) index {
     NSUInteger naturalSize = _argumentSizes[index];
     NSUInteger promotedSize =
-        ((naturalSize + sizeof(long) - 1) / sizeof(long)) * sizeof(long);
+            ((naturalSize + sizeof(long) - 1) / sizeof(long)) * sizeof(long);
 
     if (naturalSize == promotedSize) {
         byteCopy(pointerToValue, _argumentFrame + _argumentOffsets[index],
@@ -471,8 +471,8 @@ static void byteCopy(void *src, void *dst, NSUInteger length) {
             struct structReturn {
                 char *result;
                 ;
-            } (*function)() =
-                (struct structReturn(*)()) msgSendv; // should be msgSend_stret
+            } (*function)() = (struct structReturn(*)())
+                    msgSendv; // should be msgSend_stret
             struct structReturn value;
 
             value.result = calloc(size, sizeof(char));

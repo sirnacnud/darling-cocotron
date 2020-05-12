@@ -120,13 +120,13 @@
     location.y -= center.y;
 
     CGFloat relativeDistanceFromCenter =
-        hypot(location.x, location.y) / colorWheelRadius;
+            hypot(location.x, location.y) / colorWheelRadius;
     if (relativeDistanceFromCenter > 1)
         relativeDistanceFromCenter = 1;
 
     // Get the angle and ensure it's in 0..2*PI
-    CGFloat angle =
-        fmod(atan2(location.y, location.x) - M_PI_2 + M_PI * 2.f, M_PI * 2.f);
+    CGFloat angle = fmod(atan2(location.y, location.x) - M_PI_2 + M_PI * 2.f,
+                         M_PI * 2.f);
 
     // Hue is stored in degrees
     _hueValue = angle * 180.f / M_PI;

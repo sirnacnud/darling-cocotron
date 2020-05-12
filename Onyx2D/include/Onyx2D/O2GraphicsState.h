@@ -26,7 +26,8 @@ extern "C" {
 #endif
 
 @class O2Image, O2ColorSpace, O2Color, O2Pattern, O2MutablePath, O2Path,
-    NSArray, NSMutableArray, O2Font, O2Encoding, O2PDFCharWidths, O2ClipState;
+        NSArray, NSMutableArray, O2Font, O2Encoding, O2PDFCharWidths,
+        O2ClipState;
 
 @interface O2GState : NSObject {
   @public

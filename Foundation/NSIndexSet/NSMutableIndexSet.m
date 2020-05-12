@@ -73,8 +73,8 @@ static void removeRangeAtPosition(NSRange *ranges, NSUInteger length,
     _length++;
     if (_capacity < _length) {
         _capacity *= 2;
-        _ranges =
-            NSZoneRealloc([self zone], _ranges, sizeof(NSRange) * _capacity);
+        _ranges = NSZoneRealloc([self zone], _ranges,
+                                sizeof(NSRange) * _capacity);
     }
     for (i = _length; --i >= position + 1;)
         _ranges[i] = _ranges[i - 1];
@@ -214,7 +214,7 @@ static void removeRangeAtPosition(NSRange *ranges, NSUInteger length,
     if (delta < 0) {
         delta = -delta;
         NSInteger pos = positionOfRangeLessThanOrEqualToLocation(
-            _ranges, _length, index - delta);
+                _ranges, _length, index - delta);
 
         if (pos == NSNotFound)
             return; // raise?
@@ -234,7 +234,7 @@ static void removeRangeAtPosition(NSRange *ranges, NSUInteger length,
                     _ranges[count].length -= delta;
                 else
                     _ranges[count].length =
-                        NSMaxRange(_ranges[count]) - (index - delta);
+                            NSMaxRange(_ranges[count]) - (index - delta);
             } else { // if below and shorter than the delta, remove
                 NSInteger i;
 
@@ -245,8 +245,8 @@ static void removeRangeAtPosition(NSRange *ranges, NSUInteger length,
         }
 
     } else {
-        NSInteger pos =
-            positionOfRangeLessThanOrEqualToLocation(_ranges, _length, index);
+        NSInteger pos = positionOfRangeLessThanOrEqualToLocation(
+                _ranges, _length, index);
 
         if (pos == NSNotFound)
             return; // raise?

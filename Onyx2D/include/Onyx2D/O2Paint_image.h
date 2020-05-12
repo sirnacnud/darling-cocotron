@@ -37,11 +37,11 @@
 }
 
 - initWithImage: (O2Image *) image
-                    mask: (O2ImageRef) mask
-                    mode: (O2SurfaceMode) mode
-                   paint: (O2Paint *) paint
-    interpolationQuality: (O2InterpolationQuality) interpolationQuality
-          surfaceToImage: (O2AffineTransform) surfaceToImage
-           surfaceToMask: (O2AffineTransform) surfaceToMask;
+                        mask: (O2ImageRef) mask
+                        mode: (O2SurfaceMode) mode
+                       paint: (O2Paint *) paint
+        interpolationQuality: (O2InterpolationQuality) interpolationQuality
+              surfaceToImage: (O2AffineTransform) surfaceToImage
+               surfaceToMask: (O2AffineTransform) surfaceToMask;
 
 @end

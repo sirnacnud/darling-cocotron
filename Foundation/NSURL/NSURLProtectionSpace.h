@@ -28,15 +28,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithHost: (NSString *) host
-                    port: (int) port
-                protocol: (NSString *) protocol
-                   realm: (NSString *) realm
-    authenticationMethod: (NSString *) authenticationMethod;
+                        port: (int) port
+                    protocol: (NSString *) protocol
+                       realm: (NSString *) realm
+        authenticationMethod: (NSString *) authenticationMethod;
 - initWithProxyHost: (NSString *) host
-                    port: (int) port
-                protocol: (NSString *) protocol
-                   realm: (NSString *) realm
-    authenticationMethod: (NSString *) authenticationMethod;
+                        port: (int) port
+                    protocol: (NSString *) protocol
+                       realm: (NSString *) realm
+        authenticationMethod: (NSString *) authenticationMethod;
 
 - (NSString *) host;
 - (int) port;

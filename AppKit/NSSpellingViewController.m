@@ -50,8 +50,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSString *currentWord = [self currentWord];
     NSString *currentLanguage = [self _currentLanguage];
     NSArray *currentGuesses =
-        [[self currentSpellEngine] suggestGuessesForWord: currentWord
-                                              inLanguage: currentLanguage];
+            [[self currentSpellEngine] suggestGuessesForWord: currentWord
+                                                  inLanguage: currentLanguage];
 
     return currentGuesses;
 }
@@ -61,8 +61,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - tableView: (NSTableView *) tableView
-    objectValueForTableColumn: (NSTableColumn *) tableColumn
-                          row: (NSInteger) row
+        objectValueForTableColumn: (NSTableColumn *) tableColumn
+                              row: (NSInteger) row
 {
     return [[self currentGuesses] objectAtIndex: row];
 }
@@ -89,30 +89,30 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) change: sender {
     [[[NSApp mainWindow] firstResponder]
-        tryToPerform: @selector(changeSpelling:)
-                with: _currentWord];
+            tryToPerform: @selector(changeSpelling:)
+                    with: _currentWord];
     // And automatically move to the next word - this matches Cocoa Spelling
     // panel behaviour
     [[[NSApp mainWindow] firstResponder]
-        tryToPerform: @selector(checkSpelling:)
-                with: [NSSpellChecker sharedSpellChecker]];
+            tryToPerform: @selector(checkSpelling:)
+                    with: [NSSpellChecker sharedSpellChecker]];
 }
 
 - (void) findNext: sender {
     [[[NSApp mainWindow] firstResponder]
-        tryToPerform: @selector(checkSpelling:)
-                with: [NSSpellChecker sharedSpellChecker]];
+            tryToPerform: @selector(checkSpelling:)
+                    with: [NSSpellChecker sharedSpellChecker]];
 }
 
 - (void) ignore: sender {
     [[[NSApp mainWindow] firstResponder]
-        tryToPerform: @selector(ignoreSpelling:)
-                with: _currentWord];
+            tryToPerform: @selector(ignoreSpelling:)
+                    with: _currentWord];
     // And automatically move to the next word - this matches Cocoa Spelling
     // panel behaviour
     [[[NSApp mainWindow] firstResponder]
-        tryToPerform: @selector(checkSpelling:)
-                with: [NSSpellChecker sharedSpellChecker]];
+            tryToPerform: @selector(checkSpelling:)
+                    with: [NSSpellChecker sharedSpellChecker]];
 }
 
 - (void) learn: sender {
@@ -120,8 +120,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // And automatically move to the next word - this matches Cocoa Spelling
     // panel behaviour
     [[[NSApp mainWindow] firstResponder]
-        tryToPerform: @selector(checkSpelling:)
-                with: [NSSpellChecker sharedSpellChecker]];
+            tryToPerform: @selector(checkSpelling:)
+                    with: [NSSpellChecker sharedSpellChecker]];
 }
 
 - (void) guess: sender {

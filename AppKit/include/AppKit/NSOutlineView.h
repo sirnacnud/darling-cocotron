@@ -97,18 +97,18 @@ APPKIT_EXPORT NSString *const NSOutlineViewDisclosureButtonKey;
 
 @interface NSObject (NSOutlineView_dataSource)
 - (NSInteger) outlineView: (NSOutlineView *) outlineView
-    numberOfChildrenOfItem: item;
+        numberOfChildrenOfItem: item;
 - (BOOL) outlineView: (NSOutlineView *) outlineView isItemExpandable: item;
 - outlineView: (NSOutlineView *) outlineView
-        child: (NSInteger) index
-       ofItem: item;
+         child: (NSInteger) index
+        ofItem: item;
 - outlineView: (NSOutlineView *) outlineView
-    objectValueForTableColumn: (NSTableColumn *) tableColumn
-                       byItem: item;
+        objectValueForTableColumn: (NSTableColumn *) tableColumn
+                           byItem: item;
 - (void) outlineView: (NSOutlineView *) outlineView
-      setObjectValue: object
-      forTableColumn: (NSTableColumn *) tableColumn
-              byItem: item;
+        setObjectValue: object
+        forTableColumn: (NSTableColumn *) tableColumn
+                byItem: item;
 @end
 
 @interface NSObject (NSOutlineView_delegate)
@@ -116,19 +116,19 @@ APPKIT_EXPORT NSString *const NSOutlineViewDisclosureButtonKey;
 - (BOOL) outlineView: (NSOutlineView *) outlineView shouldCollapseItem: item;
 - (BOOL) selectionShouldChangeInOutlineView: (NSOutlineView *) outlineView;
 - (BOOL) outlineView: (NSOutlineView *) outlineView
-    shouldEditTableColumn: (NSTableColumn *) tableColumn
-                     item: item;
+        shouldEditTableColumn: (NSTableColumn *) tableColumn
+                         item: item;
 - (BOOL) outlineView: (NSOutlineView *) outlineView shouldSelectItem: item;
 - (BOOL) outlineView: (NSOutlineView *) outlineView
-    shouldSelectTableColumn: (NSTableColumn *) tableColumn;
+        shouldSelectTableColumn: (NSTableColumn *) tableColumn;
 - (void) outlineView: (NSOutlineView *) outlineView
-     willDisplayCell: cell
-      forTableColumn: (NSTableColumn *) tableColumn
-                item: item;
+        willDisplayCell: cell
+         forTableColumn: (NSTableColumn *) tableColumn
+                   item: item;
 - (void) outlineView: (NSOutlineView *) outlineView
-    willDisplayOutlineCell: cell
-            forTableColumn: (NSTableColumn *) tableColumn
-                      item: item;
+        willDisplayOutlineCell: cell
+                forTableColumn: (NSTableColumn *) tableColumn
+                          item: item;
 @end
 
 @interface NSObject (NSOutlineView_notifications)

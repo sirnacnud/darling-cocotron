@@ -61,36 +61,36 @@ FOUNDATION_EXPORT NSString *const NSDecimalNumberExactnessException;
 - (const char *) objCType;
 
 - (NSDecimalNumber *) decimalNumberByRoundingAccordingToBehavior:
-    (id<NSDecimalNumberBehaviors>) behavior;
+        (id<NSDecimalNumberBehaviors>) behavior;
 
 - (NSDecimalNumber *) decimalNumberByAdding: (NSDecimalNumber *) other;
 - (NSDecimalNumber *) decimalNumberByAdding: (NSDecimalNumber *) other
                                withBehavior:
-                                   (id<NSDecimalNumberBehaviors>) behavior;
+                                       (id<NSDecimalNumberBehaviors>) behavior;
 - (NSDecimalNumber *) decimalNumberBySubtracting: (NSDecimalNumber *) other;
 - (NSDecimalNumber *) decimalNumberBySubtracting: (NSDecimalNumber *) other
-                                    withBehavior:
-                                        (id<NSDecimalNumberBehaviors>) behavior;
+                                    withBehavior: (id<NSDecimalNumberBehaviors>)
+                                                          behavior;
 
 - (NSDecimalNumber *) decimalNumberByMultiplyingBy: (NSDecimalNumber *) other;
 - (NSDecimalNumber *)
-    decimalNumberByMultiplyingBy: (NSDecimalNumber *) other
-                    withBehavior: (id<NSDecimalNumberBehaviors>) behavior;
+        decimalNumberByMultiplyingBy: (NSDecimalNumber *) other
+                        withBehavior: (id<NSDecimalNumberBehaviors>) behavior;
 - (NSDecimalNumber *) decimalNumberByDividingBy: (NSDecimalNumber *) other;
 - (NSDecimalNumber *) decimalNumberByDividingBy: (NSDecimalNumber *) other
-                                   withBehavior:
-                                       (id<NSDecimalNumberBehaviors>) behavior;
+                                   withBehavior: (id<NSDecimalNumberBehaviors>)
+                                                         behavior;
 
 - (NSDecimalNumber *) decimalNumberByMultiplyingByPowerOf10: (int16_t) power;
 - (NSDecimalNumber *)
-    decimalNumberByMultiplyingByPowerOf10: (int16_t) power
-                             withBehavior:
-                                 (id<NSDecimalNumberBehaviors>) behavior;
+        decimalNumberByMultiplyingByPowerOf10: (int16_t) power
+                                 withBehavior: (id<NSDecimalNumberBehaviors>)
+                                                       behavior;
 
 - (NSDecimalNumber *) decimalNumberByRaisingToPower: (NSUInteger) power;
 - (NSDecimalNumber *)
-    decimalNumberByRaisingToPower: (NSUInteger) power
-                     withBehavior: (id<NSDecimalNumberBehaviors>) behavior;
+        decimalNumberByRaisingToPower: (NSUInteger) power
+                         withBehavior: (id<NSDecimalNumberBehaviors>) behavior;
 
 - (NSString *) descriptionWithLocale: (NSDictionary *) locale;
 

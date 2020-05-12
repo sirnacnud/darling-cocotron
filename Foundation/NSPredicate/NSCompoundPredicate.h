@@ -30,7 +30,7 @@ typedef enum {
 }
 
 - initWithType: (NSCompoundPredicateType) type
-    subpredicates: (NSArray *) subpredicates;
+        subpredicates: (NSArray *) subpredicates;
 
 + (NSPredicate *) notPredicateWithSubpredicate: (NSPredicate *) predicate;
 + (NSPredicate *) andPredicateWithSubpredicates: (NSArray *) predicates;

@@ -44,23 +44,23 @@
     id error = nil;
     NSInteger format = NSPropertyListBinaryFormat_v1_0;
     id path =
-        [[NSBundle bundleForClass: [self class]] pathForResource: @"Binary"
-                                                          ofType: @"plist"];
+            [[NSBundle bundleForClass: [self class]] pathForResource: @"Binary"
+                                                              ofType: @"plist"];
     STAssertNotNil(path, @"Data file not found");
     id data = [NSData dataWithContentsOfFile: path];
     STAssertNotNil(data, @"Data file couldn't be opened");
 
     id plist = [NSPropertyListSerialization
-        propertyListFromData: data
-            mutabilityOption: NSPropertyListImmutable
-                      format: (NSUInteger *) &format
-            errorDescription: &error];
+            propertyListFromData: data
+                mutabilityOption: NSPropertyListImmutable
+                          format: (NSUInteger *) &format
+                errorDescription: &error];
     STAssertNotNil(plist, error);
     STAssertEquals(format, NSPropertyListBinaryFormat_v1_0, nil);
 
     STAssertEqualObjects(
-        [[self class] sampleList], plist,
-        @"Property list unarchived but doesn't match sample list");
+            [[self class] sampleList], plist,
+            @"Property list unarchived but doesn't match sample list");
 }
 
 - (void) testFailureCase {
@@ -69,11 +69,11 @@
     NSInteger format = 0;
     id plist = nil;
     STAssertNoThrow(plist = [NSPropertyListSerialization
-                        propertyListFromData: [NSData dataWithBytes: data
-                                                             length: 5]
-                            mutabilityOption: NSPropertyListImmutable
-                                      format: (NSUInteger *) &format
-                            errorDescription: &error],
+                            propertyListFromData: [NSData dataWithBytes: data
+                                                                 length: 5]
+                                mutabilityOption: NSPropertyListImmutable
+                                          format: (NSUInteger *) &format
+                                errorDescription: &error],
                     nil);
     STAssertTrue(plist == nil, nil);
 }
@@ -81,22 +81,22 @@
 - (void) testXML {
     id error = nil;
     NSInteger format = 0;
-    id data =
-        [NSData dataWithContentsOfFile: [[NSBundle bundleForClass: [self class]]
+    id data = [NSData
+            dataWithContentsOfFile: [[NSBundle bundleForClass: [self class]]
                                             pathForResource: @"XML"
                                                      ofType: @"plist"]];
     STAssertNotNil(data, @"Data file not found");
     id plist = [NSPropertyListSerialization
-        propertyListFromData: data
-            mutabilityOption: NSPropertyListImmutable
-                      format: (NSUInteger *) &format
-            errorDescription: &error];
+            propertyListFromData: data
+                mutabilityOption: NSPropertyListImmutable
+                          format: (NSUInteger *) &format
+                errorDescription: &error];
     STAssertNotNil(plist, error);
     STAssertEquals(format, NSPropertyListXMLFormat_v1_0, nil);
 
     STAssertEqualObjects(
-        plist, [[self class] sampleList],
-        @"Property list unarchived but doesn't match sample list");
+            plist, [[self class] sampleList],
+            @"Property list unarchived but doesn't match sample list");
 }
 
 @end

@@ -20,11 +20,11 @@
 
     _display = [(X11Display *) [NSDisplay currentDisplay] display];
 
-    _window =
-        XCreateSimpleWindow(_display, [parent windowHandle], frame.origin.x,
-                            frame.origin.y, frame.size.width, frame.size.height,
-                            0, 0, 0 /* border_width, border, background */
-        );
+    _window = XCreateSimpleWindow(_display, [parent windowHandle],
+                                  frame.origin.x, frame.origin.y,
+                                  frame.size.width, frame.size.height, 0, 0,
+                                  0 /* border_width, border, background */
+    );
 
     [self show];
     return self;

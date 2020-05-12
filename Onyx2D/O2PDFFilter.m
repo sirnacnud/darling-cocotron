@@ -38,7 +38,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 {
     int len;
     unsigned char *result =
-        stbi_zlib_decode_malloc([data bytes], [data length], &len);
+            stbi_zlib_decode_malloc([data bytes], [data length], &len);
 
     if (result == NULL)
         return nil;

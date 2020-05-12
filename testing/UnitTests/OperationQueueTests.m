@@ -56,10 +56,10 @@
 }
 
 - (void) testMaximumOperationCount; {
-    STAssertEquals(
-        [queue maxConcurrentOperationCount],
-        NSOperationQueueDefaultMaxConcurrentOperationCount,
-        @"Queue should initially have default max conncurrent operation count");
+    STAssertEquals([queue maxConcurrentOperationCount],
+                   NSOperationQueueDefaultMaxConcurrentOperationCount,
+                   @"Queue should initially have default max conncurrent "
+                   @"operation count");
     int i;
     for (i = 1; i < 32; i++) {
         [queue setMaxConcurrentOperationCount: i];
@@ -73,8 +73,8 @@
     [queue addOperation: operation];
     [queue cancelAllOperations];
     STAssertTrue(
-        [operation isCancelled],
-        @"Operation should be cancelled after Queue cancelAllOperations");
+            [operation isCancelled],
+            @"Operation should be cancelled after Queue cancelAllOperations");
 }
 
 - (void) watchRunningOperation; {
@@ -87,8 +87,8 @@
     STAssertFalse([operation isExecuting],
                   @"Finished operation should not say it is executing");
     STAssertEquals(
-        (NSUInteger) 1, [operation retainCount],
-        @"Operation should have a retain count of 1 after it is done");
+            (NSUInteger) 1, [operation retainCount],
+            @"Operation should have a retain count of 1 after it is done");
 }
 
 - (void) testRunning; {
@@ -102,9 +102,9 @@
                    @"Initially there should be 0 operations in the array");
     [queue addOperation: operation];
     array = [queue operations];
-    STAssertEquals(
-        (NSUInteger) 1, [array count],
-        @"After adding an operation there should be 1 operation in the array");
+    STAssertEquals((NSUInteger) 1, [array count],
+                   @"After adding an operation there should be 1 operation in "
+                   @"the array");
     STAssertEquals(operation, [array objectAtIndex: 0],
                    @"The object in the array should be my operation object");
     sleep(3);
@@ -122,7 +122,7 @@
 
 - (void) testRunningFromArrayWaiting; {
     [queue addOperations: [NSArray arrayWithObject: operation]
-        waitUntilFinished: YES];
+            waitUntilFinished: YES];
     STAssertTrue([operation isFinished],
                  @"Operation should have been finnished");
 }
@@ -159,15 +159,15 @@ static NSString *const MyQueueName = @"MyQueueName";
 
 - (void) testOperationPriority; {
     STAssertEquals(
-        NSOperationQueuePriorityNormal, [operation queuePriority],
-        @"Standard priority should be NSOperationQueuePriorityNormal");
+            NSOperationQueuePriorityNormal, [operation queuePriority],
+            @"Standard priority should be NSOperationQueuePriorityNormal");
 }
 
 static NSString *const observationContext = @"observationContext";
 
 static void SleepWithRunloop(NSTimeInterval seconds) {
     [[NSRunLoop currentRunLoop]
-        runUntilDate: [NSDate dateWithTimeIntervalSinceNow: seconds]];
+            runUntilDate: [NSDate dateWithTimeIntervalSinceNow: seconds]];
 }
 
 - (void) testOperationExecutingKVO; {
@@ -180,8 +180,8 @@ static void SleepWithRunloop(NSTimeInterval seconds) {
 
     SleepWithRunloop(1);
     STAssertEquals(
-        (NSUInteger) 1, observationCount,
-        @"Object added to queue, should have received 1 KVO notification");
+            (NSUInteger) 1, observationCount,
+            @"Object added to queue, should have received 1 KVO notification");
     SleepWithRunloop(2);
     STAssertEquals((NSUInteger) 2, observationCount,
                    @"Should have received 2 KVO notification after done");

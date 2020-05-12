@@ -28,10 +28,10 @@ typedef NSInteger NSCharacterCollection;
     NSString *_glyphName;
 }
 
-+ (NSGlyphInfo *) glyphInfoWithCharacterIdentifier: (NSUInteger) identifier
-                                        collection:
-                                            (NSCharacterCollection) collection
-                                        baseString: (NSString *) baseString;
++ (NSGlyphInfo *)
+        glyphInfoWithCharacterIdentifier: (NSUInteger) identifier
+                              collection: (NSCharacterCollection) collection
+                              baseString: (NSString *) baseString;
 
 + (NSGlyphInfo *) glyphInfoWithGlyph: (NSGlyph) glyph
                              forFont: (NSFont *) font

@@ -14,8 +14,8 @@
 }
 
 + (BOOL) setMetadata: (NSDictionary *) metadata
-    forPersistentStoreWithURL: (NSURL *) url
-                        error: (NSError **) error
+        forPersistentStoreWithURL: (NSURL *) url
+                            error: (NSError **) error
 {
     NSInvalidAbstractInvocation();
     return 0;
@@ -79,8 +79,8 @@
 
 - (NSDictionary *) metadata {
     return [NSDictionary
-        dictionaryWithObjectsAndKeys: [self identifier], NSStoreUUIDKey,
-                                      [self type], NSStoreTypeKey, nil];
+            dictionaryWithObjectsAndKeys: [self identifier], NSStoreUUIDKey,
+                                          [self type], NSStoreTypeKey, nil];
 }
 
 - (void) setURL: (NSURL *) value {
@@ -108,20 +108,20 @@
 }
 
 - (void) willRemoveFromPersistentStoreCoordinator:
-    (NSPersistentStoreCoordinator *) coordinator
+        (NSPersistentStoreCoordinator *) coordinator
 {
     // Default implementation does nothing
 }
 
 - (void) didAddToPersistentStoreCoordinator:
-    (NSPersistentStoreCoordinator *) coordinator
+        (NSPersistentStoreCoordinator *) coordinator
 {
     // Default implementation does nothing
 }
 
 - (NSString *) description {
-    return [NSString
-        stringWithFormat: @"<%@ %p URL=%@>", [self class], self, [self URL]];
+    return [NSString stringWithFormat: @"<%@ %p URL=%@>", [self class], self,
+                                       [self URL]];
 }
 
 @end

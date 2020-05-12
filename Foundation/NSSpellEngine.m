@@ -19,8 +19,8 @@ static NSMutableArray *_allSpellEngines = nil;
     if (self == [NSSpellEngine class]) {
 
         NSArray *allPaths = [[NSBundle bundleForClass: self]
-            pathsForResourcesOfType: @"spellEngine"
-                        inDirectory: nil];
+                pathsForResourcesOfType: @"spellEngine"
+                            inDirectory: nil];
         int i, count = [allPaths count];
 
         _allSpellEngines = [[NSMutableArray alloc] init];
@@ -105,9 +105,9 @@ static NSMutableArray *_allSpellEngines = nil;
 }
 
 - (NSRange) spellServer: (NSSpellServer *) sender
-    checkGrammarInString: (NSString *) string
-                language: (NSString *) language
-                 details: (NSArray **) outDetails
+        checkGrammarInString: (NSString *) string
+                    language: (NSString *) language
+                     details: (NSArray **) outDetails
 {
     return [self checkGrammarInString: string
                              language: language
@@ -131,8 +131,8 @@ static NSMutableArray *_allSpellEngines = nil;
 }
 
 - (void) spellServer: (NSSpellServer *) sender
-       didForgetWord: (NSString *) word
-          inLanguage: (NSString *) language
+        didForgetWord: (NSString *) word
+           inLanguage: (NSString *) language
 {
     return [self didForgetWord: word inLanguage: language];
 }
@@ -145,10 +145,10 @@ static NSMutableArray *_allSpellEngines = nil;
 }
 
 - (NSRange) spellServer: (NSSpellServer *) sender
-    findMisspelledWordInString: (NSString *) stringToCheck
-                      language: (NSString *) language
-                     wordCount: (NSInteger *) wordCount
-                     countOnly: (BOOL) countOnly
+        findMisspelledWordInString: (NSString *) stringToCheck
+                          language: (NSString *) language
+                         wordCount: (NSInteger *) wordCount
+                         countOnly: (BOOL) countOnly
 {
     return [self findMisspelledWordInString: stringToCheck
                                    language: language
@@ -157,9 +157,9 @@ static NSMutableArray *_allSpellEngines = nil;
 }
 
 - (NSArray *) spellServer: (NSSpellServer *) sender
-    suggestCompletionsForPartialWordRange: (NSRange) range
-                                 inString: (NSString *) string
-                                 language: (NSString *) language
+        suggestCompletionsForPartialWordRange: (NSRange) range
+                                     inString: (NSString *) string
+                                     language: (NSString *) language
 {
     return [self suggestCompletionsForPartialWordRange: range
                                               inString: string
@@ -167,8 +167,8 @@ static NSMutableArray *_allSpellEngines = nil;
 }
 
 - (NSArray *) spellServer: (NSSpellServer *) sender
-    suggestGuessesForWord: (NSString *) word
-               inLanguage: (NSString *) language
+        suggestGuessesForWord: (NSString *) word
+                   inLanguage: (NSString *) language
 {
     return [self suggestGuessesForWord: word inLanguage: language];
 }

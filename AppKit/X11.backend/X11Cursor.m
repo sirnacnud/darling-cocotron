@@ -44,14 +44,14 @@
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(
-        NULL, width, height, 8, 0, colorSpace,
-        kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Host);
+            NULL, width, height, 8, 0, colorSpace,
+            kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Host);
     CGColorSpaceRelease(colorSpace);
 
     @autoreleasepool {
         NSGraphicsContext *graphicsContext =
-            [NSGraphicsContext graphicsContextWithGraphicsPort: context
-                                                       flipped: NO];
+                [NSGraphicsContext graphicsContextWithGraphicsPort: context
+                                                           flipped: NO];
 
         [NSGraphicsContext saveGraphicsState];
         [NSGraphicsContext setCurrentContext: graphicsContext];
@@ -91,11 +91,11 @@
     Pixmap blank;
     XColor dummy;
 
-    blank =
-        XCreateBitmapFromData(display, DefaultRootWindow(display), data, 1, 1);
+    blank = XCreateBitmapFromData(display, DefaultRootWindow(display), data, 1,
+                                  1);
     if (blank != None) {
-        _cursor =
-            XCreatePixmapCursor(display, blank, blank, &dummy, &dummy, 0, 0);
+        _cursor = XCreatePixmapCursor(display, blank, blank, &dummy, &dummy, 0,
+                                      0);
         XFreePixmap(display, blank);
     } else
         _cursor = None;

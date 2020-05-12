@@ -23,13 +23,13 @@
 typedef NSString *NSTouchBarItemIdentifier;
 
 APPKIT_EXPORT NSTouchBarItemIdentifier const
-    NSTouchBarItemIdentifierFixedSpaceLarge;
+        NSTouchBarItemIdentifierFixedSpaceLarge;
 APPKIT_EXPORT NSTouchBarItemIdentifier const
-    NSTouchBarItemIdentifierFixedSpaceSmall;
+        NSTouchBarItemIdentifierFixedSpaceSmall;
 APPKIT_EXPORT NSTouchBarItemIdentifier const
-    NSTouchBarItemIdentifierFlexibleSpace;
+        NSTouchBarItemIdentifierFlexibleSpace;
 APPKIT_EXPORT NSTouchBarItemIdentifier const
-    NSTouchBarItemIdentifierOtherItemsProxy;
+        NSTouchBarItemIdentifierOtherItemsProxy;
 
 @interface NSTouchBarItem : NSObject <NSCoding>
 

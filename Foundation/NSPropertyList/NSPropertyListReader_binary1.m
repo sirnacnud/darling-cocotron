@@ -119,15 +119,15 @@ static inline double _readFloatOfSize(NSPropertyListReader_binary1 *self,
     NSUInteger trailerStart = _length - TRAILER_SIZE;
 
     _trailerOffsetIntSize =
-        _readIntOfSize(self, sizeof(_trailerOffsetIntSize), &trailerStart);
+            _readIntOfSize(self, sizeof(_trailerOffsetIntSize), &trailerStart);
     _trailerOffsetRefSize =
-        _readIntOfSize(self, sizeof(_trailerOffsetRefSize), &trailerStart);
+            _readIntOfSize(self, sizeof(_trailerOffsetRefSize), &trailerStart);
     _trailerNumObjects =
-        _readIntOfSize(self, sizeof(_trailerNumObjects), &trailerStart);
+            _readIntOfSize(self, sizeof(_trailerNumObjects), &trailerStart);
     _trailerTopObject =
-        _readIntOfSize(self, sizeof(_trailerTopObject), &trailerStart);
-    _trailerOffsetTableOffset =
-        _readIntOfSize(self, sizeof(_trailerOffsetTableOffset), &trailerStart);
+            _readIntOfSize(self, sizeof(_trailerTopObject), &trailerStart);
+    _trailerOffsetTableOffset = _readIntOfSize(
+            self, sizeof(_trailerOffsetTableOffset), &trailerStart);
 }
 
 static uint64_t ReadSizedInt(NSPropertyListReader_binary1 *bplist,
@@ -225,7 +225,7 @@ static id _readObjectAtOffset(NSPropertyListReader_binary1 *self,
 
     if (topNibble == 0x1) {
         return [[NSNumber alloc]
-            initWithLongLong: _readIntOfSize(self, 1 << botNibble, offset)];
+                initWithLongLong: _readIntOfSize(self, 1 << botNibble, offset)];
     }
     if (topNibble == 0x2) {
         size_t size = 1 << botNibble;
@@ -244,8 +244,9 @@ static id _readObjectAtOffset(NSPropertyListReader_binary1 *self,
     }
     if (topNibble == 0x3) {
         return [[NSDate alloc]
-            initWithTimeIntervalSinceReferenceDate: _readFloatOfSize(self, 8,
-                                                                     offset)];
+                initWithTimeIntervalSinceReferenceDate: _readFloatOfSize(
+                                                                self, 8,
+                                                                offset)];
     }
     if (topNibble == 0x4 || topNibble == 0x5 || topNibble == 0x6 ||
         topNibble == 0x8 || topNibble == 0xA || topNibble == 0xD) {
@@ -260,7 +261,7 @@ static id _readObjectAtOffset(NSPropertyListReader_binary1 *self,
 
         if (topNibble == 0x4) {
             return [[self->_data subdataWithRange: NSMakeRange(*offset, length)]
-                copy];
+                    copy];
         }
         if (topNibble == 0x5) {
             return [[NSString alloc] initWithBytes: self->_bytes + *offset
@@ -269,9 +270,9 @@ static id _readObjectAtOffset(NSPropertyListReader_binary1 *self,
         }
         if (topNibble == 0x6) {
             return [[NSString alloc]
-                initWithBytes: self->_bytes + *offset
-                       length: length * 2
-                     encoding: NSUTF16BigEndianStringEncoding];
+                    initWithBytes: self->_bytes + *offset
+                           length: length * 2
+                         encoding: NSUTF16BigEndianStringEncoding];
         }
         if (topNibble == 0x8) {
             return ExtractUID(self, (*offset) - 1);
@@ -328,7 +329,7 @@ static id _readInlineObjectAtOffset(NSPropertyListReader_binary1 *self,
 {
     // first read the offset table index out of the file
     NSUInteger objOffset =
-        _readIntOfSize(self, self->_trailerOffsetRefSize, offset);
+            _readIntOfSize(self, self->_trailerOffsetRefSize, offset);
 
     // then transform the index into an offset in the file which points to
     // that offset table entry

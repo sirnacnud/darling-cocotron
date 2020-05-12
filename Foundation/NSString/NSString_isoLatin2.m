@@ -27,182 +27,184 @@ typedef struct {
 } CharMapping;
 
 static CharMapping mapping_array[] = {
-    {(const unsigned char) 0xA1,
-     (const unichar) 0x0104}, // LATIN CAPITAL LETTER A WITH OGONEK
-    {(const unsigned char) 0xA2, (const unichar) 0x02D8}, // BREVE
-    {(const unsigned char) 0xA3,
-     (const unichar) 0x0141}, // LATIN CAPITAL LETTER L WITH STROKE
-    {(const unsigned char) 0xA4, (const unichar) 0x00A4}, // CURRENCY SIGN
-    {(const unsigned char) 0xA5,
-     (const unichar) 0x013D}, // LATIN CAPITAL LETTER L WITH CARON
-    {(const unsigned char) 0xA6,
-     (const unichar) 0x015A}, // LATIN CAPITAL LETTER S WITH ACUTE
-    {(const unsigned char) 0xA7, (const unichar) 0x00A7}, // SECTION SIGN
-    {(const unsigned char) 0xA8, (const unichar) 0x00A8}, // DIAERESIS
-    {(const unsigned char) 0xA9,
-     (const unichar) 0x0160}, // LATIN CAPITAL LETTER S WITH CARON
-    {(const unsigned char) 0xAA,
-     (const unichar) 0x015E}, // LATIN CAPITAL LETTER S WITH CEDILLA
-    {(const unsigned char) 0xAB,
-     (const unichar) 0x0164}, // LATIN CAPITAL LETTER T WITH CARON
-    {(const unsigned char) 0xAC,
-     (const unichar) 0x0179}, // LATIN CAPITAL LETTER Z WITH ACUTE
-    {(const unsigned char) 0xAD, (const unichar) 0x00AD}, // SOFT HYPHEN
-    {(const unsigned char) 0xAE,
-     (const unichar) 0x017D}, // LATIN CAPITAL LETTER Z WITH CARON
-    {(const unsigned char) 0xAF,
-     (const unichar) 0x017B}, // LATIN CAPITAL LETTER Z WITH DOT ABOVE
-    {(const unsigned char) 0xB0, (const unichar) 0x00B0}, // DEGREE SIGN
-    {(const unsigned char) 0xB1,
-     (const unichar) 0x0105}, // LATIN SMALL LETTER A WITH OGONEK
-    {(const unsigned char) 0xB2, (const unichar) 0x02DB}, // OGONEK
-    {(const unsigned char) 0xB3,
-     (const unichar) 0x0142}, // LATIN SMALL LETTER L WITH STROKE
-    {(const unsigned char) 0xB4, (const unichar) 0x00B4}, // ACUTE ACCENT
-    {(const unsigned char) 0xB5,
-     (const unichar) 0x013E}, // LATIN SMALL LETTER L WITH CARON
-    {(const unsigned char) 0xB6,
-     (const unichar) 0x015B}, // LATIN SMALL LETTER S WITH ACUTE
-    {(const unsigned char) 0xB7, (const unichar) 0x02C7}, // CARON
-    {(const unsigned char) 0xB8, (const unichar) 0x00B8}, // CEDILLA
-    {(const unsigned char) 0xB9,
-     (const unichar) 0x0161}, // LATIN SMALL LETTER S WITH CARON
-    {(const unsigned char) 0xBA,
-     (const unichar) 0x015F}, // LATIN SMALL LETTER S WITH CEDILLA
-    {(const unsigned char) 0xBB,
-     (const unichar) 0x0165}, // LATIN SMALL LETTER T WITH CARON
-    {(const unsigned char) 0xBC,
-     (const unichar) 0x017A}, // LATIN SMALL LETTER Z WITH ACUTE
-    {(const unsigned char) 0xBD, (const unichar) 0x02DD}, // DOUBLE ACUTE ACCENT
-    {(const unsigned char) 0xBE,
-     (const unichar) 0x017E}, // LATIN SMALL LETTER Z WITH CARON
-    {(const unsigned char) 0xBF,
-     (const unichar) 0x017C}, // LATIN SMALL LETTER Z WITH DOT ABOVE
-    {(const unsigned char) 0xC0,
-     (const unichar) 0x0154}, // LATIN CAPITAL LETTER R WITH ACUTE
-    {(const unsigned char) 0xC1,
-     (const unichar) 0x00C1}, // LATIN CAPITAL LETTER A WITH ACUTE
-    {(const unsigned char) 0xC2,
-     (const unichar) 0x00C2}, // LATIN CAPITAL LETTER A WITH CIRCUMFLEX
-    {(const unsigned char) 0xC3,
-     (const unichar) 0x0102}, // LATIN CAPITAL LETTER A WITH BREVE
-    {(const unsigned char) 0xC4,
-     (const unichar) 0x00C4}, // LATIN CAPITAL LETTER A WITH DIAERESIS
-    {(const unsigned char) 0xC5,
-     (const unichar) 0x0139}, // LATIN CAPITAL LETTER L WITH ACUTE
-    {(const unsigned char) 0xC6,
-     (const unichar) 0x0106}, // LATIN CAPITAL LETTER C WITH ACUTE
-    {(const unsigned char) 0xC7,
-     (const unichar) 0x00C7}, // LATIN CAPITAL LETTER C WITH CEDILLA
-    {(const unsigned char) 0xC8,
-     (const unichar) 0x010C}, // LATIN CAPITAL LETTER C WITH CARON
-    {(const unsigned char) 0xC9,
-     (const unichar) 0x00C9}, // LATIN CAPITAL LETTER E WITH ACUTE
-    {(const unsigned char) 0xCA,
-     (const unichar) 0x0118}, // LATIN CAPITAL LETTER E WITH OGONEK
-    {(const unsigned char) 0xCB,
-     (const unichar) 0x00CB}, // LATIN CAPITAL LETTER E WITH DIAERESIS
-    {(const unsigned char) 0xCC,
-     (const unichar) 0x011A}, // LATIN CAPITAL LETTER E WITH CARON
-    {(const unsigned char) 0xCD,
-     (const unichar) 0x00CD}, // LATIN CAPITAL LETTER I WITH ACUTE
-    {(const unsigned char) 0xCE,
-     (const unichar) 0x00CE}, // LATIN CAPITAL LETTER I WITH CIRCUMFLEX
-    {(const unsigned char) 0xCF,
-     (const unichar) 0x010E}, // LATIN CAPITAL LETTER D WITH CARON
-    {(const unsigned char) 0xD0,
-     (const unichar) 0x0110}, // LATIN CAPITAL LETTER D WITH STROKE
-    {(const unsigned char) 0xD1,
-     (const unichar) 0x0143}, // LATIN CAPITAL LETTER N WITH ACUTE
-    {(const unsigned char) 0xD2,
-     (const unichar) 0x0147}, // LATIN CAPITAL LETTER N WITH CARON
-    {(const unsigned char) 0xD3,
-     (const unichar) 0x00D3}, // LATIN CAPITAL LETTER O WITH ACUTE
-    {(const unsigned char) 0xD4,
-     (const unichar) 0x00D4}, // LATIN CAPITAL LETTER O WITH CIRCUMFLEX
-    {(const unsigned char) 0xD5,
-     (const unichar) 0x0150}, // LATIN CAPITAL LETTER O WITH DOUBLE ACUTE
-    {(const unsigned char) 0xD6,
-     (const unichar) 0x00D6}, // LATIN CAPITAL LETTER O WITH DIAERESIS
-    {(const unsigned char) 0xD7, (const unichar) 0x00D7}, // MULTIPLICATION SIGN
-    {(const unsigned char) 0xD8,
-     (const unichar) 0x0158}, // LATIN CAPITAL LETTER R WITH CARON
-    {(const unsigned char) 0xD9,
-     (const unichar) 0x016E}, // LATIN CAPITAL LETTER U WITH RING ABOVE
-    {(const unsigned char) 0xDA,
-     (const unichar) 0x00DA}, // LATIN CAPITAL LETTER U WITH ACUTE
-    {(const unsigned char) 0xDB,
-     (const unichar) 0x0170}, // LATIN CAPITAL LETTER U WITH DOUBLE ACUTE
-    {(const unsigned char) 0xDC,
-     (const unichar) 0x00DC}, // LATIN CAPITAL LETTER U WITH DIAERESIS
-    {(const unsigned char) 0xDD,
-     (const unichar) 0x00DD}, // LATIN CAPITAL LETTER Y WITH ACUTE
-    {(const unsigned char) 0xDE,
-     (const unichar) 0x0162}, // LATIN CAPITAL LETTER T WITH CEDILLA
-    {(const unsigned char) 0xDF,
-     (const unichar) 0x00DF}, // LATIN SMALL LETTER SHARP S
-    {(const unsigned char) 0xE0,
-     (const unichar) 0x0155}, // LATIN SMALL LETTER R WITH ACUTE
-    {(const unsigned char) 0xE1,
-     (const unichar) 0x00E1}, // LATIN SMALL LETTER A WITH ACUTE
-    {(const unsigned char) 0xE2,
-     (const unichar) 0x00E2}, // LATIN SMALL LETTER A WITH CIRCUMFLEX
-    {(const unsigned char) 0xE3,
-     (const unichar) 0x0103}, // LATIN SMALL LETTER A WITH BREVE
-    {(const unsigned char) 0xE4,
-     (const unichar) 0x00E4}, // LATIN SMALL LETTER A WITH DIAERESIS
-    {(const unsigned char) 0xE5,
-     (const unichar) 0x013A}, // LATIN SMALL LETTER L WITH ACUTE
-    {(const unsigned char) 0xE6,
-     (const unichar) 0x0107}, // LATIN SMALL LETTER C WITH ACUTE
-    {(const unsigned char) 0xE7,
-     (const unichar) 0x00E7}, // LATIN SMALL LETTER C WITH CEDILLA
-    {(const unsigned char) 0xE8,
-     (const unichar) 0x010D}, // LATIN SMALL LETTER C WITH CARON
-    {(const unsigned char) 0xE9,
-     (const unichar) 0x00E9}, // LATIN SMALL LETTER E WITH ACUTE
-    {(const unsigned char) 0xEA,
-     (const unichar) 0x0119}, // LATIN SMALL LETTER E WITH OGONEK
-    {(const unsigned char) 0xEB,
-     (const unichar) 0x00EB}, // LATIN SMALL LETTER E WITH DIAERESIS
-    {(const unsigned char) 0xEC,
-     (const unichar) 0x011B}, // LATIN SMALL LETTER E WITH CARON
-    {(const unsigned char) 0xED,
-     (const unichar) 0x00ED}, // LATIN SMALL LETTER I WITH ACUTE
-    {(const unsigned char) 0xEE,
-     (const unichar) 0x00EE}, // LATIN SMALL LETTER I WITH CIRCUMFLEX
-    {(const unsigned char) 0xEF,
-     (const unichar) 0x010F}, // LATIN SMALL LETTER D WITH CARON
-    {(const unsigned char) 0xF0,
-     (const unichar) 0x0111}, // LATIN SMALL LETTER D WITH STROKE
-    {(const unsigned char) 0xF1,
-     (const unichar) 0x0144}, // LATIN SMALL LETTER N WITH ACUTE
-    {(const unsigned char) 0xF2,
-     (const unichar) 0x0148}, // LATIN SMALL LETTER N WITH CARON
-    {(const unsigned char) 0xF3,
-     (const unichar) 0x00F3}, // LATIN SMALL LETTER O WITH ACUTE
-    {(const unsigned char) 0xF4,
-     (const unichar) 0x00F4}, // LATIN SMALL LETTER O WITH CIRCUMFLEX
-    {(const unsigned char) 0xF5,
-     (const unichar) 0x0151}, // LATIN SMALL LETTER O WITH DOUBLE ACUTE
-    {(const unsigned char) 0xF6,
-     (const unichar) 0x00F6}, // LATIN SMALL LETTER O WITH DIAERESIS
-    {(const unsigned char) 0xF7, (const unichar) 0x00F7}, // DIVISION SIGN
-    {(const unsigned char) 0xF8,
-     (const unichar) 0x0159}, // LATIN SMALL LETTER R WITH CARON
-    {(const unsigned char) 0xF9,
-     (const unichar) 0x016F}, // LATIN SMALL LETTER U WITH RING ABOVE
-    {(const unsigned char) 0xFA,
-     (const unichar) 0x00FA}, // LATIN SMALL LETTER U WITH ACUTE
-    {(const unsigned char) 0xFB,
-     (const unichar) 0x0171}, // LATIN SMALL LETTER U WITH DOUBLE ACUTE
-    {(const unsigned char) 0xFC,
-     (const unichar) 0x00FC}, // LATIN SMALL LETTER U WITH DIAERESIS
-    {(const unsigned char) 0xFD,
-     (const unichar) 0x00FD}, // LATIN SMALL LETTER Y WITH ACUTE
-    {(const unsigned char) 0xFE,
-     (const unichar) 0x0163}, // LATIN SMALL LETTER T WITH CEDILLA
-    {(const unsigned char) 0xFF, (const unichar) 0x02D9} // DOT ABOVE
+        {(const unsigned char) 0xA1,
+         (const unichar) 0x0104}, // LATIN CAPITAL LETTER A WITH OGONEK
+        {(const unsigned char) 0xA2, (const unichar) 0x02D8}, // BREVE
+        {(const unsigned char) 0xA3,
+         (const unichar) 0x0141}, // LATIN CAPITAL LETTER L WITH STROKE
+        {(const unsigned char) 0xA4, (const unichar) 0x00A4}, // CURRENCY SIGN
+        {(const unsigned char) 0xA5,
+         (const unichar) 0x013D}, // LATIN CAPITAL LETTER L WITH CARON
+        {(const unsigned char) 0xA6,
+         (const unichar) 0x015A}, // LATIN CAPITAL LETTER S WITH ACUTE
+        {(const unsigned char) 0xA7, (const unichar) 0x00A7}, // SECTION SIGN
+        {(const unsigned char) 0xA8, (const unichar) 0x00A8}, // DIAERESIS
+        {(const unsigned char) 0xA9,
+         (const unichar) 0x0160}, // LATIN CAPITAL LETTER S WITH CARON
+        {(const unsigned char) 0xAA,
+         (const unichar) 0x015E}, // LATIN CAPITAL LETTER S WITH CEDILLA
+        {(const unsigned char) 0xAB,
+         (const unichar) 0x0164}, // LATIN CAPITAL LETTER T WITH CARON
+        {(const unsigned char) 0xAC,
+         (const unichar) 0x0179}, // LATIN CAPITAL LETTER Z WITH ACUTE
+        {(const unsigned char) 0xAD, (const unichar) 0x00AD}, // SOFT HYPHEN
+        {(const unsigned char) 0xAE,
+         (const unichar) 0x017D}, // LATIN CAPITAL LETTER Z WITH CARON
+        {(const unsigned char) 0xAF,
+         (const unichar) 0x017B}, // LATIN CAPITAL LETTER Z WITH DOT ABOVE
+        {(const unsigned char) 0xB0, (const unichar) 0x00B0}, // DEGREE SIGN
+        {(const unsigned char) 0xB1,
+         (const unichar) 0x0105}, // LATIN SMALL LETTER A WITH OGONEK
+        {(const unsigned char) 0xB2, (const unichar) 0x02DB}, // OGONEK
+        {(const unsigned char) 0xB3,
+         (const unichar) 0x0142}, // LATIN SMALL LETTER L WITH STROKE
+        {(const unsigned char) 0xB4, (const unichar) 0x00B4}, // ACUTE ACCENT
+        {(const unsigned char) 0xB5,
+         (const unichar) 0x013E}, // LATIN SMALL LETTER L WITH CARON
+        {(const unsigned char) 0xB6,
+         (const unichar) 0x015B}, // LATIN SMALL LETTER S WITH ACUTE
+        {(const unsigned char) 0xB7, (const unichar) 0x02C7}, // CARON
+        {(const unsigned char) 0xB8, (const unichar) 0x00B8}, // CEDILLA
+        {(const unsigned char) 0xB9,
+         (const unichar) 0x0161}, // LATIN SMALL LETTER S WITH CARON
+        {(const unsigned char) 0xBA,
+         (const unichar) 0x015F}, // LATIN SMALL LETTER S WITH CEDILLA
+        {(const unsigned char) 0xBB,
+         (const unichar) 0x0165}, // LATIN SMALL LETTER T WITH CARON
+        {(const unsigned char) 0xBC,
+         (const unichar) 0x017A}, // LATIN SMALL LETTER Z WITH ACUTE
+        {(const unsigned char) 0xBD,
+         (const unichar) 0x02DD}, // DOUBLE ACUTE ACCENT
+        {(const unsigned char) 0xBE,
+         (const unichar) 0x017E}, // LATIN SMALL LETTER Z WITH CARON
+        {(const unsigned char) 0xBF,
+         (const unichar) 0x017C}, // LATIN SMALL LETTER Z WITH DOT ABOVE
+        {(const unsigned char) 0xC0,
+         (const unichar) 0x0154}, // LATIN CAPITAL LETTER R WITH ACUTE
+        {(const unsigned char) 0xC1,
+         (const unichar) 0x00C1}, // LATIN CAPITAL LETTER A WITH ACUTE
+        {(const unsigned char) 0xC2,
+         (const unichar) 0x00C2}, // LATIN CAPITAL LETTER A WITH CIRCUMFLEX
+        {(const unsigned char) 0xC3,
+         (const unichar) 0x0102}, // LATIN CAPITAL LETTER A WITH BREVE
+        {(const unsigned char) 0xC4,
+         (const unichar) 0x00C4}, // LATIN CAPITAL LETTER A WITH DIAERESIS
+        {(const unsigned char) 0xC5,
+         (const unichar) 0x0139}, // LATIN CAPITAL LETTER L WITH ACUTE
+        {(const unsigned char) 0xC6,
+         (const unichar) 0x0106}, // LATIN CAPITAL LETTER C WITH ACUTE
+        {(const unsigned char) 0xC7,
+         (const unichar) 0x00C7}, // LATIN CAPITAL LETTER C WITH CEDILLA
+        {(const unsigned char) 0xC8,
+         (const unichar) 0x010C}, // LATIN CAPITAL LETTER C WITH CARON
+        {(const unsigned char) 0xC9,
+         (const unichar) 0x00C9}, // LATIN CAPITAL LETTER E WITH ACUTE
+        {(const unsigned char) 0xCA,
+         (const unichar) 0x0118}, // LATIN CAPITAL LETTER E WITH OGONEK
+        {(const unsigned char) 0xCB,
+         (const unichar) 0x00CB}, // LATIN CAPITAL LETTER E WITH DIAERESIS
+        {(const unsigned char) 0xCC,
+         (const unichar) 0x011A}, // LATIN CAPITAL LETTER E WITH CARON
+        {(const unsigned char) 0xCD,
+         (const unichar) 0x00CD}, // LATIN CAPITAL LETTER I WITH ACUTE
+        {(const unsigned char) 0xCE,
+         (const unichar) 0x00CE}, // LATIN CAPITAL LETTER I WITH CIRCUMFLEX
+        {(const unsigned char) 0xCF,
+         (const unichar) 0x010E}, // LATIN CAPITAL LETTER D WITH CARON
+        {(const unsigned char) 0xD0,
+         (const unichar) 0x0110}, // LATIN CAPITAL LETTER D WITH STROKE
+        {(const unsigned char) 0xD1,
+         (const unichar) 0x0143}, // LATIN CAPITAL LETTER N WITH ACUTE
+        {(const unsigned char) 0xD2,
+         (const unichar) 0x0147}, // LATIN CAPITAL LETTER N WITH CARON
+        {(const unsigned char) 0xD3,
+         (const unichar) 0x00D3}, // LATIN CAPITAL LETTER O WITH ACUTE
+        {(const unsigned char) 0xD4,
+         (const unichar) 0x00D4}, // LATIN CAPITAL LETTER O WITH CIRCUMFLEX
+        {(const unsigned char) 0xD5,
+         (const unichar) 0x0150}, // LATIN CAPITAL LETTER O WITH DOUBLE ACUTE
+        {(const unsigned char) 0xD6,
+         (const unichar) 0x00D6}, // LATIN CAPITAL LETTER O WITH DIAERESIS
+        {(const unsigned char) 0xD7,
+         (const unichar) 0x00D7}, // MULTIPLICATION SIGN
+        {(const unsigned char) 0xD8,
+         (const unichar) 0x0158}, // LATIN CAPITAL LETTER R WITH CARON
+        {(const unsigned char) 0xD9,
+         (const unichar) 0x016E}, // LATIN CAPITAL LETTER U WITH RING ABOVE
+        {(const unsigned char) 0xDA,
+         (const unichar) 0x00DA}, // LATIN CAPITAL LETTER U WITH ACUTE
+        {(const unsigned char) 0xDB,
+         (const unichar) 0x0170}, // LATIN CAPITAL LETTER U WITH DOUBLE ACUTE
+        {(const unsigned char) 0xDC,
+         (const unichar) 0x00DC}, // LATIN CAPITAL LETTER U WITH DIAERESIS
+        {(const unsigned char) 0xDD,
+         (const unichar) 0x00DD}, // LATIN CAPITAL LETTER Y WITH ACUTE
+        {(const unsigned char) 0xDE,
+         (const unichar) 0x0162}, // LATIN CAPITAL LETTER T WITH CEDILLA
+        {(const unsigned char) 0xDF,
+         (const unichar) 0x00DF}, // LATIN SMALL LETTER SHARP S
+        {(const unsigned char) 0xE0,
+         (const unichar) 0x0155}, // LATIN SMALL LETTER R WITH ACUTE
+        {(const unsigned char) 0xE1,
+         (const unichar) 0x00E1}, // LATIN SMALL LETTER A WITH ACUTE
+        {(const unsigned char) 0xE2,
+         (const unichar) 0x00E2}, // LATIN SMALL LETTER A WITH CIRCUMFLEX
+        {(const unsigned char) 0xE3,
+         (const unichar) 0x0103}, // LATIN SMALL LETTER A WITH BREVE
+        {(const unsigned char) 0xE4,
+         (const unichar) 0x00E4}, // LATIN SMALL LETTER A WITH DIAERESIS
+        {(const unsigned char) 0xE5,
+         (const unichar) 0x013A}, // LATIN SMALL LETTER L WITH ACUTE
+        {(const unsigned char) 0xE6,
+         (const unichar) 0x0107}, // LATIN SMALL LETTER C WITH ACUTE
+        {(const unsigned char) 0xE7,
+         (const unichar) 0x00E7}, // LATIN SMALL LETTER C WITH CEDILLA
+        {(const unsigned char) 0xE8,
+         (const unichar) 0x010D}, // LATIN SMALL LETTER C WITH CARON
+        {(const unsigned char) 0xE9,
+         (const unichar) 0x00E9}, // LATIN SMALL LETTER E WITH ACUTE
+        {(const unsigned char) 0xEA,
+         (const unichar) 0x0119}, // LATIN SMALL LETTER E WITH OGONEK
+        {(const unsigned char) 0xEB,
+         (const unichar) 0x00EB}, // LATIN SMALL LETTER E WITH DIAERESIS
+        {(const unsigned char) 0xEC,
+         (const unichar) 0x011B}, // LATIN SMALL LETTER E WITH CARON
+        {(const unsigned char) 0xED,
+         (const unichar) 0x00ED}, // LATIN SMALL LETTER I WITH ACUTE
+        {(const unsigned char) 0xEE,
+         (const unichar) 0x00EE}, // LATIN SMALL LETTER I WITH CIRCUMFLEX
+        {(const unsigned char) 0xEF,
+         (const unichar) 0x010F}, // LATIN SMALL LETTER D WITH CARON
+        {(const unsigned char) 0xF0,
+         (const unichar) 0x0111}, // LATIN SMALL LETTER D WITH STROKE
+        {(const unsigned char) 0xF1,
+         (const unichar) 0x0144}, // LATIN SMALL LETTER N WITH ACUTE
+        {(const unsigned char) 0xF2,
+         (const unichar) 0x0148}, // LATIN SMALL LETTER N WITH CARON
+        {(const unsigned char) 0xF3,
+         (const unichar) 0x00F3}, // LATIN SMALL LETTER O WITH ACUTE
+        {(const unsigned char) 0xF4,
+         (const unichar) 0x00F4}, // LATIN SMALL LETTER O WITH CIRCUMFLEX
+        {(const unsigned char) 0xF5,
+         (const unichar) 0x0151}, // LATIN SMALL LETTER O WITH DOUBLE ACUTE
+        {(const unsigned char) 0xF6,
+         (const unichar) 0x00F6}, // LATIN SMALL LETTER O WITH DIAERESIS
+        {(const unsigned char) 0xF7, (const unichar) 0x00F7}, // DIVISION SIGN
+        {(const unsigned char) 0xF8,
+         (const unichar) 0x0159}, // LATIN SMALL LETTER R WITH CARON
+        {(const unsigned char) 0xF9,
+         (const unichar) 0x016F}, // LATIN SMALL LETTER U WITH RING ABOVE
+        {(const unsigned char) 0xFA,
+         (const unichar) 0x00FA}, // LATIN SMALL LETTER U WITH ACUTE
+        {(const unsigned char) 0xFB,
+         (const unichar) 0x0171}, // LATIN SMALL LETTER U WITH DOUBLE ACUTE
+        {(const unsigned char) 0xFC,
+         (const unichar) 0x00FC}, // LATIN SMALL LETTER U WITH DIAERESIS
+        {(const unsigned char) 0xFD,
+         (const unichar) 0x00FD}, // LATIN SMALL LETTER Y WITH ACUTE
+        {(const unsigned char) 0xFE,
+         (const unichar) 0x0163}, // LATIN SMALL LETTER T WITH CEDILLA
+        {(const unsigned char) 0xFF, (const unichar) 0x02D9} // DOT ABOVE
 };
 
 const unichar _mapISOLatin2ToUnichar(const unsigned char c) {
@@ -231,7 +233,7 @@ char *NSUnicodeToISOLatin2(const unichar *characters, NSUInteger length,
                            BOOL zeroTerminate)
 {
     char *isolatin2 = NSZoneMalloc(
-        zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
+            zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
     int i;
 
     for (i = 0; i < length; i++) {
@@ -277,8 +279,8 @@ NSString *NSISOLatin2CStringNewWithCharacters(NSZone *zone,
     NSUInteger bytesLength;
     char *bytes;
 
-    bytes =
-        NSUnicodeToISOLatin2(characters, length, lossy, &bytesLength, zone, NO);
+    bytes = NSUnicodeToISOLatin2(characters, length, lossy, &bytesLength, zone,
+                                 NO);
 
     if (bytes == NULL)
         string = nil;

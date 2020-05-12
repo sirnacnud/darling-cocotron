@@ -62,8 +62,8 @@ static inline void byteZero(void *vsrc, size_t size) {
     WSAStartup(vR, &wsaData);
 
     NSString *path = [[NSBundle bundleForClass: [self class]]
-        pathForResource: @"CFSSLHandler_openssl"
-                 ofType: @"bundle"];
+            pathForResource: @"CFSSLHandler_openssl"
+                     ofType: @"bundle"];
 
     if (path != nil) {
         NSBundle *bundle = [NSBundle bundleWithPath: path];
@@ -100,9 +100,9 @@ static inline void byteZero(void *vsrc, size_t size) {
 #ifdef DEBUG
     NSCLog("NSSocket_windows -initTCPStream");
 #endif
-    NSError *error = [self
-        errorForReturnValue: _handle =
-                                 socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)];
+    NSError *error =
+            [self errorForReturnValue: _handle = socket(PF_INET, SOCK_STREAM,
+                                                        IPPROTO_TCP)];
     if (error != nil) {
         [self dealloc];
         return nil;
@@ -114,9 +114,9 @@ static inline void byteZero(void *vsrc, size_t size) {
 #ifdef DEBUG
     NSCLog("NSSocket_windows -initUDPStream");
 #endif
-    NSError *error = [self
-        errorForReturnValue: _handle =
-                                 socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)];
+    NSError *error =
+            [self errorForReturnValue: _handle = socket(PF_INET, SOCK_DGRAM,
+                                                        IPPROTO_UDP)];
     if (error != nil) {
         [self dealloc];
         return nil;
@@ -179,9 +179,10 @@ static inline void byteZero(void *vsrc, size_t size) {
     address.sin_addr.s_addr = inet_addr("127.0.0.1");
     address.sin_port = 0;
     if ((error = [self
-             errorForReturnValue: bind(other->_handle,
-                                       (struct sockaddr *) &address,
-                                       sizeof(struct sockaddr_in))]) != nil) {
+                 errorForReturnValue: bind(other->_handle,
+                                           (struct sockaddr *) &address,
+                                           sizeof(struct sockaddr_in))]) !=
+        nil) {
         [self closeAndDealloc];
         [other closeAndDealloc];
         return nil;
@@ -189,17 +190,18 @@ static inline void byteZero(void *vsrc, size_t size) {
 
     namelen = sizeof(address);
     if ((error = [self
-             errorForReturnValue: getsockname(other->_handle,
-                                              (struct sockaddr *) &address,
-                                              &namelen)]) != nil) {
+                 errorForReturnValue: getsockname(other->_handle,
+                                                  (struct sockaddr *) &address,
+                                                  &namelen)]) != nil) {
         [self closeAndDealloc];
         [other closeAndDealloc];
         return nil;
     }
 
     if ((error = [self
-             errorForReturnValue: connect(_handle, (struct sockaddr *) &address,
-                                          sizeof(struct sockaddr_in))]) !=
+                 errorForReturnValue: connect(_handle,
+                                              (struct sockaddr *) &address,
+                                              sizeof(struct sockaddr_in))]) !=
         nil) {
         [self closeAndDealloc];
         [other closeAndDealloc];
@@ -376,16 +378,17 @@ static inline void byteZero(void *vsrc, size_t size) {
     NSError *error;
 
     error = [self
-        errorForReturnValue: newSocket = accept(_handle, &addr, &addrlen)];
+            errorForReturnValue: newSocket = accept(_handle, &addr, &addrlen)];
     if (errorp != nil) {
         *errorp = error;
 #ifdef DEBUG
         NSCLog("accept() error: %zd", [error code]);
 #endif
     }
-    return (error != nil) ? nil
-                          : [[[NSSocket_windows alloc]
-                                initWithSocketHandle: newSocket] autorelease];
+    return (error != nil)
+                   ? nil
+                   : [[[NSSocket_windows alloc] initWithSocketHandle: newSocket]
+                             autorelease];
 }
 
 - (CFSSLHandler *) sslHandler {
@@ -396,7 +399,7 @@ static inline void byteZero(void *vsrc, size_t size) {
 
     if (_sslHandler == nil) {
         _sslHandler = [[NSClassFromString(@"CFSSLHandler_openssl") alloc]
-            initWithProperties: sslProperties];
+                initWithProperties: sslProperties];
     } else {
         // FIXME: what do we do if different properties are set
     }
@@ -406,7 +409,8 @@ static inline void byteZero(void *vsrc, size_t size) {
 @end
 
 NSData *NSSocketAddressDataForNetworkOrderAddressBytesAndPort(
-    const void *address, NSUInteger length, uint16_t port, uint32_t interface)
+        const void *address, NSUInteger length, uint16_t port,
+        uint32_t interface)
 {
     if (length == 4) { // IPV4
         struct sockaddr_in ip4;

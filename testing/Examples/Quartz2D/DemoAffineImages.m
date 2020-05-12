@@ -20,17 +20,17 @@
     CGContextTranslateCTM(context, 0.5, 0.5);
     int i, numberOfImages = 11;
     CGBlendMode modes[] = {
-        kCGBlendModeNormal,
-        kCGBlendModeClear,
-        kCGBlendModeCopy,
-        kCGBlendModeSourceIn,
-        kCGBlendModeSourceOut,
-        kCGBlendModeSourceAtop,
-        kCGBlendModeDestinationOver,
-        kCGBlendModeDestinationIn,
-        kCGBlendModeDestinationOut,
-        kCGBlendModeDestinationAtop,
-        kCGBlendModeXOR,
+            kCGBlendModeNormal,
+            kCGBlendModeClear,
+            kCGBlendModeCopy,
+            kCGBlendModeSourceIn,
+            kCGBlendModeSourceOut,
+            kCGBlendModeSourceAtop,
+            kCGBlendModeDestinationOver,
+            kCGBlendModeDestinationIn,
+            kCGBlendModeDestinationOut,
+            kCGBlendModeDestinationAtop,
+            kCGBlendModeXOR,
     };
 
     for (i = 0; i < numberOfImages; i++) {

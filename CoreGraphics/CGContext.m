@@ -154,7 +154,7 @@ CGAffineTransform
 CGContextGetUserSpaceToDeviceSpaceTransform(CGContextRef context)
 {
     return CGAffineTransformFromO2(
-        O2ContextGetUserSpaceToDeviceSpaceTransform(context));
+            O2ContextGetUserSpaceToDeviceSpaceTransform(context));
 }
 
 CGAffineTransform CGContextGetCTM(CGContextRef context) {
@@ -567,7 +567,7 @@ void CGContextSetAllowsFontSmoothing(CGContextRef context,
 }
 
 void CGContextSetAllowsFontSubpixelQuantization(
-    CGContextRef context, bool allowsFontSubpixelQuantization)
+        CGContextRef context, bool allowsFontSubpixelQuantization)
 {
     O2ContextSetAllowsFontSubpixelQuantization((O2ContextRef) context,
                                                allowsFontSubpixelQuantization);
@@ -581,7 +581,7 @@ void CGContextSetShouldSubpixelQuantizeFonts(CGContextRef context,
 }
 
 void CGContextSetAllowsFontSubpixelPositioning(
-    CGContextRef context, bool allowsFontSubpixelPositioning)
+        CGContextRef context, bool allowsFontSubpixelPositioning)
 {
     O2ContextSetAllowsFontSubpixelPositioning((O2ContextRef) context,
                                               allowsFontSubpixelPositioning);

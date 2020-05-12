@@ -129,7 +129,7 @@ static struct passwd *pwent = NULL;
 
 - (NSString *) libraryDirectory {
     return [[self homeDirectory]
-        stringByAppendingPathComponent: @".CocotronLibrary"];
+            stringByAppendingPathComponent: @".CocotronLibrary"];
 }
 
 - (NSString *) temporaryDirectory {

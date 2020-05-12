@@ -7,7 +7,7 @@
     O2TTFDecoderRef decoder = O2TTFDecoderCreate(provider);
 
     _nameToGlyph =
-        O2TTFDecoderGetPostScriptNameMapTable(decoder, &_numberOfGlyphs);
+            O2TTFDecoderGetPostScriptNameMapTable(decoder, &_numberOfGlyphs);
     _glyphLocations = O2TTFDecoderGetGlyphLocations(decoder, _numberOfGlyphs);
     return self;
 }

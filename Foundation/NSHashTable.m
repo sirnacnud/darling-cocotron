@@ -56,14 +56,14 @@ NSHashTable *NSCreateHashTableWithZone(NSHashTableCallBacks callBacks,
     table->count = 0;
     table->nBuckets = (capacity < 4) ? 4 : capacity;
     table->buckets =
-        NSZoneCalloc(zone, table->nBuckets, sizeof(NSHashBucket *));
+            NSZoneCalloc(zone, table->nBuckets, sizeof(NSHashBucket *));
 
     return table;
 }
 
 NSHashTable *NSCopyHashTableWithZone(NSHashTable *table, NSZone *zone) {
     NSHashTable *newTable =
-        NSCreateHashTableWithZone(*(table->callBacks), table->count, zone);
+            NSCreateHashTableWithZone(*(table->callBacks), table->count, zone);
     NSHashEnumerator state = NSEnumerateHashTable(table);
     void *entry;
 
@@ -142,7 +142,7 @@ NSArray *NSAllHashTableObjects(NSHashTable *table) {
     NSHashBucket *j;
 
     array = [[[NSMutableArray allocWithZone: NULL]
-        initWithCapacity: table->count] autorelease];
+            initWithCapacity: table->count] autorelease];
 
     for (i = 0; i < table->nBuckets; i++)
         for (j = table->buckets[i]; j != NULL; j = j->next)
@@ -206,11 +206,11 @@ void NSHashInsert(NSHashTable *table, const void *pointer) {
 
         table->nBuckets = nBuckets * 2;
         table->buckets =
-            NSZoneCalloc(zone, table->nBuckets, sizeof(NSHashBucket *));
+                NSZoneCalloc(zone, table->nBuckets, sizeof(NSHashBucket *));
         for (i = 0; i < nBuckets; i++)
             for (j = buckets[i]; j != NULL; j = next) {
                 NSUInteger newi =
-                    table->callBacks->hash(table, j->key) % table->nBuckets;
+                        table->callBacks->hash(table, j->key) % table->nBuckets;
                 next = j->next;
                 j->next = table->buckets[newi];
                 table->buckets[newi] = j;
@@ -355,22 +355,23 @@ const NSHashTableCallBacks NSNonOwnedPointerHashCallBacks = {NULL, NULL, NULL,
                                                              NULL, NULL};
 
 const NSHashTableCallBacks NSNonRetainedObjectHashCallBacks = {
-    _NSHashObjectHash, _NSHashObjectIsEqual, NULL, NULL, _NSHashObjectDescribe};
+        _NSHashObjectHash, _NSHashObjectIsEqual, NULL, NULL,
+        _NSHashObjectDescribe};
 
 const NSHashTableCallBacks NSObjectHashCallBacks = {
-    _NSHashObjectHash, _NSHashObjectIsEqual, _NSHashObjectRetain,
-    _NSHashObjectRelease, _NSHashObjectDescribe};
+        _NSHashObjectHash, _NSHashObjectIsEqual, _NSHashObjectRetain,
+        _NSHashObjectRelease, _NSHashObjectDescribe};
 
 const NSHashTableCallBacks NSOwnedObjectIdentityHashCallBacks = {
-    _NSHashPointerHash, _NSHashPointerIsEqual, _NSHashObjectRetain,
-    _NSHashObjectRelease, _NSHashObjectDescribe};
+        _NSHashPointerHash, _NSHashPointerIsEqual, _NSHashObjectRetain,
+        _NSHashObjectRelease, _NSHashObjectDescribe};
 
 const NSHashTableCallBacks NSOwnedPointerHashCallBacks = {
-    NULL, NULL, NULL, _NSHashPointerRelease, NULL};
+        NULL, NULL, NULL, _NSHashPointerRelease, NULL};
 
 const NSHashTableCallBacks NSPointerToStructHashCallBacks = {
-    _NSHashPointerToStructHash, _NSHashPointerToStructIsEqual, NULL,
-    _NSHashPointerRelease, NULL};
+        _NSHashPointerToStructHash, _NSHashPointerToStructIsEqual, NULL,
+        _NSHashPointerRelease, NULL};
 
 NSHashTableCallBacks _NSHashTableFixCallbacks(NSHashTableCallBacks callBacks) {
     if (callBacks.hash == NULL)

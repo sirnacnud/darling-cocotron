@@ -35,8 +35,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSCharacterSet *) invertedSet {
     return [[[NSCharacterSet_rangeInverted allocWithZone: NULL]
-        initWithRange: NSMakeRange(_location, _locationPlusLength - _location)]
-        autorelease];
+            initWithRange: NSMakeRange(_location,
+                                       _locationPlusLength - _location)]
+            autorelease];
 }
 
 @end

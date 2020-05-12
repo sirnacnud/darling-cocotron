@@ -91,7 +91,7 @@ static NSMutableArray *_registeredClasses = nil;
 
 + (BOOL) canInitWithPasteboard: (NSPasteboard *) pasteboard {
     NSString *available = [pasteboard
-        availableTypeFromArray: [self imageUnfilteredPasteboardTypes]];
+            availableTypeFromArray: [self imageUnfilteredPasteboardTypes]];
 
     return (available != nil) ? YES : NO;
 }
@@ -345,12 +345,12 @@ static NSMutableArray *_registeredClasses = nil;
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[%p] size: { %f, %f } colorSpace: %@ (%dx%d @ "
-                          @"%d bps) alpha: %@ opaque: %@>",
-                          [self class], self, _size.width, _size.height,
-                          _colorSpaceName, _pixelsWide, _pixelsHigh,
-                          _bitsPerSample, _hasAlpha ? @"YES" : @"NO",
-                          _isOpaque ? @"YES" : @"NO"];
+            stringWithFormat:
+                    @"<%@[%p] size: { %f, %f } colorSpace: %@ (%dx%d @ "
+                    @"%d bps) alpha: %@ opaque: %@>",
+                    [self class], self, _size.width, _size.height,
+                    _colorSpaceName, _pixelsWide, _pixelsHigh, _bitsPerSample,
+                    _hasAlpha ? @"YES" : @"NO", _isOpaque ? @"YES" : @"NO"];
 }
 
 @end

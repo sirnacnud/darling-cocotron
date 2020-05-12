@@ -86,9 +86,9 @@ typedef enum {
 - (void) tabViewDidChangeNumberOfTabViewItems: (NSTabView *) tabView;
 
 - (BOOL) tabView: (NSTabView *) tabView
-    shouldSelectTabViewItem: (NSTabViewItem *) item;
+        shouldSelectTabViewItem: (NSTabViewItem *) item;
 - (void) tabView: (NSTabView *) tabView
-    willSelectTabViewItem: (NSTabViewItem *) item;
+        willSelectTabViewItem: (NSTabViewItem *) item;
 - (void) tabView: (NSTabView *) tabView
-    didSelectTabViewItem: (NSTabViewItem *) item;
+        didSelectTabViewItem: (NSTabViewItem *) item;
 @end

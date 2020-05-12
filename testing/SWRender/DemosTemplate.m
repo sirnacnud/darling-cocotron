@@ -87,8 +87,8 @@ static CGColorRef createCGColor(float r, float g, float b, float a) {
     _dashLengths = NSZoneMalloc([self zone], sizeof(float) * 4);
     NSLog(@"%s %d", __FILE__, __LINE__);
 
-    CGDataProviderRef provider =
-        CGDataProviderCreateWithFilename("/Library/Fonts/Times New Roman.ttf");
+    CGDataProviderRef provider = CGDataProviderCreateWithFilename(
+            "/Library/Fonts/Times New Roman.ttf");
 
     if (provider == NULL)
         NSLog(@"PROVIDER FAILED");
@@ -99,19 +99,19 @@ static CGColorRef createCGColor(float r, float g, float b, float a) {
     CGDataProviderRelease(provider);
 
     NSString *path =
-        [[NSBundle bundleForClass: [self class]] pathForResource: @"pattern"
-                                                          ofType: @"jpg"];
+            [[NSBundle bundleForClass: [self class]] pathForResource: @"pattern"
+                                                              ofType: @"jpg"];
     //  NSString *path=[[NSBundle bundleForClass:[self class]]
     //  pathForResource:@"redLZWSquare" ofType:@"tif"];
     NSData *data = [NSData dataWithContentsOfFile: path];
     CGImageSourceRef source =
-        CGImageSourceCreateWithData((CFDataRef) data, nil);
+            CGImageSourceCreateWithData((CFDataRef) data, nil);
     _resamplingImage = CGImageSourceCreateImageAtIndex(source, 0, nil);
     NSLog(@"%s %d", __FILE__, __LINE__);
     [(id) source release];
     NSMutableData *tiff = [NSMutableData data];
     CGImageDestinationRef destination = CGImageDestinationCreateWithData(
-        (CFMutableDataRef) tiff, (CFStringRef) @"public.tiff", 1, NULL);
+            (CFMutableDataRef) tiff, (CFStringRef) @"public.tiff", 1, NULL);
     CGImageDestinationAddImage(destination, _resamplingImage, NULL);
 #if 0
    CGImageDestinationFinalize(destination);
@@ -251,7 +251,7 @@ static CGColorRef createCGColor(float r, float g, float b, float a) {
 
 - (void) setImageData: (NSData *) data {
     CGImageSourceRef source =
-        CGImageSourceCreateWithData((CFDataRef) data, nil);
+            CGImageSourceCreateWithData((CFDataRef) data, nil);
     _resamplingImage = CGImageSourceCreateImageAtIndex(source, 0, nil);
 }
 
@@ -260,7 +260,7 @@ static CGColorRef createCGColor(float r, float g, float b, float a) {
         CGPDFDocumentRelease(_pdfDocument);
 
     CGDataProviderRef provider =
-        CGDataProviderCreateWithCFData((CFDataRef) data);
+            CGDataProviderCreateWithCFData((CFDataRef) data);
 
     _pdfDocument = CGPDFDocumentCreateWithProvider(provider);
     CGDataProviderRelease(provider);
@@ -294,11 +294,13 @@ static void addSliceToPath(CGMutablePathRef path, float innerRadius,
     CGPoint point;
 
     point = CGPointApplyAffineTransform(
-        CGPointMake(outerRadius, 0), CGAffineTransformMakeRotation(startAngle));
+            CGPointMake(outerRadius, 0),
+            CGAffineTransformMakeRotation(startAngle));
     CGPathMoveToPoint(path, NULL, point.x, point.y);
     CGPathAddArc(path, NULL, 0, 0, outerRadius, startAngle, endAngle, NO);
     point = CGPointApplyAffineTransform(
-        CGPointMake(innerRadius, 0), CGAffineTransformMakeRotation(endAngle));
+            CGPointMake(innerRadius, 0),
+            CGAffineTransformMakeRotation(endAngle));
     CGPathAddLineToPoint(path, NULL, point.x, point.y);
     CGPathAddArc(path, NULL, 0, 0, innerRadius, endAngle, startAngle, YES);
     CGPathCloseSubpath(path);
@@ -348,8 +350,8 @@ static void addSliceToPath(CGMutablePathRef path, float innerRadius,
 
     CGAffineTransform ctm = [self ctm];
     CGAffineTransform t = CGAffineTransformMakeTranslation(
-        -(int) CGImageGetWidth(_resamplingImage) / 2,
-        -(int) CGImageGetHeight(_resamplingImage) / 2);
+            -(int) CGImageGetWidth(_resamplingImage) / 2,
+            -(int) CGImageGetHeight(_resamplingImage) / 2);
 
     ctm = CGAffineTransformConcat(t, ctm);
     //  ctm=CGAffineTransformScale(ctm,2,2);
@@ -543,10 +545,10 @@ static void evaluate(void *info, const float *in, float *output) {
     function = CGFunctionCreate(self, 1, domain, 4, range, &callbacks);
 
     shading = CGShadingCreateRadial(
-        CGColorSpaceCreateDeviceRGB(),
-        CGPointMake(_startPoint.x, _startPoint.y), _startRadius,
-        CGPointMake(_endPoint.x, _endPoint.y), _endRadius, function,
-        _extendStart, _extendEnd);
+            CGColorSpaceCreateDeviceRGB(),
+            CGPointMake(_startPoint.x, _startPoint.y), _startRadius,
+            CGPointMake(_endPoint.x, _endPoint.y), _endRadius, function,
+            _extendStart, _extendEnd);
 
     CGContextDrawShading(_context, shading);
     CGShadingRelease(shading);
@@ -631,18 +633,18 @@ static void drawPattern(void *info, CGContextRef ctxt) {
 - (void) drawPattern {
     CGPatternCallbacks callbacks = {0, drawPattern, NULL};
     CGPatternRef pattern = CGPatternCreate(
-        NULL, CGRectMake(0, 0, 10, 10), CGAffineTransformIdentity, 10, 10,
-        kCGPatternTilingNoDistortion, YES, &callbacks);
+            NULL, CGRectMake(0, 0, 10, 10), CGAffineTransformIdentity, 10, 10,
+            kCGPatternTilingNoDistortion, YES, &callbacks);
     CGColorSpaceRef colorSpace = CGColorSpaceCreatePattern(NULL);
     CGFloat components[4] = {1};
     CGColorRef color =
-        CGColorCreateWithPattern(colorSpace, pattern, components);
+            CGColorCreateWithPattern(colorSpace, pattern, components);
 
 #ifdef USING_QUARTZ2DX
     CGContextRef save = _context;
     CGRect media = CGRectMake(0, 0, 400, 400);
     _context = CGPDFContextCreateWithURL(
-        [NSURL fileURLWithPath: @"/tmp/foo.pdf"], &media, NULL);
+            [NSURL fileURLWithPath: @"/tmp/foo.pdf"], &media, NULL);
     CGPDFContextBeginPage(_context, NULL);
 #endif
     CGContextSaveGState(_context);

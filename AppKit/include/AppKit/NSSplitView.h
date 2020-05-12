@@ -63,38 +63,38 @@ typedef enum {
 // splitView:constrainMix:max:ofSubviewAt with two individual methods for each.
 @interface NSObject (NSSplitView_delegate)
 - (BOOL) splitView: (NSSplitView *) splitView
-    canCollapseSubview: (NSView *) subview;
+        canCollapseSubview: (NSView *) subview;
 - (BOOL) splitView: (NSSplitView *) splitView
-             shouldCollapseSubview: (NSView *) subview
-    forDoubleClickOnDividerAtIndex: (int) index;
+                 shouldCollapseSubview: (NSView *) subview
+        forDoubleClickOnDividerAtIndex: (int) index;
 - (CGFloat) splitView: (NSSplitView *) splitView
-    constrainMinCoordinate: (CGFloat) proposedMinimumPosition
-               ofSubviewAt: (int) index;
+        constrainMinCoordinate: (CGFloat) proposedMinimumPosition
+                   ofSubviewAt: (int) index;
 - (CGFloat) splitView: (NSSplitView *) splitView
-    constrainMaxCoordinate: (CGFloat) proposedMaximumPosition
-               ofSubviewAt: (int) index;
+        constrainMaxCoordinate: (CGFloat) proposedMaximumPosition
+                   ofSubviewAt: (int) index;
 
 - (void) splitView: (NSSplitView *) splitView
-    constrainMinCoordinate: (CGFloat *) min
-             maxCoordinate: (CGFloat *) max
-               ofSubviewAt: (int) index;
+        constrainMinCoordinate: (CGFloat *) min
+                 maxCoordinate: (CGFloat *) max
+                   ofSubviewAt: (int) index;
 - (CGFloat) splitView: (NSSplitView *) splitView
-    constrainSplitPosition: (CGFloat) pos
-               ofSubviewAt: (int) index;
+        constrainSplitPosition: (CGFloat) pos
+                   ofSubviewAt: (int) index;
 - (void) splitView: (NSSplitView *) splitView
-    resizeSubviewsWithOldSize: (NSSize) size;
+        resizeSubviewsWithOldSize: (NSSize) size;
 
 - (BOOL) splitView: (NSSplitView *) splitView
-    shouldAdjustSizeOfSubview: (NSView *) view;
+        shouldAdjustSizeOfSubview: (NSView *) view;
 - (BOOL) splitView: (NSSplitView *) splitView
-    shouldHideDividerAtIndex: (int) index;
+        shouldHideDividerAtIndex: (int) index;
 
 - (NSRect) splitView: (NSSplitView *) splitView
-       effectiveRect: (NSRect) proposedEffectiveRect
-        forDrawnRect: (NSRect) drawnRect
-    ofDividerAtIndex: (int) index;
+           effectiveRect: (NSRect) proposedEffectiveRect
+            forDrawnRect: (NSRect) drawnRect
+        ofDividerAtIndex: (int) index;
 - (NSRect) splitView: (NSSplitView *) splitView
-    additionalEffectiveRectOfDividerAtIndex: (NSInteger) index;
+        additionalEffectiveRectOfDividerAtIndex: (NSInteger) index;
 
 - (void) splitViewDidResizeSubviews: (NSNotification *) note;
 - (void) splitViewWillResizeSubviews: (NSNotification *) note;

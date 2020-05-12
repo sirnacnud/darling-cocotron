@@ -198,13 +198,13 @@ O2AffineTransform O2PDFPageGetDrawingTransform(O2PDFPageRef self, O2PDFBox box,
 
 - (void) drawInContext: (O2Context *) context {
     O2PDFContentStream *contentStream =
-        [[[O2PDFContentStream alloc] initWithPage: self] autorelease];
+            [[[O2PDFContentStream alloc] initWithPage: self] autorelease];
     O2PDFOperatorTable *operatorTable =
-        [O2PDFOperatorTable renderingOperatorTable];
+            [O2PDFOperatorTable renderingOperatorTable];
     O2PDFScanner *scanner =
-        [[[O2PDFScanner alloc] initWithContentStream: contentStream
-                                       operatorTable: operatorTable
-                                                info: context] autorelease];
+            [[[O2PDFScanner alloc] initWithContentStream: contentStream
+                                           operatorTable: operatorTable
+                                                    info: context] autorelease];
 
     [scanner scan];
 }

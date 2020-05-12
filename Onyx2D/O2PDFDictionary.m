@@ -67,8 +67,12 @@ void O2PDFFreeCString(NSMapTable *table, void *data) {
     NSZoneFree(NULL, data);
 }
 
-NSMapTableKeyCallBacks O2PDFOwnedCStringKeyCallBacks = {
-    O2PDFHashCString, O2PDFIsEqualCString, NULL, O2PDFFreeCString, NULL, NULL};
+NSMapTableKeyCallBacks O2PDFOwnedCStringKeyCallBacks = {O2PDFHashCString,
+                                                        O2PDFIsEqualCString,
+                                                        NULL,
+                                                        O2PDFFreeCString,
+                                                        NULL,
+                                                        NULL};
 
 @implementation O2PDFDictionary
 

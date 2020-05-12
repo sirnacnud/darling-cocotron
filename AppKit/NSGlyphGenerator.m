@@ -62,13 +62,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         [string getCharacters: characterChunk
                         range: NSMakeRange(characterIndex, chunkSize)];
         [font getGlyphs: glyphChunk
-            forCharacters: characterChunk
-                   length: chunkSize];
+                forCharacters: characterChunk
+                       length: chunkSize];
 
         [glyphStorage insertGlyphs: glyphChunk
-                             length: chunkSize
-            forStartingGlyphAtIndex: glyphIndex
-                     characterIndex: characterIndex];
+                                 length: chunkSize
+                forStartingGlyphAtIndex: glyphIndex
+                         characterIndex: characterIndex];
 
         characterIndex += chunkSize;
         glyphIndex += chunkSize;

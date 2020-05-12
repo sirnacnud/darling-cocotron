@@ -27,12 +27,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithName: (NSString *) name
-        height: (int) height
-     antialias: (BOOL) antialias;
+           height: (int) height
+        antialias: (BOOL) antialias;
 - initWithName: (NSString *) name
-        height: (int) height
-     antialias: (BOOL) antialias
-         angle: (CGFloat) angle;
+           height: (int) height
+        antialias: (BOOL) antialias
+            angle: (CGFloat) angle;
 
 - (HFONT) fontHandle;
 

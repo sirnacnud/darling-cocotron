@@ -50,10 +50,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) parser: (NSXMLParser *) parser
-    didStartElement: (NSString *) elementName
-       namespaceURI: (NSString *) namespaceURI
-      qualifiedName: (NSString *) qualifiedName
-         attributes: (NSDictionary *) attributes
+        didStartElement: (NSString *) elementName
+           namespaceURI: (NSString *) namespaceURI
+          qualifiedName: (NSString *) qualifiedName
+             attributes: (NSDictionary *) attributes
 {
     NSXMLElement *element = [[NSXMLElement alloc] initWithName: elementName];
 
@@ -72,9 +72,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) parser: (NSXMLParser *) parser
-    didEndElement: (NSString *) elementName
-     namespaceURI: (NSString *) namespaceURI
-    qualifiedName: (NSString *) qualifiedName
+        didEndElement: (NSString *) elementName
+         namespaceURI: (NSString *) namespaceURI
+        qualifiedName: (NSString *) qualifiedName
 {
     [_elementStack removeLastObject];
 }
@@ -84,11 +84,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     // NSLog(@"foundCharacters=%@",string);
     [element setStringValue: [[element stringValue]
-                                 stringByAppendingString: string]];
+                                     stringByAppendingString: string]];
 }
 
 - (void) parser: (NSXMLParser *) parser
-    foundIgnorableWhitespace: (NSString *) whitespace
+        foundIgnorableWhitespace: (NSString *) whitespace
 {
 
     if (_options & NSXMLDocumentTidyXML)
@@ -98,8 +98,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithData: (NSData *) data
-       options: (NSUInteger) options
-         error: (NSError **) error
+        options: (NSUInteger) options
+          error: (NSError **) error
 {
     [super initWithKind: NSXMLDocumentKind options: NSXMLNodeOptionsNone];
     //   NSLog(@"xml=%@",[[[NSString alloc] initWithData:data

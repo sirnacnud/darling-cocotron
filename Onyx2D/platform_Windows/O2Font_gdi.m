@@ -49,10 +49,10 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
     // CreateFontIndirectW with the received logFont For some mysterious reason,
     // CreateFontIndirectW is returning the wrong font for some faces like
     // "Minya Nouvelle Italic" (the Regular version is returned instead)
-    HFONT font =
-        CreateFontW(0, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
-                    OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-                    DEFAULT_PITCH | FF_DONTCARE, logFont->elfFullName);
+    HFONT font = CreateFontW(0, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
+                             DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+                             CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                             DEFAULT_PITCH | FF_DONTCARE, logFont->elfFullName);
 
     if (font) {
         // Ignore fonts for which we can't get a full name
@@ -67,7 +67,7 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
 
         // Get the full face name - on Win8, this is a localized name
         NSString *winName =
-            [NSString stringWithFormat: @"%S", logFont->elfFullName];
+                [NSString stringWithFormat: @"%S", logFont->elfFullName];
         if (winName.length == 0) {
             if (logFont->elfLogFont.lfFaceName) {
                 NSLog(@"Empty full name for face name %S",
@@ -94,7 +94,7 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
 
         // Get the PS name for the font...
         DWORD bufferSize =
-            GetFontData(dc, CFSwapInt32HostToBig('name'), 0, NULL, 0);
+                GetFontData(dc, CFSwapInt32HostToBig('name'), 0, NULL, 0);
         if (bufferSize >= 6 && bufferSize != GDI_ERROR) {
             uint8_t buffer[bufferSize];
             bzero(buffer, 6);
@@ -103,29 +103,29 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                 name_table_header_t *header = (name_table_header_t *) buffer;
                 uint16_t count = CFSwapInt16BigToHost(header->count);
                 uint16_t stringsOffset =
-                    CFSwapInt16BigToHost(header->stringOffset);
+                        CFSwapInt16BigToHost(header->stringOffset);
                 if (bufferSize > stringsOffset) {
                     uint8_t *strings = buffer + stringsOffset;
                     name_records_t *nameRecords =
-                        (name_records_t *) (buffer +
-                                            sizeof(name_table_header_t));
+                            (name_records_t *) (buffer +
+                                                sizeof(name_table_header_t));
                     // Parse all of the name records until we find a US full
                     // name there so we can have both the US name and the
                     // localized name in the font name -> PS name table
                     NSString *fontNameUS = nil;
                     for (int i = 0; i < count; i++) {
                         uint16_t platformID =
-                            CFSwapInt16BigToHost(nameRecords[i].platformID);
+                                CFSwapInt16BigToHost(nameRecords[i].platformID);
                         uint16_t platformSpecificID = CFSwapInt16BigToHost(
-                            nameRecords[i].platformSpecificID);
+                                nameRecords[i].platformSpecificID);
                         uint16_t languageID =
-                            CFSwapInt16BigToHost(nameRecords[i].languageID);
+                                CFSwapInt16BigToHost(nameRecords[i].languageID);
                         uint16_t nameID =
-                            CFSwapInt16BigToHost(nameRecords[i].nameID);
+                                CFSwapInt16BigToHost(nameRecords[i].nameID);
                         uint16_t length =
-                            CFSwapInt16BigToHost(nameRecords[i].length);
+                                CFSwapInt16BigToHost(nameRecords[i].length);
                         uint16_t offset =
-                            CFSwapInt16BigToHost(nameRecords[i].offset);
+                                CFSwapInt16BigToHost(nameRecords[i].offset);
                         // Full name, US language
                         if (nameID == 4 && languageID == 0x0409) {
                             // First check we get a string that's in our buffer,
@@ -140,10 +140,11 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                     platformSpecificID == 1) {
                                     // Win name - unicode encoding
                                     NSString *name = [[[NSString alloc]
-                                        initWithBytes: strings + offset
-                                               length: length
-                                             encoding: NSUnicodeStringEncoding]
-                                        autorelease];
+                                            initWithBytes: strings + offset
+                                                   length: length
+                                                 encoding:
+                                                         NSUnicodeStringEncoding]
+                                            autorelease];
                                     if ([name length]) {
                                         if (![winName isEqualToString: name]) {
                                             fontNameUS = name;
@@ -154,8 +155,8 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                            platformSpecificID == 0) {
                                     // Mac name - ASCII
                                     NSString *name = [NSString
-                                        stringWithCString: strings + offset
-                                                   length: length];
+                                            stringWithCString: strings + offset
+                                                       length: length];
                                     if ([name length]) {
                                         if (![winName isEqualToString: name]) {
                                             fontNameUS = name;
@@ -171,17 +172,17 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                     // there
                     for (int i = 0; i < count; i++) {
                         uint16_t platformID =
-                            CFSwapInt16BigToHost(nameRecords[i].platformID);
+                                CFSwapInt16BigToHost(nameRecords[i].platformID);
                         uint16_t platformSpecificID = CFSwapInt16BigToHost(
-                            nameRecords[i].platformSpecificID);
+                                nameRecords[i].platformSpecificID);
                         uint16_t languageID =
-                            CFSwapInt16BigToHost(nameRecords[i].languageID);
+                                CFSwapInt16BigToHost(nameRecords[i].languageID);
                         uint16_t nameID =
-                            CFSwapInt16BigToHost(nameRecords[i].nameID);
+                                CFSwapInt16BigToHost(nameRecords[i].nameID);
                         uint16_t length =
-                            CFSwapInt16BigToHost(nameRecords[i].length);
+                                CFSwapInt16BigToHost(nameRecords[i].length);
                         uint16_t offset =
-                            CFSwapInt16BigToHost(nameRecords[i].offset);
+                                CFSwapInt16BigToHost(nameRecords[i].offset);
                         if (nameID == 6) {
                             // First check we get a string that's in our buffer,
                             // in case of some corrupted font or font entry
@@ -196,10 +197,11 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                     platformSpecificID == 1) {
                                     // Win PS name - unicode encoding
                                     NSString *name = [[[NSString alloc]
-                                        initWithBytes: strings + offset
-                                               length: length
-                                             encoding: NSUnicodeStringEncoding]
-                                        autorelease];
+                                            initWithBytes: strings + offset
+                                                   length: length
+                                                 encoding:
+                                                         NSUnicodeStringEncoding]
+                                            autorelease];
                                     if ([name length]) {
                                         // It seems some users have some
                                         // corrupted font table - NEVER replace
@@ -207,14 +209,14 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                         // isn't some kind of arial
                                         if (!([name hasPrefix: @"Arial"] &&
                                               [winName rangeOfString: @"Arial"]
-                                                      .location ==
-                                                  NSNotFound)) {
+                                                              .location ==
+                                                      NSNotFound)) {
                                             [sPSToWin32Table setObject: winName
                                                                 forKey: name];
                                         } else {
-                                            NSLog(
-                                                @"Skipping matching %@ with %@",
-                                                name, winName);
+                                            NSLog(@"Skipping matching %@ with "
+                                                  @"%@",
+                                                  name, winName);
                                         }
                                         [sWin32ToPSTable setObject: name
                                                             forKey: winName];
@@ -222,8 +224,8 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                             // Add the US font name -> PS
                                             // mapping
                                             [sWin32ToPSTable
-                                                setObject: name
-                                                   forKey: fontNameUS];
+                                                    setObject: name
+                                                       forKey: fontNameUS];
                                         }
                                     }
                                     break;
@@ -231,8 +233,8 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                            platformSpecificID == 0) {
                                     // Mac PS name - ASCII
                                     NSString *name = [NSString
-                                        stringWithCString: strings + offset
-                                                   length: length];
+                                            stringWithCString: strings + offset
+                                                       length: length];
                                     if ([name length]) {
                                         // It seems some users have some
                                         // corrupted font table - NEVER replace
@@ -240,14 +242,14 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                         // isn't some kind of arial
                                         if (!([name hasPrefix: @"Arial"] &&
                                               [winName rangeOfString: @"Arial"]
-                                                      .location ==
-                                                  NSNotFound)) {
+                                                              .location ==
+                                                      NSNotFound)) {
                                             [sPSToWin32Table setObject: winName
                                                                 forKey: name];
                                         } else {
-                                            NSLog(
-                                                @"Skipping matching %@ with %@",
-                                                name, winName);
+                                            NSLog(@"Skipping matching %@ with "
+                                                  @"%@",
+                                                  name, winName);
                                         }
                                         [sWin32ToPSTable setObject: name
                                                             forKey: winName];
@@ -255,8 +257,8 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                             // Add the US font name -> PS
                                             // mapping
                                             [sWin32ToPSTable
-                                                setObject: name
-                                                   forKey: fontNameUS];
+                                                    setObject: name
+                                                       forKey: fontNameUS];
                                         }
                                     }
                                     break;
@@ -280,7 +282,7 @@ static int CALLBACK EnumFamiliesCallBackW(const EXTLOGFONTW *logFont,
 {
     NSMutableSet *families = (NSMutableSet *) p;
     NSString *winName =
-        [NSString stringWithFormat: @"%S", logFont->elfLogFont.lfFaceName];
+            [NSString stringWithFormat: @"%S", logFont->elfLogFont.lfFaceName];
 
     [families addObject: winName];
     return 1;
@@ -388,26 +390,26 @@ static int CALLBACK EnumFamiliesCallBackW(const EXTLOGFONTW *logFont,
 + (void) initialize {
     if (self == [O2Font_gdi class]) {
         // Set some decent defaut substitution fonts
-        [O2Font
-            setPreferredFontNames:
-                [NSArray arrayWithObjects: @"Arial",    // Latin/Greek/Cyrillic,
-                                                        // Arabic, Hebrew
-                                           @"Meiryo",   // Japanese
-                                           @"FangSong", // Simplified Chinese
-                                           @"MingLiU",  // Traditional Chinese
-                                           @"Batang",   // Korean
-                                           nil]];
+        [O2Font setPreferredFontNames:
+                        [NSArray arrayWithObjects:
+                                         @"Arial",    // Latin/Greek/Cyrillic,
+                                                      // Arabic, Hebrew
+                                         @"Meiryo",   // Japanese
+                                         @"FangSong", // Simplified Chinese
+                                         @"MingLiU",  // Traditional Chinese
+                                         @"Batang",   // Korean
+                                         nil]];
     }
 }
 
 static HFONT Win32FontHandleWithName(NSString *name, int unitsPerEm) {
-    const unichar *wideName =
-        (const unichar *) [name cStringUsingEncoding: NSUnicodeStringEncoding];
+    const unichar *wideName = (const unichar *) [name
+            cStringUsingEncoding: NSUnicodeStringEncoding];
     O2FontLog(@"Creating font with name: %@ unitsPerEm: %d", name, unitsPerEm);
-    HFONT result =
-        CreateFontW(-unitsPerEm, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
-                    DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-                    DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, wideName);
+    HFONT result = CreateFontW(-unitsPerEm, 0, 0, 0, FW_NORMAL, FALSE, FALSE,
+                               FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+                               CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                               DEFAULT_PITCH | FF_DONTCARE, wideName);
     if (result == NULL) {
         O2FontLog(@"CreateFontW failed");
     }
@@ -552,7 +554,7 @@ static HFONT Win32FontHandleWithName(NSString *name, int unitsPerEm) {
     DWORD numberOfFonts = 1;
 
     _fontMemResource =
-        AddFontMemResourceEx((PVOID) bytes, length, 0, &numberOfFonts);
+            AddFontMemResourceEx((PVOID) bytes, length, 0, &numberOfFonts);
     NSLog(@"FAILURE AddFontMemResourceEx bytes=%p length=%d "
           @"numberOfFonts=%d,result=%x",
           bytes, length, numberOfFonts, _fontMemResource);
@@ -831,8 +833,8 @@ static HFONT Win32FontHandleWithName(NSString *name, int unitsPerEm) {
 }
 
 - (NSString *) description {
-    return
-        [NSString stringWithFormat: @"%@ name: %@", [super description], _name];
+    return [NSString
+            stringWithFormat: @"%@ name: %@", [super description], _name];
 }
 
 @end

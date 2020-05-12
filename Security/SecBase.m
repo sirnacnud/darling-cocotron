@@ -6,14 +6,15 @@
 #import <Security/Security.h>
 
 OSStatus SecKeychainFindGenericPassword(
-    CFTypeRef keychainOrArray, UInt32 serviceNameLength,
-    const char *serviceName, UInt32 accountNameLength, const char *accountName,
-    UInt32 *passwordLength, void **passwordData, SecKeychainItemRef *itemRef)
+        CFTypeRef keychainOrArray, UInt32 serviceNameLength,
+        const char *serviceName, UInt32 accountNameLength,
+        const char *accountName, UInt32 *passwordLength, void **passwordData,
+        SecKeychainItemRef *itemRef)
 {
     SecKeychainAttributeList attributeList;
     attributeList.count = 2;
     attributeList.attr =
-        malloc(sizeof(SecKeychainAttribute) * attributeList.count);
+            malloc(sizeof(SecKeychainAttribute) * attributeList.count);
     attributeList.attr[0].tag = kSecAccountItemAttr;
     attributeList.attr[0].length = accountNameLength;
     attributeList.attr[0].data = (void *) accountName;
@@ -23,7 +24,7 @@ OSStatus SecKeychainFindGenericPassword(
 
     SecKeychainSearchRef search;
     OSStatus status = SecKeychainSearchCreateFromAttributes(
-        NULL, kSecGenericPasswordItemClass, &attributeList, &search);
+            NULL, kSecGenericPasswordItemClass, &attributeList, &search);
     if (status != 0) {
         free(attributeList.attr);
         return status;
@@ -32,7 +33,7 @@ OSStatus SecKeychainFindGenericPassword(
     status = SecKeychainSearchCopyNext(search, itemRef);
     if (status == 0 && *itemRef) {
         status = SecKeychainItemCopyAttributesAndData(
-            *itemRef, NULL, NULL, NULL, passwordLength, passwordData);
+                *itemRef, NULL, NULL, NULL, passwordLength, passwordData);
     } else {
         status = errSecItemNotFound;
         *itemRef = NULL;
@@ -53,7 +54,7 @@ SecKeychainAddGenericPassword(SecKeychainRef keychain, UInt32 serviceNameLength,
     SecKeychainAttributeList attributeList;
     attributeList.count = 2;
     attributeList.attr =
-        malloc(sizeof(SecKeychainAttribute) * attributeList.count);
+            malloc(sizeof(SecKeychainAttribute) * attributeList.count);
     attributeList.attr[0].tag = kSecAccountItemAttr;
     attributeList.attr[0].length = accountNameLength;
     attributeList.attr[0].data = (void *) accountName;
@@ -62,21 +63,21 @@ SecKeychainAddGenericPassword(SecKeychainRef keychain, UInt32 serviceNameLength,
     attributeList.attr[1].data = (void *) serviceName;
 
     OSStatus status = SecKeychainItemCreateFromContent(
-        kSecGenericPasswordItemClass, &attributeList, passwordLength,
-        passwordData, keychain, NULL, itemRef);
+            kSecGenericPasswordItemClass, &attributeList, passwordLength,
+            passwordData, keychain, NULL, itemRef);
     free(attributeList.attr);
     return status;
 }
 
 OSStatus SecKeychainSearchCreateFromAttributes(
-    CFTypeRef keychainOrArray, SecItemClass itemClass,
-    const SecKeychainAttributeList *attributeList,
-    SecKeychainSearchRef *resultSearch)
+        CFTypeRef keychainOrArray, SecItemClass itemClass,
+        const SecKeychainAttributeList *attributeList,
+        SecKeychainSearchRef *resultSearch)
 {
     *resultSearch =
-        [[SecKeychainSearch alloc] initWithKeychainOrArray: keychainOrArray
-                                                 itemClass: itemClass
-                                             attributeList: attributeList];
+            [[SecKeychainSearch alloc] initWithKeychainOrArray: keychainOrArray
+                                                     itemClass: itemClass
+                                                 attributeList: attributeList];
     return 0;
 }
 
@@ -88,9 +89,9 @@ OSStatus SecKeychainSearchCopyNext(SecKeychainSearchRef search,
 }
 
 OSStatus SecKeychainItemCopyAttributesAndData(
-    SecKeychainItemRef item, SecKeychainAttributeInfo *info,
-    SecItemClass *itemClass, SecKeychainAttributeList **attributeList,
-    UInt32 *length, void **resultBytes)
+        SecKeychainItemRef item, SecKeychainAttributeInfo *info,
+        SecItemClass *itemClass, SecKeychainAttributeList **attributeList,
+        UInt32 *length, void **resultBytes)
 {
     [item copyAttributeInfo: info
                   itemClass: itemClass
@@ -101,8 +102,8 @@ OSStatus SecKeychainItemCopyAttributesAndData(
 }
 
 OSStatus SecKeychainItemModifyAttributesAndData(
-    SecKeychainItemRef item, const SecKeychainAttributeList *attributeList,
-    UInt32 length, const void *bytes)
+        SecKeychainItemRef item, const SecKeychainAttributeList *attributeList,
+        UInt32 length, const void *bytes)
 {
     [item modifyAttributeList: attributeList length: length bytes: bytes];
     [[item keychain] modifyKeychainItem: item];
@@ -149,15 +150,15 @@ OSStatus SecAccessCreate(CFStringRef descriptor, CFArrayRef trustedList,
 }
 
 OSStatus SecKeychainItemCreateFromContent(
-    SecItemClass itemClass, SecKeychainAttributeList *attributeList,
-    UInt32 length, const void *bytes, SecKeychainRef keychain,
-    SecAccessRef initialAccess, SecKeychainItemRef *resultItem)
+        SecItemClass itemClass, SecKeychainAttributeList *attributeList,
+        UInt32 length, const void *bytes, SecKeychainRef keychain,
+        SecAccessRef initialAccess, SecKeychainItemRef *resultItem)
 {
     SecKeychainItemRef item =
-        [[SecKeychainItem alloc] initWithItemClass: itemClass
-                                     attributeList: attributeList
-                                            length: length
-                                             bytes: bytes];
+            [[SecKeychainItem alloc] initWithItemClass: itemClass
+                                         attributeList: attributeList
+                                                length: length
+                                                 bytes: bytes];
 
     if (keychain == NULL)
         keychain = [SecKeychain defaultUserKeychain];
@@ -192,11 +193,11 @@ SecKeychainAttributeList *
 SecCopyAttributeList(const SecKeychainAttributeList *attributeList)
 {
     SecKeychainAttributeList *result =
-        NSZoneMalloc(NULL, sizeof(SecKeychainAttributeList));
+            NSZoneMalloc(NULL, sizeof(SecKeychainAttributeList));
 
     result->count = attributeList->count;
     result->attr =
-        NSZoneMalloc(NULL, sizeof(SecKeychainAttribute) * result->count);
+            NSZoneMalloc(NULL, sizeof(SecKeychainAttribute) * result->count);
 
     int i;
     for (i = 0; i < result->count; i++) {

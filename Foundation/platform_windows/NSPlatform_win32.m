@@ -75,11 +75,11 @@ static NSString *convertBackslashToSlash(NSString *string) {
 
 static NSError *NSErrorForGetLastErrorCode(DWORD code) {
     NSString *localizedDescription =
-        @"NSErrorForGetLastError localizedDescription";
+            @"NSErrorForGetLastError localizedDescription";
     unichar *message;
 
     FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
-                       FORMAT_MESSAGE_IGNORE_INSERTS,
+                           FORMAT_MESSAGE_IGNORE_INSERTS,
                    NULL, code, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
                    (LPWSTR) &message, 0, NULL);
     localizedDescription = NSStringFromNullTerminatedUnicode(message);
@@ -87,11 +87,12 @@ static NSError *NSErrorForGetLastErrorCode(DWORD code) {
     LocalFree(message);
 
     return [NSError
-        errorWithDomain: NSWin32ErrorDomain
-                   code: code
-               userInfo: [NSDictionary
-                             dictionaryWithObject: localizedDescription
-                                           forKey: NSLocalizedDescriptionKey]];
+            errorWithDomain: NSWin32ErrorDomain
+                       code: code
+                   userInfo:
+                           [NSDictionary
+                                   dictionaryWithObject: localizedDescription
+                                                 forKey: NSLocalizedDescriptionKey]];
 }
 
 static NSError *NSErrorForGetLastError() {
@@ -102,8 +103,8 @@ static NSError *NSErrorForGetLastError() {
 
 static NSString *processName() {
     return [[convertBackslashToSlash([NSString
-        stringWithUTF8String: objc_mainImageName()]) lastPathComponent]
-        stringByDeletingPathExtension];
+            stringWithUTF8String: objc_mainImageName()]) lastPathComponent]
+            stringByDeletingPathExtension];
 }
 
 - init {
@@ -116,7 +117,7 @@ static NSString *processName() {
     [NSSocket_windows class]; // initialize winsock
 
     entry = [@"SYSTEM\\CurrentControlSet\\Services\\Eventlog\\Application\\"
-        stringByAppendingString: processName()];
+            stringByAppendingString: processName()];
 
     if (RegCreateKeyEx(HKEY_LOCAL_MACHINE, [entry cString], 0, NULL,
                        REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &handle,
@@ -127,8 +128,8 @@ static NSString *processName() {
                       (LPBYTE) module, strlen(module) + 1))
         ; // oh well, an error
 
-    allowed =
-        EVENTLOG_ERROR_TYPE | EVENTLOG_WARNING_TYPE | EVENTLOG_INFORMATION_TYPE;
+    allowed = EVENTLOG_ERROR_TYPE | EVENTLOG_WARNING_TYPE |
+              EVENTLOG_INFORMATION_TYPE;
     if (RegSetValueEx(handle, "TypesSupported", 0, REG_DWORD, (LPBYTE) &allowed,
                       sizeof(DWORD)))
         ; // oh well, an error
@@ -183,8 +184,8 @@ static NSString *processName() {
 }
 
 - (NSString *) userName {
-    NSString *result =
-        [[[NSProcessInfo processInfo] environment] objectForKey: @"USERNAME"];
+    NSString *result = [[[NSProcessInfo processInfo] environment]
+            objectForKey: @"USERNAME"];
 
     if (result == nil)
         [NSException raise: NSInvalidArgumentException
@@ -194,8 +195,8 @@ static NSString *processName() {
 }
 
 - (NSString *) fullUserName {
-    NSString *result =
-        [[[NSProcessInfo processInfo] environment] objectForKey: @"USERNAME"];
+    NSString *result = [[[NSProcessInfo processInfo] environment]
+            objectForKey: @"USERNAME"];
 
     if (result == nil)
         [NSException raise: NSInvalidArgumentException
@@ -205,10 +206,10 @@ static NSString *processName() {
 }
 
 - (NSString *) homeDirectory {
-    NSString *drive =
-        [[[NSProcessInfo processInfo] environment] objectForKey: @"HOMEDRIVE"];
-    NSString *path =
-        [[[NSProcessInfo processInfo] environment] objectForKey: @"HOMEPATH"];
+    NSString *drive = [[[NSProcessInfo processInfo] environment]
+            objectForKey: @"HOMEDRIVE"];
+    NSString *path = [[[NSProcessInfo processInfo] environment]
+            objectForKey: @"HOMEPATH"];
 
     if (drive == nil)
         return nil;
@@ -217,28 +218,28 @@ static NSString *processName() {
         return nil;
 
     return convertBackslashToSlash(
-        [drive stringByAppendingPathComponent: path]);
+            [drive stringByAppendingPathComponent: path]);
 }
 
 - (NSString *) libraryDirectory {
-    NSString *appdata =
-        [[[NSProcessInfo processInfo] environment] objectForKey: @"APPDATA"];
+    NSString *appdata = [[[NSProcessInfo processInfo] environment]
+            objectForKey: @"APPDATA"];
 
     return convertBackslashToSlash(
-        [appdata stringByAppendingPathComponent: @"CocotronLibrary"]);
+            [appdata stringByAppendingPathComponent: @"CocotronLibrary"]);
 }
 
 - (NSString *) temporaryDirectory {
     NSString *result =
-        [[[NSProcessInfo processInfo] environment] objectForKey: @"TEMP"];
+            [[[NSProcessInfo processInfo] environment] objectForKey: @"TEMP"];
 
     if (result == nil)
-        result =
-            [[[NSProcessInfo processInfo] environment] objectForKey: @"TMP"];
+        result = [[[NSProcessInfo processInfo] environment]
+                objectForKey: @"TMP"];
 
     if (result == nil) {
-        result =
-            [[[NSProcessInfo processInfo] environment] objectForKey: @"windir"];
+        result = [[[NSProcessInfo processInfo] environment]
+                objectForKey: @"windir"];
         result = [result stringByAppendingPathComponent: @"Temp"];
     }
 
@@ -265,9 +266,9 @@ NSString *const NSPlatformLoadableObjectFilePrefix = @"";
     LPWSTR *argv = CommandLineToArgvW(cmd, &argc);
     if (argv) {
         for (i = 0; i < argc; i++) {
-            [result
-                addObject: [NSString stringWithCharacters: (unichar *) argv[i]
-                                                   length: wcslen(argv[i])]];
+            [result addObject: [NSString
+                                       stringWithCharacters: (unichar *) argv[i]
+                                                     length: wcslen(argv[i])]];
         }
         LocalFree(argv);
     }
@@ -423,7 +424,7 @@ void NSPlatformSleepThreadForTimeInterval(NSTimeInterval interval) {
 
 void NSPlatformLogString(NSString *string) {
     NSData *data = [NSPropertyListWriter_vintage
-        nullTerminatedASCIIDataWithString: string];
+            nullTerminatedASCIIDataWithString: string];
     const char *cString = [data bytes];
     NSUInteger length = [data length] - 1; // skip 0
 
@@ -445,9 +446,10 @@ void NSPlatformLogString(NSString *string) {
 }
 
 void *NSPlatformContentsOfFile(NSString *path, NSUInteger *lengthp) {
-    HANDLE file = CreateFileW(
-        [path fileSystemRepresentationW], GENERIC_READ, FILE_SHARE_READ, NULL,
-        OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
+    HANDLE file = CreateFileW([path fileSystemRepresentationW], GENERIC_READ,
+                              FILE_SHARE_READ, NULL, OPEN_EXISTING,
+                              FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN,
+                              NULL);
     DWORD length, readLength;
     void *result;
 
@@ -609,8 +611,8 @@ BOOL NSPlatformGreaterThanOrEqualToWindowsXP(void) {
 
     return ((osVersion.dwMajorVersion == 5 && osVersion.dwMinorVersion >= 1) ||
             osVersion.dwMajorVersion > 5)
-               ? YES
-               : NO;
+                   ? YES
+                   : NO;
 }
 
 BOOL NSPlatformGreaterThanOrEqualToWindows2000(void) {

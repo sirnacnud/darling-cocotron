@@ -34,11 +34,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <objc/runtime.h>
 
 NSString *const NSControlTextDidBeginEditingNotification =
-    @"NSControlTextDidBeginEditingNotification";
+        @"NSControlTextDidBeginEditingNotification";
 NSString *const NSControlTextDidChangeNotification =
-    @"NSControlTextDidChangeNotification";
+        @"NSControlTextDidChangeNotification";
 NSString *const NSControlTextDidEndEditingNotification =
-    @"NSControlTextDidEndEditingNotification";
+        @"NSControlTextDidEndEditingNotification";
 
 @implementation NSControl
 
@@ -74,7 +74,7 @@ static NSMutableDictionary *cellClassDictionary = nil;
         [_aux setTag: [keyed decodeIntegerForKey: @"NSTag"]];
 
         SEL sel = NSSelectorFromString(
-            [keyed decodeObjectForKey: @"NSControlAction"]);
+                [keyed decodeObjectForKey: @"NSControlAction"]);
         if (sel)
             [_aux setAction: sel];
         [_aux setTarget: [keyed decodeObjectForKey: @"NSControlTarget"]];
@@ -511,7 +511,7 @@ static NSMutableDictionary *cellClassDictionary = nil;
                     NSTextView *textview = (NSTextView *) _currentEditor;
                     NSAttributedString *text = [textview textStorage];
                     NSAttributedString *string = [[[NSAttributedString alloc]
-                        initWithAttributedString: text] autorelease];
+                            initWithAttributedString: text] autorelease];
                     [[self selectedCell] setAttributedStringValue: string];
                 } else {
                     [[self selectedCell] setStringValue: string];
@@ -577,11 +577,12 @@ static NSMutableDictionary *cellClassDictionary = nil;
         return;
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSControlTextDidBeginEditingNotification
-                      object: self
-                    userInfo: [NSDictionary
-                                  dictionaryWithObject: [note object]
-                                                forKey: @"NSFieldEditor"]];
+            postNotificationName: NSControlTextDidBeginEditingNotification
+                          object: self
+                        userInfo: [NSDictionary
+                                          dictionaryWithObject: [note object]
+                                                        forKey: @"NSFieldEdito"
+                                                                @"r"]];
 
     // If this control's value is bound to an object that conforms to
     // NSEditorRegistration, register as an editor.
@@ -589,7 +590,7 @@ static NSMutableDictionary *cellClassDictionary = nil;
     if (bindingInfo) {
         id observedObject = [bindingInfo objectForKey: NSObservedObjectKey];
         if ([observedObject
-                respondsToSelector: @selector(objectDidBeginEditing:)])
+                    respondsToSelector: @selector(objectDidBeginEditing:)])
             [observedObject objectDidBeginEditing: self];
     }
 }
@@ -602,11 +603,12 @@ static NSMutableDictionary *cellClassDictionary = nil;
     [[self selectedCell] setStringValue: [[note object] string]];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSControlTextDidChangeNotification
-                      object: self
-                    userInfo: [NSDictionary
-                                  dictionaryWithObject: [note object]
-                                                forKey: @"NSFieldEditor"]];
+            postNotificationName: NSControlTextDidChangeNotification
+                          object: self
+                        userInfo: [NSDictionary
+                                          dictionaryWithObject: [note object]
+                                                        forKey: @"NSFieldEdito"
+                                                                @"r"]];
 }
 
 - (void) textDidEndEditing: (NSNotification *) note {
@@ -619,11 +621,12 @@ static NSMutableDictionary *cellClassDictionary = nil;
     [self abortEditing];
 
     [[NSNotificationCenter defaultCenter]
-        postNotificationName: NSControlTextDidEndEditingNotification
-                      object: self
-                    userInfo: [NSDictionary
-                                  dictionaryWithObject: [note object]
-                                                forKey: @"NSFieldEditor"]];
+            postNotificationName: NSControlTextDidEndEditingNotification
+                          object: self
+                        userInfo: [NSDictionary
+                                          dictionaryWithObject: [note object]
+                                                        forKey: @"NSFieldEdito"
+                                                                @"r"]];
 
     // If this control's value is bound to an object that conforms to
     // NSEditorRegistration, unregister as an editor.
@@ -631,7 +634,7 @@ static NSMutableDictionary *cellClassDictionary = nil;
     if (bindingInfo) {
         id observedObject = [bindingInfo objectForKey: NSObservedObjectKey];
         if ([observedObject
-                respondsToSelector: @selector(objectDidEndEditing:)])
+                    respondsToSelector: @selector(objectDidEndEditing:)])
             [observedObject objectDidEndEditing: self];
     }
 
@@ -660,10 +663,10 @@ static NSMutableDictionary *cellClassDictionary = nil;
             [self setNeedsDisplay: YES];
 
             if ([_cell trackMouse: event
-                           inRect: [self bounds]
-                           ofView: self
-                     untilMouseUp:
-                         [[_cell class] prefersTrackingUntilMouseUp]]) {
+                              inRect: [self bounds]
+                              ofView: self
+                        untilMouseUp:
+                                [[_cell class] prefersTrackingUntilMouseUp]]) {
                 [_cell setState: ![_cell state]];
                 [self setNeedsDisplay: YES];
                 sendAction = YES;
@@ -675,8 +678,8 @@ static NSMutableDictionary *cellClassDictionary = nil;
         }
 
         [[self window] flushWindow];
-        event = [[self window]
-            nextEventMatchingMask: NSLeftMouseUpMask | NSLeftMouseDraggedMask];
+        event = [[self window] nextEventMatchingMask: NSLeftMouseUpMask |
+                                                      NSLeftMouseDraggedMask];
     } while ([event type] != NSLeftMouseUp);
 
     [self unlockFocus];

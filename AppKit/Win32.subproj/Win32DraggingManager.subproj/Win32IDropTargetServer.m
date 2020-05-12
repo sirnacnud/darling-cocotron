@@ -61,34 +61,34 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                      :(DWORD *) dropEffect
 {
     NSPasteboard *pasteboard = [[[Win32DropPasteboard alloc]
-        initWithIDataObject: dataObject] autorelease];
+            initWithIDataObject: dataObject] autorelease];
 
     [_session release];
 
     _session = [[Win32DragSession alloc] initWithWindow: _window
                                              pasteboard: pasteboard];
-    [_session
-        setSourceOperationMask: Win32DragOperationFromDropEffect(*dropEffect)];
+    [_session setSourceOperationMask: Win32DragOperationFromDropEffect(
+                                              *dropEffect)];
     [_session setScreenLocation: [_window convertPOINTLToBase: pt]];
 
     [_window dragEnter: _session];
 
     *dropEffect = Win32DropEffectFromDragOperation(
-        [_session draggingSourceOperationMask]);
+            [_session draggingSourceOperationMask]);
 
     return S_OK;
 }
 
 - (HRESULT) DragOver: (DWORD) grfKeyState: (POINTL) pt:(DWORD *) dropEffect {
 
-    [_session
-        setSourceOperationMask: Win32DragOperationFromDropEffect(*dropEffect)];
+    [_session setSourceOperationMask: Win32DragOperationFromDropEffect(
+                                              *dropEffect)];
     [_session setScreenLocation: [_window convertPOINTLToBase: pt]];
 
     [_window dragOver: _session];
 
     *dropEffect = Win32DropEffectFromDragOperation(
-        [_session draggingSourceOperationMask]);
+            [_session draggingSourceOperationMask]);
 
     return S_OK;
 }
@@ -103,19 +103,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (HRESULT) Drop: (IDataObject *)
-      dataObject: (DWORD) grfKeyState
-                :(POINTL) pt
-                :(DWORD *) dropEffect
+        dataObject: (DWORD) grfKeyState
+                  :(POINTL) pt
+                  :(DWORD *) dropEffect
 {
 
-    [_session
-        setSourceOperationMask: Win32DragOperationFromDropEffect(*dropEffect)];
+    [_session setSourceOperationMask: Win32DragOperationFromDropEffect(
+                                              *dropEffect)];
     [_session setScreenLocation: [_window convertPOINTLToBase: pt]];
 
     [_window drop: _session];
 
     *dropEffect = Win32DropEffectFromDragOperation(
-        [_session draggingSourceOperationMask]);
+            [_session draggingSourceOperationMask]);
 
     [_session release];
     _session = nil;

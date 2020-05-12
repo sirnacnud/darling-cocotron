@@ -141,7 +141,7 @@ unichar *NSString_anyCStringToUnicode(NSStringEncoding encoding,
         return NSUTF8ToUnicode(cString, length, resultLength, zone);
     default: {
         unichar *chars =
-            NSBytesToUnicode(cString, length, encoding, resultLength, zone);
+                NSBytesToUnicode(cString, length, encoding, resultLength, zone);
         if (chars) {
             return chars;
         }
@@ -216,11 +216,11 @@ NSString *NSString_anyCStringNewWithBytes(NSStringEncoding encoding,
     default: {
         NSUInteger decodedLength = 0;
         unichar *chars =
-            NSBytesToUnicode(bytes, length, encoding, &decodedLength, zone);
+                NSBytesToUnicode(bytes, length, encoding, &decodedLength, zone);
         if (chars) {
             NSString *result = [[NSString allocWithZone: zone]
-                initWithCharacters: chars
-                            length: decodedLength];
+                    initWithCharacters: chars
+                                length: decodedLength];
             NSZoneFree(zone, chars);
             return result;
         }
@@ -304,7 +304,7 @@ NSUInteger NSGetAnyCStringWithMaxLength(NSStringEncoding encoding,
             logEncodingError(encoding);
             // we're using an unsupported default encoding - assuming NextSTEP
             return NSGetNEXTSTEPCStringWithMaxLength(
-                characters, length, location, cString, maxLength, lossy);
+                    characters, length, location, cString, maxLength, lossy);
         } else {
             NSUInteger len = MIN(decodedLength, maxLength);
             memcpy(cString, bytes, len);

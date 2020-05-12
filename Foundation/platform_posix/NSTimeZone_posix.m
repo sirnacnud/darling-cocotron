@@ -119,14 +119,16 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
 
     typeIndices = tzData + (numberOfTransitionTimes * 4);
     for (i = 0; i < numberOfTransitionTimes; ++i) {
-        NSDate *d1 =
-            [NSDate dateWithTimeIntervalSince1970: NSSwapBigIntToHost(
+        NSDate *d1 = [NSDate
+                dateWithTimeIntervalSince1970: NSSwapBigIntToHost(
                                                        ((int *) tzData)[i])];
         [transitions
-            addObject:
-                [NSTimeZoneTransition
-                    timeZoneTransitionWithTransitionDate: d1
-                                               typeIndex: typeIndices[i]]];
+                addObject:
+                        [NSTimeZoneTransition
+                                timeZoneTransitionWithTransitionDate: d1
+                                                           typeIndex:
+                                                                   typeIndices
+                                                                           [i]]];
     }
 
     // sort date array
@@ -139,21 +141,22 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
     abbreviations = tzTypesBytes + numberOfLocalTimes * sizeof(struct tzType);
     for (i = 0; i < numberOfLocalTimes; ++i) {
         tzTypes = (struct tzType *) tzTypesBytes;
-        NSString *abb =
-            [NSString stringWithCString: abbreviations + tzTypes->abbrevIndex];
+        NSString *abb = [NSString
+                stringWithCString: abbreviations + tzTypes->abbrevIndex];
         if (name == nil) {
             name = abb;
         }
-        [types
-            addObject: [NSTimeZoneType
-                           timeZoneTypeWithSecondsFromGMT: NSSwapBigIntToHost(
-                                                               tzTypes->offset)
-                                     isDaylightSavingTime: tzTypes->isDST
-                                             abbreviation:
-                                                 [NSString stringWithCString:
-                                                               abbreviations +
-                                                               tzTypes->
-                                                               abbrevIndex]]];
+        [types addObject:
+                        [NSTimeZoneType
+                                timeZoneTypeWithSecondsFromGMT:
+                                        NSSwapBigIntToHost(tzTypes->offset)
+                                          isDaylightSavingTime: tzTypes->isDST
+                                                  abbreviation:
+                                                          [NSString
+                                                                  stringWithCString:
+                                                                          abbreviations +
+                                                                          tzTypes->
+                                                                          abbrevIndex]]];
         tzTypesBytes += sizeof(struct tzType);
     }
 
@@ -164,9 +167,9 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
 }
 
 - initWithName: (NSString *) name
-           data: (NSData *) data
-    transitions: (NSArray *) transitions
-          types: (NSArray *) types
+               data: (NSData *) data
+        transitions: (NSArray *) transitions
+              types: (NSArray *) types
 {
     _name = [name retain];
     _data = [data retain];
@@ -201,25 +204,25 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
         YES) {
         NSError *error;
         NSString *path = [[NSFileManager defaultManager]
-            destinationOfSymbolicLinkAtPath: @"/etc/localtime"
-                                      error: &error];
+                destinationOfSymbolicLinkAtPath: @"/etc/localtime"
+                                          error: &error];
 
         if (path != nil) {
             // localtime is a symlink
             timeZoneName = [path
-                stringByReplacingOccurrencesOfString:
-                    [NSString
-                        stringWithFormat: @"%@/",
-                                          [NSTimeZone_posix _zoneinfoPath]]
-                                          withString: @""];
+                    stringByReplacingOccurrencesOfString:
+                            [NSString stringWithFormat: @"%@/",
+                                                        [NSTimeZone_posix
+                                                                _zoneinfoPath]]
+                                              withString: @""];
             systemTimeZone = [self timeZoneWithName: timeZoneName];
         } else {
             // localtime is a file
             systemTimeZone = [[[NSTimeZone alloc]
-                initWithName: nil
-                        data: [NSData
-                                  dataWithContentsOfFile: @"/etc/localtime"]]
-                autorelease];
+                    initWithName: nil
+                            data: [NSData dataWithContentsOfFile:
+                                                  @"/etc/localtime"]]
+                    autorelease];
         }
     }
 
@@ -229,8 +232,8 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
 
         if (envTimeZoneName != NULL) {
             systemTimeZone = [self
-                timeZoneWithName: [NSString
-                                      stringWithCString: envTimeZoneName]];
+                    timeZoneWithName:
+                            [NSString stringWithCString: envTimeZoneName]];
         }
     }
 
@@ -256,7 +259,7 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
                 NSCLog("TimeZone [%s] not instantiable -> using absolute "
                        "timezone (no daylight saving)",
                        [[[self abbreviationDictionary]
-                           objectForKey: abbreviation] cString]);
+                               objectForKey: abbreviation] cString]);
             }
 
             systemTimeZone = [NSTimeZone timeZoneForSecondsFromGMT: timezone];
@@ -270,10 +273,10 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
 - (NSTimeZoneType *) timeZoneTypeForDate: (NSDate *) date {
     if ([_timeZoneTransitions count] == 0 ||
         [date compare: [[_timeZoneTransitions objectAtIndex: 0]
-                           transitionDate]] == NSOrderedAscending) {
+                               transitionDate]] == NSOrderedAscending) {
 
         NSEnumerator *timeZoneTypeEnumerator =
-            [_timeZoneTypes objectEnumerator];
+                [_timeZoneTypes objectEnumerator];
         NSTimeZoneType *type;
 
         while ((type = [timeZoneTypeEnumerator nextObject]) != nil) {
@@ -284,7 +287,7 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
         return [_timeZoneTypes objectAtIndex: 0];
     } else {
         NSEnumerator *timeZoneTransitionEnumerator =
-            [_timeZoneTransitions objectEnumerator];
+                [_timeZoneTransitions objectEnumerator];
         NSTimeZoneTransition *transition, *previousTransition = nil;
 
         while ((transition = [timeZoneTransitionEnumerator nextObject]) !=
@@ -294,7 +297,7 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
                 previousTransition = transition;
             } else
                 return [_timeZoneTypes
-                    objectAtIndex: [previousTransition typeIndex]];
+                        objectAtIndex: [previousTransition typeIndex]];
         }
 
         return [_timeZoneTypes lastObject];
@@ -321,12 +324,12 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"<%@[0x%lx] name: %@ secondsFromGMT: %d "
-                          @"isDaylightSavingTime: %@ abbreviation: %@>",
-                          [self class], self, [self name],
-                          [self secondsFromGMT],
-                          [self isDaylightSavingTime] ? @"YES" : @"NO",
-                          [self abbreviation]];
+            stringWithFormat: @"<%@[0x%lx] name: %@ secondsFromGMT: %d "
+                              @"isDaylightSavingTime: %@ abbreviation: %@>",
+                              [self class], self, [self name],
+                              [self secondsFromGMT],
+                              [self isDaylightSavingTime] ? @"YES" : @"NO",
+                              [self abbreviation]];
 }
 
 - copyWithZone: (NSZone *) zone {

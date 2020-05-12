@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSObject.h>
 
 @class NSArray, NSDate, NSData, NSDictionary, NSLocale, NSString,
-    NSMutableArray;
+        NSMutableArray;
 
 typedef NSInteger NSTimeZoneNameStyle;
 

@@ -46,15 +46,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // in them.
     NSWindowStyleMask styleMask = NSBorderlessWindowMask;
     if ([[NSUserDefaults standardUserDefaults]
-            boolForKey: @"NSShowAllWindows"] == NO) {
+                boolForKey: @"NSShowAllWindows"] == NO) {
         styleMask |= NSAppKitPrivateWindow;
     }
     NSRect rect = {NSZeroPoint, size};
     NSWindow *window =
-        [[NSWindow alloc] initWithContentRect: rect
-                                    styleMask: styleMask
-                                      backing: NSBackingStoreBuffered
-                                        defer: NO];
+            [[NSWindow alloc] initWithContentRect: rect
+                                        styleMask: styleMask
+                                          backing: NSBackingStoreBuffered
+                                            defer: NO];
 
     NSDictionary *entries = @{@"CGContext" : @"Onyx"};
     [[window platformWindow] addEntriesToDeviceDictionary: entries];
@@ -78,16 +78,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) drawAtPoint: (NSPoint) point {
     NSRect rect = {point, _size};
-    CGImageRef imageRef =
-        CGBitmapContextCreateImage([[_window graphicsContext] graphicsPort]);
+    CGImageRef imageRef = CGBitmapContextCreateImage(
+            [[_window graphicsContext] graphicsPort]);
     CGContextDrawImage(NSCurrentGraphicsPort(), rect, imageRef);
     CGImageRelease(imageRef);
     return YES;
 }
 
 - (BOOL) drawInRect: (NSRect) rect {
-    CGImageRef imageRef =
-        CGBitmapContextCreateImage([[_window graphicsContext] graphicsPort]);
+    CGImageRef imageRef = CGBitmapContextCreateImage(
+            [[_window graphicsContext] graphicsPort]);
     CGContextDrawImage(NSCurrentGraphicsPort(), rect, imageRef);
     CGImageRelease(imageRef);
     return YES;

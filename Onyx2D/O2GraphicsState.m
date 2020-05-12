@@ -66,8 +66,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 {
     O2AffineTransform flip = {1, 0, 0, -1, 0, height};
 
-    return
-        [self initWithDeviceTransform: O2AffineTransformConcat(flip, concat)];
+    return [self
+            initWithDeviceTransform: O2AffineTransformConcat(flip, concat)];
 }
 
 - init {
@@ -105,7 +105,7 @@ O2GState *O2GStateCopyWithZone(O2GState *self, NSZone *zone) {
         int i;
 
         copy->_dashLengths =
-            NSZoneMalloc(zone, sizeof(O2Float) * self->_dashLengthsCount);
+                NSZoneMalloc(zone, sizeof(O2Float) * self->_dashLengthsCount);
         for (i = 0; i < self->_dashLengthsCount; i++)
             copy->_dashLengths[i] = self->_dashLengths[i];
     }
@@ -142,7 +142,7 @@ O2AffineTransform O2GStateUserSpaceTransform(O2GState *self) {
 
 - (O2Point) convertPointToUserSpace: (O2Point) point {
     return O2PointApplyAffineTransform(
-        point, O2AffineTransformInvert(_deviceSpaceTransform));
+            point, O2AffineTransformInvert(_deviceSpaceTransform));
 }
 
 - (O2Size) convertSizeToDeviceSpace: (O2Size) size {
@@ -151,7 +151,7 @@ O2AffineTransform O2GStateUserSpaceTransform(O2GState *self) {
 
 - (O2Size) convertSizeToUserSpace: (O2Size) size {
     return O2SizeApplyAffineTransform(
-        size, O2AffineTransformInvert(_deviceSpaceTransform));
+            size, O2AffineTransformInvert(_deviceSpaceTransform));
 }
 
 - (O2Rect) convertRectToDeviceSpace: (O2Rect) rect {
@@ -176,9 +176,9 @@ void O2GStateSetUserSpaceCTM(O2GState *self, O2AffineTransform transform) {
 
 void O2GStateConcatCTM(O2GState *self, O2AffineTransform transform) {
     self->_deviceSpaceTransform =
-        O2AffineTransformConcat(transform, self->_deviceSpaceTransform);
+            O2AffineTransformConcat(transform, self->_deviceSpaceTransform);
     self->_userSpaceTransform =
-        O2AffineTransformConcat(transform, self->_userSpaceTransform);
+            O2AffineTransformConcat(transform, self->_userSpaceTransform);
     self->_fontIsDirty = YES;
 }
 
@@ -298,7 +298,7 @@ void O2GStateSetFont(O2GState *self, O2Font *font) {
         self->_font = font;
 
         O2Encoding *encoding = [self->_font
-            createEncodingForTextEncoding: kO2EncodingFontSpecific];
+                createEncodingForTextEncoding: kO2EncodingFontSpecific];
         O2GStateSetFontEncoding(self, encoding);
         [encoding release];
 
@@ -324,7 +324,7 @@ void O2GStateSetFontEncoding(O2GState *self, O2Encoding *encoding) {
                    encoding: (O2TextEncoding) textEncoding
 {
     O2Font *font = O2FontCreateWithFontName(
-        [NSString stringWithCString: name encoding: NSUTF8StringEncoding]);
+            [NSString stringWithCString: name encoding: NSUTF8StringEncoding]);
 
     O2GStateSetFont(self, font);
     O2GStateSetFontSize(self, size);
@@ -453,8 +453,8 @@ void O2GStateSetAlpha(O2GState *self, O2Float alpha) {
     _shadowColor = color;
     O2GaussianKernelRelease(_shadowKernel);
     _shadowKernel = (_shadowColor == nil)
-                        ? NULL
-                        : O2CreateGaussianKernelWithDeviation(blur);
+                            ? NULL
+                            : O2CreateGaussianKernelWithDeviation(blur);
 }
 
 - (void) setShadowOffset: (O2Size) offset blur: (O2Float) blur {

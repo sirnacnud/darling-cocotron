@@ -14,12 +14,12 @@
     CGImageRef result;
 
     NSString *path =
-        [[NSBundle bundleForClass: [self class]] pathForResource: name
-                                                          ofType: @"png"];
+            [[NSBundle bundleForClass: [self class]] pathForResource: name
+                                                              ofType: @"png"];
     NSData *data = [NSData dataWithContentsOfFile: path];
 
     CGImageSourceRef source =
-        CGImageSourceCreateWithData((CFDataRef) data, nil);
+            CGImageSourceCreateWithData((CFDataRef) data, nil);
 
     result = CGImageSourceCreateImageAtIndex(source, 0, nil);
 

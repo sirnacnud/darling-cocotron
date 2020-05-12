@@ -55,7 +55,7 @@ APPKIT_EXPORT NSString *const NSMultipleValuesPlaceholderBindingOption;
 APPKIT_EXPORT NSString *const NSCreatesSortDescriptorBindingOption;
 APPKIT_EXPORT NSString *const NSRaisesForNotApplicableKeysBindingOption;
 APPKIT_EXPORT NSString
-    *const NSAllowsEditingMultipleValuesSelectionBindingOption;
+        *const NSAllowsEditingMultipleValuesSelectionBindingOption;
 APPKIT_EXPORT NSString *const NSValueTransformerNameBindingOption;
 APPKIT_EXPORT NSString *const NSValueTransformerBindingOption;
 APPKIT_EXPORT NSString *const NSConditionallySetsEnabledBindingOption;

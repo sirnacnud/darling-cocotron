@@ -53,7 +53,7 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
 - (void) applyToObject: (id) object inRow: (NSInteger) row keyPath: (id) path {
     @try {
         [object setValue: [[_rowValues objectAtIndex: row]
-                              valueForKeyPath: _valueKeyPath]
+                                  valueForKeyPath: _valueKeyPath]
                   forKey: path];
     } @catch (id e) {
         NSLog(@"exception %@ while setting value for key path %@ for row %i", e,
@@ -120,8 +120,8 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
         } else {
             _valueKeyPath = [components lastObject];
             _arrayKeyPath =
-                [_keyPath substringToIndex: [_keyPath length] -
-                                            [_valueKeyPath length] - 1];
+                    [_keyPath substringToIndex: [_keyPath length] -
+                                                [_valueKeyPath length] - 1];
         }
     }
     [_valueKeyPath retain];
@@ -146,19 +146,21 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
         _isObserving = YES;
         @try {
             [_destination
-                addObserver: self
-                 forKeyPath: _arrayKeyPath
-                    options: 0
-                    context: &NSMultipleValueBinderWholeArrayChangeContext];
+                    addObserver: self
+                     forKeyPath: _arrayKeyPath
+                        options: 0
+                        context: &NSMultipleValueBinderWholeArrayChangeContext];
             if (![_valueKeyPath hasPrefix: @"@"])
                 [_rowValues addObserver: self
-                     toObjectsAtIndexes: [NSIndexSet
-                                             indexSetWithIndexesInRange:
-                                                 NSMakeRange(
-                                                     0, [_rowValues count])]
-                             forKeyPath: _valueKeyPath
-                                options: 0
-                                context: &NSMultipleValueBinderChangeContext];
+                        toObjectsAtIndexes:
+                                [NSIndexSet
+                                        indexSetWithIndexesInRange:
+                                                NSMakeRange(0,
+                                                            [_rowValues count])]
+                                forKeyPath: _valueKeyPath
+                                   options: 0
+                                   context: &
+                                            NSMultipleValueBinderChangeContext];
         } @catch (id ex) {
             NSLog(@"%@", ex);
         }
@@ -172,11 +174,12 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
             [_destination removeObserver: self forKeyPath: _arrayKeyPath];
             if (![_valueKeyPath hasPrefix: @"@"])
                 [_rowValues removeObserver: self
-                      fromObjectsAtIndexes: [NSIndexSet
-                                                indexSetWithIndexesInRange:
-                                                    NSMakeRange(
-                                                        0, [_rowValues count])]
-                                forKeyPath: _valueKeyPath];
+                        fromObjectsAtIndexes:
+                                [NSIndexSet
+                                        indexSetWithIndexesInRange:
+                                                NSMakeRange(0,
+                                                            [_rowValues count])]
+                                  forKeyPath: _valueKeyPath];
         } @catch (id ex) {
             NSLog(@"%@", ex);
         }
@@ -211,7 +214,7 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
             [[_source tableView] reloadData];
 
         if ([_destination
-                respondsToSelector: @selector(_selectionMayHaveChanged)])
+                    respondsToSelector: @selector(_selectionMayHaveChanged)])
             [_destination performSelector: @selector(_selectionMayHaveChanged)];
     }
 }
@@ -227,10 +230,10 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
     [self startObservingChanges];
 
     if ([self createsSortDescriptor] && [_binding isEqual: @"value"]) {
-        [_source
-            setSortDescriptorPrototype: [[[NSSortDescriptor alloc]
-                                            initWithKey: _valueKeyPath
-                                              ascending: YES] autorelease]];
+        [_source setSortDescriptorPrototype: [[[NSSortDescriptor alloc]
+                                                     initWithKey: _valueKeyPath
+                                                       ascending: YES]
+                                                     autorelease]];
     }
     if ([_source respondsToSelector: @selector
                  (_establishBindingsWithDestinationIfUnbound:)]) {
@@ -247,14 +250,14 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
 
 - (NSString *) description {
     return [NSString
-        stringWithFormat: @"%@ %@", [super description], [self rowValues]];
+            stringWithFormat: @"%@ %@", [super description], [self rowValues]];
 }
 
 - (void) updateRowValues {
     id value = [_destination valueForKeyPath: _arrayKeyPath];
     if (![value respondsToSelector: @selector(objectAtIndex:)])
         value = [[[_NSMultipleValueWrapperArray alloc] initWithObject: value]
-            autorelease];
+                autorelease];
     [self setRowValues: value];
 }
 @end

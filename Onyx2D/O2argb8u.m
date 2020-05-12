@@ -34,8 +34,8 @@ void O2ApplyCoverageToSpan_largb8u_PRE(O2argb8u *dst, int coverage,
             O2argb8u d = *dst;
 
             *dst = O2argb8uAdd(
-                O2argb8uMultiplyByCoverageNoBypass(r, coverage),
-                O2argb8uMultiplyByCoverageNoBypass(d, oneMinusCoverage));
+                    O2argb8uMultiplyByCoverageNoBypass(r, coverage),
+                    O2argb8uMultiplyByCoverageNoBypass(d, oneMinusCoverage));
         }
     }
 }
@@ -120,14 +120,18 @@ void O2argb8u_sover_by_coverage(O2argb8u *src, O2argb8u *dst, unsigned coverage,
                 O2argb8u d = *dst;
                 uint32_t sa = 255 - s.a;
 
-                r.a = RI_UINT32_MIN(
-                    (uint32_t) s.a + O2Image_8u_mul_8u_div_255(d.a, sa), 255);
-                r.r = RI_UINT32_MIN(
-                    (uint32_t) s.r + O2Image_8u_mul_8u_div_255(d.r, sa), 255);
-                r.g = RI_UINT32_MIN(
-                    (uint32_t) s.g + O2Image_8u_mul_8u_div_255(d.g, sa), 255);
-                r.b = RI_UINT32_MIN(
-                    (uint32_t) s.b + O2Image_8u_mul_8u_div_255(d.b, sa), 255);
+                r.a = RI_UINT32_MIN((uint32_t) s.a +
+                                            O2Image_8u_mul_8u_div_255(d.a, sa),
+                                    255);
+                r.r = RI_UINT32_MIN((uint32_t) s.r +
+                                            O2Image_8u_mul_8u_div_255(d.r, sa),
+                                    255);
+                r.g = RI_UINT32_MIN((uint32_t) s.g +
+                                            O2Image_8u_mul_8u_div_255(d.g, sa),
+                                    255);
+                r.b = RI_UINT32_MIN((uint32_t) s.b +
+                                            O2Image_8u_mul_8u_div_255(d.b, sa),
+                                    255);
             }
             *dst = r;
         }
@@ -144,26 +148,30 @@ void O2argb8u_sover_by_coverage(O2argb8u *src, O2argb8u *dst, unsigned coverage,
             dcomp = s.a;
             tmp = ((uint32_t) s.a + O2Image_8u_mul_8u_div_255(dcomp, sa)) *
                   coverage;
-            r.a = RI_UINT32_MIN(
-                (tmp + dcomp * oneMinusCoverage) / COVERAGE_MULTIPLIER, 255);
+            r.a = RI_UINT32_MIN((tmp + dcomp * oneMinusCoverage) /
+                                        COVERAGE_MULTIPLIER,
+                                255);
 
             dcomp = d.r;
             tmp = ((uint32_t) s.r + O2Image_8u_mul_8u_div_255(dcomp, sa)) *
                   coverage;
-            r.r = RI_UINT32_MIN(
-                (tmp + dcomp * oneMinusCoverage) / COVERAGE_MULTIPLIER, 255);
+            r.r = RI_UINT32_MIN((tmp + dcomp * oneMinusCoverage) /
+                                        COVERAGE_MULTIPLIER,
+                                255);
 
             dcomp = d.g;
             tmp = ((uint32_t) s.g + O2Image_8u_mul_8u_div_255(dcomp, sa)) *
                   coverage;
-            r.g = RI_UINT32_MIN(
-                (tmp + dcomp * oneMinusCoverage) / COVERAGE_MULTIPLIER, 255);
+            r.g = RI_UINT32_MIN((tmp + dcomp * oneMinusCoverage) /
+                                        COVERAGE_MULTIPLIER,
+                                255);
 
             dcomp = d.b;
             tmp = ((uint32_t) s.b + O2Image_8u_mul_8u_div_255(dcomp, sa)) *
                   coverage;
-            r.b = RI_UINT32_MIN(
-                (tmp + dcomp * oneMinusCoverage) / COVERAGE_MULTIPLIER, 255);
+            r.b = RI_UINT32_MIN((tmp + dcomp * oneMinusCoverage) /
+                                        COVERAGE_MULTIPLIER,
+                                255);
 
             *dst = r;
         }
@@ -313,19 +321,19 @@ void O2BlendSpanXOR_8888(O2argb8u *src, O2argb8u *dst, int length) {
 
         r.r = RI_INT_MIN(((unsigned) s.r * (255 - (unsigned) d.a) +
                           (unsigned) d.r * (255 - (unsigned) s.a)) /
-                             255,
+                                 255,
                          255);
         r.g = RI_INT_MIN(((unsigned) s.g * (255 - (unsigned) d.a) +
                           (unsigned) d.g * (255 - (unsigned) s.a)) /
-                             255,
+                                 255,
                          255);
         r.b = RI_INT_MIN(((unsigned) s.b * (255 - (unsigned) d.a) +
                           (unsigned) d.b * (255 - (unsigned) s.a)) /
-                             255,
+                                 255,
                          255);
         r.a = RI_INT_MIN(((unsigned) s.a * (255 - (unsigned) d.a) +
                           (unsigned) d.a * (255 - (unsigned) s.a)) /
-                             255,
+                                 255,
                          255);
 
         src[i] = r;

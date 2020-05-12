@@ -66,8 +66,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + dataWithCapacity: (NSUInteger) capacity {
-    return
-        [[[self allocWithZone: NULL] initWithCapacity: capacity] autorelease];
+    return [[[self allocWithZone: NULL] initWithCapacity: capacity]
+            autorelease];
 }
 
 + dataWithLength: (NSUInteger) length {

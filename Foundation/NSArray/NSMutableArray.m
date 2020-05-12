@@ -90,10 +90,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + arrayWithCapacity: (NSUInteger) capacity {
     if (self == [NSMutableArray class])
         return NSAutorelease(
-            NSMutableArray_concreteNewWithCapacity(NULL, capacity));
+                NSMutableArray_concreteNewWithCapacity(NULL, capacity));
 
-    return
-        [[[self allocWithZone: NULL] initWithCapacity: capacity] autorelease];
+    return [[[self allocWithZone: NULL] initWithCapacity: capacity]
+            autorelease];
 }
 
 + arrayWithObjects: first, ... {
@@ -374,8 +374,8 @@ static int _nsmutablearraycompareindices(const void *v1, const void *v2) {
           withObjectsFromArray: (NSArray *) array
 {
     [self replaceObjectsInRange: range
-           withObjectsFromArray: array
-                          range: NSMakeRange(0, [array count])];
+            withObjectsFromArray: array
+                           range: NSMakeRange(0, [array count])];
 }
 
 - (void) replaceObjectsInRange: (NSRange) range
@@ -501,7 +501,7 @@ static NSComparisonResult compareObjectsUsingDescriptors(id A, id B,
 }
 
 - (NSUInteger) _insertObject: (id) obj
-    inArraySortedByDescriptors: (NSArray *) descriptors
+        inArraySortedByDescriptors: (NSArray *) descriptors
 {
     NSUInteger start = 0;
     NSUInteger end = [self count];
@@ -511,7 +511,7 @@ static NSComparisonResult compareObjectsUsingDescriptors(id A, id B,
     while (mid = (start + end) / 2, start < end) {
         id other = [self objectAtIndex: mid];
         NSComparisonResult res =
-            compareObjectsUsingDescriptors(obj, other, descriptors);
+                compareObjectsUsingDescriptors(obj, other, descriptors);
 
         if (res == NSOrderedAscending) {
             end = mid;

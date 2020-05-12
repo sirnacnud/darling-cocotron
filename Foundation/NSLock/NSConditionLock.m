@@ -25,7 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + allocWithZone: (NSZone *) zone {
     if (self == [NSConditionLock class])
         return NSAllocateObject(
-            [[NSPlatform currentPlatform] conditionLockClass], 0, zone);
+                [[NSPlatform currentPlatform] conditionLockClass], 0, zone);
     else
         return NSAllocateObject(self, 0, zone);
 }

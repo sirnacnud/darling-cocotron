@@ -89,7 +89,7 @@ NSStringEncoding defaultEncoding() {
         if (defaultEncoding == -1) {
             // set the default to ASCII
             defaultEncoding =
-                NSISOLatin1StringEncoding; // FIXME: should be utf8?
+                    NSISOLatin1StringEncoding; // FIXME: should be utf8?
         }
     }
 

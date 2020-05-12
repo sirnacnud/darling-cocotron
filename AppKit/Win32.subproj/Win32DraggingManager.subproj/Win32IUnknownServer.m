@@ -32,8 +32,9 @@ static id COMObjectToSelf(void *This) {
     return comObject->object;
 }
 
-static HRESULT STDMETHODCALLTYPE __RPC_FAR QueryInterface(
-    IUnknown __RPC_FAR *This, REFIID riid, void __RPC_FAR *__RPC_FAR *ppvObject)
+static HRESULT STDMETHODCALLTYPE __RPC_FAR
+QueryInterface(IUnknown __RPC_FAR *This, REFIID riid,
+               void __RPC_FAR *__RPC_FAR *ppvObject)
 {
     return [COMObjectToSelf(This) QueryInterface: riid: ppvObject];
 }
@@ -77,17 +78,17 @@ Drop(IDropTarget __RPC_FAR *This, IDataObject __RPC_FAR *dataObject,
 }
 
 static IDropTargetVtbl IDropTargetVTable = {
-    (void *) QueryInterface,
-    (void *) AddRef,
-    (void *) Release,
-    DragEnter,
-    DragOver,
-    DragLeave,
-    Drop,
+        (void *) QueryInterface,
+        (void *) AddRef,
+        (void *) Release,
+        DragEnter,
+        DragOver,
+        DragLeave,
+        Drop,
 };
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR QueryContinueDrag(
-    IDropSource __RPC_FAR *This, int fEscapePressed, DWORD grfKeyState)
+        IDropSource __RPC_FAR *This, int fEscapePressed, DWORD grfKeyState)
 {
     return [COMObjectToSelf(This) QueryContinueDrag:
                                      fEscapePressed: grfKeyState];
@@ -100,8 +101,8 @@ GiveFeedback(IDropSource __RPC_FAR *This, DWORD dwEffect)
 }
 
 static IDropSourceVtbl IDropSourceVTable = {
-    (void *) QueryInterface,    (void *) AddRef,       (void *) Release,
-    (void *) QueryContinueDrag, (void *) GiveFeedback,
+        (void *) QueryInterface,    (void *) AddRef,       (void *) Release,
+        (void *) QueryContinueDrag, (void *) GiveFeedback,
 };
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
@@ -125,8 +126,8 @@ QueryGetData(IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetc)
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR GetCanonicalFormatEtc(
-    IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatectIn,
-    FORMATETC __RPC_FAR *pformatetcOut)
+        IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatectIn,
+        FORMATETC __RPC_FAR *pformatetcOut)
 {
     return [COMObjectToSelf(This) GetCanonicalFormatEtc:
                                            pformatectIn: pformatetcOut];
@@ -146,9 +147,10 @@ EnumFormatEtc(IDataObject __RPC_FAR *This, DWORD dwDirection,
     return [COMObjectToSelf(This) EnumFormatEtc: dwDirection: ppenumFormatEtc];
 }
 
-static HRESULT STDMETHODCALLTYPE __RPC_FAR DAdvise(
-    IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetc, DWORD advf,
-    IAdviseSink __RPC_FAR *pAdvSink, DWORD __RPC_FAR *pdwConnection)
+static HRESULT STDMETHODCALLTYPE __RPC_FAR
+DAdvise(IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetc,
+        DWORD advf, IAdviseSink __RPC_FAR *pAdvSink,
+        DWORD __RPC_FAR *pdwConnection)
 {
     return [COMObjectToSelf(This) DAdvise:
                                pformatetc: advf:pAdvSink:pdwConnection];
@@ -197,8 +199,9 @@ HRESULT STDMETHODCALLTYPE __RPC_FAR Reset(IEnumFORMATETC __RPC_FAR *This) {
     return [COMObjectToSelf(This) Reset];
 }
 
-HRESULT STDMETHODCALLTYPE __RPC_FAR Clone(
-    IEnumFORMATETC __RPC_FAR *This, IEnumFORMATETC __RPC_FAR *__RPC_FAR *ppenum)
+HRESULT STDMETHODCALLTYPE __RPC_FAR
+Clone(IEnumFORMATETC __RPC_FAR *This,
+      IEnumFORMATETC __RPC_FAR *__RPC_FAR *ppenum)
 {
     return [COMObjectToSelf(This) Clone: ppenum];
 }
@@ -232,27 +235,27 @@ static IEnumFORMATETCVtbl IEnumFORMATETCVTable = {(void *) QueryInterface,
 }
 
 - initAsIDropTarget {
-    return [self
-             initWithVtable: &IDropTargetVTable
-        interfaceIdentifier: OLESTR("{00000122-0000-0000-C000-000000000046}")];
+    return [self initWithVtable: &IDropTargetVTable
+            interfaceIdentifier:
+                    OLESTR("{00000122-0000-0000-C000-000000000046}")];
 }
 
 - initAsIDropSource {
-    return [self
-             initWithVtable: &IDropSourceVTable
-        interfaceIdentifier: OLESTR("{00000121-0000-0000-C000-000000000046}")];
+    return [self initWithVtable: &IDropSourceVTable
+            interfaceIdentifier:
+                    OLESTR("{00000121-0000-0000-C000-000000000046}")];
 }
 
 - initAsIDataObject {
-    return [self
-             initWithVtable: &IDataObjectVTable
-        interfaceIdentifier: OLESTR("{0000010E-0000-0000-C000-000000000046}")];
+    return [self initWithVtable: &IDataObjectVTable
+            interfaceIdentifier:
+                    OLESTR("{0000010E-0000-0000-C000-000000000046}")];
 }
 
 - initAsIEnumFORMATETC {
-    return [self
-             initWithVtable: &IEnumFORMATETCVTable
-        interfaceIdentifier: OLESTR("{00000103-0000-0000-C000-000000000046}")];
+    return [self initWithVtable: &IEnumFORMATETCVTable
+            interfaceIdentifier:
+                    OLESTR("{00000103-0000-0000-C000-000000000046}")];
 }
 
 - (void *) iUknown {
