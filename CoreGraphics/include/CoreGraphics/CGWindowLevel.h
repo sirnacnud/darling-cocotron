@@ -1,3 +1,8 @@
+#ifndef CGWINDOWLEVEL_H
+#define CGWINDOWLEVEL_H
+
+typedef int32_t CGWindowLevel;
+
 enum {
     kCGNormalWindowLevel,
     kCGFloatingWindowLevel,
@@ -8,3 +13,5 @@ enum {
     kCGPopUpMenuWindowLevel,
     kCGScreenSaverWindowLevel,
 };
+
+#endif

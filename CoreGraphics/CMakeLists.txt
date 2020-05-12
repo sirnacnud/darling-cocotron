@@ -41,6 +41,10 @@ set_property(SOURCE
 	CGWindow.m
 	CGSubWindow.m
 	CGS.m
+	CGSConnection.m
+	CGSWindow.m
+	CGSSurface.m
+	CGSRegion.m
 
 	APPEND PROPERTY COMPILE_FLAGS "-include Foundation/Foundation.h"
 )
@@ -98,6 +102,10 @@ set(CoreGraphics_sources
 	CGSubWindow.m
 	CGDisplayFade.m
 	CGS.m
+	CGSConnection.m
+	CGSWindow.m
+	CGSSurface.m
+	CGSRegion.m
 	# KTFont+PDF.m 'KGPDFArray.h' file not found
 )
 
@@ -118,6 +126,6 @@ add_framework(CoreGraphics
 		CoreFoundation
 		Foundation
 		Onyx2D
-		OpenGL
+		GL
 		IOKit
 )
