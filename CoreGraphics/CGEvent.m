@@ -19,6 +19,7 @@
 
 #include <CoreGraphics/CGEvent.h>
 #include <stdarg.h>
+#import <Foundation/NSKeyedArchiver.h>
 #import "CGEventObjC.h"
 
 CFTypeID CGEventGetTypeID(void)
@@ -39,12 +40,25 @@ CGEventRef CGEventCreateCopy(CGEventRef event)
 CFDataRef CGEventCreateData(CFAllocatorRef allocator, CGEventRef event)
 {
 	CGEvent* e = (CGEvent*) event;
-	return (CFDataRef) [e createData];
+	NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] init];
+
+	[e encodeWithCoder: archiver];
+
+	NSData* data = [[archiver encodedData] retain];
+	[archiver release];
+
+	return data;
 }
 
 CGEventRef CGEventCreateFromData(CFAllocatorRef allocator, CFDataRef data)
 {
-	CGEvent* e = [[CGEvent alloc] initWithData: (NSData*) data];
+	NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
+	
+	CGEvent* e = [[CGEvent alloc] initWithCoder: unarchiver];
+
+	[unarchiver finishDecoding];
+	[unarchiver release];
+	
 	return (CGEventRef) e;
 }
 

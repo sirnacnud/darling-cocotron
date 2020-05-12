@@ -52,15 +52,12 @@
 	return self;
 }
 
--(instancetype) initWithData:(NSData*) data
+-(instancetype) initWithCoder:(NSCoder*) coder
 {
-	// TODO
-	NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData: data];
+	NSKeyedUnarchiver* unarchiver = (NSKeyedUnarchiver*) coder;
 	
+	// TODO
 
-
-	[unarchiver finishDecoding];
-	[unarchiver release];
 	return self;
 }
 
@@ -111,9 +108,9 @@
 	return _unicodeString;
 }
 
--(NSData*) createData
+-(void) encodeWithCoder:(NSCoder*) coder
 {
-	NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] init];
+	NSKeyedArchiver* archiver = (NSKeyedArchiver*) coder;
 
 	CGEventSourceStateID stateId = _source.stateID;
 	[archiver encodeInt: stateId forKey:@"stateId"];
@@ -133,11 +130,6 @@
 	{
 		[archiver encodeInt: _wheels[i] forKey:[NSString stringWithFormat:@"wheel-%d", i]];
 	}
-
-	NSData* data = [[archiver encodedData] retain];
-	[archiver release];
-
-	return data;
 }
 @end
 

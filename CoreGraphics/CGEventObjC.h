@@ -27,7 +27,7 @@
 
 @class CGEventSource;
 
-@interface CGEvent : NSObject <NSCopying> {
+@interface CGEvent : NSObject <NSCopying, NSCoding> {
 	CGEventSource* _source;
 	CGEventType _type;
 	CGEventTimestamp _timestamp;
