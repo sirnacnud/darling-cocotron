@@ -89,7 +89,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // This function is duplicated in NSButtonCell, consolidate
 static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
-                                         NSImageScaling scaling) {
+                                         NSImageScaling scaling)
+{
 
     switch (scaling) {
     case NSImageScaleProportionallyDown: {
@@ -173,8 +174,8 @@ static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
     return frame;
 }
 
-- (void) drawInteriorWithFrame: (NSRect) controlFrame
-                        inView: (NSView *) control {
+- (void) drawInteriorWithFrame: (NSRect) controlFrame inView: (NSView *) control
+{
     if ([self _imageValue] != nil) {
 
         CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];

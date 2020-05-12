@@ -34,7 +34,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (id) initWithRect: (NSRect) rect
             options: (NSTrackingAreaOptions) options
               owner: (id) owner
-           userInfo: (NSDictionary *) userInfo {
+           userInfo: (NSDictionary *) userInfo
+{
     return [self _initWithRect: rect
                        options: options
                          owner: owner
@@ -50,7 +51,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             userData: (void *) userData
       retainUserData: (BOOL) retainUserData
            isToolTip: (BOOL) isToolTip
-            isLegacy: (BOOL) legacy {
+            isLegacy: (BOOL) legacy
+{
     self = [super init];
     if (self != nil) {
         _rect = rect;

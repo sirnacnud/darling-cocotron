@@ -67,7 +67,8 @@ static NSMutableDictionary *_storeTypes = nil;
 }
 
 + (void) registerStoreClass: (Class) storeClass
-               forStoreType: (NSString *) storeType {
+               forStoreType: (NSString *) storeType
+{
     [_storeTypes setObject: storeClass forKey: storeType];
 }
 
@@ -93,7 +94,8 @@ static NSMutableDictionary *_storeTypes = nil;
                                      configuration: (NSString *) configuration
                                                URL: (NSURL *) storeURL
                                            options: (NSDictionary *) options
-                                             error: (NSError **) error {
+                                             error: (NSError **) error
+{
     /* It appears that this method will determine the store type if it is nil */
     if (storeType == nil) {
 
@@ -126,7 +128,8 @@ static NSMutableDictionary *_storeTypes = nil;
 }
 
 - (BOOL) removePersistentStore: (NSPersistentStore *) store
-                         error: (NSError **) error {
+                         error: (NSError **) error
+{
     NSArray *remove = [NSArray arrayWithObject: store];
     NSDictionary *userInfo =
         [NSDictionary dictionaryWithObject: remove
@@ -149,7 +152,8 @@ static NSMutableDictionary *_storeTypes = nil;
                                          toURL: (NSURL *) URL
                                        options: (NSDictionary *) options
                                       withType: (NSString *) storeType
-                                         error: (NSError **) error {
+                                         error: (NSError **) error
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -190,14 +194,16 @@ static NSMutableDictionary *_storeTypes = nil;
 }
 
 - (void) setMetadata: (NSDictionary *) value
-    forPersistentStore: (NSPersistentStore *) store {
+    forPersistentStore: (NSPersistentStore *) store
+{
     [store setMetadata: value];
 }
 
 + (BOOL) setMetadata: (NSDictionary *) metadata
     forPersistentStoreOfType: (NSString *) storeType
                          URL: (NSURL *) url
-                       error: (NSError **) error {
+                       error: (NSError **) error
+{
     Class check = [[self registeredStoreTypes] objectForKey: storeType];
 
     return [check setMetadata: metadata
@@ -207,14 +213,15 @@ static NSMutableDictionary *_storeTypes = nil;
 
 + (NSDictionary *) metadataForPersistentStoreOfType: (NSString *) storeType
                                                 URL: (NSURL *) url
-                                              error: (NSError **) error {
+                                              error: (NSError **) error
+{
     Class check = [[self registeredStoreTypes] objectForKey: storeType];
 
     return [check metadataForPersistentStoreWithURL: url error: error];
 }
 
-- (NSPersistentStore *) _persistentStoreWithIdentifier:
-    (NSString *) identifier {
+- (NSPersistentStore *) _persistentStoreWithIdentifier: (NSString *) identifier
+{
     for (NSPersistentStore *check in _stores)
         if ([[check identifier] isEqualToString: identifier])
             return check;
@@ -223,7 +230,8 @@ static NSMutableDictionary *_storeTypes = nil;
 }
 
 - (NSPersistentStore *) _persistentStoreForObjectID:
-    (NSManagedObjectID *) objectID {
+    (NSManagedObjectID *) objectID
+{
     NSEntityDescription *entity = [objectID entity];
     NSString *storeIdentifier = [objectID storeIdentifier];
     NSPersistentStore *check =

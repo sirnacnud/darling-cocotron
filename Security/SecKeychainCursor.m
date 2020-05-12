@@ -4,7 +4,8 @@
 
 - initWithRegistryPath: (NSArray *) path
              itemClass: (SecItemClass) itemClass
-                handle: (HKEY) handle {
+                handle: (HKEY) handle
+{
     _path = [path copy];
     _itemClass = itemClass;
     _handle = handle;

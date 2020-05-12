@@ -26,14 +26,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithOperators: (unsigned char *) elements
     numberOfElements: (size_t) numberOfElements
               points: (O2Point *) points
-      numberOfPoints: (size_t) numberOfPoints {
+      numberOfPoints: (size_t) numberOfPoints
+{
     return O2PathInitWithOperators(self, elements, numberOfElements, points,
                                    numberOfPoints);
 }
 
 id O2PathInitWithOperators(O2Path *self, unsigned char *elements,
                            size_t numberOfElements, O2Point *points,
-                           size_t numberOfPoints) {
+                           size_t numberOfPoints)
+{
     size_t i;
 
     self->_numberOfElements = numberOfElements;
@@ -185,7 +187,8 @@ BOOL O2PathIsRect(O2PathRef self, O2Rect *rect) {
 //    See: the January 2001 Algorithm "Area of 2D and 3D Triangles and Polygons"
 
 static O2Float _positionOfPointToLine(O2Point point, O2Point lineStart,
-                                      O2Point lineEnd) {
+                                      O2Point lineEnd)
+{
     O2Float position = ((lineEnd.x - lineStart.x) * (point.y - lineStart.y) -
                         (point.x - lineStart.x) * (lineEnd.y - lineStart.y));
 
@@ -193,7 +196,8 @@ static O2Float _positionOfPointToLine(O2Point point, O2Point lineStart,
 }
 
 static BOOL _curveIsFlat(O2Float desiredFlatness, O2Point start, O2Point cp1,
-                         O2Point cp2, O2Point end) {
+                         O2Point cp2, O2Point end)
+{
     // Roughly compute the furthest distance of the curved path from the line
     // connecting start to end
     double ux = 3.0 * cp1.x - 2.0 * start.x - end.x;
@@ -212,7 +216,8 @@ static BOOL _curveIsFlat(O2Float desiredFlatness, O2Point start, O2Point cp1,
 }
 
 int _countEvenOddCrossingOfPointAndLine(O2Point point, O2Point lineStart,
-                                        O2Point lineEnd) {
+                                        O2Point lineEnd)
+{
     if (((lineStart.y <= point.y) &&
          (lineEnd.y > point.y)) || // an upward crossing
         ((lineStart.y > point.y) &&
@@ -231,7 +236,8 @@ int _countEvenOddCrossingOfPointAndLine(O2Point point, O2Point lineStart,
 }
 
 int _countWindingAroundPointByLine(O2Point point, O2Point lineStart,
-                                   O2Point lineEnd) {
+                                   O2Point lineEnd)
+{
     if (lineStart.y <= point.y) {
         if (lineEnd.y > point.y) { // an upward crossing
             if (_positionOfPointToLine(point, lineStart, lineEnd) >
@@ -255,7 +261,8 @@ int _countWindingAroundPointByLine(O2Point point, O2Point lineStart,
 // Count the crossings on the Y axis from the point to a bezier curve
 int _countYCrossingFromPointToCurve(O2Point point, O2Point curveFromPoint,
                                     O2Point curveToPoint, O2Point tan1,
-                                    O2Point tan2, BOOL evenOdd) {
+                                    O2Point tan2, BOOL evenOdd)
+{
     int count = 0;
 
     // No need to test if there no chance of any crossing
@@ -303,7 +310,8 @@ int _countYCrossingFromPointToCurve(O2Point point, O2Point curveFromPoint,
 }
 
 BOOL O2PathContainsPoint(O2PathRef self, const O2AffineTransform *xform,
-                         O2Point point, BOOL evenOdd) {
+                         O2Point point, BOOL evenOdd)
+{
     if (O2PathIsEmpty(self)) {
         return NO;
     }
@@ -456,14 +464,15 @@ void O2PathApply(O2PathRef self, void *info, O2PathApplierFunction function) {
 }
 
 O2PathRef O2PathCreateWithEllipseInRect(O2Rect rect,
-                                        const O2AffineTransform *transform) {
+                                        const O2AffineTransform *transform)
+{
     O2MutablePathRef path = O2PathCreateMutable();
     O2PathAddEllipseInRect(path, transform, rect);
     return path;
 }
 
-O2PathRef O2PathCreateWithRect(O2Rect rect,
-                               const O2AffineTransform *transform) {
+O2PathRef O2PathCreateWithRect(O2Rect rect, const O2AffineTransform *transform)
+{
     O2MutablePathRef path = O2PathCreateMutable();
     O2PathAddRect(path, transform, rect);
     return path;

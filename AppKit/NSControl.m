@@ -315,7 +315,8 @@ static NSMutableDictionary *cellClassDictionary = nil;
 
 - (void) setFloatingPointFormat: (BOOL) fpp
                            left: (NSUInteger) left
-                          right: (NSUInteger) right {
+                          right: (NSUInteger) right
+{
     [_cell setFloatingPointFormat: fpp left: left right: right];
 }
 

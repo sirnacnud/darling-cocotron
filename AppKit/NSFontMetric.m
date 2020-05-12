@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithSize: (NSSize) size
       ascender: (CGFloat) ascender
-     descender: (CGFloat) descender {
+     descender: (CGFloat) descender
+{
     _size = size;
     _ascender = ascender;
     _descender = descender;

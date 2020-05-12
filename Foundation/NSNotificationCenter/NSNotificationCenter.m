@@ -58,7 +58,8 @@ static NSNotificationCenter *defaultCenter = nil;
 - (void) addObserver: anObserver
             selector: (SEL) selector
                 name: (NSString *) name
-              object: object {
+              object: object
+{
     @synchronized(self) {
         NSNotificationObserver *observer =
             [[[NSNotificationObserver allocWithZone: [self zone]]
@@ -148,7 +149,8 @@ static NSNotificationCenter *defaultCenter = nil;
 }
 
 static inline void postNotification(NSNotificationCenter *self,
-                                    NSNotification *note) {
+                                    NSNotification *note)
+{
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
 
     @synchronized(self) {
@@ -169,7 +171,8 @@ static inline void postNotification(NSNotificationCenter *self,
 
 - (void) postNotificationName: (NSString *) name
                        object: object
-                     userInfo: (NSDictionary *) userInfo {
+                     userInfo: (NSDictionary *) userInfo
+{
     NSNotification *note =
         NSNotification_concreteNew(NULL, name, object, userInfo);
     postNotification(self, note);

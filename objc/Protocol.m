@@ -25,8 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #define PROTOCOL_CLASS "Protocol"
 
-static SEL
-OBJCRegisterMethodDescription(struct objc_method_description *method) {
+static SEL OBJCRegisterMethodDescription(struct objc_method_description *method)
+{
     return sel_registerNameNoCopy((const char *) method->name);
 }
 
@@ -66,7 +66,8 @@ void OBJCRegisterProtocol(OBJCProtocolTemplate *template) {
 }
 
 - (struct objc_method_description *) descriptionForInstanceMethod:
-    (SEL) selector {
+    (SEL) selector
+{
     struct objc_protocol_list *list;
     unsigned i;
 

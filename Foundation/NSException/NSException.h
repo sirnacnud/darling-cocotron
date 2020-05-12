@@ -78,8 +78,7 @@ typedef struct NSExceptionFrame {
 FOUNDATION_EXPORT void __NSPushExceptionFrame(NSExceptionFrame *frame);
 FOUNDATION_EXPORT void __NSPopExceptionFrame(NSExceptionFrame *frame);
 
-#define NS_DURING                                                              \
-    {                                                                          \
+#define NS_DURING {                                                            \
         NSExceptionFrame __exceptionFrame;                                     \
         __NSPushExceptionFrame(&__exceptionFrame);                             \
         if (setjmp(__exceptionFrame.state) == 0) {
@@ -97,14 +96,12 @@ FOUNDATION_EXPORT void __NSPopExceptionFrame(NSExceptionFrame *frame);
     }                                                                          \
     }
 
-#define NS_VALUERETURN(val, type)                                              \
-    {                                                                          \
+#define NS_VALUERETURN(val, type) {                                            \
         __NSPopExceptionFrame(&__exceptionFrame);                              \
         return val;                                                            \
     }
 
-#define NS_VOIDRETURN                                                          \
-    {                                                                          \
+#define NS_VOIDRETURN {                                                        \
         __NSPopExceptionFrame(&__exceptionFrame);                              \
         return;                                                                \
     }

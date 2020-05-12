@@ -123,7 +123,8 @@ CFMutableDictionaryRef IOServiceMatching(const char *name) {
 }
 
 io_service_t IOServiceGetMatchingService(mach_port_t masterPort,
-                                         CFDictionaryRef matching) {
+                                         CFDictionaryRef matching)
+{
     NSString *type = [matching objectForKey: CFSTR(kIOProviderClassKey)];
 
     if ([type isEqual: @"IOPlatformExpertDevice"])
@@ -134,7 +135,8 @@ io_service_t IOServiceGetMatchingService(mach_port_t masterPort,
 
 kern_return_t IOServiceGetMatchingServices(mach_port_t masterPort,
                                            CFDictionaryRef matching,
-                                           io_iterator_t *existing) {
+                                           io_iterator_t *existing)
+{
     NSMutableArray *result = [NSMutableArray array];
     NSString *type = [matching objectForKey: CFSTR(kIOProviderClassKey)];
 
@@ -158,7 +160,8 @@ kern_return_t IOServiceGetMatchingServices(mach_port_t masterPort,
 CFTypeRef IORegistryEntryCreateCFProperty(io_registry_entry_t entry,
                                           CFStringRef key,
                                           CFAllocatorRef allocator,
-                                          IOOptionBits options) {
+                                          IOOptionBits options)
+{
     return [entry createCFProperty: key];
 }
 
@@ -168,7 +171,8 @@ io_object_t IOIteratorNext(io_iterator_t iterator) {
 
 kern_return_t IORegistryEntryGetParentEntry(io_registry_entry_t entry,
                                             const io_name_t plane,
-                                            io_registry_entry_t *parent) {
+                                            io_registry_entry_t *parent)
+{
     *parent = [entry createParentEntry: CFSTR(plane)];
     return 0;
 }

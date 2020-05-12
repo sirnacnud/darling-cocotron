@@ -401,14 +401,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [[_customData objectForKey: @"NSBorderWidth2"] doubleValue];
 }
 
-- (CGFloat) cornerRadius;
-{ return [[_customData objectForKey: @"NSCornerRadius2"] doubleValue]; }
+- (CGFloat) cornerRadius; {
+    return [[_customData objectForKey: @"NSCornerRadius2"] doubleValue];
+}
 
-- (NSColor *) borderColor;
-{ return [_customData objectForKey: @"NSBorderColor2"]; }
+- (NSColor *) borderColor; {
+    return [_customData objectForKey: @"NSBorderColor2"];
+}
 
-- (NSColor *) fillColor;
-{ return [_customData objectForKey: @"NSFillColor2"]; }
+- (NSColor *) fillColor; {
+    return [_customData objectForKey: @"NSFillColor2"];
+}
 
 - (void) setBorderWidth: (CGFloat) value {
     [_customData setObject: [NSNumber numberWithDouble: value]

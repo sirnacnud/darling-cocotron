@@ -51,7 +51,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithCharactersNoCopy: (unichar *) characters
                     length: (NSUInteger) length
-              freeWhenDone: (BOOL) freeWhenDone {
+              freeWhenDone: (BOOL) freeWhenDone
+{
     NSDeallocateObject(self);
     return (NSString_placeholder *) NSString_unicodePtrNewNoCopy(
         NULL, characters, length, freeWhenDone);
@@ -61,7 +62,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // encoding:(NSStringEncoding)encoding;
 - initWithBytes: (const void *) bytes
          length: (NSUInteger) length
-       encoding: (NSStringEncoding) encoding {
+       encoding: (NSStringEncoding) encoding
+{
     NSDeallocateObject(self);
 
     if (encoding == defaultEncoding()) {
@@ -140,7 +142,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithFormat: (NSString *) format
           locale: (NSDictionary *) locale
-       arguments: (va_list) arguments {
+       arguments: (va_list) arguments
+{
     NSDeallocateObject(self);
 
     return (NSString_placeholder *) NSStringNewWithFormat(format, locale,

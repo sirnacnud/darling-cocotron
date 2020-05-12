@@ -480,7 +480,8 @@ size_t O2FontGetNumberOfGlyphs(O2FontRef self) {
 }
 
 BOOL O2FontGetGlyphAdvances(O2FontRef self, const O2Glyph *glyphs, size_t count,
-                            int *advances) {
+                            int *advances)
+{
     size_t i;
 
     if (self->_advances == NULL)

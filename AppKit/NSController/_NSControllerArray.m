@@ -42,7 +42,8 @@
 - (void) addObserver: (id) observer
           forKeyPath: (NSString *) keyPath
              options: (NSKeyValueObservingOptions) options
-             context: (void *) context {
+             context: (void *) context
+{
     // init the proxy
     _NSObservationProxy *proxy =
         [[_NSObservationProxy alloc] initWithKeyPath: keyPath

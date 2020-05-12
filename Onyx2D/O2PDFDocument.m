@@ -114,7 +114,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (O2PDFPage *) pageAtNumber: (int) pageNumber
                        pages: (O2PDFDictionary *) pages
-                 pagesOffset: (int) pagesOffset {
+                 pagesOffset: (int) pagesOffset
+{
     O2PDFArray *kids;
     O2PDFInteger i, kidsCount, pageCount;
 

@@ -130,7 +130,8 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
 - (void) addAddress: (const void *) rdata
              length: (uint16_t) rdlen
                type: (uint16_t) rrtype
-     interfaceIndex: (uint32_t) interface {
+     interfaceIndex: (uint32_t) interface
+{
     NSData *data = nil;
 
     switch (rrtype) {
@@ -160,7 +161,8 @@ NSString *const NSNetServicesErrorDomain = @"NSNetServicesErrorDomain";
                  class: (uint16_t) rrclass
                 length: (uint16_t) rdlen
                   data: (const void *) rdata
-                   ttl: (uint32_t) ttl {
+                   ttl: (uint32_t) ttl
+{
     if (errorCode != bonjour_kDNSServiceErr_NoError) {
         [self _invalidateNetService];
 
@@ -287,7 +289,8 @@ static BONJOUR_CALL void
 QueryCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
               uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
               const char *fullname, uint16_t rrtype, uint16_t rrclass,
-              uint16_t rdlen, const void *rdata, uint32_t ttl, void *context) {
+              uint16_t rdlen, const void *rdata, uint32_t ttl, void *context)
+{
     [(NSNetService *) context queryCallback: sdRef
                                       flags: flags
                                   interface: interfaceIndex
@@ -308,7 +311,8 @@ QueryCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                    target: (const char *) hosttarget
                      port: (uint16_t) port
                    length: (uint16_t) txtLen
-                   record: (const char *) txtRecord {
+                   record: (const char *) txtRecord
+{
     if (errorCode != bonjour_kDNSServiceErr_NoError) {
         [self _invalidateNetService];
         [self _didNotResolve: bonjour_CreateError(self, errorCode)];
@@ -358,8 +362,8 @@ static BONJOUR_CALL void
 ResolverCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                  uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
                  const char *fullname, const char *hosttarget, uint16_t port,
-                 uint16_t txtLen, const unsigned char *txtRecord,
-                 void *context) {
+                 uint16_t txtLen, const unsigned char *txtRecord, void *context)
+{
     [(NSNetService *) context resolverCallback: sdRef
                                          flags: flags
                                      interface: interfaceIndex
@@ -376,7 +380,8 @@ ResolverCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                     error: (bonjour_DNSServiceErrorType) errorCode
                      name: (const char *) name
                      type: (const char *) regtype
-                   domain: (const char *) domain {
+                   domain: (const char *) domain
+{
     if (errorCode != bonjour_kDNSServiceErr_NoError) {
         [self _invalidateNetService];
 
@@ -390,7 +395,8 @@ ResolverCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 static BONJOUR_CALL void
 RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                      bonjour_DNSServiceErrorType errorCode, const char *name,
-                     const char *regtype, const char *domain, void *context) {
+                     const char *regtype, const char *domain, void *context)
+{
     [(NSNetService *) context registerCallback: sdRef
                                          flags: flags
                                          error: errorCode
@@ -400,7 +406,8 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 }
 
 - (void) selectInputSource: (NSSelectInputSource *) inputSource
-               selectEvent: (NSUInteger) selectEvent {
+               selectEvent: (NSUInteger) selectEvent
+{
 
     if (selectEvent & NSSelectReadEvent) {
         bonjour_DNSServiceErrorType err =
@@ -565,13 +572,13 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 }
 
 - (id) init {
-
     return nil;
 }
 
 - initWithDomain: (NSString *) domain
             type: (NSString *) type
-            name: (NSString *) name {
+            name: (NSString *) name
+{
     return [self initWithDomain: domain
                            type: type
                            name: name
@@ -581,7 +588,8 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 - initWithDomain: (NSString *) domain
             type: (NSString *) type
             name: (NSString *) name
-            port: (int) port {
+            port: (int) port
+{
     _domain = [domain copy];
     _type = [type copy];
     _name = [name copy];
@@ -892,7 +900,8 @@ RegistrationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 }
 
 - (BOOL) getInputStream: (NSInputStream **) inputStream
-           outputStream: (NSOutputStream **) outputStream {
+           outputStream: (NSOutputStream **) outputStream
+{
     NSHost *host = [NSHost hostWithName: _host];
 
     if (inputStream || outputStream) {
@@ -943,7 +952,8 @@ static BONJOUR_CALL void
 EnumerationCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                     uint32_t interfaceIndex,
                     bonjour_DNSServiceErrorType errorCode,
-                    const char *replyDomain, void *context) {
+                    const char *replyDomain, void *context)
+{
     [(id) context enumCallback: sdRef
                          flags: flags
                      interface: interfaceIndex
@@ -955,7 +965,8 @@ static BONJOUR_CALL void
 BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                 uint32_t interfaceIndex, bonjour_DNSServiceErrorType errorCode,
                 const char *replyName, const char *replyType,
-                const char *replyDomain, void *context) {
+                const char *replyDomain, void *context)
+{
     [(id) context browseCallback: sdRef
                            flags: flags
                        interface: interfaceIndex
@@ -1026,8 +1037,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
         [_delegate netServiceBrowserDidStopSearch: self];
 }
 
-- (void) _didFindDomain: (NSString *) domainString
-             moreComing: (BOOL) moreComing {
+- (void) _didFindDomain: (NSString *) domainString moreComing: (BOOL) moreComing
+{
 
     if ([_delegate respondsToSelector: @selector
                    (netServiceBrowser:didFindDomain:moreComing:)])
@@ -1037,7 +1048,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 }
 
 - (void) _didRemoveDomain: (NSString *) domainString
-               moreComing: (BOOL) moreComing {
+               moreComing: (BOOL) moreComing
+{
 
     if ([_delegate respondsToSelector: @selector
                    (netServiceBrowser:didRemoveDomain:moreComing:)])
@@ -1047,7 +1059,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 }
 
 - (void) _didFindService: (NSNetService *) aService
-              moreComing: (BOOL) moreComing {
+              moreComing: (BOOL) moreComing
+{
     if ([_delegate respondsToSelector: @selector
                    (netServiceBrowser:didFindService:moreComing:)])
         [_delegate netServiceBrowser: self
@@ -1056,7 +1069,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 }
 
 - (void) _didRemoveService: (NSNetService *) aService
-                moreComing: (BOOL) moreComing {
+                moreComing: (BOOL) moreComing
+{
     if ([_delegate respondsToSelector: @selector
                    (netServiceBrowser:didRemoveService:moreComing:)])
         [_delegate netServiceBrowser: self
@@ -1105,7 +1119,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                 flags: (bonjour_DNSServiceFlags) flags
             interface: (uint32_t) interfaceIndex
                 error: (bonjour_DNSServiceErrorType) errorCode
-               domain: (const char *) replyDomain {
+               domain: (const char *) replyDomain
+{
 
     if (errorCode) {
         [self invalidate];
@@ -1136,7 +1151,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
                   error: (bonjour_DNSServiceErrorType) errorCode
                    name: (const char *) replyName
                    type: (const char *) replyType
-                 domain: (const char *) replyDomain {
+                 domain: (const char *) replyDomain
+{
     if (errorCode != bonjour_kDNSServiceErr_NoError) {
         [self invalidate];
 
@@ -1180,7 +1196,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 }
 
 - (void) selectInputSource: (NSSelectInputSource *) inputSource
-               selectEvent: (NSUInteger) selectEvent {
+               selectEvent: (NSUInteger) selectEvent
+{
     if (selectEvent & NSSelectReadEvent) {
 
         bonjour_DNSServiceErrorType err =
@@ -1219,7 +1236,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
 }
 
 - (void) searchForServicesOfType: (NSString *) serviceType
-                        inDomain: (NSString *) domainName {
+                        inDomain: (NSString *) domainName
+{
     bonjour_DNSServiceErrorType err = bonjour_kDNSServiceErr_NoError;
 
     if (!_delegate)

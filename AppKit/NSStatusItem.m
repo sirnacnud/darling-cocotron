@@ -94,7 +94,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) _w32loadMenuItem: (NSMenuItem *) item
            withIdentifier: (int) i
-                 intoMenu: (HMENU) menu {
+                 intoMenu: (HMENU) menu
+{
     if ([item hasSubmenu]) {
         // Configure Submenu based item
         NSString *title = [item title];
@@ -435,7 +436,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) drawStatusBarBackgroundInRect: (NSRect) rect
-                         withHighlight: (BOOL) highlight {
+                         withHighlight: (BOOL) highlight
+{
     NSUnimplementedMethod();
 }
 

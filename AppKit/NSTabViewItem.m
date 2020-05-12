@@ -32,7 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // enough string if char. 1 + @"..." > rect.size.width
 NSString *_NSTruncatedStringWithAttributesInRect(NSString *string,
                                                  NSDictionary *attributes,
-                                                 NSRect rect) {
+                                                 NSRect rect)
+{
     unsigned length = [string length];
 
     while ([string length] > 1 &&

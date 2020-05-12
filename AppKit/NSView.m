@@ -409,7 +409,8 @@ static void invalidateTransform(NSView *self) {
 
 static CGAffineTransform concatViewTransform(CGAffineTransform result,
                                              NSView *view, NSView *superview,
-                                             BOOL doFrame, BOOL flip) {
+                                             BOOL doFrame, BOOL flip)
+{
     NSRect bounds = [view bounds];
     NSRect frame = [view frame];
 
@@ -687,7 +688,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 }
 
 - (void) cacheDisplayInRect: (NSRect) rect
-           toBitmapImageRep: (NSBitmapImageRep *) imageRep {
+           toBitmapImageRep: (NSBitmapImageRep *) imageRep
+{
     NSUnimplementedMethod();
 }
 
@@ -1142,7 +1144,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 
 - (void) addSubview: (NSView *) view
          positioned: (NSWindowOrderingMode) ordering
-         relativeTo: (NSView *) relativeTo {
+         relativeTo: (NSView *) relativeTo
+{
     NSUInteger index = [_subviews indexOfObjectIdenticalTo: relativeTo];
 
     if (index == NSNotFound)
@@ -1179,7 +1182,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 
 - (void) sortSubviewsUsingFunction:
              (NSComparisonResult (*)(id, id, void *)) compareFunction
-                           context: (void *) context {
+                           context: (void *) context
+{
     NSUnimplementedMethod();
 }
 
@@ -1252,7 +1256,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 
 - (NSToolTipTag) addToolTipRect: (NSRect) rect
                           owner: object
-                       userData: (void *) userData {
+                       userData: (void *) userData
+{
     NSTrackingArea *area = nil;
 
     area = [[NSTrackingArea alloc] _initWithRect: rect
@@ -1407,7 +1412,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 - (NSTrackingRectTag) addTrackingRect: (NSRect) rect
                                 owner: owner
                              userData: (void *) userData
-                         assumeInside: (BOOL) assumeInside {
+                         assumeInside: (BOOL) assumeInside
+{
     NSTrackingAreaOptions options =
         NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways;
     NSTrackingArea *area = nil;
@@ -1605,7 +1611,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 }
 
 - (BOOL) enterFullScreenMode: (NSScreen *) screen
-                 withOptions: (NSDictionary *) options {
+                 withOptions: (NSDictionary *) options
+{
     NSUnimplementedMethod();
     return NO;
 }
@@ -1918,7 +1925,8 @@ static NSRect unionOfInvalidRects(NSView *self) {
 }
 
 static void removeRectFromInvalidInVisibleRect(NSView *self, NSRect rect,
-                                               NSRect visibleRect) {
+                                               NSRect visibleRect)
+{
     int count = self->_invalidRectCount;
 
     while (--count >= 0) {
@@ -2148,8 +2156,8 @@ static NSView *viewBeingPrinted = nil;
     return needsToDrawRect;
 }
 
-- (void) getRectsBeingDrawn: (const NSRect **) rects
-                      count: (NSInteger *) count {
+- (void) getRectsBeingDrawn: (const NSRect **) rects count: (NSInteger *) count
+{
     // This method returns all the rects being drawn concerning the view
     // That's all of the dirty rects from the view, but also all the ones
     // from the superview that might have caused the redraw.
@@ -2230,7 +2238,8 @@ static NSView *viewBeingPrinted = nil;
 }
 
 - (void) getRectsExposedDuringLiveResize: (NSRect) rects
-                                   count: (NSInteger *) count {
+                                   count: (NSInteger *) count
+{
     NSUnimplementedMethod();
 }
 
@@ -2413,7 +2422,8 @@ static NSView *viewBeingPrinted = nil;
 }
 
 - (void) displayRectIgnoringOpacity: (NSRect) rect
-                          inContext: (NSGraphicsContext *) context {
+                          inContext: (NSGraphicsContext *) context
+{
     NSUnimplementedMethod();
 }
 
@@ -2522,14 +2532,16 @@ static NSView *viewBeingPrinted = nil;
 - (void) adjustPageWidthNew: (CGFloat *) adjusted
                        left: (CGFloat) left
                       right: (CGFloat) right
-                      limit: (CGFloat) limit {
+                      limit: (CGFloat) limit
+{
     // FIX, give subviews a chance
 }
 
 - (void) adjustPageHeightNew: (CGFloat *) adjust
                          top: (CGFloat) top
                       bottom: (CGFloat) bottom
-                       limit: (CGFloat) limit {
+                       limit: (CGFloat) limit
+{
     // FIX, give subviews a chance
 }
 
@@ -2570,7 +2582,8 @@ static NSView *viewBeingPrinted = nil;
 }
 
 - (void) writeEPSInsideRect: (NSRect) rect
-               toPasteboard: (NSPasteboard *) pasteboard {
+               toPasteboard: (NSPasteboard *) pasteboard
+{
     NSData *data = [self dataWithEPSInsideRect: rect];
 
     [pasteboard declareTypes: [NSArray arrayWithObject: NSPostScriptPboardType]
@@ -2579,7 +2592,8 @@ static NSView *viewBeingPrinted = nil;
 }
 
 - (void) writePDFInsideRect: (NSRect) rect
-               toPasteboard: (NSPasteboard *) pasteboard {
+               toPasteboard: (NSPasteboard *) pasteboard
+{
     NSData *data = [self dataWithPDFInsideRect: rect];
 
     [pasteboard declareTypes: [NSArray arrayWithObject: NSPDFPboardType]
@@ -2593,7 +2607,8 @@ static NSView *viewBeingPrinted = nil;
              event: (NSEvent *) event
         pasteboard: (NSPasteboard *) pasteboard
             source: source
-         slideBack: (BOOL) slideBack {
+         slideBack: (BOOL) slideBack
+{
     location = [self convertPoint: location toView: nil];
     [[NSDraggingManager draggingManager] dragImage: image
                                                 at: location
@@ -2607,7 +2622,8 @@ static NSView *viewBeingPrinted = nil;
 - (BOOL) dragFile: (NSString *) path
          fromRect: (NSRect) rect
         slideBack: (BOOL) slideBack
-            event: (NSEvent *) event {
+            event: (NSEvent *) event
+{
     NSUnimplementedMethod();
     return NO;
 }
@@ -2709,16 +2725,19 @@ static NSView *viewBeingPrinted = nil;
                          fromRect: (NSRect) rect
                            source: (id) source
                         slideBack: (BOOL) slideBack
-                            event: (NSEvent *) event {
+                            event: (NSEvent *) event
+{
     NSUnimplementedMethod();
     return NO;
 }
 
-- (NSPoint) convertPointFromBase: (NSPoint) aPoint;
-{ return aPoint; }
+- (NSPoint) convertPointFromBase: (NSPoint) aPoint; {
+    return aPoint;
+}
 
-- (NSPoint) convertPointToBase: (NSPoint) aPoint;
-{ return aPoint; }
+- (NSPoint) convertPointToBase: (NSPoint) aPoint; {
+    return aPoint;
+}
 
 - (NSSize) convertSizeFromBase: (NSSize) aSize {
     return aSize;
@@ -2737,7 +2756,8 @@ static NSView *viewBeingPrinted = nil;
 }
 
 - (void) showDefinitionForAttributedString: (NSAttributedString *) string
-                                   atPoint: (NSPoint) origin {
+                                   atPoint: (NSPoint) origin
+{
     NSUnimplementedMethod();
 }
 
@@ -2771,7 +2791,8 @@ static NSView *viewBeingPrinted = nil;
                                      range: (NSRange) range
                                    options: (NSDictionary *) options
                     baselineOriginProvider:
-                        (NSPoint (^)(NSRange adjustedRange)) originProvider {
+                        (NSPoint (^)(NSRange adjustedRange)) originProvider
+{
     NSUnimplementedMethod();
 }
 #endif

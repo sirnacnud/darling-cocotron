@@ -31,7 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSDictionary *) attributesAtIndex: (NSUInteger) location
-                      effectiveRange: (NSRange *) range {
+                      effectiveRange: (NSRange *) range
+{
     if (location >= [self length])
         NSRaiseException(NSRangeException, self, _cmd,
                          @"index %d beyond length %d", location, [self length]);

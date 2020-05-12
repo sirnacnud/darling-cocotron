@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSString.h>
 
 static inline void _NSInvalidAbstractInvocation(SEL selector, id object,
-                                                const char *file, int line) {
+                                                const char *file, int line)
+{
     [NSException
          raise: NSInvalidArgumentException
         format:
@@ -33,13 +34,15 @@ static inline void _NSInvalidAbstractInvocation(SEL selector, id object,
 }
 
 static inline void _NSUnimplementedMethod(SEL selector, id object,
-                                          const char *file, int line) {
+                                          const char *file, int line)
+{
     NSLog(@"-[%@ %s] unimplemented in %s at %d", [object class],
           sel_getName(selector), file, line);
 }
 
 static inline void _NSUnimplementedFunction(const char *function,
-                                            const char *file, int line) {
+                                            const char *file, int line)
+{
     NSLog(@"%s() unimplemented in %s at %d", function, file, line);
 }
 

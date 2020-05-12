@@ -42,7 +42,8 @@ typedef struct name_records_t {
 // Fill the name mapping dictionaries with the logFont face info
 static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
                                                const TEXTMETRICW *metrics,
-                                               DWORD ignored, HDC dc) {
+                                               DWORD ignored, HDC dc)
+{
     // Create a HFONT from the logFont so we can get the font tables we need to
     // parse to get the PS name of the font Use CreateFontW, not
     // CreateFontIndirectW with the received logFont For some mysterious reason,
@@ -275,7 +276,8 @@ static int CALLBACK EnumFontFromFamilyCallBack(const EXTLOGFONTW *logFont,
 // Add the logFont family to the list of known families
 static int CALLBACK EnumFamiliesCallBackW(const EXTLOGFONTW *logFont,
                                           const TEXTMETRICW *metrics,
-                                          DWORD ignored, LPARAM p) {
+                                          DWORD ignored, LPARAM p)
+{
     NSMutableSet *families = (NSMutableSet *) p;
     NSString *winName =
         [NSString stringWithFormat: @"%S", logFont->elfLogFont.lfFaceName];
@@ -675,13 +677,15 @@ static HFONT Win32FontHandleWithName(NSString *name, int unitsPerEm) {
 }
 
 - (Win32Font *) createGDIFontSelectedInDC: (HDC) dc
-                                pointSize: (CGFloat) pointSize {
+                                pointSize: (CGFloat) pointSize
+{
     return [self createGDIFontSelectedInDC: dc pointSize: pointSize angle: 0.];
 }
 
 - (Win32Font *) createGDIFontSelectedInDC: (HDC) dc
                                 pointSize: (CGFloat) pointSize
-                                    angle: (CGFloat) angle {
+                                    angle: (CGFloat) angle
+{
     pointSize = [self nativeSizeForSize: pointSize];
     int height = (pointSize * FONT_DPI(dc)) / 72.0;
     Win32Font *result = [[Win32Font alloc] initWithName: _name
@@ -727,7 +731,8 @@ static HFONT Win32FontHandleWithName(NSString *name, int unitsPerEm) {
 
 - (void) getMacRomanBytes: (unsigned char *) bytes
                 forGlyphs: (const O2Glyph *) glyphs
-                   length: (unsigned) length {
+                   length: (unsigned) length
+{
     // FIXME: broken
 
     if (_glyphsToCharacters == NULL)
@@ -750,7 +755,8 @@ static HFONT Win32FontHandleWithName(NSString *name, int unitsPerEm) {
 
 - (void) getGlyphsForUnicode: (unichar *)
                      unicode: (O2Glyph *) glyphs
-                            :(int) length {
+                            :(int) length
+{
     HDC dc = GetDC(NULL);
     HANDLE library = LoadLibrary("GDI32");
     FARPROC getGlyphIndices = GetProcAddress(library, "GetGlyphIndicesW");

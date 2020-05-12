@@ -64,13 +64,15 @@ static NSMutableArray *_registeredClasses = nil;
 }
 
 + (void) removePropertyForKey: (NSString *) key
-                    inRequest: (NSMutableURLRequest *) request {
+                    inRequest: (NSMutableURLRequest *) request
+{
     NSUnimplementedMethod();
 }
 
 + (void) setProperty: value
               forKey: (NSString *) key
-           inRequest: (NSMutableURLRequest *) request {
+           inRequest: (NSMutableURLRequest *) request
+{
     NSUnimplementedMethod();
 }
 
@@ -85,14 +87,16 @@ static NSMutableArray *_registeredClasses = nil;
 }
 
 + (BOOL) requestIsCacheEquivalent: (NSURLRequest *) request
-                        toRequest: (NSURLRequest *) other {
+                        toRequest: (NSURLRequest *) other
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - initWithRequest: (NSURLRequest *) request
     cachedResponse: (NSCachedURLResponse *) response
-            client: (id<NSURLProtocolClient>) client {
+            client: (id<NSURLProtocolClient>) client
+{
     _request = [request retain];
     _cachedResponse = [response retain];
     // Unknown whether the client should be retained

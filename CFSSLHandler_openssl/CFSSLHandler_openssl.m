@@ -113,7 +113,8 @@ static threadid_func(CRYPTO_THREADID *id){
 }
 
 - (NSInteger) writePlaintext: (const uint8_t *) buffer
-                   maxLength: (NSUInteger) length {
+                   maxLength: (NSUInteger) length
+{
     int result = SSL_write(_connection, buffer, length);
 
     if (result < 0) {
@@ -167,7 +168,8 @@ static threadid_func(CRYPTO_THREADID *id){
 }
 
 - (NSInteger) writeEncrypted: (const uint8_t *) buffer
-                   maxLength: (NSUInteger) length {
+                   maxLength: (NSUInteger) length
+{
     size_t check = BIO_write(_incoming, buffer, length);
 
     if (check <= 0) {

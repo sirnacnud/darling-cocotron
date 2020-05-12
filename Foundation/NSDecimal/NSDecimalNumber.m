@@ -39,7 +39,8 @@ NSString *const NSDecimalNumberExactnessException =
 
 - initWithMantissa: (uint64_t) mantissa
           exponent: (int16_t) exponent
-        isNegative: (BOOL) flag {
+        isNegative: (BOOL) flag
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -61,7 +62,8 @@ NSString *const NSDecimalNumberExactnessException =
 
 + (NSDecimalNumber *) decimalNumberWithMantissa: (uint64_t) mantissa
                                        exponent: (int16_t) exponent
-                                     isNegative: (BOOL) negative {
+                                     isNegative: (BOOL) negative
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -72,7 +74,8 @@ NSString *const NSDecimalNumberExactnessException =
 }
 
 + (NSDecimalNumber *) decimalNumberWithString: (NSString *) string
-                                       locale: (NSDictionary *) locale {
+                                       locale: (NSDictionary *) locale
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -126,7 +129,8 @@ NSString *const NSDecimalNumberExactnessException =
 }
 
 - (NSDecimalNumber *) decimalNumberByRoundingAccordingToBehavior:
-    (id<NSDecimalNumberBehaviors>) behavior {
+    (id<NSDecimalNumberBehaviors>) behavior
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -138,7 +142,8 @@ NSString *const NSDecimalNumberExactnessException =
 
 - (NSDecimalNumber *) decimalNumberByAdding: (NSDecimalNumber *) other
                                withBehavior:
-                                   (id<NSDecimalNumberBehaviors>) behavior {
+                                   (id<NSDecimalNumberBehaviors>) behavior
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -149,8 +154,9 @@ NSString *const NSDecimalNumberExactnessException =
 }
 
 - (NSDecimalNumber *) decimalNumberBySubtracting: (NSDecimalNumber *) other
-                                    withBehavior: (id<NSDecimalNumberBehaviors>)
-                                                      behavior {
+                                    withBehavior:
+                                        (id<NSDecimalNumberBehaviors>) behavior
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -162,7 +168,8 @@ NSString *const NSDecimalNumberExactnessException =
 
 - (NSDecimalNumber *)
     decimalNumberByMultiplyingBy: (NSDecimalNumber *) other
-                    withBehavior: (id<NSDecimalNumberBehaviors>) behavior {
+                    withBehavior: (id<NSDecimalNumberBehaviors>) behavior
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -174,7 +181,8 @@ NSString *const NSDecimalNumberExactnessException =
 
 - (NSDecimalNumber *) decimalNumberByDividingBy: (NSDecimalNumber *) other
                                    withBehavior:
-                                       (id<NSDecimalNumberBehaviors>) behavior {
+                                       (id<NSDecimalNumberBehaviors>) behavior
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -187,7 +195,8 @@ NSString *const NSDecimalNumberExactnessException =
 - (NSDecimalNumber *)
     decimalNumberByMultiplyingByPowerOf10: (int16_t) power
                              withBehavior:
-                                 (id<NSDecimalNumberBehaviors>) behavior {
+                                 (id<NSDecimalNumberBehaviors>) behavior
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -199,7 +208,8 @@ NSString *const NSDecimalNumberExactnessException =
 
 - (NSDecimalNumber *)
     decimalNumberByRaisingToPower: (NSUInteger) power
-                     withBehavior: (id<NSDecimalNumberBehaviors>) behavior {
+                     withBehavior: (id<NSDecimalNumberBehaviors>) behavior
+{
     NSUnimplementedMethod();
     return nil;
 }

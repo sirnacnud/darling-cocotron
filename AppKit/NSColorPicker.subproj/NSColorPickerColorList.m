@@ -24,8 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSColorPickerColorList
 
-- initWithPickerMask: (NSUInteger) mask
-          colorPanel: (NSColorPanel *) colorPanel {
+- initWithPickerMask: (NSUInteger) mask colorPanel: (NSColorPanel *) colorPanel
+{
     NSEnumerator *colorListsEnumerator =
         [[NSColorList availableColorLists] objectEnumerator];
     NSColorList *colorList;
@@ -62,7 +62,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSInteger) browser: (NSBrowser *) sender
-    numberOfRowsInColumn: (NSInteger) column {
+    numberOfRowsInColumn: (NSInteger) column
+{
     return [[_pickedColorList allKeys] count];
 }
 
@@ -73,7 +74,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) browser: (NSBrowser *) sender
     willDisplayCell: (id) cell
               atRow: (NSInteger) row
-             column: (NSInteger) column {
+             column: (NSInteger) column
+{
     [cell setStringValue: [[_pickedColorList allKeys] objectAtIndex: row]];
     [cell setLeaf: YES];
     [cell setLoaded: YES];

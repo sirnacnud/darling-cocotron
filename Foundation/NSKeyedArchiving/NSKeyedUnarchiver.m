@@ -191,7 +191,8 @@ static inline int integerFromCFUID(id object) {
 }
 
 - (const uint8_t *) decodeBytesForKey: (NSString *) key
-                       returnedLength: (NSUInteger *) lengthp {
+                       returnedLength: (NSUInteger *) lengthp
+{
     NSData *data = [[_plistStack lastObject] objectForKey: key];
 
     *lengthp = [data length];

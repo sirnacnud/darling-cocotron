@@ -22,7 +22,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithCharacters: (unichar *) characters
               length: (NSUInteger) length
-            inverted: (BOOL) inverted {
+            inverted: (BOOL) inverted
+{
     NSUInteger i;
 
     _length = length;

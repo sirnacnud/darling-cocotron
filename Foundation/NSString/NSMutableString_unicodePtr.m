@@ -78,7 +78,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
-                       withString: (NSString *) string {
+                       withString: (NSString *) string
+{
     NSUInteger otherlength = [string length];
     NSUInteger i, loc = range.location;
 
@@ -129,7 +130,8 @@ static inline NSUInteger roundCapacityUp(NSUInteger capacity) {
 NSMutableString_unicodePtr *
 NSMutableString_unicodePtrInitWithCString(NSMutableString_unicodePtr *self,
                                           const char *cString,
-                                          NSUInteger length, NSZone *zone) {
+                                          NSUInteger length, NSZone *zone)
+{
     self->_unicode =
         NSCharactersFromCString(cString, length, &(self->_length), zone);
     self->_capacity = self->_length;
@@ -140,7 +142,8 @@ NSMutableString_unicodePtrInitWithCString(NSMutableString_unicodePtr *self,
 NSMutableString_unicodePtr *
 NSMutableString_unicodePtrInit(NSMutableString_unicodePtr *self,
                                const unichar *unicode, NSUInteger length,
-                               NSZone *zone) {
+                               NSZone *zone)
+{
     NSInteger i;
 
     self->_length = length;
@@ -156,7 +159,8 @@ NSMutableString_unicodePtrInit(NSMutableString_unicodePtr *self,
 NSMutableString_unicodePtr *
 NSMutableString_unicodePtrInitNoCopy(NSMutableString_unicodePtr *self,
                                      unichar *unicode, NSUInteger length,
-                                     NSZone *zone) {
+                                     NSZone *zone)
+{
     self->_length = length;
     self->_capacity = length;
     self->_unicode = unicode;
@@ -166,7 +170,8 @@ NSMutableString_unicodePtrInitNoCopy(NSMutableString_unicodePtr *self,
 
 NSMutableString_unicodePtr *
 NSMutableString_unicodePtrInitWithCapacity(NSMutableString_unicodePtr *self,
-                                           NSUInteger capacity, NSZone *zone) {
+                                           NSUInteger capacity, NSZone *zone)
+{
     self->_length = 0;
     self->_capacity = roundCapacityUp(capacity);
     self->_unicode = NSZoneMalloc(zone, sizeof(unichar) * self->_capacity);
@@ -176,7 +181,8 @@ NSMutableString_unicodePtrInitWithCapacity(NSMutableString_unicodePtr *self,
 
 NSString *NSMutableString_unicodePtrNewWithCString(NSZone *zone,
                                                    const char *cString,
-                                                   NSUInteger length) {
+                                                   NSUInteger length)
+{
     NSMutableString_unicodePtr *self = NSAllocateObject(
         objc_lookUpClass("NSMutableString_unicodePtr"), 0, zone);
     if (self) {
@@ -187,7 +193,8 @@ NSString *NSMutableString_unicodePtrNewWithCString(NSZone *zone,
 }
 
 NSString *NSMutableString_unicodePtrNew(NSZone *zone, const unichar *unicode,
-                                        NSUInteger length) {
+                                        NSUInteger length)
+{
     NSMutableString_unicodePtr *self = NSAllocateObject(
         objc_lookUpClass("NSMutableString_unicodePtr"), 0, zone);
     if (self) {
@@ -197,7 +204,8 @@ NSString *NSMutableString_unicodePtrNew(NSZone *zone, const unichar *unicode,
 }
 
 NSString *NSMutableString_unicodePtrNewNoCopy(NSZone *zone, unichar *unicode,
-                                              NSUInteger length) {
+                                              NSUInteger length)
+{
     NSMutableString_unicodePtr *self;
 
     self = NSAllocateObject(objc_lookUpClass("NSMutableString_unicodePtr"), 0,
@@ -210,7 +218,8 @@ NSString *NSMutableString_unicodePtrNewNoCopy(NSZone *zone, unichar *unicode,
 }
 
 NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
-                                                    NSUInteger capacity) {
+                                                    NSUInteger capacity)
+{
     NSMutableString_unicodePtr *self;
 
     self = NSAllocateObject(objc_lookUpClass("NSMutableString_unicodePtr"), 0,
@@ -235,7 +244,8 @@ NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
 
 - initWithCharactersNoCopy: (unichar *) characters
                     length: (NSUInteger) length
-              freeWhenDone: (BOOL) freeWhenDone {
+              freeWhenDone: (BOOL) freeWhenDone
+{
     NSMutableString_unicodePtr *string = NSMutableString_unicodePtrInit(
         self, characters, length, NSZoneFromPointer(self));
 
@@ -253,7 +263,8 @@ NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
 
 - initWithCStringNoCopy: (char *) bytes
                  length: (NSUInteger) length
-           freeWhenDone: (BOOL) freeWhenDone {
+           freeWhenDone: (BOOL) freeWhenDone
+{
     NSMutableString_unicodePtr *string =
         NSMutableString_unicodePtrInitWithCString(self, bytes, length,
                                                   NSZoneFromPointer(self));
@@ -336,7 +347,8 @@ NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
 
 - initWithBytes: (const void *) bytes
          length: (NSUInteger) length
-       encoding: (NSStringEncoding) encoding {
+       encoding: (NSStringEncoding) encoding
+{
     NSUInteger resultLength;
     unichar *characters;
 
@@ -349,7 +361,8 @@ NSString *NSMutableString_unicodePtrNewWithCapacity(NSZone *zone,
 
 - initWithFormat: (NSString *) format
           locale: (NSDictionary *) locale
-       arguments: (va_list) arguments {
+       arguments: (va_list) arguments
+{
     NSUInteger length;
     unichar *unicode;
 

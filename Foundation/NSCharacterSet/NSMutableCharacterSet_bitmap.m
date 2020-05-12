@@ -102,7 +102,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) formUnionWithCharacterSet: (NSCharacterSet *) other {
-    BOOL (*method)
+    BOOL(*method)
     () = (void *) [other methodForSelector: @selector(characterIsMember:)];
     NSUInteger code;
 
@@ -132,7 +132,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) formIntersectionWithCharacterSet: (NSCharacterSet *) other {
-    BOOL (*method)
+    BOOL(*method)
     () = (void *) [other methodForSelector: @selector(characterIsMember:)];
     NSUInteger code;
 

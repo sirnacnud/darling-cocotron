@@ -175,7 +175,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setPlaceholderAttributedString:
-    (NSAttributedString *) placeholderAttributedString {
+    (NSAttributedString *) placeholderAttributedString
+{
     [_cell setPlaceholderAttributedString: placeholderAttributedString];
 }
 

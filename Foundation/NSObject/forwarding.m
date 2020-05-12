@@ -49,7 +49,8 @@ id NSObjCGetFastForwardTarget(id object, SEL selector) {
 #endif
 
 void NSObjCForwardInvocation(void *returnValue, id object, SEL selector,
-                             va_list arguments) {
+                             va_list arguments)
+{
     NSMethodSignature *signature =
         [object methodSignatureForSelector: selector];
 

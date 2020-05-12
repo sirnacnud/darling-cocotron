@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithURL: (NSURL *) url
                  MIMEType: (NSString *) mimeType
     expectedContentLength: (NSInteger) expectedLength
-         textEncodingName: (NSString *) encoding {
+         textEncodingName: (NSString *) encoding
+{
     _url = [url retain];
     _mimeType = [mimeType retain];
     _expectedContentLength = expectedLength;

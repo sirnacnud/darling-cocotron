@@ -33,7 +33,8 @@ CGPatternRef CGPatternCreate(void *info, CGRect bounds,
                              CGAffineTransform matrix, CGFloat xstep,
                              CGFloat ystep, CGPatternTiling tiling,
                              bool isColored,
-                             const CGPatternCallbacks *callbacks) {
+                             const CGPatternCallbacks *callbacks)
+{
     return O2PatternCreate(info, bounds, O2AffineTransformFromCG(matrix), xstep,
                            ystep, tiling, isColored,
                            O2PatternCallbacksFromCG(callbacks));

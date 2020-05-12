@@ -80,7 +80,8 @@ id keyObjectForSelector(SEL selector) {
 }
 
 static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
-                               const char *types, SEL *selectorp) {
+                               const char *types, SEL *selectorp)
+{
 
     SEL selector = NSSelectorFromString(selectorName);
 
@@ -274,7 +275,8 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
 */
 
 + (NSEntityDescription *) entityForName: (NSString *) entityName
-                 inManagedObjectContext: (NSManagedObjectContext *) context {
+                 inManagedObjectContext: (NSManagedObjectContext *) context
+{
     NSDictionary *entities = [[[context persistentStoreCoordinator]
         managedObjectModel] entitiesByName];
 
@@ -282,7 +284,8 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
 }
 
 + insertNewObjectForEntityForName: (NSString *) entityName
-           inManagedObjectContext: (NSManagedObjectContext *) context {
+           inManagedObjectContext: (NSManagedObjectContext *) context
+{
     NSEntityDescription *entity = [self entityForName: entityName
                                inManagedObjectContext: context];
     NSString *className = [entity managedObjectClassName];
@@ -430,8 +433,8 @@ static void appendMethodToList(Class class, NSString *selectorName, IMP imp,
     return result;
 }
 
-- (NSArray *) relationshipsWithDestinationEntity:
-    (NSEntityDescription *) entity {
+- (NSArray *) relationshipsWithDestinationEntity: (NSEntityDescription *) entity
+{
     NSMutableArray *result = [NSMutableArray array];
 
     for (NSPropertyDescription *check in [_properties allValues]) {

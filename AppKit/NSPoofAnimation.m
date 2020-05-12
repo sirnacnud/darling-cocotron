@@ -97,7 +97,8 @@ static const NSTimeInterval kAnimationDuration = .3;
                    size: (NSSize) size
       animationDelegate: (id) animationDelegate
          didEndSelector: (SEL) didEndSelector
-            contextInfo: (void *) contextInfo {
+            contextInfo: (void *) contextInfo
+{
     if (size.width == 0 || size.height == 0) {
         size.width = size.height = 48;
     }

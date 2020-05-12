@@ -41,14 +41,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSColor *) colorWithColorRef: (CGColorRef) colorRef
-                      spaceName: (NSString *) spaceName {
+                      spaceName: (NSString *) spaceName
+{
     return [[[self alloc] initWithColorRef: colorRef
                                  spaceName: spaceName] autorelease];
 }
 
 + (NSColor *) colorWithGray: (CGFloat) gray
                       alpha: (CGFloat) alpha
-                  spaceName: (NSString *) spaceName {
+                  spaceName: (NSString *) spaceName
+{
     NSColor *result;
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
@@ -68,7 +70,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                      yellow: (CGFloat) yellow
                       black: (CGFloat) black
                       alpha: (CGFloat) alpha
-                  spaceName: (NSString *) spaceName {
+                  spaceName: (NSString *) spaceName
+{
     NSColor *result;
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceCMYK();
@@ -87,7 +90,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                      green: (CGFloat) green
                       blue: (CGFloat) blue
                      alpha: (CGFloat) alpha
-                 spaceName: (NSString *) spaceName {
+                 spaceName: (NSString *) spaceName
+{
     NSColor *result;
 
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -106,7 +110,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 saturation: (CGFloat) saturation
                 brightness: (CGFloat) brightness
                      alpha: (CGFloat) alpha
-                 spaceName: (NSString *) spaceName {
+                 spaceName: (NSString *) spaceName
+{
     CGFloat red, green, blue;
 
     NSColorHSBToRGB(hue, saturation, brightness, &red, &green, &blue);
@@ -172,7 +177,8 @@ static inline CGFloat calibratedWhiteFromRGB(CGFloat r, CGFloat g, CGFloat b) {
 }
 
 - (NSColor *) colorUsingColorSpaceName: (NSString *) otherSpaceName
-                                device: (NSDictionary *) device {
+                                device: (NSDictionary *) device
+{
     if (otherSpaceName == nil ||
         [otherSpaceName isEqualToString: _colorSpaceName])
         return self;
@@ -341,7 +347,8 @@ static inline CGFloat calibratedWhiteFromRGB(CGFloat r, CGFloat g, CGFloat b) {
 - (void) getRed: (CGFloat *) red
           green: (CGFloat *) green
            blue: (CGFloat *) blue
-          alpha: (CGFloat *) alpha {
+          alpha: (CGFloat *) alpha
+{
     CGColorSpaceRef colorSpace = CGColorGetColorSpace(_colorRef);
     CGColorSpaceModel model = CGColorSpaceGetModel(colorSpace);
     const CGFloat *components = CGColorGetComponents(_colorRef);
@@ -376,7 +383,8 @@ static inline CGFloat calibratedWhiteFromRGB(CGFloat r, CGFloat g, CGFloat b) {
 - (void) getHue: (CGFloat *) huep
      saturation: (CGFloat *) saturationp
      brightness: (CGFloat *) brightnessp
-          alpha: (CGFloat *) alphap {
+          alpha: (CGFloat *) alphap
+{
     CGColorSpaceRef colorSpace = CGColorGetColorSpace(_colorRef);
     CGColorSpaceModel model = CGColorSpaceGetModel(colorSpace);
     const CGFloat *components = CGColorGetComponents(_colorRef);
@@ -402,7 +410,8 @@ static inline CGFloat calibratedWhiteFromRGB(CGFloat r, CGFloat g, CGFloat b) {
          magenta: (CGFloat *) magenta
           yellow: (CGFloat *) yellow
            black: (CGFloat *) black
-           alpha: (CGFloat *) alpha {
+           alpha: (CGFloat *) alpha
+{
     CGColorSpaceRef colorSpace = CGColorGetColorSpace(_colorRef);
     CGColorSpaceModel model = CGColorSpaceGetModel(colorSpace);
     const CGFloat *components = CGColorGetComponents(_colorRef);

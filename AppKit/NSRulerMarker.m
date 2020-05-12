@@ -33,7 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (id) initWithRulerView: (NSRulerView *) ruler
           markerLocation: (CGFloat) location
                    image: (NSImage *) image
-             imageOrigin: (NSPoint) point {
+             imageOrigin: (NSPoint) point
+{
     _ruler = ruler;
     _markerLocation = location;
     _image = [image retain];

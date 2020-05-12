@@ -68,8 +68,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [_attributes objectForKey: name];
 }
 
-- (NSArray *) elementsForLocalName: (NSString *) localName
-                               URI: (NSString *) uri {
+- (NSArray *) elementsForLocalName: (NSString *) localName URI: (NSString *) uri
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -183,7 +183,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 static void appendStringWithCharacterEntities(NSMutableString *result,
-                                              NSString *string) {
+                                              NSString *string)
+{
     NSUInteger i, length = [string length], location = 0;
     unichar buffer[length];
 

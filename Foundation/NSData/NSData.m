@@ -48,7 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithBytesNoCopy: (void *) bytes
                length: (NSUInteger) length
-         freeWhenDone: (BOOL) freeWhenDone {
+         freeWhenDone: (BOOL) freeWhenDone
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
@@ -83,7 +84,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithContentsOfFile: (NSString *) path
                  options: (NSUInteger) options
-                   error: (NSError **) errorp {
+                   error: (NSError **) errorp
+{
     NSUInteger length;
     void *bytes = NULL;
 
@@ -119,7 +121,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithContentsOfURL: (NSURL *) url
                 options: (NSUInteger) options
-                  error: (NSError **) errorp {
+                  error: (NSError **) errorp
+{
 
     if (![url isFileURL]) {
 
@@ -203,7 +206,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + dataWithBytesNoCopy: (void *) bytes
                length: (NSUInteger) length
-         freeWhenDone: (BOOL) freeWhenDone {
+         freeWhenDone: (BOOL) freeWhenDone
+{
     return [[[self allocWithZone: NULL] initWithBytesNoCopy: bytes
                                                      length: length
                                                freeWhenDone: freeWhenDone]
@@ -244,7 +248,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + dataWithContentsOfFile: (NSString *) path
                  options: (NSUInteger) options
-                   error: (NSError **) errorp {
+                   error: (NSError **) errorp
+{
     return [[[self alloc] initWithContentsOfFile: path
                                          options: options
                                            error: errorp] autorelease];
@@ -252,7 +257,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + dataWithContentsOfURL: (NSURL *) url
                 options: (NSUInteger) options
-                  error: (NSError **) errorp {
+                  error: (NSError **) errorp
+{
     return [[[self alloc] initWithContentsOfURL: url
                                         options: options
                                           error: errorp] autorelease];
@@ -351,7 +357,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) writeToFile: (NSString *) path
              options: (NSUInteger) options
-               error: (NSError **) errorp {
+               error: (NSError **) errorp
+{
     return [[NSPlatform currentPlatform] writeContentsOfFile: path
                                                        bytes: [self bytes]
                                                       length: [self length]
@@ -361,7 +368,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) writeToURL: (NSURL *) url
             options: (NSUInteger) options
-              error: (NSError **) errorp {
+              error: (NSError **) errorp
+{
     if (![url isFileURL]) {
         NSLog(@"-[%@ %s]: Only file: URLs are supported so far.", [self class],
               sel_getName(_cmd));

@@ -164,7 +164,8 @@ NSString *const NSTextDidChangeNotification = @"NSTextDidChangeNotification";
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
-                       withString: (NSString *) string {
+                       withString: (NSString *) string
+{
     NSInvalidAbstractInvocation();
 }
 

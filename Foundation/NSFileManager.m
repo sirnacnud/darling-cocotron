@@ -70,12 +70,14 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 }
 
 - (NSDictionary *) attributesOfFileSystemForPath: (NSString *) path
-                                           error: (NSError **) errorp {
+                                           error: (NSError **) errorp
+{
     NSUnimplementedMethod();
     return 0;
 }
 - (NSDictionary *) attributesOfItemAtPath: (NSString *) path
-                                    error: (NSError **) error {
+                                    error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -92,18 +94,21 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
     return 0;
 }
 - (NSArray *) contentsOfDirectoryAtPath: (NSString *) path
-                                  error: (NSError **) error {
+                                  error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
 - (BOOL) copyItemAtPath: (NSString *) fromPath
                  toPath: (NSString *) toPath
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
 - (NSString *) destinationOfSymbolicLinkAtPath: (NSString *) path
-                                         error: (NSError **) error {
+                                         error: (NSError **) error
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -133,19 +138,22 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 
 - (BOOL) linkItemAtPath: (NSString *) fromPath
                  toPath: (NSString *) toPath
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
 - (BOOL) linkPath: (NSString *) source
            toPath: (NSString *) destination
-          handler: handler {
+          handler: handler
+{
     NSUnimplementedMethod();
     return 0;
 }
 - (BOOL) moveItemAtPath: (NSString *) fromPath
                  toPath: (NSString *) toPath
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -161,41 +169,47 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 
 - (BOOL) moveItemAtURL: (NSURL *) url
                  toURL: (NSURL *) dstURL
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     // Default to the AtPath implementation
     return [self moveItemAtPath: [url path] toPath: [dstURL path] error: error];
 }
 
 - (BOOL) linkItemAtURL: (NSURL *) url
                  toURL: (NSURL *) dstURL
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     // Default to the AtPath implementation
     return [self linkItemAtPath: [url path] toPath: [dstURL path] error: error];
 }
 
 - (BOOL) copyItemAtURL: (NSURL *) url
                  toURL: (NSURL *) dstURL
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     // Default to the AtPath implementation
     return [self copyItemAtPath: [url path] toPath: [dstURL path] error: error];
 }
 
 - (BOOL) setAttributes: (NSDictionary *) attributes
           ofItemAtPath: (NSString *) path
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSString *) stringWithFileSystemRepresentation: (const char *) string
-                                           length: (NSUInteger) length {
+                                           length: (NSUInteger) length
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (void) _subpathsAtPath: (NSString *) path
                 basePath: (NSString *) basePath
-                   paths: (NSMutableArray *) paths {
+                   paths: (NSMutableArray *) paths
+{
     NSArray *files = [self directoryContentsAtPath: path];
 
     int x;
@@ -225,7 +239,8 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 }
 
 - (NSArray *) subpathsOfDirectoryAtPath: (NSString *) path
-                                  error: (NSError **) error {
+                                  error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -236,7 +251,8 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 
 - (BOOL) createFileAtPath: (NSString *) path
                  contents: (NSData *) data
-               attributes: (NSDictionary *) attributes {
+               attributes: (NSDictionary *) attributes
+{
     NSInvalidAbstractInvocation();
     return NO;
 }
@@ -252,7 +268,8 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 }
 
 - (BOOL) createDirectoryAtPath: (NSString *) path
-                    attributes: (NSDictionary *) attributes {
+                    attributes: (NSDictionary *) attributes
+{
     NSInvalidAbstractInvocation();
     return NO;
 }
@@ -260,7 +277,8 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 - (BOOL) createDirectoryAtPath: (NSString *) path
     withIntermediateDirectories: (BOOL) intermediates
                      attributes: (NSDictionary *) attributes
-                          error: (NSError **) error {
+                          error: (NSError **) error
+{
     BOOL result = YES;
     BOOL isDirectory = NO;
     if (intermediates) {
@@ -285,7 +303,8 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 - (BOOL) createDirectoryAtURL: (NSURL *) url
     withIntermediateDirectories: (BOOL) intermediates
                      attributes: (NSDictionary *) attributes
-                          error: (NSError **) error {
+                          error: (NSError **) error
+{
     return [self createDirectoryAtPath: [url path]
            withIntermediateDirectories: intermediates
                             attributes: attributes
@@ -293,14 +312,16 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 }
 
 - (BOOL) createSymbolicLinkAtPath: (NSString *) path
-                      pathContent: (NSString *) destination {
+                      pathContent: (NSString *) destination
+{
     NSInvalidAbstractInvocation();
     return NO;
 }
 
 - (BOOL) createSymbolicLinkAtPath: (NSString *) path
               withDestinationPath: (NSString *) destPath
-                            error: (NSError **) error {
+                            error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -341,7 +362,8 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 }
 
 - (NSDictionary *) fileAttributesAtPath: (NSString *) path
-                           traverseLink: (BOOL) traverse {
+                           traverseLink: (BOOL) traverse
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
@@ -362,7 +384,8 @@ NSString *const NSFileSystemFreeSize = @"NSFileSystemFreeSize";
 }
 
 - (BOOL) changeFileAttributes: (NSDictionary *) attributes
-                       atPath: (NSString *) path {
+                       atPath: (NSString *) path
+{
     return [self setAttributes: (NSDictionary *) attributes
                   ofItemAtPath: (NSString *) path
                          error: NULL];

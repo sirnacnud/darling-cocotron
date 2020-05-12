@@ -125,7 +125,8 @@ void O2DContextClipAndFillEdges(O2Context_builtin *self, int fillRuleMask);
 
 - (void) setWidth: (size_t) width
                       height: (size_t) height
-    reallocateOnlyIfRequired: (BOOL) roir {
+    reallocateOnlyIfRequired: (BOOL) roir
+{
     [_surface setWidth: width height: height reallocateOnlyIfRequired: roir];
     [self reallocateForSurface];
     O2RasterizerSetViewport(self, 0, 0, O2ImageGetWidth(_surface),
@@ -204,7 +205,8 @@ void O2ContextDeviceClipReset_builtin(O2Context_builtin *self) {
 }
 
 ONYX2D_STATIC void O2ContextClipViewportToPath(O2Context_builtin *self,
-                                               O2Path *path) {
+                                               O2Path *path)
+{
     O2Rect viewport =
         O2RectMake(self->_vpx, self->_vpy, self->_vpwidth, self->_vpheight);
     O2Rect rect = O2PathGetBoundingBox(path);
@@ -220,12 +222,14 @@ ONYX2D_STATIC void O2ContextClipViewportToPath(O2Context_builtin *self,
 }
 
 void O2ContextDeviceClipToNonZeroPath_builtin(O2Context_builtin *self,
-                                              O2Path *path) {
+                                              O2Path *path)
+{
     O2ContextClipViewportToPath(self, path);
 }
 
 void O2ContextDeviceClipToEvenOddPath_builtin(O2Context_builtin *self,
-                                              O2Path *path) {
+                                              O2Path *path)
+{
     O2ContextClipViewportToPath(self, path);
 }
 
@@ -259,7 +263,8 @@ void O2ContextDeviceClipToEvenOddPath_builtin(O2Context_builtin *self,
 }
 
 ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
-                                      O2AffineTransform surfaceToPaintMatrix) {
+                                      O2AffineTransform surfaceToPaintMatrix)
+{
     O2Paint *result = nil;
     O2PatternRef pattern = O2ColorGetPattern(color);
 
@@ -386,7 +391,8 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
 
 - (void) showGlyphs: (const O2Glyph *) glyphs
            advances: (const O2Size *) advances
-              count: (NSUInteger) count {
+              count: (NSUInteger) count
+{
 #if 0
    O2FontRef font=O2ContextCurrentGState(self)->_font;
    int i;
@@ -448,7 +454,8 @@ ONYX2D_STATIC O2Paint *paintFromColor(O2Context_builtin *self, O2ColorRef color,
 
 static inline O2AffineTransform
 createImageToSurfaceTransform(O2ImageRef image, O2Rect rect,
-                              O2AffineTransform deviceTransform) {
+                              O2AffineTransform deviceTransform)
+{
     O2AffineTransform result =
         O2AffineTransformMakeTranslation(rect.origin.x, rect.origin.y);
 
@@ -542,7 +549,8 @@ createImageToSurfaceTransform(O2ImageRef image, O2Rect rect,
 }
 
 void O2RasterizerSetViewport(O2Context_builtin *self, int x, int y, int width,
-                             int height) {
+                             int height)
+{
     RI_ASSERT(vpwidth >= 0 && vpheight >= 0);
     self->_vpx = x;
     self->_vpy = y;
@@ -559,7 +567,8 @@ void O2RasterizerClear(O2Context_builtin *self) {
 }
 
 void O2DContextAddEdge(O2Context_builtin *self, const O2Point v0,
-                       const O2Point v1) {
+                       const O2Point v1)
+{
 
     if (v0.y == v1.y)
         return; // skip horizontal edges (they don't affect rasterization since
@@ -615,7 +624,8 @@ ONYX2D_STATIC double radicalInverseBase2(unsigned int i) {
 }
 
 void O2RasterizerSetShouldAntialias(O2Context_builtin *self, BOOL antialias,
-                                    int quality) {
+                                    int quality)
+{
     quality = RI_INT_CLAMP(quality, 1, MAX_SAMPLES);
 
     self->alias = (!antialias || quality == 1) ? YES : NO;
@@ -659,7 +669,8 @@ void O2RasterizerSetShouldAntialias(O2Context_builtin *self, BOOL antialias,
 }
 
 ONYX2D_STATIC void O2ApplyCoverageAndMaskToSpan_largb32f_PRE(
-    O2argb32f *dst, int icoverage, O2Float *mask, O2argb32f *src, int length) {
+    O2argb32f *dst, int icoverage, O2Float *mask, O2argb32f *src, int length)
+{
     int i;
 
     for (i = 0; i < length; i++) {
@@ -676,7 +687,8 @@ ONYX2D_STATIC void O2ApplyCoverageAndMaskToSpan_largb32f_PRE(
 ONYX2D_STATIC void O2ApplyCoverageToSpan_largb32f_PRE(O2argb32f *dst,
                                                       int icoverage,
                                                       O2argb32f *src,
-                                                      int length) {
+                                                      int length)
+{
     int i;
     O2Float coverage = zeroToOneFromCoverage(icoverage);
 
@@ -696,7 +708,8 @@ ONYX2D_STATIC void O2ApplyCoverageToSpan_largb32f_PRE(O2argb32f *dst,
  */
 ONYX2D_STATIC_INLINE void O2RasterizeWriteCoverageSpan8888_Normal(
     O2Surface *surface, O2Surface *mask, O2Paint *paint, int x, int y,
-    int coverage, int length, O2BlendSpan_argb8u blendFunction) {
+    int coverage, int length, O2BlendSpan_argb8u blendFunction)
+{
     O2argb8u *dst = __builtin_alloca(length * sizeof(O2argb8u));
     O2argb8u *direct = surface->_read_argb8u(surface, x, y, dst, length);
 
@@ -731,7 +744,8 @@ ONYX2D_STATIC_INLINE void O2RasterizeWriteCoverageSpan8888_Normal(
 
 ONYX2D_STATIC_INLINE void O2RasterizeWriteCoverageSpan8888_Copy(
     O2Surface *surface, O2Surface *mask, O2Paint *paint, int x, int y,
-    int coverage, int length, O2BlendSpan_argb8u blendFunction) {
+    int coverage, int length, O2BlendSpan_argb8u blendFunction)
+{
     O2argb8u *dst = __builtin_alloca(length * sizeof(O2argb8u));
     O2argb8u *direct = surface->_read_argb8u(surface, x, y, dst, length);
 
@@ -768,7 +782,8 @@ ONYX2D_STATIC_INLINE void O2RasterizeWriteCoverageSpan8888_Copy(
 ONYX2D_STATIC_INLINE void
 O2RasterizeWriteCoverageSpan8888(O2Surface *surface, O2Surface *mask,
                                  O2Paint *paint, int x, int y, int coverage,
-                                 int length, O2BlendSpan_argb8u blendFunction) {
+                                 int length, O2BlendSpan_argb8u blendFunction)
+{
     O2argb8u *dst = __builtin_alloca(length * sizeof(O2argb8u));
     O2argb8u *direct = surface->_read_argb8u(surface, x, y, dst, length);
 
@@ -812,9 +827,11 @@ O2RasterizeWriteCoverageSpan8888(O2Surface *surface, O2Surface *mask,
     }
 }
 
-ONYX2D_STATIC_INLINE void O2RasterizeWriteCoverageSpanffff(
-    O2Surface *surface, O2Surface *mask, O2Paint *paint, int x, int y,
-    int coverage, int length, O2BlendSpan_argb32f blendFunction) {
+ONYX2D_STATIC_INLINE void
+O2RasterizeWriteCoverageSpanffff(O2Surface *surface, O2Surface *mask,
+                                 O2Paint *paint, int x, int y, int coverage,
+                                 int length, O2BlendSpan_argb32f blendFunction)
+{
     O2argb32f *dst = __builtin_alloca(length * sizeof(O2argb32f));
     O2argb32f *direct = O2Image_read_argb32f(surface, x, y, dst, length);
 
@@ -888,7 +905,8 @@ ONYX2D_STATIC_INLINE void sortEdgesByMinY(Edge **edges, int count, Edge **B) {
 }
 
 ONYX2D_STATIC_INLINE void initEdgeForAET(O2Context_builtin *self, Edge *edge,
-                                         int scany) {
+                                         int scany)
+{
     // compute edge min and max x-coordinates for this scanline
 
     O2Point vd = Vector2Subtract(edge->v1, edge->v0);
@@ -967,7 +985,8 @@ typedef struct CoverageNode {
 
 void O2DContextFillEdgesOnSurface(O2Context_builtin *self, O2Surface *surface,
                                   O2Image *mask, O2Paint *paint,
-                                  int fillRuleMask) {
+                                  int fillRuleMask)
+{
     int edgeCount = self->_edgeCount;
     Edge **edges = self->_edges;
 
@@ -1303,7 +1322,8 @@ void O2DContextClipAndFillEdges(O2Context_builtin *self, int fillRuleMask) {
 }
 
 void O2ContextSetupPaintAndBlendMode(O2Context_builtin *self, O2PaintRef paint,
-                                     O2BlendMode blendMode) {
+                                     O2BlendMode blendMode)
+{
     RI_ASSERT(blendMode >= kO2BlendModeNormal &&
               blendMode <= kO2BlendModePlusLighter);
 

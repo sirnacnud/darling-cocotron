@@ -295,7 +295,8 @@ static inline ffi_type *arg_signature_to_ffi_type(const char *argtype) {
 #pragma mark Implementation of closures and NSInvocation -invoke
 
 static void invocation_closure(ffi_cif *cif, void *result, void **args,
-                               void *userdata) {
+                               void *userdata)
+{
     NSMethodSignature *sig = (id) userdata;
     NSInvocation *inv = [NSInvocation invocationWithMethodSignature: sig];
     NSInteger i, numArgs = [sig numberOfArguments];

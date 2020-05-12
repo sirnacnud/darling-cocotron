@@ -98,7 +98,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithCharactersNoCopy: (unichar *) characters
                     length: (NSUInteger) length
-              freeWhenDone: (BOOL) freeWhenDone {
+              freeWhenDone: (BOOL) freeWhenDone
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
@@ -121,7 +122,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithCStringNoCopy: (char *) cString
                  length: (NSUInteger) length
-           freeWhenDone: (BOOL) freeWhenDone {
+           freeWhenDone: (BOOL) freeWhenDone
+{
     NSString *string = [self initWithBytes: cString
                                     length: length
                                   encoding: defaultEncoding()];
@@ -144,8 +146,8 @@ int __CFConstantStringClassReference[1];
                       encoding: defaultEncoding()];
 }
 
-- initWithCString: (const char *) cString
-         encoding: (NSStringEncoding) encoding {
+- initWithCString: (const char *) cString encoding: (NSStringEncoding) encoding
+{
     return [self initWithBytes: cString
                         length: strlen(cString)
                       encoding: encoding];
@@ -164,7 +166,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithFormat: (NSString *) format
           locale: (id) locale
-       arguments: (va_list) arguments {
+       arguments: (va_list) arguments
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
@@ -203,7 +206,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithFileData: (NSData *) data
           encoding: (NSStringEncoding) encoding
-             error: (NSError **) error {
+             error: (NSError **) error
+{
     NSString *string = [self initWithBytes: [data bytes]
                                     length: [data length]
                                   encoding: encoding];
@@ -217,7 +221,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithFileData: (NSData *) data
       usedEncoding: (NSStringEncoding *) encodingp
-             error: (NSError **) error {
+             error: (NSError **) error
+{
     NSStringEncoding encoding = NSNEXTSTEPStringEncoding;
     NSString *string;
 
@@ -253,7 +258,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithBytes: (const void *) bytes
          length: (NSUInteger) length
-       encoding: (NSStringEncoding) encoding {
+       encoding: (NSStringEncoding) encoding
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -261,7 +267,8 @@ int __CFConstantStringClassReference[1];
 - initWithBytesNoCopy: (void *) bytes
                length: (NSUInteger) length
              encoding: (NSStringEncoding) encoding
-         freeWhenDone: (BOOL) freeWhenDone {
+         freeWhenDone: (BOOL) freeWhenDone
+{
     NSString *string = [self initWithBytes: bytes
                                     length: length
                                   encoding: encoding];
@@ -278,7 +285,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithContentsOfFile: (NSString *) path
                 encoding: (NSStringEncoding) encoding
-                   error: (NSError **) error {
+                   error: (NSError **) error
+{
     NSData *data = [NSData dataWithContentsOfFile: path
                                           options: 0
                                             error: error];
@@ -293,7 +301,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithContentsOfFile: (NSString *) path
             usedEncoding: (NSStringEncoding *) encoding
-                   error: (NSError **) error {
+                   error: (NSError **) error
+{
     NSData *data = [NSData dataWithContentsOfFile: path
                                           options: 0
                                             error: error];
@@ -308,7 +317,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithContentsOfURL: (NSURL *) url
                encoding: (NSStringEncoding) encoding
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSData *data = [NSData dataWithContentsOfURL: url options: 0 error: error];
 
     if (data == nil) {
@@ -321,7 +331,8 @@ int __CFConstantStringClassReference[1];
 
 - initWithContentsOfURL: (NSURL *) url
            usedEncoding: (NSStringEncoding *) encoding
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSData *data = [NSData dataWithContentsOfURL: url options: 0 error: error];
 
     if (data == nil) {
@@ -402,7 +413,8 @@ int __CFConstantStringClassReference[1];
 }
 
 + stringWithCString: (const char *) cString
-           encoding: (NSStringEncoding) encoding {
+           encoding: (NSStringEncoding) encoding
+{
     return [[[self allocWithZone: NULL] initWithCString: cString
                                                encoding: encoding] autorelease];
 }
@@ -437,7 +449,8 @@ int __CFConstantStringClassReference[1];
 
 + stringWithContentsOfFile: (NSString *) path
                   encoding: (NSStringEncoding) encoding
-                     error: (NSError **) error {
+                     error: (NSError **) error
+{
     return [[[self allocWithZone: NULL] initWithContentsOfFile: path
                                                       encoding: encoding
                                                          error: error]
@@ -446,7 +459,8 @@ int __CFConstantStringClassReference[1];
 
 + stringWithContentsOfFile: (NSString *) path
               usedEncoding: (NSStringEncoding *) encoding
-                     error: (NSError **) error {
+                     error: (NSError **) error
+{
     return [[[self allocWithZone: NULL] initWithContentsOfFile: path
                                                   usedEncoding: encoding
                                                          error: error]
@@ -455,7 +469,8 @@ int __CFConstantStringClassReference[1];
 
 + stringWithContentsOfURL: (NSURL *) url
                  encoding: (NSStringEncoding) encoding
-                    error: (NSError **) error {
+                    error: (NSError **) error
+{
     return
         [[[self allocWithZone: NULL] initWithContentsOfURL: url
                                                   encoding: encoding
@@ -464,7 +479,8 @@ int __CFConstantStringClassReference[1];
 
 + stringWithContentsOfURL: (NSURL *) url
              usedEncoding: (NSStringEncoding *) encoding
-                    error: (NSError **) error {
+                    error: (NSError **) error
+{
     return
         [[[self allocWithZone: NULL] initWithContentsOfURL: url
                                               usedEncoding: encoding
@@ -598,7 +614,8 @@ static inline unsigned uctoi(unichar *c, NSUInteger *len) {
 
 static NSComparisonResult compareWithOptions(NSString *self, NSString *other,
                                              NSStringCompareOptions options,
-                                             NSRange range) {
+                                             NSRange range)
+{
     NSUInteger i, j, il, jl;
     NSUInteger otherLength = [other length];
     int numResult;
@@ -647,20 +664,23 @@ static NSComparisonResult compareWithOptions(NSString *self, NSString *other,
 - (NSComparisonResult) compare: (NSString *) other
                        options: (NSStringCompareOptions) options
                          range: (NSRange) range
-                        locale: (NSLocale *) locale {
+                        locale: (NSLocale *) locale
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSComparisonResult) compare: (NSString *) other
                        options: (NSStringCompareOptions) options
-                         range: (NSRange) range {
+                         range: (NSRange) range
+{
     return compareWithOptions(self, other, options, range);
 }
 
 // but improve the case conversion
 - (NSComparisonResult) compare: (NSString *) other
-                       options: (NSStringCompareOptions) options {
+                       options: (NSStringCompareOptions) options
+{
     return compareWithOptions(self, other, options,
                               NSMakeRange(0, [self length]));
 }
@@ -809,7 +829,8 @@ static inline BOOL isEqualString(NSString *str1, NSString *str2) {
 
 // Knuth-Morris-Pratt string search
 static inline void computeNext(NSInteger next[], unichar patbuffer[],
-                               NSInteger patlength) {
+                               NSInteger patlength)
+{
     NSInteger i = 0, j = -1;
 
     next[i] = j;
@@ -826,7 +847,8 @@ static inline void computeNext(NSInteger next[], unichar patbuffer[],
 
 static inline NSRange rangeOfPatternNext(unichar *buffer, unichar *patbuffer,
                                          NSInteger *next, NSUInteger patlength,
-                                         NSRange range) {
+                                         NSRange range)
+{
     NSInteger i = range.location, j = 0;
     NSInteger end = range.location + range.length;
 
@@ -859,14 +881,16 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 - (NSRange) rangeOfString: (NSString *) string
                   options: (NSStringCompareOptions) options
                     range: (NSRange) range
-                   locale: (NSLocale *) locale {
+                   locale: (NSLocale *) locale
+{
     NSUnimplementedMethod();
     return NSMakeRange(0, 0);
 }
 
 - (NSRange) rangeOfString: (NSString *) pattern
                   options: (NSStringCompareOptions) options
-                    range: (NSRange) range {
+                    range: (NSRange) range
+{
     NSUInteger length = [self length];
     NSUInteger patlength = [pattern length];
     NSInteger next[patlength + 1];
@@ -922,7 +946,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 }
 
 - (NSRange) rangeOfString: (NSString *) string
-                  options: (NSStringCompareOptions) options {
+                  options: (NSStringCompareOptions) options
+{
     NSRange range = NSMakeRange(0, [self length]);
 
     return [self rangeOfString: string options: options range: range];
@@ -934,7 +959,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 
 - (NSRange) rangeOfCharacterFromSet: (NSCharacterSet *) set
                             options: (NSStringCompareOptions) options
-                              range: (NSRange) range {
+                              range: (NSRange) range
+{
     NSRange result = NSMakeRange(NSNotFound, 0);
 
     if (range.length < 1)
@@ -989,7 +1015,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 
 // FIX
 - (NSRange) rangeOfCharacterFromSet: (NSCharacterSet *) set
-                            options: (NSStringCompareOptions) options {
+                            options: (NSStringCompareOptions) options
+{
     return [self rangeOfCharacterFromSet: set
                                  options: options
                                    range: NSMakeRange(0, [self length])];
@@ -1002,7 +1029,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 - (void) getLineStart: (NSUInteger *) startp
                   end: (NSUInteger *) endp
           contentsEnd: (NSUInteger *) contentsEndp
-             forRange: (NSRange) range {
+             forRange: (NSRange) range
+{
     NSUInteger start = range.location;
     NSUInteger maxRange = NSMaxRange(range);
     if (maxRange == 0) {
@@ -1083,7 +1111,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 - (void) getParagraphStart: (NSUInteger *) startp
                        end: (NSUInteger *) endp
                contentsEnd: (NSUInteger *) contentsEndp
-                  forRange: (NSRange) range {
+                  forRange: (NSRange) range
+{
     /*
      Documentation does not specify exact getParagraphStart: behavior, only
      mentioning it is similar to getLineStart: The difference is that
@@ -1533,20 +1562,23 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 }
 
 - (NSString *) commonPrefixWithString: (NSString *) other
-                              options: (NSStringCompareOptions) options {
+                              options: (NSStringCompareOptions) options
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSString *) stringByPaddingToLength: (NSUInteger) length
                             withString: (NSString *) padding
-                       startingAtIndex: (NSUInteger) index {
+                       startingAtIndex: (NSUInteger) index
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSString *) stringByReplacingCharactersInRange: (NSRange) range
-                                       withString: (NSString *) substitute {
+                                       withString: (NSString *) substitute
+{
     NSString *first = [self substringToIndex: range.location];
     NSString *last = [self substringFromIndex: NSMaxRange(range)];
 
@@ -1555,7 +1587,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 }
 
 - (NSString *) stringByReplacingOccurrencesOfString: (NSString *) original
-                                         withString: (NSString *) substitute {
+                                         withString: (NSString *) substitute
+{
     NSMutableString *s = [self mutableCopy];
     [s replaceOccurrencesOfString: original
                        withString: substitute
@@ -1571,7 +1604,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
                                          withString: (NSString *) substitute
                                             options:
                                                 (NSStringCompareOptions) options
-                                              range: (NSRange) range {
+                                              range: (NSRange) range
+{
     NSMutableString *s = [self mutableCopy];
     [s replaceOccurrencesOfString: original
                        withString: substitute
@@ -1584,7 +1618,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 }
 
 - (NSString *) stringByFoldingWithOptions: (NSStringCompareOptions) options
-                                   locale: (NSLocale *) locale {
+                                   locale: (NSLocale *) locale
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -1639,7 +1674,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 - (BOOL) writeToFile: (NSString *) path
           atomically: (BOOL) atomically
             encoding: (NSStringEncoding) encoding
-               error: (NSError **) error {
+               error: (NSError **) error
+{
     NSData *data = [self dataUsingEncoding: encoding];
     NSUInteger options = 0;
     if (atomically)
@@ -1650,7 +1686,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 - (BOOL) writeToURL: (NSURL *) url
          atomically: (BOOL) atomically
            encoding: (NSStringEncoding) encoding
-              error: (NSError **) error {
+              error: (NSError **) error
+{
     NSData *data = [self dataUsingEncoding: encoding];
     NSUInteger options = 0;
     if (atomically)
@@ -1683,7 +1720,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 
 // FIX, not complete
 - (NSData *) dataUsingEncoding: (NSStringEncoding) encoding
-          allowLossyConversion: (BOOL) lossy {
+          allowLossyConversion: (BOOL) lossy
+{
     NSZone *zone = [self zone];
     NSUInteger length = [self length];
     unichar *buffer = NSZoneMalloc(NULL, (1 + length) * sizeof(unichar));
@@ -1722,7 +1760,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
           encoding: (NSStringEncoding) encoding
            options: (NSStringEncodingConversionOptions) options
              range: (NSRange) range
-    remainingRange: (NSRange *) remainingRange {
+    remainingRange: (NSRange *) remainingRange
+{
     unichar *unibuffer =
         NSZoneMalloc(NULL, (1 + range.length) * sizeof(unichar));
     char *bytes = NULL;
@@ -1782,7 +1821,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 }
 
 - (NSString *) stringByReplacingPercentEscapesUsingEncoding:
-    (NSStringEncoding) encoding {
+    (NSStringEncoding) encoding
+{
     // Note : this is supposed to return nil if the escaped char don't make a
     // valid string for the encoding - this is not checked
     enum {
@@ -1862,7 +1902,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 }
 
 - (NSString *) stringByAddingPercentEscapesUsingEncoding:
-    (NSStringEncoding) encoding {
+    (NSStringEncoding) encoding
+{
     const char *hex = "0123456789ABCDEF";
 
     // TODO : this is only really working for 8-bits encoding, but we usually
@@ -1945,7 +1986,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 
 - (BOOL) getCString: (char *) cString
           maxLength: (NSUInteger) maxLength
-           encoding: (NSStringEncoding) encoding {
+           encoding: (NSStringEncoding) encoding
+{
     NSRange range = {0, [self length]};
     unichar *unicode = NSZoneMalloc(NULL, range.length * sizeof(unichar));
     NSUInteger location;
@@ -1967,7 +2009,8 @@ static inline void reverseString(unichar *buf, NSUInteger len) {
 - (void) getCString: (char *) cString
           maxLength: (NSUInteger) maxLength
               range: (NSRange) range
-     remainingRange: (NSRange *) leftoverRange {
+     remainingRange: (NSRange *) leftoverRange
+{
     unichar *unicode = NSZoneMalloc(NULL, range.length * sizeof(unichar));
     NSUInteger location;
 

@@ -27,7 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // Looks for a substitute in the list able to display the given char
 - (NSFont *) _bestFontForCharacter: (unichar) c
                           userFont: (NSFont *) font
-                    usingFontNames: (NSArray *) fontnameList {
+                    usingFontNames: (NSArray *) fontnameList
+{
     // We are caching the fontName->charset info, to prevent the
     // creation/conversion of plenty of fonts
     static NSMutableDictionary *sNameToCharacterSetCache = nil;

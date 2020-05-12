@@ -369,7 +369,8 @@ static void transferNativeToSet(native_set *native, NSMutableSet *set) {
 
 static void transferNativeToSetWithOriginals(native_set *native,
                                              NSMutableSet *set, NSSet *original,
-                                             NSSocket_windows *cheater) {
+                                             NSSocket_windows *cheater)
+{
     int i;
 
     for (i = 0; i < native->fdset->fd_count; i++) {
@@ -434,7 +435,8 @@ static void transferNativeToSetWithOriginals(native_set *native,
 }
 
 - (NSError *) waitForSelectWithOutputSet: (NSSelectSet **) outputSetX
-                              beforeDate: (NSDate *) beforeDate {
+                              beforeDate: (NSDate *) beforeDate
+{
     NSError *result = nil;
     NSSocket_windows *cheater = [NSSocket_windows socketWithSocketHandle: 0];
     NSTimeInterval interval = [beforeDate timeIntervalSinceNow];

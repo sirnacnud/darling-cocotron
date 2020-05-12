@@ -93,7 +93,8 @@ typedef agg::scanline_u8_am<MaskType> scanline_mask_type;
 template <class Rasterizer, class Scanline, class BaseRenderer, class ColorT>
 void render_scanlines_aa_solid_translate(Rasterizer &ras, Scanline &sl,
                                          BaseRenderer &ren, const ColorT &color,
-                                         int dx, int dy) {
+                                         int dx, int dy)
+{
     if (ras.rewind_scanlines()) {
         // Explicitly convert "color" to the BaseRenderer color type.
         // For example, it can be called with color type "rgba", while
@@ -138,7 +139,8 @@ template <class Scanline, class BaseRenderer, class SpanAllocator,
           class SpanGenerator>
 void render_scanline_aa_translate(const Scanline &sl, BaseRenderer &ren,
                                   SpanAllocator &alloc, SpanGenerator &span_gen,
-                                  int dx, int dy) {
+                                  int dx, int dy)
+{
     int y = sl.y();
 
     unsigned num_spans = sl.num_spans();
@@ -166,7 +168,8 @@ template <class Rasterizer, class Scanline, class BaseRenderer,
           class SpanAllocator, class SpanGenerator>
 void render_scanlines_aa_translate(Rasterizer &ras, Scanline &sl,
                                    BaseRenderer &ren, SpanAllocator &alloc,
-                                   SpanGenerator &span_gen, int dx, int dy) {
+                                   SpanGenerator &span_gen, int dx, int dy)
+{
     if (ras.rewind_scanlines()) {
         sl.reset(ras.min_x(), ras.max_x());
         span_gen.prepare();
@@ -379,7 +382,8 @@ class context_renderer {
         // Blur the (x1,y1,x2,y2) part of the shadow buffer, and copy it to the
         // main buffer
         template <class Ras, class S>
-        void blur(S &sl, float x1, float x2, float y1, float y2) {
+        void blur(S &sl, float x1, float x2, float y1, float y2)
+        {
             float xmin = ren_base->xmin();
             float ymin = ren_base->ymin();
             float xmax = ren_base->xmax();
@@ -499,14 +503,16 @@ class context_renderer {
         }
 
         template <class Ras, class S, class T>
-        void render_scanlines(Ras &rasterizer, S &sl, T &type) {
+        void render_scanlines(Ras &rasterizer, S &sl, T &type)
+        {
             agg::render_scanlines(rasterizer, sl, type);
         }
 
         // Used to render images & shadings
         template <class Ras, class S, class SA, class T>
         void render_scanlines_aa(Ras &rasterizer, S &sl, SA &span_allocator,
-                                 T &type) {
+                                 T &type)
+        {
             O2Log("%p:Drawing Image", this);
             if (shadowColor.a > 0.) {
                 setUpShadow();
@@ -593,7 +599,8 @@ class context_renderer {
 
         // Used to render path
         template <class Ras, class S, class T>
-        void render_scanlines_aa_solid(Ras &rasterizer, S &sl, T &type) {
+        void render_scanlines_aa_solid(Ras &rasterizer, S &sl, T &type)
+        {
             if (shadowColor.a > 0.) {
                 setUpShadow();
 
@@ -723,7 +730,8 @@ class context_renderer {
     // methods and we don't know some type at compile time (like pixel format)
     // But there must be some better way...
     template <class Ras, class S, class T>
-    void render_scanlines(Ras &rasterizer, S &sl, T &type) {
+    void render_scanlines(Ras &rasterizer, S &sl, T &type)
+    {
         if (premultiplied) {
             if (helper->isRGBA()) {
                 ((rgba_helper_pre *) helper)
@@ -756,7 +764,8 @@ class context_renderer {
     }
     template <class Ras, class S, class SA, class T>
     void render_scanlines_aa(Ras &rasterizer, S &sl, SA &span_allocator,
-                             T &type) {
+                             T &type)
+    {
         if (premultiplied) {
             if (helper->isRGBA()) {
                 ((rgba_helper_pre *) helper)
@@ -788,7 +797,8 @@ class context_renderer {
         }
     }
     template <class Ras, class S, class T>
-    void render_scanlines_aa_solid(Ras &rasterizer, S &sl, T &type) {
+    void render_scanlines_aa_solid(Ras &rasterizer, S &sl, T &type)
+    {
         if (premultiplied) {
             if (helper->isRGBA()) {
                 ((rgba_helper_pre *) helper)
@@ -875,7 +885,8 @@ class gradient_evaluator {
   public:
     gradient_evaluator(O2FunctionRef function, bool premultiply = true,
                        unsigned size = 4096)
-        : m_size(size) {
+        : m_size(size)
+    {
         // Precalculate our colors
         m_colors_lut = new o2agg::rgba[size];
         float invSize = 1. / size;
@@ -909,7 +920,8 @@ class gradient_evaluator {
 
 template <class SpanAllocator, class SpanGen>
 void render_scanlines_aa(O2Context_AntiGrain *self, SpanAllocator &sa,
-                         SpanGen &sg) {
+                         SpanGen &sg)
+{
     if (self->useMask) {
         scanline_mask_type sl(*[self currentMask]);
         self->renderer->render_scanlines_aa(*self->rasterizer, sl, sa, sg);
@@ -921,7 +933,8 @@ void render_scanlines_aa(O2Context_AntiGrain *self, SpanAllocator &sa,
 
 template <class Type>
 void render_scanlines_aa_solid(O2Context_AntiGrain *self, Type &type,
-                               BOOL packed = NO) {
+                               BOOL packed = NO)
+{
     if (self->useMask) {
         scanline_mask_type sl(*[self currentMask]);
         self->renderer->render_scanlines_aa_solid(*self->rasterizer, sl, type);
@@ -938,7 +951,8 @@ void render_scanlines_aa_solid(O2Context_AntiGrain *self, Type &type,
 
 template <class gradient_func_type>
 void O2AGGContextDrawShading(O2Context_AntiGrain *self, O2Shading *shading,
-                             float x, float y, float width, float height) {
+                             float x, float y, float width, float height)
+{
     typedef o2agg::pixfmt_bgra32_pre
         pixfmt_type; // That should be the same pixel type as the context ?
     typedef pixfmt_type::color_type color_type;
@@ -1022,7 +1036,8 @@ template <class pixfmt>
 void O2AGGContextDrawImage(O2Context_AntiGrain *self,
                            agg::rendering_buffer &imageBuffer,
                            const agg::trans_affine &transform,
-                           ImageInterpolationType interpolationType) {
+                           ImageInterpolationType interpolationType)
+{
     BOOL resample = NO;
     if (interpolationType != kImageInterpolationNone) {
         // Enable resampling if we have some big downscaling
@@ -1159,7 +1174,8 @@ void O2AGGContextDrawImage(O2Context_AntiGrain *self,
 
 template <class StrokeType>
 void O2AGGContextSetStroke(O2Context_AntiGrain *self, StrokeType &stroke,
-                           const agg::trans_affine &deviceMatrix) {
+                           const agg::trans_affine &deviceMatrix)
+{
     O2GState *gState = O2ContextCurrentGState(self);
 
     stroke.approximation_scale(deviceMatrix.scale());
@@ -1198,7 +1214,8 @@ void O2AGGContextSetStroke(O2Context_AntiGrain *self, StrokeType &stroke,
 template <class StrokeType>
 void O2AGGContextStrokePath(O2Context_AntiGrain *self, StrokeType &stroke,
                             o2agg::rgba color,
-                            const agg::trans_affine &deviceMatrix) {
+                            const agg::trans_affine &deviceMatrix)
+{
     agg::conv_transform<StrokeType, agg::trans_affine> trans(stroke,
                                                              deviceMatrix);
     self->rasterizer->add_path(trans);
@@ -1208,7 +1225,8 @@ void O2AGGContextStrokePath(O2Context_AntiGrain *self, StrokeType &stroke,
 }
 
 template <class StrokeType>
-void O2AGGStrokeToO2Path(O2Context_AntiGrain *self, StrokeType &stroke) {
+void O2AGGStrokeToO2Path(O2Context_AntiGrain *self, StrokeType &stroke)
+{
     double x, y;
     int type;
     O2ContextBeginPath(self);
@@ -1267,7 +1285,8 @@ void O2AGGStrokeToO2Path(O2Context_AntiGrain *self, StrokeType &stroke) {
 static void O2AGGContextFillPathWithRule(O2Context_AntiGrain *self,
                                          o2agg::rgba color,
                                          const agg::trans_affine &deviceMatrix,
-                                         agg::filling_rule_e fillingRule) {
+                                         agg::filling_rule_e fillingRule)
+{
     agg::conv_curve<agg::path_storage> curve(*(self->path));
     agg::conv_transform<agg::conv_curve<agg::path_storage>, agg::trans_affine>
         trans(curve, deviceMatrix);
@@ -1282,7 +1301,8 @@ static void O2AGGContextFillPathWithRule(O2Context_AntiGrain *self,
 }
 
 static void O2AGGContextStrokePath(O2Context_AntiGrain *self, o2agg::rgba color,
-                                   const agg::trans_affine &deviceMatrix) {
+                                   const agg::trans_affine &deviceMatrix)
+{
     agg::conv_curve<agg::path_storage> curve(*(self->path));
     curve.approximation_scale(deviceMatrix.scale());
 
@@ -1314,7 +1334,8 @@ static void O2AGGContextStrokePath(O2Context_AntiGrain *self, o2agg::rgba color,
 }
 
 static void O2AGGReplaceStrokedPath(O2Context_AntiGrain *self,
-                                    const agg::trans_affine &deviceMatrix) {
+                                    const agg::trans_affine &deviceMatrix)
+{
     agg::conv_curve<agg::path_storage> curve(*(self->path));
     curve.approximation_scale(deviceMatrix.scale());
 
@@ -1349,7 +1370,8 @@ static void O2AGGReplaceStrokedPath(O2Context_AntiGrain *self,
  */
 static void buildAGGPathFromO2PathAndTransform(agg::path_storage *aggPath,
                                                O2PathRef path,
-                                               const O2AffineTransform &xform) {
+                                               const O2AffineTransform &xform)
+{
     const unsigned char *elements = O2PathElements(path);
     const O2Point *points = O2PathPoints(path);
     unsigned i, numberOfElements = O2PathNumberOfElements(path), pointIndex;
@@ -1404,7 +1426,8 @@ static void buildAGGPathFromO2PathAndTransform(agg::path_storage *aggPath,
 }
 
 static void transferPath(O2Context_AntiGrain *self, O2PathRef path,
-                         const O2AffineTransform &xform) {
+                         const O2AffineTransform &xform)
+{
     buildAGGPathFromO2PathAndTransform(self->path, path, xform);
 }
 
@@ -1412,7 +1435,8 @@ static void transferPath(O2Context_AntiGrain *self, O2PathRef path,
 
 - (KTFont *) _cachedKTFontWithFont: (O2Font *) font
                               name: (NSString *) name
-                              size: (float) size {
+                              size: (float) size
+{
     static NSMutableDictionary *kfontCache = nil;
     static NSMutableArray *kfontLRU = nil;
     if (kfontCache == nil) {
@@ -1444,7 +1468,8 @@ static void transferPath(O2Context_AntiGrain *self, O2PathRef path,
 
 unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
                                 const O2Glyph *glyphs, const O2Size *advances,
-                                unsigned count) {
+                                unsigned count)
+{
     unsigned num_glyphs = 0;
 
     // All context use the same font manager - protect acceses
@@ -1694,15 +1719,17 @@ unsigned O2AGGContextShowGlyphs(O2Context_AntiGrain *self,
     return rasterizer;
 }
 
-- (context_renderer *) renderer;
-{ return renderer; }
+- (context_renderer *) renderer; {
+    return renderer;
+}
 
 - (BOOL) useMask {
     return useMask;
 }
 
-- (BOOL) isPremultiplied;
-{ return renderer->premultiplied; }
+- (BOOL) isPremultiplied; {
+    return renderer->premultiplied;
+}
 
 - (MaskType *) currentMask {
     if (baseRendererAlphaMask[0] == NULL) {
@@ -1873,7 +1900,8 @@ static void O2ContextClipViewportToPath(O2Context_builtin *self, O2Path *path) {
 }
 
 static void O2ContextClipViewportToState(O2Context_builtin *self,
-                                         O2ClipState *clipState) {
+                                         O2ClipState *clipState)
+{
     // Note : this is basically what [O2Context_builtin clipToState:] is doing
     O2GState *gState = O2ContextCurrentGState(self);
     NSArray *phases = [O2GStateClipState(gState) clipPhases];
@@ -2348,7 +2376,8 @@ static void O2ContextClipViewportToState(O2Context_builtin *self,
 #ifdef O2AGG_GLYPH_SUPPORT
 - (void) showGlyphs: (const O2Glyph *) glyphs
            advances: (const O2Size *) advances
-              count: (unsigned) count {
+              count: (unsigned) count
+{
     // Use Win text rendering if the context shouldSmoothFonts isn't set
     // (default value) Note that Win text rendering currently doesn't support
     // some advanced features like non-rect clipping, shadows... There are also

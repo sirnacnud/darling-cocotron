@@ -14,7 +14,8 @@
                      bitmapInfo: (O2BitmapInfo) bitmapInfo
                 releaseCallback:
                     (O2BitmapContextReleaseDataCallback) releaseCallback
-                    releaseInfo: (void *) releaseInfo {
+                    releaseInfo: (void *) releaseInfo
+{
 
     return [[O2Context_builtin_FT alloc] initWithBytes: bytes
                                                  width: width
@@ -39,7 +40,6 @@
 }
 
 - (void) dealloc {
-
     [super dealloc];
 }
 
@@ -73,7 +73,8 @@ static O2Paint *paintFromColor(O2ColorRef color) {
 
 static void applyCoverageToSpan_lRGBA8888_PRE(O2argb8u *dst,
                                               unsigned char *coverageSpan,
-                                              O2argb8u *src, int length) {
+                                              O2argb8u *src, int length)
+{
     int i;
 
     for (i = 0; i < length; i++, src++, dst++) {
@@ -89,7 +90,8 @@ static void applyCoverageToSpan_lRGBA8888_PRE(O2argb8u *dst,
 
 static void renderFreeTypeBitmap(O2Context_builtin_FT *self, O2Surface *surface,
                                  FT_Bitmap *bitmap, NSInteger x, NSInteger y,
-                                 O2Paint *paint) {
+                                 O2Paint *paint)
+{
     // Size of the bitmap.
     NSInteger fullWidth = bitmap->width;
     NSInteger fullHeight = bitmap->rows;
@@ -165,7 +167,8 @@ static void renderFreeTypeBitmap(O2Context_builtin_FT *self, O2Surface *surface,
 
 - (void) showGlyphs: (const O2Glyph *) glyphs
            advances: (const O2Size *) advances
-              count: (NSUInteger) count {
+              count: (NSUInteger) count
+{
     // FIXME: use advances if not NULL
 
     O2SurfaceLock(_surface);

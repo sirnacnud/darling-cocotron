@@ -67,7 +67,8 @@ static void *NSKVOBinderChangeContext;
 }
 
 NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
-                                 NSUInteger valueCount) {
+                                 NSUInteger valueCount)
+{
     NSInteger i, length = [pattern length];
     NSUInteger valueIndex = 0;
     unichar buffer[length];
@@ -322,7 +323,8 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
 - (void) observeValueForKeyPath: (NSString *) kp
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     NSBindingDebugLog(
         kNSBindingDebugLogLevel1,
         @"keyPath: %@\n   object: %@\n   change: %@\n    context: %p", kp,

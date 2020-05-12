@@ -26,7 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             target: target
           argument: argument
              order: (NSUInteger) order
-             modes: (NSArray *) modes {
+             modes: (NSArray *) modes
+{
     _selector = selector;
     _target = [target retain];
     _argument = [argument retain];
@@ -46,7 +47,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                            target: target
                                          argument: argument
                                             order: (NSUInteger) order
-                                            modes: (NSArray *) modes {
+                                            modes: (NSArray *) modes
+{
     return [[[self alloc] initWithSelector: selector
                                     target: target
                                   argument: argument

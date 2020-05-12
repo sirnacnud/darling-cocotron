@@ -252,7 +252,8 @@ static BOOL isStandardItemIdentifier(NSString *identifier) {
 }
 
 - (NSToolbarItem *) _itemForItemIdentifier: (NSString *) identifier
-                 willBeInsertedIntoToolbar: (BOOL) intoToolbar {
+                 willBeInsertedIntoToolbar: (BOOL) intoToolbar
+{
     NSToolbarItem *item = [_identifiedItems objectForKey: identifier];
 
     if (item == nil) {
@@ -347,7 +348,8 @@ static BOOL isStandardItemIdentifier(NSString *identifier) {
 }
 
 - (void) insertItemWithItemIdentifier: (NSToolbarItemIdentifier) identifier
-                              atIndex: (NSInteger) index {
+                              atIndex: (NSInteger) index
+{
     NSToolbarItem *item = [self _itemForItemIdentifier: identifier
                              willBeInsertedIntoToolbar: YES];
     [self _insertItem: item atIndex: index];
@@ -551,7 +553,8 @@ static BOOL isStandardItemIdentifier(NSString *identifier) {
 
 - (void) sheetDidEnd: (NSWindow *) sheet
           returnCode: (int) returnCode
-         contextInfo: (void *) contextInfo {
+         contextInfo: (void *) contextInfo
+{
     [_palette orderOut: nil];
     [_palette release];
     _palette = nil;

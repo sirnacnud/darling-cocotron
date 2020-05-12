@@ -13,8 +13,8 @@
 
 @implementation CIContext
 
-- initWithCGContext: (CGContextRef) cgContext
-            options: (NSDictionary *) options {
+- initWithCGContext: (CGContextRef) cgContext options: (NSDictionary *) options
+{
     _cgContext = CGContextRetain(cgContext);
     return self;
 }
@@ -25,14 +25,16 @@
 }
 
 + (CIContext *) contextWithCGContext: (CGContextRef) cgContext
-                             options: (NSDictionary *) options {
+                             options: (NSDictionary *) options
+{
     return [[[self alloc] initWithCGContext: cgContext
                                     options: options] autorelease];
 }
 
 - (void) drawImage: (CIImage *) image
            atPoint: (CGPoint) atPoint
-          fromRect: (CGRect) fromRect {
+          fromRect: (CGRect) fromRect
+{
     CGRect inRect = {{atPoint.x, atPoint.y},
                      {fromRect.size.width, fromRect.size.height}};
 
@@ -55,7 +57,8 @@ static void evaluate(void *info, const CGFloat *in, CGFloat *output) {
 
 - (void) drawImage: (CIImage *) image
             inRect: (CGRect) inRect
-          fromRect: (CGRect) fromRect {
+          fromRect: (CGRect) fromRect
+{
     CIFilter *filter = [image filter];
     NSString *filterName = [filter valueForKey: @"kCIAttributeFilterName"];
 

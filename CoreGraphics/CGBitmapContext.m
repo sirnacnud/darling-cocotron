@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 CGContextRef CGBitmapContextCreate(void *bytes, size_t width, size_t height,
                                    size_t bitsPerComponent, size_t bytesPerRow,
                                    CGColorSpaceRef colorSpace,
-                                   CGBitmapInfo bitmapInfo) {
+                                   CGBitmapInfo bitmapInfo)
+{
     return O2BitmapContextCreate(bytes, width, height, bitsPerComponent,
                                  bytesPerRow, colorSpace, bitmapInfo);
 }

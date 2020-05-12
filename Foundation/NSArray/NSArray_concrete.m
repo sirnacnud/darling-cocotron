@@ -27,7 +27,8 @@ static inline NSArray_concrete *newWithCount(NSZone *zone, NSUInteger count) {
 }
 
 NSArray *NSArray_concreteNewWithCount(NSZone *zone, id **objects,
-                                      NSUInteger count) {
+                                      NSUInteger count)
+{
     NSArray_concrete *self = newWithCount(zone, count);
 
     self->_count = count;

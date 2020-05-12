@@ -340,7 +340,8 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
 #define CR 13
 
 static O2PDFIdentifier O2PostScriptClassifyIdentifier(const char *bytes,
-                                                      NSUInteger length) {
+                                                      NSUInteger length)
+{
     char name[length + 1];
 
     strncpy(name, bytes, length);
@@ -440,7 +441,8 @@ static O2PDFIdentifier O2PostScriptClassifyIdentifier(const char *bytes,
 static BOOL O2PDFScanCalculator(const char *bytes, NSUInteger length,
                                 O2PDFInteger position,
                                 O2PDFInteger *lastPosition,
-                                O2PDFObject **objectp) {
+                                O2PDFObject **objectp)
+{
     O2PDFInteger currentSign = 1, currentInt = 0;
     O2PDFReal currentReal = 0, currentFraction = 0;
     NSInteger inlineLocation = 0;
@@ -592,7 +594,8 @@ static BOOL O2PDFScanCalculator(const char *bytes, NSUInteger length,
 
 static O2PDFBlock *O2PDFParseCalculator(const char *bytes, NSUInteger length,
                                         O2PDFInteger position,
-                                        O2PDFInteger *lastPosition) {
+                                        O2PDFInteger *lastPosition)
+{
     NSMutableArray *stack = [NSMutableArray array];
     O2PDFObject *check;
 
@@ -661,7 +664,8 @@ static O2PDFBlock *O2PDFParseCalculator(const char *bytes, NSUInteger length,
 
 - initWithDomain: (O2PDFArray *) domain
            range: (O2PDFArray *) range
-      calculator: (NSData *) data {
+      calculator: (NSData *) data
+{
     NSLog(@"INITIALIZE TYPE 4");
     if ([super initWithDomain: domain range: range] == nil)
         return nil;

@@ -85,7 +85,8 @@ static inline BOOL isItemExpanded(NSOutlineView *self, id item) {
 }
 
 static inline NSInteger numberOfChildrenOfItemAndReload(NSOutlineView *self,
-                                                        id item, BOOL reload) {
+                                                        id item, BOOL reload)
+{
     NSInteger result;
 
     if (!reload)
@@ -101,7 +102,8 @@ static inline NSInteger numberOfChildrenOfItemAndReload(NSOutlineView *self,
 }
 
 static inline id childOfItemAtIndex(NSOutlineView *self, id item,
-                                    NSInteger index) {
+                                    NSInteger index)
+{
 #if 1
     // NSLog(@"%s %d",__FILE__,__LINE__);
     id result = [self->_dataSource outlineView: self child: index ofItem: item];
@@ -287,7 +289,8 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
 }
 
 - (BOOL) _delayResizeButExpandItem: (id) item
-                    expandChildren: (BOOL) expandChildren {
+                    expandChildren: (BOOL) expandChildren
+{
     BOOL noteNumberOfRowsChanged = NO;
     BOOL expandThisItem = YES;
 
@@ -551,7 +554,8 @@ static inline id childOfItemAtIndex(NSOutlineView *self, id item,
 static void loadItemIntoMapTables(NSOutlineView *self, id item,
                                   NSUInteger *rowCountPtr,
                                   NSUInteger recursionLevel,
-                                  NSHashTable *removeItems) {
+                                  NSHashTable *removeItems)
+{
     NSInteger i,
         numberOfChildren = numberOfChildrenOfItemAndReload(self, item, YES);
 
@@ -588,9 +592,7 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
             NSHashInsert(removeItems, key);
     }
 
-    loadItemIntoMapTables(self, nil, &_numberOfCachedRows, 0, removeItems);
-
-    {
+    loadItemIntoMapTables(self, nil, &_numberOfCachedRows, 0, removeItems); {
         NSHashEnumerator state = NSEnumerateHashTable(removeItems);
         void *key;
 
@@ -626,7 +628,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
 - (NSRect) _adjustedFrameOfCellAtColumn: (NSInteger) column
                                     row: (NSInteger) row
-                            objectValue: (id) objectValue {
+                            objectValue: (id) objectValue
+{
     NSRect cellRect = [super frameOfCellAtColumn: column row: row];
     NSTableColumn *tableColumn = [_tableColumns objectAtIndex: column];
 
@@ -694,7 +697,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
 - (void) drawHighlightedSelectionForColumn: (NSInteger) column
                                        row: (NSInteger) row
-                                    inRect: (NSRect) rect {
+                                    inRect: (NSRect) rect
+{
     if ([_tableColumns objectAtIndex: column] == _outlineTableColumn) {
         NSRect newRect = NSInsetRect(rect, 1, 0);
         // NSDottedFrameRect is kinda weird
@@ -710,7 +714,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
 - (void) _drawGridForItem: (id) item
                     style: (NSGraphicsStyle *) style
-                    level: (NSInteger) level {
+                    level: (NSInteger) level
+{
     NSInteger column = [_tableColumns indexOfObject: _outlineTableColumn];
     NSInteger row = [self rowForItem: item];
     NSRect myFrame = [self frameOfCellAtColumn: column row: row];
@@ -774,8 +779,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
     [super drawGridInClipRect: clipRect];
 }
 
-- (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber
-                              row: (NSInteger) row {
+- (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber row: (NSInteger) row
+{
     NSTableColumn *column = [_tableColumns objectAtIndex: columnNumber];
     NSCell *result = [super preparedCellAtColumn: columnNumber row: row];
 
@@ -905,7 +910,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 }
 
 - (BOOL) delegateShouldEditTableColumn: (NSTableColumn *) tableColumn
-                                   row: (NSInteger) row {
+                                   row: (NSInteger) row
+{
     if ([_delegate respondsToSelector: @selector(outlineView:
                                            shouldEditTableColumn:item:)])
         return [_delegate outlineView: self
@@ -952,7 +958,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
 - (void) dataSourceSetObjectValue: (id) object
                    forTableColumn: (NSTableColumn *) tableColumn
-                              row: (NSInteger) row {
+                              row: (NSInteger) row
+{
     [_dataSource outlineView: self
               setObjectValue: object
               forTableColumn: tableColumn
@@ -960,7 +967,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 }
 
 - (id) dataSourceObjectValueForTableColumn: (NSTableColumn *) tableColumn
-                                       row: (NSInteger) row {
+                                       row: (NSInteger) row
+{
     return [_dataSource outlineView: self
           objectValueForTableColumn: tableColumn
                              byItem: [self itemAtRow: row]];
@@ -968,7 +976,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
 
 - (void) _willDisplayCell: (NSCell *) cell
            forTableColumn: (NSTableColumn *) column
-                      row: (NSInteger) row {
+                      row: (NSInteger) row
+{
     if ([_delegate respondsToSelector: @selector
                    (outlineView:willDisplayCell:forTableColumn:item:)])
         [_delegate outlineView: self

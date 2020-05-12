@@ -42,12 +42,14 @@ static NSUInteger _NSMapObjectHash(NSMapTable *table, const void *object) {
 }
 
 static BOOL _NSMapPointerIsEqual(NSMapTable *table, const void *object1,
-                                 const void *object2) {
+                                 const void *object2)
+{
     return (object1 == object2) ? YES : NO;
 }
 
 static BOOL _NSMapObjectIsEqual(NSMapTable *table, const void *object1,
-                                const void *object2) {
+                                const void *object2)
+{
     BOOL result = [(id) object1 isEqual: (id) object2];
 
     return result;
@@ -119,14 +121,16 @@ const NSMapTableValueCallBacks NSOwnedPointerMapValueCallBacks = {
 
 NSMapTable *NSCreateMapTable(NSMapTableKeyCallBacks keyCallBacks,
                              NSMapTableValueCallBacks valueCallBacks,
-                             NSUInteger capacity) {
+                             NSUInteger capacity)
+{
     return NSCreateMapTableWithZone(keyCallBacks, valueCallBacks, capacity,
                                     NULL);
 }
 
 NSMapTable *NSCreateMapTableWithZone(NSMapTableKeyCallBacks keyCallBacks,
                                      NSMapTableValueCallBacks valueCallBacks,
-                                     NSUInteger capacity, NSZone *zone) {
+                                     NSUInteger capacity, NSZone *zone)
+{
     NSMapTable *table;
 
     table = [NSMapTable allocWithZone: zone];
@@ -233,7 +237,8 @@ NSUInteger NSCountMapTable(NSMapTable *table) {
 }
 
 BOOL NSMapMember(NSMapTable *table, const void *key, void **originalKey,
-                 void **value) {
+                 void **value)
+{
     NSUInteger i = table->keyCallBacks->hash(table, key) % table->nBuckets;
     NSMapNode *j;
 
@@ -374,8 +379,8 @@ void NSMapInsert(NSMapTable *table, const void *key, const void *value) {
     table->count++;
 }
 
-void *NSMapInsertIfAbsent(NSMapTable *table, const void *key,
-                          const void *value) {
+void *NSMapInsertIfAbsent(NSMapTable *table, const void *key, const void *value)
+{
     void *old = NSMapGet(table, key);
 
     if (old != NULL)
@@ -385,7 +390,8 @@ void *NSMapInsertIfAbsent(NSMapTable *table, const void *key,
 }
 
 void NSMapInsertKnownAbsent(NSMapTable *table, const void *key,
-                            const void *value) {
+                            const void *value)
+{
     if (NSMapGet(table, key) != NULL) {
         // FIX
         // [NSException raise:NSInvalidArgumentException format:@"NSMapGet

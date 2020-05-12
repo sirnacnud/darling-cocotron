@@ -33,7 +33,8 @@ const NSNotificationName NSMenuDidEndTrackingNotification =
 
 + (void) popUpContextMenu: (NSMenu *) menu
                 withEvent: (NSEvent *) event
-                  forView: (NSView *) view {
+                  forView: (NSView *) view
+{
     [menu update];
     if ([[menu itemArray] count] > 0) {
         NSPoint point = [event locationInWindow];
@@ -317,7 +318,8 @@ const NSNotificationName NSMenuDidEndTrackingNotification =
 
 - (NSMenuItem *) addItemWithTitle: (NSString *) title
                            action: (SEL) action
-                    keyEquivalent: (NSString *) keyEquivalent {
+                    keyEquivalent: (NSString *) keyEquivalent
+{
     NSMenuItem *item =
         [[[NSMenuItem alloc] initWithTitle: title
                                     action: action
@@ -350,7 +352,8 @@ const NSNotificationName NSMenuDidEndTrackingNotification =
 - (NSMenuItem *) insertItemWithTitle: (NSString *) title
                               action: (SEL) action
                        keyEquivalent: (NSString *) keyEquivalent
-                             atIndex: (NSInteger) index {
+                             atIndex: (NSInteger) index
+{
     NSMenuItem *item =
         [[[NSMenuItem alloc] initWithTitle: title
                                     action: action

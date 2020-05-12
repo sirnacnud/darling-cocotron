@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSString_unicodePtr
 
 NSString *NSString_unicodePtrNewNoCopy(NSZone *zone, const unichar *unicode,
-                                       NSUInteger length, BOOL freeWhenDone) {
+                                       NSUInteger length, BOOL freeWhenDone)
+{
     NSString_unicodePtr *self =
         NSAllocateObject([NSString_unicodePtr class], 0, zone);
 
@@ -38,7 +39,8 @@ NSString *NSString_unicodePtrNewNoCopy(NSZone *zone, const unichar *unicode,
 }
 
 NSString *NSString_unicodePtrNew(NSZone *zone, const unichar *unicode,
-                                 NSUInteger length) {
+                                 NSUInteger length)
+{
     unichar *copy = NSZoneMalloc(NULL, length * sizeof(unichar));
     int i;
 

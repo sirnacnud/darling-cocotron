@@ -6,7 +6,8 @@
 /* Extension function pointers are PER-CONTEXT, do not store in globals */
 
 void CGLBufferData(GLenum target, GLsizeiptr size, const GLvoid *data,
-                   GLenum usage) {
+                   GLenum usage)
+{
     PFNGLBUFFERDATAPROC function =
         (PFNGLBUFFERDATAPROC) wglGetProcAddress("glBufferData");
 
@@ -83,7 +84,8 @@ CGL_EXPORT GLboolean CGLUnmapBuffer(GLenum target) {
 }
 
 void CGLBufferSubData(GLenum target, GLintptr offset, GLsizeiptr size,
-                      const GLvoid *data) {
+                      const GLvoid *data)
+{
     PFNGLBUFFERSUBDATAPROC function =
         (PFNGLBUFFERSUBDATAPROC) wglGetProcAddress("glBufferSubData");
 

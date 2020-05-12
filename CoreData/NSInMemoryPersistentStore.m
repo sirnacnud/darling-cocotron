@@ -4,7 +4,8 @@
 @implementation NSInMemoryPersistentStore
 
 + (NSDictionary *) metadataForPersistentStoreWithURL: (NSURL *) url
-                                               error: (NSError **) error {
+                                               error: (NSError **) error
+{
     return nil;
 }
 

@@ -101,7 +101,8 @@
 
 - (void) commitEditingWithDelegate: delegate
                  didCommitSelector: (SEL) didCommitSelector
-                       contextInfo: (void *) contextInfo {
+                       contextInfo: (void *) contextInfo
+{
     NSUnimplementedMethod();
 }
 

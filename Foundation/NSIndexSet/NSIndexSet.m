@@ -120,7 +120,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // large sets
 static NSUInteger
 positionOfRangeGreaterThanOrEqualToLocation(NSRange *ranges, NSUInteger length,
-                                            NSUInteger location) {
+                                            NSUInteger location)
+{
     NSUInteger i;
 
     for (i = 0; i < length; i++)
@@ -130,9 +131,10 @@ positionOfRangeGreaterThanOrEqualToLocation(NSRange *ranges, NSUInteger length,
     return NSNotFound;
 }
 
-static NSUInteger
-positionOfRangeLessThanOrEqualToLocation(NSRange *ranges, NSUInteger length,
-                                         NSUInteger location) {
+static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
+                                                           NSUInteger length,
+                                                           NSUInteger location)
+{
     NSInteger i = length;
 
     while (--i >= 0)
@@ -144,7 +146,8 @@ positionOfRangeLessThanOrEqualToLocation(NSRange *ranges, NSUInteger length,
 
 - (NSUInteger) getIndexes: (NSUInteger *) buffer
                  maxCount: (NSUInteger) capacity
-             inIndexRange: (NSRange *) rangePtr {
+             inIndexRange: (NSRange *) rangePtr
+{
     NSRange range;
     NSUInteger first;
     NSUInteger result = 0;

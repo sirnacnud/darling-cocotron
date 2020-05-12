@@ -6,7 +6,8 @@
 - initWithArray: (O2PDFArray *) array
        firstChar: (int) firstChar
         lastChar: (int) lastChar
-    missingWidth: (CGFloat) missingWidth {
+    missingWidth: (CGFloat) missingWidth
+{
     int i, arrayIndex;
 
     for (i = 0; i < firstChar; i++)
@@ -26,7 +27,8 @@
 }
 
 void O2PDFCharWidthsGetAdvances(O2PDFCharWidths *self, O2Size *advances,
-                                const uint8_t *bytes, int length) {
+                                const uint8_t *bytes, int length)
+{
     int i;
 
     for (i = 0; i < length; i++) {

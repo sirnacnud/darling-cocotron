@@ -79,7 +79,8 @@ typedef struct {
 
 static int preXP_getaddrinfo(const char *host, const char *service,
                              const struct addrinfo *hints,
-                             struct addrinfo **result) {
+                             struct addrinfo **result)
+{
     struct addrinfo *list = NULL;
     struct addrinfo *current = NULL;
     struct hostent *hp;
@@ -131,7 +132,8 @@ static void preXP_freeaddrinfo(struct addrinfo *info) {
 
 static int any_getaddrinfo(const char *host, const char *service,
                            const struct addrinfo *hints,
-                           struct addrinfo **result) {
+                           struct addrinfo **result)
+{
     HANDLE library = LoadLibrary("WS2_32");
     typeof(getaddrinfo) *function =
         (typeof(getaddrinfo) *) GetProcAddress(library, "getaddrinfo");
@@ -440,7 +442,8 @@ CFDataRef CFHostGetReachability(CFHostRef self, Boolean *hasBeenResolved) {
 }
 
 Boolean CFHostSetClient(CFHostRef self, CFHostClientCallBack callback,
-                        CFHostClientContext *context) {
+                        CFHostClientContext *context)
+{
     if (self->_context.info != NULL && self->_context.release != NULL)
         self->_context.release(self->_context.info);
 
@@ -477,7 +480,8 @@ static void CFHostCreateEventIfNeeded(CFHostRef self) {
 }
 
 Boolean CFHostStartInfoResolution(CFHostRef self, CFHostInfoType infoType,
-                                  CFStreamError *streamError) {
+                                  CFStreamError *streamError)
+{
 
     switch (infoType) {
 
@@ -562,7 +566,8 @@ void CFHostCancelInfoResolution(CFHostRef self, CFHostInfoType infoType) {
 }
 
 void CFHostScheduleWithRunLoop(CFHostRef self, CFRunLoopRef runLoop,
-                               CFStringRef mode) {
+                               CFStringRef mode)
+{
     if (runLoop != CFRunLoopGetCurrent())
         NSUnimplementedFunction();
 
@@ -574,7 +579,8 @@ void CFHostScheduleWithRunLoop(CFHostRef self, CFRunLoopRef runLoop,
 }
 
 void CFHostUnscheduleFromRunLoop(CFHostRef self, CFRunLoopRef runLoop,
-                                 CFStringRef mode) {
+                                 CFStringRef mode)
+{
     if (runLoop != CFRunLoopGetCurrent())
         NSUnimplementedFunction();
 

@@ -69,7 +69,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 static void loadGlyphAndCharacterCacheForLocation(NSTypesetter_concrete *self,
-                                                  NSUInteger location) {
+                                                  NSUInteger location)
+{
     NSUInteger length = MIN(self->_glyphCacheCapacity,
                             NSMaxRange(self->_attributesGlyphRange) - location);
 
@@ -94,7 +95,8 @@ static void loadGlyphAndCharacterCacheForLocation(NSTypesetter_concrete *self,
                 proposedRect: (NSRect) proposedRect
                  lineSpacing: (CGFloat) lineSpacing
       paragraphSpacingBefore: (CGFloat) paragraphSpacingBefore
-       paragraphSpacingAfter: (CGFloat) paragraphSpacingAfter {
+       paragraphSpacingAfter: (CGFloat) paragraphSpacingAfter
+{
 #if DEBUG_TYPESETTER
     NSLog(@"getLineFragmentRect: %p usedRect: %p remainingRect: %p "
           @"forStartingGlyphAtIndex: %u proposedRect: %@ lineSpacing: %f "
@@ -393,8 +395,8 @@ static void loadGlyphAndCharacterCacheForLocation(NSTypesetter_concrete *self,
                         if ([_glyphRangesInLine count] != 0) {
                             // We need to rollback all of the previous fragments
                             // until one ending with a white space
-                            //		 because words can span on several fragment
-                            //because of some attribute changes
+                            //		 because words can span on several
+                            // fragment because of some attribute changes
                             if (_wordWrapWidth > 0) {
                                 _lineRange.length = NSMaxRange(_wordWrapRange) -
                                                     _lineRange.location;
@@ -981,7 +983,8 @@ static void loadGlyphAndCharacterCacheForLocation(NSTypesetter_concrete *self,
 - (void) layoutGlyphsInLayoutManager: (NSLayoutManager *) layoutManager
                 startingAtGlyphIndex: (NSUInteger) glyphIndex
             maxNumberOfLineFragments: (NSUInteger) maxNumLines
-                      nextGlyphIndex: (NSUInteger *) nextGlyph {
+                      nextGlyphIndex: (NSUInteger *) nextGlyph
+{
 
 #if DEBUG_TYPESETTER
     NSLog(@"layoutGlyphsInLayoutManager: %@ startingAtGlyphIndex: %u "
@@ -1104,21 +1107,25 @@ static void loadGlyphAndCharacterCacheForLocation(NSTypesetter_concrete *self,
 - (void) insertGlyphs: (const NSGlyph *) glyphs
                      length: (NSUInteger) length
     forStartingGlyphAtIndex: (NSUInteger) glyphIndex
-             characterIndex: (NSUInteger) characterIndex {
+             characterIndex: (NSUInteger) characterIndex
+{
     NSUnimplementedMethod();
 }
 
 - (void) setIntAttribute: (NSInteger) intAttribute
                    value: (NSInteger) value
          forGlyphAtIndex: (NSUInteger) glyphIndex;
-{ NSUnimplementedMethod(); }
+{
+    NSUnimplementedMethod();
+}
 
 - (NSUInteger) getGlyphsInRange: (NSRange) glyphRange
                          glyphs: (NSGlyph *) glyphs
                characterIndexes: (NSUInteger *) characterIndexes
               glyphInscriptions: (NSGlyphInscription *) glyphInscriptions
                     elasticBits: (BOOL *) elasticBits
-                     bidiLevels: (unsigned char *) bidiLevels {
+                     bidiLevels: (unsigned char *) bidiLevels
+{
 #if DEBUG_TYPESETTER
     NSLog(@"getGlyphsInRange: %@ glyphs: %p characterIndexes: %p "
           @"glyphInscriptions: %p elasticBits: %p bidiLevels: %p",
@@ -1161,7 +1168,8 @@ static void loadGlyphAndCharacterCacheForLocation(NSTypesetter_concrete *self,
 }
 
 - (void) setBidiLevels: (const unsigned char *) bidiLevels
-         forGlyphRange: (NSRange) glyphRange {
+         forGlyphRange: (NSRange) glyphRange
+{
 #if DEBUG_TYPESETTER
     NSLog(@"setBidiLevels: %p forGlyphRange: %@", bidiLevels,
           NSStringFromRange(glyphRange));

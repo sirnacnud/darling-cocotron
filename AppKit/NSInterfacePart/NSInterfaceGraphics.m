@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static NSRect NSInterfaceDrawRects(NSRect boundsRect, NSRect clipRect,
                                    const NSRect *sides, NSColor **colors,
-                                   int count) {
+                                   int count)
+{
     CGContextRef graphicsPort = NSCurrentGraphicsPort();
 
     CGContextSaveGState(graphicsPort);
@@ -214,8 +215,7 @@ void NSInterfaceDrawOutlineGrid(NSRect rect, CGContextRef context) {
     if (rect.size.width < 0)
         return;
     if (rect.size.height < 0)
-        return;
-    {
+        return; {
         NSRect rects[(int) rect.size.width + 2 + (int) rect.size.height + 2];
         int count = 0;
         int x, y, maxx = NSMaxX(rect), maxy = NSMaxY(rect);

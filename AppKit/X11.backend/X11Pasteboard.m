@@ -214,7 +214,8 @@ static NSMutableDictionary<NSPasteboardName, X11Pasteboard *> *nameToPboard;
 }
 
 - (NSInteger) addTypes: (NSArray<NSPasteboardType> *) types
-                 owner: (id<NSPasteboardTypeOwner>) owner {
+                 owner: (id<NSPasteboardTypeOwner>) owner
+{
     [self ensureSelectionOwner];
     for (NSPasteboardType type in types) {
         [_typeToData removeObjectForKey: type];
@@ -224,7 +225,8 @@ static NSMutableDictionary<NSPasteboardName, X11Pasteboard *> *nameToPboard;
 }
 
 - (NSInteger) declareTypes: (NSArray<NSPasteboardType> *) types
-                     owner: (id<NSPasteboardTypeOwner>) owner {
+                     owner: (id<NSPasteboardTypeOwner>) owner
+{
     [self clearContents];
     return [self addTypes: types owner: owner];
 }

@@ -106,20 +106,22 @@ NSString *const NSGregorianCalendar = @"NSGregorianCalendar";
 
 - (NSRange) rangeOfUnit: (NSCalendarUnit) unit
                  inUnit: (NSCalendarUnit) inUnit
-                forDate: (NSDate *) date {
+                forDate: (NSDate *) date
+{
     NSUnimplementedMethod();
     return NSMakeRange(0, 0);
 }
 
 - (NSUInteger) ordinalityOfUnit: (NSCalendarUnit) unit
                          inUnit: (NSCalendarUnit) inUnit
-                        forDate: (NSDate *) date {
+                        forDate: (NSDate *) date
+{
     NSUnimplementedMethod();
     return 0;
 }
 
-- (NSDateComponents *) components: (NSUInteger) flags
-                         fromDate: (NSDate *) date {
+- (NSDateComponents *) components: (NSUInteger) flags fromDate: (NSDate *) date
+{
     NSDateComponents *result = [[[NSDateComponents alloc] init] autorelease];
     NSTimeInterval interval = [date timeIntervalSinceReferenceDate];
 
@@ -157,14 +159,16 @@ NSString *const NSGregorianCalendar = @"NSGregorianCalendar";
 - (NSDateComponents *) components: (NSUInteger) flags
                          fromDate: (NSDate *) fromDate
                            toDate: (NSDate *) toDate
-                          options: (NSUInteger) options {
+                          options: (NSUInteger) options
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - (NSDate *) dateByAddingComponents: (NSDateComponents *) components
                              toDate: (NSDate *) date
-                            options: (NSUInteger) options {
+                            options: (NSUInteger) options
+{
     NSUnimplementedMethod();
     return nil;
 }

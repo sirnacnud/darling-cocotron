@@ -76,7 +76,8 @@ NSData *NSData_concreteNewNoCopy(NSZone *zone, void *bytes, NSUInteger length) {
 
 - initWithBytesNoCopy: (void *) bytes
                length: (NSUInteger) length
-         freeWhenDone: (BOOL) freeWhenDone {
+         freeWhenDone: (BOOL) freeWhenDone
+{
     _length = length;
     _bytes = bytes;
     _freeWhenDone = freeWhenDone;

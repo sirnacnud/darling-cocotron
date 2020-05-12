@@ -154,7 +154,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) awakeFromNib {
-
     [self setNeedsDisplay];
 }
 
@@ -362,31 +361,33 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *) note {
-
     [[NSColorPanel sharedColorPanel] setShowsAlpha: YES];
 }
 
 - (id) outlineView: (NSOutlineView *) outlineView
              child: (NSInteger) index
-            ofItem: (id) item {
+            ofItem: (id) item
+{
     if ([item isEqual: @"expand"])
         return @"leaf";
     return @"expand";
 }
 
-- (BOOL) outlineView: (NSOutlineView *) outlineView
-    isItemExpandable: (id) item {
+- (BOOL) outlineView: (NSOutlineView *) outlineView isItemExpandable: (id) item
+{
     return [item isEqual: @"expand"];
 }
 
 - (NSInteger) outlineView: (NSOutlineView *) outlineView
-    numberOfChildrenOfItem: (id) item {
+    numberOfChildrenOfItem: (id) item
+{
     return 10;
 }
 
 - (id) outlineView: (NSOutlineView *) outlineView
     objectValueForTableColumn: (NSTableColumn *) tableColumn
-                       byItem: (id) item {
+                       byItem: (id) item
+{
     return @"bar";
 }
 

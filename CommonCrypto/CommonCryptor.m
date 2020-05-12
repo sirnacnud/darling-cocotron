@@ -11,7 +11,8 @@ struct CCCryptor {
 CCCryptorStatus CCCryptorCreate(CCOperation operation, CCAlgorithm algorithm,
                                 CCOptions options, const void *key,
                                 size_t keyLength, const void *initVector,
-                                CCCryptorRef *result) {
+                                CCCryptorRef *result)
+{
     CCCryptorRef self = malloc(sizeof(struct CCCryptor));
 
     self->operation = operation;
@@ -61,7 +62,8 @@ CCCryptorStatus CCCryptorRelease(CCCryptorRef self) {
 }
 
 size_t CCCryptorGetOutputLength(CCCryptorRef self, size_t inputLength,
-                                bool final) {
+                                bool final)
+{
     int blockSize = EVP_CIPHER_block_size(self->cipher);
 
     return inputLength + blockSize - 1;
@@ -69,7 +71,8 @@ size_t CCCryptorGetOutputLength(CCCryptorRef self, size_t inputLength,
 
 CCCryptorStatus CCCryptorUpdate(CCCryptorRef self, const void *dataIn,
                                 size_t dataInLength, void *dataOut,
-                                size_t dataOutAvailable, size_t *dataOutMoved) {
+                                size_t dataOutAvailable, size_t *dataOutMoved)
+{
 
     if (self->operation == kCCEncrypt) {
         int outSize;
@@ -87,7 +90,8 @@ CCCryptorStatus CCCryptorUpdate(CCCryptorRef self, const void *dataIn,
 }
 
 CCCryptorStatus CCCryptorFinal(CCCryptorRef self, void *dataOut,
-                               size_t dataOutAvailable, size_t *dataOutMoved) {
+                               size_t dataOutAvailable, size_t *dataOutMoved)
+{
     if (self->operation == kCCEncrypt) {
         int outSize;
         EVP_EncryptFinal_ex(self->context, dataOut, &outSize);
@@ -105,7 +109,8 @@ CCCryptorStatus CCCrypt(CCOperation operation, CCAlgorithm algorithm,
                         CCOptions options, const void *key, size_t keyLength,
                         const void *initVector, const void *dataIn,
                         size_t dataInLength, void *dataOut,
-                        size_t dataOutAvailable, size_t *dataOutMoved) {
+                        size_t dataOutAvailable, size_t *dataOutMoved)
+{
     CCCryptorRef cryptor;
 
     CCCryptorCreate(operation, algorithm, options, key, keyLength, initVector,

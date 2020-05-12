@@ -27,14 +27,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSPropertyListSerialization
 
 + (BOOL) propertyList: propertyList
-     isValidForFormat: (NSPropertyListFormat) format {
+     isValidForFormat: (NSPropertyListFormat) format
+{
     NSUnimplementedMethod();
     return NO;
 }
 
 + (NSData *) dataFromPropertyList: plist
                            format: (NSPropertyListFormat) format
-                 errorDescription: (NSString **) errorDescriptionp {
+                 errorDescription: (NSString **) errorDescriptionp
+{
     switch (format) {
 
     case NSPropertyListOpenStepFormat:
@@ -52,7 +54,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + propertyListFromData: (NSData *) data
       mutabilityOption: (NSPropertyListMutabilityOptions) mutability
                 format: (NSPropertyListFormat *) format
-      errorDescription: (NSString **) errorDescriptionp {
+      errorDescription: (NSString **) errorDescriptionp
+{
     id result;
 
     @try {

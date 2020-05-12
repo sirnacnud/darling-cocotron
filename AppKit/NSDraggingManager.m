@@ -47,7 +47,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
              event: (NSEvent *) event
         pasteboard: (NSPasteboard *) pasteboard
             source: (id) source
-         slideBack: (BOOL) slideBack {
+         slideBack: (BOOL) slideBack
+{
     NSInvalidAbstractInvocation();
 }
 

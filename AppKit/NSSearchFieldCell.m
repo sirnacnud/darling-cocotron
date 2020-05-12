@@ -173,7 +173,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) trackMouse: (NSEvent *) event
              inRect: (NSRect) frame
              ofView: (NSView *) view
-       untilMouseUp: (BOOL) untilMouseUp {
+       untilMouseUp: (BOOL) untilMouseUp
+{
     if ([_cancelButtonCell trackMouse: event
                                inRect: [self cancelButtonRectForBounds: frame]
                                ofView: view

@@ -80,22 +80,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [super dealloc];
 }
 
-- (NSUInteger) count;
-{
+- (NSUInteger) count; {
     if (count)
         return (NSUInteger) count(proxyObject, countSel);
     return [[self _representedObject] count];
 }
 
-- (id) objectAtIndex: (NSUInteger) index;
-{
+- (id) objectAtIndex: (NSUInteger) index; {
     if (objectAtIndex)
         return objectAtIndex(proxyObject, objectAtIndexSel, index);
     return [[self _representedObject] objectAtIndex: index];
 }
 
-- (void) addObject: (id) anObject;
-{
+- (void) addObject: (id) anObject; {
     if (insert)
         insert(proxyObject, insertSel, anObject, [self count]);
     else {
@@ -106,8 +103,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 }
 
-- (void) insertObject: (id) anObject atIndex: (NSUInteger) index;
-{
+- (void) insertObject: (id) anObject atIndex: (NSUInteger) index; {
     if (insert) {
         insert(proxyObject, insertSel, anObject, index);
     } else {
@@ -118,8 +114,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 }
 
-- (void) removeLastObject;
-{
+- (void) removeLastObject; {
     if (remove)
         remove(proxyObject, removeSel, [self count] - 1);
     else {
@@ -130,8 +125,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 }
 
-- (void) removeObjectAtIndex: (NSUInteger) index;
-{
+- (void) removeObjectAtIndex: (NSUInteger) index; {
     if (remove)
         remove(proxyObject, removeSel, index);
     else {
@@ -142,8 +136,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 }
 
-- (void) replaceObjectAtIndex: (NSUInteger) index withObject: (id) anObject;
-{
+- (void) replaceObjectAtIndex: (NSUInteger) index withObject: (id) anObject; {
     if (replace)
         replace(proxyObject, replaceSel, index, anObject);
     else {

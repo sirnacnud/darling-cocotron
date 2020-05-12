@@ -116,7 +116,8 @@ static RECT NSRectToRECT(NSRect rect) {
 }
 
 + (BOOL) canInitBackingWithContext: (O2Context *) context
-                  deviceDictionary: (NSDictionary *) deviceDictionary {
+                  deviceDictionary: (NSDictionary *) deviceDictionary
+{
     NSString *name = [deviceDictionary objectForKey: @"O2Context"];
 
     if (name == nil || [name isEqual: @"GDI"])
@@ -126,7 +127,8 @@ static RECT NSRectToRECT(NSRect rect) {
 }
 
 - initWithGraphicsState: (O2GState *) state
-          deviceContext: (O2DeviceContext_gdi *) deviceContext {
+          deviceContext: (O2DeviceContext_gdi *) deviceContext
+{
     [self initWithGraphicsState: state];
     _deviceContext = [deviceContext retain];
     _dc = [_deviceContext dc];
@@ -203,7 +205,8 @@ static RECT NSRectToRECT(NSRect rect) {
 
 - (void) drawPathInDeviceSpace: (O2Path *) path
                    drawingMode: (int) mode
-                         state: (O2GState *) state {
+                         state: (O2GState *) state
+{
     O2AffineTransform deviceTransform = state->_deviceSpaceTransform;
     O2Color *fillColor = state->_fillColor;
     O2Color *strokeColor = state->_strokeColor;
@@ -323,7 +326,8 @@ static RECT NSRectToRECT(NSRect rect) {
 
 - (void) showGlyphs: (const O2Glyph *) glyphs
            advances: (const O2Size *) advances
-              count: (unsigned) count {
+              count: (unsigned) count
+{
     // FIXME: use advances if not NULL
     O2AffineTransform transformToDevice =
         O2ContextGetUserSpaceToDeviceSpaceTransform(self);
@@ -377,7 +381,8 @@ static RECT NSRectToRECT(NSRect rect) {
 // transformations we could decompose this better to platform generalize it
 
 static inline float axialBandIntervalFromMagnitude(O2Function *function,
-                                                   float magnitude) {
+                                                   float magnitude)
+{
     if (magnitude < 1)
         return 0;
 
@@ -397,7 +402,8 @@ static inline float axialBandIntervalFromMagnitude(O2Function *function,
 #endif
 
 - (void) drawInUserSpace: (O2AffineTransform) matrix
-            axialShading: (O2ShadingRef) shading {
+            axialShading: (O2ShadingRef) shading
+{
     O2ColorSpaceRef colorSpace = O2ShadingColorSpace(shading);
     O2ColorSpaceModel colorSpaceType = [colorSpace type];
     O2Function *function = [shading function];
@@ -550,9 +556,7 @@ static inline float axialBandIntervalFromMagnitude(O2Function *function,
     }
 
     if (rectIndex == 0)
-        return;
-
-    {
+        return; {
         XFORM current;
         XFORM translate = {1, 0, 0, 1, startPoint.x, startPoint.y};
         XFORM rotate = {cos(angle), sin(angle), -sin(angle), cos(angle), 0, 0};
@@ -575,7 +579,8 @@ static inline float axialBandIntervalFromMagnitude(O2Function *function,
 }
 
 static int appendCircle(NSPoint *cp, int position, float x, float y,
-                        float radius, O2AffineTransform matrix) {
+                        float radius, O2AffineTransform matrix)
+{
     int i;
 
     O2MutablePathEllipseToBezier(cp + position, x, y, radius, radius);
@@ -600,7 +605,8 @@ static void appendCircleToDC(HDC dc, NSPoint *cp) {
 }
 
 static void appendCircleToPath(HDC dc, float x, float y, float radius,
-                               O2AffineTransform matrix) {
+                               O2AffineTransform matrix)
+{
     NSPoint cp[13];
 
     appendCircle(cp, 0, x, y, radius, matrix);
@@ -610,7 +616,8 @@ static void appendCircleToPath(HDC dc, float x, float y, float radius,
 static inline float numberOfRadialBands(O2Function *function,
                                         NSPoint startPoint, NSPoint endPoint,
                                         float startRadius, float endRadius,
-                                        O2AffineTransform matrix) {
+                                        O2AffineTransform matrix)
+{
     NSPoint startRadiusPoint = NSMakePoint(startRadius, 0);
     NSPoint endRadiusPoint = NSMakePoint(endRadius, 0);
 
@@ -618,8 +625,7 @@ static inline float numberOfRadialBands(O2Function *function,
     endPoint = O2PointApplyAffineTransform(endPoint, matrix);
 
     startRadiusPoint = O2PointApplyAffineTransform(startRadiusPoint, matrix);
-    endRadiusPoint = O2PointApplyAffineTransform(endRadiusPoint, matrix);
-    {
+    endRadiusPoint = O2PointApplyAffineTransform(endRadiusPoint, matrix); {
         NSPoint lineVector =
             NSMakePoint(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
         float lineMagnitude = ceilf(
@@ -670,7 +676,8 @@ static BOOL controlPointsOutsideClip(HDC dc, NSPoint cp[13]) {
 
 static void extend(HDC dc, int i, int direction, float bandInterval,
                    NSPoint startPoint, NSPoint endPoint, float startRadius,
-                   float endRadius, O2AffineTransform matrix) {
+                   float endRadius, O2AffineTransform matrix)
+{
     // - some edge cases of extend are either slow or don't fill bands
     // accurately but these are undesirable gradients
 
@@ -753,7 +760,8 @@ static void extend(HDC dc, int i, int direction, float bandInterval,
 }
 
 - (void) drawInUserSpace: (O2AffineTransform) matrix
-           radialShading: (O2ShadingRef) shading {
+           radialShading: (O2ShadingRef) shading
+{
     /* - band interval needs to be improved
         - does not factor resolution/scaling can cause banding
         - does not factor color sampling rate, generates multiple bands for same
@@ -900,7 +908,8 @@ static void sourceOverImage(O2Image *image,O2argb8u *resultBGRX,int width,int he
 void O2GraphicsSourceOver_rgba32_onto_bgrx32(unsigned char *sourceRGBA,
                                              unsigned char *resultBGRX,
                                              int width, int height,
-                                             float fraction) {
+                                             float fraction)
+{
     int sourceIndex = 0;
     int sourceLength = width * height * 4;
     int destinationReadIndex = 0;
@@ -934,7 +943,8 @@ void O2GraphicsSourceOver_rgba32_onto_bgrx32(unsigned char *sourceRGBA,
 void O2GraphicsSourceOver_bgra32_onto_bgrx32(unsigned char *sourceBGRA,
                                              unsigned char *resultBGRX,
                                              int width, int height,
-                                             float fraction) {
+                                             float fraction)
+{
     int sourceIndex = 0;
     int sourceLength = width * height * 4;
     int destinationReadIndex = 0;
@@ -968,7 +978,8 @@ void O2GraphicsSourceOver_bgra32_onto_bgrx32(unsigned char *sourceBGRA,
 - (void) drawBitmapImage: (O2Image *) image
                   inRect: (NSRect) rect
                      ctm: (O2AffineTransform) ctm
-                fraction: (float) fraction {
+                fraction: (float) fraction
+{
     int width = O2ImageGetWidth(image);
     int height = O2ImageGetHeight(image);
     const unsigned int *data = [image directBytes];
@@ -1051,7 +1062,8 @@ static void zeroBytes(void *bytes, int size) {
 - (void) drawBitmapImage: (O2Image *) image
                   inRect: (NSRect) rect
                      ctm: (O2AffineTransform) ctm
-                fraction: (float) fraction {
+                fraction: (float) fraction
+{
     int width = [image width];
     int height = [image height];
     const unsigned char *bytes = [image bytes];
@@ -1117,8 +1129,7 @@ static void zeroBytes(void *bytes, int size) {
     blendFunction.BlendOp = AC_SRC_OVER;
     blendFunction.BlendFlags = 0;
     blendFunction.SourceConstantAlpha = 0xFF;
-    blendFunction.BlendOp = AC_SRC_ALPHA;
-    {
+    blendFunction.BlendOp = AC_SRC_ALPHA; {
         typedef WINGDIAPI BOOL WINAPI (*alphaType)(
             HDC, int, int, int, int, HDC, int, int, int, int, BLENDFUNCTION);
 
@@ -1175,7 +1186,8 @@ static void zeroBytes(void *bytes, int size) {
 
 - (void) drawDeviceContext: (O2DeviceContext_gdi *) deviceContext
                     inRect: (NSRect) rect
-                       ctm: (O2AffineTransform) ctm {
+                       ctm: (O2AffineTransform) ctm
+{
     rect.origin = O2PointApplyAffineTransform(rect.origin, ctm);
 
     if (transformIsFlipped(ctm))
@@ -1204,7 +1216,8 @@ static void zeroBytes(void *bytes, int size) {
 
 - (void) copyBitsInRect: (NSRect) rect
                 toPoint: (NSPoint) point
-                 gState: (int) gState {
+                 gState: (int) gState
+{
     O2AffineTransform transformToDevice =
         O2ContextGetUserSpaceToDeviceSpaceTransform(self);
     NSRect srcRect = Win32TransformRect(transformToDevice, rect);

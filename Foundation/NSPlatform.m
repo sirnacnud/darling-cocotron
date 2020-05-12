@@ -78,8 +78,7 @@ extern NSString *NSPlatformClassName;
     return Nil;
 }
 
-- (Class) conditionClass;
-{
+- (Class) conditionClass; {
     NSInvalidAbstractInvocation();
     return Nil;
 }
@@ -162,7 +161,8 @@ extern NSString *NSPlatformClassName;
                        bytes: (const void *) bytes
                       length: (NSUInteger) length
                      options: (NSUInteger) options
-                       error: (NSError **) errorp {
+                       error: (NSError **) errorp
+{
     NSInvalidAbstractInvocation();
     return NO;
 }

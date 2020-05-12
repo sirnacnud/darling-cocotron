@@ -54,7 +54,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (instancetype) initWithContentRect: (NSRect) contentRect
                            styleMask: (NSWindowStyleMask) styleMask
                              backing: (NSBackingStoreType) backing
-                               defer: (BOOL) defer {
+                               defer: (BOOL) defer
+{
     [super initWithContentRect: contentRect
                      styleMask: styleMask
                        backing: backing

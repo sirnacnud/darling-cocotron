@@ -55,7 +55,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) createFileAtPath: (NSString *) path
                  contents: (NSData *) data
-               attributes: (NSDictionary *) attributes {
+               attributes: (NSDictionary *) attributes
+{
     return [[NSPlatform currentPlatform] writeContentsOfFile: path
                                                        bytes: [data bytes]
                                                       length: [data length]
@@ -68,7 +69,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSArray *) contentsOfDirectoryAtPath: (NSString *) path
-                                  error: (NSError **) error {
+                                  error: (NSError **) error
+{
     // TODO fill error
     NSMutableArray *result = nil;
     DIR *dirp = NULL;
@@ -99,7 +101,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) createDirectoryAtPath: (NSString *) path
-                    attributes: (NSDictionary *) attributes {
+                    attributes: (NSDictionary *) attributes
+{
     // you can set all these, but we don't respect 'em all yet
     // NSDate *date = [attributes objectForKey:NSFileModificationDate];
     // NSString *owner = [attributes objectForKey:NSFileOwnerAccountName];
@@ -140,7 +143,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) _errorHandler: handler
                    src: (NSString *) src
                   dest: (NSString *) dest
-             operation: (NSString *) op {
+             operation: (NSString *) op
+{
     if ([handler respondsToSelector: @selector(fileManager:
                                          shouldProceedAfterError:)]) {
         NSDictionary *errorInfo = [NSDictionary
@@ -234,7 +238,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) moveItemAtPath: (NSString *) srcPath
                  toPath: (NSString *) dstPath
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
 
     /*
      It's not this easy...
@@ -278,7 +283,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) copyItemAtPath: (NSString *) fromPath
                  toPath: (NSString *) toPath
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     BOOL isDirectory;
 
     if (![self fileExistsAtPath: fromPath isDirectory: &isDirectory]) {
@@ -395,7 +401,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSDictionary *) fileAttributesAtPath: (NSString *) path
-                           traverseLink: (BOOL) traverse {
+                           traverseLink: (BOOL) traverse
+{
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     struct stat statBuf;
     struct passwd *pwd;
@@ -469,14 +476,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) createSymbolicLinkAtPath: (NSString *) path
-                      pathContent: (NSString *) otherPath {
+                      pathContent: (NSString *) otherPath
+{
     return (symlink([otherPath fileSystemRepresentation],
                     [path fileSystemRepresentation]) == 0);
 }
 
 - (BOOL) setAttributes: (NSDictionary *) attributes
           ofItemAtPath: (NSString *) path
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     if (error != NULL) {
         // TODO set error
     }
@@ -489,7 +498,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSString *) destinationOfSymbolicLinkAtPath: (NSString *) path
-                                         error: (NSError **) error {
+                                         error: (NSError **) error
+{
     char destination[MAXPATHLEN + 1];
     ssize_t bytes;
 

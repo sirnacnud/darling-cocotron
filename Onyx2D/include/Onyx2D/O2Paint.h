@@ -62,11 +62,13 @@ static inline bool O2PaintIsOpaque(O2PaintRef self) {
 }
 
 static inline int O2PaintReadSpan_argb8u_PRE(O2Paint *self, int x, int y,
-                                             O2argb8u *span, int length) {
+                                             O2argb8u *span, int length)
+{
     return self->_paint_largb8u_PRE(self, x, y, span, length);
 }
 
 static inline int O2PaintReadSpan_largb32f_PRE(O2Paint *self, int x, int y,
-                                               O2argb32f *span, int length) {
+                                               O2argb32f *span, int length)
+{
     return self->_paint_largb32f_PRE(self, x, y, span, length);
 }

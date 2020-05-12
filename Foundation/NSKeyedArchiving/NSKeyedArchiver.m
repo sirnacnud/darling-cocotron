@@ -196,7 +196,8 @@ static NSMapTable *_globalNameToClass = NULL;
 
 - (void) encodeBytes: (const void *) ptr
               length: (NSUInteger) length
-              forKey: (NSString *) key {
+              forKey: (NSString *) key
+{
     if (_pass == 0)
         return;
 
@@ -207,7 +208,8 @@ static NSMapTable *_globalNameToClass = NULL;
 
 - (void) encodeArrayOfDoubles: (double *) array
                         count: (NSUInteger) count
-                       forKey: (NSString *) key {
+                       forKey: (NSString *) key
+{
     if (_pass == 0 || count < 1)
         return;
 

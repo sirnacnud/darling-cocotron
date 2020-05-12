@@ -89,7 +89,8 @@ static Class _fontPanelFactory;
 }
 
 - (void) addFontDescriptors: (NSArray *) descriptors
-               toCollection: (NSString *) name {
+               toCollection: (NSString *) name
+{
     NSUnimplementedMethod();
 }
 
@@ -180,7 +181,8 @@ static Class _fontPanelFactory;
 }
 
 - (NSArray *) availableFontNamesMatchingFontDescriptor:
-    (NSFontDescriptor *) descriptor {
+    (NSFontDescriptor *) descriptor
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -199,7 +201,8 @@ static Class _fontPanelFactory;
 - (NSFont *) fontWithFamily: (NSString *) familyName
                      traits: (NSFontTraitMask) traits
                      weight: (int) weight
-                       size: (CGFloat) size {
+                       size: (CGFloat) size
+{
     // Note : weight is ignored
 
     NSFontFamily *family = [NSFontFamily fontFamilyWithName: familyName];
@@ -250,7 +253,8 @@ static Class _fontPanelFactory;
 }
 
 - (NSString *) localizedNameForFamily: (NSString *) family
-                                 face: (NSString *) face {
+                                 face: (NSString *) face
+{
     if (face == nil) {
         return family;
     }
@@ -420,7 +424,8 @@ static Class _fontPanelFactory;
 }
 
 - (BOOL) _canConvertFont: (NSFont *) font
-             toHaveTrait: (NSFontTraitMask) addTraits {
+             toHaveTrait: (NSFontTraitMask) addTraits
+{
     NSFontFamily *family =
         [NSFontFamily fontFamilyWithTypefaceName: [font fontName]];
     NSFontTypeface *typeface = [family typefaceWithName: [font fontName]];
@@ -447,7 +452,8 @@ static Class _fontPanelFactory;
 }
 
 - (NSFont *) convertFont: (NSFont *) font
-             toHaveTrait: (NSFontTraitMask) addTraits {
+             toHaveTrait: (NSFontTraitMask) addTraits
+{
     if (font == nil) {
         return nil;
     }
@@ -477,7 +483,8 @@ static Class _fontPanelFactory;
 }
 
 - (NSFont *) convertFont: (NSFont *) font
-          toNotHaveTrait: (NSFontTraitMask) trait {
+          toNotHaveTrait: (NSFontTraitMask) trait
+{
     if (font == nil) {
         return nil;
     }

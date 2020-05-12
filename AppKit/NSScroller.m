@@ -142,7 +142,8 @@ static NSAppleScrollBarVariant appleScrollBarVariant(NSScroller *self) {
 }
 
 - (void) setFloatValue: (float) zeroToOneValue
-        knobProportion: (CGFloat) zeroToOneKnob {
+        knobProportion: (CGFloat) zeroToOneKnob
+{
     if (zeroToOneValue > 1)
         zeroToOneValue = 1;
     if (zeroToOneValue < 0)

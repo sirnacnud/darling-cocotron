@@ -28,42 +28,44 @@
 
 #import <Onyx2D/O2argb32f.h>
 
-/*-------------------------------------------------------------------*//*!
-* \brief	Applies paint, image drawing, masking and blending at pixel (x,y).
-* \param	
-* \return	
+/*-------------------------------------------------------------------*/ /*!
+* \brief	Applies paint, image drawing, masking and blending at pixel
+(x,y).
+* \param
+* \return
 * \note		premultiplied blending formulas
-			//src
-			a = asrc
-			r = rsrc
-			//src over
-			a = asrc + adst * (1-asrc)
-			r = rsrc + rdst * (1-asrc)
-			//dst over
-			a = asrc * (1-adst) + adst
-			r = rsrc * (1-adst) + adst
-			//src in
-			a = asrc * adst
-			r = rsrc * adst
-			//dst in
-			a = adst * asrc
-			r = rdst * asrc
-			//multiply
-			a = asrc + adst * (1-asrc)
-			r = rsrc * (1-adst) + rdst * (1-asrc) + rsrc * rdst
-			//screen
-			a = asrc + adst * (1-asrc)
-			r = rsrc + rdst - rsrc * rdst
-			//darken
-			a = asrc + adst * (1-asrc)
-			r = MIN(rsrc + rdst * (1-asrc), rdst + rsrc * (1-adst))
-			//lighten
-			a = asrc + adst * (1-asrc)
-			r = MAX(rsrc + rdst * (1-asrc), rdst + rsrc * (1-adst))
-			//additive
-			a = MIN(asrc+adst,1)
-			r = rsrc + rdst
-*//*-------------------------------------------------------------------*/
+                        //src
+                        a = asrc
+                        r = rsrc
+                        //src over
+                        a = asrc + adst * (1-asrc)
+                        r = rsrc + rdst * (1-asrc)
+                        //dst over
+                        a = asrc * (1-adst) + adst
+                        r = rsrc * (1-adst) + adst
+                        //src in
+                        a = asrc * adst
+                        r = rsrc * adst
+                        //dst in
+                        a = adst * asrc
+                        r = rdst * asrc
+                        //multiply
+                        a = asrc + adst * (1-asrc)
+                        r = rsrc * (1-adst) + rdst * (1-asrc) + rsrc * rdst
+                        //screen
+                        a = asrc + adst * (1-asrc)
+                        r = rsrc + rdst - rsrc * rdst
+                        //darken
+                        a = asrc + adst * (1-asrc)
+                        r = MIN(rsrc + rdst * (1-asrc), rdst + rsrc * (1-adst))
+                        //lighten
+                        a = asrc + adst * (1-asrc)
+                        r = MAX(rsrc + rdst * (1-asrc), rdst + rsrc * (1-adst))
+                        //additive
+                        a = MIN(asrc+adst,1)
+                        r = rsrc + rdst
+*/
+/*-------------------------------------------------------------------*/
 
 static inline O2Float colorFromTemp(O2Float c, O2Float q, O2Float p) {
     if (6.0 * c < 1)
@@ -79,7 +81,8 @@ static inline O2Float colorFromTemp(O2Float c, O2Float q, O2Float p) {
 
 static inline void HSLToRGB(O2Float hue, O2Float saturation, O2Float luminance,
                             O2Float32 *redp, O2Float32 *greenp,
-                            O2Float32 *bluep) {
+                            O2Float32 *bluep)
+{
     O2Float red = luminance, green = luminance, blue = luminance;
 
     if (saturation != 0) {
@@ -112,7 +115,8 @@ static inline void HSLToRGB(O2Float hue, O2Float saturation, O2Float luminance,
 }
 
 static inline void RGBToHSL(O2Float r, O2Float g, O2Float b, O2Float *huep,
-                            O2Float *saturationp, O2Float *luminancep) {
+                            O2Float *saturationp, O2Float *luminancep)
+{
     O2Float hue = 0, saturation = 0, luminance, min, max;
 
     max = MAX(r, MAX(g, b));
@@ -516,8 +520,8 @@ void O2BlendSpanSourceAtop_ffff(O2argb32f *src, O2argb32f *dst, int length) {
         src[i] = r;
     }
 }
-void O2BlendSpanDestinationOver_ffff(O2argb32f *src, O2argb32f *dst,
-                                     int length) {
+void O2BlendSpanDestinationOver_ffff(O2argb32f *src, O2argb32f *dst, int length)
+{
     // Passes Visual Test
     int i;
 
@@ -551,8 +555,8 @@ void O2BlendSpanDestinationIn_ffff(O2argb32f *src, O2argb32f *dst, int length) {
         src[i] = r;
     }
 }
-void O2BlendSpanDestinationOut_ffff(O2argb32f *src, O2argb32f *dst,
-                                    int length) {
+void O2BlendSpanDestinationOut_ffff(O2argb32f *src, O2argb32f *dst, int length)
+{
     // Passes Visual Test
     int i;
 
@@ -570,8 +574,8 @@ void O2BlendSpanDestinationOut_ffff(O2argb32f *src, O2argb32f *dst,
     }
 }
 
-void O2BlendSpanDestinationAtop_ffff(O2argb32f *src, O2argb32f *dst,
-                                     int length) {
+void O2BlendSpanDestinationAtop_ffff(O2argb32f *src, O2argb32f *dst, int length)
+{
     // Passes Visual Test
     int i;
 

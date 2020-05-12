@@ -37,14 +37,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             target: target
           selector: (SEL) selector
           userInfo: userInfo
-           repeats: (BOOL) repeats {
+           repeats: (BOOL) repeats
+{
     NSInvalidAbstractInvocation();
     return self;
 }
 
 + (NSTimer *) timerWithTimeInterval: (NSTimeInterval) timeInterval
                          invocation: (NSInvocation *) invocation
-                            repeats: (BOOL) repeats {
+                            repeats: (BOOL) repeats
+{
 
     return NSAutorelease([NSAllocateObject([NSTimer_invocation class], 0, NULL)
         initWithTimeInterval: timeInterval
@@ -56,7 +58,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                              target: target
                            selector: (SEL) selector
                            userInfo: userInfo
-                            repeats: (BOOL) repeats {
+                            repeats: (BOOL) repeats
+{
 
     return NSAutorelease(
         [NSAllocateObject([NSTimer_targetAction class], 0, NULL)
@@ -69,7 +72,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSTimer *) scheduledTimerWithTimeInterval: (NSTimeInterval) timeInterval
                                   invocation: (NSInvocation *) invocation
-                                     repeats: (BOOL) repeats {
+                                     repeats: (BOOL) repeats
+{
     NSTimer *result = [self timerWithTimeInterval: timeInterval
                                        invocation: invocation
                                           repeats: repeats];
@@ -83,7 +87,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                       target: target
                                     selector: (SEL) selector
                                     userInfo: userInfo
-                                     repeats: (BOOL) repeats {
+                                     repeats: (BOOL) repeats
+{
     NSTimer *result = [self timerWithTimeInterval: timeInterval
                                            target: target
                                          selector: selector

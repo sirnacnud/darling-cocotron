@@ -22,7 +22,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSMutableString_proxyToMutableAttributedString
 
 - initWithMutableAttributedString:
-    (NSMutableAttributedString *) attributedString {
+    (NSMutableAttributedString *) attributedString
+{
     _attributedString = [attributedString retain];
     return self;
 }
@@ -41,7 +42,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
-                       withString: (NSString *) string {
+                       withString: (NSString *) string
+{
     [_attributedString replaceCharactersInRange: range withString: string];
 }
 

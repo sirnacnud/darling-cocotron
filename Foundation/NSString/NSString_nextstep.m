@@ -56,7 +56,8 @@ static const unichar NEXTSTEPToUnicode[256] = {
     0xfffd, 0xfffd};
 
 unichar *NSNEXTSTEPToUnicode(const char *cString, NSUInteger length,
-                             NSUInteger *resultLength, NSZone *zone) {
+                             NSUInteger *resultLength, NSZone *zone)
+{
     unichar *characters = NSZoneMalloc(zone, sizeof(unichar) * length);
     int i;
 
@@ -69,7 +70,8 @@ unichar *NSNEXTSTEPToUnicode(const char *cString, NSUInteger length,
 
 char *NSUnicodeToNEXTSTEP(const unichar *characters, NSUInteger length,
                           BOOL lossy, NSUInteger *resultLength, NSZone *zone,
-                          BOOL zeroTerminate) {
+                          BOOL zeroTerminate)
+{
     char *nextstep = NSZoneMalloc(
         zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
     int i, j;
@@ -106,7 +108,8 @@ NSUInteger NSGetNEXTSTEPCStringWithMaxLength(const unichar *characters,
                                              NSUInteger length,
                                              NSUInteger *location,
                                              char *cString,
-                                             NSUInteger maxLength, BOOL lossy) {
+                                             NSUInteger maxLength, BOOL lossy)
+{
     NSUInteger i, result = 0;
 
     if (length + 1 > maxLength) {
@@ -145,7 +148,8 @@ NSUInteger NSGetNEXTSTEPCStringWithMaxLength(const unichar *characters,
 @implementation NSString_nextstep
 
 NSString *NSNEXTSTEPStringNewWithBytes(NSZone *zone, const char *bytes,
-                                       NSUInteger length) {
+                                       NSUInteger length)
+{
 
     NSString_nextstep *self = NSAllocateObject([NSString_nextstep class],
                                                length * sizeof(char), zone);

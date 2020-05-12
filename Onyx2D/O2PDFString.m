@@ -33,7 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithBytesNoCopyNoFree: (const unsigned char *) bytes
-                     length: (unsigned) length {
+                     length: (unsigned) length
+{
     _length = length;
     _noCopyNoFree = YES;
     _bytes = (unsigned char *) bytes;
@@ -52,7 +53,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + pdfObjectWithBytesNoCopyNoFree: (const unsigned char *) bytes
-                          length: (unsigned) length {
+                          length: (unsigned) length
+{
     return [[(O2PDFString *) [self alloc] initWithBytesNoCopyNoFree: bytes
                                                              length: length]
         autorelease];

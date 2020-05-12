@@ -566,7 +566,8 @@ static void loadMacintoshNameMapping(NSMapTable *table) {
 }
 
 NSMapTable *O2TTFDecoderGetPostScriptNameMapTable(O2TTFDecoderRef self,
-                                                  NSInteger *numberOfGlyphs) {
+                                                  NSInteger *numberOfGlyphs)
+{
     NSMapTable *result = NSCreateMapTable(NSObjectMapKeyCallBacks,
                                           NSIntegerMapValueCallBacks, 258);
 
@@ -667,7 +668,8 @@ NSInteger O2TTFDecoderGetOffsetsAreLong(O2TTFDecoderRef self) {
 }
 
 NSInteger *O2TTFDecoderGetGlyphLocations(O2TTFDecoderRef self,
-                                         NSInteger numberOfGlyphs) {
+                                         NSInteger numberOfGlyphs)
+{
     NSInteger *result = NSZoneMalloc(NULL, sizeof(NSInteger) * numberOfGlyphs);
 
     if (O2TTFDecoderGetOffsetsAreLong(self)) {
@@ -690,7 +692,8 @@ NSInteger *O2TTFDecoderGetGlyphLocations(O2TTFDecoderRef self,
 }
 
 O2PathRef O2TTFDecoderGetGlyphOutline(O2TTFDecoderRef self,
-                                      NSInteger glyphLocation) {
+                                      NSInteger glyphLocation)
+{
     O2PathRef result = O2PathCreateMutable();
 
     if (!seekToTable(self, 'glyf'))

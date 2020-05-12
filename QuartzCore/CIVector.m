@@ -4,8 +4,8 @@
 
 @implementation CIVector
 
-+ (CIVector *) vectorWithValues: (const CGFloat *) values
-                          count: (size_t) count {
++ (CIVector *) vectorWithValues: (const CGFloat *) values count: (size_t) count
+{
     return [[[self alloc] initWithValues: values count: count] autorelease];
 }
 
@@ -24,7 +24,8 @@
 + (CIVector *) vectorWithX: (CGFloat) x
                          Y: (CGFloat) y
                          Z: (CGFloat) z
-                         W: (CGFloat) w {
+                         W: (CGFloat) w
+{
     return [[[self alloc] initWithX: x Y: y Z: z W: w] autorelease];
 }
 

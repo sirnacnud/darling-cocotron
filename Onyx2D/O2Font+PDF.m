@@ -25,7 +25,8 @@ uint8_t O2PDFMacRomanPositionOfGlyphName(NSString *name) {
 }
 
 O2PDFArray *O2FontCreatePDFWidthsWithEncoding(O2FontRef self,
-                                              O2Encoding *encoding) {
+                                              O2Encoding *encoding)
+{
     CGFloat unitsPerEm = O2FontGetUnitsPerEm(self);
     O2PDFArray *result = [[O2PDFArray alloc] init];
     O2Glyph glyphs[256];
@@ -48,7 +49,8 @@ O2PDFArray *O2FontCreatePDFWidthsWithEncoding(O2FontRef self,
 // this is overriden for GDI
 - (void) getMacRomanBytes: (unsigned char *) bytes
                 forGlyphs: (const O2Glyph *) glyphs
-                   length: (unsigned) length {
+                   length: (unsigned) length
+{
     int i;
 
     for (i = 0; i < length; i++) {
@@ -103,7 +105,8 @@ O2PDFArray *O2FontCreatePDFWidthsWithEncoding(O2FontRef self,
 }
 
 - (O2PDFObject *) encodeReferenceWithContext: (O2PDFContext *) context
-                                        size: (CGFloat) size {
+                                        size: (CGFloat) size
+{
     O2PDFObject *reference = [context referenceForFontWithName: self->_name
                                                           size: size];
 

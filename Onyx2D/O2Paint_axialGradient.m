@@ -36,7 +36,8 @@
 // same
 ONYX2D_STATIC_INLINE O2argb8u O2PaintFastAxialRamp(O2Paint_ramp *self,
                                                    O2Float gradient,
-                                                   O2Float rho, int *skip) {
+                                                   O2Float rho, int *skip)
+{
     if (!self->_extendStart && gradient < 0.0) {
         *skip = 1;
     }
@@ -54,7 +55,8 @@ ONYX2D_STATIC_INLINE O2argb8u O2PaintFastAxialRamp(O2Paint_ramp *self,
 }
 
 ONYX2D_STATIC int linear_span_largb8u_PRE(O2Paint *selfX, int x, int y,
-                                          O2argb8u *span, int length) {
+                                          O2argb8u *span, int length)
+{
     O2Paint_axialGradient *self = (O2Paint_axialGradient *) selfX;
     int i;
     int previous = -1;
@@ -106,7 +108,8 @@ ONYX2D_STATIC int linear_span_largb8u_PRE(O2Paint *selfX, int x, int y,
 }
 
 ONYX2D_STATIC int linear_span_largb32f_PRE(O2Paint *selfX, int x, int y,
-                                           O2argb32f *span, int length) {
+                                           O2argb32f *span, int length)
+{
     O2Paint_axialGradient *self = (O2Paint_axialGradient *) selfX;
     int i;
     int previous = -1;
@@ -144,7 +147,8 @@ ONYX2D_STATIC int linear_span_largb32f_PRE(O2Paint *selfX, int x, int y,
 }
 
 - initWithShading: (O2Shading *) shading
-    deviceTransform: (O2AffineTransform) deviceTransform {
+    deviceTransform: (O2AffineTransform) deviceTransform
+{
 
     // Calculate the number of samples based on the length of the gradient in
     // device space

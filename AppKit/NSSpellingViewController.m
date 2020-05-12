@@ -62,7 +62,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - tableView: (NSTableView *) tableView
     objectValueForTableColumn: (NSTableColumn *) tableColumn
-                          row: (NSInteger) row {
+                          row: (NSInteger) row
+{
     return [[self currentGuesses] objectAtIndex: row];
 }
 

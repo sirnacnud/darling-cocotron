@@ -56,7 +56,8 @@ typedef struct _REG_TZI_FORMAT {
 // its not :-(
 WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
     LPTIME_ZONE_INFORMATION lpTimeZoneInformation, LPSYSTEMTIME lpLocalTime,
-    LPSYSTEMTIME lpUniversalTime) {
+    LPSYSTEMTIME lpUniversalTime)
+{
     DWORD dwTzID = 0;
     FILETIME ft = {0};
     LONG lBias = 0;
@@ -212,7 +213,8 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 }
 
 - (NSString *) localizedName: (NSTimeZoneNameStyle) style
-                      locale: (NSLocale *) locale {
+                      locale: (NSLocale *) locale
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -238,7 +240,8 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 
 + (NSData *) _windowsDataFromRegistry: (NSString *) registryname
                               stdName: (NSString **) stdName
-                         daylightName: (NSString **) daylightName {
+                         daylightName: (NSString **) daylightName
+{
     HKEY hTimeZoneKey;
     DWORD retCode;
     TCHAR valueName[MAX_VALUE_NAME];
@@ -322,7 +325,8 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
 }
 
 + (NSData *) _getDataWithWindowsName: (NSString *) name
-                        registryName: (NSString **) registryName {
+                        registryName: (NSString **) registryName
+{
     HKEY hTimeZonesKey;
 
     if (RegOpenKeyEx(
@@ -383,7 +387,7 @@ WINBASEAPI BOOL WINAPI TzSpecificLocalTimeToSystemTime_priv(
         }
     } else {
         //[NSException raise:NSInvalidArgumentException format:@"No time zone
-        //found in registry"];
+        // found in registry"];
         return nil;
     }
 

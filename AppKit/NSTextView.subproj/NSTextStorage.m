@@ -158,7 +158,8 @@ NSString *const NSTextStorageDidProcessEditingNotification =
 
 - (void) edited: (unsigned) editedMask
              range: (NSRange) range
-    changeInLength: (int) delta {
+    changeInLength: (int) delta
+{
 
     if (_beginEditing == 0) {
         _editedMask = editedMask;

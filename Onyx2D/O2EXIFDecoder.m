@@ -328,12 +328,14 @@ typedef enum valueType {
 
 // Algorithm inspired from JpegMeta.php source code
 static unsigned char _getByte(const unsigned char *data, size_t offset,
-                              bool bigendian) {
+                              bool bigendian)
+{
     return data[offset];
 }
 
 static unsigned short _getShort(const unsigned char *data, size_t offset,
-                                bool bigendian) {
+                                bool bigendian)
+{
     data += offset;
     unsigned int v1 = data[0];
     unsigned int v2 = data[1];
@@ -344,7 +346,8 @@ static unsigned short _getShort(const unsigned char *data, size_t offset,
 }
 
 static unsigned long _getLong(const unsigned char *data, size_t offset,
-                              bool bigendian) {
+                              bool bigendian)
+{
     data += offset;
     unsigned int v1 = data[0];
     unsigned int v2 = data[1];
@@ -423,7 +426,8 @@ static unsigned long _getLong(const unsigned char *data, size_t offset,
 
 - (void) setTagForTypeKey: (id) typeKey
                 numberKey: (id) numberKey
-                    value: (id) tagValue {
+                    value: (id) tagValue
+{
     NSMutableDictionary *dict = _tags;
     if (typeKey) {
         dict = [_tags objectForKey: typeKey];
@@ -437,9 +441,8 @@ static unsigned long _getLong(const unsigned char *data, size_t offset,
     }
 }
 
-- (void) setTagForType: (int) type
-                number: (int) tagNumber
-                 value: (id) tagValue {
+- (void) setTagForType: (int) type number: (int) tagNumber value: (id) tagValue
+{
     // switzzle type & tagNumber to strings keys
     id typeKey = [self keyForType: type];
     id numberKey = [self keyForType: type tag: tagNumber];
@@ -455,14 +458,15 @@ static unsigned long _getLong(const unsigned char *data, size_t offset,
              offset: (size_t) offset
           bigendian: (BOOL) bigendian
                mode: (int) mode
-               size: (size_t) size {
+               size: (size_t) size
+{
     CHECK_AVAILABLE_BYTES(offset, 2);
     short numEntries = _getShort(data, offset, bigendian);
     offset += 2;
     // Reading the data :
     //	We have a TOC of (tag,type,count,data)
     //	If data length is > 4 bytes, then the real data is stored after the TOC,
-    //and "data" is the offset to the real data
+    // and "data" is the offset to the real data
     for (int i = 0; i < numEntries; i++) {
         const unsigned char *rawValue;
         id val = nil;

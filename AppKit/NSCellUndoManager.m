@@ -66,7 +66,8 @@
 
 - (void) registerUndoWithTarget: (id) target
                        selector: (SEL) selector
-                         object: (id) object {
+                         object: (id) object
+{
     [super registerUndoWithTarget: target selector: selector object: object];
     [_nextUndoManager clearRedoStackIfStateIsNormal];
 }

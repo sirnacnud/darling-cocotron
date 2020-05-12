@@ -66,7 +66,9 @@ typedef void *pthread_attr_t;
 typedef void *pthread_mutexattr_t;
 
 #define PTHREAD_ONCE_INIT \
-    { 0, 0 }
+    {                     \
+        0, 0              \
+    }
 #define PTHREAD_MUTEX_INITIALIZER NULL
 
 enum {

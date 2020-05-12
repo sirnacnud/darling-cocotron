@@ -41,9 +41,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return self;
 }
 
-- initWithResumeData: (NSData *) data
-            delegate: delegate
-                path: (NSString *) path {
+- initWithResumeData: (NSData *) data delegate: delegate path: (NSString *) path
+{
     NSUnimplementedMethod();
     return NO;
 }
@@ -65,8 +64,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _deletesOnFailure = flag;
 }
 
-- (void) setDestination: (NSString *) path
-         allowOverwrite: (BOOL) allowOverwrite {
+- (void) setDestination: (NSString *) path allowOverwrite: (BOOL) allowOverwrite
+{
     _path = [path copy];
     _allowOverwrite = allowOverwrite;
 }
@@ -76,22 +75,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) connection: (NSURLConnection *) connection
-    didFailWithError: (NSError *) error {
+    didFailWithError: (NSError *) error
+{
     if ([_delegate respondsToSelector: @selector(download:didFailWithError:)])
         [_delegate download: self didFailWithError: error];
 }
 
 - (void) connection: (NSURLConnection *) connection
     didReceiveAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge {
+        (NSURLAuthenticationChallenge *) challenge
+{
     if ([_delegate respondsToSelector: @selector(download:
                                            didReceiveAuthenticationChallenge:)])
         [_delegate download: self didReceiveAuthenticationChallenge: challenge];
 }
 
 - (void) connection: (NSURLConnection *) connection
-    didCancelAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge {
+    didCancelAuthenticationChallenge: (NSURLAuthenticationChallenge *) challenge
+{
     if ([_delegate respondsToSelector: @selector(download:
                                            didCancelAuthenticationChallenge:)])
         [_delegate download: self didCancelAuthenticationChallenge: challenge];
@@ -131,7 +132,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) connection: (NSURLConnection *) connection
-     didReceiveData: (NSData *) data {
+     didReceiveData: (NSData *) data
+{
     [self _createFileStreamIfNeeded];
     [_fileStream write: [data bytes] maxLength: [data length]];
 
@@ -141,19 +143,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) connection: (NSURLConnection *) connection
-    didReceiveResponse: (NSURLResponse *) response {
+    didReceiveResponse: (NSURLResponse *) response
+{
     if ([_delegate respondsToSelector: @selector(download:didReceiveResponse:)])
         [_delegate download: self didReceiveResponse: response];
 }
 
 - (NSCachedURLResponse *) connection: (NSURLConnection *) connection
-                   willCacheResponse: (NSCachedURLResponse *) response {
+                   willCacheResponse: (NSCachedURLResponse *) response
+{
     return nil;
 }
 
 - (NSURLRequest *) connection: (NSURLConnection *) connection
               willSendRequest: (NSURLRequest *) request
-             redirectResponse: (NSURLResponse *) response {
+             redirectResponse: (NSURLResponse *) response
+{
     if ([_delegate respondsToSelector: @selector(download:
                                            willSendRequest:redirectResponse:)])
         return [_delegate download: self

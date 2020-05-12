@@ -33,7 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithName: (NSString *) name
         height: (int) height
      antialias: (BOOL) antialias
-         angle: (CGFloat) angle {
+         angle: (CGFloat) angle
+{
     NSUInteger length = [name length];
     unichar buffer[length + 1];
 
@@ -58,7 +59,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithName: (NSString *) name
         height: (int) height
-     antialias: (BOOL) antialias {
+     antialias: (BOOL) antialias
+{
     return [self initWithName: name
                        height: height
                     antialias: antialias

@@ -118,8 +118,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [self setNeedsDisplay: YES];
 }
 
-- (void) setImageScaling: (NSImageScaling) value
-              forSegment: (NSInteger) segment {
+- (void) setImageScaling: (NSImageScaling) value forSegment: (NSInteger) segment
+{
     [_cell setImageScaling: value forSegment: segment];
     [self setNeedsDisplay: YES];
 }

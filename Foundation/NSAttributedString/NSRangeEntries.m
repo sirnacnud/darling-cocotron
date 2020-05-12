@@ -92,7 +92,8 @@ static inline void removeEntryAtIndex(NSRangeEntries *self, NSUInteger index) {
 }
 
 static inline void insertEntryAtIndex(NSRangeEntries *self, NSUInteger index,
-                                      NSRange range, void *value) {
+                                      NSRange range, void *value)
+{
     NSInteger i;
 
     self->count++;
@@ -197,7 +198,8 @@ void NSRangeEntryInsert(NSRangeEntries *self, NSRange range, void *value) {
 }
 
 void *NSRangeEntryAtIndex(NSRangeEntries *self, NSUInteger location,
-                          NSRange *effectiveRangep) {
+                          NSRange *effectiveRangep)
+{
     NSInteger count = self->count;
     NSInteger bottom = 0, top = count;
 
@@ -289,7 +291,8 @@ NSRangeEnumerator NSRangeEntryEnumerator(NSRangeEntries *self) {
 }
 
 BOOL NSNextRangeEnumeratorEntry(NSRangeEnumerator *state, NSRange *rangep,
-                                void **valuep) {
+                                void **valuep)
+{
     NSRangeEntries *self = state->self;
 
     if (state->index >= self->count)
@@ -307,7 +310,8 @@ void NSRangeEntriesRemoveEntryAtIndex(NSRangeEntries *self, NSUInteger index) {
 }
 
 void NSRangeEntriesExpandAndWipe(NSRangeEntries *self, NSRange range,
-                                 NSInteger delta) {
+                                 NSInteger delta)
+{
     NSInteger count = self->count;
     NSUInteger max = NSMaxRange(range);
     enum { useBefore, useFirst, useAfter, useNone } useAttributes;

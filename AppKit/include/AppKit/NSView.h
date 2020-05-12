@@ -434,8 +434,8 @@ APPKIT_EXPORT const NSNotificationName NSViewGlobalFrameDidChangeNotification;
                                    atPoint: (NSPoint) origin;
 // Blocks aren't supported by the compiler yet.
 //-(void)showDefinitionForAttributedString:(NSAttributedString *)string
-//range:(NSRange)range options:(NSDictionary *)options
-//baselineOriginProvider:(NSPoint (^)(NSRange adjustedRange))originProvider;
+// range:(NSRange)range options:(NSDictionary *)options
+// baselineOriginProvider:(NSPoint (^)(NSRange adjustedRange))originProvider;
 
 // private,move
 - (NSArray *) _draggedTypes;

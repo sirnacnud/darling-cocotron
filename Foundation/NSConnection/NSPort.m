@@ -65,13 +65,15 @@ NSString *const NSPortDidBecomeInvalidNotification =
 
 - (void) addConnection: (NSConnection *) connection
              toRunLoop: (NSRunLoop *) runLoop
-               forMode: (NSString *) mode {
+               forMode: (NSString *) mode
+{
     NSInvalidAbstractInvocation();
 }
 
 - (void) removeConnection: (NSConnection *) connection
               fromRunLoop: (NSRunLoop *) runLoop
-                  forMode: (NSString *) mode {
+                  forMode: (NSString *) mode
+{
     NSInvalidAbstractInvocation();
 }
 
@@ -83,7 +85,8 @@ NSString *const NSPortDidBecomeInvalidNotification =
 - (BOOL) sendBeforeDate: (NSDate *) beforeDate
              components: (NSMutableArray *) components
                    from: (NSPort *) fromPort
-               reserved: (NSUInteger) reservedSpace {
+               reserved: (NSUInteger) reservedSpace
+{
     NSInvalidAbstractInvocation();
     return NO;
 }
@@ -92,7 +95,8 @@ NSString *const NSPortDidBecomeInvalidNotification =
                   msgid: (NSUInteger) msgid
              components: (NSMutableArray *) components
                    from: (NSPort *) fromPort
-               reserved: (NSUInteger) reservedSpace {
+               reserved: (NSUInteger) reservedSpace
+{
     NSInvalidAbstractInvocation();
     return NO;
 }

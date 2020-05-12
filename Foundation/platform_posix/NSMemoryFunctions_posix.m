@@ -57,8 +57,8 @@ void NSCopyMemoryPages(const void *src, void *dst, NSUInteger byteCount) {
         dstb[i] = srcb[i];
 }
 
-NSZone *NSCreateZone(NSUInteger startSize, NSUInteger granularity,
-                     BOOL canFree) {
+NSZone *NSCreateZone(NSUInteger startSize, NSUInteger granularity, BOOL canFree)
+{
     return NULL;
 }
 
@@ -136,8 +136,7 @@ NSThread *NSPlatformCurrentThread() {
         if (!thread) {
             thread = [NSThread alloc];
             if (thread) {
-                NSPlatformSetCurrentThread(thread);
-                {
+                NSPlatformSetCurrentThread(thread); {
                     NSAutoreleasePool *pool = [NSAutoreleasePool new];
                     [thread init];
                     [pool release];
@@ -154,7 +153,8 @@ NSThread *NSPlatformCurrentThread() {
 }
 
 NSUInteger NSPlatformDetachThread(void *(*func)(void *arg), void *arg,
-                                  NSError **errorp) {
+                                  NSError **errorp)
+{
     pthread_t thread;
     int err;
     if ((err = pthread_create(&thread, NULL, func, arg)) != 0) {

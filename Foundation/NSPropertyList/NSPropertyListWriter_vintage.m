@@ -159,7 +159,8 @@ static NSInteger keySort(id key1, id key2, void *context) {
 }
 
 - (void) encodeDictionary: (NSDictionary *) dictionary
-                   indent: (NSInteger) indent {
+                   indent: (NSInteger) indent
+{
     NSArray *allKeys = [[dictionary allKeys] sortedArrayUsingFunction: keySort
                                                               context: NULL];
     NSInteger i, count = [allKeys count];
@@ -182,7 +183,8 @@ static NSInteger keySort(id key1, id key2, void *context) {
 
 - (void) encodePropertyList: plist
                      escape: (BOOL) escape
-                     indent: (NSInteger) indent {
+                     indent: (NSInteger) indent
+{
     if ([plist isKindOfClass: objc_lookUpClass("NSString")])
         [self encodeString: plist escape: escape];
     else if ([plist isKindOfClass: objc_lookUpClass("NSArray")])
@@ -257,7 +259,8 @@ static NSInteger keySort(id key1, id key2, void *context) {
 
 + (BOOL) writePropertyList: object
                     toFile: (NSString *) path
-                atomically: (BOOL) atomically {
+                atomically: (BOOL) atomically
+{
     NSPropertyListWriter_vintage *writer = [[self alloc] init];
     NSData *data = [writer dataForRootObject: object];
     BOOL result = [data writeToFile: path atomically: atomically];

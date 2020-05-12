@@ -67,7 +67,8 @@
 }
 
 - (NSSpellEngine_hunspellDictionary *) _dictionaryForLanguage:
-    (NSString *) language {
+    (NSString *) language
+{
     if (language == nil) {
         language = [[NSLocale currentLocale] localeIdentifier];
     }
@@ -100,7 +101,8 @@
                     types: (NSTextCheckingTypes) checkingTypes
                   options: (NSDictionary *) options
               orthography: (NSOrthography *) orthography
-                wordCount: (NSInteger *) wordCount {
+                wordCount: (NSInteger *) wordCount
+{
     NSMutableArray *result = [NSMutableArray array];
 
     NSString *language = [orthography dominantLanguage];
@@ -206,7 +208,8 @@
 }
 
 - (NSArray *) suggestGuessesForWord: (NSString *) word
-                         inLanguage: (NSString *) language {
+                         inLanguage: (NSString *) language
+{
     NSSpellEngine_hunspellDictionary *dict =
         [self _dictionaryForLanguage: language];
     return [dict suggestGuessesForWord: word];

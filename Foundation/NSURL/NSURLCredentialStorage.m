@@ -41,29 +41,34 @@ NSString *const NSURLCredentialStorageChangedNotification =
 }
 
 - (NSDictionary *) credentialsForProtectionSpace:
-    (NSURLProtectionSpace *) protectionSpace {
+    (NSURLProtectionSpace *) protectionSpace
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - (NSURLCredential *) defaultCredentialForProtectionSpace:
-    (NSURLProtectionSpace *) protectionSpace {
+    (NSURLProtectionSpace *) protectionSpace
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - (void) setCredential: (NSURLCredential *) credential
-    forProtectionSpace: (NSURLProtectionSpace *) protectionSpace {
+    forProtectionSpace: (NSURLProtectionSpace *) protectionSpace
+{
     NSUnimplementedMethod();
 }
 
 - (void) setDefaultCredential: (NSURLCredential *) credential
-           forProtectionSpace: (NSURLProtectionSpace *) protectionSpace {
+           forProtectionSpace: (NSURLProtectionSpace *) protectionSpace
+{
     NSUnimplementedMethod();
 }
 
 - (void) removeCredential: (NSURLCredential *) credential
-       forProtectionSpace: (NSURLProtectionSpace *) protectionSpace {
+       forProtectionSpace: (NSURLProtectionSpace *) protectionSpace
+{
     NSUnimplementedMethod();
 }
 

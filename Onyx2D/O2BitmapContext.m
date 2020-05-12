@@ -52,7 +52,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
           colorSpace: (O2ColorSpaceRef) colorSpace
           bitmapInfo: (O2BitmapInfo) bitmapInfo
      releaseCallback: (O2BitmapContextReleaseDataCallback) releaseCallback
-         releaseInfo: (void *) releaseInfo {
+         releaseInfo: (void *) releaseInfo
+{
     O2Surface *surface =
         [[[self surfaceClass] alloc] initWithBytes: bytes
                                              width: width
@@ -79,7 +80,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 O2ContextRef O2BitmapContextCreateWithData(
     void *data, size_t width, size_t height, size_t bitsPerComponent,
     size_t bytesPerRow, O2ColorSpaceRef colorSpace, O2BitmapInfo bitmapInfo,
-    O2BitmapContextReleaseDataCallback releaseCallback, void *releaseInfo) {
+    O2BitmapContextReleaseDataCallback releaseCallback, void *releaseInfo)
+{
     return [O2Context createWithBytes: data
                                 width: width
                                height: height
@@ -94,7 +96,8 @@ O2ContextRef O2BitmapContextCreateWithData(
 O2ContextRef O2BitmapContextCreate(void *data, size_t width, size_t height,
                                    size_t bitsPerComponent, size_t bytesPerRow,
                                    O2ColorSpaceRef colorSpace,
-                                   O2BitmapInfo bitmapInfo) {
+                                   O2BitmapInfo bitmapInfo)
+{
     return O2BitmapContextCreateWithData(data, width, height, bitsPerComponent,
                                          bytesPerRow, colorSpace, bitmapInfo,
                                          NULL, NULL);

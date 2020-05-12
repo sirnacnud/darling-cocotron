@@ -93,7 +93,8 @@ static void extractFormat(NSString *format, NSString **prefix,
                           NSUInteger *minimumFractionDigitsp,
                           NSUInteger *maximumFractionDigitsp,
                           NSUInteger *groupingSizep,
-                          NSUInteger *secondaryGroupingSizep) {
+                          NSUInteger *secondaryGroupingSizep)
+{
     NSUInteger length = [format length];
     NSUInteger prefixLength = 0;
     NSUInteger suffixLength = 0;
@@ -1118,7 +1119,8 @@ static void extractFormat(NSString *format, NSString **prefix,
 
 static NSString *stringWithFormatGrouping(NSString *format, id locale,
                                           NSString *groupingSeparator,
-                                          NSInteger groupingSize, ...) {
+                                          NSInteger groupingSize, ...)
+{
     NSUInteger length = 0;
     va_list arguments;
 
@@ -1322,8 +1324,8 @@ static BOOL numberIsPositive(NSNumber *number) {
         return [self stringFromNumber10_4: number];
 }
 
-- (NSNumber *) _numberFromString: (NSString *) string
-                           error: (NSString **) error {
+- (NSNumber *) _numberFromString: (NSString *) string error: (NSString **) error
+{
     // Note: this method is still quite incomplete compared to the thousand of
     // formatting combinations you can set on a number formatter...
 
@@ -1511,7 +1513,8 @@ static BOOL numberIsPositive(NSNumber *number) {
 }
 
 - (NSString *) _stringValue: (NSString *) stringValue
-           withNumberFormat: (NSString *) format {
+           withNumberFormat: (NSString *) format
+{
     NSString *rightSide = nil, *leftSide = nil;
     NSMutableString *result = [NSMutableString string];
     NSRange r;
@@ -1605,7 +1608,8 @@ static BOOL numberIsPositive(NSNumber *number) {
 
 - (NSAttributedString *) attributedStringForObjectValue10_0: object
                                       withDefaultAttributes:
-                                          (NSDictionary *) defaultAttributes {
+                                          (NSDictionary *) defaultAttributes
+{
     if (object == nil) {
         NSAttributedString *check = [self attributedStringForNil];
 
@@ -1639,7 +1643,8 @@ static BOOL numberIsPositive(NSNumber *number) {
 
 - (NSAttributedString *) attributedStringForObjectValue10_4: object
                                       withDefaultAttributes:
-                                          (NSDictionary *) defaultAttributes {
+                                          (NSDictionary *) defaultAttributes
+{
     NSString *string = [self stringForObjectValue: object];
     NSDictionary *attributes = nil;
 
@@ -1668,7 +1673,8 @@ static BOOL numberIsPositive(NSNumber *number) {
 
 - (NSAttributedString *) attributedStringForObjectValue: object
                                   withDefaultAttributes:
-                                      (NSDictionary *) attributes {
+                                      (NSDictionary *) attributes
+{
     NSNumberFormatterBehavior check = _behavior;
 
     if (check == NSNumberFormatterBehaviorDefault)
@@ -1691,7 +1697,8 @@ static BOOL numberIsPositive(NSNumber *number) {
 - (BOOL) getObjectValue: (id *) valuep
               forString: (NSString *) string
                   range: (NSRange *) rangep
-                  error: (NSError **) errorp {
+                  error: (NSError **) errorp
+{
     NSString *errorDescription = nil;
     BOOL result = [self getObjectValue: valuep
                              forString: string
@@ -1713,7 +1720,8 @@ static BOOL numberIsPositive(NSNumber *number) {
 
 - (BOOL) getObjectValue: (id *) object
               forString: (NSString *) string
-       errorDescription: (NSString **) error {
+       errorDescription: (NSString **) error
+{
     if (object) {
         *object = nil;
     }
@@ -1746,7 +1754,8 @@ static BOOL numberIsPositive(NSNumber *number) {
 
 - (BOOL) isPartialStringValid: (NSString *) partialString
              newEditingString: (NSString **) newString
-             errorDescription: (NSString **) error {
+             errorDescription: (NSString **) error
+{
     //
     return YES;
 }

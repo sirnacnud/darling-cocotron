@@ -49,7 +49,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSError *) connectToHost: (NSHost *) host
                        port: (NSInteger) port
-                  immediate: (BOOL *) immediate {
+                  immediate: (BOOL *) immediate
+{
     NSInvalidAbstractInvocation();
     return nil;
 }

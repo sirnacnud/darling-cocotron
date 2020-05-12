@@ -23,30 +23,28 @@
 
 @implementation TestOperation
 
-- (void) main;
-{ sleep(2); }
+- (void) main; {
+    sleep(2);
+}
 
 @end
 
 @implementation OperationQueueTests
 
-- (void) setUp;
-{
+- (void) setUp; {
     [super setUp];
     queue = [[NSOperationQueue alloc] init];
     operation = [[TestOperation alloc] init];
     observationCount = 0;
 }
 
-- (void) tearDown;
-{
+- (void) tearDown; {
     [operation release], operation = nil;
     [queue release], queue = nil;
     [super tearDown];
 }
 
-- (void) testSuspending;
-{
+- (void) testSuspending; {
     STAssertFalse([queue isSuspended],
                   @"Queue should not be suspended initially");
     [queue setSuspended: YES];
@@ -57,8 +55,7 @@
                   @"Queue should not be suspended after setSuspended: NO");
 }
 
-- (void) testMaximumOperationCount;
-{
+- (void) testMaximumOperationCount; {
     STAssertEquals(
         [queue maxConcurrentOperationCount],
         NSOperationQueueDefaultMaxConcurrentOperationCount,
@@ -72,8 +69,7 @@
     }
 }
 
-- (void) testCancelAll;
-{
+- (void) testCancelAll; {
     [queue addOperation: operation];
     [queue cancelAllOperations];
     STAssertTrue(
@@ -81,8 +77,7 @@
         @"Operation should be cancelled after Queue cancelAllOperations");
 }
 
-- (void) watchRunningOperation;
-{
+- (void) watchRunningOperation; {
     sleep(1);
     STAssertTrue([operation isExecuting],
                  @"Operation should have been started");
@@ -96,14 +91,12 @@
         @"Operation should have a retain count of 1 after it is done");
 }
 
-- (void) testRunning;
-{
+- (void) testRunning; {
     [queue addOperation: operation];
     [self watchRunningOperation];
 }
 
-- (void) testOperationsArray;
-{
+- (void) testOperationsArray; {
     NSArray *array = [queue operations];
     STAssertEquals((NSUInteger) 0, [array count],
                    @"Initially there should be 0 operations in the array");
@@ -120,24 +113,21 @@
                    @"Array should be empty after the operation is finnished");
 }
 
-- (void) testRunningFromArray;
-{
+- (void) testRunningFromArray; {
     NSArray *array = [[NSArray alloc] initWithObjects: operation, nil];
     [queue addOperations: array waitUntilFinished: NO];
     [array release];
     [self watchRunningOperation];
 }
 
-- (void) testRunningFromArrayWaiting;
-{
+- (void) testRunningFromArrayWaiting; {
     [queue addOperations: [NSArray arrayWithObject: operation]
         waitUntilFinished: YES];
     STAssertTrue([operation isFinished],
                  @"Operation should have been finnished");
 }
 
-- (void) testWaiting;
-{
+- (void) testWaiting; {
     [queue addOperation: operation];
     [queue waitUntilAllOperationsAreFinished];
     STAssertTrue([operation isFinished],
@@ -146,15 +136,13 @@
 
 static NSString *const MyQueueName = @"MyQueueName";
 
-- (void) testName;
-{
+- (void) testName; {
     [queue setName: MyQueueName];
     STAssertEqualObjects(MyQueueName, [queue name],
                          @"Queue should return the name that was set");
 }
 
-- (void) testAddingWhileSuspended;
-{
+- (void) testAddingWhileSuspended; {
     [queue setSuspended: YES];
     [queue addOperation: operation];
 
@@ -165,11 +153,11 @@ static NSString *const MyQueueName = @"MyQueueName";
     [self watchRunningOperation];
 }
 
-- (void) testOperationReady;
-{ STAssertTrue([operation isReady], @"Operation should be ready"); }
+- (void) testOperationReady; {
+    STAssertTrue([operation isReady], @"Operation should be ready");
+}
 
-- (void) testOperationPriority;
-{
+- (void) testOperationPriority; {
     STAssertEquals(
         NSOperationQueuePriorityNormal, [operation queuePriority],
         @"Standard priority should be NSOperationQueuePriorityNormal");
@@ -182,8 +170,7 @@ static void SleepWithRunloop(NSTimeInterval seconds) {
         runUntilDate: [NSDate dateWithTimeIntervalSinceNow: seconds]];
 }
 
-- (void) testOperationExecutingKVO;
-{
+- (void) testOperationExecutingKVO; {
     [operation addObserver: self
                 forKeyPath: @"isExecuting"
                    options: 0
@@ -200,8 +187,7 @@ static void SleepWithRunloop(NSTimeInterval seconds) {
                    @"Should have received 2 KVO notification after done");
 }
 
-- (void) testOperationFinishedKVO;
-{
+- (void) testOperationFinishedKVO; {
     [operation addObserver: self
                 forKeyPath: @"isFinished"
                    options: 0

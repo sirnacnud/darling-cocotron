@@ -37,7 +37,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #endif
 
 static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
-                                  const uint8_t *src, uint8_t *dest) {
+                                  const uint8_t *src, uint8_t *dest)
+{
     src += bytesPerRow * (height - 1); // Ptr to the last line
     for (int i = 0; i < height; ++i) {
         for (int j = 0; j < width; ++j) {
@@ -339,20 +340,21 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
 }
 
 - (HRESULT) GetCanonicalFormatEtc: (FORMATETC *)
-                           format: (FORMATETC *) pformatetcOut {
+                           format: (FORMATETC *) pformatetcOut
+{
     NSUnimplementedMethod();
     return S_OK;
 }
 
-- (HRESULT) SetData: (FORMATETC *)
-             format: (STGMEDIUM *) pmedium
-                   :(BOOL) fRelease {
+- (HRESULT) SetData: (FORMATETC *) format: (STGMEDIUM *) pmedium:(BOOL) fRelease
+{
     NSUnimplementedMethod();
     return S_OK;
 }
 
 - (HRESULT) EnumFormatEtc: (DWORD)
-              dwDirection: (IEnumFORMATETC **) ppenumFormatEtc {
+              dwDirection: (IEnumFORMATETC **) ppenumFormatEtc
+{
     Win32IEnumFORMATETCServer *server =
         [[Win32IEnumFORMATETCServer alloc] initAsIEnumFORMATETC];
 
@@ -366,7 +368,8 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
 - (HRESULT) DAdvise: (FORMATETC *)
          pformatetc: (DWORD) advf
                    :(IAdviseSink *) pAdvSink
-                   :(DWORD *) pdwConnection {
+                   :(DWORD *) pdwConnection
+{
     NSUnimplementedMethod();
     return E_NOTIMPL;
 }

@@ -181,8 +181,7 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
 
             origin.y += NSHeight(separatorRect);
         } else {
-#define CENTER_PART_RECT_VERTICALLY(partSize)                                  \
-    {                                                                          \
+#define CENTER_PART_RECT_VERTICALLY(partSize) {                                \
         NSSize __partSize = (partSize);                                        \
         partRect.origin.y = origin.y + (itemHeight - __partSize.height) / 2;   \
         partRect.size.height = __partSize.height;                              \
@@ -318,7 +317,8 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
 }
 
 - (void) positionBranchForSelectedItem: (NSWindow *) branch
-                                screen: (NSScreen *) screen {
+                                screen: (NSScreen *) screen
+{
     NSRect branchFrame = [branch frame];
     NSRect screenVisible = [screen visibleFrame];
     NSArray *items = [[self menu] itemArray];

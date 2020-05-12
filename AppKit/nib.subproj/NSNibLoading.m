@@ -60,7 +60,8 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 
 + (BOOL) loadNibFile: (NSString *) path
     externalNameTable: (NSDictionary *) nameTable
-             withZone: (NSZone *) zone {
+             withZone: (NSZone *) zone
+{
 
     NIBDEBUG(@"+ loadNibFile: '%@' externalNameTable: withZone:", path);
 
@@ -91,7 +92,8 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 
 - (BOOL) loadNibFile: (NSString *) fileName
     externalNameTable: (NSDictionary *) nameTable
-             withZone: (NSZone *) zone {
+             withZone: (NSZone *) zone
+{
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
 
     NIBDEBUG(@"- loadNibNamed: '%@' externalNameTable: withZone:", fileName);
@@ -138,7 +140,8 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 
 - (BOOL) loadNibNamed: (NSString *) name
                 owner: (id) owner
-      topLevelObjects: (NSArray **) topLevelObjects {
+      topLevelObjects: (NSArray **) topLevelObjects
+{
     [NSBundle pushNibPath: [self pathForResource: name ofType: @"nib"]];
     [NSBundle pushNibLoadingBundle: self];
 
@@ -188,7 +191,8 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 + (BOOL) _loadNibFile: (id) file
     externalNameTable: (id) tableName
               options: (id) options
-             withZone: (struct _NSZone *) zone {
+             withZone: (struct _NSZone *) zone
+{
     // TODO: work with options
     return [NSBundle loadNibFile: file
                externalNameTable: tableName
@@ -198,7 +202,8 @@ static NSMutableArray<NSString *> *_nibPaths(void) {
 - (BOOL) loadNibFile: (id) file
     externalNameTable: (id) tableName
               options: (id) options
-             withZone: (struct _NSZone *) zone {
+             withZone: (struct _NSZone *) zone
+{
     // TODO: work with options
     return [self loadNibFile: file externalNameTable: tableName withZone: zone];
 }

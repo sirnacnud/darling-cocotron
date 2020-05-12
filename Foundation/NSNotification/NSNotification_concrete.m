@@ -28,7 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSNotification_concrete *NSNotification_concreteNew(NSZone *zone,
                                                     NSString *name, id object,
-                                                    NSDictionary *userInfo) {
+                                                    NSDictionary *userInfo)
+{
     NSNotification_concrete *self =
         NSAllocateObject([NSNotification_concrete class], 0, zone);
     if (self) {
@@ -41,7 +42,8 @@ NSNotification_concrete *NSNotification_concreteNew(NSZone *zone,
 
 - initWithName: (NSString *) name
         object: object
-      userInfo: (NSDictionary *) userInfo {
+      userInfo: (NSDictionary *) userInfo
+{
     _name = [name copy];
     _object = [object retain];
     _userInfo = [userInfo retain];

@@ -319,7 +319,8 @@ NSString *const NSUndoManagerDidRedoChangeNotification =
 
 - (void) registerUndoWithTarget: (id) target
                        selector: (SEL) selector
-                         object: (id) object {
+                         object: (id) object
+{
     NSInvocation *invocation;
     NSMethodSignature *signature;
 

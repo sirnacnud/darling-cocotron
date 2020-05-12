@@ -34,7 +34,8 @@ NSSet *NSMutableSet_concreteNew(NSZone *zone, NSUInteger capacity) {
 }
 
 NSSet *NSMutableSet_concreteNewWithObjects(NSZone *zone, id *objects,
-                                           NSUInteger count) {
+                                           NSUInteger count)
+{
     NSMutableSet_concrete *self =
         NSAllocateObject([NSMutableSet_concrete class], 0, zone);
     if (self) {

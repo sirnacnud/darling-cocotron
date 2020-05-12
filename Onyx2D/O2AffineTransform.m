@@ -22,7 +22,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 const O2AffineTransform O2AffineTransformIdentity = {1, 0, 0, 1, 0, 0};
 
 O2AffineTransform O2AffineTransformMake(O2Float a, O2Float b, O2Float c,
-                                        O2Float d, O2Float tx, O2Float ty) {
+                                        O2Float d, O2Float tx, O2Float ty)
+{
     O2AffineTransform xform = {a, b, c, d, tx, ty};
     return xform;
 }
@@ -44,7 +45,8 @@ O2AffineTransform O2AffineTransformMakeTranslation(O2Float tx, O2Float ty) {
 }
 
 O2AffineTransform O2AffineTransformConcat(O2AffineTransform xform,
-                                          O2AffineTransform append) {
+                                          O2AffineTransform append)
+{
     O2AffineTransform result;
 
     result.a = xform.a * append.a + xform.b * append.c;
@@ -77,19 +79,22 @@ O2AffineTransform O2AffineTransformInvert(O2AffineTransform xform) {
 }
 
 O2AffineTransform O2AffineTransformRotate(O2AffineTransform xform,
-                                          O2Float radians) {
+                                          O2Float radians)
+{
     O2AffineTransform rotate = O2AffineTransformMakeRotation(radians);
     return O2AffineTransformConcat(rotate, xform);
 }
 
 O2AffineTransform O2AffineTransformScale(O2AffineTransform xform,
-                                         O2Float scalex, O2Float scaley) {
+                                         O2Float scalex, O2Float scaley)
+{
     O2AffineTransform scale = O2AffineTransformMakeScale(scalex, scaley);
     return O2AffineTransformConcat(scale, xform);
 }
 
 O2AffineTransform O2AffineTransformTranslate(O2AffineTransform xform,
-                                             O2Float tx, O2Float ty) {
+                                             O2Float tx, O2Float ty)
+{
     O2AffineTransform translate = O2AffineTransformMakeTranslation(tx, ty);
     return O2AffineTransformConcat(translate, xform);
 }

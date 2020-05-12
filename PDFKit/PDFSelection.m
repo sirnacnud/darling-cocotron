@@ -160,7 +160,8 @@
 
 - (void) drawForPage: (PDFPage *) page
              withBox: (PDFDisplayBox) box
-              active: (BOOL) active {
+              active: (BOOL) active
+{
     if (_color != nil)
         [_color set];
     else if (active)

@@ -50,7 +50,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithDataProvider: (O2DataProvider *) provider
-               options: (NSDictionary *) options {
+               options: (NSDictionary *) options
+{
     [super initWithDataProvider: provider options: options];
 
     NSData *data = (NSData *) O2DataProviderCopyData(provider);
@@ -78,7 +79,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (CFDictionaryRef) copyPropertiesAtIndex: (NSUInteger) index
-                                  options: (CFDictionaryRef) options {
+                                  options: (CFDictionaryRef) options
+{
     NSArray *entries = [_reader imageFileDirectory];
 
     if ([entries count] <= index)
@@ -90,7 +92,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (O2ImageRef) createImageAtIndex: (NSUInteger) index
-                          options: (CFDictionaryRef) options {
+                          options: (CFDictionaryRef) options
+{
     NSArray *entries = [_reader imageFileDirectory];
 
     if ([entries count] <= index)

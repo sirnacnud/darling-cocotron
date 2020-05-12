@@ -30,7 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (instancetype) initWithContentRect: (NSRect) contentRect
                            styleMask: (NSWindowStyleMask) styleMask
                              backing: (NSBackingStoreType) backing
-                               defer: (BOOL) defer {
+                               defer: (BOOL) defer
+{
     self = [super initWithContentRect: contentRect
                             styleMask: styleMask
                               backing: backing
@@ -84,7 +85,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSInteger NSRunAlertPanel(NSString *title, NSString *format,
                           NSString *defaultButton, NSString *alternateButton,
-                          NSString *otherButton, ...) {
+                          NSString *otherButton, ...)
+{
     va_list arguments;
     va_start(arguments, otherButton);
     NSString *message =
@@ -106,7 +108,8 @@ NSInteger NSRunAlertPanel(NSString *title, NSString *format,
 NSInteger NSRunInformationalAlertPanel(NSString *title, NSString *format,
                                        NSString *defaultButton,
                                        NSString *alternateButton,
-                                       NSString *otherButton, ...) {
+                                       NSString *otherButton, ...)
+{
     va_list arguments;
     va_start(arguments, otherButton);
     NSString *message =
@@ -121,7 +124,8 @@ NSInteger NSRunInformationalAlertPanel(NSString *title, NSString *format,
 NSInteger NSRunCriticalAlertPanel(NSString *title, NSString *format,
                                   NSString *defaultButton,
                                   NSString *alternateButton,
-                                  NSString *otherButton, ...) {
+                                  NSString *otherButton, ...)
+{
     va_list arguments;
     va_start(arguments, otherButton);
     NSString *message =
@@ -137,7 +141,8 @@ void NSBeginAlertSheet(NSString *title, NSString *defaultButton,
                        NSString *alternateButton, NSString *otherButton,
                        NSWindow *window, id modalDelegate, SEL didEndSelector,
                        SEL didDismissSelector, void *contextInfo,
-                       NSString *format, ...) {
+                       NSString *format, ...)
+{
     va_list arguments;
     va_start(arguments, format);
     NSString *message =
@@ -162,7 +167,8 @@ void NSBeginCriticalAlertSheet(NSString *title, NSString *defaultButton,
                                NSString *alternateButton, NSString *otherButton,
                                NSWindow *window, id modalDelegate,
                                SEL didEndSelector, SEL didDismissSelector,
-                               void *contextInfo, NSString *format, ...) {
+                               void *contextInfo, NSString *format, ...)
+{
     va_list arguments;
     va_start(arguments, format);
     NSString *message =
@@ -180,7 +186,8 @@ void NSBeginInformationalAlertSheet(NSString *title, NSString *defaultButton,
                                     NSString *otherButton, NSWindow *window,
                                     id modalDelegate, SEL didEndSelector,
                                     SEL didDismissSelector, void *contextInfo,
-                                    NSString *format, ...) {
+                                    NSString *format, ...)
+{
     va_list arguments;
     va_start(arguments, format);
     NSString *message =

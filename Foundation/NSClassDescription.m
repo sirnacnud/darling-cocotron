@@ -53,7 +53,8 @@ static NSMutableDictionary *classDescriptionCache = nil;
 }
 
 + (void) registerClassDescription: (NSClassDescription *) description
-                         forClass: (Class) class {
+                         forClass: (Class) class
+{
     @synchronized(self) {
         if (!classDescriptionCache) {
             classDescriptionCache = [[NSMutableDictionary alloc] init];

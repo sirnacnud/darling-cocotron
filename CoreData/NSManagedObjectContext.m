@@ -225,7 +225,8 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 }
 
 - (NSAtomicStoreCacheNode *) _cacheNodeForObjectID:
-    (NSManagedObjectID *) objectID {
+    (NSManagedObjectID *) objectID
+{
     NSAtomicStore *store = (NSAtomicStore *) [_storeCoordinator
         _persistentStoreForObjectID: objectID];
 
@@ -267,7 +268,8 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 }
 
 - (NSArray *) executeFetchRequest: (NSFetchRequest *) fetchRequest
-                            error: (NSError **) error {
+                            error: (NSError **) error
+{
     NSArray *affectedStores = [fetchRequest affectedStores];
 
     if (affectedStores == nil)
@@ -319,7 +321,8 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 }
 
 - (NSUInteger) countForFetchRequest: (NSFetchRequest *) request
-                              error: (NSError **) error {
+                              error: (NSError **) error
+{
     return [[self executeFetchRequest: request error: error] count];
 }
 
@@ -403,13 +406,15 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 - (void) observeValueForKeyPath: (NSString *) keyPath
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     if (NSMapGet(_objectIdToObject, [object objectID]) == object)
         [_updatedObjects addObject: object];
 }
 
 - (BOOL) obtainPermanentIDsForObjects: (NSArray *) objects
-                                error: (NSError **) error {
+                                error: (NSError **) error
+{
 
     for (NSManagedObject *check in objects) {
         NSManagedObjectID *checkID = [check objectID];
@@ -558,7 +563,8 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 }
 
 - (void) mergeChangesFromContextDidSaveNotification:
-    (NSNotification *) notification {
+    (NSNotification *) notification
+{
     NSUnimplementedMethod();
 }
 
@@ -569,7 +575,8 @@ NSString *const NSAffectedObjectsErrorKey = @"NSAffectedObjectsErrorKey";
 
 - (void) commitEditingWithDelegate: (id) delegate
                  didCommitSelector: (SEL) didCommitSelector
-                       contextInfo: (void *) contextInfo {
+                       contextInfo: (void *) contextInfo
+{
     NSUnimplementedMethod();
 }
 

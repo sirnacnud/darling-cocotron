@@ -158,13 +158,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) scanCharactersFromSet: (NSCharacterSet *) charset
-                    intoString: (NSString **) stringp {
+                    intoString: (NSString **) stringp
+{
     NSInvalidAbstractInvocation();
     return NO;
 }
 
 - (BOOL) scanUpToCharactersFromSet: (NSCharacterSet *) charset
-                        intoString: (NSString **) stringp {
+                        intoString: (NSString **) stringp
+{
     NSInvalidAbstractInvocation();
     return NO;
 }

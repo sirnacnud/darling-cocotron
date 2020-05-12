@@ -25,7 +25,8 @@
 }
 
 - (BOOL) waitForSingleInputForMode: (NSString *) mode
-                        beforeDate: (NSDate *) date {
+                        beforeDate: (NSDate *) date
+{
     waitForTaskChildProcess();
     return [super waitForSingleInputForMode: mode beforeDate: date];
 }

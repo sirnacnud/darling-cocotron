@@ -26,7 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithName: (NSString *) name
     displayName: (NSString *) displayName
       traitName: (NSString *) traitName
-         traits: (NSFontTraitMask) traits {
+         traits: (NSFontTraitMask) traits
+{
     _name = [name copy];
     _displayName = [displayName copy];
     _traitName = [traitName copy];
@@ -37,7 +38,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithName: (NSString *) name
      traitName: (NSString *) traitName
-        traits: (NSFontTraitMask) traits {
+        traits: (NSFontTraitMask) traits
+{
     return [self initWithName: name
                   displayName: name
                     traitName: traitName

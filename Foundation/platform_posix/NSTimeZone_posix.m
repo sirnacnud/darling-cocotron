@@ -46,7 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 struct tzhead {
     char tzh_magic[4];   /* TZ_MAGIC */
     char tzh_version[1]; /* version of the file's format (as of 2005, either an
-                            ASCII NUL ('\0') or a '2') */
+                         ASCII NUL ('\0') or a '2') */
     char tzh_reserved[15];  /* reserved for future use */
     int32_t tzh_ttisgmtcnt; /* coded number of trans. time flags */
     int32_t tzh_ttisstdcnt; /* coded number of trans. time flags */
@@ -166,7 +166,8 @@ NSInteger sortTransitions(id trans1, id trans2, void *context) {
 - initWithName: (NSString *) name
            data: (NSData *) data
     transitions: (NSArray *) transitions
-          types: (NSArray *) types {
+          types: (NSArray *) types
+{
     _name = [name retain];
     _data = [data retain];
     _timeZoneTransitions = [transitions retain];

@@ -44,8 +44,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // Only the first messages about unsupported encoding are logged so we don't
 // spend our time and fill the disk logging these errors (just logging the first
 // one seem not enough - the first messages seem lost in space)
-#define logEncodingError(encoding)                                             \
-    {                                                                          \
+#define logEncodingError(encoding) {                                           \
         if (encoding != defaultEncoding()) {                                   \
             static int unsupportedEncodingLogged = 0;                          \
             if (unsupportedEncodingLogged < 10) {                              \
@@ -64,7 +63,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 
 unichar *NSCharactersFromCString(const char *cString, NSUInteger length,
-                                 NSUInteger *resultLength, NSZone *zone) {
+                                 NSUInteger *resultLength, NSZone *zone)
+{
     return NSString_anyCStringToUnicode(defaultEncoding(), cString, length,
                                         resultLength, zone);
 }
@@ -72,7 +72,8 @@ unichar *NSCharactersFromCString(const char *cString, NSUInteger length,
 char *NSString_cStringFromCharacters(const unichar *characters,
                                      NSUInteger length, BOOL lossy,
                                      NSUInteger *resultLength, NSZone *zone,
-                                     BOOL zeroTerminate) {
+                                     BOOL zeroTerminate)
+{
     return NSString_unicodeToAnyCString(defaultEncoding(), characters, length,
                                         lossy, resultLength, zone,
                                         zeroTerminate);
@@ -81,7 +82,8 @@ char *NSString_cStringFromCharacters(const unichar *characters,
 NSUInteger NSGetCStringWithMaxLength(const unichar *characters,
                                      NSUInteger length, NSUInteger *location,
                                      char *cString, NSUInteger maxLength,
-                                     BOOL lossy) {
+                                     BOOL lossy)
+{
     return NSGetAnyCStringWithMaxLength(defaultEncoding(), characters, length,
                                         location, cString, maxLength, lossy);
 }
@@ -96,20 +98,23 @@ NSString *NSString_cStringNewWithBytesAndZero(NSZone *zone, const char *bytes) {
 }
 
 NSString *NSString_cStringNewWithBytes(NSZone *zone, const char *bytes,
-                                       NSUInteger length) {
+                                       NSUInteger length)
+{
     return NSString_anyCStringNewWithBytes(defaultEncoding(), zone, bytes,
                                            length);
 }
 
 NSString *NSString_cStringNewWithCharacters(NSZone *zone,
                                             const unichar *characters,
-                                            NSUInteger length, BOOL lossy) {
+                                            NSUInteger length, BOOL lossy)
+{
     return NSString_anyCStringNewWithCharacters(defaultEncoding(), zone,
                                                 characters, length, lossy);
 }
 
 NSString *NSString_cStringNewWithCapacity(NSZone *zone, NSUInteger capacity,
-                                          char **ptr) {
+                                          char **ptr)
+{
     return NSNEXTSTEPCStringNewWithCapacity(zone, capacity, ptr);
 }
 
@@ -118,7 +123,8 @@ NSString *NSString_cStringWithBytesAndZero(NSZone *zone, const char *bytes) {
 }
 unichar *NSString_anyCStringToUnicode(NSStringEncoding encoding,
                                       const char *cString, NSUInteger length,
-                                      NSUInteger *resultLength, NSZone *zone) {
+                                      NSUInteger *resultLength, NSZone *zone)
+{
     switch (encoding) {
     case NSNEXTSTEPStringEncoding:
         return NSNEXTSTEPToUnicode(cString, length, resultLength, zone);
@@ -149,7 +155,8 @@ unichar *NSString_anyCStringToUnicode(NSStringEncoding encoding,
 char *NSString_unicodeToAnyCString(NSStringEncoding encoding,
                                    const unichar *characters, NSUInteger length,
                                    BOOL lossy, NSUInteger *resultLength,
-                                   NSZone *zone, BOOL zeroTerminate) {
+                                   NSZone *zone, BOOL zeroTerminate)
+{
     switch (encoding) {
     case NSNEXTSTEPStringEncoding:
         return NSUnicodeToNEXTSTEP(characters, length, lossy, resultLength,
@@ -192,7 +199,8 @@ char *NSString_unicodeToAnyCString(NSStringEncoding encoding,
 
 NSString *NSString_anyCStringNewWithBytes(NSStringEncoding encoding,
                                           NSZone *zone, const char *bytes,
-                                          NSUInteger length) {
+                                          NSUInteger length)
+{
     switch (encoding) {
     case NSNEXTSTEPStringEncoding:
         return NSNEXTSTEPCStringNewWithBytes(zone, bytes, length);
@@ -229,7 +237,8 @@ NSString *NSString_anyCStringNewWithBytes(NSStringEncoding encoding,
 NSString *NSString_anyCStringNewWithCharacters(NSStringEncoding encoding,
                                                NSZone *zone,
                                                const unichar *characters,
-                                               NSUInteger length, BOOL lossy) {
+                                               NSUInteger length, BOOL lossy)
+{
     switch (encoding) {
     case NSNEXTSTEPStringEncoding:
         return NSNEXTSTEPCStringNewWithCharacters(zone, characters, length,
@@ -258,7 +267,8 @@ NSUInteger NSGetAnyCStringWithMaxLength(NSStringEncoding encoding,
                                         const unichar *characters,
                                         NSUInteger length, NSUInteger *location,
                                         char *cString, NSUInteger maxLength,
-                                        BOOL lossy) {
+                                        BOOL lossy)
+{
     if (cString == NULL || maxLength == 0) {
         return NSNotFound;
     }

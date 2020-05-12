@@ -75,8 +75,8 @@ static NSMutableDictionary *sSounds = nil;
     return self;
 }
 
-- (id) initWithContentsOfFile: (NSString *) path
-                  byReference: (BOOL) byReference {
+- (id) initWithContentsOfFile: (NSString *) path byReference: (BOOL) byReference
+{
     self = [super init];
     return self;
 }

@@ -102,8 +102,8 @@ const NSPasteboardReadingOptionKey
     return nil;
 }
 
-- (NSPasteboardType) availableTypeFromArray:
-    (NSArray<NSPasteboardType> *) types {
+- (NSPasteboardType) availableTypeFromArray: (NSArray<NSPasteboardType> *) types
+{
     NSArray<NSPasteboardType> *available = [self types];
     for (NSPasteboardType type in types) {
         if ([available containsObject: type]) {
@@ -142,13 +142,15 @@ const NSPasteboardReadingOptionKey
 }
 
 - (NSInteger) declareTypes: (NSArray<NSPasteboardType> *) types
-                     owner: (id<NSPasteboardTypeOwner>) owner {
+                     owner: (id<NSPasteboardTypeOwner>) owner
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSInteger) addTypes: (NSArray<NSPasteboardType> *) types
-                 owner: (id<NSPasteboardTypeOwner>) owner {
+                 owner: (id<NSPasteboardTypeOwner>) owner
+{
     NSUnimplementedMethod();
     return 0;
 }

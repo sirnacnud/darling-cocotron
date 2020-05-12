@@ -4,7 +4,8 @@
 #import <string.h>
 
 void CCHmacInit(CCHmacContext *context, CCHmacAlgorithm algorithm,
-                const void *key, size_t keyLength) {
+                const void *key, size_t keyLength)
+{
     context->sslContext = malloc(sizeof(HMAC_CTX));
     HMAC_CTX_init(context->sslContext);
     HMAC_Init(context->sslContext, key, keyLength, EVP_sha1());
@@ -23,7 +24,8 @@ void CCHmacFinal(CCHmacContext *context, void *macOut) {
 }
 
 void CCHmac(CCHmacAlgorithm algorithm, const void *key, size_t keyLength,
-            const void *data, size_t dataLength, void *macOut) {
+            const void *data, size_t dataLength, void *macOut)
+{
     CCHmacContext context;
 
     CCHmacInit(&context, algorithm, key, keyLength);

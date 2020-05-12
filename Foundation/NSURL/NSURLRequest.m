@@ -52,7 +52,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithURL: (NSURL *) url
         cachePolicy: (NSURLRequestCachePolicy) cachePolicy
-    timeoutInterval: (NSTimeInterval) timeout {
+    timeoutInterval: (NSTimeInterval) timeout
+{
     _url = [url copy];
     _cachePolicy = cachePolicy;
     _timeoutInterval = timeout;
@@ -81,7 +82,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + requestWithURL: (NSURL *) url
         cachePolicy: (NSURLRequestCachePolicy) cachePolicy
-    timeoutInterval: (NSTimeInterval) timeout {
+    timeoutInterval: (NSTimeInterval) timeout
+{
     return [[[self alloc] initWithURL: url
                           cachePolicy: cachePolicy
                       timeoutInterval: timeout] autorelease];

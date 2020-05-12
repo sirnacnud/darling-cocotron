@@ -56,7 +56,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSDictionary *) attributesAtIndex: (NSUInteger) location
-                      effectiveRange: (NSRange *) effectiveRangep {
+                      effectiveRange: (NSRange *) effectiveRangep
+{
     NSDictionary *result;
 
     if (location >= [self length])

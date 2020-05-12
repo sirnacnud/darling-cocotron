@@ -40,7 +40,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
       defaultButton: (NSString *) defaultTitle
     alternateButton: (NSString *) alternateTitle
         otherButton: (NSString *) otherTitle
-              sheet: (BOOL) sheet {
+              sheet: (BOOL) sheet
+{
     NSImage *image = [NSImage imageNamed: @"NSAlertPanelExclamation"];
     NSSize imageSize = [image size];
     NSSize size = {640, 480};

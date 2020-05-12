@@ -91,7 +91,8 @@ static uint8 compute_y(int r, int g, int b) {
 }
 
 static unsigned char *convert_format(unsigned char *data, int img_n,
-                                     int req_comp) {
+                                     int req_comp)
+{
     uint i, j;
     unsigned char *good;
 
@@ -117,35 +118,41 @@ static unsigned char *convert_format(unsigned char *data, int img_n,
         // convert source image with img_n components to one with req_comp
         // components
         switch (COMBO(img_n, req_comp)) {
-            CASE(1, 2) dest[0] = src[0], dest[1] = 255;
+            CASE(1, 2)
+            dest[0] = src[0], dest[1] = 255;
             break;
-            CASE(1, 3) dest[0] = dest[1] = dest[2] = src[0];
+            CASE(1, 3)
+            dest[0] = dest[1] = dest[2] = src[0];
             break;
-            CASE(1, 4) dest[0] = dest[1] = dest[2] = src[0], dest[3] = 255;
+            CASE(1, 4)
+            dest[0] = dest[1] = dest[2] = src[0], dest[3] = 255;
             break;
-            CASE(2, 1) dest[0] = src[0];
+            CASE(2, 1)
+            dest[0] = src[0];
             break;
-            CASE(2, 3) dest[0] = dest[1] = dest[2] = src[0];
+            CASE(2, 3)
+            dest[0] = dest[1] = dest[2] = src[0];
             break;
-            CASE(2, 4) dest[0] = dest[1] = dest[2] = src[0], dest[3] = src[1];
+            CASE(2, 4)
+            dest[0] = dest[1] = dest[2] = src[0], dest[3] = src[1];
             break;
             CASE(3, 4)
-            dest[0] = src[0],
-            dest[1] = src[1], dest[2] = src[2], dest[3] = 255;
+            dest[0] = src[0], dest[1] = src[1], dest[2] = src[2], dest[3] = 255;
             break;
-            CASE(3, 1) dest[0] = compute_y(src[0], src[1], src[2]);
+            CASE(3, 1)
+            dest[0] = compute_y(src[0], src[1], src[2]);
             break;
             CASE(3, 2)
-            dest[0] = compute_y(src[0], src[1], src[2]),
-            dest[1] = 255;
+            dest[0] = compute_y(src[0], src[1], src[2]), dest[1] = 255;
             break;
-            CASE(4, 1) dest[0] = compute_y(src[0], src[1], src[2]);
+            CASE(4, 1)
+            dest[0] = compute_y(src[0], src[1], src[2]);
             break;
             CASE(4, 2)
-            dest[0] = compute_y(src[0], src[1], src[2]),
-            dest[1] = src[3];
+            dest[0] = compute_y(src[0], src[1], src[2]), dest[1] = src[3];
             break;
-            CASE(4, 3) dest[0] = src[0], dest[1] = src[1], dest[2] = src[2];
+            CASE(4, 3)
+            dest[0] = src[0], dest[1] = src[1], dest[2] = src[2];
             break;
         default:
             assert(0);
@@ -447,7 +454,8 @@ static stbi_uc *bmp_load(int *x, int *y, int *comp, int req_comp) {
 }
 
 stbi_uc *stbi_bmp_load_from_memory(const stbi_uc *buffer, int len, int *x,
-                                   int *y, int *comp, int req_comp) {
+                                   int *y, int *comp, int req_comp)
+{
     start_mem(buffer, len);
     return bmp_load(x, y, comp, req_comp);
 }
@@ -472,7 +480,8 @@ stbi_uc *stbi_bmp_load_from_memory(const stbi_uc *buffer, int len, int *x,
 }
 
 - initWithDataProvider: (O2DataProvider *) provider
-               options: (NSDictionary *) options {
+               options: (NSDictionary *) options
+{
     [super initWithDataProvider: provider options: options];
     _bmp = (NSData *) O2DataProviderCopyData(provider);
     return self;
@@ -492,7 +501,8 @@ stbi_uc *stbi_bmp_load_from_memory(const stbi_uc *buffer, int len, int *x,
 }
 
 - (O2Image *) createImageAtIndex: (NSUInteger) index
-                         options: (NSDictionary *) options {
+                         options: (NSDictionary *) options
+{
     int width, height;
     int comp;
     unsigned char *pixels = stbi_bmp_load_from_memory(

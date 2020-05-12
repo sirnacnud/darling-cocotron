@@ -30,14 +30,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithData: (NSData *) data
        options: (NSUInteger) options
-         error: (NSError **) error {
+         error: (NSError **) error
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithContentsOfURL: (NSURL *) url
                 options: (NSUInteger) options
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -51,7 +53,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSXMLDTDNode *) attributeDeclarationForName: (NSString *) attributeName
-                                   elementName: (NSString *) elementName {
+                                   elementName: (NSString *) elementName
+{
     NSUnimplementedMethod();
     return nil;
 }

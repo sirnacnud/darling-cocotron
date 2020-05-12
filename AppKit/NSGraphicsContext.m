@@ -110,13 +110,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSGraphicsContext *) graphicsContextWithGraphicsPort: (CGContextRef) context
-                                                flipped: (BOOL) flipped {
+                                                flipped: (BOOL) flipped
+{
     return [[[self alloc] initWithGraphicsPort: context
                                        flipped: flipped] autorelease];
 }
 
 + (NSGraphicsContext *) graphicsContextWithBitmapImageRep:
-    (NSBitmapImageRep *) imageRep {
+    (NSBitmapImageRep *) imageRep
+{
     return [[[self alloc] initWithBitmapImageRep: imageRep] autorelease];
 }
 

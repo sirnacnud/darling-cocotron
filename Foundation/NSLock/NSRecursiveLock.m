@@ -67,8 +67,7 @@
     return NO;
 }
 
-- (BOOL) lockBeforeDate: (NSDate *) value;
-{
+- (BOOL) lockBeforeDate: (NSDate *) value; {
     NSUnimplementedMethod();
     return NO;
 }

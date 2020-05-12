@@ -29,7 +29,8 @@ void CGLayerRelease(CGLayerRef self) {
 }
 
 CGLayerRef CGLayerCreateWithContext(CGContextRef context, CGSize size,
-                                    CFDictionaryRef unused) {
+                                    CFDictionaryRef unused)
+{
     return O2LayerCreateWithContext(context, size, unused);
 }
 

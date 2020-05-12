@@ -176,7 +176,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) waitForSingleInputForMode: (NSString *) mode
-                        beforeDate: (NSDate *) date {
+                        beforeDate: (NSDate *) date
+{
     if ([self fireSingleImmediateInputInMode: mode])
         return YES;
     else {

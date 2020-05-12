@@ -34,7 +34,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation O2PDFFilter
 
 + (NSData *) FlateDecode_data: (NSData *) data
-                   parameters: (O2PDFDictionary *) parameters {
+                   parameters: (O2PDFDictionary *) parameters
+{
     int len;
     unsigned char *result =
         stbi_zlib_decode_malloc([data bytes], [data length], &len);
@@ -46,14 +47,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSData *) LZWDecode_data: (NSData *) data
-                 parameters: (O2PDFDictionary *) parameters {
+                 parameters: (O2PDFDictionary *) parameters
+{
     return LZWDecodeWithExpectedResultLength(data, [data length] * 10);
 }
 
 + (NSData *) decodeWithName: (const char *) name
                        data: (NSData *) data
                  parameters: (O2PDFDictionary *) parameters
-                bytesPerRow: (size_t *) pBytesPerRow {
+                bytesPerRow: (size_t *) pBytesPerRow
+{
 
     if ((strcmp(name, "FlateDecode") == 0) || (strcmp(name, "FL") == 0))
         data = [self FlateDecode_data: data parameters: parameters];

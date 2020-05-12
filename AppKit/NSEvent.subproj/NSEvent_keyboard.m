@@ -29,7 +29,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                      characters: (NSString *) characters
     charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
                       isARepeat: (BOOL) isARepeat
-                        keyCode: (unsigned short) keyCode {
+                        keyCode: (unsigned short) keyCode
+{
     [super initWithType: type
                location: location
           modifierFlags: modifierFlags

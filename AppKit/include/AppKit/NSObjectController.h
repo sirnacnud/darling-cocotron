@@ -64,7 +64,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) prepareContent;
 
 //-(BOOL)fetchWithRequest:(NSFetchRequest *)fetchRequest merge:(BOOL)merge
-//error:(NSError **)error;
+// error:(NSError **)error;
 
 //-(BOOL)validateMenuItem:(NSMenuItem *)menuItem;
 

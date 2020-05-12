@@ -31,7 +31,8 @@
 @implementation NSRichTextWriter
 
 - initWithAttributedString: (NSAttributedString *) attributedString
-                     range: (NSRange) range {
+                     range: (NSRange) range
+{
     _attributedString = [attributedString retain];
     _string = [[_attributedString string] retain];
     _range = range;
@@ -47,7 +48,8 @@
 }
 
 + (NSData *) dataWithAttributedString: (NSAttributedString *) attributedString
-                                range: (NSRange) range {
+                                range: (NSRange) range
+{
     NSRichTextWriter *writer =
         [[self alloc] initWithAttributedString: attributedString range: range];
     NSData *result = [[[writer generateData] retain] autorelease];

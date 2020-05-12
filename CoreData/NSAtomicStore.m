@@ -13,7 +13,8 @@
       (NSPersistentStoreCoordinator *) coordinator
                    configurationName: (NSString *) configurationName
                                  URL: (NSURL *) url
-                             options: (NSDictionary *) options {
+                             options: (NSDictionary *) options
+{
     if ([super initWithPersistentStoreCoordinator: coordinator
                                 configurationName: configurationName
                                               URL: url
@@ -58,7 +59,8 @@
 }
 
 - (NSAtomicStoreCacheNode *) cacheNodeForObjectID:
-    (NSManagedObjectID *) objectID {
+    (NSManagedObjectID *) objectID
+{
     NSAtomicStoreCacheNode *result =
         [_objectIDToCacheNode objectForKey: objectID];
 
@@ -66,13 +68,15 @@
 }
 
 - (NSAtomicStoreCacheNode *) newCacheNodeForManagedObject:
-    (NSManagedObject *) managedObject {
+    (NSManagedObject *) managedObject
+{
     return [[NSAtomicStoreCacheNode alloc]
         initWithObjectID: [managedObject objectID]];
 }
 
 - (NSManagedObjectID *) objectIDForEntity: (NSEntityDescription *) entity
-                          referenceObject: referenceObject {
+                          referenceObject: referenceObject
+{
     NSMutableDictionary *refTable =
         [_objectIDTable objectForKey: [entity name]];
 
@@ -125,7 +129,8 @@
 }
 
 - (void) updateCacheNode: (NSAtomicStoreCacheNode *) node
-       fromManagedObject: (NSManagedObject *) managedObject {
+       fromManagedObject: (NSManagedObject *) managedObject
+{
     NSInvalidAbstractInvocation();
 }
 

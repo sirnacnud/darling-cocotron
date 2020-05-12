@@ -41,7 +41,8 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 }
 
 - initWithObjectID: (NSManagedObjectID *) objectID
-    managedObjectContext: (NSManagedObjectContext *) context {
+    managedObjectContext: (NSManagedObjectContext *) context
+{
     NSEntityDescription *entity = [objectID entity];
     NSString *className = [entity managedObjectClassName];
     Class class = NSClassFromString(className);
@@ -66,7 +67,8 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 }
 
 - initWithEntity: (NSEntityDescription *) entity
-    insertIntoManagedObjectContext: (NSManagedObjectContext *) context {
+    insertIntoManagedObjectContext: (NSManagedObjectContext *) context
+{
     NSManagedObjectID *objectID =
         [[[NSManagedObjectID alloc] initWithEntity: entity] autorelease];
 
@@ -406,7 +408,8 @@ NSString *const NSValidationValueErrorKey = @"NSValidationErrorValue";
 
 - (BOOL) validateValue: (id *) value
                 forKey: (NSString *) key
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     NSUnimplementedMethod();
     return YES;
 }

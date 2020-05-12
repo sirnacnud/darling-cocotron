@@ -130,7 +130,8 @@ O2Path *O2ClipStateOnePath(O2ClipState *self) {
 
 - (void) addMask: (O2Image *) image
           inRect: (O2Rect) rect
-       transform: (O2AffineTransform) transform {
+       transform: (O2AffineTransform) transform
+{
     O2ClipPhase *phase = [[O2ClipPhase alloc] initWithMask: image
                                                       rect: rect
                                                  transform: transform];

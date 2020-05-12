@@ -30,7 +30,8 @@ static inline NSUInteger roundCapacityUp(NSUInteger capacity) {
 
 NSMutableArray_concrete *
 NSMutableArray_concreteInit(NSMutableArray_concrete *self, id *objects,
-                            NSUInteger count, NSZone *zone) {
+                            NSUInteger count, NSZone *zone)
+{
     NSUInteger i;
 
     self->_count = count;
@@ -45,7 +46,8 @@ NSMutableArray_concreteInit(NSMutableArray_concrete *self, id *objects,
 
 NSMutableArray_concrete *
 NSMutableArray_concreteInitWithCapacity(NSMutableArray_concrete *self,
-                                        NSUInteger capacity, NSZone *zone) {
+                                        NSUInteger capacity, NSZone *zone)
+{
     self->_count = 0;
     self->_capacity = roundCapacityUp(capacity);
     self->_objects = NSZoneMalloc(zone, sizeof(id) * self->_capacity);
@@ -53,8 +55,8 @@ NSMutableArray_concreteInitWithCapacity(NSMutableArray_concrete *self,
     return self;
 }
 
-NSArray *NSMutableArray_concreteNew(NSZone *zone, id *objects,
-                                    NSUInteger count) {
+NSArray *NSMutableArray_concreteNew(NSZone *zone, id *objects, NSUInteger count)
+{
     NSMutableArray_concrete *self =
         NSAllocateObject([NSMutableArray_concrete class], 0, zone);
     if (self) {
@@ -64,7 +66,8 @@ NSArray *NSMutableArray_concreteNew(NSZone *zone, id *objects,
 }
 
 NSArray *NSMutableArray_concreteNewWithCapacity(NSZone *zone,
-                                                NSUInteger capacity) {
+                                                NSUInteger capacity)
+{
     NSMutableArray_concrete *self =
         NSAllocateObject([NSMutableArray_concrete class], 0, zone);
     if (self) {
@@ -224,8 +227,8 @@ NSArray *NSMutableArray_concreteNewWithCapacity(NSZone *zone,
     _objects[index] = [object retain];
 }
 
-static void removeObjectAtIndex(NSMutableArray_concrete *self,
-                                NSUInteger index) {
+static void removeObjectAtIndex(NSMutableArray_concrete *self, NSUInteger index)
+{
     NSUInteger i;
     id object;
 
@@ -295,8 +298,8 @@ static void removeObjectAtIndex(NSMutableArray_concrete *self,
     return NSNotFound;
 }
 
-static inline NSUInteger indexOfObject(NSMutableArray_concrete *self,
-                                       id object) {
+static inline NSUInteger indexOfObject(NSMutableArray_concrete *self, id object)
+{
     NSUInteger i;
 
     for (i = 0; i < self->_count; i++)
@@ -329,7 +332,8 @@ static inline NSUInteger indexOfObject(NSMutableArray_concrete *self,
                        left: (NSInteger) iLeft
                       right: (NSInteger) iRight
                         end: (NSInteger) iEnd
-                          B: (id *) B {
+                          B: (id *) B
+{
     NSInteger i0 = iLeft;
     NSInteger i1 = iRight;
     NSInteger j;
@@ -349,7 +353,8 @@ static inline NSUInteger indexOfObject(NSMutableArray_concrete *self,
 // iterative bottom up mergesort based on
 // http://en.wikipedia.org/wiki/Merge_sort
 - (void) sortUsingFunction: (NSInteger (*)(id, id, void *)) compare
-                   context: (void *) context {
+                   context: (void *) context
+{
     NSInteger n = _count;
 
     /* array A[] has the items to sort; array B[] is a work array */

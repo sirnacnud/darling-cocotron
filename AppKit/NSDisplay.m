@@ -148,7 +148,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
                           untilDate: (NSDate *) untilDate
                              inMode: (NSString *) mode
-                            dequeue: (BOOL) dequeue {
+                            dequeue: (BOOL) dequeue
+{
     NSEvent *result = nil;
 
     if ([_eventQueue count])
@@ -180,7 +181,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) discardEventsMatchingMask: (NSEventMask) mask
-                       beforeEvent: (NSEvent *) event {
+                       beforeEvent: (NSEvent *) event
+{
     NSInteger count = [_eventQueue count];
 
     while (--count >= 0) {
@@ -220,7 +222,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSEventModifierFlags) modifierForDefault: (NSString *) key
-                                   standard: (NSEventModifierFlags) standard {
+                                   standard: (NSEventModifierFlags) standard
+{
     NSDictionary *modmap = [[NSUserDefaults standardUserDefaults]
         dictionaryForKey: @"NSModifierFlagMapping"];
     NSString *remap = modmap[key];
@@ -260,7 +263,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (int) runModalPrintPanelWithPrintInfoDictionary:
-    (NSMutableDictionary *) attributes {
+    (NSMutableDictionary *) attributes
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -268,7 +272,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (CGContextRef) graphicsPortForPrintOperationWithView: (NSView *) view
                                              printInfo:
                                                  (NSPrintInfo *) printInfo
-                                             pageRange: (NSRange) pageRange {
+                                             pageRange: (NSRange) pageRange
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
@@ -279,7 +284,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (int) savePanel: (NSSavePanel *) savePanel
     runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file {
+                    file: (NSString *) file
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -287,7 +293,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (int) openPanel: (NSOpenPanel *) openPanel
     runModalForDirectory: (NSString *) directory
                     file: (NSString *) file
-                   types: (NSArray *) types {
+                   types: (NSArray *) types
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -308,13 +315,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (CGRect) insetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask {
+    forNativeWindowBorderWithStyle: (NSUInteger) styleMask
+{
     NSInvalidAbstractInvocation();
     return frame;
 }
 
 - (CGRect) outsetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask {
+    forNativeWindowBorderWithStyle: (NSUInteger) styleMask
+{
     NSInvalidAbstractInvocation();
     return frame;
 }
@@ -322,7 +331,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @end
 
 void NSColorSetCatalogColor(NSString *catalogName, NSString *colorName,
-                            NSColor *color) {
+                            NSColor *color)
+{
     [[NSDisplay currentDisplay] _addSystemColor: color forName: colorName];
 }
 

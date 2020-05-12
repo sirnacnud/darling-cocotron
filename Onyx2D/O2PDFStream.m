@@ -30,7 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithDictionary: (O2PDFDictionary *) dictionary
                 xref: (O2PDFxref *) xref
-            position: (O2PDFInteger) position {
+            position: (O2PDFInteger) position
+{
     O2PDFInteger length;
 
     _dictionary = [dictionary retain];
@@ -74,7 +75,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (O2PDFStream *) pdfStreamWithBytes: (const void *) bytes
-                              length: (unsigned) length {
+                              length: (unsigned) length
+{
     return [self pdfStreamWithData: [NSData dataWithBytes: bytes
                                                    length: length]];
 }

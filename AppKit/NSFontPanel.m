@@ -202,9 +202,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setPanelFont: (NSFont *) font isMultiple: (BOOL) isMultiple {
     NSFontFamily *family =
         [NSFontFamily fontFamilyWithTypefaceName: [font fontName]];
-    NSFontTypeface *typeface = [family typefaceWithName: [font fontName]];
-
-    {
+    NSFontTypeface *typeface = [family typefaceWithName: [font fontName]]; {
         NSArray *families = [self availableFontFamilies];
         NSString *familyName = [family name];
         unsigned familyIndex = [families indexOfObject: familyName];

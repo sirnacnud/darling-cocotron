@@ -48,7 +48,8 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
            range: (O2PDFArray *) range
               C0: (O2PDFArray *) C0
               C1: (O2PDFArray *) C1
-               N: (O2PDFReal) N {
+               N: (O2PDFReal) N
+{
     if ([super initWithDomain: domain range: range] == nil)
         return nil;
 

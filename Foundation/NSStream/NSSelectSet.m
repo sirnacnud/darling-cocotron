@@ -102,7 +102,8 @@ NSString *const NSSelectSetOutputNotification =
 }
 
 - (NSError *) waitForSelectWithOutputSet: (NSSelectSet **) outputSet
-                              beforeDate: (NSDate *) beforeDate {
+                              beforeDate: (NSDate *) beforeDate
+{
     NSInvalidAbstractInvocation();
     return nil;
 }

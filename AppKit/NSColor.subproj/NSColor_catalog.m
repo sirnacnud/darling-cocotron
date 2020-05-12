@@ -32,7 +32,8 @@ NSColor *NSColorGetCatalogColor(NSString *catalogName, NSString *colorName);
 
 - initWithCatalogName: (NSString *) catalogName
             colorName: (NSString *) colorName
-                color: (NSColor *) color {
+                color: (NSColor *) color
+{
     _catalogName = [catalogName copy];
     _colorName = [colorName copy];
     _color = [color copy];
@@ -69,7 +70,8 @@ NSColor *NSColorGetCatalogColor(NSString *catalogName, NSString *colorName);
 }
 
 + (NSColor *) colorWithCatalogName: (NSString *) catalogName
-                         colorName: (NSString *) colorName {
+                         colorName: (NSString *) colorName
+{
     return [[[self alloc] initWithCatalogName: catalogName
                                     colorName: colorName
                                         color: nil] autorelease];
@@ -77,7 +79,8 @@ NSColor *NSColorGetCatalogColor(NSString *catalogName, NSString *colorName);
 
 + (NSColor *) colorWithCatalogName: (NSString *) catalogName
                          colorName: (NSString *) colorName
-                             color: (NSColor *) color {
+                             color: (NSColor *) color
+{
     if (NSColorGetCatalogColor(catalogName, colorName) == nil)
         NSColorSetCatalogColor(catalogName, colorName, color);
 
@@ -99,7 +102,8 @@ NSColor *NSColorGetCatalogColor(NSString *catalogName, NSString *colorName);
 }
 
 - (NSColor *) colorUsingColorSpaceName: (NSString *) colorSpace
-                                device: (NSDictionary *) device {
+                                device: (NSDictionary *) device
+{
     NSColor *result;
 
     if ([colorSpace isEqualToString: [self colorSpaceName]])

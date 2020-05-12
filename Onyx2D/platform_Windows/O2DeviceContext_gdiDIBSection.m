@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithWidth: (size_t) width
            height: (size_t) height
     deviceContext: (O2DeviceContext_gdi *) compatible
-     bitsPerPixel: (int) bpp {
+     bitsPerPixel: (int) bpp
+{
     HDC compatibleDC = (compatible != nil) ? [compatible dc] : GetDC(NULL);
 
     [self initWithDC: CreateCompatibleDC(compatibleDC)];
@@ -73,7 +74,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initARGB32WithWidth: (size_t) width
                height: (size_t) height
-        deviceContext: (O2DeviceContext_gdi *) compatible {
+        deviceContext: (O2DeviceContext_gdi *) compatible
+{
     return [self initWithWidth: width
                         height: height
                  deviceContext: compatible
@@ -82,7 +84,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initGray8WithWidth: (size_t) width
               height: (size_t) height
-       deviceContext: (O2DeviceContext_gdi *) compatible {
+       deviceContext: (O2DeviceContext_gdi *) compatible
+{
     HDC compatibleDC = (compatible != nil) ? [compatible dc] : GetDC(NULL);
 
     [self initWithDC: CreateCompatibleDC(compatibleDC)];

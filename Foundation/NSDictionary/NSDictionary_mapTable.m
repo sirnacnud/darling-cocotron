@@ -43,9 +43,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [self initWithObjects: NULL forKeys: NULL count: 0];
 }
 
-- initWithObjects: (id *) objects
-          forKeys: (id *) keys
-            count: (NSUInteger) count {
+- initWithObjects: (id *) objects forKeys: (id *) keys count: (NSUInteger) count
+{
     NSInteger i;
 
     _table = NSCreateMapTableWithZone(NSObjectMapKeyCallBacks,

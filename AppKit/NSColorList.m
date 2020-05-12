@@ -322,8 +322,8 @@ static NSMutableDictionary *_namedColorLists = nil;
     return _keys;
 }
 
-- (NSColor *) colorWithKey: (NSString *) soughtKey
-                  indexPtr: (unsigned *) index {
+- (NSColor *) colorWithKey: (NSString *) soughtKey indexPtr: (unsigned *) index
+{
     NSEnumerator *keyEnumerator = [_keys objectEnumerator];
     NSString *thisKey;
 
@@ -374,7 +374,8 @@ static NSMutableDictionary *_namedColorLists = nil;
 
 - (void) insertColor: (NSColor *) color
                  key: (NSString *) key
-             atIndex: (unsigned) index {
+             atIndex: (unsigned) index
+{
     [_colors insertObject: color atIndex: index];
     [_keys insertObject: key atIndex: index];
 

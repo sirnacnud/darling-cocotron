@@ -74,7 +74,8 @@ static NSThread *mainThread = nil;
 
 - (id) initWithTarget: (id) aTarget
              selector: (SEL) aSelector
-               object: (id) anArgument {
+               object: (id) anArgument
+{
     [self init];
     _target = [aTarget retain];
     _selector = aSelector;
@@ -121,7 +122,8 @@ static void *nsThreadStartThread(void *t)
 
 + (void) detachNewThreadSelector: (SEL) selector
                         toTarget: target
-                      withObject: argument {
+                      withObject: argument
+{
     id newThread = [[self alloc] initWithTarget: target
                                        selector: selector
                                          object: argument];
@@ -320,7 +322,8 @@ static void *nsThreadStartThread(void *t)
 }
 
 static inline id _NSThreadSharedInstance(NSThread *thread, NSString *className,
-                                         BOOL create) {
+                                         BOOL create)
+{
     NSMutableDictionary *shared = thread->_sharedObjects;
     if (!shared)
         return nil;
@@ -398,7 +401,8 @@ void NSThreadSetCurrentPool(NSAutoreleasePool *pool) {
                 onThread: (NSThread *) thread
               withObject: (id) object
            waitUntilDone: (BOOL) waitUntilDone
-                   modes: (NSArray *) modes {
+                   modes: (NSArray *) modes
+{
     if (thread == nil) {
         [NSException raise: NSInvalidArgumentException
                     format: @"Thread is nil"];
@@ -450,7 +454,8 @@ void NSThreadSetCurrentPool(NSAutoreleasePool *pool) {
 - (void) performSelector: (SEL) selector
                 onThread: (NSThread *) thread
               withObject: (id) object
-           waitUntilDone: (BOOL) waitUntilDone {
+           waitUntilDone: (BOOL) waitUntilDone
+{
     [self performSelector: selector
                  onThread: thread
                withObject: object
@@ -461,7 +466,8 @@ void NSThreadSetCurrentPool(NSAutoreleasePool *pool) {
 - (void) performSelectorOnMainThread: (SEL) selector
                           withObject: (id) object
                        waitUntilDone: (BOOL) waitUntilDone
-                               modes: (NSArray *) modes {
+                               modes: (NSArray *) modes
+{
     [self performSelector: selector
                  onThread: [NSThread mainThread]
                withObject: object
@@ -471,7 +477,8 @@ void NSThreadSetCurrentPool(NSAutoreleasePool *pool) {
 
 - (void) performSelectorOnMainThread: (SEL) selector
                           withObject: (id) object
-                       waitUntilDone: (BOOL) waitUntilDone {
+                       waitUntilDone: (BOOL) waitUntilDone
+{
     [self performSelectorOnMainThread: selector
                            withObject: object
                         waitUntilDone: waitUntilDone

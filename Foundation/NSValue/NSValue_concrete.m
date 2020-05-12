@@ -24,8 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSValue_concrete
 
-NSValue *NSValue_concreteNew(NSZone *zone, const void *value,
-                             const char *type) {
+NSValue *NSValue_concreteNew(NSZone *zone, const void *value, const char *type)
+{
     NSValue_concrete *self;
     NSUInteger size, alignment, typelen = strlen(type);
 

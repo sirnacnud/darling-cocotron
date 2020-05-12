@@ -27,7 +27,8 @@ const CFStringRef kCGPDFContextMediaBox = CFSTR("MediaBox");
 
 CGContextRef CGPDFContextCreate(CGDataConsumerRef consumer,
                                 const CGRect *mediaBox,
-                                CFDictionaryRef auxiliaryInfo) {
+                                CFDictionaryRef auxiliaryInfo)
+{
     return
         [[O2PDFContext alloc] initWithConsumer: consumer
                                       mediaBox: mediaBox

@@ -2,8 +2,8 @@
 
 @implementation O2ImageDecoder
 
-O2ImageCompressionType
-O2ImageDecoderGetCompressionType(O2ImageDecoderRef self) {
+O2ImageCompressionType O2ImageDecoderGetCompressionType(O2ImageDecoderRef self)
+{
     if (self == NULL)
         return O2ImageCompressionPrivate;
 
@@ -74,8 +74,8 @@ CFDataRef O2ImageDecoderCreatePixelData(O2ImageDecoderRef self) {
     return [self createPixelData];
 }
 
-O2DataProviderRef
-O2ImageDecoderCreatePixelDataProvider(O2ImageDecoderRef self) {
+O2DataProviderRef O2ImageDecoderCreatePixelDataProvider(O2ImageDecoderRef self)
+{
     CFDataRef bitmap = O2ImageDecoderCreatePixelData(self);
 
     if (bitmap == NULL)

@@ -46,7 +46,8 @@ static NSPrintOperation *_currentOperation = nil;
      printInfo: (NSPrintInfo *) printInfo
     insideRect: (NSRect) rect
         toData: (NSMutableData *) data
-          type: (int) type {
+          type: (int) type
+{
     _view = [view retain];
     _printInfo = [printInfo copy];
     if (type == NSPrintOperationPDFInRect ||
@@ -90,13 +91,15 @@ static NSPrintOperation *_currentOperation = nil;
 }
 
 + (NSPrintOperation *) printOperationWithView: (NSView *) view
-                                    printInfo: (NSPrintInfo *) printInfo {
+                                    printInfo: (NSPrintInfo *) printInfo
+{
     return [[[self alloc] initWithView: view printInfo: printInfo] autorelease];
 }
 
 + (NSPrintOperation *) PDFOperationWithView: (NSView *) view
                                  insideRect: (NSRect) rect
-                                     toData: (NSMutableData *) data {
+                                     toData: (NSMutableData *) data
+{
     return [self PDFOperationWithView: view
                            insideRect: rect
                                toData: data
@@ -106,7 +109,8 @@ static NSPrintOperation *_currentOperation = nil;
 + (NSPrintOperation *) PDFOperationWithView: (NSView *) view
                                  insideRect: (NSRect) rect
                                      toData: (NSMutableData *) data
-                                  printInfo: (NSPrintInfo *) printInfo {
+                                  printInfo: (NSPrintInfo *) printInfo
+{
     return [[[self alloc] initWithView: view
                              printInfo: printInfo
                             insideRect: rect
@@ -116,7 +120,8 @@ static NSPrintOperation *_currentOperation = nil;
 
 + (NSPrintOperation *) EPSOperationWithView: (NSView *) view
                                  insideRect: (NSRect) rect
-                                     toData: (NSMutableData *) data {
+                                     toData: (NSMutableData *) data
+{
     return [self EPSOperationWithView: view
                            insideRect: rect
                                toData: data
@@ -126,7 +131,8 @@ static NSPrintOperation *_currentOperation = nil;
 + (NSPrintOperation *) EPSOperationWithView: (NSView *) view
                                  insideRect: (NSRect) rect
                                      toData: (NSMutableData *) data
-                                  printInfo: (NSPrintInfo *) printInfo {
+                                  printInfo: (NSPrintInfo *) printInfo
+{
     return [[[self alloc] initWithView: view
                              printInfo: printInfo
                             insideRect: rect
@@ -178,7 +184,8 @@ static NSPrintOperation *_currentOperation = nil;
 
 - (void) _autopaginatePageRange: (NSRange) pageRange
                 actualPageRange: (NSRange *) rangep
-                        context: (CGContextRef) context {
+                        context: (CGContextRef) context
+{
     NSRange result = NSMakeRange(1, 0);
     NSRect bounds = [_view bounds];
     NSRect imageableRect = [_printInfo imageablePageBounds];
@@ -248,7 +255,8 @@ static NSPrintOperation *_currentOperation = nil;
 }
 
 - (void) _paginateWithPageRange: (NSRange) pageRange
-                        context: (CGContextRef) context {
+                        context: (CGContextRef) context
+{
     int i;
 
     NSPrintProgressPanelController *printProgressPanelController = nil;

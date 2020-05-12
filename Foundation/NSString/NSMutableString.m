@@ -155,7 +155,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
-                       withString: (NSString *) string {
+                       withString: (NSString *) string
+{
     NSInvalidAbstractInvocation();
 }
 
@@ -169,7 +170,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSUInteger) replaceOccurrencesOfString: (NSString *) target
                                withString: (NSString *) replacement
                                   options: (NSStringCompareOptions) opts
-                                    range: (NSRange) searchRange {
+                                    range: (NSRange) searchRange
+{
     if (target == nil) {
         NSRaiseException(NSInvalidArgumentException, self, _cmd,
                          @"nil target object");

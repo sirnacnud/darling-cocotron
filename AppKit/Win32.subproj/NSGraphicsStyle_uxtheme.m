@@ -75,7 +75,8 @@ void closeThemeData(HTHEME theme) {
 }
 
 static BOOL getThemePartSize(HTHEME theme, HDC dc, int partId, int stateId,
-                             LPCRECT prc, THEME_SIZE eSize, SIZE *size) {
+                             LPCRECT prc, THEME_SIZE eSize, SIZE *size)
+{
     WINAPI HRESULT (*function)(HTHEME, HDC, int, int, LPCRECT, THEME_SIZE,
                                SIZE *) = functionWithName("GetThemePartSize");
 
@@ -91,7 +92,8 @@ static BOOL getThemePartSize(HTHEME theme, HDC dc, int partId, int stateId,
 }
 
 static BOOL getThemeInt(HTHEME theme, int partId, int stateId, int propId,
-                        int *val) {
+                        int *val)
+{
     WINAPI HRESULT (*function)(HTHEME, int, int, int, int *) =
         functionWithName("GetThemeInt");
 
@@ -108,7 +110,8 @@ static BOOL getThemeInt(HTHEME theme, int partId, int stateId, int propId,
 }
 
 static BOOL getThemeMargins(HTHEME theme, HDC dc, int partId, int stateId,
-                            int propId, LPCRECT prc, MARGINS *margins) {
+                            int propId, LPCRECT prc, MARGINS *margins)
+{
     WINAPI HRESULT (*function)(HTHEME, HDC, int, int, int, LPCRECT, MARGINS *) =
         functionWithName("GetThemeMargins");
 
@@ -124,7 +127,8 @@ static BOOL getThemeMargins(HTHEME theme, HDC dc, int partId, int stateId,
 }
 
 static BOOL drawThemeBackground(HTHEME theme, HDC dc, int partId, int stateId,
-                                const RECT *rect, const RECT *clip) {
+                                const RECT *rect, const RECT *clip)
+{
     WINAPI HRESULT (*function)(HTHEME, HDC, int, int, const RECT *,
                                const RECT *) =
         functionWithName("DrawThemeBackground");
@@ -201,7 +205,8 @@ static NSDictionary *sDimmedMenuTextAttributes = nil;
 @implementation NSGraphicsStyle_uxtheme (Private)
 
 - (HANDLE) themeForClassList: (LPCWSTR) classList
-               deviceContext: (O2DeviceContext_gdi *) deviceContext {
+               deviceContext: (O2DeviceContext_gdi *) deviceContext
+{
     HWND windowHandle = [[deviceContext windowDeviceContext] windowHandle];
 
     if (windowHandle == NULL)
@@ -257,7 +262,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 - (BOOL) marginsOfPartId: (int) partId
                  stateId: (int) stateId
              uxthClassId: (int) uxthClassId
-                 margins: (Margins *) result {
+                 margins: (Margins *) result
+{
     O2DeviceContext_gdi *deviceContext = [self deviceContext];
     HANDLE theme;
 
@@ -284,7 +290,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                 stateId: (int) stateId
                  propId: (int) propId
             uxthClassId: (int) uxthClassId
-                  value: (int *) result {
+                  value: (int *) result
+{
     O2DeviceContext_gdi *deviceContext = [self deviceContext];
     HANDLE theme;
 
@@ -303,7 +310,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 - (BOOL) sizeOfPartId: (int) partId
               stateId: (int) stateId
           uxthClassId: (int) uxthClassId
-                 size: (NSSize *) result {
+                 size: (NSSize *) result
+{
     O2DeviceContext_gdi *deviceContext = [self deviceContext];
     HANDLE theme;
 
@@ -328,7 +336,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 - (BOOL) drawPartId: (int) partId
             stateId: (int) stateId
         uxthClassId: (int) uxthClassId
-             inRect: (NSRect) rect {
+             inRect: (NSRect) rect
+{
     O2DeviceContext_gdi *deviceContext = [self deviceContext];
     HANDLE theme;
 
@@ -357,7 +366,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (BOOL) drawButtonPartId: (int) partId
                   stateId: (int) stateId
-                   inRect: (NSRect) rect {
+                   inRect: (NSRect) rect
+{
     return [self drawPartId: partId
                     stateId: stateId
                 uxthClassId: uxthBUTTON
@@ -613,7 +623,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawMenuCheckmarkInRect: (NSRect) rect
                          enabled: (BOOL) enabled
-                        selected: (BOOL) selected {
+                        selected: (BOOL) selected
+{
     Margins margins = [self menuItemGutterMargins];
     int state;
 
@@ -647,7 +658,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 - (void) drawMenuItemText: (NSString *) string
                    inRect: (NSRect) rect
                   enabled: (BOOL) enabled
-                 selected: (BOOL) selected {
+                 selected: (BOOL) selected
+{
     O2DeviceContext_gdi *deviceContext = [self deviceContext];
     if (deviceContext == nil)
         return;
@@ -685,7 +697,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawMenuBranchArrowInRect: (NSRect) rect
                            enabled: (BOOL) enabled
-                          selected: (BOOL) selected {
+                          selected: (BOOL) selected
+{
     Margins margins = [self menuItemBranchArrowMargins];
     NSRect themeRect = rect;
     int state = enabled ? /*MBI_NORMAL*/ 1 : /*MBI_DISABLED*/ 4;
@@ -730,7 +743,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawMenuBarItemBorderInRect: (NSRect) rect
                                hover: (BOOL) hovering
-                            selected: (BOOL) selected {
+                            selected: (BOOL) selected
+{
     int state = /*MBI_NORMAL*/ 1;
     if (hovering)
         state = selected ? /*MBI_PUSHED*/ 3 : /*MBI_HOT*/ 2;
@@ -774,7 +788,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
            stateId: (int *) stateId
     forButtonImage: (NSImage *) image
            enabled: (BOOL) enabled
-             mixed: (BOOL) mixed {
+             mixed: (BOOL) mixed
+{
     BOOL valid = NO;
 
     if ([[image name] isEqual: @"NSSwitch"]) {
@@ -800,7 +815,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (NSSize) sizeOfButtonImage: (NSImage *) image
                      enabled: (BOOL) enabled
-                       mixed: (BOOL) mixed {
+                       mixed: (BOOL) mixed
+{
     int partId, stateId;
 
     if ([self getPartId: &partId
@@ -823,7 +839,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 - (void) drawButtonImage: (NSImage *) image
                   inRect: (NSRect) rect
                  enabled: (BOOL) enabled
-                   mixed: (BOOL) mixed {
+                   mixed: (BOOL) mixed
+{
     int partId, stateId;
 
     if ([self getPartId: &partId
@@ -867,7 +884,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (NSRect) drawProgressIndicatorBackground: (NSRect) rect
                                   clipRect: (NSRect) clipRect
-                                   bezeled: (BOOL) bezeled {
+                                   bezeled: (BOOL) bezeled
+{
     if (bezeled) {
         if ([self drawPartId: PP_BAR
                      stateId: 0
@@ -900,7 +918,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                           enabled: (BOOL) enabled
                           pressed: (BOOL) pressed
                          vertical: (BOOL) vertical
-                         upOrLeft: (BOOL) upOrLeft {
+                         upOrLeft: (BOOL) upOrLeft
+{
     int stateId;
 
     if (vertical) {
@@ -932,7 +951,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawScrollerKnobInRect: (NSRect) rect
                        vertical: (BOOL) vertical
-                      highlight: (BOOL) highlight {
+                      highlight: (BOOL) highlight
+{
     if (![self drawPartId: vertical ? SBP_THUMBBTNVERT : SBP_THUMBBTNHORZ
                   stateId: highlight ? SCRBS_PRESSED : SCRBS_NORMAL
               uxthClassId: uxthSCROLLBAR
@@ -949,7 +969,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawScrollerTrackInRect: (NSRect) rect
                         vertical: (BOOL) vertical
-                        upOrLeft: (BOOL) upOrLeft {
+                        upOrLeft: (BOOL) upOrLeft
+{
     int partId = vertical
                      ? (upOrLeft ? SBP_UPPERTRACKVERT : SBP_LOWERTRACKVERT)
                      : (upOrLeft ? SBP_UPPERTRACKHORZ : SBP_LOWERTRACKHORZ);
@@ -968,7 +989,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 @implementation NSGraphicsStyle_uxtheme (NSTableView)
 
 - (void) drawTableViewHeaderInRect: (NSRect) rect
-                       highlighted: (BOOL) highlighted {
+                       highlighted: (BOOL) highlighted
+{
     rect.origin.y -= 1.0;
     rect.size.height += 1.0;
     if (![self drawPartId: HP_HEADERITEM
@@ -995,7 +1017,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 - (void) drawComboBoxButtonInRect: (NSRect) rect
                           enabled: (BOOL) enabled
                          bordered: (BOOL) bordered
-                          pressed: (BOOL) pressed {
+                          pressed: (BOOL) pressed
+{
     if (![self drawPartId: CP_DROPDOWNBUTTON
                   stateId: enabled ? (pressed ? CBXS_PRESSED : CBXS_NORMAL)
                                    : CBXS_DISABLED
@@ -1015,7 +1038,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                      vertical: (BOOL) vertical
                   highlighted: (BOOL) highlighted
                  hasTickMarks: (BOOL) hasTickMarks
-             tickMarkPosition: (NSTickMarkPosition) tickMarkPosition {
+             tickMarkPosition: (NSTickMarkPosition) tickMarkPosition
+{
     int partId;
 
     if (vertical) {
@@ -1047,7 +1071,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 
 - (void) drawSliderTrackInRect: (NSRect) rect
                       vertical: (BOOL) vertical
-                  hasTickMarks: (BOOL) hasTickMarks {
+                  hasTickMarks: (BOOL) hasTickMarks
+{
     NSRect thin = rect;
 
     if (hasTickMarks) {
@@ -1077,7 +1102,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
                         clipRect: (NSRect) clipRect
                          enabled: (BOOL) enabled
                      highlighted: (BOOL) highlighted
-                       upNotDown: (BOOL) upNotDown {
+                       upNotDown: (BOOL) upNotDown
+{
     if (![self drawPartId: upNotDown ? SPNP_UP : SPNP_DOWN
                   stateId: enabled ? DNS_NORMAL : DNS_DISABLED
               uxthClassId: uxthSPIN
@@ -1096,7 +1122,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 - (void) drawTabInRect: (NSRect) rect
               clipRect: (NSRect) clipRect
                  color: (NSColor *) color
-              selected: (BOOL) selected {
+              selected: (BOOL) selected
+{
     rect.origin.y -= 1;
 
     if (!selected)
@@ -1133,7 +1160,8 @@ static inline RECT transformToRECT(O2AffineTransform matrix, NSRect rect) {
 @implementation NSGraphicsStyle_uxtheme (NSTextField)
 
 - (void) drawTextFieldBorderInRect: (NSRect) rect
-                    bezeledNotLine: (BOOL) bezeledNotLine {
+                    bezeledNotLine: (BOOL) bezeledNotLine
+{
     if (![self drawPartId: EP_EDITTEXT
                   stateId: ETS_NORMAL
               uxthClassId: uxthEDIT

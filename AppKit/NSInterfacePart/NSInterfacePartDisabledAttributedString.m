@@ -28,7 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithCharacter: (unichar) character
            fontName: (NSString *) fontName
           pointSize: (CGFloat) pointSize
-              color: (NSColor *) color {
+              color: (NSColor *) color
+{
     NSMutableAttributedString *copy;
 
     [super initWithCharacter: character

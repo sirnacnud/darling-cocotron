@@ -42,7 +42,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) platformWindowActivated: (CGWindow *) window
-                 displayIfNeeded: (BOOL) displayIfNeeded {
+                 displayIfNeeded: (BOOL) displayIfNeeded
+{
     [_drawer drawerWindowDidActivate: self];
 
     [super platformWindowActivated: window displayIfNeeded: displayIfNeeded];
@@ -50,7 +51,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // constrain resize size.
 - (NSSize) platformWindow: (CGWindow *) window
-      frameSizeWillChange: (NSSize) size {
+      frameSizeWillChange: (NSSize) size
+{
     size = [super platformWindow: window frameSizeWillChange: size];
 
     return [_drawer drawerWindow: self

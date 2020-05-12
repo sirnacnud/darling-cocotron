@@ -76,16 +76,14 @@
     [self lock];
 }
 
-- (void) signal;
-{
+- (void) signal; {
     BOOL haveWaiters = waitersCount > 0;
 
     if (haveWaiters)
         SetEvent(events[Event_Signal]);
 }
 
-- (void) broadcast;
-{
+- (void) broadcast; {
     BOOL haveWaiters = waitersCount > 0;
 
     if (haveWaiters)

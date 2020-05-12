@@ -10,17 +10,16 @@
 
 @implementation URLTest
 
-- (void) setUp;
-{ baseUrl = [[NSURL URLWithString: @"http://a/b/c/d;p?q#f"] retain]; }
+- (void) setUp; {
+    baseUrl = [[NSURL URLWithString: @"http://a/b/c/d;p?q#f"] retain];
+}
 
-- (void) tearDown;
-{
+- (void) tearDown; {
     [baseUrl release];
     baseUrl = nil;
 }
 
-- (void) testParsing;
-{
+- (void) testParsing; {
     NSURL *url = [NSURL URLWithString: @"http://us:pw@a:42/b/c/d;p?q#f"];
     STAssertEqualObjects([url scheme], @"http", nil);
     STAssertEqualObjects([url host], @"a", nil);
@@ -41,8 +40,7 @@
                              rel, baseUrl, abs);                               \
     } while (0)
 
-- (void) testSimpleRelative;
-{
+- (void) testSimpleRelative; {
     TEST_URL(@"g:h", @"g:h");
     TEST_URL(@"g", @"http://a/b/c/g");
     TEST_URL(@"./g", @"http://a/b/c/g");
@@ -68,8 +66,7 @@
     TEST_URL(@"../../g", @"http://a/g");
 }
 
-- (void) testAbnormalRelative;
-{
+- (void) testAbnormalRelative; {
     TEST_URL(@"", @"http://a/b/c/d;p?q#f");
     TEST_URL(@"../../../g", @"http://a/../g");
     TEST_URL(@"../../../../g", @"http://a/../../g");

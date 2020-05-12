@@ -32,9 +32,9 @@ static id COMObjectToSelf(void *This) {
     return comObject->object;
 }
 
-static HRESULT STDMETHODCALLTYPE __RPC_FAR
-QueryInterface(IUnknown __RPC_FAR *This, REFIID riid,
-               void __RPC_FAR *__RPC_FAR *ppvObject) {
+static HRESULT STDMETHODCALLTYPE __RPC_FAR QueryInterface(
+    IUnknown __RPC_FAR *This, REFIID riid, void __RPC_FAR *__RPC_FAR *ppvObject)
+{
     return [COMObjectToSelf(This) QueryInterface: riid: ppvObject];
 }
 
@@ -49,25 +49,30 @@ static ULONG STDMETHODCALLTYPE __RPC_FAR Release(IUnknown __RPC_FAR *This) {
 // IDropTarget
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
 DragEnter(IDropTarget __RPC_FAR *This, IDataObject __RPC_FAR *dataObject,
-          DWORD grfKeyState, POINTL pt, DWORD __RPC_FAR *pdwEffect) {
+          DWORD grfKeyState, POINTL pt, DWORD __RPC_FAR *pdwEffect)
+{
     return [COMObjectToSelf(This) DragEnter:
                                  dataObject: grfKeyState:pt:pdwEffect];
 }
 
-static HRESULT STDMETHODCALLTYPE __RPC_FAR
-DragOver(IDropTarget __RPC_FAR *This, DWORD grfKeyState, POINTL pt,
-         DWORD __RPC_FAR *pdwEffect) {
+static HRESULT STDMETHODCALLTYPE __RPC_FAR DragOver(IDropTarget __RPC_FAR *This,
+                                                    DWORD grfKeyState,
+                                                    POINTL pt,
+                                                    DWORD __RPC_FAR *pdwEffect)
+{
     return [COMObjectToSelf(This) DragOver: grfKeyState: pt:pdwEffect];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
-DragLeave(IDropTarget __RPC_FAR *This) {
+DragLeave(IDropTarget __RPC_FAR *This)
+{
     return [COMObjectToSelf(This) DragLeave];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
 Drop(IDropTarget __RPC_FAR *This, IDataObject __RPC_FAR *dataObject,
-     DWORD grfKeyState, POINTL pt, DWORD __RPC_FAR *pdwEffect) {
+     DWORD grfKeyState, POINTL pt, DWORD __RPC_FAR *pdwEffect)
+{
     return [COMObjectToSelf(This) Drop: dataObject: grfKeyState:pt:pdwEffect];
 }
 
@@ -82,13 +87,15 @@ static IDropTargetVtbl IDropTargetVTable = {
 };
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR QueryContinueDrag(
-    IDropSource __RPC_FAR *This, int fEscapePressed, DWORD grfKeyState) {
+    IDropSource __RPC_FAR *This, int fEscapePressed, DWORD grfKeyState)
+{
     return [COMObjectToSelf(This) QueryContinueDrag:
                                      fEscapePressed: grfKeyState];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
-GiveFeedback(IDropSource __RPC_FAR *This, DWORD dwEffect) {
+GiveFeedback(IDropSource __RPC_FAR *This, DWORD dwEffect)
+{
     return [COMObjectToSelf(This) GiveFeedback: dwEffect];
 }
 
@@ -99,55 +106,64 @@ static IDropSourceVtbl IDropSourceVTable = {
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
 GetData(IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetcIn,
-        STGMEDIUM __RPC_FAR *pmedium) {
+        STGMEDIUM __RPC_FAR *pmedium)
+{
     return [COMObjectToSelf(This) GetData: pformatetcIn: pmedium];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
 GetDataHere(IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetc,
-            STGMEDIUM __RPC_FAR *pmedium) {
+            STGMEDIUM __RPC_FAR *pmedium)
+{
     return [COMObjectToSelf(This) GetDataHere: pformatetc: pmedium];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
-QueryGetData(IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetc) {
+QueryGetData(IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetc)
+{
     return [COMObjectToSelf(This) QueryGetData: pformatetc];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR GetCanonicalFormatEtc(
     IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatectIn,
-    FORMATETC __RPC_FAR *pformatetcOut) {
+    FORMATETC __RPC_FAR *pformatetcOut)
+{
     return [COMObjectToSelf(This) GetCanonicalFormatEtc:
                                            pformatectIn: pformatetcOut];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
 SetData(IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetc,
-        STGMEDIUM __RPC_FAR *pmedium, int fRelease) {
+        STGMEDIUM __RPC_FAR *pmedium, int fRelease)
+{
     return [COMObjectToSelf(This) SetData: pformatetc: pmedium:fRelease];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
 EnumFormatEtc(IDataObject __RPC_FAR *This, DWORD dwDirection,
-              IEnumFORMATETC __RPC_FAR *__RPC_FAR *ppenumFormatEtc) {
+              IEnumFORMATETC __RPC_FAR *__RPC_FAR *ppenumFormatEtc)
+{
     return [COMObjectToSelf(This) EnumFormatEtc: dwDirection: ppenumFormatEtc];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR DAdvise(
     IDataObject __RPC_FAR *This, FORMATETC __RPC_FAR *pformatetc, DWORD advf,
-    IAdviseSink __RPC_FAR *pAdvSink, DWORD __RPC_FAR *pdwConnection) {
+    IAdviseSink __RPC_FAR *pAdvSink, DWORD __RPC_FAR *pdwConnection)
+{
     return [COMObjectToSelf(This) DAdvise:
                                pformatetc: advf:pAdvSink:pdwConnection];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
-DUnadvise(IDataObject __RPC_FAR *This, DWORD dwConnection) {
+DUnadvise(IDataObject __RPC_FAR *This, DWORD dwConnection)
+{
     return [COMObjectToSelf(This) DUnadvise: dwConnection];
 }
 
 static HRESULT STDMETHODCALLTYPE __RPC_FAR
 EnumDAdvise(IDataObject __RPC_FAR *This,
-            IEnumSTATDATA __RPC_FAR *__RPC_FAR *ppenumAdvise) {
+            IEnumSTATDATA __RPC_FAR *__RPC_FAR *ppenumAdvise)
+{
     return [COMObjectToSelf(This) EnumDAdvise: ppenumAdvise];
 }
 
@@ -166,12 +182,14 @@ static IDataObjectVtbl IDataObjectVTable = {(void *) QueryInterface,
 
 HRESULT STDMETHODCALLTYPE __RPC_FAR Next(IEnumFORMATETC __RPC_FAR *This,
                                          ULONG celt, FORMATETC __RPC_FAR *rgelt,
-                                         ULONG __RPC_FAR *pceltFetched) {
+                                         ULONG __RPC_FAR *pceltFetched)
+{
     return [COMObjectToSelf(This) Next: celt: rgelt:pceltFetched];
 }
 
 HRESULT STDMETHODCALLTYPE __RPC_FAR Skip(IEnumFORMATETC __RPC_FAR *This,
-                                         ULONG celt) {
+                                         ULONG celt)
+{
     return [COMObjectToSelf(This) Skip: celt];
 }
 
@@ -179,9 +197,9 @@ HRESULT STDMETHODCALLTYPE __RPC_FAR Reset(IEnumFORMATETC __RPC_FAR *This) {
     return [COMObjectToSelf(This) Reset];
 }
 
-HRESULT STDMETHODCALLTYPE __RPC_FAR
-Clone(IEnumFORMATETC __RPC_FAR *This,
-      IEnumFORMATETC __RPC_FAR *__RPC_FAR *ppenum) {
+HRESULT STDMETHODCALLTYPE __RPC_FAR Clone(
+    IEnumFORMATETC __RPC_FAR *This, IEnumFORMATETC __RPC_FAR *__RPC_FAR *ppenum)
+{
     return [COMObjectToSelf(This) Clone: ppenum];
 }
 

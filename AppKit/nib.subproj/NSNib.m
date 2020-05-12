@@ -150,7 +150,8 @@ NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
 
 - (void) unarchiver: (NSKeyedUnarchiver *) unarchiver
     willReplaceObject: object
-           withObject: replacement {
+           withObject: replacement
+{
     if (object != nil && replacement != nil) {
         NSUInteger index = [_allObjects indexOfObjectIdenticalTo: object];
         if (index != NSNotFound)

@@ -38,7 +38,8 @@ NSString *const NSTaskDidTerminateNotification =
 }
 
 + (NSTask *) launchedTaskWithLaunchPath: (NSString *) path
-                              arguments: (NSArray *) arguments {
+                              arguments: (NSArray *) arguments
+{
     NSTask *task = [[NSTask new] autorelease];
     [task setLaunchPath: path];
     [task setArguments: arguments];

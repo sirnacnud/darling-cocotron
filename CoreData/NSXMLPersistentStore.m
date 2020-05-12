@@ -20,7 +20,8 @@
 @implementation NSXMLPersistentStore
 
 + (NSDictionary *) metadataForPersistentStoreWithURL: (NSURL *) url
-                                               error: (NSError **) error {
+                                               error: (NSError **) error
+{
     NSData *data = [[NSData alloc] initWithContentsOfURL: url
                                                  options: 0
                                                    error: error];
@@ -79,7 +80,8 @@
       (NSPersistentStoreCoordinator *) coordinator
                    configurationName: (NSString *) configurationName
                                  URL: (NSURL *) url
-                             options: (NSDictionary *) options {
+                             options: (NSDictionary *) options
+{
     if ([super initWithPersistentStoreCoordinator: coordinator
                                 configurationName: configurationName
                                               URL: url
@@ -164,7 +166,8 @@
 }
 
 - (NSAtomicStoreCacheNode *) cacheNodeForEntity: (NSEntityDescription *) entity
-                                referenceObject: reference {
+                                referenceObject: reference
+{
     NSAtomicStoreCacheNode *result =
         [_referenceToCacheNode objectForKey: reference];
 
@@ -183,7 +186,8 @@
 }
 
 - (NSAtomicStoreCacheNode *) loadEntityElement: (NSXMLElement *) entityElement
-                                         model: (NSManagedObjectModel *) model {
+                                         model: (NSManagedObjectModel *) model
+{
     NSString *entityName =
         [[entityElement attributeForName: @"type"] stringValue];
     NSString *entityReference =
@@ -376,7 +380,8 @@
 }
 
 - (void) updateCacheNode: (NSAtomicStoreCacheNode *) node
-       fromManagedObject: (NSManagedObject *) managedObject {
+       fromManagedObject: (NSManagedObject *) managedObject
+{
     NSXMLElement *entityElement =
         [self entityElementForObjectID: [managedObject objectID]];
     NSDictionary *attributesByName = [[managedObject entity] attributesByName];
@@ -548,7 +553,8 @@
 }
 
 - (NSAtomicStoreCacheNode *) newCacheNodeForManagedObject:
-    (NSManagedObject *) managedObject {
+    (NSManagedObject *) managedObject
+{
     NSEntityDescription *entity = [managedObject entity];
     NSManagedObjectID *objectID = [managedObject objectID];
     id reference = [self referenceObjectForObjectID: objectID];
@@ -626,7 +632,8 @@
 }
 
 - (void) willRemoveFromPersistentStoreCoordinator:
-    (NSPersistentStoreCoordinator *) coordinator {
+    (NSPersistentStoreCoordinator *) coordinator
+{
     [_document release];
     _document = nil;
     [super willRemoveFromPersistentStoreCoordinator: coordinator];

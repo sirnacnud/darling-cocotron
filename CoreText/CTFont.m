@@ -23,12 +23,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 CTFontRef
 CTFontCreateWithGraphicsFont(CGFontRef cgFont, CGFloat size,
                              CGAffineTransform *xform,
-                             /* CTFontDescriptorRef */ void *attributes) {
+                             /* CTFontDescriptorRef */ void *attributes)
+{
     return [[KTFont alloc] initWithFont: cgFont size: size];
 }
 
 CTFontRef CTFontCreateUIFontForLanguage(CTFontUIFontType uiFontType,
-                                        CGFloat size, CFStringRef language) {
+                                        CGFloat size, CFStringRef language)
+{
     return [[KTFont alloc] initWithUIFontType: uiFontType
                                          size: size
                                      language: language];
@@ -47,7 +49,8 @@ size_t CTFontGetGlyphCount(CTFontRef self) {
 }
 
 bool CTFontGetGlyphsForCharacters(CTFontRef self, const UniChar *characters,
-                                  CGGlyph *glyphs, size_t count) {
+                                  CGGlyph *glyphs, size_t count)
+{
     [self getGlyphs: glyphs forCharacters: characters length: count];
     // FIXME: change getGlyphs: to return a BOOL
     return YES;
@@ -59,7 +62,8 @@ CGRect CTFontGetBoundingBox(CTFontRef self) {
 
 void CTFontGetAdvancesForGlyphs(CTFontRef self, int orientation,
                                 const CGGlyph *glyphs, CGSize *advances,
-                                size_t count) {
+                                size_t count)
+{
     [self getAdvancements: advances forGlyphs: glyphs count: count];
 }
 
@@ -96,6 +100,7 @@ CGFloat CTFontGetCapHeight(CTFontRef self) {
 }
 
 CGPathRef CTFontCreatePathForGlyph(CTFontRef self, CGGlyph glyph,
-                                   CGAffineTransform *xform) {
+                                   CGAffineTransform *xform)
+{
     return (CGPathRef) [self createPathForGlyph: glyph transform: xform];
 }

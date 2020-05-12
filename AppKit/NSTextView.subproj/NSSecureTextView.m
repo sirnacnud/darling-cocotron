@@ -45,12 +45,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) writeSelectionToPasteboard: (NSPasteboard *) pboard
-                               type: (NSString *) type {
+                               type: (NSString *) type
+{
     return NO;
 }
 
 - (BOOL) writeSelectionToPasteboard: (NSPasteboard *) pboard
-                              types: (NSArray *) types {
+                              types: (NSArray *) types
+{
     return NO;
 }
 

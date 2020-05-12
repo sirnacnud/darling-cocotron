@@ -32,9 +32,10 @@ CGDataProviderRef CGDataProviderCreateWithCFData(CFDataRef data) {
     return O2DataProviderCreateWithCFData(data);
 }
 
-COREGRAPHICS_EXPORT CGDataProviderRef CGDataProviderCreateWithData(
-    void *info, const void *data, size_t size,
-    CGDataProviderReleaseDataCallback releaseCallback) {
+COREGRAPHICS_EXPORT CGDataProviderRef
+CGDataProviderCreateWithData(void *info, const void *data, size_t size,
+                             CGDataProviderReleaseDataCallback releaseCallback)
+{
     return O2DataProviderCreateWithData(info, data, size, releaseCallback);
 }
 

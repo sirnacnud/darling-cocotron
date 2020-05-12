@@ -35,8 +35,7 @@
     return NSAllocateObject(self, 0, zone);
 }
 
-- (void) dealloc;
-{
+- (void) dealloc; {
     [self setName: nil];
 
     [super dealloc];
@@ -45,35 +44,39 @@
 #pragma mark -
 #pragma mark <NSLocking> methods
 
-- (void) lock;
-{ NSInvalidAbstractInvocation(); }
+- (void) lock; {
+    NSInvalidAbstractInvocation();
+}
 
-- (void) unlock;
-{ NSInvalidAbstractInvocation(); }
+- (void) unlock; {
+    NSInvalidAbstractInvocation();
+}
 
 #pragma mark -
 #pragma mark NSCondition methods
 
-- (void) broadcast;
-{ NSInvalidAbstractInvocation(); }
+- (void) broadcast; {
+    NSInvalidAbstractInvocation();
+}
 
-- (void) signal;
-{ NSInvalidAbstractInvocation(); }
+- (void) signal; {
+    NSInvalidAbstractInvocation();
+}
 
-- (void) wait;
-{ [self waitUntilDate: [NSDate distantFuture]]; }
+- (void) wait; {
+    [self waitUntilDate: [NSDate distantFuture]];
+}
 
-- (BOOL) waitUntilDate: (NSDate *) limit;
-{
+- (BOOL) waitUntilDate: (NSDate *) limit; {
     NSInvalidAbstractInvocation();
     return NO;
 }
 
-- (NSString *) name;
-{ return name; }
+- (NSString *) name; {
+    return name;
+}
 
-- (void) setName: (NSString *) newName;
-{
+- (void) setName: (NSString *) newName; {
     if (name != newName) {
         [name release];
         name = [newName copy];

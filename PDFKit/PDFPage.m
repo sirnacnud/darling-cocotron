@@ -55,7 +55,8 @@
 - (void) distiller: (O2Context_distill *) distiller
            unicode: (unichar *) unicode
              rects: (O2Rect *) rects
-             count: (NSUInteger) count {
+             count: (NSUInteger) count
+{
     if (_capacityOfCharacters < _numberOfCharacters + count) {
         while (_capacityOfCharacters < _numberOfCharacters + count)
             _capacityOfCharacters *= 2;

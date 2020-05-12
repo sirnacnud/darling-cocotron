@@ -13,7 +13,8 @@
 - initWithItemClass: (SecItemClass) itemClass
       attributeList: (SecKeychainAttributeList *) attributeList
              length: (UInt32) length
-              bytes: (const void *) bytes {
+              bytes: (const void *) bytes
+{
     _itemClass = itemClass;
     _attributeList = SecCopyAttributeList(attributeList);
     _length = length;
@@ -116,7 +117,8 @@ static BOOL bytesAreEqual(uint8_t *bytes1, uint8_t *bytes2, UInt32 length) {
 
 - (void) modifyAttributeList: (const SecKeychainAttributeList *) attributeList
                       length: (UInt32) length
-                       bytes: (const void *) bytes {
+                       bytes: (const void *) bytes
+{
     if (attributeList != NULL) {
         // FIXME: implement
     }
@@ -134,7 +136,8 @@ static BOOL bytesAreEqual(uint8_t *bytes1, uint8_t *bytes2, UInt32 length) {
                  itemClass: (SecItemClass *) itemClass
              attributeList: (SecKeychainAttributeList **) attributeList
                     length: (UInt32 *) length
-                     bytes: (void **) bytes {
+                     bytes: (void **) bytes
+{
     if (info != NULL) {
         // FIXME: implement
     }

@@ -41,7 +41,8 @@ CGRect CGPDFPageGetBoxRect(CGPDFPageRef self, CGPDFBox box) {
 CGAffineTransform CGPDFPageGetDrawingTransform(CGPDFPageRef self, CGPDFBox box,
                                                CGRect rect,
                                                int clockwiseDegrees,
-                                               bool preserveAspectRatio) {
+                                               bool preserveAspectRatio)
+{
     return CGAffineTransformFromO2(O2PDFPageGetDrawingTransform(
         self, box, rect, clockwiseDegrees, preserveAspectRatio));
 }

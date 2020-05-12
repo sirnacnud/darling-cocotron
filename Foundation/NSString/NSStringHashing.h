@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // djb2
 
 static inline NSUInteger NSStringHashUnicode(const unichar *buffer,
-                                             NSUInteger length) {
+                                             NSUInteger length)
+{
     NSUInteger i, result = 5381;
 
     for (i = 0; i < length; i++)
@@ -34,7 +35,8 @@ static inline NSUInteger NSStringHashUnicode(const unichar *buffer,
 }
 
 static inline NSUInteger NSStringHashASCII(const char *buffer,
-                                           NSUInteger length) {
+                                           NSUInteger length)
+{
     NSUInteger i, result = 5381;
 
     for (i = 0; i < length; i++)

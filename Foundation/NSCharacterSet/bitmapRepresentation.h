@@ -34,7 +34,8 @@ static inline void bitmapClear(uint8_t bitmap[8192], unichar character) {
 }
 
 static inline void bitmapEnable(uint8_t bitmap[8192], unichar character,
-                                BOOL yorn) {
+                                BOOL yorn)
+{
 
     if (yorn)
         bitmap[character >> 3] |= 1 << (character & 0x07);
@@ -43,7 +44,7 @@ static inline void bitmapEnable(uint8_t bitmap[8192], unichar character,
 }
 
 static inline uint8_t *bitmapBytes(NSCharacterSet *self) {
-    BOOL (*method)
+    BOOL(*method)
     () = (void *) [self methodForSelector: @selector(characterIsMember:)];
     uint8_t *bitmap =
         NSZoneMalloc(NULL, sizeof(uint8_t) * NSBitmapCharacterSetSize);

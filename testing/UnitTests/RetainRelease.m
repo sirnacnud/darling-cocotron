@@ -34,8 +34,7 @@
 @end
 
 @implementation RetainRelease
-- (void) testRetainRelease;
-{
+- (void) testRetainRelease; {
     deallocCalled = NO;
     RetainReleaseTestHelperObject *helper = [RetainReleaseTestHelperObject new];
 
@@ -50,8 +49,7 @@
     deallocCalled = YES;
 }
 
-- (void) testAutoreleasePool;
-{
+- (void) testAutoreleasePool; {
     deallocCalled = NO;
     RetainReleaseTestHelperObject *helper = [RetainReleaseTestHelperObject new];
 

@@ -19,8 +19,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <CoreGraphics/CGDataConsumer.h>
 #import <Onyx2D/O2DataConsumer.h>
 
-CGDataConsumerRef
-CGDataConsumerCreate(void *info, const CGDataConsumerCallbacks *callbacks) {
+CGDataConsumerRef CGDataConsumerCreate(void *info,
+                                       const CGDataConsumerCallbacks *callbacks)
+{
     return O2DataConsumerCreate(info,
                                 (const O2DataConsumerCallbacks *) callbacks);
 }

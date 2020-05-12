@@ -165,7 +165,8 @@ NSString *NSFormatDisplayPattern(NSString *pattern, id *values,
 - (void) observeValueForKeyPath: (NSString *) kp
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     [self stopObservingChanges];
 
     if (context == NSCachingBinderChangeContext) {

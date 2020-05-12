@@ -126,7 +126,8 @@ static int untitled_document_number = 0;
 
 - (instancetype) initWithContentsOfURL: (NSURL *) url
                                 ofType: (NSString *) type
-                                 error: (NSError **) error {
+                                 error: (NSError **) error
+{
     if ([self _isSelectorOverridden: @selector(initWithContentsOfFile:
                                                                ofType:)]) {
         if ([self initWithContentsOfFile: [url path] ofType: type] == nil)
@@ -147,7 +148,8 @@ static int untitled_document_number = 0;
 - (instancetype) initForURL: (NSURL *) url
           withContentsOfURL: (NSURL *) contentsURL
                      ofType: (NSString *) type
-                      error: (NSError **) error {
+                      error: (NSError **) error
+{
     [self init];
     [self setFileURL: url];
     [self setFileType: type];
@@ -421,7 +423,8 @@ static int untitled_document_number = 0;
 
 - (BOOL) readFromData: (NSData *) data
                ofType: (NSString *) type
-                error: (NSError **) error {
+                error: (NSError **) error
+{
     if ([self _isSelectorOverridden: @selector(loadDataRepresentation:ofType:)])
         return [self loadDataRepresentation: data ofType: type];
     else {
@@ -433,7 +436,8 @@ static int untitled_document_number = 0;
 
 - (BOOL) readFromFileWrapper: (NSFileWrapper *) fileWrapper
                       ofType: (NSString *) type
-                       error: (NSError **) error {
+                       error: (NSError **) error
+{
     if ([self _isSelectorOverridden: @selector(loadFileWrapperRepresentation:
                                                                       ofType:)])
         return [self loadFileWrapperRepresentation: fileWrapper ofType: type];
@@ -445,7 +449,8 @@ static int untitled_document_number = 0;
 
 - (BOOL) readFromURL: (NSURL *) url
               ofType: (NSString *) type
-               error: (NSError **) error {
+               error: (NSError **) error
+{
     if ([url isFileURL]) {
         if ([self _isSelectorOverridden: @selector(readFromFile:ofType:)]) {
             return [self readFromFile: [url path] ofType: type];
@@ -464,7 +469,8 @@ static int untitled_document_number = 0;
 
 - (BOOL) revertToContentsOfURL: (NSURL *) url
                         ofType: (NSString *) type
-                         error: (NSError **) error {
+                         error: (NSError **) error
+{
     if (![self readFromURL: url ofType: type error: error])
         return NO;
 
@@ -482,7 +488,8 @@ static int untitled_document_number = 0;
 }
 
 - (NSFileWrapper *) fileWrapperOfType: (NSString *) type
-                                error: (NSError **) error {
+                                error: (NSError **) error
+{
     if ([self
             _isSelectorOverridden: @selector(fileWrapperRepresentationOfType:)])
         return [self fileWrapperRepresentationOfType: type];
@@ -499,7 +506,8 @@ static int untitled_document_number = 0;
 
 - (BOOL) writeToURL: (NSURL *) url
              ofType: (NSString *) type
-              error: (NSError **) error {
+              error: (NSError **) error
+{
     if ([self _isSelectorOverridden: @selector(writeToFile:ofType:)]) {
         return [self writeToFile: [url path] ofType: type];
     } else {
@@ -521,7 +529,8 @@ static int untitled_document_number = 0;
                  ofType: (NSString *) type
        forSaveOperation: (NSSaveOperationType) operation
     originalContentsURL: (NSURL *) contentsURL
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     BOOL status = NO;
     if ([self _isSelectorOverridden: @selector
               (writeToFile:ofType:originalFile:saveOperation:)]) {
@@ -544,7 +553,8 @@ static int untitled_document_number = 0;
 - (BOOL) writeSafelyToURL: (NSURL *) url
                    ofType: (NSString *) type
          forSaveOperation: (NSSaveOperationType) operation
-                    error: (NSError **) error {
+                    error: (NSError **) error
+{
     if (![self writeToURL: url
                          ofType: type
                forSaveOperation: operation
@@ -569,7 +579,8 @@ static int untitled_document_number = 0;
                                        ofType: (NSString *) type
                              forSaveOperation: (NSSaveOperationType) operation
                           originalContentsURL: (NSURL *) contentsURL
-                                        error: (NSError **) error {
+                                        error: (NSError **) error
+{
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
 
     return result;
@@ -581,7 +592,8 @@ static int untitled_document_number = 0;
 
 - (void) autosaveDocumentWithDelegate: delegate
                   didAutosaveSelector: (SEL) selector
-                          contextInfo: (void *) info {
+                          contextInfo: (void *) info
+{
     NSError *error;
 
     if (![self writeToURL: [self autosavedContentsFileURL]
@@ -608,7 +620,8 @@ static int untitled_document_number = 0;
         modalForWindow: (NSWindow *) window
               delegate: delegate
     didPresentSelector: (SEL) selector
-           contextInfo: (void *) info {
+           contextInfo: (void *) info
+{
     [[NSDocumentController sharedDocumentController]
               presentError: [self willPresentError: error]
             modalForWindow: window
@@ -657,7 +670,8 @@ static int untitled_document_number = 0;
 - (void) runModalSavePanelForSaveOperation: (NSSaveOperationType) operation
                                   delegate: delegate
                            didSaveSelector: (SEL) selector
-                               contextInfo: (void *) context {
+                               contextInfo: (void *) context
+{
     NSString *path = [_fileURL path];
     NSString *extension = [path pathExtension];
     if ([extension length] == 0) {
@@ -738,7 +752,8 @@ static int untitled_document_number = 0;
 
 - (void) saveDocumentWithDelegate: delegate
                   didSaveSelector: (SEL) selector
-                      contextInfo: (void *) info {
+                      contextInfo: (void *) info
+{
     // First make sure there are no uncommitted changes
     for (id editor in [[_activeEditors copy] autorelease]) {
         [editor commitEditing];
@@ -809,7 +824,8 @@ static int untitled_document_number = 0;
 - (BOOL) saveToURL: (NSURL *) url
               ofType: (NSString *) type
     forSaveOperation: (NSSaveOperationType) operation
-               error: (NSError **) error {
+               error: (NSError **) error
+{
     if (url == nil) {
         return NO;
     } else {
@@ -835,7 +851,8 @@ static int untitled_document_number = 0;
     forSaveOperation: (NSSaveOperationType) operation
             delegate: delegate
      didSaveSelector: (SEL) selector
-         contextInfo: (void *) info {
+         contextInfo: (void *) info
+{
     NSError *error = nil;
     BOOL success = [self saveToURL: url
                             ofType: type
@@ -867,7 +884,8 @@ static int untitled_document_number = 0;
 - (void) runModalPageLayoutWithPrintInfo: (NSPrintInfo *) printInfo
                                 delegate: delegate
                           didRunSelector: (SEL) selector
-                             contextInfo: (void *) info {
+                             contextInfo: (void *) info
+{
     int button = [[NSPageLayout pageLayout] runModalWithPrintInfo: printInfo];
     if ([delegate respondsToSelector: selector]) {
         // Tell delegate if the print info was updated.
@@ -881,12 +899,14 @@ static int untitled_document_number = 0;
 - (void) runModalPrintOperation: (NSPrintOperation *) printOperation
                        delegate: delegate
                  didRunSelector: (SEL) selector
-                    contextInfo: (void *) info {
+                    contextInfo: (void *) info
+{
     NSUnimplementedMethod();
 }
 
 - (NSPrintOperation *) printOperationWithSettings: (NSDictionary *) settings
-                                            error: (NSError **) error {
+                                            error: (NSError **) error
+{
     NSLog(@"Implement %s in your subclass %@ of NSDocument to enable printing",
           sel_getName(_cmd), [self class]);
     return nil;
@@ -896,7 +916,8 @@ static int untitled_document_number = 0;
                     showPrintPanel: (BOOL) showPrintPanel
                           delegate: delegate
                   didPrintSelector: (SEL) selector
-                       contextInfo: (void *) contextInfo {
+                       contextInfo: (void *) contextInfo
+{
     if ([self _isSelectorOverridden: @selector(printShowingPrintPanel:)]) {
         [self printShowingPrintPanel: showPrintPanel];
     } else {
@@ -932,7 +953,8 @@ static int untitled_document_number = 0;
 
 - (void) canCloseDocumentWithDelegate: delegate
                   shouldCloseSelector: (SEL) selector
-                          contextInfo: (void *) info {
+                          contextInfo: (void *) info
+{
     BOOL OKToClose;
     if ([self isDocumentEdited]) {
         NSString *fileName = [self fileName];
@@ -981,7 +1003,8 @@ static int untitled_document_number = 0;
 - (void) shouldCloseWindowController: (NSWindowController *) controller
                             delegate: delegate
                  shouldCloseSelector: (SEL) selector
-                         contextInfo: (void *) info {
+                         contextInfo: (void *) info
+{
     if ([controller shouldCloseDocument] || [_windowControllers count] <= 1) {
         [self canCloseDocumentWithDelegate: delegate
                        shouldCloseSelector: selector
@@ -1095,8 +1118,8 @@ static int untitled_document_number = 0;
 
 - (NSDictionary *) fileAttributesToWriteToFile: (NSString *) path
                                         ofType: (NSString *) type
-                                 saveOperation:
-                                     (NSSaveOperationType) operation {
+                                 saveOperation: (NSSaveOperationType) operation
+{
     return [NSDictionary dictionary];
 }
 
@@ -1105,7 +1128,8 @@ static int untitled_document_number = 0;
 }
 
 - (NSString *) fileNameFromRunningSavePanelForSaveOperation:
-    (NSSaveOperationType) operation {
+    (NSSaveOperationType) operation
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -1179,7 +1203,8 @@ static int untitled_document_number = 0;
 }
 
 - (BOOL) loadFileWrapperRepresentation: (NSFileWrapper *) fileWrapper
-                                ofType: (NSString *) type {
+                                ofType: (NSString *) type
+{
 
     if ([fileWrapper isRegularFile])
         return [self loadDataRepresentation: [fileWrapper regularFileContents]
@@ -1230,7 +1255,8 @@ static int untitled_document_number = 0;
 }
 
 - (int) runModalSavePanel: (NSSavePanel *) savePanel
-        withAccessoryView: (NSView *) accessoryView {
+        withAccessoryView: (NSView *) accessoryView
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -1250,7 +1276,8 @@ static int untitled_document_number = 0;
       saveOperation: (NSSaveOperationType) operation
            delegate: delegate
     didSaveSelector: (SEL) selector
-        contextInfo: (void *) context {
+        contextInfo: (void *) context
+{
     if (path != nil) {
         BOOL success = [self writeWithBackupToFile: path
                                             ofType: _fileType
@@ -1296,7 +1323,8 @@ static int untitled_document_number = 0;
 - (BOOL) writeToFile: (NSString *) path
               ofType: (NSString *) type
         originalFile: (NSString *) original
-       saveOperation: (NSSaveOperationType) operation {
+       saveOperation: (NSSaveOperationType) operation
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -1308,7 +1336,8 @@ static int untitled_document_number = 0;
 
 - (BOOL) writeWithBackupToFile: (NSString *) path
                         ofType: (NSString *) type
-                 saveOperation: (NSSaveOperationType) operation {
+                 saveOperation: (NSSaveOperationType) operation
+{
     // move original to backup
 
     if (![self writeToFile: path ofType: type])
@@ -1402,7 +1431,8 @@ static int untitled_document_number = 0;
 
 - (void) didEndShouldCloseSheet: (NSWindow *) sheet
                      returnCode: (int) returnCode
-                    contextInfo: (void *) contextInfo {
+                    contextInfo: (void *) contextInfo
+{
     NSWindow *window = (NSWindow *) contextInfo;
 
     switch (returnCode) {

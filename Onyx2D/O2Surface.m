@@ -34,12 +34,21 @@
 
 #define RI_MAX_GAUSSIAN_STD_DEVIATION 128.0f
 
-/*-------------------------------------------------------------------*//*!
-* \brief	Converts from the current internal format to another.
-* \param	
-* \return	
-* \note		
-*//*-------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/ /*!
+                                                                         * \brief
+                                                                         * Converts
+                                                                         * from
+                                                                         * the
+                                                                         * current
+                                                                         * internal
+                                                                         * format
+                                                                         * to
+                                                                         * another.
+                                                                         * \param
+                                                                         * \return
+                                                                         * \note
+                                                                         */
+/*-------------------------------------------------------------------*/
 
 // From Section 3.4.2 of OpenVG 1.0.1 spec
 // 1: sRGB = gamma(lRGB)
@@ -104,7 +113,8 @@ static void colorToBytesLittle(O2Float32 color, uint8_t *scanline) {
 
 static void O2SurfaceWrite_argb32f_to_argb32fLittle(O2Surface *self, int x,
                                                     int y, O2argb32f *span,
-                                                    int length) {
+                                                    int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -145,7 +155,8 @@ static void colorToBytesBig(O2Float32 color, uint8_t *scanline) {
 }
 
 static void O2SurfaceWrite_argb32f_to_argb32fBig(O2Surface *self, int x, int y,
-                                                 O2argb32f *span, int length) {
+                                                 O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -170,7 +181,8 @@ static unsigned char colorToNibble(O2Float c) {
 }
 
 static void O2SurfaceWrite_argb32f_to_GA88(O2Surface *self, int x, int y,
-                                           O2argb32f *span, int length) {
+                                           O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -184,7 +196,8 @@ static void O2SurfaceWrite_argb32f_to_GA88(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb32f_to_G8(O2Surface *self, int x, int y,
-                                         O2argb32f *span, int length) {
+                                         O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -197,7 +210,8 @@ static void O2SurfaceWrite_argb32f_to_G8(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb32f_to_argb8u(O2Surface *self, int x, int y,
-                                             O2argb32f *span, int length) {
+                                             O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -213,7 +227,8 @@ static void O2SurfaceWrite_argb32f_to_argb8u(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb8u_to_argb8u(O2Surface *self, int x, int y,
-                                            O2argb8u *span, int length) {
+                                            O2argb8u *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -229,7 +244,8 @@ static void O2SurfaceWrite_argb8u_to_argb8u(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb32f_to_ABGR8888(O2Surface *self, int x, int y,
-                                               O2argb32f *span, int length) {
+                                               O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -245,7 +261,8 @@ static void O2SurfaceWrite_argb32f_to_ABGR8888(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb8u_to_ABGR8888(O2Surface *self, int x, int y,
-                                              O2argb8u *span, int length) {
+                                              O2argb8u *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -261,7 +278,8 @@ static void O2SurfaceWrite_argb8u_to_ABGR8888(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb8u_to_BGRA8888(O2Surface *self, int x, int y,
-                                              O2argb8u *span, int length) {
+                                              O2argb8u *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -277,7 +295,8 @@ static void O2SurfaceWrite_argb8u_to_BGRA8888(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb32f_to_RGBA4444(O2Surface *self, int x, int y,
-                                               O2argb32f *span, int length) {
+                                               O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -291,7 +310,8 @@ static void O2SurfaceWrite_argb32f_to_RGBA4444(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb32f_to_BARG4444(O2Surface *self, int x, int y,
-                                               O2argb32f *span, int length) {
+                                               O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -305,7 +325,8 @@ static void O2SurfaceWrite_argb32f_to_BARG4444(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb32f_to_RGBA2222(O2Surface *self, int x, int y,
-                                               O2argb32f *span, int length) {
+                                               O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -319,7 +340,8 @@ static void O2SurfaceWrite_argb32f_to_RGBA2222(O2Surface *self, int x, int y,
 }
 
 static void O2SurfaceWrite_argb32f_to_CMYK8888(O2Surface *self, int x, int y,
-                                               O2argb32f *span, int length) {
+                                               O2argb32f *span, int length)
+{
     uint8_t *scanline = self->_pixelBytes + y * self->_bytesPerRow;
     int i;
 
@@ -336,7 +358,8 @@ static void O2SurfaceWrite_argb32f_to_CMYK8888(O2Surface *self, int x, int y,
 
 static void O2SurfaceWrite_argb32f_to_argb8u_to_ANY(O2Surface *self, int x,
                                                     int y, O2argb32f *span,
-                                                    int length) {
+                                                    int length)
+{
     O2argb8u span8888[length];
     int i;
 
@@ -354,7 +377,8 @@ static void O2SurfaceWrite_argb32f_to_argb8u_to_ANY(O2Surface *self, int x,
 static BOOL initFunctionsForParameters(O2Surface *self, size_t bitsPerComponent,
                                        size_t bitsPerPixel,
                                        O2ColorSpaceRef colorSpace,
-                                       O2BitmapInfo bitmapInfo) {
+                                       O2BitmapInfo bitmapInfo)
+{
     self->_writeargb32f = O2SurfaceWrite_argb32f_to_argb8u_to_ANY; // default
 
     switch (bitsPerComponent) {
@@ -510,7 +534,8 @@ static BOOL initFunctionsForParameters(O2Surface *self, size_t bitsPerComponent,
     bitsPerComponent: (size_t) bitsPerComponent
          bytesPerRow: (size_t) bytesPerRow
           colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo {
+          bitmapInfo: (O2BitmapInfo) bitmapInfo
+{
     O2DataProvider *provider;
     int bitsPerPixel = 32;
 
@@ -584,7 +609,8 @@ void O2SurfaceUnlock(O2Surface *surface) {
 
 - (void) setWidth: (size_t) width
                       height: (size_t) height
-    reallocateOnlyIfRequired: (BOOL) roir {
+    reallocateOnlyIfRequired: (BOOL) roir
+{
 
     if (!m_ownsData)
         return;
@@ -641,7 +667,8 @@ O2ImageRef O2SurfaceCreateImage(O2Surface *self) {
 }
 
 void O2SurfaceWriteSpan_argb8u_PRE(O2Surface *self, int x, int y,
-                                   O2argb8u *span, int length) {
+                                   O2argb8u *span, int length)
+{
     if (length == 0)
         return;
 
@@ -649,22 +676,28 @@ void O2SurfaceWriteSpan_argb8u_PRE(O2Surface *self, int x, int y,
 }
 
 void O2SurfaceWriteSpan_largb32f_PRE(O2Surface *self, int x, int y,
-                                     O2argb32f *span, int length) {
+                                     O2argb32f *span, int length)
+{
     if (length == 0)
         return;
 
     self->_writeargb32f(self, x, y, span, length);
 }
 
-/*-------------------------------------------------------------------*//*!
-* \brief	Applies Gaussian blur filter.
-* \param	
-* \return	
-* \note		
-*//*-------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/ /*!
+                                                                         * \brief
+                                                                         * Applies
+                                                                         * Gaussian
+                                                                         * blur
+                                                                         * filter.
+                                                                         * \param
+                                                                         * \return
+                                                                         * \note
+                                                                         */
+/*-------------------------------------------------------------------*/
 
-static O2argb32f gaussianReadPixel(int x, int y, int w, int h,
-                                   O2argb32f *image) {
+static O2argb32f gaussianReadPixel(int x, int y, int w, int h, O2argb32f *image)
+{
     if (x < 0 || x >= w || y < 0 || y >= h) { // apply tiling mode
         return O2argb32fInit(0, 0, 0, 0);
     } else {
@@ -793,7 +826,8 @@ static O2argb32f argbFromColor(O2ColorRef color) {
 }
 
 void O2SurfaceGaussianBlur(O2Surface *self, O2Image *src,
-                           O2GaussianKernel *kernel, O2ColorRef color) {
+                           O2GaussianKernel *kernel, O2ColorRef color)
+{
     O2argb32f argbColor = argbFromColor(color);
 
     // the area to be written is an intersection of source and destination image

@@ -220,7 +220,8 @@ static void expand(O2FlateDecode *inflate, int n) {
 }
 
 static void appendBytes(O2FlateDecode *inflate, const unsigned char *bytes,
-                        unsigned length) {
+                        unsigned length)
+{
     unsigned i;
 
     for (i = 0; i < length; i++)
@@ -432,7 +433,8 @@ static int parse_zlib(O2FlateDecode *inflate) {
 }
 
 unsigned char *stbi_zlib_decode_malloc(const unsigned char *buffer, int len,
-                                       int *outlen) {
+                                       int *outlen)
+{
     O2FlateDecode inflateX;
     O2FlateDecode *inflate = &inflateX;
     int initial_size = 8192;

@@ -39,7 +39,8 @@
 ONYX2D_STATIC BOOL initFunctionsForMonochrome(O2Image *self,
                                               size_t bitsPerComponent,
                                               size_t bitsPerPixel,
-                                              O2BitmapInfo bitmapInfo) {
+                                              O2BitmapInfo bitmapInfo)
+{
     switch (bitsPerComponent) {
     case 8:
         switch (bitsPerPixel) {
@@ -56,7 +57,8 @@ ONYX2D_STATIC BOOL initFunctionsForMonochrome(O2Image *self,
 ONYX2D_STATIC BOOL initFunctionsForRGBColorSpace(O2Image *self,
                                                  size_t bitsPerComponent,
                                                  size_t bitsPerPixel,
-                                                 O2BitmapInfo bitmapInfo) {
+                                                 O2BitmapInfo bitmapInfo)
+{
 
     switch (bitsPerComponent) {
 
@@ -240,7 +242,8 @@ ONYX2D_STATIC BOOL initFunctionsForRGBColorSpace(O2Image *self,
 ONYX2D_STATIC BOOL initFunctionsForCMYKColorSpace(O2Image *self,
                                                   size_t bitsPerComponent,
                                                   size_t bitsPerPixel,
-                                                  O2BitmapInfo bitmapInfo) {
+                                                  O2BitmapInfo bitmapInfo)
+{
     switch (bitsPerComponent) {
 
     case 8:
@@ -264,7 +267,8 @@ ONYX2D_STATIC BOOL initFunctionsForIndexedColorSpace(O2Image *self,
                                                      size_t bitsPerComponent,
                                                      size_t bitsPerPixel,
                                                      O2ColorSpaceRef colorSpace,
-                                                     O2BitmapInfo bitmapInfo) {
+                                                     O2BitmapInfo bitmapInfo)
+{
 
     switch ([[(O2ColorSpace_indexed *) colorSpace baseColorSpace] type]) {
 
@@ -281,7 +285,8 @@ ONYX2D_STATIC BOOL initFunctionsForParameters(O2Image *self,
                                               size_t bitsPerComponent,
                                               size_t bitsPerPixel,
                                               O2ColorSpaceRef colorSpace,
-                                              O2BitmapInfo bitmapInfo) {
+                                              O2BitmapInfo bitmapInfo)
+{
 
     self->_read_a8u = O2Image_read_a8u_src_argb8u;
     self->_read_a32f = O2ImageRead_ANY_to_A8_to_Af;
@@ -324,7 +329,8 @@ ONYX2D_STATIC BOOL initFunctionsForParameters(O2Image *self,
             provider: (O2DataProvider *) provider
               decode: (const O2Float *) decode
          interpolate: (BOOL) interpolate
-     renderingIntent: (O2ColorRenderingIntent) renderingIntent {
+     renderingIntent: (O2ColorRenderingIntent) renderingIntent
+{
     _width = width;
     _height = height;
     _bitsPerComponent = bitsPerComponent;
@@ -359,7 +365,8 @@ ONYX2D_STATIC BOOL initFunctionsForParameters(O2Image *self,
 - initWithJPEGDataProvider: (O2DataProvider *) jpegProvider
                     decode: (const O2Float *) decode
                interpolate: (BOOL) interpolate
-           renderingIntent: (O2ColorRenderingIntent) renderingIntent {
+           renderingIntent: (O2ColorRenderingIntent) renderingIntent
+{
     O2UnimplementedMethod();
     return nil;
 }
@@ -367,7 +374,8 @@ ONYX2D_STATIC BOOL initFunctionsForParameters(O2Image *self,
 - initWithPNGDataProvider: (O2DataProvider *) jpegProvider
                    decode: (const O2Float *) decode
               interpolate: (BOOL) interpolate
-          renderingIntent: (O2ColorRenderingIntent) renderingIntent {
+          renderingIntent: (O2ColorRenderingIntent) renderingIntent
+{
     O2UnimplementedMethod();
     return nil;
 }
@@ -379,7 +387,8 @@ ONYX2D_STATIC BOOL initFunctionsForParameters(O2Image *self,
          bytesPerRow: (size_t) bytesPerRow
             provider: (O2DataProvider *) provider
               decode: (const O2Float *) decode
-         interpolate: (BOOL) interpolate {
+         interpolate: (BOOL) interpolate
+{
     O2ColorSpaceRef gray = O2ColorSpaceCreateDeviceGray();
 
     if ((self = [self initWithWidth: width
@@ -489,7 +498,8 @@ O2ImageRef O2ImageCreate(size_t width, size_t height, size_t bitsPerComponent,
                          O2ColorSpaceRef colorSpace, O2BitmapInfo bitmapInfo,
                          O2DataProviderRef dataProvider, const O2Float *decode,
                          BOOL shouldInterpolate,
-                         O2ColorRenderingIntent renderingIntent) {
+                         O2ColorRenderingIntent renderingIntent)
+{
     return [[O2Image alloc] initWithWidth: width
                                    height: height
                          bitsPerComponent: bitsPerComponent
@@ -507,7 +517,8 @@ O2ImageRef O2ImageCreate(size_t width, size_t height, size_t bitsPerComponent,
 O2ImageRef O2ImageMaskCreate(size_t width, size_t height,
                              size_t bitsPerComponent, size_t bitsPerPixel,
                              size_t bytesPerRow, O2DataProviderRef dataProvider,
-                             const O2Float *decode, BOOL shouldInterpolate) {
+                             const O2Float *decode, BOOL shouldInterpolate)
+{
     return [[O2Image alloc] initMaskWithWidth: width
                                        height: height
                              bitsPerComponent: bitsPerComponent
@@ -523,14 +534,16 @@ O2ImageRef O2ImageCreateCopy(O2ImageRef self) {
 }
 
 O2ImageRef O2ImageCreateCopyWithColorSpace(O2ImageRef self,
-                                           O2ColorSpaceRef colorSpace) {
+                                           O2ColorSpaceRef colorSpace)
+{
     return [self copyWithColorSpace: colorSpace];
 }
 
 O2ImageRef
 O2ImageCreateWithJPEGDataProvider(O2DataProviderRef jpegProvider,
                                   const O2Float *decode, BOOL interpolate,
-                                  O2ColorRenderingIntent renderingIntent) {
+                                  O2ColorRenderingIntent renderingIntent)
+{
     return [[O2Image alloc] initWithJPEGDataProvider: jpegProvider
                                               decode: decode
                                          interpolate: interpolate
@@ -540,7 +553,8 @@ O2ImageCreateWithJPEGDataProvider(O2DataProviderRef jpegProvider,
 O2ImageRef
 O2ImageCreateWithPNGDataProvider(O2DataProviderRef pngProvider,
                                  const O2Float *decode, BOOL interpolate,
-                                 O2ColorRenderingIntent renderingIntent) {
+                                 O2ColorRenderingIntent renderingIntent)
+{
     return [[O2Image alloc] initWithPNGDataProvider: pngProvider
                                              decode: decode
                                         interpolate: interpolate
@@ -591,7 +605,8 @@ O2ImageRef O2ImageCreateWithMask(O2ImageRef self, O2ImageRef mask) {
 }
 
 O2ImageRef O2ImageCreateWithMaskingColors(O2ImageRef self,
-                                          const O2Float *components) {
+                                          const O2Float *components)
+{
     return [self copyWithMaskingColors: components];
 }
 
@@ -710,7 +725,8 @@ O2ImageDecoderRef O2ImageGetImageDecoder(O2ImageRef self) {
 }
 
 O2argb32f *O2ImageRead_ANY_to_argb8u_to_argb32f(O2Image *self, int x, int y,
-                                                O2argb32f *span, int length) {
+                                                O2argb32f *span, int length)
+{
     O2argb8u *span8888 = __builtin_alloca(length * sizeof(O2argb8u));
     O2argb8u *direct = self->_read_argb8u(self, x, y, span8888, length);
 
@@ -752,7 +768,8 @@ O2Float32 bytesLittleToFloat(const unsigned char *scanline) {
 }
 
 O2argb32f *O2ImageRead_argb32fLittle_to_argb32f(O2Image *self, int x, int y,
-                                                O2argb32f *span, int length) {
+                                                O2argb32f *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -799,7 +816,8 @@ O2Float32 bytesBigToFloat(const unsigned char *scanline) {
 }
 
 O2argb32f *O2ImageRead_argb32fBig_to_argb32f(O2Image *self, int x, int y,
-                                             O2argb32f *span, int length) {
+                                             O2argb32f *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -825,7 +843,8 @@ O2argb32f *O2ImageRead_argb32fBig_to_argb32f(O2Image *self, int x, int y,
 }
 
 uint8_t *O2ImageRead_G8_to_A8(O2Image *self, int x, int y, uint8_t *alpha,
-                              int length) {
+                              int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -840,7 +859,8 @@ uint8_t *O2ImageRead_G8_to_A8(O2Image *self, int x, int y, uint8_t *alpha,
 }
 
 uint8_t *O2Image_read_a8u_src_argb8u(O2Image *self, int x, int y,
-                                     uint8_t *alpha, int length) {
+                                     uint8_t *alpha, int length)
+{
     O2argb8u *span = __builtin_alloca(length * sizeof(O2argb8u));
     int i;
 
@@ -855,7 +875,8 @@ uint8_t *O2Image_read_a8u_src_argb8u(O2Image *self, int x, int y,
 }
 
 O2Float *O2ImageRead_ANY_to_A8_to_Af(O2Image *self, int x, int y,
-                                     O2Float *alpha, int length) {
+                                     O2Float *alpha, int length)
+{
     uint8_t span[length];
     int i;
 
@@ -867,7 +888,8 @@ O2Float *O2ImageRead_ANY_to_A8_to_Af(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_G8_to_argb8u(O2Image *self, int x, int y, O2argb8u *span,
-                                   int length) {
+                                   int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -889,7 +911,8 @@ O2argb8u *O2ImageRead_G8_to_argb8u(O2Image *self, int x, int y, O2argb8u *span,
 }
 
 O2argb8u *O2ImageRead_GA88_to_argb8u(O2Image *self, int x, int y,
-                                     O2argb8u *span, int length) {
+                                     O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -910,7 +933,8 @@ O2argb8u *O2ImageRead_GA88_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_RGBA8888_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -932,7 +956,8 @@ O2argb8u *O2ImageRead_RGBA8888_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_ABGR8888_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -953,7 +978,8 @@ O2argb8u *O2ImageRead_ABGR8888_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_BGRA8888_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -978,7 +1004,8 @@ O2argb8u *O2ImageRead_BGRA8888_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_RGB888_to_argb8u(O2Image *self, int x, int y,
-                                       O2argb8u *span, int length) {
+                                       O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -1000,7 +1027,8 @@ O2argb8u *O2ImageRead_RGB888_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_BGRX8888_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -1023,7 +1051,8 @@ O2argb8u *O2ImageRead_BGRX8888_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_XRGB8888_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -1046,7 +1075,8 @@ O2argb8u *O2ImageRead_XRGB8888_to_argb8u(O2Image *self, int x, int y,
 
 // kO2BitmapByteOrder16Little|kO2ImageAlphaNoneSkipFirst
 O2argb8u *O2ImageRead_G3B5X1R5G2_to_argb8u(O2Image *self, int x, int y,
-                                           O2argb8u *span, int length) {
+                                           O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -1071,7 +1101,8 @@ O2argb8u *O2ImageRead_G3B5X1R5G2_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_RGBA4444_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -1094,7 +1125,8 @@ O2argb8u *O2ImageRead_RGBA4444_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_BARG4444_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -1117,7 +1149,8 @@ O2argb8u *O2ImageRead_BARG4444_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_RGBA2222_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
 
@@ -1139,7 +1172,8 @@ O2argb8u *O2ImageRead_RGBA2222_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_CMYK8888_to_argb8u(O2Image *self, int x, int y,
-                                         O2argb8u *span, int length) {
+                                         O2argb8u *span, int length)
+{
     // poor results
     const uint8_t *scanline = scanlineAtY(self, y);
     int i;
@@ -1166,7 +1200,8 @@ O2argb8u *O2ImageRead_CMYK8888_to_argb8u(O2Image *self, int x, int y,
 }
 
 O2argb8u *O2ImageRead_I8_to_argb8u(O2Image *self, int x, int y, O2argb8u *span,
-                                   int length) {
+                                   int length)
+{
     O2ColorSpace_indexed *indexed = (O2ColorSpace_indexed *) self->_colorSpace;
     size_t hival = [indexed hival];
     const unsigned char *palette = [indexed paletteBytes];
@@ -1195,14 +1230,34 @@ O2argb8u *O2ImageRead_I8_to_argb8u(O2Image *self, int x, int y, O2argb8u *span,
     return NULL;
 }
 
-/*-------------------------------------------------------------------*//*!
-* \brief	Reads a texel (u,v) at the given mipmap level. Tiling modes and
-*			color space conversion are applied. Outputs color in premultiplied
-*			format.
-* \param	
-* \return	
-* \note		
-*//*-------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/ /*!
+                                                                         * \brief
+                                                                         *Reads
+                                                                         *a
+                                                                         *texel
+                                                                         *(u,v)
+                                                                         *at the
+                                                                         *given
+                                                                         *mipmap
+                                                                         *level.
+                                                                         *Tiling
+                                                                         *modes
+                                                                         *and
+                                                                         *			color
+                                                                         *space
+                                                                         *conversion
+                                                                         *are
+                                                                         *applied.
+                                                                         *Outputs
+                                                                         *color
+                                                                         *in
+                                                                         *premultiplied
+                                                                         *			format.
+                                                                         * \param
+                                                                         * \return
+                                                                         * \note
+                                                                         */
+/*-------------------------------------------------------------------*/
 
 /* O2ImageReadTileSpanExtendEdge__ is used by the image resampling functions to
    read translated spans. When a coordinate is outside the image it uses the
@@ -1214,7 +1269,8 @@ O2argb8u *O2ImageRead_I8_to_argb8u(O2Image *self, int x, int y, O2argb8u *span,
 
 ONYX2D_STATIC_INLINE void
 O2ImageReadTileSpanExtendEdge_largb8u_PRE(O2Image *self, int u, int v,
-                                          O2argb8u *span, int length) {
+                                          O2argb8u *span, int length)
+{
     int i;
     O2argb8u *direct;
     v = RI_INT_CLAMP(v, 0, self->_height - 1);
@@ -1247,7 +1303,8 @@ O2ImageReadTileSpanExtendEdge_largb8u_PRE(O2Image *self, int u, int v,
 }
 
 void O2ImageReadTileSpanExtendEdge__largb32f_PRE(O2Image *self, int u, int v,
-                                                 O2argb32f *span, int length) {
+                                                 O2argb32f *span, int length)
+{
     int i;
     O2argb32f *direct;
 
@@ -1290,7 +1347,8 @@ ONYX2D_STATIC_INLINE int cubic_8(int v0, int v1, int v2, int v3, int fraction) {
 
 ONYX2D_STATIC_INLINE O2argb8u bicubic_largb8u_PRE(O2argb8u a, O2argb8u b,
                                                   O2argb8u c, O2argb8u d,
-                                                  int fraction) {
+                                                  int fraction)
+{
     O2argb8u result;
 
     result.r = cubic_8(a.r, b.r, c.r, d.r, fraction);
@@ -1302,7 +1360,8 @@ ONYX2D_STATIC_INLINE O2argb8u bicubic_largb8u_PRE(O2argb8u a, O2argb8u b,
 }
 
 void O2ImageBicubic_largb8u_PRE(O2Image *self, int x, int y, O2argb8u *span,
-                                int length, O2AffineTransform surfaceToImage) {
+                                int length, O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1343,7 +1402,8 @@ void O2ImageBicubic_largb8u_PRE(O2Image *self, int x, int y, O2argb8u *span,
 }
 
 ONYX2D_STATIC_INLINE O2Float cubic_f(O2Float v0, O2Float v1, O2Float v2,
-                                     O2Float v3, O2Float fraction) {
+                                     O2Float v3, O2Float fraction)
+{
     O2Float p = (v3 - v2) - (v0 - v1);
     O2Float q = (v0 - v1) - p;
 
@@ -1353,7 +1413,8 @@ ONYX2D_STATIC_INLINE O2Float cubic_f(O2Float v0, O2Float v1, O2Float v2,
 }
 
 O2argb32f bicubic_largb32f_PRE(O2argb32f a, O2argb32f b, O2argb32f c,
-                               O2argb32f d, O2Float fraction) {
+                               O2argb32f d, O2Float fraction)
+{
     return O2argb32fInit(cubic_f(a.r, b.r, c.r, d.r, fraction),
                          cubic_f(a.g, b.g, c.g, d.g, fraction),
                          cubic_f(a.b, b.b, c.b, d.b, fraction),
@@ -1361,7 +1422,8 @@ O2argb32f bicubic_largb32f_PRE(O2argb32f a, O2argb32f b, O2argb32f c,
 }
 
 void O2ImageBicubic_largb32f_PRE(O2Image *self, int x, int y, O2argb32f *span,
-                                 int length, O2AffineTransform surfaceToImage) {
+                                 int length, O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1409,7 +1471,8 @@ void O2ImageBicubic_largb32f_PRE(O2Image *self, int x, int y, O2argb32f *span,
 }
 
 void O2ImageBilinear_largb8u_PRE(O2Image *self, int x, int y, O2argb8u *span,
-                                 int length, O2AffineTransform surfaceToImage) {
+                                 int length, O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1458,8 +1521,8 @@ void O2ImageBilinear_largb8u_PRE(O2Image *self, int x, int y, O2argb8u *span,
 }
 
 void O2ImageBilinear_largb32f_PRE(O2Image *self, int x, int y, O2argb32f *span,
-                                  int length,
-                                  O2AffineTransform surfaceToImage) {
+                                  int length, O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1497,7 +1560,8 @@ void O2ImageBilinear_largb32f_PRE(O2Image *self, int x, int y, O2argb32f *span,
 
 void O2ImagePointSampling_largb8u_PRE(O2Image *self, int x, int y,
                                       O2argb8u *span, int length,
-                                      O2AffineTransform surfaceToImage) {
+                                      O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1517,7 +1581,8 @@ void O2ImagePointSampling_largb8u_PRE(O2Image *self, int x, int y,
 
 void O2ImagePointSampling_largb32f_PRE(O2Image *self, int x, int y,
                                        O2argb32f *span, int length,
-                                       O2AffineTransform surfaceToImage) {
+                                       O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1536,9 +1601,10 @@ void O2ImagePointSampling_largb32f_PRE(O2Image *self, int x, int y,
 }
 
 // Float translate, or float translate with flip
-void O2ImageBilinearFloatTranslate_largb8u_PRE(
-    O2Image *self, int x, int y, O2argb8u *span, int length,
-    O2AffineTransform surfaceToImage) {
+void O2ImageBilinearFloatTranslate_largb8u_PRE(O2Image *self, int x, int y,
+                                               O2argb8u *span, int length,
+                                               O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1579,7 +1645,8 @@ void O2ImageBilinearFloatTranslate_largb8u_PRE(
 // Translate or translate with -1 flip
 void O2ImageIntegerTranslate_largb8u_PRE(O2Image *self, int x, int y,
                                          O2argb8u *span, int length,
-                                         O2AffineTransform surfaceToImage) {
+                                         O2AffineTransform surfaceToImage)
+{
     int du = x + surfaceToImage.tx;
     int dv = ((y + 0.5) * surfaceToImage.d + surfaceToImage.ty) - 0.5;
 
@@ -1608,12 +1675,14 @@ ONYX2D_STATIC_INLINE void O2RGBPremultiplySpan(O2argb32f *span, int length) {
 }
 
 O2argb8u *O2Image_read_argb8u(O2Image *self, int x, int y, O2argb8u *span,
-                              int length) {
+                              int length)
+{
     return self->_read_argb8u(self, x, y, span, length);
 }
 
 O2argb32f *O2Image_read_argb32f(O2Image *self, int x, int y, O2argb32f *span,
-                                int length) {
+                                int length)
+{
     O2argb32f *direct = self->_read_argb32f(self, x, y, span, length);
 
     if (direct != NULL)
@@ -1628,17 +1697,20 @@ O2argb32f *O2Image_read_argb32f(O2Image *self, int x, int y, O2argb32f *span,
 }
 
 uint8_t *O2Image_read_a8u(O2Image *self, int x, int y, uint8_t *coverage,
-                          int length) {
+                          int length)
+{
     return self->_read_a8u(self, x, y, coverage, length);
 }
 
 O2Float *O2ImageReadSpan_Af_MASK(O2Image *self, int x, int y, O2Float *coverage,
-                                 int length) {
+                                 int length)
+{
     return self->_read_a32f(self, x, y, coverage, length);
 }
 
 void O2ImageReadTexelTileRepeat_largb8u_PRE(O2Image *self, int u, int v,
-                                            O2argb8u *span, int length) {
+                                            O2argb8u *span, int length)
+{
     int i;
 
     v = RI_INT_MOD(v, self->_height);
@@ -1654,7 +1726,8 @@ void O2ImageReadTexelTileRepeat_largb8u_PRE(O2Image *self, int u, int v,
 }
 
 void O2ImageReadTexelTileRepeat_largb32f_PRE(O2Image *self, int u, int v,
-                                             O2argb32f *span, int length) {
+                                             O2argb32f *span, int length)
+{
     int i;
 
     v = RI_INT_MOD(v, self->_height);
@@ -1670,7 +1743,8 @@ void O2ImageReadTexelTileRepeat_largb32f_PRE(O2Image *self, int u, int v,
 
 void O2ImagePattern_Bilinear(O2Image *self, O2Float x, O2Float y,
                              O2argb32f *span, int length,
-                             O2AffineTransform surfaceToImage) {
+                             O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1706,9 +1780,11 @@ void O2ImagePattern_Bilinear(O2Image *self, O2Float x, O2Float y,
     }
 }
 
-void O2ImagePattern_PointSampling_largb8u_PRE(
-    O2Image *self, O2Float x, O2Float y, O2argb8u *span, int length,
-    O2AffineTransform surfaceToImage) {
+void O2ImagePattern_PointSampling_largb8u_PRE(O2Image *self, O2Float x,
+                                              O2Float y, O2argb8u *span,
+                                              int length,
+                                              O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1726,9 +1802,11 @@ void O2ImagePattern_PointSampling_largb8u_PRE(
     }
 }
 
-void O2ImagePattern_PointSampling_largb32f_PRE(
-    O2Image *self, O2Float x, O2Float y, O2argb32f *span, int length,
-    O2AffineTransform surfaceToImage) {
+void O2ImagePattern_PointSampling_largb32f_PRE(O2Image *self, O2Float x,
+                                               O2Float y, O2argb32f *span,
+                                               int length,
+                                               O2AffineTransform surfaceToImage)
+{
     double du = (x + 0.5) * surfaceToImage.a + (y + 0.5) * surfaceToImage.c +
                 surfaceToImage.tx;
     double dv = (x + 0.5) * surfaceToImage.b + (y + 0.5) * surfaceToImage.d +
@@ -1749,7 +1827,8 @@ void O2ImagePattern_PointSampling_largb32f_PRE(
 void O2ImageReadPatternSpan_largb8u_PRE(O2Image *self, O2Float x, O2Float y,
                                         O2argb8u *span, int length,
                                         O2AffineTransform surfaceToImage,
-                                        O2PatternTiling distortion) {
+                                        O2PatternTiling distortion)
+{
 
     switch (distortion) {
     case kO2PatternTilingNoDistortion:
@@ -1764,7 +1843,8 @@ void O2ImageReadPatternSpan_largb8u_PRE(O2Image *self, O2Float x, O2Float y,
 void O2ImageReadPatternSpan_largb32f_PRE(O2Image *self, O2Float x, O2Float y,
                                          O2argb32f *span, int length,
                                          O2AffineTransform surfaceToImage,
-                                         O2PatternTiling distortion) {
+                                         O2PatternTiling distortion)
+{
 
     switch (distortion) {
     case kO2PatternTilingNoDistortion:

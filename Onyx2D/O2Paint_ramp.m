@@ -57,7 +57,8 @@ ONYX2D_STATIC_INLINE void CMYKAToRGBA(O2Float *input, O2Float32 *output) {
 
 - initWithShading: (O2Shading *) shading
     deviceTransform: (O2AffineTransform) deviceTransform
-    numberOfSamples: (int) numberOfSamples {
+    numberOfSamples: (int) numberOfSamples
+{
     O2PaintInitWithTransform(self, O2AffineTransformInvert(deviceTransform));
 
     _startPoint = [shading startPoint];
@@ -127,20 +128,35 @@ ONYX2D_STATIC_INLINE void CMYKAToRGBA(O2Float *input, O2Float32 *output) {
     [super dealloc];
 }
 
-/*-------------------------------------------------------------------*//*!
-* \brief	Returns the average color within an offset range in the color ramp.
-* \param	
-* \return	
-* \note		
-*//*-------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/ /*!
+                                                                         * \brief
+                                                                         * Returns
+                                                                         * the
+                                                                         * average
+                                                                         * color
+                                                                         * within
+                                                                         * an
+                                                                         * offset
+                                                                         * range
+                                                                         * in
+                                                                         * the
+                                                                         * color
+                                                                         * ramp.
+                                                                         * \param
+                                                                         * \return
+                                                                         * \note
+                                                                         */
+/*-------------------------------------------------------------------*/
 
 ONYX2D_STATIC_INLINE O2argb32f readStopColor(GradientStop *colorRampStops,
-                                             int i) {
+                                             int i)
+{
     return colorRampStops[i].color32f;
 }
 
 O2argb32f O2PaintIntegrateColorRamp(O2Paint_ramp *self, O2Float gmin,
-                                    O2Float gmax) {
+                                    O2Float gmax)
+{
     O2argb32f c = O2argb32fInit(0, 0, 0, 0);
 
     if (gmin == 1.0f || gmax == 0.0f)
@@ -202,7 +218,8 @@ O2argb32f O2PaintIntegrateColorRamp(O2Paint_ramp *self, O2Float gmin,
 
 // We already sample a lot, this is excessive
 O2argb32f O2PaintColorRamp(O2Paint_ramp *self, O2Float gradient, O2Float rho,
-                           int *skip) {
+                           int *skip)
+{
     RI_ASSERT(self);
     RI_ASSERT(rho >= 0.0f);
 

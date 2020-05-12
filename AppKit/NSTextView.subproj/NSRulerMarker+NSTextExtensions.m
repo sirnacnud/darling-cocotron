@@ -11,7 +11,8 @@
 // TODO: provide different images for different kinds of markers
 @implementation NSRulerMarker (NSTextExtensions)
 + (NSRulerMarker *) leftTabMarkerWithRulerView: (NSRulerView *) ruler
-                                      location: (CGFloat) location {
+                                      location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =
@@ -23,7 +24,8 @@
 }
 
 + (NSRulerMarker *) rightTabMarkerWithRulerView: (NSRulerView *) ruler
-                                       location: (CGFloat) location {
+                                       location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =
@@ -35,7 +37,8 @@
 }
 
 + (NSRulerMarker *) centerTabMarkerWithRulerView: (NSRulerView *) ruler
-                                        location: (CGFloat) location {
+                                        location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =
@@ -47,7 +50,8 @@
 }
 
 + (NSRulerMarker *) decimalTabMarkerWithRulerView: (NSRulerView *) ruler
-                                         location: (CGFloat) location {
+                                         location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =
@@ -59,7 +63,8 @@
 }
 
 + (NSRulerMarker *) leftMarginMarkerWithRulerView: (NSRulerView *) ruler
-                                         location: (CGFloat) location {
+                                         location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =
@@ -71,7 +76,8 @@
 }
 
 + (NSRulerMarker *) rightMarginMarkerWithRulerView: (NSRulerView *) ruler
-                                          location: (CGFloat) location {
+                                          location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =
@@ -83,7 +89,8 @@
 }
 
 + (NSRulerMarker *) firstIndentMarkerWithRulerView: (NSRulerView *) ruler
-                                          location: (CGFloat) location {
+                                          location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =
@@ -95,7 +102,8 @@
 }
 
 + (NSRulerMarker *) leftIndentMarkerWithRulerView: (NSRulerView *) ruler
-                                         location: (CGFloat) location {
+                                         location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =
@@ -107,7 +115,8 @@
 }
 
 + (NSRulerMarker *) rightIndentMarkerWithRulerView: (NSRulerView *) ruler
-                                          location: (CGFloat) location {
+                                          location: (CGFloat) location
+{
     NSImage *image = [NSImage imageNamed: @"NSRulerMarkerTab"];
     NSPoint imageOrigin = NSMakePoint(0, 0);
     NSRulerMarker *marker =

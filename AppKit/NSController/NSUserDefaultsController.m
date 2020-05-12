@@ -38,7 +38,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithDefaults: (NSUserDefaults *) defaults
-     initialValues: (NSDictionary *) values {
+     initialValues: (NSDictionary *) values
+{
     if (defaults == nil)
         defaults = [NSUserDefaults standardUserDefaults];
 

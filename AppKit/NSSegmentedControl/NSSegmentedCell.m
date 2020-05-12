@@ -186,8 +186,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [self _recomputeSegmentWidths];
 }
 
-- (void) setImageScaling: (NSImageScaling) value
-              forSegment: (NSInteger) segment {
+- (void) setImageScaling: (NSImageScaling) value forSegment: (NSInteger) segment
+{
     [[_segments objectAtIndex: segment] setImageScaling: value];
 }
 
@@ -287,7 +287,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) drawSegment: (NSInteger) idx
              inFrame: (NSRect) frame
-            withView: (NSView *) view {
+            withView: (NSView *) view
+{
     NSButtonCell *cell = [self _cellForSegment: idx];
 
     [cell setControlView: view];
@@ -377,7 +378,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) continueTracking: (NSPoint) lastPoint
                        at: (NSPoint) currentPoint
-                   inView: (NSView *) controlView {
+                   inView: (NSView *) controlView
+{
     currentPoint = [controlView convertPoint: currentPoint fromView: nil];
     lastPoint = [controlView convertPoint: lastPoint fromView: nil];
 
@@ -407,7 +409,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) stopTracking: (NSPoint) lastPoint
                    at: (NSPoint) stopPoint
                inView: (NSView *) controlView
-            mouseIsUp: (BOOL) flag {
+            mouseIsUp: (BOOL) flag
+{
     [self continueTracking: lastPoint at: stopPoint inView: controlView];
 
     NSSegmentItem *trackingItem =
@@ -452,7 +455,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) trackMouse: (NSEvent *) event
              inRect: (NSRect) cellFrame
              ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) flag {
+       untilMouseUp: (BOOL) flag
+{
     NSPoint startPoint = [event locationInWindow];
     NSInteger segmentUnderMouse = [self
         _segmentForPoint: [controlView convertPoint: startPoint fromView: nil]];

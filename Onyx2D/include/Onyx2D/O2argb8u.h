@@ -67,8 +67,8 @@ ONYX2D_STATIC_INLINE uint32_t Mul8x2(uint32_t pair, uint32_t alpha) {
     return (i + ((i >> 8) & rbmask)) >> 8 & rbmask;
 }
 
-static inline O2argb8u O2argb8uMultiplyByMask8u(O2argb8u result,
-                                                uint32_t value) {
+static inline O2argb8u O2argb8uMultiplyByMask8u(O2argb8u result, uint32_t value)
+{
     result.r = O2Image_8u_mul_8u_div_255(result.r, value);
     result.g = O2Image_8u_mul_8u_div_255(result.g, value);
     result.b = O2Image_8u_mul_8u_div_255(result.b, value);
@@ -78,7 +78,8 @@ static inline O2argb8u O2argb8uMultiplyByMask8u(O2argb8u result,
 }
 
 static inline O2argb8u O2argb8uMultiplyByCoverageNoBypass(O2argb8u result,
-                                                          unsigned value) {
+                                                          unsigned value)
+{
     result.r = multiplyByCoverage(result.r, value);
     result.g = multiplyByCoverage(result.g, value);
     result.b = multiplyByCoverage(result.b, value);
@@ -88,7 +89,8 @@ static inline O2argb8u O2argb8uMultiplyByCoverageNoBypass(O2argb8u result,
 }
 
 static inline O2argb8u O2argb8uMultiplyByCoverage(O2argb8u result,
-                                                  unsigned value) {
+                                                  unsigned value)
+{
     if (value != COVERAGE_MULTIPLIER)
         result = O2argb8uMultiplyByCoverageNoBypass(result, value);
 
@@ -98,7 +100,8 @@ static inline O2argb8u O2argb8uMultiplyByCoverage(O2argb8u result,
 static inline O2argb8u O2argb8uMultiplyByCoverageAdd(O2argb8u left,
                                                      uint32_t leftCoverage,
                                                      O2argb8u right,
-                                                     uint32_t rightCoverage) {
+                                                     uint32_t rightCoverage)
+{
     uint32_t srb = *(uint32_t *) &left;
     uint32_t sag = srb >> 8;
 

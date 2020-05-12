@@ -183,7 +183,8 @@ static DWORD WINAPI runWaitCursor(LPVOID arg) {
 }
 
 static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
-                                       LPRECT rect, LPARAM dwData) {
+                                       LPRECT rect, LPARAM dwData)
+{
     static FARPROC getMonitorInfo = NULL;
 
     if (NULL == getMonitorInfo) {
@@ -269,7 +270,8 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
 
 - (CGWindow *) windowWithFrame: (NSRect) frame
                      styleMask: (unsigned) styleMask
-                   backingType: (unsigned) backingType {
+                   backingType: (unsigned) backingType
+{
     return [[[Win32Window alloc] initWithFrame: frame
                                      styleMask: styleMask
                                        isPanel: NO
@@ -278,7 +280,8 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
 
 - (CGWindow *) panelWithFrame: (NSRect) frame
                     styleMask: (unsigned) styleMask
-                  backingType: (unsigned) backingType {
+                  backingType: (unsigned) backingType
+{
     return [[[Win32Window alloc] initWithFrame: frame
                                      styleMask: styleMask
                                        isPanel: YES
@@ -438,7 +441,8 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
 - (NSEvent *) nextEventMatchingMask: (unsigned) mask
                           untilDate: (NSDate *) untilDate
                              inMode: (NSString *) mode
-                            dequeue: (BOOL) dequeue {
+                            dequeue: (BOOL) dequeue
+{
     NSEvent *result = nil;
 
     [[NSRunLoop currentRunLoop] addInputSource: _eventInputSource
@@ -595,7 +599,8 @@ static BOOL CALLBACK monitorEnumerator(HMONITOR hMonitor, HDC hdcMonitor,
 #define kVK_UNMAPPED 0xFFFF
 
 unsigned appleKeyCodeForWindowsKeyCode(unsigned wParam, unsigned lParam,
-                                       BOOL *isKeypad) {
+                                       BOOL *isKeypad)
+{
     unsigned scanCode = (lParam >> 16) & 0xFF;
 
     *isKeypad = NO;
@@ -859,7 +864,8 @@ perhaps passing the windows values through.
                 location: (NSPoint) location
            modifierFlags: (unsigned) modifierFlags
                   window: (NSWindow *) window
-           keyboardState: (BYTE *) keyboardState {
+           keyboardState: (BYTE *) keyboardState
+{
     unichar buffer[256], ignoringBuffer[256];
     BOOL isARepeat = NO;
     int bufferSize = 0, ignoringBufferSize = 0;
@@ -1074,7 +1080,8 @@ perhaps passing the windows values through.
                  type: (NSEventType) type
              location: (NSPoint) location
         modifierFlags: (unsigned) modifierFlags
-               window: (NSWindow *) window {
+               window: (NSWindow *) window
+{
     NSEvent *event;
     /* Use mouseLocation to compute deltas, message coordinates are window
        based, and if the window is moving with the mouse, things get messy
@@ -1107,7 +1114,8 @@ perhaps passing the windows values through.
                        type: (NSEventType) type
                    location: (NSPoint) location
               modifierFlags: (unsigned) modifierFlags
-                     window: (NSWindow *) window {
+                     window: (NSWindow *) window
+{
     NSEvent *event;
 
     CGFloat deltaX = 0;
@@ -1450,7 +1458,8 @@ static HWND findWindowForScrollWheel(POINT point) {
 
 static int CALLBACK buildFamily(const const EXTLOGFONTW *logFont,
                                 const TEXTMETRICW *metrics, DWORD fontType,
-                                LPARAM lParam) {
+                                LPARAM lParam)
+{
 
     //   NEWTEXTMETRICEX *textMetric=(NEWTEXTMETRICEX *)textMetric_old;
     NSMutableSet *set = (NSMutableSet *) lParam;
@@ -1485,7 +1494,8 @@ static int CALLBACK buildFamily(const const EXTLOGFONTW *logFont,
 
 static NSFontMetric *
 fontMetricWithLogicalAndMetric(const ENUMLOGFONTEX *logFont,
-                               const NEWTEXTMETRICEX *textMetric) {
+                               const NEWTEXTMETRICEX *textMetric)
+{
     NSSize size =
         NSMakeSize(logFont->elfLogFont.lfWidth, logFont->elfLogFont.lfHeight);
     CGFloat ascender = textMetric->ntmTm.tmAscent;
@@ -1498,7 +1508,8 @@ fontMetricWithLogicalAndMetric(const ENUMLOGFONTEX *logFont,
 
 static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
                                   const TEXTMETRICA *textMetric_old,
-                                  DWORD fontType, LPARAM lParam) {
+                                  DWORD fontType, LPARAM lParam)
+{
     NSMutableDictionary *result = (NSMutableDictionary *) lParam;
     LPENUMLOGFONTEX logFont = (LPENUMLOGFONTEX) lofFont_old;
     NEWTEXTMETRICEX *textMetric = (NEWTEXTMETRICEX *) textMetric_old;
@@ -1604,7 +1615,8 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
 }
 
 - (int) runModalPrintPanelWithPrintInfoDictionary:
-    (NSMutableDictionary *) attributes {
+    (NSMutableDictionary *) attributes
+{
     NSView *view = [attributes objectForKey: @"_NSView"];
     PRINTDLG printProperties;
     int check;
@@ -1704,14 +1716,16 @@ static int CALLBACK buildTypeface(const LOGFONTA *lofFont_old,
 
 - (int) savePanel: (NSSavePanel *) savePanel
     runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file {
+                    file: (NSString *) file
+{
     return [savePanel _GetOpenFileName];
 }
 
 - (int) openPanel: (NSOpenPanel *) openPanel
     runModalForDirectory: (NSString *) directory
                     file: (NSString *) file
-                   types: (NSArray *) types {
+                   types: (NSArray *) types
+{
     if ([openPanel canChooseDirectories])
         return [openPanel _SHBrowseForFolder: directory];
     else

@@ -73,7 +73,8 @@ static inline void O2PDFByteBufferReset(O2PDFByteBuffer *buffer) {
 }
 
 static inline void O2PDFByteBufferAppend(O2PDFByteBuffer *buffer,
-                                         unsigned char c) {
+                                         unsigned char c)
+{
     if (buffer->length >= buffer->capacity) {
         if (buffer->capacity == 0) {
             buffer->capacity = 128;
@@ -99,7 +100,8 @@ static inline unsigned char O2PDFByteBufferDecodeNibble(unsigned char nibble) {
 }
 
 static inline BOOL O2PDFByteBufferAppendHighNibble(O2PDFByteBuffer *buffer,
-                                                   unsigned char nibble) {
+                                                   unsigned char nibble)
+{
     if ((nibble = O2PDFByteBufferDecodeNibble(nibble)) == 0xFF)
         return NO;
 
@@ -109,7 +111,8 @@ static inline BOOL O2PDFByteBufferAppendHighNibble(O2PDFByteBuffer *buffer,
 }
 
 static inline BOOL O2PDFByteBufferAppendLowNibble(O2PDFByteBuffer *buffer,
-                                                  unsigned char nibble) {
+                                                  unsigned char nibble)
+{
     if ((nibble = O2PDFByteBufferDecodeNibble(nibble)) == 0xFF)
         return NO;
 
@@ -119,7 +122,8 @@ static inline BOOL O2PDFByteBufferAppendLowNibble(O2PDFByteBuffer *buffer,
 }
 
 static inline BOOL O2PDFByteBufferAppendOctal(O2PDFByteBuffer *buffer,
-                                              uint8_t octal) {
+                                              uint8_t octal)
+{
     octal -= '0';
     O2PDFByteBufferAppend(buffer, octal);
 
@@ -127,7 +131,8 @@ static inline BOOL O2PDFByteBufferAppendOctal(O2PDFByteBuffer *buffer,
 }
 
 static inline BOOL O2PDFByteBufferAddOctal(O2PDFByteBuffer *buffer,
-                                           uint8_t octal) {
+                                           uint8_t octal)
+{
     octal -= '0';
     buffer->bytes[buffer->length - 1] *= 8;
     buffer->bytes[buffer->length - 1] |= octal;
@@ -137,7 +142,8 @@ static inline BOOL O2PDFByteBufferAddOctal(O2PDFByteBuffer *buffer,
 
 static void debugTracev(const char *bytes, unsigned length,
                         O2PDFInteger position, NSString *format,
-                        va_list arguments) {
+                        va_list arguments)
+{
     NSString *dump = [[[NSString alloc]
         initWithBytes: bytes + position
                length: MIN(80, (length - position))
@@ -148,7 +154,8 @@ static void debugTracev(const char *bytes, unsigned length,
 }
 
 static void debugTrace(const char *bytes, unsigned length,
-                       O2PDFInteger position, NSString *format, ...) {
+                       O2PDFInteger position, NSString *format, ...)
+{
     va_list arguments;
 
     va_start(arguments, format);
@@ -157,7 +164,8 @@ static void debugTrace(const char *bytes, unsigned length,
 }
 
 static BOOL debugError(const char *bytes, unsigned length,
-                       O2PDFInteger position, NSString *format, ...) {
+                       O2PDFInteger position, NSString *format, ...)
+{
     va_list arguments;
 
     va_start(arguments, format);
@@ -168,8 +176,8 @@ static BOOL debugError(const char *bytes, unsigned length,
 }
 
 BOOL O2PDFScanBackwardsToEOF(const char *bytes, unsigned length,
-                             O2PDFInteger position,
-                             O2PDFInteger *lastPosition) {
+                             O2PDFInteger position, O2PDFInteger *lastPosition)
+{
     enum {
         STATE_F,
         STATE_O,
@@ -226,7 +234,8 @@ BOOL O2PDFScanBackwardsToEOF(const char *bytes, unsigned length,
 
 BOOL O2PDFScanBackwardsByLines(const char *bytes, unsigned length,
                                O2PDFInteger position,
-                               O2PDFInteger *lastPosition, int delta) {
+                               O2PDFInteger *lastPosition, int delta)
+{
     enum {
         STATE_LF_OR_CR,
         STATE_CR_OR_LINE,
@@ -302,7 +311,8 @@ BOOL O2PDFScanBackwardsByLines(const char *bytes, unsigned length,
 #endif
 
 BOOL O2PDFScanVersion(const char *bytes, unsigned length,
-                      O2PDFString **versionp) {
+                      O2PDFString **versionp)
+{
     O2PDFInteger position = length;
 
     if (length < 8)
@@ -325,7 +335,8 @@ BOOL O2PDFScanVersion(const char *bytes, unsigned length,
 
 // Returns YES and *objectp==NULL on end of stream
 BOOL O2PDFScanObject(const char *bytes, unsigned length, O2PDFInteger position,
-                     O2PDFInteger *lastPosition, O2PDFObject **objectp) {
+                     O2PDFInteger *lastPosition, O2PDFObject **objectp)
+{
     O2PDFInteger currentSign = 1, currentInt = 0;
     O2PDFReal currentReal = 0, currentFraction = 0;
     int inlineLocation = 0;
@@ -681,7 +692,8 @@ BOOL O2PDFScanObject(const char *bytes, unsigned length, O2PDFInteger position,
 
 BOOL O2PDFScanIdentifier(const char *bytes, unsigned length,
                          O2PDFInteger position, O2PDFInteger *lastPosition,
-                         O2PDFObject_identifier **identifier) {
+                         O2PDFObject_identifier **identifier)
+{
     O2PDFObject *object;
 
     if (!O2PDFScanObject(bytes, length, position, lastPosition, &object))
@@ -698,7 +710,8 @@ BOOL O2PDFScanIdentifier(const char *bytes, unsigned length,
 }
 
 BOOL O2PDFScanInteger(const char *bytes, unsigned length, O2PDFInteger position,
-                      O2PDFInteger *lastPosition, O2PDFInteger *value) {
+                      O2PDFInteger *lastPosition, O2PDFInteger *value)
+{
     O2PDFObject *object;
 
     if (!O2PDFScanObject(bytes, length, position, lastPosition, &object))
@@ -712,7 +725,8 @@ BOOL O2PDFScanInteger(const char *bytes, unsigned length, O2PDFInteger position,
 
 BOOL O2PDFParseObject(const char *bytes, unsigned length, O2PDFInteger position,
                       O2PDFInteger *lastPosition, O2PDFObject **objectp,
-                      O2PDFxref *xref) {
+                      O2PDFxref *xref)
+{
     NSMutableArray *stack = nil;
     O2PDFObject *check;
 
@@ -871,7 +885,8 @@ BOOL O2PDFParseObject(const char *bytes, unsigned length, O2PDFInteger position,
 
 BOOL O2PDFParseDictionary(const char *bytes, unsigned length,
                           O2PDFInteger position, O2PDFInteger *lastPosition,
-                          O2PDFDictionary **dictionaryp, O2PDFxref *xref) {
+                          O2PDFDictionary **dictionaryp, O2PDFxref *xref)
+{
     O2PDFObject *object;
 
     if (!O2PDFParseObject(bytes, length, position, lastPosition, &object, xref))
@@ -884,7 +899,8 @@ BOOL O2PDFParseDictionary(const char *bytes, unsigned length,
 }
 
 BOOL O2PDFParse_xrefAtPosition(NSData *data, O2PDFInteger position,
-                               O2PDFxref **xrefp) {
+                               O2PDFxref **xrefp)
+{
     const char *bytes = [data bytes];
     unsigned length = [data length];
     O2PDFxref *table;
@@ -1018,7 +1034,8 @@ BOOL O2PDFParse_xref(NSData *data, O2PDFxref **xrefp) {
 
 BOOL O2PDFParseIndirectObject(NSData *data, O2PDFInteger position,
                               O2PDFObject **objectp, O2PDFInteger number,
-                              O2PDFInteger generation, O2PDFxref *xref) {
+                              O2PDFInteger generation, O2PDFxref *xref)
+{
     const char *bytes = [data bytes];
     unsigned length = [data length];
     O2PDFInteger check;
@@ -1115,7 +1132,8 @@ BOOL O2PDFParseIndirectObject(NSData *data, O2PDFInteger position,
 
 - initWithContentStream: (O2PDFContentStream *) stream
           operatorTable: (O2PDFOperatorTable *) operatorTable
-                   info: (void *) info {
+                   info: (void *) info
+{
     _stack = [NSMutableArray new];
     _stream = [stream retain];
     _operatorTable = [operatorTable retain];

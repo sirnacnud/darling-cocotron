@@ -45,7 +45,8 @@ void O2ContextDefaultShowText(O2ContextRef self, const char *text,
           colorSpace: (O2ColorSpaceRef) colorSpace
           bitmapInfo: (O2BitmapInfo) bitmapInfo
      releaseCallback: (O2BitmapContextReleaseDataCallback) releaseCallback
-         releaseInfo: (void *) releaseInfo {
+         releaseInfo: (void *) releaseInfo
+{
     return nil;
 }
 
@@ -122,7 +123,8 @@ O2ColorRef O2ContextFillColor(O2ContextRef self) {
 - (void) setStrokeColorC: (O2Float) c
                        m: (O2Float) m
                        y: (O2Float) y
-                       k: (O2Float) k {
+                       k: (O2Float) k
+{
     O2Float alpha = O2ColorGetAlpha(O2ContextStrokeColor(self));
     O2ContextSetCMYKStrokeColor(self, c, m, y, k, alpha);
 }
@@ -144,10 +146,8 @@ O2ColorRef O2ContextFillColor(O2ContextRef self) {
     O2ContextSetRGBFillColor(self, r, g, b, alpha);
 }
 
-- (void) setFillColorC: (O2Float) c
-                     m: (O2Float) m
-                     y: (O2Float) y
-                     k: (O2Float) k {
+- (void) setFillColorC: (O2Float) c m: (O2Float) m y: (O2Float) y k: (O2Float) k
+{
     O2Float alpha = O2ColorGetAlpha(O2ContextFillColor(self));
     O2ContextSetCMYKFillColor(self, c, m, y, k, alpha);
 }
@@ -218,7 +218,8 @@ O2ColorRef O2ContextFillColor(O2ContextRef self) {
 }
 
 - (O2ContextRef) createCompatibleContextWithSize: (O2Size) size
-                                          unused: (NSDictionary *) unused {
+                                          unused: (NSDictionary *) unused
+{
     return [[[self class] alloc] initWithSize: size context: self];
 }
 
@@ -234,7 +235,8 @@ O2ColorRef O2ContextFillColor(O2ContextRef self) {
 
 - (void) copyBitsInRect: (O2Rect) rect
                 toPoint: (O2Point) point
-                 gState: (int) gState {
+                 gState: (int) gState
+{
     O2InvalidAbstractInvocation();
 }
 
@@ -314,7 +316,8 @@ O2Rect O2ContextGetPathBoundingBox(O2ContextRef self) {
 }
 
 BOOL O2ContextPathContainsPoint(O2ContextRef self, O2Point point,
-                                O2PathDrawingMode pathMode) {
+                                O2PathDrawingMode pathMode)
+{
     if (self == nil)
         return NO;
 
@@ -366,7 +369,8 @@ void O2ContextAddLineToPoint(O2ContextRef self, O2Float x, O2Float y) {
 }
 
 void O2ContextAddCurveToPoint(O2ContextRef self, O2Float cx1, O2Float cy1,
-                              O2Float cx2, O2Float cy2, O2Float x, O2Float y) {
+                              O2Float cx2, O2Float cy2, O2Float x, O2Float y)
+{
     if (self == nil)
         return;
 
@@ -377,7 +381,8 @@ void O2ContextAddCurveToPoint(O2ContextRef self, O2Float cx1, O2Float cy1,
 }
 
 void O2ContextAddQuadCurveToPoint(O2ContextRef self, O2Float cx1, O2Float cy1,
-                                  O2Float x, O2Float y) {
+                                  O2Float x, O2Float y)
+{
     if (self == nil)
         return;
 
@@ -388,7 +393,8 @@ void O2ContextAddQuadCurveToPoint(O2ContextRef self, O2Float cx1, O2Float cy1,
 }
 
 void O2ContextAddLines(O2ContextRef self, const O2Point *points,
-                       NSUInteger count) {
+                       NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -408,8 +414,8 @@ void O2ContextAddRect(O2ContextRef self, O2Rect rect) {
     O2PathAddRect(self->_path, &ctm, rect);
 }
 
-void O2ContextAddRects(O2ContextRef self, const O2Rect *rects,
-                       NSUInteger count) {
+void O2ContextAddRects(O2ContextRef self, const O2Rect *rects, NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -420,7 +426,8 @@ void O2ContextAddRects(O2ContextRef self, const O2Rect *rects,
 }
 
 void O2ContextAddArc(O2ContextRef self, O2Float x, O2Float y, O2Float radius,
-                     O2Float startRadian, O2Float endRadian, BOOL clockwise) {
+                     O2Float startRadian, O2Float endRadian, BOOL clockwise)
+{
     if (self == nil)
         return;
 
@@ -432,7 +439,8 @@ void O2ContextAddArc(O2ContextRef self, O2Float x, O2Float y, O2Float radius,
 }
 
 void O2ContextAddArcToPoint(O2ContextRef self, O2Float x1, O2Float y1,
-                            O2Float x2, O2Float y2, O2Float radius) {
+                            O2Float x2, O2Float y2, O2Float radius)
+{
     if (self == nil)
         return;
 
@@ -508,8 +516,8 @@ void O2ContextRestoreGState(O2ContextRef self) {
     [self clipToState: O2GStateClipState(gState)];
 }
 
-O2AffineTransform
-O2ContextGetUserSpaceToDeviceSpaceTransform(O2ContextRef self) {
+O2AffineTransform O2ContextGetUserSpaceToDeviceSpaceTransform(O2ContextRef self)
+{
     if (self == nil)
         return O2AffineTransformIdentity;
 
@@ -602,7 +610,8 @@ void O2ContextConcatCTM(O2ContextRef self, O2AffineTransform matrix) {
 }
 
 void O2ContextTranslateCTM(O2ContextRef self, O2Float translatex,
-                           O2Float translatey) {
+                           O2Float translatey)
+{
     if (self == nil)
         return;
 
@@ -688,7 +697,8 @@ void O2ContextClipToRect(O2ContextRef self, O2Rect rect) {
 }
 
 void O2ContextClipToRects(O2ContextRef self, const O2Rect *rects,
-                          NSUInteger count) {
+                          NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -700,8 +710,8 @@ void O2ContextClipToRects(O2ContextRef self, const O2Rect *rects,
     O2ContextClip(self);
 }
 
-void O2ContextSetStrokeColorSpace(O2ContextRef self,
-                                  O2ColorSpaceRef colorSpace) {
+void O2ContextSetStrokeColorSpace(O2ContextRef self, O2ColorSpaceRef colorSpace)
+{
     if (self == nil)
         return;
 
@@ -757,8 +767,8 @@ void O2ContextSetStrokeColorWithColor(O2ContextRef self, O2ColorRef color) {
     O2GStateSetStrokeColor(O2ContextCurrentGState(self), color);
 }
 
-void O2ContextSetGrayStrokeColor(O2ContextRef self, O2Float gray,
-                                 O2Float alpha) {
+void O2ContextSetGrayStrokeColor(O2ContextRef self, O2Float gray, O2Float alpha)
+{
     if (self == nil)
         return;
 
@@ -773,7 +783,8 @@ void O2ContextSetGrayStrokeColor(O2ContextRef self, O2Float gray,
 }
 
 void O2ContextSetRGBStrokeColor(O2ContextRef self, O2Float r, O2Float g,
-                                O2Float b, O2Float alpha) {
+                                O2Float b, O2Float alpha)
+{
     if (self == nil)
         return;
 
@@ -788,7 +799,8 @@ void O2ContextSetRGBStrokeColor(O2ContextRef self, O2Float r, O2Float g,
 }
 
 void O2ContextSetCMYKStrokeColor(O2ContextRef self, O2Float c, O2Float m,
-                                 O2Float y, O2Float k, O2Float alpha) {
+                                 O2Float y, O2Float k, O2Float alpha)
+{
     if (self == nil)
         return;
 
@@ -836,7 +848,8 @@ void O2ContextSetGrayFillColor(O2ContextRef self, O2Float gray, O2Float alpha) {
 }
 
 void O2ContextSetRGBFillColor(O2ContextRef self, O2Float r, O2Float g,
-                              O2Float b, O2Float alpha) {
+                              O2Float b, O2Float alpha)
+{
     if (self == nil)
         return;
 
@@ -851,7 +864,8 @@ void O2ContextSetRGBFillColor(O2ContextRef self, O2Float r, O2Float g,
 }
 
 void O2ContextSetCMYKFillColor(O2ContextRef self, O2Float c, O2Float m,
-                               O2Float y, O2Float k, O2Float alpha) {
+                               O2Float y, O2Float k, O2Float alpha)
+{
     if (self == nil)
         return;
 
@@ -880,7 +894,8 @@ void O2ContextSetPatternPhase(O2ContextRef self, O2Size phase) {
 }
 
 void O2ContextSetStrokePattern(O2ContextRef self, O2PatternRef pattern,
-                               const O2Float *components) {
+                               const O2Float *components)
+{
     if (self == nil)
         return;
 
@@ -889,7 +904,8 @@ void O2ContextSetStrokePattern(O2ContextRef self, O2PatternRef pattern,
 }
 
 void O2ContextSetFillPattern(O2ContextRef self, O2PatternRef pattern,
-                             const O2Float *components) {
+                             const O2Float *components)
+{
     if (self == nil)
         return;
 
@@ -920,8 +936,8 @@ void O2ContextSetCharacterSpacing(O2ContextRef self, O2Float spacing) {
     O2GStateSetCharacterSpacing(O2ContextCurrentGState(self), spacing);
 }
 
-void O2ContextSetTextDrawingMode(O2ContextRef self,
-                                 O2TextDrawingMode textMode) {
+void O2ContextSetTextDrawingMode(O2ContextRef self, O2TextDrawingMode textMode)
+{
     if (self == nil)
         return;
 
@@ -943,7 +959,8 @@ void O2ContextSetFontSize(O2ContextRef self, O2Float size) {
 }
 
 void O2ContextSelectFont(O2ContextRef self, const char *name, O2Float size,
-                         O2TextEncoding encoding) {
+                         O2TextEncoding encoding)
+{
     if (self == nil)
         return;
 
@@ -988,7 +1005,8 @@ void O2ContextSetMiterLimit(O2ContextRef self, O2Float miterLimit) {
 }
 
 void O2ContextSetLineDash(O2ContextRef self, O2Float phase,
-                          const O2Float *lengths, NSUInteger count) {
+                          const O2Float *lengths, NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -996,7 +1014,8 @@ void O2ContextSetLineDash(O2ContextRef self, O2Float phase,
 }
 
 void O2ContextSetRenderingIntent(O2ContextRef self,
-                                 O2ColorRenderingIntent renderingIntent) {
+                                 O2ColorRenderingIntent renderingIntent)
+{
     if (self == nil)
         return;
 
@@ -1018,7 +1037,8 @@ void O2ContextSetFlatness(O2ContextRef self, O2Float flatness) {
 }
 
 void O2ContextSetInterpolationQuality(O2ContextRef self,
-                                      O2InterpolationQuality quality) {
+                                      O2InterpolationQuality quality)
+{
     if (self == nil)
         return;
 
@@ -1026,7 +1046,8 @@ void O2ContextSetInterpolationQuality(O2ContextRef self,
 }
 
 void O2ContextSetShadowWithColor(O2ContextRef self, O2Size offset, O2Float blur,
-                                 O2ColorRef color) {
+                                 O2ColorRef color)
+{
     if (self == nil)
         return;
 
@@ -1051,7 +1072,8 @@ void O2ContextSetShouldAntialias(O2ContextRef self, BOOL yesOrNo) {
 
 // drawing
 void O2ContextStrokeLineSegments(O2ContextRef self, const O2Point *points,
-                                 NSUInteger count) {
+                                 NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -1074,8 +1096,8 @@ void O2ContextStrokeRect(O2ContextRef self, O2Rect rect) {
     O2ContextStrokePath(self);
 }
 
-void O2ContextStrokeRectWithWidth(O2ContextRef self, O2Rect rect,
-                                  O2Float width) {
+void O2ContextStrokeRectWithWidth(O2ContextRef self, O2Rect rect, O2Float width)
+{
     if (self == nil)
         return;
 
@@ -1104,7 +1126,8 @@ void O2ContextFillRect(O2ContextRef self, O2Rect rect) {
 }
 
 void O2ContextFillRects(O2ContextRef self, const O2Rect *rects,
-                        NSUInteger count) {
+                        NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -1165,7 +1188,8 @@ void O2ContextClearRect(O2ContextRef self, O2Rect rect) {
 }
 
 void O2ContextShowGlyphs(O2ContextRef self, const O2Glyph *glyphs,
-                         NSUInteger count) {
+                         NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -1173,14 +1197,16 @@ void O2ContextShowGlyphs(O2ContextRef self, const O2Glyph *glyphs,
 }
 
 void O2ContextShowGlyphsAtPoint(O2ContextRef self, O2Float x, O2Float y,
-                                const O2Glyph *glyphs, NSUInteger count) {
+                                const O2Glyph *glyphs, NSUInteger count)
+{
     O2ContextSetTextPosition(self, x, y);
     O2ContextShowGlyphs(self, glyphs, count);
 }
 
 - (void) showGlyphs: (const O2Glyph *) glyphs
            advances: (const O2Size *) advances
-              count: (NSUInteger) count {
+              count: (NSUInteger) count
+{
 #if 1
     O2InvalidAbstractInvocation();
 #else
@@ -1202,7 +1228,8 @@ void O2ContextShowGlyphsAtPoint(O2ContextRef self, O2Float x, O2Float y,
 }
 
 void O2ContextShowGlyphsWithAdvances(O2ContextRef self, const O2Glyph *glyphs,
-                                     const O2Size *advances, NSUInteger count) {
+                                     const O2Size *advances, NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -1210,7 +1237,8 @@ void O2ContextShowGlyphsWithAdvances(O2ContextRef self, const O2Glyph *glyphs,
 }
 
 void O2ContextDefaultShowText(O2ContextRef self, const char *text,
-                              NSUInteger length) {
+                              NSUInteger length)
+{
     O2GState *gState = O2ContextCurrentGState(self);
     O2Encoding *encoding = O2GStateEncoding(gState);
     O2PDFCharWidths *widths = O2GStateCharWidths(gState);
@@ -1246,7 +1274,8 @@ void O2ContextShowText(O2ContextRef self, const char *text, NSUInteger length) {
 }
 
 void O2ContextShowTextAtPoint(O2ContextRef self, O2Float x, O2Float y,
-                              const char *text, NSUInteger count) {
+                              const char *text, NSUInteger count)
+{
     if (self == nil)
         return;
 
@@ -1269,7 +1298,8 @@ void O2ContextDrawImage(O2ContextRef self, O2Rect rect, O2ImageRef image) {
 }
 
 void O2ContextDrawLayerAtPoint(O2ContextRef self, O2Point point,
-                               O2LayerRef layer) {
+                               O2LayerRef layer)
+{
     if (self == nil)
         return;
 
@@ -1279,8 +1309,8 @@ void O2ContextDrawLayerAtPoint(O2ContextRef self, O2Point point,
     O2ContextDrawLayerInRect(self, rect, layer);
 }
 
-void O2ContextDrawLayerInRect(O2ContextRef self, O2Rect rect,
-                              O2LayerRef layer) {
+void O2ContextDrawLayerInRect(O2ContextRef self, O2Rect rect, O2LayerRef layer)
+{
     if (self == nil)
         return;
 
@@ -1408,7 +1438,8 @@ O2AffineTransform O2ContextGetTextRenderingMatrix(O2ContextRef self) {
 }
 
 void O2ContextGetDefaultAdvances(O2ContextRef self, const O2Glyph *glyphs,
-                                 O2Size *advances, size_t count) {
+                                 O2Size *advances, size_t count)
+{
     O2GState *gState = O2ContextCurrentGState(self);
     O2Font *font = O2GStateFont(gState);
     int intAdvances[count];
@@ -1426,7 +1457,8 @@ void O2ContextGetDefaultAdvances(O2ContextRef self, const O2Glyph *glyphs,
 }
 
 void O2ContextConcatAdvancesToTextMatrix(O2ContextRef self,
-                                         const O2Size *advances, size_t count) {
+                                         const O2Size *advances, size_t count)
+{
     O2AffineTransform Tm = self->_textMatrix;
     O2Size totalAdvance = O2SizeMake(0, 0);
     size_t i;
@@ -1449,7 +1481,8 @@ O2GState *O2ContextCurrentGState(O2ContextRef self) {
 // Temporary hacks
 
 void O2ContextCopyBits(O2ContextRef self, O2Rect rect, O2Point point,
-                       int gState) {
+                       int gState)
+{
     if (self == nil)
         return;
 
@@ -1469,27 +1502,32 @@ bool O2ContextIsBitmapContext(O2ContextRef self) {
 }
 
 void O2ContextSetAllowsFontSmoothing(O2ContextRef self,
-                                     BOOL allowsFontSmoothing) {
+                                     BOOL allowsFontSmoothing)
+{
     self->_allowsFontSmoothing = allowsFontSmoothing;
 }
 
 void O2ContextSetAllowsFontSubpixelQuantization(
-    O2ContextRef self, BOOL allowsFontSubpixelQuantization) {
+    O2ContextRef self, BOOL allowsFontSubpixelQuantization)
+{
     self->_allowsFontSubpixelQuantization = allowsFontSubpixelQuantization;
 }
 
 void O2ContextSetShouldSubpixelQuantizeFonts(O2ContextRef self,
-                                             BOOL shouldSubpixelQuantizeFonts) {
+                                             BOOL shouldSubpixelQuantizeFonts)
+{
     self->_shouldSubpixelQuantizeFonts = shouldSubpixelQuantizeFonts;
 }
 
 void O2ContextSetAllowsFontSubpixelPositioning(
-    O2ContextRef self, BOOL allowsFontSubpixelPositioning) {
+    O2ContextRef self, BOOL allowsFontSubpixelPositioning)
+{
     self->_allowsFontSubpixelPositioning = allowsFontSubpixelPositioning;
 }
 
 void O2ContextSetShouldSubpixelPositionFonts(O2ContextRef self,
-                                             BOOL shouldSubpixelPositionFonts) {
+                                             BOOL shouldSubpixelPositionFonts)
+{
     self->_shouldSubpixelPositionFonts = shouldSubpixelPositionFonts;
 }
 

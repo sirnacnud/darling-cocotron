@@ -8,7 +8,8 @@
 OSStatus SecKeychainFindGenericPassword(
     CFTypeRef keychainOrArray, UInt32 serviceNameLength,
     const char *serviceName, UInt32 accountNameLength, const char *accountName,
-    UInt32 *passwordLength, void **passwordData, SecKeychainItemRef *itemRef) {
+    UInt32 *passwordLength, void **passwordData, SecKeychainItemRef *itemRef)
+{
     SecKeychainAttributeList attributeList;
     attributeList.count = 2;
     attributeList.attr =
@@ -47,7 +48,8 @@ OSStatus
 SecKeychainAddGenericPassword(SecKeychainRef keychain, UInt32 serviceNameLength,
                               const char *serviceName, UInt32 accountNameLength,
                               const char *accountName, UInt32 passwordLength,
-                              void *passwordData, SecKeychainItemRef *itemRef) {
+                              void *passwordData, SecKeychainItemRef *itemRef)
+{
     SecKeychainAttributeList attributeList;
     attributeList.count = 2;
     attributeList.attr =
@@ -69,7 +71,8 @@ SecKeychainAddGenericPassword(SecKeychainRef keychain, UInt32 serviceNameLength,
 OSStatus SecKeychainSearchCreateFromAttributes(
     CFTypeRef keychainOrArray, SecItemClass itemClass,
     const SecKeychainAttributeList *attributeList,
-    SecKeychainSearchRef *resultSearch) {
+    SecKeychainSearchRef *resultSearch)
+{
     *resultSearch =
         [[SecKeychainSearch alloc] initWithKeychainOrArray: keychainOrArray
                                                  itemClass: itemClass
@@ -78,7 +81,8 @@ OSStatus SecKeychainSearchCreateFromAttributes(
 }
 
 OSStatus SecKeychainSearchCopyNext(SecKeychainSearchRef search,
-                                   SecKeychainItemRef *resultItem) {
+                                   SecKeychainItemRef *resultItem)
+{
     *resultItem = [search copyNextItem];
     return 0;
 }
@@ -86,7 +90,8 @@ OSStatus SecKeychainSearchCopyNext(SecKeychainSearchRef search,
 OSStatus SecKeychainItemCopyAttributesAndData(
     SecKeychainItemRef item, SecKeychainAttributeInfo *info,
     SecItemClass *itemClass, SecKeychainAttributeList **attributeList,
-    UInt32 *length, void **resultBytes) {
+    UInt32 *length, void **resultBytes)
+{
     [item copyAttributeInfo: info
                   itemClass: itemClass
               attributeList: attributeList
@@ -97,7 +102,8 @@ OSStatus SecKeychainItemCopyAttributesAndData(
 
 OSStatus SecKeychainItemModifyAttributesAndData(
     SecKeychainItemRef item, const SecKeychainAttributeList *attributeList,
-    UInt32 length, const void *bytes) {
+    UInt32 length, const void *bytes)
+{
     [item modifyAttributeList: attributeList length: length bytes: bytes];
     [[item keychain] modifyKeychainItem: item];
     return 0;
@@ -105,7 +111,8 @@ OSStatus SecKeychainItemModifyAttributesAndData(
 
 OSStatus
 SecKeychainItemFreeAttributesAndData(SecKeychainAttributeList *attributeList,
-                                     void *data) {
+                                     void *data)
+{
     SecFreeAttributeList(attributeList);
 
     if (data != NULL)
@@ -115,7 +122,8 @@ SecKeychainItemFreeAttributesAndData(SecKeychainAttributeList *attributeList,
 }
 
 OSStatus SecKeychainItemFreeContent(SecKeychainAttributeList *attributeList,
-                                    void *data) {
+                                    void *data)
+{
     SecFreeAttributeList(attributeList);
 
     if (data != NULL)
@@ -124,14 +132,17 @@ OSStatus SecKeychainItemFreeContent(SecKeychainAttributeList *attributeList,
     return 0;
 }
 
-OSStatus SecTrustedApplicationCreateFromPath(
-    const char *path, SecTrustedApplicationRef *resultApplication) {
+OSStatus
+SecTrustedApplicationCreateFromPath(const char *path,
+                                    SecTrustedApplicationRef *resultApplication)
+{
     *resultApplication = [[SecTrustedApplication alloc] init];
     return 0;
 }
 
 OSStatus SecAccessCreate(CFStringRef descriptor, CFArrayRef trustedList,
-                         SecAccessRef *resultAccess) {
+                         SecAccessRef *resultAccess)
+{
     *resultAccess = [[SecAccess alloc] initWithDescriptor: descriptor
                                               trustedList: trustedList];
     return 0;
@@ -140,7 +151,8 @@ OSStatus SecAccessCreate(CFStringRef descriptor, CFArrayRef trustedList,
 OSStatus SecKeychainItemCreateFromContent(
     SecItemClass itemClass, SecKeychainAttributeList *attributeList,
     UInt32 length, const void *bytes, SecKeychainRef keychain,
-    SecAccessRef initialAccess, SecKeychainItemRef *resultItem) {
+    SecAccessRef initialAccess, SecKeychainItemRef *resultItem)
+{
     SecKeychainItemRef item =
         [[SecKeychainItem alloc] initWithItemClass: itemClass
                                      attributeList: attributeList
@@ -177,7 +189,8 @@ void SecByteCopy(const void *srcVoid, void *dstVoid, size_t length) {
 }
 
 SecKeychainAttributeList *
-SecCopyAttributeList(const SecKeychainAttributeList *attributeList) {
+SecCopyAttributeList(const SecKeychainAttributeList *attributeList)
+{
     SecKeychainAttributeList *result =
         NSZoneMalloc(NULL, sizeof(SecKeychainAttributeList));
 

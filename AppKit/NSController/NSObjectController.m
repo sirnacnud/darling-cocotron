@@ -150,11 +150,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [super dealloc];
 }
 
-- (BOOL) canAdd;
-{ return [self isEditable]; }
+- (BOOL) canAdd; {
+    return [self isEditable];
+}
 
-- (BOOL) canRemove;
-{ return [self isEditable] && [[self selectedObjects] count]; }
+- (BOOL) canRemove; {
+    return [self isEditable] && [[self selectedObjects] count];
+}
 
 - (BOOL) isEditable {
     return _editable;
@@ -175,7 +177,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) addObserver: (NSObject *) observer
           forKeyPath: (NSString *) keyPath
              options: (NSKeyValueObservingOptions) options
-             context: (void *) context {
+             context: (void *) context
+{
     [_observedKeys addObject: keyPath];
     [super addObserver: observer
             forKeyPath: keyPath
@@ -183,8 +186,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                context: context];
 }
 
-- (void) removeObserver: (NSObject *) observer
-             forKeyPath: (NSString *) keyPath {
+- (void) removeObserver: (NSObject *) observer forKeyPath: (NSString *) keyPath
+{
     [_observedKeys removeObject: keyPath];
     [super removeObserver: observer forKeyPath: keyPath];
 }

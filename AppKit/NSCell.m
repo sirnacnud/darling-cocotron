@@ -586,8 +586,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _state = [self nextState];
 }
 
-- (BOOL) allowsMixedState;
-{ return _allowsMixedState; }
+- (BOOL) allowsMixedState; {
+    return _allowsMixedState;
+}
 
 - (void) setAllowsMixedState: (BOOL) allow {
     _allowsMixedState = allow;
@@ -725,7 +726,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // NSNumberFormatter doesn't work that way. - dwy
 - (void) setFloatingPointFormat: (BOOL) fpp
                            left: (NSUInteger) left
-                          right: (NSUInteger) right {
+                          right: (NSUInteger) right
+{
     NSMutableString *format = [NSMutableString string];
 
     [self setFormatter: [[[NSNumberFormatter alloc] init] autorelease]];
@@ -894,7 +896,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) highlight: (BOOL) highlight
          withFrame: (NSRect) frame
-            inView: (NSView *) view {
+            inView: (NSView *) view
+{
     if (_isHighlighted != highlight) {
         _isHighlighted = highlight;
     }
@@ -906,20 +909,23 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) continueTracking: (NSPoint) lastPoint
                        at: (NSPoint) currentPoint
-                   inView: (NSView *) view {
+                   inView: (NSView *) view
+{
     return YES;
 }
 
 - (void) stopTracking: (NSPoint) lastPoint
                    at: (NSPoint) stopPoint
                inView: (NSView *) view
-            mouseIsUp: (BOOL) flag {
+            mouseIsUp: (BOOL) flag
+{
 }
 
 - (BOOL) trackMouse: (NSEvent *) event
              inRect: (NSRect) frame
              ofView: (NSView *) view
-       untilMouseUp: (BOOL) untilMouseUp {
+       untilMouseUp: (BOOL) untilMouseUp
+{
     NSPoint lastPoint;
     BOOL result = NO;
 
@@ -1012,7 +1018,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) _setupFieldEditorWithFrame: (NSRect) frame
                         controlView: (NSView *) view
                              editor: (NSText *) editor
-                           delegate: delegate {
+                           delegate: delegate
+{
     /* There is some funkiness here where the editor is already in the control
        and it is moving to a different cell or the same cell is being edited
        after a makeFirstResponder This needs to be straightened out
@@ -1061,7 +1068,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 inView: (NSView *) view
                 editor: (NSText *) editor
               delegate: (id) delegate
-                 event: (NSEvent *) event {
+                 event: (NSEvent *) event
+{
 
     if (![self isEditable] && ![self isSelectable])
         return;
@@ -1082,7 +1090,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                   editor: (NSText *) editor
                 delegate: (id) delegate
                    start: (NSInteger) location
-                  length: (NSInteger) length {
+                  length: (NSInteger) length
+{
     if (![self isEditable] && ![self isSelectable])
         return;
 
@@ -1149,6 +1158,7 @@ static NSString *NSStringFromCellType(NSCellType type) {
 void NSDrawThreePartImage(NSRect frame, NSImage *startCap, NSImage *centerFill,
                           NSImage *endCap, BOOL vertical,
                           NSCompositingOperation operation, CGFloat alpha,
-                          BOOL flipped) {
+                          BOOL flipped)
+{
     NSUnimplementedFunction();
 }

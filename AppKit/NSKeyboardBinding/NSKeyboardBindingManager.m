@@ -166,7 +166,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSKeyboardBinding *) keyBindingWithString: (NSString *) string
-                               modifierFlags: (unsigned) flags {
+                               modifierFlags: (unsigned) flags
+{
     int i, count = [_keyBindings count];
 
     flags &= ~NSNumericPadKeyMask;

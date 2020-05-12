@@ -141,7 +141,8 @@ NSRect NSIntersectionRect(NSRect rect0, NSRect rect1) {
 }
 
 void NSDivideRect(NSRect rect, NSRect *slicep, NSRect *remainderp,
-                  CGFloat amount, NSRectEdge edge) {
+                  CGFloat amount, NSRectEdge edge)
+{
     *slicep = rect;
     *remainderp = rect;
     CGFloat temp;

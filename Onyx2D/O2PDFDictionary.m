@@ -46,7 +46,8 @@ NSUInteger O2PDFHashCString(NSMapTable *table, const void *data) {
 }
 
 BOOL O2PDFIsEqualCString(NSMapTable *table, const void *data1,
-                         const void *data2) {
+                         const void *data2)
+{
     if (data1 == data2)
         return YES;
 
@@ -133,7 +134,8 @@ NSMapTableKeyCallBacks O2PDFOwnedCStringKeyCallBacks = {
 }
 
 - (O2PDFObject *) inheritedForCStringKey: (const char *) cStringKey
-                               typecheck: (O2PDFObjectType) type {
+                               typecheck: (O2PDFObjectType) type
+{
     O2PDFDictionary *parent = self;
     O2PDFObject *object;
 
@@ -197,7 +199,8 @@ NSMapTableKeyCallBacks O2PDFOwnedCStringKeyCallBacks = {
 }
 
 - (BOOL) getDictionaryForKey: (const char *) key
-                       value: (O2PDFDictionary **) dictionaryp {
+                       value: (O2PDFDictionary **) dictionaryp
+{
     O2PDFObject *object = [self objectForCStringKey: key];
 
     return [object checkForType: kO2PDFObjectTypeDictionary value: dictionaryp];

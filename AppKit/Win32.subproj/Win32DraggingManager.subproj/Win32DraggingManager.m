@@ -79,7 +79,8 @@ static unsigned sourceOperationForSource(id source, BOOL isLocal) {
              event: (NSEvent *) event
         pasteboard: (NSPasteboard *) pasteboard
             source: (id) source
-         slideBack: (BOOL) slideBack {
+         slideBack: (BOOL) slideBack
+{
     Win32IDataObjectServer *dataServer = [[Win32IDataObjectServer alloc]
         initWithPasteboard: (Win32Pasteboard *) pasteboard];
     Win32IDropSourceServer *dropSource =

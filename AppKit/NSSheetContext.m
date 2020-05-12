@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
      modalDelegate: modalDelegate
     didEndSelector: (SEL) didEndSelector
        contextInfo: (void *) contextInfo
-             frame: (NSRect) frame {
+             frame: (NSRect) frame
+{
     if (sheet == nil)
         [NSException raise: NSInvalidArgumentException format: @"sheet==nil"];
 
@@ -47,7 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                              modalDelegate: modalDelegate
                             didEndSelector: (SEL) didEndSelector
                                contextInfo: (void *) contextInfo
-                                     frame: (NSRect) frame {
+                                     frame: (NSRect) frame
+{
     return [[[self alloc] initWithSheet: sheet
                           modalDelegate: modalDelegate
                          didEndSelector: didEndSelector

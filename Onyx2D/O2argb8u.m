@@ -2,7 +2,8 @@
 
 void O2ApplyCoverageAndMaskToSpan_largb8u_PRE(O2argb8u *dst, uint32_t icoverage,
                                               uint8_t *mask, O2argb8u *src,
-                                              int length) {
+                                              int length)
+{
     int i;
 
     for (i = 0; i < length; i++) {
@@ -17,7 +18,8 @@ void O2ApplyCoverageAndMaskToSpan_largb8u_PRE(O2argb8u *dst, uint32_t icoverage,
 }
 
 void O2ApplyCoverageToSpan_largb8u_PRE(O2argb8u *dst, int coverage,
-                                       O2argb8u *src, int length) {
+                                       O2argb8u *src, int length)
+{
     int i;
 
     if (coverage == 256) {
@@ -39,7 +41,8 @@ void O2ApplyCoverageToSpan_largb8u_PRE(O2argb8u *dst, int coverage,
 }
 
 void O2argb8u_sover_by_coverage(O2argb8u *src, O2argb8u *dst, unsigned coverage,
-                                int length) {
+                                int length)
+{
 #if 1
     // Passes Visual Test
     int i;
@@ -169,7 +172,8 @@ void O2argb8u_sover_by_coverage(O2argb8u *src, O2argb8u *dst, unsigned coverage,
 }
 
 void O2argb8u_copy_by_coverage(O2argb8u *src, O2argb8u *dst, unsigned coverage,
-                               int length) {
+                               int length)
+{
     // Passes Visual Test
     int i;
 

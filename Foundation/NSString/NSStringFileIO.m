@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // FIX, inefficient
 unichar *NSCharactersWithContentsOfFile(NSString *path, NSUInteger *length,
-                                        NSZone *zone) {
+                                        NSZone *zone)
+{
     NSData *data = [NSData dataWithContentsOfFile: path];
 
     if (data == nil)

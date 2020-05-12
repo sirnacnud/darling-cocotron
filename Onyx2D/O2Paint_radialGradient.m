@@ -31,7 +31,8 @@
 @implementation O2Paint_radialGradient
 
 ONYX2D_STATIC_INLINE void quadratic(O2Float a, O2Float hb, O2Float c,
-                                    O2Float *x1, O2Float *x2) {
+                                    O2Float *x1, O2Float *x2)
+{
     // Solve a*x*x + 2*hb*x + c = 0 numerically, trying not to lose precision
     // for cases when a is close to 0.
     O2Float qD = hb * hb - a * c;
@@ -41,7 +42,8 @@ ONYX2D_STATIC_INLINE void quadratic(O2Float a, O2Float hb, O2Float c,
 }
 
 void O2PaintRadialGradient(O2Paint_radialGradient *self, O2Float *g,
-                           O2Float *rho, O2Float x, O2Float y) {
+                           O2Float *rho, O2Float x, O2Float y)
+{
     RI_ASSERT(self);
     if (self->_endRadius <= 0.0f) {
         *g = 1.0f;
@@ -92,7 +94,8 @@ void O2PaintRadialGradient(O2Paint_radialGradient *self, O2Float *g,
 }
 
 ONYX2D_STATIC_INLINE O2argb32f
-radialGradientColorAt(O2Paint_radialGradient *self, int x, int y, int *skip) {
+radialGradientColorAt(O2Paint_radialGradient *self, int x, int y, int *skip)
+{
     O2argb32f result;
 
     O2Float g, rho;
@@ -104,7 +107,8 @@ radialGradientColorAt(O2Paint_radialGradient *self, int x, int y, int *skip) {
 }
 
 ONYX2D_STATIC int radial_span_largb8u_PRE(O2Paint *selfX, int x, int y,
-                                          O2argb8u *span, int length) {
+                                          O2argb8u *span, int length)
+{
     O2Paint_radialGradient *self = (O2Paint_radialGradient *) selfX;
     int i;
     int previous = -1;
@@ -126,7 +130,8 @@ ONYX2D_STATIC int radial_span_largb8u_PRE(O2Paint *selfX, int x, int y,
 }
 
 ONYX2D_STATIC int radial_span_largb32f_PRE(O2Paint *selfX, int x, int y,
-                                           O2argb32f *span, int length) {
+                                           O2argb32f *span, int length)
+{
     O2Paint_radialGradient *self = (O2Paint_radialGradient *) selfX;
     int i;
     int previous = -1;
@@ -148,7 +153,8 @@ ONYX2D_STATIC int radial_span_largb32f_PRE(O2Paint *selfX, int x, int y,
 }
 
 - initWithShading: (O2Shading *) shading
-    deviceTransform: (O2AffineTransform) deviceTransform {
+    deviceTransform: (O2AffineTransform) deviceTransform
+{
     [super initWithShading: shading
            deviceTransform: deviceTransform
            numberOfSamples: 1024];

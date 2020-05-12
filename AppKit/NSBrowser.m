@@ -615,7 +615,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSMatrix *) _reloadColumn: (NSInteger) column
-           preserveSelection: (BOOL) preserveSelection {
+           preserveSelection: (BOOL) preserveSelection
+{
     NSMatrix *matrix = [self createMatrixInColumn: column];
     NSInteger selectedRow = [matrix selectedRow],
               selectedColumn = [matrix selectedColumn];

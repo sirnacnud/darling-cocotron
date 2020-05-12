@@ -530,7 +530,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) insertObjects: (NSArray *) objects
-    atArrangedObjectIndexes: (NSIndexSet *) indices {
+    atArrangedObjectIndexes: (NSIndexSet *) indices
+{
     if (_flags.clearsFilterPredicateOnInsertion) {
         [self setFilterPredicate: nil];
     }

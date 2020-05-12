@@ -38,13 +38,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSDistantObject *) proxyWithLocal: local
-                          connection: (NSConnection *) connection {
+                          connection: (NSConnection *) connection
+{
     return [[[self alloc] initWithLocal: local
                              connection: connection] autorelease];
 }
 
 + (NSDistantObject *) proxyWithTarget: remote
-                           connection: (NSConnection *) connection {
+                           connection: (NSConnection *) connection
+{
     return [[[self alloc] initWithTarget: remote
                               connection: connection] autorelease];
 }

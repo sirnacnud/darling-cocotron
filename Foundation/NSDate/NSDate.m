@@ -215,7 +215,8 @@ const NSTimeInterval NSTimeIntervalSince1970 = (NSTimeInterval) 978307200.0;
 }
 
 - (NSCalendarDate *) dateWithCalendarFormat: (NSString *) format
-                                   timeZone: (NSTimeZone *) timeZone {
+                                   timeZone: (NSTimeZone *) timeZone
+{
     NSCalendarDate *date =
         [NSCalendarDate dateWithTimeIntervalSinceReferenceDate:
                             [self timeIntervalSinceReferenceDate]];
@@ -243,7 +244,8 @@ const NSTimeInterval NSTimeIntervalSince1970 = (NSTimeInterval) 978307200.0;
 
 - (NSString *) descriptionWithCalendarFormat: (NSString *) format
                                     timeZone: (NSTimeZone *) timeZone
-                                      locale: (NSDictionary *) locale {
+                                      locale: (NSDictionary *) locale
+{
     if (format == nil)
         format = DEFAULT_CALENDAR_FORMAT;
     if (timeZone == nil)

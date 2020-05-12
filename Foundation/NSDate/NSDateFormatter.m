@@ -42,7 +42,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithDateFormat: (NSString *) format
     allowNaturalLanguage: (BOOL) flag
-                  locale: (NSDictionary *) locale {
+                  locale: (NSDictionary *) locale
+{
     [super init];
     _behavior = NSDateFormatterBehavior10_0;
     _dateFormat10_0 = [format copy];
@@ -164,7 +165,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSAttributedString *) attributedStringForObjectValue: (id) object
                                   withDefaultAttributes:
-                                      (NSDictionary *) attributes {
+                                      (NSDictionary *) attributes
+{
     return [[[NSAttributedString allocWithZone: NULL]
         initWithString: [self stringForObjectValue: object]
             attributes: attributes] autorelease];
@@ -176,7 +178,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) getObjectValue: (id *) object
               forString: (NSString *) string
-       errorDescription: (NSString **) error {
+       errorDescription: (NSString **) error
+{
     *object =
         NSDateWithStringDateFormatLocale(string, _dateFormat10_0, _locale, _tz);
     if (*object == nil) {
@@ -192,7 +195,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) isPartialStringValid: (NSString *) partialString
              newEditingString: (NSString **) newString
-             errorDescription: (NSString **) error {
+             errorDescription: (NSString **) error
+{
     NSUnimplementedMethod();
     return NO;
 }
@@ -218,7 +222,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) __appendLocale: (NSDictionary *) locale
                     key: (NSString *) key
-                  index: (NSInteger) index {
+                  index: (NSInteger) index
+{
     NSArray *array = [locale objectForKey: key];
 
     if (array != nil)
@@ -228,7 +233,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @end
 
 NSTimeInterval NSMoveIntervalFromTimeZoneToGMT(NSTimeInterval interval,
-                                               NSTimeZone *timeZone) {
+                                               NSTimeZone *timeZone)
+{
     return interval +
            [timeZone
                secondsFromGMTForDate:
@@ -236,7 +242,8 @@ NSTimeInterval NSMoveIntervalFromTimeZoneToGMT(NSTimeInterval interval,
 }
 
 NSTimeInterval NSMoveIntervalFromGMTToTimeZone(NSTimeInterval interval,
-                                               NSTimeZone *timeZone) {
+                                               NSTimeZone *timeZone)
+{
     return interval -
            [timeZone
                secondsFromGMTForDate:
@@ -266,7 +273,8 @@ NSInteger NSNumberOfDaysInMonthOfYear(NSInteger month, NSInteger year) {
 
 static inline NSInteger
 numberOfDaysInCommonEraOfDayMonthAndYear(NSInteger day, NSInteger month,
-                                         NSInteger year) {
+                                         NSInteger year)
+{
     NSInteger result = 0;
 
     for (month--; month > 0; month--)
@@ -287,7 +295,8 @@ numberOfDaysInCommonEraOfDayMonthAndYear(NSInteger day, NSInteger month,
 NSTimeInterval NSTimeIntervalWithComponents(NSInteger year, NSInteger month,
                                             NSInteger day, NSInteger hour,
                                             NSInteger minute, NSInteger second,
-                                            NSInteger milliseconds) {
+                                            NSInteger milliseconds)
+{
     NSInteger daysOfCommonEra;
     NSTimeInterval interval;
 
@@ -420,7 +429,8 @@ NSInteger NSMillisecondsFromTimeInterval(NSTimeInterval interval) { // 0-999
 
 NSString *NSStringWithDateFormatLocale(NSTimeInterval interval,
                                        NSString *format, NSDictionary *locale,
-                                       NSTimeZone *timeZone) {
+                                       NSTimeZone *timeZone)
+{
     NSUInteger pos, fmtLength = [format length];
     unichar fmtBuffer[fmtLength], unicode;
     NSMutableString *result = [NSMutableString stringWithCapacity: fmtLength];
@@ -666,7 +676,8 @@ NSString *NSStringWithDateFormatLocale(NSTimeInterval interval,
 
 NSString *NSReadStringInString(NSString *aString, NSCharacterSet *characterSet,
                                NSUInteger position, NSUInteger maxLength,
-                               NSUInteger *endPosition) {
+                               NSUInteger *endPosition)
+{
     NSMutableString *resultString =
         [NSMutableString stringWithCapacity: maxLength];
 
@@ -687,7 +698,8 @@ NSString *NSReadStringInString(NSString *aString, NSCharacterSet *characterSet,
 
 NSInteger NSReadIntegerInString(NSString *aString, NSCharacterSet *characterSet,
                                 NSUInteger position, NSUInteger maxLength,
-                                NSUInteger *endPosition) {
+                                NSUInteger *endPosition)
+{
     NSString *str;
     unichar firstChar = [aString characterAtIndex: position];
     BOOL negate = NO;
@@ -716,7 +728,8 @@ NSInteger NSReadIntegerInString(NSString *aString, NSCharacterSet *characterSet,
 // weekday information is useless.
 NSDate *NSDateWithStringDateFormatLocale(NSString *string, NSString *format,
                                          NSDictionary *locale,
-                                         NSTimeZone *timeZone) {
+                                         NSTimeZone *timeZone)
+{
     NSScanner *scanner = [NSScanner scannerWithString: string];
     NSUInteger currentPosition, fmtLength = [format length];
     unichar fmtBuffer[fmtLength], unicode;

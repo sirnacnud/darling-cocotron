@@ -31,7 +31,8 @@
 
 - initWithUIFontType: (CTFontUIFontType) uiFontType
                 size: (CGFloat) size
-            language: (NSString *) language {
+            language: (NSString *) language
+{
     O2Font *font = nil;
 
     switch (uiFontType) {
@@ -56,7 +57,8 @@
 
 - (void) getGlyphs: (CGGlyph *) glyphs
      forCharacters: (const unichar *) characters
-            length: (NSUInteger) length {
+            length: (NSUInteger) length
+{
     O2Font_freetype *o2Font = (O2Font_freetype *) _font;
     FT_Face face = [o2Font face];
 
@@ -68,7 +70,8 @@
 
 - (void) getAdvancements: (CGSize *) advancements
                forGlyphs: (const CGGlyph *) glyphs
-                   count: (NSUInteger) count {
+                   count: (NSUInteger) count
+{
     O2Font_freetype *o2Font = (O2Font_freetype *) _font;
     FT_Face face = [o2Font face];
 
@@ -83,7 +86,8 @@
 
 - (CGPoint) positionOfGlyph: (CGGlyph) current
             precededByGlyph: (CGGlyph) previous
-                  isNominal: (BOOL *) isNominalp {
+                  isNominal: (BOOL *) isNominalp
+{
     O2Font_freetype *o2Font = (O2Font_freetype *) _font;
     FT_Face face = [o2Font face];
 

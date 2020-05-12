@@ -32,7 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSIndexPath *) indexPathWithIndexes: (NSUInteger *) indexes
-                                length: (NSUInteger) length {
+                                length: (NSUInteger) length
+{
     return [[[self alloc] initWithIndexes: indexes length: length] autorelease];
 }
 

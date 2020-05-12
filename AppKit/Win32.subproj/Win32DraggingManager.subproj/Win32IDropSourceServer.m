@@ -39,7 +39,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) startDragImage: (NSImage *) image
                      at: (NSPoint) location
                  offset: (NSSize) offset
-                  event: (NSEvent *) event {
+                  event: (NSEvent *) event
+{
     _image = [image retain];
 
     if (_image != nil) {

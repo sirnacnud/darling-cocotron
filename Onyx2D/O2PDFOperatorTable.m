@@ -49,7 +49,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setCallback: (O2PDFOperatorCallback) callback
-             forName: (const char *) name {
+             forName: (const char *) name
+{
     char *copy = NSZoneMalloc(NULL, strlen(name) + 1);
 
     strcpy(copy, name);

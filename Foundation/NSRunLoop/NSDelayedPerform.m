@@ -36,7 +36,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSDelayedPerform *) delayedPerformWithObject: object
                                        selector: (SEL) selector
-                                       argument: argument {
+                                       argument: argument
+{
     return [[[self allocWithZone: NULL] initWithObject: object
                                               selector: selector
                                               argument: argument] autorelease];

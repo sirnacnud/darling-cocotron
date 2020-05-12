@@ -41,7 +41,8 @@ NSString *kO2ImagePropertyTIFFOrientation = @"Orientation";
 @implementation O2ImageSource
 
 + (O2ImageSourceRef) newImageSourceWithDataProvider: (O2DataProvider *) provider
-                                            options: (CFDictionaryRef) options {
+                                            options: (CFDictionaryRef) options
+{
     NSString *classes[] = {@"O2ImageSource_PNG",
                            @"O2ImageSource_TIFF",
                            @"O2ImageSource_JPEG",
@@ -65,7 +66,8 @@ NSString *kO2ImagePropertyTIFFOrientation = @"Orientation";
 }
 
 + (O2ImageSourceRef) newImageSourceWithData: (CFDataRef) data
-                                    options: (CFDictionaryRef) options {
+                                    options: (CFDictionaryRef) options
+{
     O2DataProviderRef provider = O2DataProviderCreateWithCFData(data);
     O2ImageSourceRef result = [self newImageSourceWithDataProvider: provider
                                                            options: options];
@@ -74,7 +76,8 @@ NSString *kO2ImagePropertyTIFFOrientation = @"Orientation";
 }
 
 + (O2ImageSourceRef) newImageSourceWithURL: (NSURL *) url
-                                   options: (CFDictionaryRef) options {
+                                   options: (CFDictionaryRef) options
+{
     O2DataProviderRef provider = [[O2DataProvider alloc] initWithURL: url];
     O2ImageSourceRef result = [self newImageSourceWithDataProvider: provider
                                                            options: options];
@@ -87,7 +90,8 @@ NSString *kO2ImagePropertyTIFFOrientation = @"Orientation";
 }
 
 - initWithDataProvider: (O2DataProvider *) provider
-               options: (NSDictionary *) options {
+               options: (NSDictionary *) options
+{
     _provider = [provider retain];
     _options = [options retain];
     return self;
@@ -110,18 +114,21 @@ NSString *kO2ImagePropertyTIFFOrientation = @"Orientation";
 }
 
 - (CFDictionaryRef) copyPropertiesAtIndex: (NSUInteger) index
-                                  options: (CFDictionaryRef) options {
+                                  options: (CFDictionaryRef) options
+{
     return [[NSDictionary alloc] init];
 }
 
 - (O2Image *) createImageAtIndex: (NSUInteger) index
-                         options: (CFDictionaryRef) options {
+                         options: (CFDictionaryRef) options
+{
     O2InvalidAbstractInvocation();
     return nil;
 }
 
 O2ImageRef O2ImageSourceCreateImageAtIndex(O2ImageSourceRef self, size_t index,
-                                           CFDictionaryRef options) {
+                                           CFDictionaryRef options)
+{
     return [(O2ImageSource *) self createImageAtIndex: index options: options];
 }
 

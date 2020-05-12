@@ -25,7 +25,8 @@ static void o2error_exit(j_common_ptr cinfo) {
 }
 
 static unsigned char *stbi_jpeg_load_from_memory(const uint8_t const *buffer,
-                                                 int len, int *x, int *y) {
+                                                 int len, int *x, int *y)
+{
     struct jpeg_decompress_struct cinfo;
     jpeg_create_decompress(&cinfo);
 

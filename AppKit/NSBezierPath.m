@@ -33,7 +33,8 @@ static NSLineCapStyle _defaultLineCapStyle = NSButtLineCapStyle;
 static NSLineJoinStyle _defaultLineJoinStyle = NSMiterLineJoinStyle;
 
 static BOOL curveIsFlat(CGFloat desiredFlatness, CGPoint start, CGPoint cp1,
-                        CGPoint cp2, CGPoint end) {
+                        CGPoint cp2, CGPoint end)
+{
     // Roughly compute the furthest distance of the curved path from the line
     // connecting start to end
     double ux = 3.0 * cp1.x - 2.0 * start.x - end.x;
@@ -169,7 +170,8 @@ static void CGPathConverter(void *info, const CGPathElement *element) {
 
 + (NSBezierPath *) bezierPathWithRoundedRect: (NSRect) rect
                                      xRadius: (CGFloat) xRadius
-                                     yRadius: (CGFloat) yRadius {
+                                     yRadius: (CGFloat) yRadius
+{
     NSBezierPath *result = [[[self alloc] init] autorelease];
 
     [result appendBezierPathWithRoundedRect: rect
@@ -327,7 +329,8 @@ static void CGPathConverter(void *info, const CGPathElement *element) {
 
 - (void) getLineDash: (CGFloat *) dashes
                count: (int *) count
-               phase: (CGFloat *) phase {
+               phase: (CGFloat *) phase
+{
     if (dashes != NULL) {
         int i;
 
@@ -376,7 +379,8 @@ static int numberOfPointsForOperator(int op) {
 }
 
 - (NSBezierPathElement) elementAtIndex: (int) index
-                      associatedPoints: (NSPoint *) associated {
+                      associatedPoints: (NSPoint *) associated
+{
     int i, pi = 0, pcount;
 
     if (index >= _numberOfElements)
@@ -426,7 +430,8 @@ static int numberOfPointsForOperator(int op) {
 
 - (void) setLineDash: (const CGFloat *) dashes
                count: (int) count
-               phase: (CGFloat) phase {
+               phase: (CGFloat) phase
+{
     if (_dashes != NULL)
         NSZoneFree(NULL, _dashes);
 
@@ -492,7 +497,8 @@ static int numberOfPointsForOperator(int op) {
                     toCurveFrom: (CGPoint) fromPoint
                              to: (CGPoint) toPoint
                            tan1: (CGPoint) tan1
-                           tan2: (CGPoint) tan2 {
+                           tan2: (CGPoint) tan2
+{
     int count = 0;
 
     // No need to test if there no chance of any crossing
@@ -681,7 +687,8 @@ static inline void expandPointCapacity(NSBezierPath *self, unsigned delta) {
 
 - (void) curveToPoint: (NSPoint) point
         controlPoint1: (NSPoint) cp1
-        controlPoint2: (NSPoint) cp2 {
+        controlPoint2: (NSPoint) cp2
+{
     expandOperatorCapacity(self, 1);
     expandPointCapacity(self, 3);
     _elements[_numberOfElements++] = NSCurveToBezierPathElement;
@@ -715,7 +722,8 @@ static inline void expandPointCapacity(NSBezierPath *self, unsigned delta) {
 
 - (void) relativeCurveToPoint: (NSPoint) point
                 controlPoint1: (NSPoint) cp1
-                controlPoint2: (NSPoint) cp2 {
+                controlPoint2: (NSPoint) cp2
+{
     CGPoint current = [self currentPoint];
 
     cp1.x += current.x;
@@ -728,8 +736,8 @@ static inline void expandPointCapacity(NSBezierPath *self, unsigned delta) {
     [self curveToPoint: point controlPoint1: cp1 controlPoint2: cp2];
 }
 
-- (void) appendBezierPathWithPoints: (NSPoint *) points
-                              count: (unsigned) count {
+- (void) appendBezierPathWithPoints: (NSPoint *) points count: (unsigned) count
+{
     if (count == 0)
         return;
 
@@ -838,7 +846,8 @@ static void cgArcFromApply(void *info, const CGPathElement *element) {
 
 - (void) appendBezierPathWithArcFromPoint: (NSPoint) point
                                   toPoint: (NSPoint) toPoint
-                                   radius: (CGFloat) radius {
+                                   radius: (CGFloat) radius
+{
     if (_numberOfPoints == 0) {
         NSLog(@"-[%@ %s] no current point", [self class], _cmd);
         return;
@@ -856,7 +865,8 @@ static void cgArcFromApply(void *info, const CGPathElement *element) {
 
 - (void) appendBezierPathWithRoundedRect: (NSRect) rect
                                  xRadius: (CGFloat) radius
-                                 yRadius: (CGFloat) yRadius {
+                                 yRadius: (CGFloat) yRadius
+{
     [self moveToPoint: NSMakePoint(rect.origin.x + radius, NSMaxY(rect))];
     [self appendBezierPathWithArcWithCenter: NSMakePoint(
                                                  rect.origin.x +
@@ -899,7 +909,8 @@ static inline CGFloat degreesToRadians(CGFloat degrees) {
 - (void) appendBezierPathWithArcWithCenter: (NSPoint) center
                                     radius: (CGFloat) radius
                                 startAngle: (CGFloat) startAngle
-                                  endAngle: (CGFloat) endAngle {
+                                  endAngle: (CGFloat) endAngle
+{
     [self appendBezierPathWithArcWithCenter: center
                                      radius: radius
                                  startAngle: startAngle
@@ -911,7 +922,8 @@ static inline CGFloat degreesToRadians(CGFloat degrees) {
                                     radius: (CGFloat) radius
                                 startAngle: (CGFloat) startAngle
                                   endAngle: (CGFloat) endAngle
-                                 clockwise: (BOOL) clockwise {
+                                 clockwise: (BOOL) clockwise
+{
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddArc(path, NULL, center.x, center.y, radius,
                  degreesToRadians(startAngle), degreesToRadians(endAngle),
@@ -956,7 +968,8 @@ static inline CGFloat degreesToRadians(CGFloat degrees) {
 
 - (void) appendBezierPathWithGlyphs: (NSGlyph *) glyphs
                               count: (unsigned) count
-                             inFont: (NSFont *) font {
+                             inFont: (NSFont *) font
+{
     int i;
     for (i = 0; i < count; ++i) {
         [self appendBezierPathWithGlyph: glyphs[i] inFont: font];
@@ -1031,7 +1044,8 @@ static inline CGFloat degreesToRadians(CGFloat degrees) {
 
 static NSUInteger doFlattenBezierCurve(CGFloat desiredFlatness, CGPoint start,
                                        CGPoint cp1, CGPoint cp2, CGPoint end,
-                                       NSUInteger *index, CGPoint *points) {
+                                       NSUInteger *index, CGPoint *points)
+{
     int count = 0;
     if (curveIsFlat(desiredFlatness, start, cp1, cp2, end) == NO) {
         // Subdivide the curve - Hearn & Baker Computer Graphics pp460-461
@@ -1069,7 +1083,8 @@ static NSUInteger doFlattenBezierCurve(CGFloat desiredFlatness, CGPoint start,
 // pass nil for points to figure out how large the buffer should be
 static NSUInteger flattenBezierCurve(CGFloat desiredFlatness, CGPoint start,
                                      CGPoint cp1, CGPoint cp2, CGPoint end,
-                                     CGPoint *points) {
+                                     CGPoint *points)
+{
     NSUInteger index = 0;
     return doFlattenBezierCurve(desiredFlatness, start, cp1, cp2, end, &index,
                                 points);

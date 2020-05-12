@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithWidth: (int) width
                          height: (int) height
-    compatibleWithDeviceContext: (O2DeviceContext_gdi *) compatible {
+    compatibleWithDeviceContext: (O2DeviceContext_gdi *) compatible
+{
     _deviceContext =
         [[O2DeviceContext_gdiDIBSection alloc] initARGB32WithWidth: width
                                                             height: height
@@ -62,7 +63,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     bitsPerComponent: (size_t) bitsPerComponent
          bytesPerRow: (size_t) bytesPerRow
           colorSpace: (O2ColorSpaceRef) colorSpace
-          bitmapInfo: (O2BitmapInfo) bitmapInfo {
+          bitmapInfo: (O2BitmapInfo) bitmapInfo
+{
     if (bytes == NULL && bitsPerComponent == 8 &&
         bitmapInfo ==
             (kO2ImageAlphaPremultipliedFirst | kO2BitmapByteOrder32Host) &&

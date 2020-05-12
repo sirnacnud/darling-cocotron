@@ -54,7 +54,8 @@ AssociationObjectEntry *AssociationTableGet(AssociationTable *table, id key) {
 }
 
 void AssociationTableInsert(AssociationTable *table, id key,
-                            AssociationObjectEntry *value) {
+                            AssociationObjectEntry *value)
+{
     unsigned int hash = HASHPTR(key);
     unsigned int i = hash % table->nBuckets;
     AssociationHashBucket *j;
@@ -116,7 +117,8 @@ void AssociationTableInsert(AssociationTable *table, id key,
 }
 
 void *AssociationTableInsertIfAbsent(AssociationTable *table, id key,
-                                     AssociationObjectEntry *value) {
+                                     AssociationObjectEntry *value)
+{
     void *old = AssociationTableGet(table, key);
 
     if (old != NULL)
@@ -227,7 +229,8 @@ void objc_removeAssociatedObjects(id object) {
 }
 
 void objc_setAssociatedObject(id object, const void *key, id value,
-                              objc_AssociationPolicy policy) {
+                              objc_AssociationPolicy policy)
+{
     AssociationSpinLockLock(&AssociationLock);
 
     if (associationTable == NULL) {

@@ -61,9 +61,11 @@ CFArrayRef O2ImageDestinationCopyTypeIdentifiers(void) {
     return NULL;
 }
 
-O2ImageDestinationRef
-O2ImageDestinationCreateWithData(CFMutableDataRef data, CFStringRef type,
-                                 size_t imageCount, CFDictionaryRef options) {
+O2ImageDestinationRef O2ImageDestinationCreateWithData(CFMutableDataRef data,
+                                                       CFStringRef type,
+                                                       size_t imageCount,
+                                                       CFDictionaryRef options)
+{
     O2DataConsumerRef consumer = O2DataConsumerCreateWithCFData(data);
     O2ImageDestinationRef self = O2ImageDestinationCreateWithDataConsumer(
         consumer, type, imageCount, options);
@@ -74,7 +76,8 @@ O2ImageDestinationCreateWithData(CFMutableDataRef data, CFStringRef type,
 O2ImageDestinationRef
 O2ImageDestinationCreateWithDataConsumer(O2DataConsumerRef dataConsumer,
                                          CFStringRef type, size_t imageCount,
-                                         CFDictionaryRef options) {
+                                         CFDictionaryRef options)
+{
     O2ImageDestinationRef self =
         NSAllocateObject([O2ImageDestination class], 0, NULL);
 
@@ -122,7 +125,8 @@ O2ImageDestinationCreateWithDataConsumer(O2DataConsumerRef dataConsumer,
 O2ImageDestinationRef O2ImageDestinationCreateWithURL(CFURLRef url,
                                                       CFStringRef type,
                                                       size_t imageCount,
-                                                      CFDictionaryRef options) {
+                                                      CFDictionaryRef options)
+{
     O2DataConsumerRef consumer = O2DataConsumerCreateWithURL(url);
     O2ImageDestinationRef self = O2ImageDestinationCreateWithDataConsumer(
         consumer, type, imageCount, options);
@@ -131,11 +135,13 @@ O2ImageDestinationRef O2ImageDestinationCreateWithURL(CFURLRef url,
 }
 
 void O2ImageDestinationSetProperties(O2ImageDestinationRef self,
-                                     CFDictionaryRef properties) {
+                                     CFDictionaryRef properties)
+{
 }
 
 void O2ImageDestinationAddImage(O2ImageDestinationRef self, O2ImageRef image,
-                                CFDictionaryRef properties) {
+                                CFDictionaryRef properties)
+{
     self->_imageCount--;
 
     switch (self->_type) {
@@ -172,7 +178,8 @@ void O2ImageDestinationAddImage(O2ImageDestinationRef self, O2ImageRef image,
 void O2ImageDestinationAddImageFromSource(O2ImageDestinationRef self,
                                           O2ImageSourceRef imageSource,
                                           size_t index,
-                                          CFDictionaryRef properties) {
+                                          CFDictionaryRef properties)
+{
     O2ImageRef image =
         O2ImageSourceCreateImageAtIndex(imageSource, index, NULL);
     O2ImageDestinationAddImage(self, image, properties);

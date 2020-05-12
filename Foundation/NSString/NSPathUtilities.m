@@ -327,7 +327,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 NSArray *NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory directory,
                                              NSSearchPathDomainMask mask,
-                                             BOOL expand) {
+                                             BOOL expand)
+{
     if (mask != NSUserDomainMask)
         NSUnimplementedFunction();
 

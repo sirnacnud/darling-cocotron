@@ -233,14 +233,16 @@ FT_Face O2FontFreeTypeFace(O2Font_freetype *self) {
 
 - (void) getGlyphs: (O2Glyph *) glyphs
      forCodePoints: (uint16_t *) codes
-            length: (NSInteger) length {
+            length: (NSInteger) length
+{
     for (int i = 0; i < length; i++) {
         glyphs[i] = FT_Get_Char_Index(_face, codes[i]);
     }
 }
 
 - (O2Encoding *) unicode_createEncodingForTextEncoding:
-    (O2TextEncoding) encoding {
+    (O2TextEncoding) encoding
+{
     unichar unicode[256];
     O2Glyph glyphs[256];
 
@@ -280,7 +282,8 @@ FT_Face O2FontFreeTypeFace(O2Font_freetype *self) {
 }
 
 - (O2Encoding *) MacRoman_createEncodingForTextEncoding:
-    (O2TextEncoding) encoding {
+    (O2TextEncoding) encoding
+{
 
     uint16_t codes[256];
     O2Glyph glyphs[256];

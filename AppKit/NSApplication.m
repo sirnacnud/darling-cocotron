@@ -105,9 +105,8 @@ NSApplication *NSApp = nil;
     return NSApp;
 }
 
-+ (void) detachDrawingThread: (SEL) selector
-                    toTarget: target
-                  withObject: object {
++ (void) detachDrawingThread: (SEL) selector toTarget: target withObject: object
+{
     NSUnimplementedMethod();
 }
 
@@ -422,7 +421,8 @@ NSApplication *NSApp = nil;
 
 - (void) addWindowsItem: (NSWindow *) window
                   title: (NSString *) title
-               filename: (BOOL) isFilename {
+               filename: (BOOL) isFilename
+{
     NSMenuItem *item;
 
     if ([[self windowsMenu]
@@ -445,7 +445,8 @@ NSApplication *NSApp = nil;
 
 - (void) changeWindowsItem: (NSWindow *) window
                      title: (NSString *) title
-                  filename: (BOOL) isFilename {
+                  filename: (BOOL) isFilename
+{
 
     if ([title length] == 0) {
         // Windows with no name aren't in the Windows menu
@@ -725,7 +726,8 @@ NSApplication *NSApp = nil;
 - (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
                           untilDate: (NSDate *) untilDate
                              inMode: (NSRunLoopMode) mode
-                            dequeue: (BOOL) dequeue {
+                            dequeue: (BOOL) dequeue
+{
     NSEvent *nextEvent = nil;
 
     do {
@@ -785,7 +787,8 @@ NSApplication *NSApp = nil;
 }
 
 - (void) discardEventsMatchingMask: (NSEventMask) mask
-                       beforeEvent: (NSEvent *) event {
+                       beforeEvent: (NSEvent *) event
+{
     [_display discardEventsMatchingMask: mask beforeEvent: event];
 }
 
@@ -1062,7 +1065,8 @@ NSApplication *NSApp = nil;
      modalForWindow: (NSWindow *) window
       modalDelegate: (id) modalDelegate
      didEndSelector: (SEL) didEndSelector
-        contextInfo: (void *) contextInfo {
+        contextInfo: (void *) contextInfo
+{
     NSSheetContext *context =
         [NSSheetContext sheetContextWithSheet: sheet
                                 modalDelegate: modalDelegate
@@ -1251,7 +1255,8 @@ NSApplication *NSApp = nil;
 
 - (void) _documentController: (NSDocumentController *) docController
                  didCloseAll: (BOOL) didCloseAll
-                 contextInfo: (void *) info {
+                 contextInfo: (void *) info
+{
     // callback method for terminate:
     if (didCloseAll) {
         if ([_delegate
@@ -1341,12 +1346,14 @@ NSApplication *NSApp = nil;
 }
 
 - (void) registerServicesMenuSendTypes: (NSArray *) sendTypes
-                           returnTypes: (NSArray *) returnTypes {
+                           returnTypes: (NSArray *) returnTypes
+{
     // tiredofthesewarnings NSUnsupportedMethod();
 }
 
 - validRequestorForSendType: (NSString *) sendType
-                 returnType: (NSString *) returnType {
+                 returnType: (NSString *) returnType
+{
     NSUnimplementedMethod();
     return nil;
 }

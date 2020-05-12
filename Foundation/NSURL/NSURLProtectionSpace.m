@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     port: (int) port
                 protocol: (NSString *) protocol
                    realm: (NSString *) realm
-    authenticationMethod: (NSString *) authenticationMethod {
+    authenticationMethod: (NSString *) authenticationMethod
+{
     _host = [host copy];
     _port = port;
     _protocol = [protocol copy];
@@ -39,7 +40,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     port: (int) port
                 protocol: (NSString *) protocol
                    realm: (NSString *) realm
-    authenticationMethod: (NSString *) authenticationMethod {
+    authenticationMethod: (NSString *) authenticationMethod
+{
     _host = [host copy];
     _port = port;
     _protocol = [protocol copy];

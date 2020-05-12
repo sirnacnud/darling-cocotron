@@ -238,7 +238,8 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
 }
 
 - (SecKeychainItemRef) createItemAtHandle: (HKEY) handle
-                                itemClass: (SecItemClass) itemClass {
+                                itemClass: (SecItemClass) itemClass
+{
     SecKeychainAttributeList *list =
         NSZoneMalloc(NULL, sizeof(SecKeychainAttributeList));
     UInt32 blobLength = 0;
@@ -354,7 +355,8 @@ static void *decryptData(void *bytes, unsigned length, unsigned *resultLength) {
 
 - (SecKeychainItemRef)
     createNextItemAtCursor: (SecKeychainCursor *) cursor
-             attributeList: (const SecKeychainAttributeList *) attributeList {
+             attributeList: (const SecKeychainAttributeList *) attributeList
+{
     SecKeychainItemRef result = nil;
 
     while (result == nil) {

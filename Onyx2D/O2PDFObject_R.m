@@ -26,7 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithNumber: (O2PDFInteger) number
       generation: (O2PDFInteger) generation
-            xref: (O2PDFxref *) xref {
+            xref: (O2PDFxref *) xref
+{
     _number = number;
     _generation = generation;
     _xref = [xref retain];
@@ -40,7 +41,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + pdfObjectWithNumber: (O2PDFInteger) number
            generation: (O2PDFInteger) generation
-                 xref: (O2PDFxref *) xref {
+                 xref: (O2PDFxref *) xref
+{
     return [[[self alloc] initWithNumber: number
                               generation: generation
                                     xref: xref] autorelease];

@@ -27,7 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSKeyboardBinding *) keyBindingWithString: (NSString *) string
                                 modifierMask: (int) mask
-                               selectorNames: (NSArray *) selNames {
+                               selectorNames: (NSArray *) selNames
+{
     return [[[self alloc] initWithString: string
                             modifierMask: mask
                            selectorNames: selNames] autorelease];
@@ -35,7 +36,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (id) initWithString: (NSString *) string
          modifierMask: (unsigned) mask
-        selectorNames: (NSArray *) selNames {
+        selectorNames: (NSArray *) selNames
+{
     [super init];
 
     _string = [string retain];

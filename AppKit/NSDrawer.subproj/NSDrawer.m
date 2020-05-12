@@ -49,7 +49,8 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
                         leadingOffset: (CGFloat) leadingOffset
                        trailingOffset: (CGFloat) trailingOffset
                                  edge: (NSRectEdge) edge
-                                state: (NSDrawerState) state {
+                                state: (NSDrawerState) state
+{
     NSRect parentFrame = [parentWindow frame];
     NSRect parentContentRect =
         [parentWindow contentRectForFrameRect: parentFrame];
@@ -110,7 +111,8 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
 // preferred edge if neither is possible.
 + (NSRectEdge) visibleEdgeWithPreferredEdge: (NSRectEdge) preferredEdge
                                parentWindow: (NSWindow *) parentWindow
-                               drawerWindow: (NSWindow *) drawerWindow {
+                               drawerWindow: (NSWindow *) drawerWindow
+{
     NSRect screenRect = [[parentWindow screen] visibleFrame];
     NSRect parentRect = [parentWindow frame];
     NSRect drawerRect = [drawerWindow frame];
@@ -226,7 +228,8 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
 }
 
 - (id) initWithContentSize: (NSSize) contentSize
-             preferredEdge: (NSRectEdge) edge {
+             preferredEdge: (NSRectEdge) edge
+{
     _drawerWindow = [[NSDrawerWindow alloc]
         initWithContentRect: NSMakeRect(0, 0, contentSize.width,
                                         contentSize.height)
@@ -571,7 +574,8 @@ NSString *const NSDrawerDidCloseNotification = @"NSDrawerDidCloseNotification";
 
 - (NSSize) drawerWindow: (NSDrawerWindow *) window
           constrainSize: (NSSize) size
-                   edge: (NSRectEdge) edge {
+                   edge: (NSRectEdge) edge
+{
     if (edge == NSMinXEdge || edge == NSMaxXEdge) {
         if (size.width > _maxContentSize.width && _maxContentSize.width > 0)
             size.width = _maxContentSize.width;

@@ -744,7 +744,8 @@ void NSUnicodeToCapitalized(unichar *characters, NSUInteger length) {
 }
 
 unichar *NSUnicodeFromBytes(const unsigned char *bytes, NSUInteger length,
-                            NSUInteger *resultLengthp) {
+                            NSUInteger *resultLengthp)
+{
     NSUInteger i, resultLength, resultIndex = 0;
     BOOL swap = NO;
     unichar *result;
@@ -790,7 +791,8 @@ unichar *NSUnicodeFromBytes(const unsigned char *bytes, NSUInteger length,
 
 unichar *NSUnicodeFromBytesUTF16BigEndian(const unsigned char *bytes,
                                           NSUInteger length,
-                                          NSUInteger *resultLengthp) {
+                                          NSUInteger *resultLengthp)
+{
     NSUInteger i, resultLength, resultIndex = 0;
     unichar *result;
 
@@ -823,7 +825,8 @@ unichar *NSUnicodeFromBytesUTF16BigEndian(const unsigned char *bytes,
 
 unichar *NSUnicodeFromBytesUTF16LittleEndian(const unsigned char *bytes,
                                              NSUInteger length,
-                                             NSUInteger *resultLengthp) {
+                                             NSUInteger *resultLengthp)
+{
     NSUInteger i, resultLength, resultIndex = 0;
     unichar *result;
 

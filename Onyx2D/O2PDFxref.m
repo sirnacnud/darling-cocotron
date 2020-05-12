@@ -81,7 +81,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (O2PDFxrefEntry *) entryWithNumber: (O2PDFInteger) number
-                          generation: (O2PDFInteger) generation {
+                          generation: (O2PDFInteger) generation
+{
     void *key = (void *) number;
     id check = NSMapGet(_numberToEntries, key);
 
@@ -104,7 +105,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (O2PDFObject *) objectAtNumber: (O2PDFInteger) number
-                      generation: (O2PDFInteger) generation {
+                      generation: (O2PDFInteger) generation
+{
     O2PDFxrefEntry *lookup = [self entryWithNumber: number
                                         generation: generation];
 

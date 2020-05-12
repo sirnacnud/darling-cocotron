@@ -8,7 +8,8 @@
         observer: observer
          keyPath: (NSString *) keyPath
          options: (NSKeyValueObservingOptions) options
-         context: (void *) context {
+         context: (void *) context
+{
     _object = object;
     _observer = observer;
     _keyPath = [keyPath copy];

@@ -28,7 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithStreams: (NSArray *) streams
         resources: (O2PDFDictionary *) resources
-           parent: (O2PDFContentStream *) parent {
+           parent: (O2PDFContentStream *) parent
+{
     _streams = [streams retain];
     _resources = [resources retain];
     _parent = [parent retain];
@@ -62,7 +63,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithStream: (O2PDFStream *) stream
        resources: (O2PDFDictionary *) resources
-          parent: (O2PDFContentStream *) parent {
+          parent: (O2PDFContentStream *) parent
+{
     NSArray *array = [NSArray arrayWithObject: stream];
 
     return [self initWithStreams: array resources: resources parent: parent];
@@ -93,7 +95,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) replaceResource: (O2PDFObject *) object
              forCategory: (const char *) category
                     name: (const char *) name
-              withObject: (id) replacement {
+              withObject: (id) replacement
+{
     O2PDFObject *result;
     O2PDFDictionary *sub;
 

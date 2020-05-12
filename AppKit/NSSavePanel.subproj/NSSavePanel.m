@@ -106,7 +106,8 @@ static NSSavePanel *_newPanel = nil;
 }
 
 - (NSInteger) runModalForDirectory: (NSString *) directory
-                              file: (NSString *) file {
+                              file: (NSString *) file
+{
     [self _setFilename: file];
     [self setDirectory: directory];
 
@@ -167,8 +168,7 @@ static NSSavePanel *_newPanel = nil;
     return ret;
 }
 
-- (void) setMessage: (NSString *) message;
-{
+- (void) setMessage: (NSString *) message; {
     @synchronized(self) {
         if (_message != message) {
             [_message release];
@@ -177,8 +177,7 @@ static NSSavePanel *_newPanel = nil;
     }
 }
 
-- (NSString *) message;
-{
+- (NSString *) message; {
     id ret = nil;
     @synchronized(self) {
         ret = [[_message copy] autorelease];
@@ -186,8 +185,7 @@ static NSSavePanel *_newPanel = nil;
     return ret;
 }
 
-- (void) setPrompt: (NSString *) prompt;
-{
+- (void) setPrompt: (NSString *) prompt; {
     @synchronized(self) {
         if (_prompt != prompt) {
             [_prompt release];
@@ -196,8 +194,7 @@ static NSSavePanel *_newPanel = nil;
     }
 }
 
-- (NSString *) prompt;
-{
+- (NSString *) prompt; {
     id ret = nil;
     @synchronized(self) {
         ret = [[_prompt copy] autorelease];
@@ -237,7 +234,8 @@ static NSSavePanel *_newPanel = nil;
                  modalForWindow: (NSWindow *) docWindow
                   modalDelegate: (id) modalDelegate
                  didEndSelector: (SEL) didEndSelector
-                    contextInfo: (void *) contextInfo {
+                    contextInfo: (void *) contextInfo
+{
     id inv = [NSInvocation
         invocationWithMethodSignature:
             [self
@@ -264,14 +262,16 @@ static NSSavePanel *_newPanel = nil;
 - (void) _selector_savePanelDidEnd: (NSSavePanel *) sheet
                         returnCode: (int) returnCode
                        contextInfo: (void *) contextInfo;
-{}
+{
+}
 
 - (void) _background_beginSheetForDirectory: (NSString *) path
                                        file: (NSString *) name
                              modalForWindow: (NSWindow *) docWindow
                               modalDelegate: (id) modalDelegate
                              didEndSelector: (SEL) didEndSelector
-                                contextInfo: (void *) contextInfo {
+                                contextInfo: (void *) contextInfo
+{
     id pool = [NSAutoreleasePool new];
     int ret = [self runModalForDirectory: path file: name];
 

@@ -96,8 +96,7 @@
     [self lockWhenCondition: condition beforeDate: [NSDate date]];
 }
 
-- (BOOL) lockWhenCondition: (NSInteger) condition beforeDate: (NSDate *) date;
-{
+- (BOOL) lockWhenCondition: (NSInteger) condition beforeDate: (NSDate *) date; {
     NSUInteger time = 0;
     UPDATE_TIME;
 

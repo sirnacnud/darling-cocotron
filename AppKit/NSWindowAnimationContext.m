@@ -28,7 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                              targetRect: (NSRect) targetRect
                                              resizeTime:
                                                  (NSTimeInterval) resizeTime
-                                                display: (BOOL) display {
+                                                display: (BOOL) display
+{
     NSRect deltaRect, stepRect;
     CGFloat totalPixels = 0;
     int stepCount = 0;
@@ -65,7 +66,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
              stepRect: (NSRect) stepRect
             stepCount: (int) stepCount
          stepInterval: (NSTimeInterval) stepInterval
-              display: (BOOL) display {
+              display: (BOOL) display
+{
     _window = [window retain];
     _targetRect = targetRect;
     _stepRect = stepRect;

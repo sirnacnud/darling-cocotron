@@ -6,7 +6,8 @@
 - initWithObject: object
                 key: (NSString *) key
     keyPathObserver: (NSKeyPathObserver *) keyPathObserver
-         restOfPath: (NSString *) restOfPath {
+         restOfPath: (NSString *) restOfPath
+{
     _object = object;
     _key = [key copy];
     _keyPathObserver = [keyPathObserver retain];

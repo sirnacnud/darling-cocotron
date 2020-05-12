@@ -80,7 +80,8 @@ static CGRect convertFrameFromWin32ScreenCoordinates(CGRect rect) {
 }
 
 static DWORD Win32ExtendedStyleForStyleMask(unsigned styleMask, BOOL isPanel,
-                                            BOOL isLayeredWindow) {
+                                            BOOL isLayeredWindow)
+{
     DWORD result = 0;
 
     if (styleMask == NSBorderlessWindowMask)
@@ -106,7 +107,8 @@ static DWORD Win32ExtendedStyleForStyleMask(unsigned styleMask, BOOL isPanel,
 }
 
 static DWORD Win32StyleForStyleMask(unsigned styleMask, BOOL isPanel,
-                                    BOOL isLayeredWindow) {
+                                    BOOL isLayeredWindow)
+{
     DWORD result = isLayeredWindow ? 0 : WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
 
     if (styleMask == NSBorderlessWindowMask)
@@ -155,7 +157,8 @@ static DWORD Win32StyleForStyleMask(unsigned styleMask, BOOL isPanel,
 
 void CGNativeBorderFrameWidthsForStyle(unsigned styleMask, CGFloat *top,
                                        CGFloat *left, CGFloat *bottom,
-                                       CGFloat *right) {
+                                       CGFloat *right)
+{
     RECT delta;
 
     delta.top = 0;
@@ -199,7 +202,8 @@ CGRect CGOutsetRectForNativeWindowBorder(CGRect frame, unsigned styleMask) {
 }
 
 static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
-                                                 bool hasShadow) {
+                                                 bool hasShadow)
+{
     if (styleMask == NSBorderlessWindowMask)
         return hasShadow ? L"Win32BorderlessWindowWithShadow"
                          : L"Win32BorderlessWindow";
@@ -253,7 +257,8 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
 - initWithFrame: (CGRect) frame
       styleMask: (unsigned) styleMask
         isPanel: (BOOL) isPanel
-    backingType: (CGSBackingStoreType) backingType {
+    backingType: (CGSBackingStoreType) backingType
+{
     InitializeCriticalSection(&_lock);
     _frame = frame;
     _level = kCGNormalWindowLevel;
@@ -378,7 +383,8 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
 }
 
 - (void) invalidateContextsWithNewSize: (CGSize) size
-                          forceRebuild: (BOOL) forceRebuild {
+                          forceRebuild: (BOOL) forceRebuild
+{
     if (!NSEqualSizes(_frame.size, size) || forceRebuild) {
         [self lock];
         _frame.size = size;
@@ -459,7 +465,8 @@ static const unichar *Win32ClassNameForStyleMask(unsigned styleMask,
 }
 
 - (void) sheetOrderFrontFromFrame: (CGRect) frame
-                      aboveWindow: (CGWindow *) aboveWindow {
+                      aboveWindow: (CGWindow *) aboveWindow
+{
     CGRect moveTo = convertFrameToWin32ScreenCoordinates(_frame);
     POINT origin = {moveTo.origin.x, moveTo.origin.y};
     SIZE sizeWnd = {_frame.size.width, 1};
@@ -810,7 +817,8 @@ static int reportGLErrorIfNeeded(const char *function, int line) {
             textureId: (GLint) textureId
                 setup: (BOOL) setup
                reload: (BOOL) reload
-               origin: (CGPoint) origin {
+               origin: (CGPoint) origin
+{
 
     glBindTexture(GL_TEXTURE_2D, textureId);
     reportGLErrorIfNeeded(__PRETTY_FUNCTION__, __LINE__);
@@ -1320,7 +1328,8 @@ static int reportGLErrorIfNeeded(const char *function, int line) {
 }
 
 - (void) flushBuffer: (BOOL) reloadBackingTexture
-                only: (CGLContextObj) onlyContext {
+                only: (CGLContextObj) onlyContext
+{
     [self lock];
     if (reloadBackingTexture)
         _reloadBackingTexture = YES;
@@ -1369,7 +1378,8 @@ static int reportGLErrorIfNeeded(const char *function, int line) {
 }
 
 - (void) adjustEventLocation: (CGPoint *) location
-                 childWindow: (BOOL) childWindow {
+                 childWindow: (BOOL) childWindow
+{
     if (!childWindow) {
         CGFloat top, left, bottom, right;
 
@@ -1829,7 +1839,8 @@ const int kWindowMaxDim = 10000;
 
 - (LRESULT) windowProcedure: (UINT) message
                      wParam: (WPARAM) wParam
-                     lParam: (LPARAM) lParam {
+                     lParam: (LPARAM) lParam
+{
 
 #if WM_MSG_DEBUGGING
     NSLog(@"windowProcedure: %u wParam: %d, lParam: %ld", message, wParam,
@@ -1934,7 +1945,8 @@ const int kWindowMaxDim = 10000;
 // Be sure the stack is aligned in case someone wants to do exotic things like
 // SSE2
 static LRESULT __attribute__((force_align_arg_pointer)) CALLBACK
-windowProcedure(HWND handle, UINT message, WPARAM wParam, LPARAM lParam) {
+windowProcedure(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
+{
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     Win32Window *self = GetProp(handle, "Win32Window");
     LRESULT result;

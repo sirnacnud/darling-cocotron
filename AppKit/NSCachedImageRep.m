@@ -40,7 +40,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (instancetype) initWithSize: (NSSize) size
                         depth: (NSWindowDepth) windowDepth
                      separate: (BOOL) separateWindow
-                        alpha: (BOOL) hasAlpha {
+                        alpha: (BOOL) hasAlpha
+{
     // FIXME: Implement shared caches, but also update NSImage to handle caching
     // in them.
     NSWindowStyleMask styleMask = NSBorderlessWindowMask;

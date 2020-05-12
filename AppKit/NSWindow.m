@@ -156,7 +156,8 @@ NSInteger NSBitsPerPixelFromDepth(NSWindowDepth depth) {
 @implementation _NSKeyViewPosition
 
 + (void) addKeyViewPositionsWithView: (NSView *) view
-                             toArray: (NSMutableArray *) array {
+                             toArray: (NSMutableArray *) array
+{
     [array addObject: [[[_NSKeyViewPosition alloc] initWithView: view]
                           autorelease]];
 
@@ -220,7 +221,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 + (NSRect) frameRectForContentRect: (NSRect) contentRect
-                         styleMask: (NSWindowStyleMask) styleMask {
+                         styleMask: (NSWindowStyleMask) styleMask
+{
     NSRect result = [[NSDisplay currentDisplay] outsetRect: contentRect
                             forNativeWindowBorderWithStyle: styleMask];
 
@@ -231,7 +233,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 + (NSRect) contentRectForFrameRect: (NSRect) frameRect
-                         styleMask: (NSWindowStyleMask) styleMask {
+                         styleMask: (NSWindowStyleMask) styleMask
+{
     NSRect result = [[NSDisplay currentDisplay] insetRect: frameRect
                            forNativeWindowBorderWithStyle: styleMask];
 
@@ -242,13 +245,15 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 + (CGFloat) minFrameWidthWithTitle: (NSString *) title
-                         styleMask: (NSWindowStyleMask) styleMask {
+                         styleMask: (NSWindowStyleMask) styleMask
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 + (NSInteger) windowNumberAtPoint: (NSPoint) point
-      belowWindowWithWindowNumber: (NSInteger) window {
+      belowWindowWithWindowNumber: (NSInteger) window
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -263,7 +268,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 + (NSButton *) standardWindowButton: (NSWindowButton) button
-                       forStyleMask: (NSWindowStyleMask) styleMask {
+                       forStyleMask: (NSWindowStyleMask) styleMask
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -298,7 +304,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 - (instancetype) initWithContentRect: (NSRect) contentRect
                            styleMask: (NSWindowStyleMask) styleMask
                              backing: (NSBackingStoreType) backing
-                               defer: (BOOL) defer {
+                               defer: (BOOL) defer
+{
     // Make sure NSApplication is initialized.
     if (!NSApp) {
         [NSApplication sharedApplication];
@@ -370,7 +377,8 @@ static BOOL _allowsAutomaticWindowTabbing;
                            styleMask: (NSWindowStyleMask) styleMask
                              backing: (NSBackingStoreType) backing
                                defer: (BOOL) defer
-                              screen: (NSScreen *) screen {
+                              screen: (NSScreen *) screen
+{
     // FIX, relocate contentRect
     return [self initWithContentRect: contentRect
                            styleMask: styleMask
@@ -917,7 +925,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (void) setFrame: (NSRect) newFrame
           display: (BOOL) display
-          animate: (BOOL) animate {
+          animate: (BOOL) animate
+{
     BOOL didSize = !NSEqualSizes(newFrame.size, _frame.size);
     BOOL didMove = !NSEqualPoints(newFrame.origin, _frame.origin);
 
@@ -997,7 +1006,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) setContentBorderThickness: (CGFloat) thickness
-                           forEdge: (NSRectEdge) edge {
+                           forEdge: (NSRectEdge) edge
+{
     // FIXME: should warn, but low priority cosmetic, so we dont, still needs to
     // be implemented
     //   NSUnimplementedMethod();
@@ -1042,7 +1052,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) setAutorecalculatesContentBorderThickness: (BOOL) automatic
-                                           forEdge: (NSRectEdge) edge {
+                                           forEdge: (NSRectEdge) edge
+{
     // FIXME: should warn, but low priority cosmetic, so we dont, still needs to
     // be implemented
     //   NSUnimplementedMethod();
@@ -1601,7 +1612,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) addChildWindow: (NSWindow *) child
-                ordered: (NSWindowOrderingMode) ordered {
+                ordered: (NSWindowOrderingMode) ordered
+{
     if (_childWindows == nil) {
         _childWindows = [NSMutableArray new];
     }
@@ -2121,7 +2133,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) orderWindow: (NSWindowOrderingMode) place
-          relativeTo: (NSInteger) relativeTo {
+          relativeTo: (NSInteger) relativeTo
+{
     // The move notifications are sent under unknown conditions around
     // orderFront: in the Apple AppKit, we do them all the time here until it's
     // figured out. I suspect it is a side effect of off-screen windows being at
@@ -2200,7 +2213,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 - (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
                           untilDate: (NSDate *) untilDate
                              inMode: (NSRunLoopMode) mode
-                            dequeue: (BOOL) dequeue {
+                            dequeue: (BOOL) dequeue
+{
     // This should get migrated down into event queue.
     [[self platformWindow] captureEvents];
 
@@ -2216,7 +2230,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) discardEventsMatchingMask: (NSEventMask) mask
-                       beforeEvent: (NSEvent *) event {
+                       beforeEvent: (NSEvent *) event
+{
     NSUnimplementedMethod();
 }
 
@@ -2447,7 +2462,8 @@ static BOOL _allowsAutomaticWindowTabbing;
              event: (NSEvent *) event
         pasteboard: (NSPasteboard *) pasteboard
             source: (id) source
-         slideBack: (BOOL) slideBack {
+         slideBack: (BOOL) slideBack
+{
     [[NSDraggingManager draggingManager] dragImage: image
                                                 at: location
                                             offset: offset
@@ -2458,7 +2474,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - validRequestorForSendType: (NSString *) sendType
-                 returnType: (NSString *) returnType {
+                 returnType: (NSString *) returnType
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -2544,7 +2561,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (void) _document: (NSDocument *) document
        shouldClose: (BOOL) shouldClose
-       contextInfo: (void *) context {
+       contextInfo: (void *) context
+{
     // Callback used by performClose:
     if (shouldClose) {
         [self close];
@@ -2840,7 +2858,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) _attachSheetContextOrderFrontAndAnimate:
-    (NSSheetContext *) sheetContext {
+    (NSSheetContext *) sheetContext
+{
     NSWindow *sheet = [sheetContext sheet];
 
     if ([sheet styleMask] != NSDocModalWindowMask)
@@ -2893,7 +2912,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) platformWindowActivated: (CGWindow *) window
-                 displayIfNeeded: (BOOL) displayIfNeeded {
+                 displayIfNeeded: (BOOL) displayIfNeeded
+{
     [NSApp _windowWillBecomeActive: self];
 
     [self _setSheetOriginAndFront];
@@ -2921,7 +2941,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) platformWindowDeactivated: (CGWindow *) window
-           checkForAppDeactivation: (BOOL) checkForAppDeactivation {
+           checkForAppDeactivation: (BOOL) checkForAppDeactivation
+{
     [NSApp _windowWillBecomeDeactive: self];
 
     [_childWindows
@@ -2991,7 +3012,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 
 - (void) platformWindow: (CGWindow *) window
            frameChanged: (NSRect) frame
-                didSize: (BOOL) didSize {
+                didSize: (BOOL) didSize
+{
     // Don't allow the platform window changes to violate our window size limits
     // (if we have them). Windows (for example) likes to make the platform
     // window very small so it fits in the task bar...
@@ -3042,7 +3064,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (NSSize) platformWindow: (CGWindow *) window
-      frameSizeWillChange: (NSSize) size {
+      frameSizeWillChange: (NSSize) size
+{
     if (_resizeIncrements.width != 1 || _resizeIncrements.height != 1) {
         NSSize vertical = size;
         NSSize horizontal = size;

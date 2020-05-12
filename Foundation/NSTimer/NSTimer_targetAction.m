@@ -28,7 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             target: target
           selector: (SEL) selector
           userInfo: userInfo
-           repeats: (BOOL) repeats {
+           repeats: (BOOL) repeats
+{
     [super initWithFireDate: date interval: interval repeats: repeats];
 
     _userInfo = [userInfo retain];
@@ -42,7 +43,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                repeats: (BOOL) repeats
               userInfo: userInfo
                 target: target
-              selector: (SEL) selector {
+              selector: (SEL) selector
+{
 
     [super initWithTimeInterval: timeInterval repeats: repeats];
 

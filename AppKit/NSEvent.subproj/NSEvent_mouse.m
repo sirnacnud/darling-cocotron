@@ -27,7 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                        window: (NSWindow *) window
                    clickCount: (NSInteger) clickCount
                        deltaX: (CGFloat) deltaX
-                       deltaY: (CGFloat) deltaY {
+                       deltaY: (CGFloat) deltaY
+{
     [super initWithType: type
                location: location
           modifierFlags: modifierFlags
@@ -48,7 +49,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                      location: (NSPoint) location
                 modifierFlags: (NSEventModifierFlags) modifierFlags
                        window: (NSWindow *) window
-                       deltaY: (CGFloat) deltaY {
+                       deltaY: (CGFloat) deltaY
+{
     [super initWithType: type
                location: location
           modifierFlags: modifierFlags
@@ -67,7 +69,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                       context: (NSGraphicsContext *) context
                   eventNumber: (NSInteger) eventNumber
                trackingNumber: (NSInteger) tracking
-                     userData: (void *) userData {
+                     userData: (void *) userData
+{
     self = [super initWithType: type
                       location: location
                  modifierFlags: modifierFlags
@@ -87,7 +90,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                       context: (NSGraphicsContext *) context
                   eventNumber: (NSInteger) eventNumber
                    clickCount: (NSInteger) clickCount
-                     pressure: (float) pressure {
+                     pressure: (float) pressure
+{
     [super initWithType: type
                location: location
           modifierFlags: modifierFlags

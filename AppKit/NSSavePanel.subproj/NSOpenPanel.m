@@ -97,7 +97,8 @@ static NSOpenPanel *_newPanel = nil;
 
 - (NSInteger) runModalForDirectory: (NSString *) directory
                               file: (NSString *) file
-                             types: (NSArray *) types {
+                             types: (NSArray *) types
+{
     [self _setFilename: file];
     [self setDirectory: directory];
     [self setAllowedFileTypes: types];
@@ -110,7 +111,8 @@ static NSOpenPanel *_newPanel = nil;
 }
 
 - (NSInteger) runModalForDirectory: (NSString *) directory
-                              file: (NSString *) file {
+                              file: (NSString *) file
+{
     [self setDirectory: directory];
     [self _setFilename: file];
     return [self runModal];
@@ -171,7 +173,8 @@ static NSOpenPanel *_newPanel = nil;
                  modalForWindow: (NSWindow *) docWindow
                   modalDelegate: (id) modalDelegate
                  didEndSelector: (SEL) didEndSelector
-                    contextInfo: (void *) contextInfo {
+                    contextInfo: (void *) contextInfo
+{
     id inv = [NSInvocation
         invocationWithMethodSignature:
             [self
@@ -202,7 +205,8 @@ static NSOpenPanel *_newPanel = nil;
                              modalForWindow: (NSWindow *) docWindow
                               modalDelegate: (id) modalDelegate
                              didEndSelector: (SEL) didEndSelector
-                                contextInfo: (void *) contextInfo {
+                                contextInfo: (void *) contextInfo
+{
     id pool = [NSAutoreleasePool new];
     int ret = [self runModalForDirectory: path file: name types: fileTypes];
 

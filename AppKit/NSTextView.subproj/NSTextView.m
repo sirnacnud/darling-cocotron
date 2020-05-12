@@ -493,8 +493,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (NSRange) selectionRangeForProposedRange: (NSRange) range
-                               granularity:
-                                   (NSSelectionGranularity) granularity {
+                               granularity: (NSSelectionGranularity) granularity
+{
     switch (granularity) {
     case NSSelectByCharacter:
         return range;
@@ -511,7 +511,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) setSelectedRange: (NSRange) range
                  affinity: (NSSelectionAffinity) affinity
-           stillSelecting: (BOOL) stillSelecting {
+           stillSelecting: (BOOL) stillSelecting
+{
     NSArray *ranges =
         [NSArray arrayWithObject: [NSValue valueWithRange: range]];
 
@@ -522,7 +523,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) setSelectedRanges: (NSArray *) ranges
                   affinity: (NSSelectionAffinity) affinity
-            stillSelecting: (BOOL) stillSelecting {
+            stillSelecting: (BOOL) stillSelecting
+{
     if ([ranges count] == 0)
         [NSException
              raise: NSInvalidArgumentException
@@ -599,7 +601,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (NSArray *) completionsForPartialWordRange: (NSRange) range
-                         indexOfSelectedItem: (NSInteger *) index {
+                         indexOfSelectedItem: (NSInteger *) index
+{
     NSArray *result;
     // replace this with a real completion list source...
     NSArray *source = [NSArray
@@ -638,7 +641,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 - (void) insertCompletion: (NSString *) string
       forPartialWordRange: (NSRange) range
                  movement: (NSInteger) movement
-                  isFinal: (BOOL) isFinal {
+                  isFinal: (BOOL) isFinal
+{
     [self _replaceCharactersInRange: range withString: string];
 
     // is this proper behavior? i dunno
@@ -664,7 +668,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) writeSelectionToPasteboard: (NSPasteboard *) pasteboard
-                               type: (NSString *) type {
+                               type: (NSString *) type
+{
     if ([type isEqualToString: NSStringPboardType]) {
         [pasteboard
             setString: [[self string] substringWithRange: [self selectedRange]]
@@ -680,7 +685,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) writeSelectionToPasteboard: (NSPasteboard *) pasteboard
-                              types: (NSArray *) types {
+                              types: (NSArray *) types
+{
     int i, count = [types count];
 
     [pasteboard declareTypes: types owner: nil];
@@ -720,7 +726,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) shouldChangeTextInRange: (NSRange) changeInRange
-               replacementString: (NSString *) replacementString {
+               replacementString: (NSString *) replacementString
+{
     if (![self isEditable])
         return NO;
 
@@ -748,7 +755,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) drawInsertionPointInRect: (NSRect) rect
                             color: (NSColor *) color
-                         turnedOn: (BOOL) turnedOn {
+                         turnedOn: (BOOL) turnedOn
+{
     if (![[NSGraphicsContext currentContext] isDrawingToScreen])
         return;
 
@@ -1882,7 +1890,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (NSUInteger) glyphIndexForPoint: (NSPoint) point
-    fractionOfDistanceThroughGlyph: (CGFloat *) fraction {
+    fractionOfDistanceThroughGlyph: (CGFloat *) fraction
+{
     point.x -= _textContainerInset.width;
     point.y -= _textContainerInset.height;
 
@@ -2360,7 +2369,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) _addAttribute: (NSString *) key
                  value: (id) value
-                 range: (NSRange) range {
+                 range: (NSRange) range
+{
     NSDictionary *attributes = [NSDictionary dictionaryWithObject: value
                                                            forKey: key];
     [self _addAttributes: attributes range: range];
@@ -2382,7 +2392,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
-                       withString: (NSString *) string {
+                       withString: (NSString *) string
+{
     if (![self _delegateChangeTextInRange: range replacementString: string])
         return;
 
@@ -2396,7 +2407,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 - (void) _replaceCharactersInRange: (NSRange) range
                         withString: (id) string
                useTypingAttributes: (BOOL) useTypingAttributes
-            allowsTypingCoalescing: (BOOL) allowsTypingCoalescing {
+            allowsTypingCoalescing: (BOOL) allowsTypingCoalescing
+{
     NSUndoManager *undoManager = [self undoManager];
 
     if (_firstResponderButNotEditingYet) {
@@ -2499,7 +2511,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) _replaceCharactersInRange: (NSRange) range
                         withString: (id) string
-               useTypingAttributes: (BOOL) useTypingAttributes {
+               useTypingAttributes: (BOOL) useTypingAttributes
+{
     [self _replaceCharactersInRange: range
                          withString: string
                 useTypingAttributes: useTypingAttributes
@@ -2508,7 +2521,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 - (void) _replaceCharactersInRange: (NSRange) range
                         withString: (id) string
-            allowsTypingCoalescing: (BOOL) allowsTypingCoalescing {
+            allowsTypingCoalescing: (BOOL) allowsTypingCoalescing
+{
     [self _replaceCharactersInRange: range
                          withString: string
                 useTypingAttributes: YES
@@ -3222,7 +3236,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (NSDragOperation) dragOperationForDraggingInfo: (id<NSDraggingInfo>) info
-                                            type: (NSString *) type {
+                                            type: (NSString *) type
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -3247,7 +3262,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) _delegateChangeTextInRange: (NSRange) range
-                  replacementString: (NSString *) string {
+                  replacementString: (NSString *) string
+{
     if ([_delegate respondsToSelector: @selector
                    (textView:shouldChangeTextInRange:replacementString:)]) {
         if ([_delegate textView: self
@@ -3260,7 +3276,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (NSArray *) _delegateChangeSelectionFromRanges: (NSArray *) from
-                                        toRanges: (NSArray *) to {
+                                        toRanges: (NSArray *) to
+{
     NSArray *result = to;
     if ([_delegate
             respondsToSelector: @selector
@@ -3592,11 +3609,12 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 
 #pragma mark Ruler client view
 - (void) rulerView: (NSRulerView *) rulerView
-    willSetClientView: (NSView *) clientView {
+    willSetClientView: (NSView *) clientView
+{
 }
 
-- (void) rulerView: (NSRulerView *) rulerView
-    handleMouseDown: (NSEvent *) event {
+- (void) rulerView: (NSRulerView *) rulerView handleMouseDown: (NSEvent *) event
+{
     // Add a new tab stop
     NSPoint point = [self convertPoint: event.locationInWindow fromView: nil];
     CGFloat delta = rulerView.originOffset;
@@ -3611,13 +3629,15 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldMoveMarker: (NSRulerMarker *) marker {
+    shouldMoveMarker: (NSRulerMarker *) marker
+{
     return YES;
 }
 
 - (CGFloat) rulerView: (NSRulerView *) rulerView
        willMoveMarker: (NSRulerMarker *) marker
-           toLocation: (CGFloat) location {
+           toLocation: (CGFloat) location
+{
     if (location < rulerView.originOffset) {
         location = rulerView.originOffset;
     }
@@ -3630,7 +3650,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (void) rulerView: (NSRulerView *) rulerView
-     didMoveMarker: (NSRulerMarker *) marker {
+     didMoveMarker: (NSRulerMarker *) marker
+{
     CGFloat delta = rulerView.originOffset;
     CGFloat location = marker.markerLocation - delta;
 
@@ -3721,13 +3742,15 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldAddMarker: (NSRulerMarker *) marker {
+    shouldAddMarker: (NSRulerMarker *) marker
+{
     return YES;
 }
 
 - (CGFloat) rulerView: (NSRulerView *) rulerView
         willAddMarker: (NSRulerMarker *) marker
-           atLocation: (CGFloat) location {
+           atLocation: (CGFloat) location
+{
     if (location < rulerView.originOffset) {
         location = rulerView.originOffset;
     }
@@ -3740,7 +3763,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (void) rulerView: (NSRulerView *) rulerView
-      didAddMarker: (NSRulerMarker *) marker {
+      didAddMarker: (NSRulerMarker *) marker
+{
     CGFloat delta = rulerView.originOffset;
 
     CGFloat location = marker.markerLocation - delta;
@@ -3821,13 +3845,15 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 }
 
 - (BOOL) rulerView: (NSRulerView *) rulerView
-    shouldRemoveMarker: (NSRulerMarker *) marker {
+    shouldRemoveMarker: (NSRulerMarker *) marker
+{
     return [(NSObject *) marker.representedObject
         isKindOfClass: [NSTextTab class]];
 }
 
 - (void) rulerView: (NSRulerView *) rulerView
-    didRemoveMarker: (NSRulerMarker *) marker {
+    didRemoveMarker: (NSRulerMarker *) marker
+{
     id representedObject = marker.representedObject;
     if ([representedObject isKindOfClass: [NSTextTab class]]) {
         NSTextTab *textTab = (NSTextTab *) representedObject;

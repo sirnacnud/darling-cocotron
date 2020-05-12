@@ -52,8 +52,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setLastFilePath: (NSString *) aPath
-/*" Sets the lastFilePath (relative) to aPath and its file attributes. "*/
-{
+/*" Sets the lastFilePath (relative) to aPath and its file attributes. "*/ {
     NSString *fullPath = [startPath stringByAppendingPathComponent: aPath];
     NSDictionary *attrs = [fm fileAttributesAtPath: fullPath traverseLink: NO];
 
@@ -117,7 +116,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSUInteger) countByEnumeratingWithState: (NSFastEnumerationState *) state
                                    objects: (id *) stackbuf
-                                     count: (NSUInteger) len {
+                                     count: (NSUInteger) len
+{
     ++state->state;
     state->itemsPtr = stackbuf;
     state->mutationsPtr = (unsigned long *) self;

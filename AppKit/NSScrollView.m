@@ -48,7 +48,8 @@ static Class _rulerViewClass = nil;
 + (NSSize) frameSizeForContentSize: (NSSize) contentSize
              hasHorizontalScroller: (BOOL) hasHorizontalScroller
                hasVerticalScroller: (BOOL) hasVerticalScroller
-                        borderType: (NSBorderType) borderType {
+                        borderType: (NSBorderType) borderType
+{
 
     if (hasHorizontalScroller)
         contentSize.height += [NSScroller scrollerWidth];
@@ -81,7 +82,8 @@ static Class _rulerViewClass = nil;
 + (NSSize) contentSizeForFrameSize: (NSSize) frameSize
              hasHorizontalScroller: (BOOL) hasHorizontalScroller
                hasVerticalScroller: (BOOL) hasVerticalScroller
-                        borderType: (NSBorderType) borderType {
+                        borderType: (NSBorderType) borderType
+{
 
     if (hasHorizontalScroller)
         frameSize.height -= [NSScroller scrollerWidth];

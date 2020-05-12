@@ -207,7 +207,8 @@ void *ObservableArrayTestContext;
 - (void) observeValueForKeyPath: (NSString *) keyPath
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     if (context == &ObservableArrayTestContext) {
         self.lastObservedKey = keyPath;
     } else {

@@ -369,7 +369,8 @@ static NSString *const NSPopUpButtonBindingObservationContext =
 - (void) bind: (NSString *) binding
        toObject: (id) observable
     withKeyPath: (NSString *) keyPath
-        options: (NSDictionary *) options {
+        options: (NSDictionary *) options
+{
     // No need to observe the same thing many times when we have several
     // bindings
     if (!_observerAdded) {
@@ -393,7 +394,8 @@ static NSString *const NSPopUpButtonBindingObservationContext =
 - (void) observeValueForKeyPath: (NSString *) keyPath
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     if (context == NSPopUpButtonBindingObservationContext) {
         if ([keyPath isEqualToString: @"cell.selectedItem"]) {
             if ([[change objectForKey: NSKeyValueChangeNotificationIsPriorKey]

@@ -67,7 +67,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) encodeWithCoder: (NSCoder *) coder;
 @end
 
-NS_ROOT_CLASS @interface NSObject<NSObject> { Class isa; }
+NS_ROOT_CLASS @interface NSObject<NSObject> {
+    Class isa;
+}
 
 + (NSInteger) version;
 + (void) setVersion: (NSInteger) version;

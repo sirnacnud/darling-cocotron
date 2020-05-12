@@ -25,14 +25,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) isPartialStringValid: (NSString *) partial
              newEditingString: (NSString **) editing
-             errorDescription: (NSString **) error {
+             errorDescription: (NSString **) error
+{
     NSInvalidAbstractInvocation();
     return NO;
 }
 
 - (BOOL) getObjectValue: (id *) object
               forString: (NSString *) string
-       errorDescription: (NSString **) error {
+       errorDescription: (NSString **) error
+{
     NSInvalidAbstractInvocation();
     return NO;
 }
@@ -49,7 +51,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSAttributedString *) attributedStringForObjectValue: (id) object
                                   withDefaultAttributes:
-                                      (NSDictionary *) attributes {
+                                      (NSDictionary *) attributes
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
@@ -58,13 +61,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         proposedSelectedRange: (NSRange *) proposedRangep
                originalString: (NSString *) originalString
         originalSelectedRange: (NSRange) originalRange
-             errorDescription: (NSString **) errorStringp {
+             errorDescription: (NSString **) errorStringp
+{
     NSInvalidAbstractInvocation();
     return NO;
 }
 
 - initWithCoder: (NSCoder *) coder {
-
     return self;
 }
 

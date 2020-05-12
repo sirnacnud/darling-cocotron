@@ -130,8 +130,8 @@ static NSLock *_cacheLock = nil;
     }
 }
 
-+ (NSUInteger) _cacheIndexOfFontWithName: (NSString *) name
-                                    size: (CGFloat) size {
++ (NSUInteger) _cacheIndexOfFontWithName: (NSString *) name size: (CGFloat) size
+{
     NSUInteger i;
 
     for (i = 0; i < _fontCacheSize; i++) {
@@ -219,7 +219,8 @@ static NSLock *_cacheLock = nil;
 
 + (NSFont *) _uiFontOfType: (CTFontUIFontType) type
                       size: (CGFloat) size
-              fallbackName: (NSString *) fallbackName {
+              fallbackName: (NSString *) fallbackName
+{
     NSFont *result = nil;
     CTFontRef ctFont = CTFontCreateUIFontForLanguage(type, size, nil);
     if (ctFont) {
@@ -505,7 +506,8 @@ static NSLock *_cacheLock = nil;
 }
 
 + (NSFont *) fontWithDescriptor: (NSFontDescriptor *) descriptor
-                           size: (CGFloat) size {
+                           size: (CGFloat) size
+{
 
     NSDictionary *attributes = [descriptor fontAttributes];
     NSString *fontName = [attributes objectForKey: NSFontNameAttribute];
@@ -552,7 +554,8 @@ static NSLock *_cacheLock = nil;
 
 + (NSFont *) fontWithDescriptor: (NSFontDescriptor *) descriptor
                            size: (CGFloat) size
-                  textTransform: (NSAffineTransform *) transform {
+                  textTransform: (NSAffineTransform *) transform
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -639,7 +642,7 @@ static NSLock *_cacheLock = nil;
         setObject: [NSNumber numberWithInt: [fm weightOfFont: self]]
            forKey: NSFontWeightTrait];
     //	[traitsDictionary setObject: [NSNumber numberWithInt: ??] forKey:
-    //NSFontWidthTrait]; // not sure what's put here
+    // NSFontWidthTrait]; // not sure what's put here
     [traitsDictionary setObject: [NSNumber numberWithDouble: [self italicAngle]]
                          forKey: NSFontSlantTrait];
     return traitsDictionary;
@@ -657,9 +660,11 @@ static NSLock *_cacheLock = nil;
             NSFontFamilyAttribute,
             [[NSNumber numberWithDouble: [self pointSize]] stringValue],
             NSFontSizeAttribute,
-            //								[self matrix], NSFontMatrixAttribute, // currently
-            //returns nil 								[self coveredCharacterSet],
-            //NSFontCharacterSetAttribute, // currently returns nil
+            //								[self
+            //matrix], NSFontMatrixAttribute,
+            //// currently returns nil
+            // [self coveredCharacterSet], NSFontCharacterSetAttribute, //
+            // currently returns nil
             [self _fontTraitsAsDictionary], NSFontTraitsAttribute,
             [typeface traitName], NSFontFaceAttribute,
             [NSNumber numberWithDouble: [self maximumAdvancement].width],
@@ -821,7 +826,8 @@ static NSLock *_cacheLock = nil;
 
 - (NSPoint) positionOfGlyph: (NSGlyph) current
             precededByGlyph: (NSGlyph) previous
-                  isNominal: (BOOL *) isNominalp {
+                  isNominal: (BOOL *) isNominalp
+{
     return [_ctFont positionOfGlyph: current
                     precededByGlyph: previous
                           isNominal: isNominalp];
@@ -829,7 +835,8 @@ static NSLock *_cacheLock = nil;
 
 - (void) getAdvancements: (NSSize *) advancements
                forGlyphs: (const NSGlyph *) glyphs
-                   count: (NSUInteger) count {
+                   count: (NSUInteger) count
+{
     CGGlyph cgGlyphs[count];
     NSInteger i;
 
@@ -841,19 +848,22 @@ static NSLock *_cacheLock = nil;
 
 - (void) getAdvancements: (NSSize *) advancements
          forPackedGlyphs: (const void *) packed
-                  length: (NSUInteger) length {
+                  length: (NSUInteger) length
+{
     CTFontGetAdvancesForGlyphs(_ctFont, 0, packed, advancements, length);
 }
 
 - (void) getBoundingRects: (NSRect *) rects
                 forGlyphs: (const NSGlyph *) glyphs
-                    count: (NSUInteger) count {
+                    count: (NSUInteger) count
+{
     NSUnimplementedMethod();
 }
 
 - (NSUInteger) getGlyphs: (NSGlyph *) glyphs
            forCharacters: (unichar *) characters
-                  length: (NSUInteger) length {
+                  length: (NSUInteger) length
+{
     CGGlyph cgGlyphs[length];
     NSInteger i;
 
@@ -879,7 +889,8 @@ static NSLock *_cacheLock = nil;
 
 NSInteger NSConvertGlyphsToPackedGlyphs(NSGlyph *glyphs, NSInteger length,
                                         NSMultibyteGlyphPacking packing,
-                                        char *outputX) {
+                                        char *outputX)
+{
     NSInteger i, result = 0;
     CGGlyph *output = (CGGlyph *) outputX;
 

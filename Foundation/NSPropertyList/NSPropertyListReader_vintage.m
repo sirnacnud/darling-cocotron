@@ -143,7 +143,8 @@ static inline id topObject(NSPropertyListReader_vintage *self) {
 }
 
 static inline void appendCharacter(NSPropertyListReader_vintage *self,
-                                   uint8_t c) {
+                                   uint8_t c)
+{
     if (self->_bufferSize >= self->_bufferCapacity) {
         self->_bufferCapacity *= 2;
         self->_buffer = NSZoneRealloc(NULL, self->_buffer,

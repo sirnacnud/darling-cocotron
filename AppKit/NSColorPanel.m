@@ -71,7 +71,8 @@ static NSUInteger _pickerMask = 0;
 
 + (BOOL) dragColor: (NSColor *) color
          withEvent: (NSEvent *) event
-          fromView: (NSView *) view {
+          fromView: (NSView *) view
+{
     NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSDragPboard];
     NSSize size = NSMakeSize(12, 12);
     NSImage *image = [[[NSImage alloc] initWithSize: size] autorelease];

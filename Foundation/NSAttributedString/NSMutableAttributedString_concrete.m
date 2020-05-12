@@ -63,7 +63,8 @@ static void encodeIntoData(NSMutableData *data, NSUInteger value) {
 }
 
 static NSUInteger decodeFromData(NSData *data, NSUInteger offset,
-                                 NSUInteger *value) {
+                                 NSUInteger *value)
+{
     *value = 0;
     const char *bytes = [data bytes];
 
@@ -165,7 +166,8 @@ static NSUInteger decodeFromData(NSData *data, NSUInteger offset,
 }
 
 - (NSDictionary *) attributesAtIndex: (NSUInteger) location
-                      effectiveRange: (NSRange *) effectiveRangep {
+                      effectiveRange: (NSRange *) effectiveRangep
+{
     NSDictionary *result;
 
     if (location >= [self length])
@@ -185,7 +187,8 @@ static NSUInteger decodeFromData(NSData *data, NSUInteger offset,
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
-                       withString: (NSString *) string {
+                       withString: (NSString *) string
+{
     NSInteger delta = [string length] - range.length;
 
     [_string replaceCharactersInRange: range withString: string];

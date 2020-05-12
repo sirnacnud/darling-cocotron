@@ -65,7 +65,8 @@ static DWORD WINAPI readInBackground(LPVOID arg) {
 }
 
 + readInBackgroundWithFileHandle: (NSFileHandle *) fileHandle
-                           modes: (NSArray *) modes {
+                           modes: (NSArray *) modes
+{
     // we autorelease when things are done
     return [[self alloc] initWithFileHandle: fileHandle modes: modes];
 }

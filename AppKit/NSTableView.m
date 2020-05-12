@@ -679,8 +679,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     [self setNeedsDisplay: YES];
 }
 
-- (void) setSelectionHighlightStyle:
-    (NSTableViewSelectionHighlightStyle) value {
+- (void) setSelectionHighlightStyle: (NSTableViewSelectionHighlightStyle) value
+{
     _selectionHighlightStyle = value;
     [self setNeedsDisplay: YES];
 }
@@ -715,7 +715,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 }
 
 - (id) dataSourceObjectValueForTableColumn: (NSTableColumn *) tableColumn
-                                       row: (NSInteger) row {
+                                       row: (NSInteger) row
+{
 
     if (_dataSource != nil &&
         [_dataSource respondsToSelector: @selector
@@ -763,7 +764,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 - (void) editColumn: (NSInteger) column
                 row: (NSInteger) row
           withEvent: (NSEvent *) event
-             select: (BOOL) select {
+             select: (BOOL) select
+{
     if (_editingCell)
         [self textDidEndEditing: nil];
 
@@ -884,10 +886,12 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
 // That's the setter for _selectedRowIndexes.
 - (void) selectRowIndexes: (NSIndexSet *) indexes
-     byExtendingSelection: (BOOL) extend {
+     byExtendingSelection: (BOOL) extend
+{
     unsigned index;
     NSIndexSet *newIndexes;
-    NSInteger i, last, try
+    NSInteger i, last,
+    try
         ;
     BOOL changed = NO;
 
@@ -924,7 +928,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         try
             = [newIndexes firstIndex];
         if (try != NSNotFound && try < i)
-            i = try
+            i =
+            try
                 ;
     }
     last = [_selectedRowIndexes lastIndex];
@@ -934,7 +939,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
         try
             = [newIndexes lastIndex];
         if (try != NSNotFound && try > last)
-            last = try
+            last =
+            try
                 ;
     }
     if (i != NSNotFound) // If i is valid, last is valid as well.
@@ -1220,7 +1226,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
 - (void) drawHighlightedSelectionForColumn: (NSInteger) column
                                        row: (NSInteger) row
-                                    inRect: (NSRect) rect {
+                                    inRect: (NSRect) rect
+{
     [[NSColor selectedControlColor] setFill];
     NSRectFill(rect);
 }
@@ -1244,8 +1251,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                                                                                row]];
 }
 
-- (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber
-                              row: (NSInteger) row {
+- (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber row: (NSInteger) row
+{
     NSTableColumn *column = [_tableColumns objectAtIndex: columnNumber];
     NSCell *dataCell = [column dataCellForRow: row];
 
@@ -1465,7 +1472,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
 - (void) dataSourceSetObjectValue: object
                    forTableColumn: (NSTableColumn *) tableColumn
-                              row: (NSInteger) row {
+                              row: (NSInteger) row
+{
     if ([_dataSource respondsToSelector: @selector
                      (tableView:setObjectValue:forTableColumn:row:)])
         [_dataSource tableView: self
@@ -1568,7 +1576,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 }
 
 - (BOOL) delegateShouldEditTableColumn: (NSTableColumn *) tableColumn
-                                   row: (NSInteger) row {
+                                   row: (NSInteger) row
+{
     if ([_delegate respondsToSelector: @selector(tableView:
                                            shouldEditTableColumn:row:)])
         return [_delegate tableView: self

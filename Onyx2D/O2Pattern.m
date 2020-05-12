@@ -28,7 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
          ystep: (O2Float) ystep
         tiling: (O2PatternTiling) tiling
      isColored: (BOOL) isColored
-     callbacks: (const O2PatternCallbacks *) callbacks {
+     callbacks: (const O2PatternCallbacks *) callbacks
+{
     _info = info;
     _bounds = bounds;
     _matrix = matrix;
@@ -71,7 +72,8 @@ O2PatternRef O2PatternCreate(void *info, O2Rect bounds,
                              O2AffineTransform matrix, O2Float xStep,
                              O2Float yStep, O2PatternTiling tiling,
                              bool isColored,
-                             const O2PatternCallbacks *callbacks) {
+                             const O2PatternCallbacks *callbacks)
+{
     return [[O2Pattern alloc] initWithInfo: info
                                     bounds: bounds
                                     matrix: matrix

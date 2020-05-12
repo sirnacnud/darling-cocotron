@@ -40,7 +40,6 @@ THE SOFTWARE.
 #define D_GIF_ERR_EOF_TOO_SOON 113
 
 static inline int READ(LZWFileType *_gif, uint8_t *_buf, int _len) {
-
     return [(_gif)->inputStream read: _buf maxLength: _len];
 }
 
@@ -153,7 +152,8 @@ static int DLZWGetPrefixChar(LZWPrefixType *Prefix, int Code, int ClearCode) {
 }
 
 int DLZWDecompressLine(LZWFileType *LZWFile, O2DataConsumerRef consumer,
-                       int LineLen) {
+                       int LineLen)
+{
 
     int i = 0;
     int j, CrntCode, EOFCode, ClearCode, CrntPrefix, LastCode, StackPtr;

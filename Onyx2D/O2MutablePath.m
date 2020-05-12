@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // ellipse to 4 spline bezier, http://www.tinaja.com/glib/ellipse4.pdf
 void O2MutablePathEllipseToBezier(O2Point *cp, O2Float x, O2Float y,
-                                  O2Float xrad, O2Float yrad) {
+                                  O2Float xrad, O2Float yrad)
+{
     O2Float magic = 0.551784;
     O2Float xmag = xrad * magic;
     O2Float ymag = yrad * magic;
@@ -103,7 +104,8 @@ O2MutablePathRef O2PathCreateMutable(void) {
 - initWithOperators: (unsigned char *) elements
     numberOfElements: (size_t) numberOfElements
               points: (O2Point *) points
-      numberOfPoints: (size_t) numberOfPoints {
+      numberOfPoints: (size_t) numberOfPoints
+{
     O2PathInitWithOperators(self, elements, numberOfElements, points,
                             numberOfPoints);
     _capacityOfElements = numberOfElements;
@@ -146,7 +148,8 @@ static inline void expandPointCapacity(O2MutablePath *self, size_t delta) {
 }
 
 void O2PathMoveToPoint(O2MutablePathRef self, const O2AffineTransform *matrix,
-                       O2Float x, O2Float y) {
+                       O2Float x, O2Float y)
+{
     O2Point point = O2PointMake(x, y);
 
     if (matrix != NULL)
@@ -159,8 +162,8 @@ void O2PathMoveToPoint(O2MutablePathRef self, const O2AffineTransform *matrix,
 }
 
 void O2PathAddLineToPoint(O2MutablePathRef self,
-                          const O2AffineTransform *matrix, O2Float x,
-                          O2Float y) {
+                          const O2AffineTransform *matrix, O2Float x, O2Float y)
+{
     O2Point point = O2PointMake(x, y);
 
     if (matrix != NULL)
@@ -175,7 +178,8 @@ void O2PathAddLineToPoint(O2MutablePathRef self,
 void O2PathAddCurveToPoint(O2MutablePathRef self,
                            const O2AffineTransform *matrix, O2Float cp1x,
                            O2Float cp1y, O2Float cp2x, O2Float cp2y, O2Float x,
-                           O2Float y) {
+                           O2Float y)
+{
     O2Point cp1 = O2PointMake(cp1x, cp1y);
     O2Point cp2 = O2PointMake(cp2x, cp2y);
     O2Point endPoint = O2PointMake(x, y);
@@ -196,7 +200,8 @@ void O2PathAddCurveToPoint(O2MutablePathRef self,
 
 void O2PathAddQuadCurveToPoint(O2MutablePathRef self,
                                const O2AffineTransform *matrix, O2Float cpx,
-                               O2Float cpy, O2Float x, O2Float y) {
+                               O2Float cpy, O2Float x, O2Float y)
+{
     O2Point cp1 = O2PointMake(cpx, cpy);
     O2Point endPoint = O2PointMake(x, y);
 
@@ -219,7 +224,8 @@ void O2PathCloseSubpath(O2MutablePathRef self) {
 }
 
 void O2PathAddLines(O2MutablePathRef self, const O2AffineTransform *matrix,
-                    const O2Point *points, size_t count) {
+                    const O2Point *points, size_t count)
+{
     size_t i;
 
     if (count == 0)
@@ -231,7 +237,8 @@ void O2PathAddLines(O2MutablePathRef self, const O2AffineTransform *matrix,
 }
 
 void O2PathAddRect(O2MutablePathRef self, const O2AffineTransform *matrix,
-                   O2Rect rect) {
+                   O2Rect rect)
+{
     // The line order is correct per documentation, do not change.
     O2PathMoveToPoint(self, matrix, O2RectGetMinX(rect), O2RectGetMinY(rect));
     O2PathAddLineToPoint(self, matrix, O2RectGetMaxX(rect),
@@ -244,7 +251,8 @@ void O2PathAddRect(O2MutablePathRef self, const O2AffineTransform *matrix,
 }
 
 void O2PathAddRects(O2MutablePathRef self, const O2AffineTransform *matrix,
-                    const O2Rect *rects, size_t count) {
+                    const O2Rect *rects, size_t count)
+{
     size_t i;
 
     for (i = 0; i < count; i++)
@@ -253,7 +261,8 @@ void O2PathAddRects(O2MutablePathRef self, const O2AffineTransform *matrix,
 
 void O2PathAddArc(O2MutablePathRef self, const O2AffineTransform *matrix,
                   O2Float x, O2Float y, O2Float radius, O2Float startRadian,
-                  O2Float endRadian, BOOL clockwise) {
+                  O2Float endRadian, BOOL clockwise)
+{
     startRadian = fmod(startRadian, M_PI * 2);
     endRadian = fmod(endRadian, M_PI * 2);
 
@@ -331,7 +340,8 @@ void O2PathAddArc(O2MutablePathRef self, const O2AffineTransform *matrix,
 
 void O2PathAddArcToPoint(O2MutablePathRef self, const O2AffineTransform *matrix,
                          O2Float tx1, O2Float ty1, O2Float tx2, O2Float ty2,
-                         O2Float radius) {
+                         O2Float radius)
+{
 #if 0
 // ignores arc and draws a sharp corner
    O2PathAddLineToPoint(self,matrix,tx1,ty1);
@@ -428,7 +438,8 @@ void O2PathAddArcToPoint(O2MutablePathRef self, const O2AffineTransform *matrix,
 }
 
 void O2PathAddEllipseInRect(O2MutablePathRef self,
-                            const O2AffineTransform *matrix, O2Rect rect) {
+                            const O2AffineTransform *matrix, O2Rect rect)
+{
     O2Float xradius = rect.size.width / 2;
     O2Float yradius = rect.size.height / 2;
     O2Float x = rect.origin.x + xradius;
@@ -446,7 +457,8 @@ void O2PathAddEllipseInRect(O2MutablePathRef self,
 }
 
 void O2PathAddPath(O2MutablePathRef self, const O2AffineTransform *matrix,
-                   O2PathRef path) {
+                   O2PathRef path)
+{
     size_t opsCount = O2PathNumberOfElements(path);
     const unsigned char *ops = O2PathElements(path);
     size_t pointCount = O2PathNumberOfPoints(path);
@@ -469,8 +481,8 @@ void O2PathAddPath(O2MutablePathRef self, const O2AffineTransform *matrix,
     }
 }
 
-void O2PathApplyTransform(O2MutablePathRef self,
-                          const O2AffineTransform matrix) {
+void O2PathApplyTransform(O2MutablePathRef self, const O2AffineTransform matrix)
+{
     size_t i;
 
     for (i = 0; i < self->_numberOfPoints; i++)

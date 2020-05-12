@@ -16,7 +16,8 @@
 }
 
 static void drawArcWithDepth(float beginAngle, float endAngle,
-                             float innerRadius, float outerRadius, float z) {
+                             float innerRadius, float outerRadius, float z)
+{
     for (; beginAngle <= endAngle; beginAngle += 1) {
         CGAffineTransform matrix =
             CGAffineTransformMakeRotation(M_PI * beginAngle / 180.0);
@@ -32,7 +33,8 @@ static void drawArcWithDepth(float beginAngle, float endAngle,
 }
 
 static void drawEdge(float beginAngle, float endAngle, float radius,
-                     float zclose, float zfar) {
+                     float zclose, float zfar)
+{
     for (; beginAngle <= endAngle; beginAngle += 1) {
         CGAffineTransform matrix =
             CGAffineTransformMakeRotation(M_PI * beginAngle / 180.0);
@@ -49,7 +51,8 @@ static void drawEdge(float beginAngle, float endAngle, float radius,
 }
 
 static void capAtAngle(float angle, float innerRadius, float outerRadius,
-                       float depth) {
+                       float depth)
+{
     CGAffineTransform matrix =
         CGAffineTransformMakeRotation(M_PI * angle / 180.0);
     CGPoint innerPoint = CGPointMake(innerRadius, 0);
@@ -69,7 +72,8 @@ static void capAtAngle(float angle, float innerRadius, float outerRadius,
 }
 
 static void drawArc(float beginAngle, float endAngle, float innerRadius,
-                    float outerRadius, float depth) {
+                    float outerRadius, float depth)
+{
     glNormal3f(1, 0, 0);
     glBegin(GL_QUAD_STRIP);
     drawArcWithDepth(beginAngle, endAngle, innerRadius, outerRadius, depth / 2);

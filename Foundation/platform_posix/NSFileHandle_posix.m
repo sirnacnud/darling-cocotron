@@ -57,7 +57,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSFileHandle_posix
 
 - (id) initWithFileDescriptor: (int) fileDescriptor
-               closeOnDealloc: (BOOL) closeOnDealloc {
+               closeOnDealloc: (BOOL) closeOnDealloc
+{
     _fileDescriptor = fileDescriptor;
     _closeOnDealloc = closeOnDealloc;
 
@@ -442,7 +443,8 @@ CONFORMING TO
 }
 
 - (void) selectInputSource: (NSSelectInputSource *) inputSource
-               selectEvent: (NSUInteger) selectEvent {
+               selectEvent: (NSUInteger) selectEvent
+{
     NSData *availableData = [self availableData];
     NSDictionary *userInfo;
     NSNotification *note;

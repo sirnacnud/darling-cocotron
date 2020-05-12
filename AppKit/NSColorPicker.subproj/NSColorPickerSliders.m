@@ -23,8 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSColorPickerSliders
 
-- initWithPickerMask: (NSUInteger) mask
-          colorPanel: (NSColorPanel *) colorPanel {
+- initWithPickerMask: (NSUInteger) mask colorPanel: (NSColorPanel *) colorPanel
+{
     [super initWithPickerMask: mask colorPanel: colorPanel];
 
     NSSize size = [_grayscaleConstantsMatrix cellSize];

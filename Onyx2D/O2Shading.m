@@ -30,7 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             function: (O2Function *) function
          extendStart: (BOOL) extendStart
            extendEnd: (BOOL) extendEnd
-              domain: (O2Float[]) domain {
+              domain: (O2Float[]) domain
+{
     _colorSpace = [colorSpace retain];
     _startPoint = startPoint;
     _endPoint = endPoint;
@@ -51,7 +52,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             function: (O2Function *) function
          extendStart: (BOOL) extendStart
            extendEnd: (BOOL) extendEnd
-              domain: (O2Float[]) domain {
+              domain: (O2Float[]) domain
+{
     _colorSpace = [colorSpace retain];
     _startPoint = startPoint;
     _endPoint = endPoint;
@@ -110,7 +112,8 @@ O2ColorSpaceRef O2ShadingColorSpace(O2Shading *self) {
 
 O2ShadingRef O2ShadingCreateAxial(O2ColorSpaceRef colorSpace, O2Point start,
                                   O2Point end, O2FunctionRef function,
-                                  BOOL extendStart, BOOL extendEnd) {
+                                  BOOL extendStart, BOOL extendEnd)
+{
     O2Float domain[2] = {0.0f, 1.0f};
 
     return [[O2Shading alloc] initWithColorSpace: colorSpace
@@ -125,7 +128,8 @@ O2ShadingRef O2ShadingCreateAxial(O2ColorSpaceRef colorSpace, O2Point start,
 O2ShadingRef O2ShadingCreateRadial(O2ColorSpaceRef colorSpace, O2Point start,
                                    O2Float startRadius, O2Point end,
                                    O2Float endRadius, O2FunctionRef function,
-                                   BOOL extendStart, BOOL extendEnd) {
+                                   BOOL extendStart, BOOL extendEnd)
+{
     O2Float domain[2] = {0.0f, 1.0f};
 
     return [[O2Shading alloc] initWithColorSpace: colorSpace

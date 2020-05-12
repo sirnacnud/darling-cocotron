@@ -67,7 +67,8 @@ static NSMapTable *_nameToTransformer = NULL;
 }
 
 + (void) setValueTransformer: (NSValueTransformer *) transformer
-                     forName: (NSString *) name {
+                     forName: (NSString *) name
+{
     NSMapInsert(_nameToTransformer, name, transformer);
 }
 

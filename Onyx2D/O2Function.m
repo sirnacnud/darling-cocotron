@@ -27,7 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 O2FunctionRef O2FunctionInit(O2FunctionRef self, void *info, size_t domainCount,
                              const O2Float *domain, size_t rangeCount,
                              const O2Float *range,
-                             const O2FunctionCallbacks *callbacks) {
+                             const O2FunctionCallbacks *callbacks)
+{
     int i;
 
     self->_info = info;
@@ -59,7 +60,8 @@ O2FunctionRef O2FunctionInit(O2FunctionRef self, void *info, size_t domainCount,
 O2FunctionRef O2FunctionCreate(void *info, size_t domainDimension,
                                const O2Float *domain, size_t rangeDimension,
                                const O2Float *range,
-                               const O2FunctionCallbacks *callbacks) {
+                               const O2FunctionCallbacks *callbacks)
+{
     O2Function *result = [O2Function allocWithZone: NULL];
 
     return O2FunctionInit(result, info, domainDimension, domain, rangeDimension,

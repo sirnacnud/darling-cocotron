@@ -64,7 +64,8 @@ COREGRAPHICS_EXPORT const CGSize CGSizeZero;
 COREGRAPHICS_EXPORT const CGRect CGRectInfinite;
 
 static inline CGRect CGRectMake(CGFloat x, CGFloat y, CGFloat width,
-                                CGFloat height) {
+                                CGFloat height)
+{
     CGRect result = {{x, y}, {width, height}};
     return result;
 }

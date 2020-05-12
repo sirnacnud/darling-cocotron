@@ -38,7 +38,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSPort *) portForName: (NSString *) name
                     host: (NSString *) host
-    nameServerPortNumber: (uint16_t) number {
+    nameServerPortNumber: (uint16_t) number
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -60,7 +61,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) registerPort: (NSPort *) port
                     name: (NSString *) name
-    nameServerPortNumber: (uint16_t) number {
+    nameServerPortNumber: (uint16_t) number
+{
     NSUnimplementedMethod();
     return 0;
 }

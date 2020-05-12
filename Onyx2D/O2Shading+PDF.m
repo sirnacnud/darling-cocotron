@@ -52,8 +52,8 @@
     return [context encodeIndirectPDFObject: result];
 }
 
-O2Shading *axialShading(O2PDFDictionary *dictionary,
-                        O2ColorSpaceRef colorSpace) {
+O2Shading *axialShading(O2PDFDictionary *dictionary, O2ColorSpaceRef colorSpace)
+{
     O2PDFArray *coordsArray;
     O2PDFArray *domainArray;
     O2Float domain[2] = {0, 1};
@@ -131,7 +131,8 @@ O2Shading *axialShading(O2PDFDictionary *dictionary,
 }
 
 O2Shading *radialShading(O2PDFDictionary *dictionary,
-                         O2ColorSpaceRef colorSpace) {
+                         O2ColorSpaceRef colorSpace)
+{
     O2PDFArray *coordsArray;
     O2PDFArray *domainArray;
     O2Float domain[2] = {0, 1};

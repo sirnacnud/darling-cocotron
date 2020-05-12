@@ -60,7 +60,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) addAttribute: (NSString *) name
                 value: (id) value
-                range: (NSRange) range {
+                range: (NSRange) range
+{
     [self addAttributes: [NSDictionary dictionaryWithObject: value forKey: name]
                   range: range];
 }
@@ -125,18 +126,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) insertAttributedString: (NSAttributedString *) attributedString
-                        atIndex: (NSUInteger) index {
+                        atIndex: (NSUInteger) index
+{
     [self replaceCharactersInRange: NSMakeRange(index, 0)
               withAttributedString: attributedString];
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
-                       withString: (NSString *) string {
+                       withString: (NSString *) string
+{
     NSInvalidAbstractInvocation();
 }
 
 - (void) replaceCharactersInRange: (NSRange) replaced
-             withAttributedString: (NSAttributedString *) other {
+             withAttributedString: (NSAttributedString *) other
+{
     NSString *string = [other string];
     NSUInteger location = 0;
     NSUInteger limit = [string length];

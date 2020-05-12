@@ -6,7 +6,8 @@
 @implementation O2Context_distill
 
 static void O2ContextDistillShowText(O2ContextRef self, const char *text,
-                                     NSUInteger length) {
+                                     NSUInteger length)
+{
     O2GState *gState = O2ContextCurrentGState(self);
     O2AffineTransform Trm = O2ContextGetTextRenderingMatrix(self);
     NSPoint point = O2PointApplyAffineTransform(NSMakePoint(0, 0), Trm);
@@ -71,7 +72,8 @@ static void O2ContextDistillShowText(O2ContextRef self, const char *text,
 
 - (void) showGlyphs: (const O2Glyph *) glyphs
            advances: (const O2Size *) advances
-              count: (NSUInteger) count {
+              count: (NSUInteger) count
+{
 }
 
 - (void) drawShading: (O2Shading *) shading {

@@ -374,7 +374,8 @@ static NSMutableArray *_cursorStack = nil;
 - initWithImage: (NSImage *) image
     foregroundColorHint: (NSColor *) foregroundHint
     backgroundColorHint: (NSColor *) backgroundHint
-                hotSpot: (NSPoint) hotSpot {
+                hotSpot: (NSPoint) hotSpot
+{
     // the hints are unused per doc.s
     return [self initWithImage: image hotSpot: hotSpot];
 }

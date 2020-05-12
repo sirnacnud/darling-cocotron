@@ -503,7 +503,8 @@ extern NSSize _NSToolbarIconSizeSmall;
 - (NSSize) sizeForSizeMode: (NSToolbarSizeMode) sizeMode
                displayMode: (NSToolbarDisplayMode) displayMode
                    minSize: (NSSize) minSize
-                   maxSize: (NSSize) maxSize {
+                   maxSize: (NSSize) maxSize
+{
     NSSize result;
 
     switch (sizeMode) {
@@ -554,7 +555,8 @@ extern NSSize _NSToolbarIconSizeSmall;
 }
 
 - (NSSize) sizeForSizeMode: (NSToolbarSizeMode) sizeMode
-               displayMode: (NSToolbarDisplayMode) displayMode {
+               displayMode: (NSToolbarDisplayMode) displayMode
+{
     return [self sizeForSizeMode: sizeMode
                      displayMode: displayMode
                          minSize: _minSize

@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSCompoundPredicate
 
 - initWithType: (NSCompoundPredicateType) type
-    subpredicates: (NSArray *) predicates {
+    subpredicates: (NSArray *) predicates
+{
     _type = type;
     _predicates = [predicates retain];
     return self;

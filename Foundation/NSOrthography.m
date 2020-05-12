@@ -6,13 +6,15 @@
 @implementation NSOrthography
 
 + orthographyWithDominantScript: (NSString *) script
-                    languageMap: (NSDictionary *) languageMap {
+                    languageMap: (NSDictionary *) languageMap
+{
     return [[[self alloc] initWithDominantScript: script
                                      languageMap: languageMap] autorelease];
 }
 
 - initWithDominantScript: (NSString *) script
-             languageMap: (NSDictionary *) languageMap {
+             languageMap: (NSDictionary *) languageMap
+{
     _dominantScript = [script copy];
     _languageMap = [languageMap copy];
     return self;

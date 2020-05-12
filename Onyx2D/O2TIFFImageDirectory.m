@@ -462,8 +462,8 @@ static void sTIFFUnmapFileProc(thandle_t userData, tdata_t data, toff_t size) {
 #if !LIBTIFF_PRESENT
 static void decode_R8_G8_B8_A8(const unsigned char *stripBytes,
                                unsigned byteCount, unsigned char *pixelBytes,
-                               int bytesPerRow, int *pixelBytesRowp,
-                               int height) {
+                               int bytesPerRow, int *pixelBytesRowp, int height)
+{
     int pixelBytesRow = *pixelBytesRowp;
     int pixelBytesCol = 0;
     int i;
@@ -486,7 +486,8 @@ static void decode_R8_G8_B8_A8(const unsigned char *stripBytes,
 static void decode_R8_G8_B8_Afill(const unsigned char *stripBytes,
                                   unsigned byteCount, unsigned char *pixelBytes,
                                   int bytesPerRow, int *pixelBytesRowp,
-                                  int height) {
+                                  int height)
+{
     int pixelBytesRow = *pixelBytesRowp;
     int pixelBytesCol = 0;
     int i;
@@ -512,7 +513,8 @@ static void decode_R8_G8_B8_Afill(const unsigned char *stripBytes,
 }
 
 void depredict_R8G8B8A8(uint8_t *pixelBytes, unsigned bytesPerRow,
-                        unsigned height) {
+                        unsigned height)
+{
     int y;
 
     for (y = 0; y < height; y++) {

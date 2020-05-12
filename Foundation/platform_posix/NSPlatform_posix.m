@@ -338,7 +338,8 @@ void *NSPlatformContentsOfFile(NSString *path, NSUInteger *lengthp) {
                        bytes: (const void *) bytes
                       length: (NSUInteger) length
                      options: (NSUInteger) options
-                       error: (NSError **) errorp {
+                       error: (NSError **) errorp
+{
     BOOL atomically = (options & NSAtomicWrite);
     NSString *atomic = nil;
     int fd;

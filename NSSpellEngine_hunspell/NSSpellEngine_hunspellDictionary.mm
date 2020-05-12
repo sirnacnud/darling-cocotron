@@ -72,7 +72,8 @@
 }
 
 - (char *) createHunspellStringForCharacters: (unichar *) characters
-                                      length: (NSUInteger) length {
+                                      length: (NSUInteger) length
+{
     NSString *string = [NSString stringWithCharacters: characters
                                                length: length];
     return [self createHunspellStringForString: string];
@@ -80,7 +81,8 @@
 
 - (NSArray *) textCheckingResultWithRange: (NSRange) range
                             forCharacters: (unichar *) characters
-                                   length: (NSUInteger) length {
+                                   length: (NSUInteger) length
+{
     char *string = [self createHunspellStringForCharacters: characters
                                                     length: length];
 

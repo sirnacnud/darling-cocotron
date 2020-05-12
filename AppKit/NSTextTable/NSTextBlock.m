@@ -53,8 +53,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return _dimensionValues[dimension];
 }
 
-- (NSTextBlockValueType) valueTypeForDimension:
-    (NSTextBlockDimension) dimension {
+- (NSTextBlockValueType) valueTypeForDimension: (NSTextBlockDimension) dimension
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -64,7 +64,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSTextBlockValueType) widthValueTypeForLayer: (NSTextBlockLayer) layer
-                                           edge: (NSRectEdge) edge {
+                                           edge: (NSRectEdge) edge
+{
     return _layerValueTypes[layer][edge];
 }
 
@@ -96,14 +97,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setValue: (CGFloat) value
              type: (NSTextBlockValueType) type
-     forDimension: (NSTextBlockDimension) dimension {
+     forDimension: (NSTextBlockDimension) dimension
+{
     _dimensionValues[dimension] = value;
     _dimensionValueTypes[dimension] = type;
 }
 
 - (void) setWidth: (CGFloat) value
              type: (NSTextBlockValueType) type
-         forLayer: (NSTextBlockLayer) layer {
+         forLayer: (NSTextBlockLayer) layer
+{
     int i;
 
     for (i = 0; i <= NSMaxYEdge; i++) {
@@ -115,7 +118,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setWidth: (CGFloat) value
              type: (NSTextBlockValueType) type
          forLayer: (NSTextBlockLayer) layer
-             edge: (NSRectEdge) edge {
+             edge: (NSRectEdge) edge
+{
     _layerWidths[layer][edge] = value;
     _layerValueTypes[layer][edge] = type;
 }
@@ -123,7 +127,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSRect) rectForLayoutAtPoint: (NSPoint) point
                          inRect: (NSRect) rect
                   textContainer: (NSTextContainer *) textContainer
-                 characterRange: (NSRange) range {
+                 characterRange: (NSRange) range
+{
     NSUnimplementedMethod();
     return NSZeroRect;
 }
@@ -131,7 +136,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSRect) boundsRectForContentRect: (NSRect) contentRect
                              inRect: (NSRect) rect
                       textContainer: (NSTextContainer *) textContainer
-                     characterRange: (NSRange) range {
+                     characterRange: (NSRange) range
+{
     NSUnimplementedMethod();
     return NSZeroRect;
 }
@@ -139,7 +145,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) drawBackgroundWithFrame: (NSRect) frame
                           inView: (NSView *) view
                   characterRange: (NSRange) range
-                   layoutManager: (NSLayoutManager *) layoutManager {
+                   layoutManager: (NSLayoutManager *) layoutManager
+{
     NSUnimplementedMethod();
 }
 

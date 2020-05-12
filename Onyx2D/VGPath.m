@@ -136,16 +136,54 @@ static inline StrokeVertex StrokeVertexInit() {
 
 #define RI_FLOAT_MAX FLT_MAX
 
-/*-------------------------------------------------------------------*//*!
-* \brief	Form a reliable normalized average of the two unit input vectors.
-*           The average always lies to the given direction from the first
-*			vector.
-* \param	u0, u1 Unit input vectors.
-* \param	cw True if the average should be clockwise from u0, NO if
-*              counterclockwise.
-* \return	Average of the two input vectors.
-* \note		
-*//*-------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/ /*!
+                                                                         * \brief
+                                                                         *Form a
+                                                                         *reliable
+                                                                         *normalized
+                                                                         *average
+                                                                         *of the
+                                                                         *two
+                                                                         *unit
+                                                                         *input
+                                                                         *vectors.
+                                                                         *           The
+                                                                         *average
+                                                                         *always
+                                                                         *lies
+                                                                         *to the
+                                                                         *given
+                                                                         *direction
+                                                                         *from
+                                                                         *the
+                                                                         *first
+                                                                         *			vector.
+                                                                         * \param
+                                                                         *u0, u1
+                                                                         *Unit
+                                                                         *input
+                                                                         *vectors.
+                                                                         * \param
+                                                                         *cw
+                                                                         *True
+                                                                         *if the
+                                                                         *average
+                                                                         *should
+                                                                         *be
+                                                                         *clockwise
+                                                                         *from
+                                                                         *u0, NO
+                                                                         *if
+                                                                         *              counterclockwise.
+                                                                         * \return
+                                                                         *Average
+                                                                         *of the
+                                                                         *two
+                                                                         *input
+                                                                         *vectors.
+                                                                         * \note
+                                                                         */
+/*-------------------------------------------------------------------*/
 
 static O2Point unitAverageWithDirection(O2Point u0, O2Point u1) {
     O2Point u = Vector2MultiplyByFloat(Vector2Add(u0, u1), 0.5f);
@@ -167,14 +205,48 @@ static O2Point unitAverageWithDirection(O2Point u0, O2Point u1) {
     return Vector2Normalize(u);
 }
 
-/*-------------------------------------------------------------------*//*!
-* \brief	Form a reliable normalized average of the two unit input vectors.
-*			The average lies on the side where the angle between the input
-*			vectors is less than 180 degrees.
-* \param	u0, u1 Unit input vectors.
-* \return	Average of the two input vectors.
-* \note		
-*//*-------------------------------------------------------------------*/
+/*-------------------------------------------------------------------*/ /*!
+                                                                         * \brief
+                                                                         *Form a
+                                                                         *reliable
+                                                                         *normalized
+                                                                         *average
+                                                                         *of the
+                                                                         *two
+                                                                         *unit
+                                                                         *input
+                                                                         *vectors.
+                                                                         *			The
+                                                                         *average
+                                                                         *lies
+                                                                         *on the
+                                                                         *side
+                                                                         *where
+                                                                         *the
+                                                                         *angle
+                                                                         *between
+                                                                         *the
+                                                                         *input
+                                                                         *			vectors
+                                                                         *is
+                                                                         *less
+                                                                         *than
+                                                                         *180
+                                                                         *degrees.
+                                                                         * \param
+                                                                         *u0, u1
+                                                                         *Unit
+                                                                         *input
+                                                                         *vectors.
+                                                                         * \return
+                                                                         *Average
+                                                                         *of the
+                                                                         *two
+                                                                         *input
+                                                                         *vectors.
+                                                                         * \note
+                                                                         */
+/*-------------------------------------------------------------------*/
 
 static O2Point unitAverage(O2Point u0, O2Point u1) {
     O2Point u = Vector2MultiplyByFloat(Vector2Add(u0, u1), 0.5f);
@@ -195,8 +267,8 @@ static O2Point unitAverage(O2Point u0, O2Point u1) {
 // Interpolate the given unit tangent vectors to the given direction on a unit
 // circle.
 
-static O2Point circularLerpWithDirection(O2Point t0, O2Point t1,
-                                         O2Float ratio) {
+static O2Point circularLerpWithDirection(O2Point t0, O2Point t1, O2Float ratio)
+{
     O2Point u0 = t0, u1 = t1;
     O2Float l0 = 0.0f, l1 = 1.0f;
     int i;
@@ -290,7 +362,8 @@ int VGPathCountNumCoordinates(const uint8_t *segments, int numSegments) {
 // Tessellates a path for filling and appends resulting edges to a context.
 
 void VGPathFill(VGPath *self, O2AffineTransform pathToSurface,
-                O2Context_builtin *context) {
+                O2Context_builtin *context)
+{
 
     VGPathTessellateIfNeeded(self);
 
@@ -317,7 +390,8 @@ void VGPathFill(VGPath *self, O2AffineTransform pathToSurface,
    The resulting polygons are closed. */
 
 static inline O2Point
-O2PointApplyAffineTransformNoTranslate(O2Point point, O2AffineTransform xform) {
+O2PointApplyAffineTransformNoTranslate(O2Point point, O2AffineTransform xform)
+{
     O2Point result;
 
     result.x = xform.a * point.x + xform.c * point.y;
@@ -328,7 +402,8 @@ O2PointApplyAffineTransformNoTranslate(O2Point point, O2AffineTransform xform) {
 
 void VGPathInterpolateStroke(O2AffineTransform pathToSurface,
                              O2Context_builtin *context, StrokeVertex v0,
-                             StrokeVertex v1, O2Float strokeWidth) {
+                             StrokeVertex v1, O2Float strokeWidth)
+{
     O2Point ppccw = O2PointApplyAffineTransform(v0.ccw, pathToSurface);
     O2Point ppcw = O2PointApplyAffineTransform(v0.cw, pathToSurface);
     O2Point endccw = O2PointApplyAffineTransform(v1.ccw, pathToSurface);
@@ -475,7 +550,8 @@ void VGPathInterpolateStroke(O2AffineTransform pathToSurface,
 // Generate edges for stroke caps. Resulting polygons are closed.
 
 void VGPathDoCap(O2AffineTransform pathToSurface, O2Context_builtin *context,
-                 StrokeVertex v, O2Float strokeWidth, O2LineCap capStyle) {
+                 StrokeVertex v, O2Float strokeWidth, O2LineCap capStyle)
+{
     O2Point ccwt = O2PointApplyAffineTransform(v.ccw, pathToSurface);
     O2Point cwt = O2PointApplyAffineTransform(v.cw, pathToSurface);
 
@@ -547,7 +623,8 @@ void VGPathDoCap(O2AffineTransform pathToSurface, O2Context_builtin *context,
 
 void VGPathDoJoin(O2AffineTransform pathToSurface, O2Context_builtin *context,
                   StrokeVertex v0, StrokeVertex v1, O2Float strokeWidth,
-                  O2LineJoin joinStyle, O2Float miterLimit) {
+                  O2LineJoin joinStyle, O2Float miterLimit)
+{
     O2Point ccw0t = O2PointApplyAffineTransform(v0.ccw, pathToSurface);
     O2Point cw0t = O2PointApplyAffineTransform(v0.cw, pathToSurface);
     O2Point ccw1t = O2PointApplyAffineTransform(v1.ccw, pathToSurface);
@@ -652,7 +729,8 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
                   O2Context_builtin *context, const O2Float *dashPattern,
                   int dashPatternSize, O2Float dashPhase, BOOL dashPhaseReset,
                   O2Float strokeWidth, O2LineCap capStyle, O2LineJoin joinStyle,
-                  O2Float miterLimit) {
+                  O2Float miterLimit)
+{
     RI_ASSERT(strokeWidth >= 0.0f);
     RI_ASSERT(miterLimit >= 1.0f);
 
@@ -835,9 +913,9 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
 
                         // loop dash events until the next vertex event
                         // zero length dashes are handled as a special case
-                        // since if they hit the vertex, we want to include their
-                        // starting point to this segment already in order to
-                        // generate a join
+                        // since if they hit the vertex, we want to include
+                        // their starting point to this segment already in order
+                        // to generate a join
                         int numDashStops = 0;
                         while (
                             nextDash < v1.pathLength ||
@@ -904,7 +982,8 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
                             if (numDashStops) { // prevDashVertex is not the
                                                 // start vertex of the segment,
                                                 // cap it (start vertex has
-                                                // already been joined or capped)
+                                                // already been joined or
+                                                // capped)
                                 StrokeVertex vi = prevDashVertex;
                                 vi.t = Vector2Negate(vi.t);
                                 RI_SWAP(&vi.ccw.x, &vi.cw.x);
@@ -956,7 +1035,8 @@ void VGPathStroke(VGPath *self, O2AffineTransform pathToSurface,
 // distance along the path.
 
 void VGPathGetPointAlong(VGPath *self, int startIndex, int numSegments,
-                         O2Float distance, O2Point *p, O2Point *t) {
+                         O2Float distance, O2Point *p, O2Point *t)
+{
     RI_ASSERT(startIndex >= 0 &&
               startIndex + numSegments <= self->_numberOfElements &&
               numSegments > 0);
@@ -1079,7 +1159,8 @@ O2Float VGPathGetLength(VGPath *self, int startIndex, int numSegments) {
 // Tessellates a path, and computes its bounding box in user space.
 
 void VGPathGetPathBounds(VGPath *self, O2Float *minx, O2Float *miny,
-                         O2Float *maxx, O2Float *maxy) {
+                         O2Float *maxx, O2Float *maxy)
+{
     VGPathTessellateIfNeeded(self);
 
     if (self->_vertexCount) {
@@ -1098,7 +1179,8 @@ void VGPathGetPathBounds(VGPath *self, O2Float *minx, O2Float *miny,
 void VGPathGetPathTransformedBounds(VGPath *self,
                                     O2AffineTransform pathToSurface,
                                     O2Float *minx, O2Float *miny, O2Float *maxx,
-                                    O2Float *maxy) {
+                                    O2Float *maxy)
+{
 
     VGPathTessellateIfNeeded(self);
 
@@ -1125,7 +1207,8 @@ void VGPathGetPathTransformedBounds(VGPath *self,
 // Adds a vertex to a tessellated path.
 
 void VGPathAddVertex(VGPath *self, O2Point p, O2Point t, O2Float pathLength,
-                     unsigned int flags) {
+                     unsigned int flags)
+{
     RI_ASSERT(!Vector2IsZero(t));
 
     Vertex v;
@@ -1151,7 +1234,8 @@ void VGPathAddVertex(VGPath *self, O2Point p, O2Point t, O2Float pathLength,
 // Adds an edge to a tessellated path.
 
 void VGPathAddEdge(VGPath *self, O2Point p0, O2Point p1, O2Point t0, O2Point t1,
-                   unsigned int startFlags, unsigned int endFlags) {
+                   unsigned int startFlags, unsigned int endFlags)
+{
     O2Float pathLength = 0.0f;
 
     RI_ASSERT(!Vector2IsZero(t0) && !Vector2IsZero(t1));
@@ -1179,7 +1263,8 @@ void VGPathAddEdge(VGPath *self, O2Point p0, O2Point p1, O2Point t0, O2Point t1,
 // Tessellates a close-path segment.
 
 void VGPathAddEndPath(VGPath *self, O2Point p0, O2Point p1,
-                      BOOL subpathHasGeometry, unsigned int flags) {
+                      BOOL subpathHasGeometry, unsigned int flags)
+{
     if (!subpathHasGeometry) { // single vertex
         O2Point t = O2PointMake(1.0f, 0.0f);
         VGPathAddEdge(self, p0, p1, t, t, START_SEGMENT | START_SUBPATH,
@@ -1210,7 +1295,8 @@ void VGPathAddEndPath(VGPath *self, O2Point p0, O2Point p1,
 // Tessellates a line-to segment.
 
 BOOL VGPathAddLineTo(VGPath *self, O2Point p0, O2Point p1,
-                     BOOL subpathHasGeometry) {
+                     BOOL subpathHasGeometry)
+{
     if (Vector2IsEqual(p0, p1))
         return NO; // discard zero-length segments
 
@@ -1234,7 +1320,8 @@ BOOL VGPathAddLineTo(VGPath *self, O2Point p0, O2Point p1,
   */
 
 BOOL VGPathAddQuadTo(VGPath *self, O2Point p0, O2Point p1, O2Point p2,
-                     BOOL subpathHasGeometry) {
+                     BOOL subpathHasGeometry)
+{
     if (Vector2IsEqual(p0, p1) && Vector2IsEqual(p0, p2)) {
         RI_ASSERT(Vector2IsEqual(p1, p2));
         return NO; // discard zero-length segments
@@ -1327,7 +1414,8 @@ static void bezier(VGPath *self,double x1,double y1,double x2, double y2,double 
 #endif
 
 BOOL VGPathAddCubicTo(VGPath *self, O2Point p0, O2Point p1, O2Point p2,
-                      O2Point p3, BOOL subpathHasGeometry) {
+                      O2Point p3, BOOL subpathHasGeometry)
+{
     if (Vector2IsEqual(p0, p1) && Vector2IsEqual(p0, p2) &&
         Vector2IsEqual(p0, p3)) {
         RI_ASSERT(Vector2IsEqual(p1, p2) && Vector2IsEqual(p1, p3) &&
@@ -1416,9 +1504,7 @@ void VGPathTessellateIfNeeded(VGPath *self) {
     self->m_userMinx = RI_FLOAT_MAX;
     self->m_userMiny = RI_FLOAT_MAX;
     self->m_userMaxx = -RI_FLOAT_MAX;
-    self->m_userMaxy = -RI_FLOAT_MAX;
-
-    {
+    self->m_userMaxy = -RI_FLOAT_MAX; {
         unsigned numberOfElements = O2PathNumberOfElements(self->_path);
         if (self->_segmentToVertexCapacity < numberOfElements) {
             self->_segmentToVertexCapacity = numberOfElements;
@@ -1431,9 +1517,10 @@ void VGPathTessellateIfNeeded(VGPath *self) {
         O2Point s = O2PointMake(0, 0); // the beginning of the current subpath
         O2Point o = O2PointMake(0, 0); // the last point of the previous segment
         O2Point p = O2PointMake(
-            0, 0); // the last internal control point of the previous segment,
-                   // if the segment was a (regular or smooth) quadratic or cubic
-                   // Bezier, or else the last point of the previous segment
+            0,
+            0); // the last internal control point of the previous segment,
+                // if the segment was a (regular or smooth) quadratic or cubic
+                // Bezier, or else the last point of the previous segment
 
         // tessellate the path segments
         coordIndex = 0;
@@ -1531,7 +1618,7 @@ void VGPathTessellateIfNeeded(VGPath *self) {
             VGPathAddEndPath(self, o, s, subpathHasGeometry,
                              IMPLICIT_CLOSE_SUBPATH);
 
-#if 0  // DEBUG
+#if 0  // DEBUG \
        // check that the flags are correct
 		int prev = -1;
 		BOOL subpathStarted = NO;

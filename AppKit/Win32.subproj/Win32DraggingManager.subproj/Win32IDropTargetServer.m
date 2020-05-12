@@ -58,7 +58,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (HRESULT) DragEnter: (IDataObject *)
            dataObject: (DWORD) grfKeyState
                      :(POINTL) pt
-                     :(DWORD *) dropEffect {
+                     :(DWORD *) dropEffect
+{
     NSPasteboard *pasteboard = [[[Win32DropPasteboard alloc]
         initWithIDataObject: dataObject] autorelease];
 
@@ -104,7 +105,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (HRESULT) Drop: (IDataObject *)
       dataObject: (DWORD) grfKeyState
                 :(POINTL) pt
-                :(DWORD *) dropEffect {
+                :(DWORD *) dropEffect
+{
 
     [_session
         setSourceOperationMask: Win32DragOperationFromDropEffect(*dropEffect)];

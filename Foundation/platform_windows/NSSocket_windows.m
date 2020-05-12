@@ -255,7 +255,8 @@ static inline void byteZero(void *vsrc, size_t size) {
 
 - (NSError *) connectToHost: (NSHost *) host
                        port: (NSInteger) portNumber
-                  immediate: (BOOL *) immediate {
+                  immediate: (BOOL *) immediate
+{
 #ifdef DEBUG
     NSCLog("NSSocket_windows -connectToHost: %s port: %d immediate:",
            [[host name] cStringUsingEncoding: NSASCIIStringEncoding],
@@ -274,7 +275,8 @@ static inline void byteZero(void *vsrc, size_t size) {
     }
 
     for (i = 0; i < count; i++) {
-        struct sockaddr_in try
+        struct sockaddr_in
+        try
             ;
         NSString *stringAddress = [addresses objectAtIndex: i];
         char cString[[stringAddress cStringLength] + 1];
@@ -404,7 +406,8 @@ static inline void byteZero(void *vsrc, size_t size) {
 @end
 
 NSData *NSSocketAddressDataForNetworkOrderAddressBytesAndPort(
-    const void *address, NSUInteger length, uint16_t port, uint32_t interface) {
+    const void *address, NSUInteger length, uint16_t port, uint32_t interface)
+{
     if (length == 4) { // IPV4
         struct sockaddr_in ip4;
 

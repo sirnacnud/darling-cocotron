@@ -293,7 +293,8 @@ static void drawRoundedSelection(NSRect rect) {
 }
 
 static void getRectsInFrameForAttributesStrings(NSRect *rects, NSRect frame,
-                                                NSArray *array) {
+                                                NSArray *array)
+{
     NSInteger i, count = [array count];
     CGFloat maxHeight = 0;
 
@@ -363,8 +364,8 @@ static void getRectsInFrameForAttributesStrings(NSRect *rects, NSRect frame,
     }
 }
 
-- (void) _multiplyCurrentUnitBy: (NSInteger) multiply
-                            add: (NSInteger) addValue {
+- (void) _multiplyCurrentUnitBy: (NSInteger) multiply add: (NSInteger) addValue
+{
     NSArray *array = [self _attributedStrings];
     NSInteger i, count = [array count];
     NSDateComponents *components =
@@ -501,7 +502,8 @@ static void getRectsInFrameForAttributesStrings(NSRect *rects, NSRect frame,
 
 - (BOOL) continueTracking: (NSPoint) lastPoint
                        at: (NSPoint) currentPoint
-                   inView: (NSView *) view {
+                   inView: (NSView *) view
+{
     currentPoint = [view convertPoint: currentPoint fromView: nil];
     [self selectComponentUnderPoint: currentPoint inView: view];
     return YES;

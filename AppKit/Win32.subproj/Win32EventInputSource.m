@@ -72,7 +72,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSUInteger) waitForEventsAndMultipleObjects: (HANDLE *) objects
                                          count: (NSUInteger) count
-                                  milliseconds: (DWORD) milliseconds {
+                                  milliseconds: (DWORD) milliseconds
+{
     if (count == 0) {
         UINT timer = SetTimer(NULL, 0, milliseconds, NULL);
 

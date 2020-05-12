@@ -76,8 +76,8 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
         autorelease];
 }
 
-+ fontDescriptorWithName: (NSString *) name
-                  matrix: (NSAffineTransform *) matrix {
++ fontDescriptorWithName: (NSString *) name matrix: (NSAffineTransform *) matrix
+{
     NSDictionary *attributes = [NSDictionary
         dictionaryWithObjectsAndKeys: name, NSFontNameAttribute, matrix,
                                       NSFontMatrixAttribute, nil];
@@ -119,7 +119,8 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 }
 
 - (NSFontDescriptor *) fontDescriptorByAddingAttributes:
-    (NSDictionary *) attributes {
+    (NSDictionary *) attributes
+{
     NSMutableDictionary *copy =
         [NSMutableDictionary dictionaryWithDictionary: _attributes];
 
@@ -166,7 +167,8 @@ const NSFontWeight NSFontWeightRegular = 0x0000000000000000;
 }
 
 - (NSFontDescriptor *) fontDescriptorWithSymbolicTraits:
-    (NSFontSymbolicTraits) traits {
+    (NSFontSymbolicTraits) traits
+{
     NSMutableDictionary *copy =
         [NSMutableDictionary dictionaryWithDictionary: _attributes];
 

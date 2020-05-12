@@ -560,11 +560,13 @@ static NSMapTable *pathToObject = NULL;
 
 + (NSString *) pathForResource: (NSString *) name
                         ofType: (NSString *) type
-                   inDirectory: (NSString *) path {
+                   inDirectory: (NSString *) path
+{
     return [[NSBundle bundleWithPath: path] pathForResource: name ofType: type];
 }
 + (NSArray *) pathsForResourcesOfType: (NSString *) type
-                          inDirectory: (NSString *) path {
+                          inDirectory: (NSString *) path
+{
     return [[NSBundle bundleWithPath: path] pathsForResourcesOfType: type
                                                         inDirectory: nil];
 }
@@ -573,7 +575,8 @@ static NSMapTable *pathToObject = NULL;
     return 0;
 }
 + (NSArray *) preferredLocalizationsFromArray: (NSArray *) localizations
-                               forPreferences: (NSArray *) preferences {
+                               forPreferences: (NSArray *) preferences
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -885,7 +888,8 @@ static NSMapTable *pathToObject = NULL;
 
 - (NSURL *) URLForResource: (NSString *) name
              withExtension: (NSString *) ext
-              subdirectory: (NSString *) subpath {
+              subdirectory: (NSString *) subpath
+{
     NSString *path = [self pathForResource: name
                                     ofType: ext
                                inDirectory: subpath];
@@ -895,7 +899,8 @@ static NSMapTable *pathToObject = NULL;
 - (NSURL *) URLForResource: (NSString *) name
              withExtension: (NSString *) ext
               subdirectory: (NSString *) subpath
-              localization: (NSString *) localizationName {
+              localization: (NSString *) localizationName
+{
     NSString *path = [self pathForResource: name
                                     ofType: ext
                                inDirectory: subpath
@@ -904,7 +909,8 @@ static NSMapTable *pathToObject = NULL;
 }
 
 - (NSString *) pathForResourceFile: (NSString *) file
-                       inDirectory: (NSString *) directory {
+                       inDirectory: (NSString *) directory
+{
     NSArray *lookIn = [self lookInDirectories];
     NSInteger i, count = [lookIn count];
 
@@ -928,7 +934,8 @@ static NSMapTable *pathToObject = NULL;
 
 - (NSString *) pathForResource: (NSString *) name
                         ofType: (NSString *) type
-                   inDirectory: (NSString *) directory {
+                   inDirectory: (NSString *) directory
+{
     NSString *file, *path;
 
     if ([type length] && [[name pathExtension] isEqualToString: type]) {
@@ -936,7 +943,7 @@ static NSMapTable *pathToObject = NULL;
         name = [name stringByDeletingPathExtension];
     }
 
-#if 0 // Disabled - we don't use that and it's increasing the number of files to
+#if 0 // Disabled - we don't use that and it's increasing the number of files to \
       // check for the resource
 	if(type && [type length]!=0)
     file=[[name stringByAppendingFormat:@"-%@",NSPlatformResourceNameSuffix] stringByAppendingPathExtension:type];
@@ -960,7 +967,8 @@ static NSMapTable *pathToObject = NULL;
 - (NSString *) pathForResource: (NSString *) name
                         ofType: (NSString *) type
                    inDirectory: (NSString *) path
-               forLocalization: (NSString *) localization {
+               forLocalization: (NSString *) localization
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -974,7 +982,8 @@ static NSMapTable *pathToObject = NULL;
 }
 
 - (NSArray *) pathsForResourcesOfType: (NSString *) type
-                          inDirectory: (NSString *) path {
+                          inDirectory: (NSString *) path
+{
     NSMutableArray *result = [NSMutableArray array];
     NSString *fullPath = [self resourcePath];
 
@@ -998,14 +1007,16 @@ static NSMapTable *pathToObject = NULL;
 
 - (NSArray *) pathsForResourcesOfType: (NSString *) type
                           inDirectory: (NSString *) path
-                      forLocalization: (NSString *) localization {
+                      forLocalization: (NSString *) localization
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSString *) localizedStringForKey: (NSString *) key
                                value: (NSString *) value
-                               table: (NSString *) table {
+                               table: (NSString *) table
+{
     NSString *result;
     NSDictionary *dictionary;
 
@@ -1064,7 +1075,8 @@ NSString *NSLocalizedString(NSString *key, NSString *comment) {
 }
 
 NSString *NSLocalizedStringFromTable(NSString *key, NSString *table,
-                                     NSString *comment) {
+                                     NSString *comment)
+{
     return [[NSBundle mainBundle] localizedStringForKey: key
                                                   value: nil
                                                   table: table];
@@ -1072,6 +1084,7 @@ NSString *NSLocalizedStringFromTable(NSString *key, NSString *table,
 
 NSString *NSLocalizedStringFromTableInBundle(NSString *key, NSString *table,
                                              NSBundle *bundle,
-                                             NSString *comment) {
+                                             NSString *comment)
+{
     return [bundle localizedStringForKey: key value: nil table: table];
 }

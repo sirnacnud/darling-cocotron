@@ -213,7 +213,8 @@ const unichar _mapISOLatin2ToUnichar(const unsigned char c) {
     return c;
 }
 unichar *NSISOLatin2ToUnicode(const char *cString, NSUInteger length,
-                              NSUInteger *resultLength, NSZone *zone) {
+                              NSUInteger *resultLength, NSZone *zone)
+{
     unichar *characters = NSZoneMalloc(zone, sizeof(unichar) * length);
     int i;
 
@@ -227,7 +228,8 @@ unichar *NSISOLatin2ToUnicode(const char *cString, NSUInteger length,
 
 char *NSUnicodeToISOLatin2(const unichar *characters, NSUInteger length,
                            BOOL lossy, NSUInteger *resultLength, NSZone *zone,
-                           BOOL zeroTerminate) {
+                           BOOL zeroTerminate)
+{
     char *isolatin2 = NSZoneMalloc(
         zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
     int i;
@@ -269,7 +271,8 @@ char *NSUnicodeToISOLatin2(const unichar *characters, NSUInteger length,
 
 NSString *NSISOLatin2CStringNewWithCharacters(NSZone *zone,
                                               const unichar *characters,
-                                              NSUInteger length, BOOL lossy) {
+                                              NSUInteger length, BOOL lossy)
+{
     NSString *string;
     NSUInteger bytesLength;
     char *bytes;
@@ -287,10 +290,12 @@ NSString *NSISOLatin2CStringNewWithCharacters(NSZone *zone,
     return string;
 }
 
-NSUInteger
-NSGetISOLatin2CStringWithMaxLength(const unichar *characters, NSUInteger length,
-                                   NSUInteger *location, char *cString,
-                                   NSUInteger maxLength, BOOL lossy) {
+NSUInteger NSGetISOLatin2CStringWithMaxLength(const unichar *characters,
+                                              NSUInteger length,
+                                              NSUInteger *location,
+                                              char *cString,
+                                              NSUInteger maxLength, BOOL lossy)
+{
     NSUInteger i, result = 0;
 
     if (length + 1 > maxLength) {
@@ -332,7 +337,8 @@ NSGetISOLatin2CStringWithMaxLength(const unichar *characters, NSUInteger length,
 @implementation NSString_isoLatin2
 
 NSString *NSString_isoLatin2NewWithBytes(NSZone *zone, const char *bytes,
-                                         NSUInteger length) {
+                                         NSUInteger length)
+{
     NSString_isoLatin2 *string;
     int i;
 

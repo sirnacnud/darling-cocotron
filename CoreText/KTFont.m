@@ -31,7 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithUIFontType: (CTFontUIFontType) uiFontType
                 size: (CGFloat) size
-            language: (NSString *) language {
+            language: (NSString *) language
+{
     O2InvalidAbstractInvocation();
     return nil;
 }
@@ -108,7 +109,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (CGPoint) positionOfGlyph: (CGGlyph) current
             precededByGlyph: (CGGlyph) previous
-                  isNominal: (BOOL *) isNominalp {
+                  isNominal: (BOOL *) isNominalp
+{
     int advancement;
 
     if (previous == 0)
@@ -122,7 +124,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) getGlyphs: (CGGlyph *) glyphs
      forCharacters: (const unichar *) characters
-            length: (NSUInteger) length {
+            length: (NSUInteger) length
+{
     int i;
 
     for (i = 0; i < length; i++) {
@@ -139,7 +142,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) getAdvancements: (CGSize *) advancements
                forGlyphs: (const CGGlyph *) glyphs
-                   count: (NSUInteger) count {
+                   count: (NSUInteger) count
+{
     int advances[count];
 
     CGFontGetGlyphAdvances(_font, glyphs, count, advances);
@@ -151,7 +155,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (CGPathRef) createPathForGlyph: (CGGlyph) glyph
-                       transform: (CGAffineTransform *) xform {
+                       transform: (CGAffineTransform *) xform
+{
     O2InvalidAbstractInvocation();
     return nil;
 }

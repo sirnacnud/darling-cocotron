@@ -27,8 +27,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSUnimplementedMethod();
 }
 
-- (void) skipDescendants;
-{ [self skipDescendents]; }
+- (void) skipDescendants; {
+    [self skipDescendents];
+}
 
 - (NSDictionary *) directoryAttributes {
     return nil;

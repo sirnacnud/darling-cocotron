@@ -23,14 +23,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSExpression_operator
 
 - initWithOperator: (NSExpressionOperator) operator
-         arguments:(NSArray *) arguments {
+         arguments:(NSArray *) arguments
+{
     _operator = operator;
     _arguments = [arguments retain];
     return self;
 }
 
 + (NSExpression *) expressionForOperator: (NSExpressionOperator) operator
-                               arguments:(NSArray *) arguments {
+                               arguments:(NSArray *) arguments
+{
    return [[[self alloc] initWithOperator:operator arguments:arguments] autorelease];
 }
 
@@ -116,7 +118,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSExpression *) _expressionWithSubstitutionVariables:
-    (NSDictionary *) variables {
+    (NSDictionary *) variables
+{
     NSMutableArray *array = [NSMutableArray array];
     NSInteger i, count = [_arguments count];
 

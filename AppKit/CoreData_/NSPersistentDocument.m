@@ -54,7 +54,8 @@
 }
 
 - (void) setManagedObjectContext:
-    (NSManagedObjectContext *) managedObjectContext {
+    (NSManagedObjectContext *) managedObjectContext
+{
     NSUnimplementedMethod();
 }
 
@@ -63,7 +64,8 @@
                                 modelConfiguration: (NSString *) configuration
                                       storeOptions:
                                           (NSDictionary *) storeOptions
-                                             error: (NSError **) error {
+                                             error: (NSError **) error
+{
     NSUnimplementedMethod();
     return NO;
 }
@@ -77,12 +79,12 @@
     return YES;
 }
 
-- (void) setHasUndoManager: (BOOL) flag {
-    /* Ignored.  Always has an undo manager. */
+- (void) setHasUndoManager: (BOOL) flag
+{ /* Ignored.  Always has an undo manager. */
 }
 
-- (void) setUndoManager: (NSUndoManager *) undoManager {
-    /* Ignored.  Always uses the undo manager of its persistent context. */
+- (void) setUndoManager: (NSUndoManager *) undoManager
+{ /* Ignored.  Always uses the undo manager of its persistent context. */
 }
 
 - (BOOL) isDocumentEdited {
@@ -92,14 +94,16 @@
 
 - (BOOL) readFromURL: (NSURL *) absoluteURL
               ofType: (NSString *) typeName
-               error: (NSError **) outError {
+               error: (NSError **) outError
+{
     NSUnimplementedMethod();
     return NO;
 }
 
 - (BOOL) revertToContentsOfURL: (NSURL *) inAbsoluteURL
                         ofType: (NSString *) inTypeName
-                         error: (NSError **) outError {
+                         error: (NSError **) outError
+{
     NSUnimplementedMethod();
     return NO;
 }
@@ -108,7 +112,8 @@
                  ofType: (NSString *) typeName
        forSaveOperation: (NSSaveOperationType) saveOperation
     originalContentsURL: (NSURL *) absoluteOriginalContentsURL
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSUnimplementedMethod();
     return NO;
 }

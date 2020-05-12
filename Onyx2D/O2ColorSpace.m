@@ -125,7 +125,8 @@ O2ColorSpaceRef O2ColorSpaceCreatePattern(O2ColorSpaceRef baseSpace) {
 
 O2ColorSpaceRef O2ColorSpaceCreateDeviceN(const char **names,
                                           O2ColorSpaceRef alternateSpace,
-                                          O2FunctionRef tintTransform) {
+                                          O2FunctionRef tintTransform)
+{
     return [[O2ColorSpace_DeviceN alloc] initWithComponentNames: names
                                                  alternateSpace: alternateSpace
                                                   tintTransform: tintTransform];
@@ -196,7 +197,8 @@ O2ColorSpaceModel O2ColorSpaceGetModel(O2ColorSpaceRef self) {
 
 - initWithColorSpace: (O2ColorSpaceRef) baseColorSpace
                hival: (size_t) hival
-               bytes: (const unsigned char *) bytes {
+               bytes: (const unsigned char *) bytes
+{
     size_t i,
         max = O2ColorSpaceGetNumberOfComponents(baseColorSpace) * (hival + 1);
 
@@ -252,7 +254,8 @@ O2ColorSpaceModel O2ColorSpaceGetModel(O2ColorSpaceRef self) {
 
 - initWithComponentNames: (const char **) names
           alternateSpace: (O2ColorSpaceRef) altSpace
-           tintTransform: (O2FunctionRef) tintTransform {
+           tintTransform: (O2FunctionRef) tintTransform
+{
     int i;
 
     for (i = 0; names[i] != NULL; i++)

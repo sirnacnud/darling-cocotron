@@ -21,18 +21,21 @@ void O2PNGEncoderDealloc(O2PNGEncoderRef self) {
 #include <zlib.h>
 
 static void o2png_write_data(png_structp png_ptr, png_bytep data,
-                             png_size_t length) {
+                             png_size_t length)
+{
     O2PNGEncoderRef self = (O2PNGEncoderRef) png_get_io_ptr(png_ptr);
     O2DataConsumerPutBytes(self->_consumer, data, length);
 }
 
 static void O2PNGEncoderError(png_structp png_ptr,
-                              png_const_charp error_message) {
+                              png_const_charp error_message)
+{
     [NSException raise: @"PNG exception" format: @"%s", error_message];
 }
 
 void O2PNGEncoderWriteImage(O2PNGEncoderRef self, O2ImageRef image,
-                            CFDictionaryRef props) {
+                            CFDictionaryRef props)
+{
     // Note: only encoding 32 bits RGBA images have been tested
     NSDictionary *properties = (NSDictionary *) props;
 
@@ -232,8 +235,9 @@ static void *stbi__sbgrowf(void **arr, int increment, int itemsize) {
     return *arr;
 }
 
-static unsigned char *
-stbi__zlib_flushf(unsigned char *data, unsigned int *bitbuffer, int *bitcount) {
+static unsigned char *stbi__zlib_flushf(unsigned char *data,
+                                        unsigned int *bitbuffer, int *bitcount)
+{
     while (*bitcount >= 8) {
         stbi__sbpush(data, (unsigned char) *bitbuffer);
         *bitbuffer >>= 8;
@@ -252,7 +256,8 @@ static int stbi__zlib_bitrev(int code, int codebits) {
 }
 
 static unsigned int stbi__zlib_countm(unsigned char *a, unsigned char *b,
-                                      int limit) {
+                                      int limit)
+{
     int i;
     for (i = 0; i < limit && i < 258; ++i)
         if (a[i] != b[i])
@@ -291,7 +296,8 @@ static unsigned int stbi__zhash(unsigned char *data) {
 #define stbi__ZHASH 16384
 
 unsigned char *stbi_zlib_compress(unsigned char *data, int data_len,
-                                  int *out_len, int quality) {
+                                  int *out_len, int quality)
+{
     static unsigned short lengthc[] = {
         3,  4,  5,  6,  7,  8,  9,  10, 11,  13,  15,  17,  19,  23,  27,
         31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, 259};
@@ -389,9 +395,7 @@ unsigned char *stbi_zlib_compress(unsigned char *data, int data_len,
         stbi__zlib_add(0, 1);
 
     for (i = 0; i < stbi__ZHASH; ++i)
-        (void) stbi__sbfree(hash_table[i]);
-
-    {
+        (void) stbi__sbfree(hash_table[i]); {
         // compute adler32 on input
         unsigned int i = 0, s1 = 1, s2 = 0, blocklen = data_len % 5552;
         int j = 0;
@@ -449,7 +453,8 @@ static unsigned char stbi__paeth(int a, int b, int c) {
 }
 
 unsigned char *stbi_write_png_to_mem(O2ImageRef image, int x, int y,
-                                     int *out_len) {
+                                     int *out_len)
+{
     int ctype[5] = {-1, 0, 4, 2, 6};
     unsigned char sig[8] = {137, 80, 78, 71, 13, 10, 26, 10};
     unsigned char *out, *o, *filt, *zlib;
@@ -625,7 +630,8 @@ unsigned char *stbi_write_png_to_mem(O2ImageRef image, int x, int y,
 */
 
 void O2PNGEncoderWriteImage(O2PNGEncoderRef self, O2ImageRef image,
-                            CFDictionaryRef properties) {
+                            CFDictionaryRef properties)
+{
     int length;
 
     unsigned char *png = stbi_write_png_to_mem(

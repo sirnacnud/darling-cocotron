@@ -744,7 +744,8 @@ static NSExpression *nextExpression(predicateScanner *scanner);
 static NSPredicate *nextPredicate(predicateScanner *scanner);
 
 static NSExpression *nextFunctionExpression(predicateScanner *scanner,
-                                            NSString *name) {
+                                            NSString *name)
+{
     NSMutableArray *arguments = [NSMutableArray array];
 
     while (peekTokenType(scanner) != predTokenRightParen) {
@@ -1335,7 +1336,8 @@ static void nextOperationOption(predicateScanner *scanner, unsigned *options) {
 }
 
 static BOOL nextOperation(predicateScanner *scanner,
-                          NSPredicateOperatorType *type, unsigned *options) {
+                          NSPredicateOperatorType *type, unsigned *options)
+{
     *options = 0;
 
     switch (peekTokenType(scanner)) {
@@ -1426,9 +1428,7 @@ static NSPredicate *nextComparisonPredicate(predicateScanner *scanner) {
         modifier = NSAnyPredicateModifier;
         negate = YES;
         break;
-    }
-
-    {
+    } {
         NSExpression *left = nextExpression(scanner);
         NSExpression *right;
         NSPredicate *result;
@@ -1451,8 +1451,7 @@ static NSPredicate *nextComparisonPredicate(predicateScanner *scanner) {
 
         case predToken_BETWEEN:
             skipToken(scanner);
-            right = nextExpression(scanner);
-            {
+            right = nextExpression(scanner); {
                 NSExpression *rightFirst = [NSExpression_operator
                     expressionForOperator: NSExpressionOperatorIndexFirst
                                 arguments: [NSArray arrayWithObject: right]];
@@ -1628,7 +1627,8 @@ static NSPredicate *nextTopLevelPredicate(predicateScanner *scanner) {
 }
 
 + (NSPredicate *) predicateWithFormat: (NSString *) format
-                            arguments: (va_list) arguments {
+                            arguments: (va_list) arguments
+{
     predicateScanner scanner;
     NSUInteger length = [format length];
     unichar buffer[length];
@@ -1663,7 +1663,8 @@ static NSPredicate *nextTopLevelPredicate(predicateScanner *scanner) {
 }
 
 + (NSPredicate *) predicateWithFormat: (NSString *) format
-                        argumentArray: (NSArray *) arguments {
+                        argumentArray: (NSArray *) arguments
+{
     predicateScanner scanner;
     NSUInteger length = [format length];
     unichar buffer[length];
@@ -1689,8 +1690,8 @@ static NSPredicate *nextTopLevelPredicate(predicateScanner *scanner) {
     return nil;
 }
 
-- (NSPredicate *) predicateWithSubstitutionVariables:
-    (NSDictionary *) variables {
+- (NSPredicate *) predicateWithSubstitutionVariables: (NSDictionary *) variables
+{
     return self;
 }
 

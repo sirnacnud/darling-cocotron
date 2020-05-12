@@ -29,7 +29,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
      previousFailureCount: (int) failureCount
           failureResponse: (NSURLResponse *) failureResponse
                     error: (NSError *) error
-                   sender: (id<NSURLAuthenticationChallengeSender>) sender {
+                   sender: (id<NSURLAuthenticationChallengeSender>) sender
+{
     _protectionSpace = [space copy];
     _proposedCredential = [credential copy];
     _failureCount = failureCount;
@@ -40,7 +41,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithAuthenticationChallenge: (NSURLAuthenticationChallenge *) challenge
                            sender:
-                               (id<NSURLAuthenticationChallengeSender>) sender {
+                               (id<NSURLAuthenticationChallengeSender>) sender
+{
     return [self initWithProtectionSpace: [challenge protectionSpace]
                       proposedCredential: [challenge proposedCredential]
                     previousFailureCount: [challenge previousFailureCount]

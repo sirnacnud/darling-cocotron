@@ -80,7 +80,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 }
 
 - initWithStartingColor: (NSColor *) startingColor
-            endingColor: (NSColor *) endingColor {
+            endingColor: (NSColor *) endingColor
+{
     NSArray *colors =
         [NSArray arrayWithObjects: startingColor, endingColor, nil];
     CGFloat locations[2] = {0.0, 1.0};
@@ -129,7 +130,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 
 - initWithColors: (NSArray *) colors
      atLocations: (const CGFloat *) locations
-      colorSpace: (NSColorSpace *) colorSpace {
+      colorSpace: (NSColorSpace *) colorSpace
+{
     _colorSpace = [[NSColorSpace deviceRGBColorSpace] retain];
     _numberOfColors = [colors count];
     _numberOfComponents = 4;
@@ -168,7 +170,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 
 - (void) drawFromPoint: (NSPoint) startingPoint
                toPoint: (NSPoint) endingPoint
-               options: (NSGradientDrawingOptions) options {
+               options: (NSGradientDrawingOptions) options
+{
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     CGFunctionCallbacks callbacks = {0, evaluate, NULL};
     CGFunctionRef function =
@@ -187,7 +190,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
                  radius: (CGFloat) startRadius
                toCenter: (NSPoint) endCenter
                  radius: (CGFloat) endRadius
-                options: (NSGradientDrawingOptions) options {
+                options: (NSGradientDrawingOptions) options
+{
     NSUnimplementedMethod();
 }
 
@@ -220,8 +224,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 
     CGFloat radAngle = angle / 180 * M_PI; // Angle in radians
     // The trig for this is difficult to describe without an illustration, so
-    // I'm attaching an illustration to Cocotron issue number 438 along with this
-    // patch
+    // I'm attaching an illustration to Cocotron issue number 438 along with
+    // this patch
     CGFloat distanceToEnd = cos(atan2(tanSize.y, tanSize.x) - radAngle) *
                             sqrt(rect.size.width * rect.size.width +
                                  rect.size.height * rect.size.height);
@@ -253,7 +257,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 }
 
 - (void) drawInBezierPath: (NSBezierPath *) path
-    relativeCenterPosition: (NSPoint) center {
+    relativeCenterPosition: (NSPoint) center
+{
     NSUnimplementedMethod();
 }
 
@@ -267,7 +272,8 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
 
 - (void) getColor: (NSColor **) color
          location: (CGFloat *) location
-          atIndex: (NSInteger) index {
+          atIndex: (NSInteger) index
+{
     if (location)
         *location = _locations[index];
 

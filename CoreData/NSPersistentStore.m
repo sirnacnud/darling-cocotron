@@ -7,14 +7,16 @@
 @implementation NSPersistentStore
 
 + (NSDictionary *) metadataForPersistentStoreWithURL: (NSURL *) url
-                                               error: (NSError **) error {
+                                               error: (NSError **) error
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
 
 + (BOOL) setMetadata: (NSDictionary *) metadata
     forPersistentStoreWithURL: (NSURL *) url
-                        error: (NSError **) error {
+                        error: (NSError **) error
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -27,7 +29,8 @@
 - initWithPersistentStoreCoordinator: (NSPersistentStoreCoordinator *) root
                    configurationName: (NSString *) name
                                  URL: (NSURL *) url
-                             options: (NSDictionary *) options {
+                             options: (NSDictionary *) options
+{
     _coordinator = root;
     _configurationName = [name copy];
     _url = [url copy];
@@ -105,12 +108,14 @@
 }
 
 - (void) willRemoveFromPersistentStoreCoordinator:
-    (NSPersistentStoreCoordinator *) coordinator {
+    (NSPersistentStoreCoordinator *) coordinator
+{
     // Default implementation does nothing
 }
 
 - (void) didAddToPersistentStoreCoordinator:
-    (NSPersistentStoreCoordinator *) coordinator {
+    (NSPersistentStoreCoordinator *) coordinator
+{
     // Default implementation does nothing
 }
 

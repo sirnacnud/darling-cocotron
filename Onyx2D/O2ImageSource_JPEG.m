@@ -41,7 +41,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation O2ImageSource_JPEG
 
 static O2ImageDecoder *
-createImageDecoderWithDataProvider(O2DataProviderRef dataProvider) {
+createImageDecoderWithDataProvider(O2DataProviderRef dataProvider)
+{
 #ifdef LIBJPEG_PRESENT
     return [[O2ImageDecoder_JPEG_libjpeg alloc]
         initWithDataProvider: dataProvider];
@@ -85,7 +86,8 @@ NSData *O2DCTDecode(NSData *data, size_t *pBytesPerRow) {
 }
 
 - initWithDataProvider: (O2DataProviderRef) provider
-               options: (NSDictionary *) options {
+               options: (NSDictionary *) options
+{
     [super initWithDataProvider: provider options: options];
     return self;
 }
@@ -105,7 +107,8 @@ NSData *O2DCTDecode(NSData *data, size_t *pBytesPerRow) {
 }
 
 - (CFDictionaryRef) copyPropertiesAtIndex: (NSUInteger) idx
-                                  options: (CFDictionaryRef) options {
+                                  options: (CFDictionaryRef) options
+{
     if (_jpg == NULL) {
         _jpg = O2DataProviderCopyData(_provider);
     }
@@ -118,7 +121,8 @@ NSData *O2DCTDecode(NSData *data, size_t *pBytesPerRow) {
 }
 
 - (O2ImageRef) createImageAtIndex: (NSUInteger) index
-                          options: (CFDictionaryRef) options {
+                          options: (CFDictionaryRef) options
+{
     O2ImageDecoderRef decoder = createImageDecoderWithDataProvider(_provider);
     O2DataProviderRef provider = O2ImageDecoderCreatePixelDataProvider(decoder);
 

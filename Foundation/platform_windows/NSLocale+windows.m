@@ -41,7 +41,8 @@ BOOL NSCurrentLocaleIsMetric() {
 }
 
 + (NSDictionary *) _platformLocaleAdditionalDescriptionForIdentifier:
-    (NSString *) string {
+    (NSString *) string
+{
     @synchronized(self) {
         if (sLocales == nil) {
             // Get all of the installed locales ISO names & LCID

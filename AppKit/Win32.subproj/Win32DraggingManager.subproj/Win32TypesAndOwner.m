@@ -35,7 +35,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (Win32TypesAndOwner *) typesAndOwnerWithTypes: (NSArray *) types
-                                          owner: (id) owner {
+                                          owner: (id) owner
+{
     return [[[self alloc] initWithTypes: types owner: owner] autorelease];
 }
 

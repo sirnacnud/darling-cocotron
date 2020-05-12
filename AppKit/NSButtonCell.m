@@ -1151,7 +1151,8 @@ static void drawRoundedBezel(CGContextRef context, CGRect frame) {
 
 - (void) drawImage: (NSImage *) image
          withFrame: (NSRect) rect
-            inView: (NSView *) controlView {
+            inView: (NSView *) controlView
+{
     BOOL enabled = [self isEnabled] ? YES : ![self imageDimsWhenDisabled];
     BOOL mixed = ([self state] == NSMixedState) ? YES : NO;
 
@@ -1172,7 +1173,8 @@ static void drawRoundedBezel(CGContextRef context, CGRect frame) {
 
 - (NSRect) drawTitle: (NSAttributedString *) title
            withFrame: (NSRect) titleRect
-              inView: (NSView *) controlView {
+              inView: (NSView *) controlView
+{
 
     [title _clipAndDrawInRect: titleRect];
 
@@ -1199,7 +1201,8 @@ static void drawRoundedBezel(CGContextRef context, CGRect frame) {
 
 // This function is duplicated in NSImageCell, consolidate
 static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
-                                         NSImageScaling scaling) {
+                                         NSImageScaling scaling)
+{
 
     switch (scaling) {
     case NSImageScaleProportionallyDown: {

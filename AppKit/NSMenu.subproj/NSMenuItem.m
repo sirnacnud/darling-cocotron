@@ -78,7 +78,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithTitle: (NSString *) title
            action: (SEL) action
-    keyEquivalent: (NSString *) keyEquivalent {
+    keyEquivalent: (NSString *) keyEquivalent
+{
     _title = [title copy];
     _target = nil;
     _action = action;

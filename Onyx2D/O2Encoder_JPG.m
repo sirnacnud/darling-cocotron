@@ -17,7 +17,8 @@ void O2JPGEncoderDealloc(O2JPGEncoderRef self) {
 }
 
 static void pack_argb8u_as_rgb8u(O2argb8u *imageRow, size_t width,
-                                 uint8_t *rowbuffer) {
+                                 uint8_t *rowbuffer)
+{
     while (width--) {
         O2argb8u pixel = *imageRow++;
         *rowbuffer++ = pixel.r;
@@ -26,7 +27,8 @@ static void pack_argb8u_as_rgb8u(O2argb8u *imageRow, size_t width,
     }
 }
 void O2JPGEncoderWriteImage(O2JPGEncoderRef self, O2ImageRef image,
-                            CFDictionaryRef props) {
+                            CFDictionaryRef props)
+{
     NSDictionary *properties = (NSDictionary *) props;
 
     unsigned long length = 0;

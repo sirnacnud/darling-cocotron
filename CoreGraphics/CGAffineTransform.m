@@ -29,7 +29,8 @@ bool CGAffineTransformIsIdentity(CGAffineTransform xform) {
 }
 
 CGAffineTransform CGAffineTransformMake(CGFloat a, CGFloat b, CGFloat c,
-                                        CGFloat d, CGFloat tx, CGFloat ty) {
+                                        CGFloat d, CGFloat tx, CGFloat ty)
+{
     CGAffineTransform xform = {a, b, c, d, tx, ty};
     return xform;
 }
@@ -51,7 +52,8 @@ CGAffineTransform CGAffineTransformMakeTranslation(CGFloat tx, CGFloat ty) {
 }
 
 CGAffineTransform CGAffineTransformConcat(CGAffineTransform xform,
-                                          CGAffineTransform append) {
+                                          CGAffineTransform append)
+{
     CGAffineTransform result;
 
     result.a = xform.a * append.a + xform.b * append.c;
@@ -84,19 +86,22 @@ CGAffineTransform CGAffineTransformInvert(CGAffineTransform xform) {
 }
 
 CGAffineTransform CGAffineTransformRotate(CGAffineTransform xform,
-                                          CGFloat radians) {
+                                          CGFloat radians)
+{
     CGAffineTransform rotate = CGAffineTransformMakeRotation(radians);
     return CGAffineTransformConcat(rotate, xform);
 }
 
 CGAffineTransform CGAffineTransformScale(CGAffineTransform xform,
-                                         CGFloat scalex, CGFloat scaley) {
+                                         CGFloat scalex, CGFloat scaley)
+{
     CGAffineTransform scale = CGAffineTransformMakeScale(scalex, scaley);
     return CGAffineTransformConcat(scale, xform);
 }
 
 CGAffineTransform CGAffineTransformTranslate(CGAffineTransform xform,
-                                             CGFloat tx, CGFloat ty) {
+                                             CGFloat tx, CGFloat ty)
+{
     CGAffineTransform translate = CGAffineTransformMakeTranslation(tx, ty);
     return CGAffineTransformConcat(translate, xform);
 }

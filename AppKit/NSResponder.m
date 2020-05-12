@@ -67,7 +67,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - validRequestorForSendType: (NSString *) sendType
-                 returnType: (NSString *) returnType {
+                 returnType: (NSString *) returnType
+{
     return [_nextResponder validRequestorForSendType: sendType
                                           returnType: returnType];
 }
@@ -230,7 +231,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         modalForWindow: (NSWindow *) window
               delegate: delegate
     didPresentSelector: (SEL) selector
-           contextInfo: (void *) info {
+           contextInfo: (void *) info
+{
     NSUnimplementedMethod();
 }
 

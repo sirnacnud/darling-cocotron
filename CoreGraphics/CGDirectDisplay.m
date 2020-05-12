@@ -65,7 +65,8 @@ CGDirectDisplayID CGMainDisplayID(void) {
 
 CGError CGGetOnlineDisplayList(uint32_t maxDisplays,
                                CGDirectDisplayID *onlineDisplays,
-                               uint32_t *displayCount) {
+                               uint32_t *displayCount)
+{
     NSDisplay *display = currentDisplay();
     if (!display)
         return kCGErrorInvalidConnection;
@@ -119,7 +120,8 @@ size_t CGDisplayPixelsWide(CGDirectDisplayID displayIndex) {
 
 CGError CGGetActiveDisplayList(uint32_t maxDisplays,
                                CGDirectDisplayID *activeDisplays,
-                               uint32_t *displayCount) {
+                               uint32_t *displayCount)
+{
     NSDisplay *display = currentDisplay();
     if (!display)
         return kCGErrorInvalidConnection;
@@ -141,7 +143,8 @@ CGError CGGetActiveDisplayList(uint32_t maxDisplays,
 CGError CGGetDisplaysWithOpenGLDisplayMask(CGOpenGLDisplayMask mask,
                                            uint32_t maxDisplays,
                                            CGDirectDisplayID *displays,
-                                           uint32_t *matchingDisplayCount) {
+                                           uint32_t *matchingDisplayCount)
+{
     return CGGetOnlineDisplayList(maxDisplays, displays, matchingDisplayCount);
 }
 
@@ -151,7 +154,8 @@ CGDirectDisplayID CGOpenGLDisplayMaskToDisplayID(CGOpenGLDisplayMask mask) {
 
 CGError CGGetDisplaysWithPoint(CGPoint point, uint32_t maxDisplays,
                                CGDirectDisplayID *displays,
-                               uint32_t *matchingDisplayCount) {
+                               uint32_t *matchingDisplayCount)
+{
     NSDisplay *display = currentDisplay();
     if (!display)
         return kCGErrorInvalidConnection;
@@ -173,7 +177,8 @@ CGError CGGetDisplaysWithPoint(CGPoint point, uint32_t maxDisplays,
 
 CGError CGGetDisplaysWithRect(CGRect rect, uint32_t maxDisplays,
                               CGDirectDisplayID *displays,
-                              uint32_t *matchingDisplayCount) {
+                              uint32_t *matchingDisplayCount)
+{
     NSDisplay *display = currentDisplay();
     if (!display)
         return kCGErrorInvalidConnection;
@@ -300,7 +305,8 @@ CFStringRef CGDisplayModeCopyPixelEncoding(CGDisplayModeRef mode) {
 }
 
 CFArrayRef CGDisplayCopyAllDisplayModes(CGDirectDisplayID displayIndex,
-                                        CFDictionaryRef options) {
+                                        CFDictionaryRef options)
+{
     NSDisplay *display = currentDisplay();
     if (!display)
         return NULL;
@@ -308,8 +314,8 @@ CFArrayRef CGDisplayCopyAllDisplayModes(CGDirectDisplayID displayIndex,
 }
 
 CGError CGDisplaySetDisplayMode(CGDirectDisplayID displayId,
-                                CGDisplayModeRef mode,
-                                CFDictionaryRef options) {
+                                CGDisplayModeRef mode, CFDictionaryRef options)
+{
     NSDisplay *display = currentDisplay();
     if (!display)
         return kCGErrorInvalidConnection;
@@ -448,7 +454,8 @@ CGError CGAssociateMouseAndMouseCursorPosition(boolean_t connected) {
 
 CFDictionaryRef CGDisplayBestModeForParametersAndRefreshRate(
     CGDirectDisplayID display, size_t bitsPerPixel, size_t width, size_t height,
-    CGRefreshRate refreshRate, boolean_t *exactMatch) {
+    CGRefreshRate refreshRate, boolean_t *exactMatch)
+{
     return nil;
 }
 

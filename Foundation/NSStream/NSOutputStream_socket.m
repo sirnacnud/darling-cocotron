@@ -56,7 +56,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setClientEvents: (CFOptionFlags) events
                 callBack: (CFWriteStreamClientCallBack) callBack
-                 context: (CFStreamClientContext *) context {
+                 context: (CFStreamClientContext *) context
+{
     _events = events;
     _callBack = callBack;
 
@@ -196,7 +197,8 @@ static BOOL socketHasSpaceAvailable(NSSocket *socket) {
 }
 
 - (void) selectInputSource: (NSSelectInputSource *) inputSource
-               selectEvent: (NSUInteger) selectEvent {
+               selectEvent: (NSUInteger) selectEvent
+{
     NSStreamEvent event;
 
     switch (_status) {

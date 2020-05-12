@@ -13,7 +13,8 @@
 
 - initWithKeychainOrArray: (CFTypeRef) keychainOrArray
                 itemClass: (SecItemClass) itemClass
-            attributeList: (const SecKeychainAttributeList *) attributeList {
+            attributeList: (const SecKeychainAttributeList *) attributeList
+{
     if (keychainOrArray == NULL)
         keychainOrArray = [SecKeychain defaultUserKeychain];
 

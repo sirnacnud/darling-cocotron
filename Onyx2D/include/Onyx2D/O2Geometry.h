@@ -43,7 +43,8 @@ extern const O2Point O2PointZero;
 extern const O2Size O2SizeZero;
 
 static inline O2Rect O2RectMake(O2Float x, O2Float y, O2Float width,
-                                O2Float height) {
+                                O2Float height)
+{
     return NSMakeRect(x, y, width, height);
 }
 

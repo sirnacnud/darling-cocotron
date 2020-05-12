@@ -6,7 +6,8 @@
 @implementation NSManagedObjectSet
 
 - initWithManagedObjectContext: (NSManagedObjectContext *) context
-                           set: (NSSet *) set {
+                           set: (NSSet *) set
+{
     _context = [context retain];
     _set = [set retain];
     return self;

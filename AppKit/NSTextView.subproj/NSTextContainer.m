@@ -234,7 +234,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSRect) lineFragmentRectForProposedRect: (NSRect) proposed
                             sweepDirection: (NSLineSweepDirection) sweep
                          movementDirection: (NSLineMovementDirection) movement
-                             remainingRect: (NSRectPointer) remaining {
+                             remainingRect: (NSRectPointer) remaining
+{
     NSRect r = {.origin = NSZeroPoint, .size = _size};
     NSRect result = proposed;
 

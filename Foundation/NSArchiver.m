@@ -237,7 +237,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) _appendArrayOfObjCType: (const char *) type
                          length: (NSUInteger) length
-                             at: (const void *) addr {
+                             at: (const void *) addr
+{
 
     if (_pass == 0)
         return;
@@ -424,7 +425,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) encodeClassName: (NSString *) runtime
-           intoClassName: (NSString *) archive {
+           intoClassName: (NSString *) archive
+{
     NSUnimplementedMethod();
 }
 

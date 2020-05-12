@@ -217,7 +217,8 @@ static unsigned nextUnsigned32AtOffset(O2Decoder_TIFF *self, unsigned *offset) {
 }
 
 - (void) _decodeArrayOfUnsigned8: (unsigned char **) valuesp
-                           count: (unsigned *) countp {
+                           count: (unsigned *) countp
+{
     unsigned numberOfValues = nextUnsigned32(self);
     unsigned char *values;
 
@@ -240,7 +241,8 @@ static unsigned nextUnsigned32AtOffset(O2Decoder_TIFF *self, unsigned *offset) {
 }
 
 static void _decodeArrayOfUnsigned16(O2Decoder_TIFF *self, unsigned **valuesp,
-                                     unsigned *countp) {
+                                     unsigned *countp)
+{
     unsigned numberOfValues = nextUnsigned32(self);
     unsigned *values;
 
@@ -263,7 +265,8 @@ static void _decodeArrayOfUnsigned16(O2Decoder_TIFF *self, unsigned **valuesp,
 }
 
 static void _decodeArrayOfUnsigned32(O2Decoder_TIFF *self, unsigned **valuesp,
-                                     unsigned *countp) {
+                                     unsigned *countp)
+{
     unsigned numberOfValues = nextUnsigned32(self);
     unsigned *values;
 
@@ -326,7 +329,8 @@ static void _decodeArrayOfUnsigned32(O2Decoder_TIFF *self, unsigned **valuesp,
 }
 
 - (void) expectArrayOfUnsigned8: (unsigned char **) valuesp
-                          count: (unsigned *) countp {
+                          count: (unsigned *) countp
+{
     unsigned type = nextUnsigned16(self);
 
     if (type != NSTIFFTypeBYTE) {
@@ -338,7 +342,8 @@ static void _decodeArrayOfUnsigned32(O2Decoder_TIFF *self, unsigned **valuesp,
 }
 
 - (void) expectArrayOfUnsigned16: (unsigned **) valuesp
-                           count: (unsigned *) countp {
+                           count: (unsigned *) countp
+{
     unsigned type = nextUnsigned16(self);
 
     if (type != NSTIFFTypeSHORT) {
@@ -350,7 +355,8 @@ static void _decodeArrayOfUnsigned32(O2Decoder_TIFF *self, unsigned **valuesp,
 }
 
 - (void) expectArrayOfUnsigned16OrUnsigned32: (unsigned **) valuesp
-                                       count: (unsigned *) countp {
+                                       count: (unsigned *) countp
+{
     unsigned type = nextUnsigned16(self);
 
     if (type == NSTIFFTypeSHORT)

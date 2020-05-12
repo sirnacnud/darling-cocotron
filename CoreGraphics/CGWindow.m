@@ -88,7 +88,8 @@ const CFStringRef kCGWindowNumber = CFSTR("kCGWindowNumber");
 }
 
 - (void) sheetOrderFrontFromFrame: (NSRect) frame
-                      aboveWindow: (CGWindow *) aboveWindow {
+                      aboveWindow: (CGWindow *) aboveWindow
+{
     O2InvalidAbstractInvocation();
 }
 

@@ -26,7 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSString_unicode
 
 NSString *NSString_unicodeNew(NSZone *zone, const unichar *unicode,
-                              NSUInteger length) {
+                              NSUInteger length)
+{
     NSString_unicode *self = NSAllocateObject([NSString_unicode class],
                                               length * sizeof(unichar), zone);
 
@@ -42,7 +43,8 @@ NSString *NSString_unicodeNew(NSZone *zone, const unichar *unicode,
 NSUInteger NSGetUnicodeCStringWithMaxLength(const unichar *characters,
                                             NSUInteger length,
                                             NSUInteger *location, char *cString,
-                                            NSUInteger maxLength) {
+                                            NSUInteger maxLength)
+{
     if ((length + 1) * 2 > maxLength) {
         cString[0] = '\0';
         return NSNotFound;
@@ -56,7 +58,8 @@ NSUInteger NSGetUnicodeCStringWithMaxLength(const unichar *characters,
 
 char *NSUnicodeToUnicode(const unichar *characters, NSUInteger length,
                          NSUInteger *resultLength, NSZone *zone,
-                         BOOL zeroTerminate) {
+                         BOOL zeroTerminate)
+{
     unichar *unicode = NSZoneMalloc(
         zone, sizeof(unichar) * (length + (zeroTerminate ? 1 : 0)));
 

@@ -40,7 +40,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + elementWithName: (NSString *) name
          children: (NSArray *) children
-       attributes: (NSArray *) attributes {
+       attributes: (NSArray *) attributes
+{
     NSXMLElement *result =
         [[[NSXMLElement alloc] initWithName: name] autorelease];
 
@@ -84,7 +85,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + processingInstructionWithName: (NSString *) name
-                    stringValue: (NSString *) string {
+                    stringValue: (NSString *) string
+{
     NSXMLNode *result = [[[self alloc]
         initWithKind: NSXMLProcessingInstructionKind] autorelease];
 
@@ -255,7 +257,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setStringValue: (NSString *) string
-      resolvingEntities: (BOOL) resolveEntities {
+      resolvingEntities: (BOOL) resolveEntities
+{
     NSUnimplementedMethod();
 }
 
@@ -300,7 +303,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSArray *) objectsForXQuery: (NSString *) xquery
                      constants: (NSDictionary *) constants
-                         error: (NSError **) error {
+                         error: (NSError **) error
+{
     NSUnimplementedMethod();
     return nil;
 }

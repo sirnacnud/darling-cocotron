@@ -6,7 +6,8 @@
 
 - initWithResultType: (NSTextCheckingType) resultType
                range: (NSRange) range
-          properties: (NSDictionary *) properties {
+          properties: (NSDictionary *) properties
+{
     _resultType = resultType;
     _range = range;
     _properties = [properties copy];
@@ -16,7 +17,8 @@
 - initWithResultType: (NSTextCheckingType) resultType
                range: (NSRange) range
             property: property
-                name: (NSString *) name {
+                name: (NSString *) name
+{
     NSDictionary *properties = [NSDictionary dictionaryWithObject: property
                                                            forKey: name];
 
@@ -32,27 +34,30 @@
 
 + (NSTextCheckingResult *) addressCheckingResultWithRange: (NSRange) range
                                                components:
-                                                   (NSDictionary *) components {
+                                                   (NSDictionary *) components
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSTextCheckingResult *) correctionCheckingResultWithRange: (NSRange) range
                                            replacementString:
-                                               (NSString *) replacement {
+                                               (NSString *) replacement
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSTextCheckingResult *) dashCheckingResultWithRange: (NSRange) range
-                                     replacementString:
-                                         (NSString *) replacement {
+                                     replacementString: (NSString *) replacement
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSTextCheckingResult *) dateCheckingResultWithRange: (NSRange) range
-                                                  date: (NSDate *) date {
+                                                  date: (NSDate *) date
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -61,40 +66,46 @@
                                                   date: (NSDate *) date
                                               timeZone: (NSTimeZone *) timeZone
                                               duration:
-                                                  (NSTimeInterval) duration {
+                                                  (NSTimeInterval) duration
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSTextCheckingResult *) grammarCheckingResultWithRange: (NSRange) range
-                                                  details: (NSArray *) details {
+                                                  details: (NSArray *) details
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSTextCheckingResult *) linkCheckingResultWithRange: (NSRange) range
-                                                   URL: (NSURL *) url {
+                                                   URL: (NSURL *) url
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSTextCheckingResult *) orthographyCheckingResultWithRange: (NSRange) range
                                                   orthography: (NSOrthography *)
-                                                                   orthography {
+                                                                   orthography
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSTextCheckingResult *) quoteCheckingResultWithRange: (NSRange) range
                                       replacementString:
-                                          (NSString *) replacement {
+                                          (NSString *) replacement
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSTextCheckingResult *) replacementCheckingResultWithRange: (NSRange) range
                                             replacementString:
-                                                (NSString *) replacement {
+                                                (NSString *) replacement
+{
     NSUnimplementedMethod();
     return nil;
 }

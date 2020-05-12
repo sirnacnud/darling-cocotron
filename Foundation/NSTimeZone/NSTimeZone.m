@@ -238,7 +238,8 @@ static NSTimeZone *_localTimeZone = nil;
 }
 
 - (NSString *) localizedName: (NSTimeZoneNameStyle) style
-                      locale: (NSLocale *) locale {
+                      locale: (NSLocale *) locale
+{
     NSUnimplementedMethod();
     return 0;
 }

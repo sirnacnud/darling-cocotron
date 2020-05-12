@@ -5,13 +5,15 @@
 CGGradientRef CGGradientCreateWithColorComponents(CGColorSpaceRef colorSpace,
                                                   const CGFloat components[],
                                                   const CGFloat locations[],
-                                                  size_t count) {
+                                                  size_t count)
+{
     return NULL;
 }
 
 CGGradientRef CGGradientCreateWithColors(CGColorSpaceRef colorSpace,
                                          CFArrayRef colors,
-                                         const CGFloat locations[]) {
+                                         const CGFloat locations[])
+{
     CFIndex i, count = CFArrayGetCount(colors);
     size_t numberOfComponents =
         CGColorSpaceGetNumberOfComponents(colorSpace) + 1;

@@ -35,7 +35,8 @@ NSString *NSAnimationRunLoopMode = @"NSAnimationRunLoopMode";
 @implementation NSAnimation
 
 - initWithDuration: (NSTimeInterval) duration
-    animationCurve: (NSAnimationCurve) curve {
+    animationCurve: (NSAnimationCurve) curve
+{
     _duration = duration;
     _curve = curve;
     _frameRate = 10;
@@ -238,12 +239,14 @@ NSString *NSAnimationRunLoopMode = @"NSAnimationRunLoopMode";
 }
 
 - (void) startWhenAnimation: (NSAnimation *) animation
-            reachesProgress: (NSAnimationProgress) progress {
+            reachesProgress: (NSAnimationProgress) progress
+{
     NSUnimplementedMethod();
 }
 
 - (void) stopWhenAnimation: (NSAnimation *) animation
-           reachesProgress: (NSAnimationProgress) progress {
+           reachesProgress: (NSAnimationProgress) progress
+{
     NSUnimplementedMethod();
 }
 

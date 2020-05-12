@@ -168,7 +168,8 @@ static inline uint32_t testAlphaMultiply(uint32_t c, uint32_t a) {
 }
 
 static inline O2argb8u testO2argb8uMultiplyByMask8u(O2argb8u result,
-                                                    uint32_t value) {
+                                                    uint32_t value)
+{
     result.r = testAlphaMultiply(result.r, value);
     result.g = testAlphaMultiply(result.g, value);
     result.b = testAlphaMultiply(result.b, value);
@@ -180,7 +181,8 @@ static inline O2argb8u testO2argb8uMultiplyByMask8u(O2argb8u result,
 #ifdef FREETYPE_PRESENT
 static void applyCoverageToSpan_lRGBA8888_PRE(O2argb8u *dst,
                                               uint8_t *coverageSpan,
-                                              O2argb8u *src, int length) {
+                                              O2argb8u *src, int length)
+{
     int i;
 
     for (i = 0; i < length; i++, src++, dst++) {
@@ -197,7 +199,8 @@ static void applyCoverageToSpan_lRGBA8888_PRE(O2argb8u *dst,
 static void drawGray8Stencil(O2Context_builtin_gdi *self, O2Surface *surface,
                              CGFloat fpx, CGFloat fpy, O2Paint *paint,
                              uint8_t *coverage, size_t bytesPerRow,
-                             size_t width, size_t height, int left, int top) {
+                             size_t width, size_t height, int left, int top)
+{
     int x = lroundf(fpx) + left;
     int y = lroundf(fpy) - top;
     int row;
@@ -268,7 +271,8 @@ static void drawGray8Stencil(O2Context_builtin_gdi *self, O2Surface *surface,
 
 static void drawFreeTypeBitmap(O2Context_builtin_gdi *self, O2Surface *surface,
                                O2GlyphStencilRef stencil, CGFloat fpx,
-                               CGFloat fpy, O2Paint *paint) {
+                               CGFloat fpy, O2Paint *paint)
+{
     drawGray8Stencil(
         self, surface, fpx, fpy, paint, O2GlyphStencilGetCoverage(stencil),
         O2GlyphStencilGetWidth(stencil), O2GlyphStencilGetWidth(stencil),
@@ -278,7 +282,8 @@ static void drawFreeTypeBitmap(O2Context_builtin_gdi *self, O2Surface *surface,
 #endif
 
 static inline O2GlyphStencilRef
-stencilForGlyphIndex(O2Context_builtin_gdi *self, O2Glyph glyph) {
+stencilForGlyphIndex(O2Context_builtin_gdi *self, O2Glyph glyph)
+{
     if (glyph < self->_glyphCacheCount)
         return self->_glyphCache[glyph];
 
@@ -287,7 +292,8 @@ stencilForGlyphIndex(O2Context_builtin_gdi *self, O2Glyph glyph) {
 
 static inline void cacheStencilForGlyphIndex(O2Context_builtin_gdi *self,
                                              O2Glyph glyph,
-                                             O2GlyphStencilRef stencil) {
+                                             O2GlyphStencilRef stencil)
+{
     if (glyph >= self->_glyphCacheCount) {
         size_t count = self->_glyphCacheCount;
 
@@ -318,7 +324,8 @@ static inline void purgeGlyphCache(O2Context_builtin_gdi *self) {
 
 - (void) showGlyphs: (const O2Glyph *) glyphs
            advances: (const O2Size *) advances
-              count: (unsigned) count {
+              count: (unsigned) count
+{
     O2SurfaceLock(_surface);
 
     O2GState *gState = O2ContextCurrentGState(self);

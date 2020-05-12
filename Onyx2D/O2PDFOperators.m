@@ -190,7 +190,8 @@ void O2PDF_render_cm(O2PDFScanner *scanner, void *info) {
 }
 
 O2ColorSpaceRef createColorSpaceFromScanner(O2PDFScanner *scanner, void *info,
-                                            const char *name) {
+                                            const char *name)
+{
     O2ColorSpaceRef result = NULL;
 
     if (strcmp(name, "DeviceGray") == 0)
@@ -261,8 +262,7 @@ void O2PDF_render_d(O2PDFScanner *scanner, void *info) {
         return;
     if (!O2PDFScannerPopArray(scanner, &array))
         return;
-    count = [array count];
-    {
+    count = [array count]; {
         O2PDFReal lengths[count];
 
         for (i = 0; i < count; i++)
@@ -448,7 +448,8 @@ void O2PDF_render_g(O2PDFScanner *scanner, void *info) {
 }
 
 static void establishFontInContext(O2Context *context, O2PDFFont *pdfFont,
-                                   O2PDFReal scale) {
+                                   O2PDFReal scale)
+{
     O2ContextSetFont(context, [pdfFont graphicsFont]);
     O2ContextSetFontSize(context, scale);
     O2ContextSetEncoding(context, [pdfFont encoding]);

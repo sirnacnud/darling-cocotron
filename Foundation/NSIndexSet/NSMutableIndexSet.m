@@ -45,9 +45,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [[NSIndexSet allocWithZone: zone] initWithIndexSet: self];
 }
 
-static NSUInteger
-positionOfRangeLessThanOrEqualToLocation(NSRange *ranges, NSUInteger length,
-                                         NSUInteger location) {
+static NSUInteger positionOfRangeLessThanOrEqualToLocation(NSRange *ranges,
+                                                           NSUInteger length,
+                                                           NSUInteger location)
+{
     NSInteger i = length;
 
     while (--i >= 0)
@@ -58,7 +59,8 @@ positionOfRangeLessThanOrEqualToLocation(NSRange *ranges, NSUInteger length,
 }
 
 static void removeRangeAtPosition(NSRange *ranges, NSUInteger length,
-                                  NSUInteger position) {
+                                  NSUInteger position)
+{
     NSUInteger i;
 
     for (i = position; i + 1 < length; i++)

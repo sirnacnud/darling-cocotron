@@ -193,7 +193,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) _extractArrayOfObjCType: (const char *) type
                           length: (NSUInteger) length
-                              at: (void *) addr {
+                              at: (void *) addr
+{
 
     switch (*type) {
     case 'c':
@@ -467,7 +468,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) decodeClassName: (NSString *) archiveName
-             asClassName: (NSString *) runtimeName {
+             asClassName: (NSString *) runtimeName
+{
     NSUnimplementedMethod();
 }
 
@@ -477,7 +479,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (void) decodeClassName: (NSString *) archiveName
-             asClassName: (NSString *) runtimeName {
+             asClassName: (NSString *) runtimeName
+{
     NSUnimplementedMethod();
 }
 

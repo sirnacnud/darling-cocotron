@@ -58,8 +58,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 }
 
-- initWithParent: (_NSManagedProxy *) parent
-          object: (NSManagedObject *) object {
+- initWithParent: (_NSManagedProxy *) parent object: (NSManagedObject *) object
+{
     _object = [object retain];
     _entity = [parent entity];
     _entityName = [parent entityName];
@@ -137,7 +137,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     toObjectsAtIndexes: (NSIndexSet *) indexes
             forKeyPath: (NSString *) keyPath
                options: (NSKeyValueObservingOptions) options
-               context: (void *) context {
+               context: (void *) context
+{
     NSLog(
         @"Proxy for %@ asked to observe by %@ for keypath %@ options 0x%08x\n",
         _object, observer, keyPath, options);
@@ -154,7 +155,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) removeObserver: (NSObject *) observer
     fromObjectsAtIndexes: (NSIndexSet *) indexes
-              forKeyPath: (NSString *) keyPath {
+              forKeyPath: (NSString *) keyPath
+{
 }
 
 - (void) notifyObserver: (_NSManagedProxy_observerInfo *) observerInfo {

@@ -162,7 +162,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) encodeDictionary: (NSDictionary *) dictionary
-                   indent: (NSInteger) indent {
+                   indent: (NSInteger) indent
+{
     NSArray *allKeys =
         [[dictionary allKeys] sortedArrayUsingSelector: @selector(compare:)];
 

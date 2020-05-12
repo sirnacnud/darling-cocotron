@@ -93,7 +93,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSHandleMonitor_win32 *) waitForHandleActivityBeforeDate: (NSDate *) date
-                                                       mode: (NSString *) mode {
+                                                       mode: (NSString *) mode
+{
     NSSet *validSources = [self validInputSources];
     NSEnumerator *state = [validSources objectEnumerator];
     NSHandleMonitor_win32 *monitor;

@@ -68,9 +68,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return result;
 }
 
-O2DataProviderRef O2DataProviderCreateWithData(
-    void *info, const void *data, size_t size,
-    O2DataProviderReleaseDataCallback releaseCallback) {
+O2DataProviderRef
+O2DataProviderCreateWithData(void *info, const void *data, size_t size,
+                             O2DataProviderReleaseDataCallback releaseCallback)
+{
     return [[O2DataProvider alloc] initWithBytes: data length: size];
 }
 

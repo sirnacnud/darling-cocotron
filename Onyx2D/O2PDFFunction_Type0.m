@@ -71,7 +71,8 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
             order: (O2PDFInteger) order
            encode: (O2PDFArray *) encode
            decode: (O2PDFArray *) decode
-             data: (NSData *) data {
+             data: (NSData *) data
+{
     if ([super initWithDomain: domain range: range] == nil)
         return nil;
 

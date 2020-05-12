@@ -387,7 +387,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) drawLinearSliderWithFrame: (NSRect) frame
-                            inView: (NSView *) controlView {
+                            inView: (NSView *) controlView
+{
     _isVertical = (frame.size.height > frame.size.width) ? 1 : 0;
 
     [self drawBarInside: [self _sliderRect] flipped: [controlView isFlipped]];
@@ -431,7 +432,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) drawCircularSliderWithFrame: (NSRect) frame
-                              inView: (NSView *) controlView {
+                              inView: (NSView *) controlView
+{
     NSRect sliderRect = frame;
     // Square it up
     if (frame.size.width > frame.size.height) {
@@ -535,7 +537,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 // just a guess, but we'll try moving it 10% of its total range of values...
 - (void) _incrementByPercentageAndConstrain: (CGFloat) percentage
-                                  decrement: (BOOL) decrement {
+                                  decrement: (BOOL) decrement
+{
     double originalValue = [self doubleValue];
 
     if (decrement)
@@ -607,7 +610,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // 	1. set value based on angle of click
 //	2. track mouse to continue calc'ing angles.
 - (void) _setCircularDoubleValueFromPoint: (NSPoint) point
-                                  flipped: (BOOL) flipped {
+                                  flipped: (BOOL) flipped
+{
     NSPoint center = NSMakePoint(NSMidX(_lastRect), NSMidY(_lastRect));
 
     if (flipped == NO) {
@@ -629,7 +633,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) startTrackingLinearSliderAt: (NSPoint) startPoint
-                              inView: (NSView *) controlView {
+                              inView: (NSView *) controlView
+{
     NSPoint localPoint = [controlView convertPoint: startPoint fromView: nil];
 
     if (NSMouseInRect(localPoint,
@@ -643,7 +648,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) startTrackingCircularSliderAt: (NSPoint) startPoint
-                                inView: (NSView *) controlView {
+                                inView: (NSView *) controlView
+{
     NSPoint localPoint = [controlView convertPoint: startPoint fromView: nil];
 
     [self _setCircularDoubleValueFromPoint: localPoint
@@ -667,7 +673,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) continueTrackingLinearSliderAtPoint: (NSPoint) lastPoint
                                           at: (NSPoint) currentPoint
-                                      inView: (NSView *) controlView {
+                                      inView: (NSView *) controlView
+{
     NSPoint localPoint = [controlView convertPoint: currentPoint fromView: nil];
     [self _setLinearDoubleValueFromPoint: localPoint];
     [controlView setNeedsDisplayInRect: _lastRect];
@@ -677,7 +684,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) continueTrackingCircularSliderAtPoint: (NSPoint) lastPoint
                                             at: (NSPoint) currentPoint
-                                        inView: (NSView *) controlView {
+                                        inView: (NSView *) controlView
+{
     NSPoint localPoint = [controlView convertPoint: currentPoint fromView: nil];
     [self _setCircularDoubleValueFromPoint: localPoint
                                    flipped: [controlView isFlipped]];
@@ -687,7 +695,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) continueTracking: (NSPoint) lastPoint
                        at: (NSPoint) currentPoint
-                   inView: (NSView *) controlView {
+                   inView: (NSView *) controlView
+{
     switch ([self sliderType]) {
     case NSLinearSlider:
         return [self continueTrackingLinearSliderAtPoint: lastPoint
@@ -706,7 +715,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) stopTracking: (NSPoint) lastPoint
                    at: (NSPoint) stopPoint
                inView: (NSView *) controlView
-            mouseIsUp: (BOOL) flag {
+            mouseIsUp: (BOOL) flag
+{
     [self highlight: NO withFrame: _lastRect inView: controlView];
 }
 

@@ -20,8 +20,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSProtocolChecker
 
-+ protocolCheckerWithTarget: (NSObject *) target
-                   protocol: (Protocol *) protocol {
++ protocolCheckerWithTarget: (NSObject *) target protocol: (Protocol *) protocol
+{
     return [[[self alloc] initWithTarget: target
                                 protocol: protocol] autorelease];
 }

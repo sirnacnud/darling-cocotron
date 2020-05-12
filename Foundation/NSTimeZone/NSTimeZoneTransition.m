@@ -27,14 +27,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSTimeZoneTransition *)
     timeZoneTransitionWithTransitionDate: (NSDate *) transitionDate
-                               typeIndex: (unsigned) typeIndex {
+                               typeIndex: (unsigned) typeIndex
+{
     return [[[self allocWithZone: NULL] initWithTransitionDate: transitionDate
                                                      typeIndex: typeIndex]
         autorelease];
 }
 
 - initWithTransitionDate: (NSDate *) transitionDate
-               typeIndex: (unsigned) typeIndex {
+               typeIndex: (unsigned) typeIndex
+{
     _transitionDate = [transitionDate retain];
     _typeIndex = typeIndex;
     return self;

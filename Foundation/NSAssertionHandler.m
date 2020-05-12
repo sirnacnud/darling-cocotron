@@ -43,7 +43,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                         object: (id) object
                           file: (NSString *) fileName
                     lineNumber: (NSInteger) line
-                   description: (NSString *) format, ... {
+                   description: (NSString *) format, ...
+{
     NSLog(@"*** Assertion failure in %c[%@ %@], %@:%ld",
           (object == [object class]) ? '+' : '-', [object className],
           NSStringFromSelector(selector), fileName, (long) line);
@@ -59,7 +60,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) handleFailureInFunction: (NSString *) functionName
                             file: (NSString *) fileName
                       lineNumber: (NSInteger) line
-                     description: (NSString *) format, ... {
+                     description: (NSString *) format, ...
+{
     NSLog(@"*** Assertion failure in %@, %@:%ld", functionName, fileName,
           (long) line);
 

@@ -40,7 +40,8 @@ void opengl_glDrawBuffer(GLenum mode) {
 }
 
 void opengl_glReadPixels(GLint x, GLint y, GLsizei width, GLsizei height,
-                         GLenum format, GLenum type, GLvoid *pixels) {
+                         GLenum format, GLenum type, GLvoid *pixels)
+{
     glReadPixels(x, y, width, height, format, type, pixels);
 }
 
@@ -86,14 +87,16 @@ void opengl_glBindBuffer(GLenum target, GLuint buffer) {
 }
 
 void opengl_glBufferData(GLenum target, GLsizeiptr size, const GLvoid *bytes,
-                         GLenum usage) {
+                         GLenum usage)
+{
     PFNGLBUFFERDATAARBPROC function =
         (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferDataARB");
     function(target, size, bytes, usage);
 }
 
 void opengl_glBufferSubData(GLenum target, GLsizeiptr offset, GLsizeiptr size,
-                            const GLvoid *bytes) {
+                            const GLvoid *bytes)
+{
     PFNGLBUFFERSUBDATAARBPROC function =
         (PFNGLBUFFERSUBDATAARBPROC) wglGetProcAddress("glBufferSubDataARB");
     function(target, offset, size, bytes);
@@ -151,7 +154,8 @@ const char *opengl_wglGetExtensionsStringEXT(HDC hdc) {
 }
 
 HPBUFFERARB opengl_wglCreatePbufferARB(HDC hDC, int iPixelFormat, int iWidth,
-                                       int iHeight, const int *piAttribList) {
+                                       int iHeight, const int *piAttribList)
+{
     APIENTRY typeof(opengl_wglCreatePbufferARB) *function =
         (typeof(function)) wglGetProcAddress("wglCreatePbufferARB");
 
@@ -204,7 +208,8 @@ BOOL opengl_wglDestroyPbufferARB(HPBUFFERARB hPbuffer) {
 }
 
 BOOL opengl_wglQueryPbufferARB(HPBUFFERARB hPbuffer, int iAttribute,
-                               int *piValue) {
+                               int *piValue)
+{
     APIENTRY typeof(opengl_wglQueryPbufferARB) *function =
         (typeof(function)) wglGetProcAddress("wglQueryPbufferARB");
 
@@ -219,8 +224,8 @@ BOOL opengl_wglQueryPbufferARB(HPBUFFERARB hPbuffer, int iAttribute,
 
 BOOL opengl_wglGetPixelFormatAttribivARB(HDC hdc, int iPixelFormat,
                                          int iLayerPlane, UINT nAttributes,
-                                         const int *piAttributes,
-                                         int *piValues) {
+                                         const int *piAttributes, int *piValues)
+{
     APIENTRY typeof(opengl_wglGetPixelFormatAttribivARB) *function =
         (typeof(function)) wglGetProcAddress("wglGetPixelFormatAttribivARB");
 
@@ -237,7 +242,8 @@ BOOL opengl_wglGetPixelFormatAttribivARB(HDC hdc, int iPixelFormat,
 BOOL opengl_wglGetPixelFormatAttribfvARB(HDC hdc, int iPixelFormat,
                                          int iLayerPlane, UINT nAttributes,
                                          const int *piAttributes,
-                                         FLOAT *pfValues) {
+                                         FLOAT *pfValues)
+{
     APIENTRY typeof(opengl_wglGetPixelFormatAttribfvARB) *function =
         (typeof(function)) wglGetProcAddress("wglGetPixelFormatAttribfvARB");
 
@@ -254,7 +260,8 @@ BOOL opengl_wglGetPixelFormatAttribfvARB(HDC hdc, int iPixelFormat,
 BOOL opengl_wglChoosePixelFormatARB(HDC hdc, const int *piAttribIList,
                                     const FLOAT *pfAttribFList,
                                     UINT nMaxFormats, int *piFormats,
-                                    UINT *nNumFormats) {
+                                    UINT *nNumFormats)
+{
     APIENTRY typeof(opengl_wglChoosePixelFormatARB) *function =
         (typeof(function)) wglGetProcAddress("wglChoosePixelFormatARB");
 
@@ -334,7 +341,8 @@ void opengl_glDeleteRenderbuffersEXT(GLsizei count, const GLuint *idents) {
 }
 
 void opengl_glRenderbufferStorageEXT(GLenum target, GLenum internalFormat,
-                                     GLsizei width, GLsizei height) {
+                                     GLsizei width, GLsizei height)
+{
     APIENTRY typeof(opengl_glRenderbufferStorageEXT) *function =
         (typeof(function)) wglGetProcAddress("glRenderbufferStorageEXT");
 
@@ -362,7 +370,8 @@ void opengl_glBindRenderbufferEXT(GLenum target, GLuint ident) {
 
 void opengl_glFramebufferRenderbufferEXT(GLenum target, GLenum attachmentPoint,
                                          GLenum renderbufferTarget,
-                                         GLuint renderbufferId) {
+                                         GLuint renderbufferId)
+{
     APIENTRY typeof(opengl_glFramebufferRenderbufferEXT) *function =
         (typeof(function)) wglGetProcAddress("glFramebufferRenderbufferEXT");
 
@@ -390,7 +399,8 @@ GLenum opengl_glCheckFramebufferStatusEXT(GLenum target) {
 
 void opengl_glFramebufferTexture2DEXT(GLenum target, GLenum attachmentPoint,
                                       GLenum textureTarget, GLuint textureId,
-                                      GLint level) {
+                                      GLint level)
+{
     APIENTRY typeof(opengl_glFramebufferTexture2DEXT) *function =
         (typeof(function)) wglGetProcAddress("glFramebufferTexture2DEXT");
 
@@ -404,7 +414,8 @@ void opengl_glFramebufferTexture2DEXT(GLenum target, GLenum attachmentPoint,
 }
 
 HGLRC opengl_wglCreateContextAttribsARB(HDC hDC, HGLRC hshareContext,
-                                        const int *attribList) {
+                                        const int *attribList)
+{
     APIENTRY typeof(opengl_wglCreateContextAttribsARB) *function =
         (typeof(function)) wglGetProcAddress("wglCreateContextAttribsARB");
 
@@ -457,7 +468,8 @@ BOOL opengl_wglReleaseTexImageARB(HPBUFFERARB hPbuffer, int iBuffer) {
 }
 
 BOOL opengl_wglSetPbufferAttribARB(HPBUFFERARB hPbuffer,
-                                   const int *piAttribList) {
+                                   const int *piAttribList)
+{
     APIENTRY typeof(opengl_wglSetPbufferAttribARB) *function =
         (typeof(function)) wglGetProcAddress("wglSetPbufferAttribARB");
 
@@ -483,7 +495,8 @@ BOOL opengl_wglSwapIntervalEXT(int interval) {
 }
 
 void opengl_glAddSwapHintRectWIN(GLint x, GLint y, GLsizei width,
-                                 GLsizei height) {
+                                 GLsizei height)
+{
     WINAPI typeof(opengl_glAddSwapHintRectWIN) *function =
         (typeof(function)) wglGetProcAddress("glAddSwapHintRectWIN");
 

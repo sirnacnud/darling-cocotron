@@ -551,7 +551,8 @@ static int NSColor_ignoresAlpha = -1;
 + (NSColor *) colorWithDeviceRed: (CGFloat) red
                            green: (CGFloat) green
                             blue: (CGFloat) blue
-                           alpha: (CGFloat) alpha {
+                           alpha: (CGFloat) alpha
+{
     return [NSColor_CGColor colorWithRed: red
                                    green: green
                                     blue: blue
@@ -562,7 +563,8 @@ static int NSColor_ignoresAlpha = -1;
 + (NSColor *) colorWithDeviceHue: (CGFloat) hue
                       saturation: (CGFloat) saturation
                       brightness: (CGFloat) brightness
-                           alpha: (CGFloat) alpha {
+                           alpha: (CGFloat) alpha
+{
     return [NSColor_CGColor colorWithHue: hue
                               saturation: saturation
                               brightness: brightness
@@ -574,7 +576,8 @@ static int NSColor_ignoresAlpha = -1;
                           magenta: (CGFloat) magenta
                            yellow: (CGFloat) yellow
                             black: (CGFloat) black
-                            alpha: (CGFloat) alpha {
+                            alpha: (CGFloat) alpha
+{
     return [NSColor_CGColor colorWithCyan: cyan
                                   magenta: magenta
                                    yellow: yellow
@@ -592,7 +595,8 @@ static int NSColor_ignoresAlpha = -1;
 + (NSColor *) colorWithCalibratedRed: (CGFloat) red
                                green: (CGFloat) green
                                 blue: (CGFloat) blue
-                               alpha: (CGFloat) alpha {
+                               alpha: (CGFloat) alpha
+{
     return [NSColor_CGColor colorWithRed: red
                                    green: green
                                     blue: blue
@@ -603,7 +607,8 @@ static int NSColor_ignoresAlpha = -1;
 + (NSColor *) colorWithCalibratedHue: (CGFloat) hue
                           saturation: (CGFloat) saturation
                           brightness: (CGFloat) brightness
-                               alpha: (CGFloat) alpha {
+                               alpha: (CGFloat) alpha
+{
     return [NSColor_CGColor colorWithHue: hue
                               saturation: saturation
                               brightness: brightness
@@ -612,7 +617,8 @@ static int NSColor_ignoresAlpha = -1;
 }
 
 + (NSColor *) colorWithCatalogName: (NSString *) catalogName
-                         colorName: (NSString *) colorName {
+                         colorName: (NSString *) colorName
+{
     return [NSColor_catalog colorWithCatalogName: catalogName
                                        colorName: colorName];
 }
@@ -688,14 +694,16 @@ static void releasePatternInfo(void *info) {
 - (void) getRed: (CGFloat *) red
           green: (CGFloat *) green
            blue: (CGFloat *) blue
-          alpha: (CGFloat *) alpha {
+          alpha: (CGFloat *) alpha
+{
     NSInvalidAbstractInvocation();
 }
 
 - (void) getHue: (CGFloat *) hue
      saturation: (CGFloat *) saturation
      brightness: (CGFloat *) brightness
-          alpha: (CGFloat *) alpha {
+          alpha: (CGFloat *) alpha
+{
     NSInvalidAbstractInvocation();
 }
 
@@ -703,7 +711,8 @@ static void releasePatternInfo(void *info) {
          magenta: (CGFloat *) magenta
           yellow: (CGFloat *) yellow
            black: (CGFloat *) black
-           alpha: (CGFloat *) alpha {
+           alpha: (CGFloat *) alpha
+{
     NSInvalidAbstractInvocation();
 }
 
@@ -805,7 +814,8 @@ static void releasePatternInfo(void *info) {
 }
 
 - (NSColor *) colorUsingColorSpaceName: (NSString *) colorSpace
-                                device: (NSDictionary *) device {
+                                device: (NSDictionary *) device
+{
     if ([[self colorSpaceName] isEqualToString: colorSpace])
         return self;
 
@@ -815,7 +825,8 @@ static void releasePatternInfo(void *info) {
 }
 
 - (NSColor *) blendedColorWithFraction: (CGFloat) fraction
-                               ofColor: (NSColor *) color {
+                               ofColor: (NSColor *) color
+{
     NSColor *primary =
         [color colorUsingColorSpaceName: NSCalibratedRGBColorSpace];
     NSColor *secondary =

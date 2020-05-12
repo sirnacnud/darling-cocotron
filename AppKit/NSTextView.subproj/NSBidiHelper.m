@@ -466,7 +466,8 @@ static void SetDeferredRun(uint8_t *pval, int cval, int iStart, int nval) {
  Output: Array of directional classes
  ------------------------------------------------------------------------*/
 static int classify(const unichar *pszText, uint8_t *pcls, unsigned long cch,
-                    bool fWS) {
+                    bool fWS)
+{
     if (fWS) {
         unsigned long ich;
         for (ich = 0; ich < cch; ich++) {
@@ -579,7 +580,8 @@ static int EmbeddingDirection(int level) {
 const int MAX_LEVEL = 61; // the real value
 
 unsigned long resolveExplicit(int level, int dir, uint8_t *pcls,
-                              uint8_t *plevel, unsigned long cch, int nNest) {
+                              uint8_t *plevel, unsigned long cch, int nNest)
+{
     // always called with a valid nesting level
     // nesting levels are != embedding levels
     int nLastValid = nNest;
@@ -928,7 +930,8 @@ static int VerifyTables() {
  AL, HL, R, L,  ON, BN, NSM, AN, EN, ES, ET, CS,
  ------------------------------------------------------------------------*/
 static void resolveWeak(int baselevel, uint8_t *pcls, uint8_t *plevel,
-                        unsigned long cch) {
+                        unsigned long cch)
+{
     int state = odd(baselevel) ? xr : xl;
     int cls;
 
@@ -1099,7 +1102,8 @@ static int stateNeutrals[][5] = {
  W8 resolves a number of ENs to L
  ------------------------------------------------------------------------*/
 static void resolveNeutrals(int baselevel, uint8_t *pcls, const uint8_t *plevel,
-                            unsigned long cch) {
+                            unsigned long cch)
+{
     // the state at the start of text depends on the base level
     int state = odd(baselevel) ? r : l;
     int cls;
@@ -1179,7 +1183,8 @@ static int addLevel[][4] = {
 };
 
 static void resolveImplicit(const uint8_t *pcls, uint8_t *plevel,
-                            unsigned long cch) {
+                            unsigned long cch)
+{
     unsigned long ich;
     for (ich = 0; ich < cch; ich++) {
         // cannot resolve bn here, since some bn were resolved to strong
@@ -1213,7 +1218,8 @@ static void resolveImplicit(const uint8_t *pcls, uint8_t *plevel,
  ------------------------------------------------------------------------*/
 static const int chLS = 0x15;
 static unsigned long resolveLines(unichar *pszInput, bool *pbrk,
-                                  unsigned long cch) {
+                                  unsigned long cch)
+{
     // skip characters not of type LS
     unsigned long ich;
     for (ich = 0; ich < cch; ich++) {
@@ -1241,7 +1247,8 @@ static unsigned long resolveLines(unichar *pszInput, bool *pbrk,
  Note: this should be applied a line at a time.
  ------------------------------------------------------------------------*/
 static void resolveWhitespace(int baselevel, const uint8_t *pcls,
-                              uint8_t *plevel, unsigned long cch) {
+                              uint8_t *plevel, unsigned long cch)
+{
     int cchrun = 0;
     int oldlevel = baselevel;
 
@@ -1303,7 +1310,8 @@ static void resolveWhitespace(int baselevel, const uint8_t *pcls,
  -------------------------------------------------------------------------*/
 static unsigned long reorderLevel(int level, NSUInteger *pszText,
                                   const uint8_t *plevel, unsigned long cch,
-                                  bool fReverse) {
+                                  bool fReverse)
+{
     // true as soon as first odd level encountered
     fReverse = fReverse || odd(level);
 
@@ -1324,7 +1332,8 @@ static unsigned long reorderLevel(int level, NSUInteger *pszText,
 }
 
 static unsigned long reorder(NSInteger baselevel, NSUInteger *pszText,
-                             const uint8_t *plevel, unsigned long cch) {
+                             const uint8_t *plevel, unsigned long cch)
+{
     unsigned long ich = 0;
 
     while (ich < cch) {
@@ -1349,8 +1358,8 @@ static unsigned long reorder(NSInteger baselevel, NSUInteger *pszText,
  A full implementation would need to substitute mirrored glyphs even
  for characters that are not paired (e.g. integral sign).
  -----------------------------------------------------------------------*/
-static void mirror(unichar *pszInput, const uint8_t *plevel,
-                   unsigned long cch) {
+static void mirror(unichar *pszInput, const uint8_t *plevel, unsigned long cch)
+{
     unsigned long ich;
     for (ich = 0; ich < cch; ich++) {
         if (!odd(plevel[ich])) {
@@ -1374,7 +1383,8 @@ static void mirror(unichar *pszInput, const uint8_t *plevel,
  ------------------------------------------------------------------------*/
 void NSBidiHelperProcessLine(NSInteger baselevel, NSUInteger *pszLine,
                              unichar *text, uint8_t *plevelLine,
-                             NSInteger fMirror, NSUInteger length) {
+                             NSInteger fMirror, NSUInteger length)
+{
     buildUnicharData();
 
     if (sUnicodeDataAbsent == YES) {
@@ -1421,7 +1431,8 @@ void NSBidiHelperProcessLine(NSInteger baselevel, NSUInteger *pszLine,
 
  ------------------------------------------------------------------------*/
 NSUInteger NSBidiHelperParagraph(NSInteger *baselevel, unichar *text,
-                                 uint8_t *levels, NSUInteger cch) {
+                                 uint8_t *levels, NSUInteger cch)
+{
     NSUInteger result = 0;
 
     if (cch == 0) {

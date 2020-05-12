@@ -31,7 +31,8 @@ void CGShadingRelease(CGShadingRef self) {
 CGShadingRef CGShadingCreateAxial(CGColorSpaceRef colorSpace,
                                   CGPoint startPoint, CGPoint endPoint,
                                   CGFunctionRef function, bool extendStart,
-                                  bool extendEnd) {
+                                  bool extendEnd)
+{
     return O2ShadingCreateAxial(colorSpace, startPoint, endPoint, function,
                                 extendStart, extendEnd);
 }
@@ -40,7 +41,8 @@ CGShadingRef CGShadingCreateRadial(CGColorSpaceRef colorSpace,
                                    CGPoint startPoint, CGFloat startRadius,
                                    CGPoint endPoint, CGFloat endRadius,
                                    CGFunctionRef function, bool extendStart,
-                                   bool extendEnd) {
+                                   bool extendEnd)
+{
     return O2ShadingCreateRadial(colorSpace, startPoint, startRadius, endPoint,
                                  endRadius, function, extendStart, extendEnd);
 }

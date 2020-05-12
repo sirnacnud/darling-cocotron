@@ -244,7 +244,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) observeValueForKeyPath: (NSString *) keyPath
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     // remove cached value for this key path
     [_cachedValues removeObjectForKey: keyPath];
 
@@ -260,7 +261,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) addObserver: (NSObject *) observer
           forKeyPath: (NSString *) keyPath
              options: (NSKeyValueObservingOptions) options
-             context: (void *) context {
+             context: (void *) context
+{
     _NSObservationProxy *proxy =
         [[_NSObservationProxy alloc] initWithKeyPath: keyPath
                                             observer: observer
@@ -276,8 +278,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [proxy release];
 }
 
-- (void) removeObserver: (NSObject *) observer
-             forKeyPath: (NSString *) keyPath {
+- (void) removeObserver: (NSObject *) observer forKeyPath: (NSString *) keyPath
+{
     _NSObservationProxy *proxy =
         [[_NSObservationProxy alloc] initWithKeyPath: keyPath
                                             observer: observer

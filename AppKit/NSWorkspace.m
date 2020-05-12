@@ -90,7 +90,8 @@ const NSNotificationName
 }
 
 - (BOOL) filenameExtension: (NSString *) extension
-            isValidForType: (NSString *) type {
+            isValidForType: (NSString *) type
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -128,14 +129,16 @@ const NSNotificationName
 - (BOOL) openFile: (NSString *) path
         fromImage: (NSImage *) image
                at: (NSPoint) point
-           inView: (NSView *) view {
+           inView: (NSView *) view
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
 
 - (BOOL) openFile: (NSString *) path
     withApplication: (NSString *) application
-      andDeactivate: (BOOL) deactivate {
+      andDeactivate: (BOOL) deactivate
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -146,7 +149,8 @@ const NSNotificationName
 }
 
 - (BOOL) selectFile: (NSString *) path
-    inFileViewerRootedAtPath: (NSString *) rootedAtPath {
+    inFileViewerRootedAtPath: (NSString *) rootedAtPath
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -159,7 +163,8 @@ const NSNotificationName
                        source: (NSString *) source
                   destination: (NSString *) destination
                         files: (NSArray *) files
-                          tag: (NSInteger *) tag {
+                          tag: (NSInteger *) tag
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -169,14 +174,16 @@ const NSNotificationName
                        isWritable: (BOOL *) isWritable
                     isUnmountable: (BOOL *) isUnmountable
                       description: (NSString **) description
-                             type: (NSString **) type {
+                             type: (NSString **) type
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
 
 - (BOOL) getInfoForFile: (NSString *) path
             application: (NSString **) application
-                   type: (NSString **) type {
+                   type: (NSString **) type
+{
     NSInvalidAbstractInvocation();
     return 0;
 }
@@ -259,7 +266,8 @@ const NSNotificationName
 
 - (BOOL) launchApplication: (NSString *) application
                   showIcon: (BOOL) showIcon
-                autolaunch: (BOOL) autolaunch {
+                autolaunch: (BOOL) autolaunch
+{
     NSInvalidAbstractInvocation();
     return 0;
 }

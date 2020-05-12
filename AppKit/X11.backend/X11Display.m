@@ -62,7 +62,8 @@ static int errorHandler(Display *display, XErrorEvent *errorEvent) {
 
 #ifdef DARLING
 static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
-                           CFDataRef address, const void *data, void *info) {
+                           CFDataRef address, const void *data, void *info)
+{
     X11Display *self = info;
     [self processPendingEvents];
 }
@@ -344,8 +345,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
     return -1;
 }
 
-- (void) keyboardLayoutName: (NSString **) name
-                   fullName: (NSString **) fullName {
+- (void) keyboardLayoutName: (NSString **) name fullName: (NSString **) fullName
+{
     int major = XkbMajorVersion, minor = XkbMinorVersion;
 
     if (name)
@@ -680,7 +681,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 }
 
 - (NSArray<NSFontTypeface *> *) fontTypefacesForFamilyName:
-    (NSString *) familyName {
+    (NSString *) familyName
+{
     familyName = [self substituteFamilyName: familyName];
     if (familyName == nil) {
         return @[];
@@ -760,21 +762,24 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 }
 
 - (int) runModalPrintPanelWithPrintInfoDictionary:
-    (NSMutableDictionary *) attributes {
+    (NSMutableDictionary *) attributes
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (O2Context *) graphicsPortForPrintOperationWithView: (NSView *) view
                                             printInfo: (NSPrintInfo *) printInfo
-                                            pageRange: (NSRange) pageRange {
+                                            pageRange: (NSRange) pageRange
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - (int) savePanel: (NSSavePanel *) savePanel
     runModalForDirectory: (NSString *) directory
-                    file: (NSString *) file {
+                    file: (NSString *) file
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -782,7 +787,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 - (int) openPanel: (NSOpenPanel *) openPanel
     runModalForDirectory: (NSString *) directory
                     file: (NSString *) file
-                   types: (NSArray *) types {
+                   types: (NSArray *) types
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -817,7 +823,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 - (NSEvent *) nextEventMatchingMask: (NSEventMask) mask
                           untilDate: (NSDate *) untilDate
                              inMode: (NSRunLoopMode) mode
-                            dequeue: (BOOL) dequeue {
+                            dequeue: (BOOL) dequeue
+{
 #ifndef DARLING
     [[NSRunLoop currentRunLoop] addInputSource: _inputSource forMode: mode];
 #else
@@ -995,8 +1002,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         [self postEvent: event atStart: NO];
         break;
 
-    case MotionNotify:;
-        {
+    case MotionNotify:; {
             // NSLog(@"MotionNotify, x=%d, y=%d, xroot=%d, yroot=%d\n",
             // ev->xmotion.x, ev->xmotion.y, ev->xmotion.x_root,
             // ev->xmotion.y_root);
@@ -1228,7 +1234,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 
 #ifndef DARLING
 - (void) selectInputSource: (NSSelectInputSource *) inputSource
-               selectEvent: (NSUInteger) selectEvent {
+               selectEvent: (NSUInteger) selectEvent
+{
 #else
 - (void) processPendingEvents {
 #endif
@@ -1255,7 +1262,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
 
 void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top,
                                        CGFloat *left, CGFloat *bottom,
-                                       CGFloat *right) {
+                                       CGFloat *right)
+{
     *top = 0.0;
     *left = 0.0;
     *bottom = 0.0;
@@ -1263,7 +1271,8 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top,
 }
 
 - (CGRect) insetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask {
+    forNativeWindowBorderWithStyle: (NSUInteger) styleMask
+{
     CGFloat top, left, bottom, right;
 
     CGNativeBorderFrameWidthsForStyle(styleMask, &top, &left, &bottom, &right);
@@ -1277,7 +1286,8 @@ void CGNativeBorderFrameWidthsForStyle(NSUInteger styleMask, CGFloat *top,
 }
 
 - (CGRect) outsetRect: (CGRect) frame
-    forNativeWindowBorderWithStyle: (NSUInteger) styleMask {
+    forNativeWindowBorderWithStyle: (NSUInteger) styleMask
+{
     CGFloat top, left, bottom, right;
 
     CGNativeBorderFrameWidthsForStyle(styleMask, &top, &left, &bottom, &right);

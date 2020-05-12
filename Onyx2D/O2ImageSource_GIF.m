@@ -47,7 +47,8 @@ static int readCallback(GifFileType *ft, GifByteType *buf, int count) {
 }
 
 - initWithDataProvider: (O2DataProvider *) provider
-               options: (NSDictionary *) options {
+               options: (NSDictionary *) options
+{
     [super initWithDataProvider: provider options: options];
 
     NSInputStream *stream = [_provider inputStream];
@@ -76,7 +77,8 @@ static int readCallback(GifFileType *ft, GifByteType *buf, int count) {
 }
 
 - (CFDictionaryRef) copyPropertiesAtIndex: (NSUInteger) index
-                                  options: (CFDictionaryRef) options {
+                                  options: (CFDictionaryRef) options
+{
     return (CFDictionaryRef)[@{
         kO2ImagePropertyDPIHeight : @(72),
         kO2ImagePropertyDPIHeight : @(72)
@@ -84,7 +86,8 @@ static int readCallback(GifFileType *ft, GifByteType *buf, int count) {
 }
 
 - (O2Image *) createImageAtIndex: (NSUInteger) index
-                         options: (NSDictionary *) options {
+                         options: (NSDictionary *) options
+{
 
     if (index >= _gif->ImageCount)
         return nil;

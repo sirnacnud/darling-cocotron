@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithPosition: (O2PDFInteger) position
             number: (O2PDFInteger) number
-        generation: (O2PDFInteger) generation {
+        generation: (O2PDFInteger) generation
+{
     _position = position;
     _number = number;
     _generation = generation;
@@ -33,7 +34,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (O2PDFxrefEntry *) xrefEntryWithPosition: (O2PDFInteger) position
                                     number: (O2PDFInteger) number
-                                generation: (O2PDFInteger) generation {
+                                generation: (O2PDFInteger) generation
+{
     return [[[self alloc] initWithPosition: position
                                     number: number
                                 generation: generation] autorelease];

@@ -3,7 +3,6 @@
 @implementation CFSSLHandler
 
 - initWithProperties: (CFDictionaryRef) properties {
-
     return self;
 }
 
@@ -12,7 +11,8 @@
 }
 
 - (NSInteger) writePlaintext: (const uint8_t *) buffer
-                   maxLength: (NSUInteger) length {
+                   maxLength: (NSUInteger) length
+{
     return -1;
 }
 
@@ -29,7 +29,8 @@
 }
 
 - (NSInteger) writeEncrypted: (const uint8_t *) buffer
-                   maxLength: (NSUInteger) length {
+                   maxLength: (NSUInteger) length
+{
     return -1;
 }
 

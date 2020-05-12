@@ -51,7 +51,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setCookies: (NSArray *) cookies
              forURL: (NSURL *) url
-    mainDocumentURL: (NSURL *) mainDocumentURL {
+    mainDocumentURL: (NSURL *) mainDocumentURL
+{
     NSUnimplementedMethod();
 }
 

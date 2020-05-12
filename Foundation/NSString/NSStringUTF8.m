@@ -24,7 +24,8 @@ NSUInteger _NSGetUTF8CStringWithMaxLength(const unichar *characters,
                                           NSUInteger length,
                                           NSUInteger *location, char *cString,
                                           NSUInteger maxLength,
-                                          BOOL zeroTerminate) {
+                                          BOOL zeroTerminate)
+{
     NSUInteger utf8Length = 0;
     NSUInteger i;
 
@@ -82,7 +83,8 @@ NSUInteger _NSGetUTF8CStringWithMaxLength(const unichar *characters,
 }
 
 NSUInteger NSConvertUTF16toUTF8(const unichar *utf16, NSUInteger utf16Length,
-                                uint8_t *utf8) {
+                                uint8_t *utf8)
+{
     NSUInteger utf8Length = 0;
     NSUInteger i;
 
@@ -121,14 +123,16 @@ NSUInteger NSConvertUTF16toUTF8(const unichar *utf16, NSUInteger utf16Length,
 NSUInteger NSGetUTF8CStringWithMaxLength(const unichar *characters,
                                          NSUInteger length,
                                          NSUInteger *location, char *cString,
-                                         NSUInteger maxLength) {
+                                         NSUInteger maxLength)
+{
     return _NSGetUTF8CStringWithMaxLength(characters, length, location, cString,
                                           maxLength, YES);
 }
 
 char *NSUnicodeToUTF8(const unichar *characters, NSUInteger length, BOOL lossy,
                       NSUInteger *resultLength, NSZone *zone,
-                      BOOL zeroTerminate) {
+                      BOOL zeroTerminate)
+{
     NSUInteger utf8Length = _NSGetUTF8CStringWithMaxLength(
         characters, length, NULL, NULL, UINT_MAX, NO);
     NSUInteger maxLength = utf8Length + (zeroTerminate ? 1 : 0);
@@ -144,7 +148,8 @@ char *NSUnicodeToUTF8(const unichar *characters, NSUInteger length, BOOL lossy,
 }
 
 NSUInteger NSConvertUTF8toUTF16(const unsigned char *utf8,
-                                NSUInteger utf8Length, unichar *utf16) {
+                                NSUInteger utf8Length, unichar *utf16)
+{
     NSUInteger i, utf16Length = 0;
     uint32_t code32 = 0;
     enum {
@@ -193,7 +198,8 @@ NSUInteger NSConvertUTF8toUTF16(const unsigned char *utf8,
 }
 
 unichar *NSUTF8ToUnicode(const char *utf8, NSUInteger length,
-                         NSUInteger *resultLength, NSZone *zone) {
+                         NSUInteger *resultLength, NSZone *zone)
+{
     NSUInteger utf16Length =
         NSConvertUTF8toUTF16((unsigned char *) utf8, length, NULL);
     unichar *utf16 = NSZoneMalloc(NULL, utf16Length * sizeof(unichar));

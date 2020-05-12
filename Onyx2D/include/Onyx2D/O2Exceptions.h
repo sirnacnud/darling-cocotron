@@ -2,7 +2,8 @@
 #import <Foundation/NSString.h>
 
 static inline void _KGInvalidAbstractInvocation(SEL selector, id object,
-                                                const char *file, int line) {
+                                                const char *file, int line)
+{
     [NSException
          raise: NSInvalidArgumentException
         format:
@@ -12,13 +13,15 @@ static inline void _KGInvalidAbstractInvocation(SEL selector, id object,
 }
 
 static inline void _KGUnimplementedMethod(SEL selector, id object,
-                                          const char *file, int line) {
+                                          const char *file, int line)
+{
     NSLog(@"-[%@ %s] unimplemented in %s at %d", [object class],
           sel_getName(selector), file, line);
 }
 
 static inline void _KGUnimplementedFunction(const char *fname, const char *file,
-                                            int line) {
+                                            int line)
+{
     NSLog(@"%s() unimplemented in %s at %d", fname, file, line);
 }
 

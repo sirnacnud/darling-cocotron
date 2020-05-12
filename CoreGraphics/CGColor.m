@@ -29,8 +29,8 @@ void CGColorRelease(CGColorRef self) {
     O2ColorRelease(self);
 }
 
-CGColorRef CGColorCreate(CGColorSpaceRef colorSpace,
-                         const CGFloat *components) {
+CGColorRef CGColorCreate(CGColorSpaceRef colorSpace, const CGFloat *components)
+{
     return O2ColorCreate(colorSpace, components);
 }
 
@@ -43,13 +43,15 @@ CGColorRef CGColorCreateGenericRGB(CGFloat r, CGFloat g, CGFloat b, CGFloat a) {
 }
 
 CGColorRef CGColorCreateGenericCMYK(CGFloat c, CGFloat m, CGFloat y, CGFloat k,
-                                    CGFloat a) {
+                                    CGFloat a)
+{
     return O2ColorCreateGenericCMYK(c, m, y, k, a);
 }
 
 CGColorRef CGColorCreateWithPattern(CGColorSpaceRef colorSpace,
                                     CGPatternRef pattern,
-                                    const CGFloat *components) {
+                                    const CGFloat *components)
+{
     return O2ColorCreateWithPattern(colorSpace, pattern, components);
 }
 

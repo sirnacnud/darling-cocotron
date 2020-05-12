@@ -35,12 +35,14 @@ struct NSHashTable {
 NSHashTableCallBacks _NSHashTableFixCallbacks(NSHashTableCallBacks callBacks);
 
 NSHashTable *NSCreateHashTable(NSHashTableCallBacks callBacks,
-                               NSUInteger capacity) {
+                               NSUInteger capacity)
+{
     return NSCreateHashTableWithZone(callBacks, capacity, NULL);
 }
 
 NSHashTable *NSCreateHashTableWithZone(NSHashTableCallBacks callBacks,
-                                       NSUInteger capacity, NSZone *zone) {
+                                       NSUInteger capacity, NSZone *zone)
+{
     NSHashTable *table;
 
     if (zone == NULL)
@@ -291,12 +293,14 @@ static NSUInteger _NSHashObjectHash(NSHashTable *table, const void *object) {
 }
 
 static BOOL _NSHashPointerIsEqual(NSHashTable *table, const void *object1,
-                                  const void *object2) {
+                                  const void *object2)
+{
     return (object1 == object2) ? YES : NO;
 }
 
 static BOOL _NSHashObjectIsEqual(NSHashTable *table, const void *object1,
-                                 const void *object2) {
+                                 const void *object2)
+{
     return [(id) object1 isEqual: (id) object2];
 }
 
@@ -327,15 +331,21 @@ static NSString *_NSHashObjectDescribe(NSHashTable *table, const void *object) {
 }
 
 static NSUInteger _NSHashPointerToStructHash(NSHashTable *table,
-                                             const void *object) {
-    const struct { NSInteger i; } *ptr = object;
+                                             const void *object)
+{
+    const struct {
+        NSInteger i;
+    } *ptr = object;
     return (NSUInteger) ptr->i;
 }
 
 static BOOL _NSHashPointerToStructIsEqual(NSHashTable *table,
                                           const void *object1,
-                                          const void *object2) {
-    const struct { NSInteger i; } *ptr1 = object1, *ptr2 = object2;
+                                          const void *object2)
+{
+    const struct {
+        NSInteger i;
+    } *ptr1 = object1, *ptr2 = object2;
     return (ptr1->i == ptr2->i) ? YES : NO;
 }
 

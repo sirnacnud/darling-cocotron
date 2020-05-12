@@ -6,7 +6,8 @@
 @implementation O2DataConsumer
 
 static size_t O2DataConsumerDataPutBytesCallback(void *info, const void *buffer,
-                                                 size_t count) {
+                                                 size_t count)
+{
     NSMutableData *data = (NSMutableData *) info;
     [data appendBytes: buffer length: count];
     return count;
@@ -18,7 +19,8 @@ static void O2DataConsumerDataReleaseInfoCallback(void *info) {
 }
 
 static size_t O2DataConsumerFilePutBytesCallback(void *info, const void *buffer,
-                                                 size_t count) {
+                                                 size_t count)
+{
     NSFileHandle *handle = (NSFileHandle *) info;
     NSData *data = [NSData dataWithBytes: buffer length: count];
     @try {
@@ -38,7 +40,8 @@ static void O2DataConsumerFileReleaseInfoCallback(void *info) {
 }
 
 - initWithInfo: (void *) info
-     callbacks: (const O2DataConsumerCallbacks *) callbacks {
+     callbacks: (const O2DataConsumerCallbacks *) callbacks
+{
     if ((self = [super init])) {
         _info = info;
         if (callbacks) {
@@ -97,8 +100,9 @@ static void O2DataConsumerFileReleaseInfoCallback(void *info) {
     return (NSMutableData *) _info;
 }
 
-O2DataConsumerRef
-O2DataConsumerCreate(void *info, const O2DataConsumerCallbacks *callbacks) {
+O2DataConsumerRef O2DataConsumerCreate(void *info,
+                                       const O2DataConsumerCallbacks *callbacks)
+{
     return [[O2DataConsumer alloc] initWithInfo: info callbacks: callbacks];
 }
 
@@ -120,7 +124,8 @@ void O2DataConsumerRelease(O2DataConsumerRef self) {
 }
 
 size_t O2DataConsumerPutBytes(O2DataConsumerRef self, const void *buffer,
-                              size_t count) {
+                              size_t count)
+{
     return [self putBytes: buffer count: count];
 }
 

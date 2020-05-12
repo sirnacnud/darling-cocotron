@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithFireDate: (NSDate *) date
           interval: (NSTimeInterval) interval
-           repeats: (BOOL) repeats {
+           repeats: (BOOL) repeats
+{
     _timeInterval = interval;
     _fireDate = [date copy];
 

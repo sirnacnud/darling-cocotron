@@ -195,7 +195,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
 - (BOOL) moveItemAtPath: (NSString *) fromPath
                  toPath: (NSString *) toPath
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     if (fromPath == nil || toPath == nil) {
         return NO;
     }
@@ -211,7 +212,7 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     if ([self moveItemAtPath: src toPath: dest error: &error] == NO &&
         handler != nil) {
         //[self _errorHandler:handler src:src dest:dest operation:[error
-        //description]];
+        // description]];
         return NO;
     }
 
@@ -223,7 +224,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
 - (BOOL) copyItemAtPath: (NSString *) fromPath
                  toPath: (NSString *) toPath
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSDictionary *srcAttributes = [self attributesOfItemAtPath: fromPath
                                                          error: error];
 
@@ -292,7 +294,7 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     if ([self copyItemAtPath: src toPath: dest error: &error] == NO &&
         handler != nil) {
         //[self _errorHandler:handler src:src dest:dest operation:[error
-        //description]];
+        // description]];
         return NO;
     }
 
@@ -382,7 +384,7 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     NSError *error = nil;
     if ([self removeItemAtPath: path error: &error] == NO && handler != nil) {
         //[self _errorHandler:handler src:src dest:dest operation:[error
-        //description]];
+        // description]];
         return NO;
     }
 
@@ -395,7 +397,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 - (BOOL) createDirectoryAtPath: (NSString *) path
     withIntermediateDirectories: (BOOL) intermediates
                      attributes: (NSDictionary *) attributes
-                          error: (NSError **) error {
+                          error: (NSError **) error
+{
     if (intermediates) {
         NSArray *components = [path pathComponents];
         NSInteger i, count = [components count];
@@ -415,7 +418,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
 - (BOOL) createFileAtPath: (NSString *) path
                  contents: (NSData *) data
-               attributes: (NSDictionary *) attributes {
+               attributes: (NSDictionary *) attributes
+{
     return [[NSPlatform currentPlatform] writeContentsOfFile: path
                                                        bytes: [data bytes]
                                                       length: [data length]
@@ -424,7 +428,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 }
 
 - (BOOL) createDirectoryAtPath: (NSString *) path
-                    attributes: (NSDictionary *) attributes {
+                    attributes: (NSDictionary *) attributes
+{
     return CreateDirectoryW([path fileSystemRepresentationW], NULL) ? YES : NO;
 }
 
@@ -432,7 +437,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 #pragma mark Symbolic-Link Operations
 
 - (NSString *) destinationOfSymbolicLinkAtPath: (NSString *) path
-                                         error: (NSError **) error {
+                                         error: (NSError **) error
+{
     // Code found at: http://www.catch22.net/tuts/tips2
     IShellLinkW *psl;
 
@@ -536,7 +542,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 #pragma mark Discovering Directory Contents
 
 - (NSArray *) contentsOfDirectoryAtPath: (NSString *) path
-                                  error: (NSError **) error {
+                                  error: (NSError **) error
+{
     NSMutableArray *result = [NSMutableArray array];
     WIN32_FIND_DATAW findData;
     HANDLE handle;
@@ -602,7 +609,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 #pragma mark Getting and Setting Attributes
 
 - (NSDictionary *) attributesOfFileSystemForPath: (NSString *) path
-                                           error: (NSError **) errorp {
+                                           error: (NSError **) errorp
+{
     DWORD serialNumber;
 
     if (path == nil) {
@@ -621,7 +629,7 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
     const uint16_t *wPath = [path fileSystemRepresentationW];
     ULARGE_INTEGER freeBytesAvailable;
     ULARGE_INTEGER
-        totalNumberOfBytes; // This seems to be the same as freeBytesAvailable
+    totalNumberOfBytes; // This seems to be the same as freeBytesAvailable
     ULARGE_INTEGER totalNumberOfFreeBytes;
 
     if (GetDiskFreeSpaceExW(wPath, &freeBytesAvailable, &totalNumberOfBytes,
@@ -667,7 +675,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 }
 
 - (NSDictionary *) attributesOfItemAtPath: (NSString *) path
-                                    error: (NSError **) error {
+                                    error: (NSError **) error
+{
     WIN32_FILE_ATTRIBUTE_DATA fileData;
 
     if (path == nil) {
@@ -779,7 +788,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 
 - (BOOL) setAttributes: (NSDictionary *) attributes
           ofItemAtPath: (NSString *) path
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     if (error != NULL) {
         // TODO set error
     }
@@ -799,7 +809,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 }
 
 - (NSDictionary *) fileAttributesAtPath: (NSString *) path
-                           traverseLink: (BOOL) traverse {
+                           traverseLink: (BOOL) traverse
+{
     return [self attributesOfItemAtPath: path error: 0];
 }
 
@@ -883,7 +894,8 @@ static BOOL _NSCreateDirectory(NSString *path, NSError **errorp) {
 #pragma mark Getting Representations of File Paths
 
 - (NSString *) stringWithFileSystemRepresentation: (const char *) string
-                                           length: (NSUInteger) length {
+                                           length: (NSUInteger) length
+{
     return [NSString stringWithCString: string length: length];
 }
 

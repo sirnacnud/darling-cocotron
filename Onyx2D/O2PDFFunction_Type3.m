@@ -56,7 +56,8 @@ static void evaluate(void *info, const O2Float *input, O2Float *output) {
            range: (O2PDFArray *) range
        functions: (NSArray *) functions
           bounds: (O2PDFArray *) bounds
-          encode: (O2PDFArray *) encode {
+          encode: (O2PDFArray *) encode
+{
     NSInteger i;
 
     if ([super initWithDomain: domain range: range] == nil)

@@ -53,7 +53,8 @@ static inline void setLength(NSMutableData_concrete *self, NSUInteger length) {
 }
 
 static inline void replaceBytesInRange(NSMutableData_concrete *self,
-                                       NSRange range, const void *bytes) {
+                                       NSRange range, const void *bytes)
+{
     NSInteger i, loc = range.location, len = range.length;
 
     if (loc > self->_length)

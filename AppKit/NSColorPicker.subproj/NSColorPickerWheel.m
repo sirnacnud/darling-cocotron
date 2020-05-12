@@ -4,8 +4,8 @@
 
 @implementation NSColorPickerWheel
 
-- initWithPickerMask: (NSUInteger) mask
-          colorPanel: (NSColorPanel *) colorPanel {
+- initWithPickerMask: (NSUInteger) mask colorPanel: (NSColorPanel *) colorPanel
+{
 
     if ((self = [super initWithPickerMask: mask colorPanel: colorPanel])) {
     }
@@ -42,7 +42,8 @@
 - (void) colorPickerWheelView: (NSColorPickerWheelView *) view
                  didSelectHue: (CGFloat) hue
                    saturation: (CGFloat) saturation
-                andBrightness: (CGFloat) brightness {
+                andBrightness: (CGFloat) brightness
+{
 
     [[self colorPanel]
         setColor: [NSColor colorWithCalibratedHue: hue / 360.0

@@ -40,7 +40,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initRemoteWithProtocolFamily: (int) family
                     socketType: (int) type
                       protocol: (int) protocol
-                       address: (NSData *) address {
+                       address: (NSData *) address
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -58,7 +59,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithProtocolFamily: (int) family
               socketType: (int) type
                 protocol: (int) protocol
-                 address: (NSData *) address {
+                 address: (NSData *) address
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -66,7 +68,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithProtocolFamily: (int) family
               socketType: (int) type
                 protocol: (int) protocol
-                  socket: (NSSocketNativeHandle) nativeSocket {
+                  socket: (NSSocketNativeHandle) nativeSocket
+{
     NSUnimplementedMethod();
     return nil;
 }

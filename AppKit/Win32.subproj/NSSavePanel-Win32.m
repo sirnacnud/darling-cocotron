@@ -28,7 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSSavePanel (Win32)
 
 static unsigned *saveFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
-                              LPARAM lParam) {
+                              LPARAM lParam)
+{
     static BOOL pastInitialFolderChange;
 
     if (uiMsg == WM_INITDIALOG)

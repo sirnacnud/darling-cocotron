@@ -65,7 +65,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSDictionary *) attributesAtIndex: (NSUInteger) location
-                      effectiveRange: (NSRangePointer) effectiveRangep {
+                      effectiveRange: (NSRangePointer) effectiveRangep
+{
     NSDictionary *result;
 
     NSAssert2(location <= [self length], @"index %d beyond length %d", location,
@@ -83,7 +84,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static inline int
 replaceCharactersInRangeWithString(NSTextStorage_concrete *self, NSRange range,
-                                   NSString *string) {
+                                   NSString *string)
+{
     int delta = [string length] - range.length;
 
     [self->_string replaceCharactersInRange: range withString: string];
@@ -102,7 +104,8 @@ replaceCharactersInRangeWithString(NSTextStorage_concrete *self, NSRange range,
 }
 
 static inline void setAttributes(NSTextStorage_concrete *self,
-                                 NSDictionary *attributes, NSRange range) {
+                                 NSDictionary *attributes, NSRange range)
+{
     if (attributes == nil)
         attributes = [NSDictionary dictionary];
 
@@ -118,7 +121,8 @@ static inline void setAttributes(NSTextStorage_concrete *self,
 }
 
 static inline void replaceCharactersInRangeWithAttributedString(
-    NSTextStorage_concrete *self, NSRange replaced, NSAttributedString *other) {
+    NSTextStorage_concrete *self, NSRange replaced, NSAttributedString *other)
+{
     NSString *string = [other string];
     unsigned location = 0;
     unsigned limit = [string length];
@@ -148,7 +152,8 @@ static inline void replaceCharactersInRangeWithAttributedString(
 }
 
 - (void) replaceCharactersInRange: (NSRange) range
-                       withString: (NSString *) string {
+                       withString: (NSString *) string
+{
     int delta = replaceCharactersInRangeWithString(self, range, string);
     [self edited: NSTextStorageEditedAttributes | NSTextStorageEditedCharacters
                  range: range
@@ -161,7 +166,8 @@ static inline void replaceCharactersInRangeWithAttributedString(
 }
 
 - (void) replaceCharactersInRange: (NSRange) replaced
-             withAttributedString: (NSAttributedString *) other {
+             withAttributedString: (NSAttributedString *) other
+{
     replaceCharactersInRangeWithAttributedString(self, replaced, other);
 }
 

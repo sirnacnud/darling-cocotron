@@ -88,8 +88,8 @@ NSString *const NSFileHandleOperationException =
     return [self initWithFileDescriptor: descriptor closeOnDealloc: YES];
 }
 
-- initWithFileDescriptor: (int) descriptor
-          closeOnDealloc: (BOOL) closeOnDealloc {
+- initWithFileDescriptor: (int) descriptor closeOnDealloc: (BOOL) closeOnDealloc
+{
     NSSocket *socket =
         [[[NSSocket alloc] initWithFileDescriptor: descriptor] autorelease];
 

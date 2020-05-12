@@ -563,7 +563,8 @@ enum {
 }
 
 - (void) inputStream: (NSInputStream *) stream
-         handleEvent: (NSStreamEvent) streamEvent {
+         handleEvent: (NSStreamEvent) streamEvent
+{
     switch (streamEvent) {
 
     case NSStreamEventHasBytesAvailable: {
@@ -591,7 +592,8 @@ enum {
 }
 
 - (void) outputStream: (NSOutputStream *) stream
-          handleEvent: (NSStreamEvent) streamEvent {
+          handleEvent: (NSStreamEvent) streamEvent
+{
     if (streamEvent == NSStreamEventHasSpaceAvailable) {
         if ([_outputQueue count] == 0) {
         } else {
@@ -642,7 +644,8 @@ enum {
 }
 - initWithRequest: (NSURLRequest *) request
     cachedResponse: (NSCachedURLResponse *) response
-            client: (id<NSURLProtocolClient>) client {
+            client: (id<NSURLProtocolClient>) client
+{
     [super initWithRequest: request cachedResponse: response client: client];
 
     _modes = [[NSMutableArray arrayWithObject: NSDefaultRunLoopMode] retain];
@@ -737,8 +740,8 @@ enum {
     [[NSRunLoop currentRunLoop] addTimer: _timeout forMode: mode];
 }
 
-- (void) unscheduleFromRunLoop: (NSRunLoop *) runLoop
-                       forMode: (NSString *) mode {
+- (void) unscheduleFromRunLoop: (NSRunLoop *) runLoop forMode: (NSString *) mode
+{
     [_inputStream removeFromRunLoop: runLoop forMode: mode];
     [_outputStream removeFromRunLoop: runLoop forMode: mode];
     //  FIXME: no official way to remove timer

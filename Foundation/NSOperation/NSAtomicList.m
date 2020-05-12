@@ -27,7 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <stdlib.h>
 
 static int OSAtomicCompareAndSwapPtrBarrier(void *oldValue, void *newValue,
-                                            void *volatile *theValue) {
+                                            void *volatile *theValue)
+{
     return __sync_bool_compare_and_swap(theValue, oldValue, newValue);
 }
 

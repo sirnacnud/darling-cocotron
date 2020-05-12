@@ -42,13 +42,15 @@
 
 - (void) mouseEntered: (NSEvent *) event
             withFrame: (NSRect) frame
-               inView: (NSView *) view {
+               inView: (NSView *) view
+{
     NSUnimplementedMethod();
 }
 
 - (void) mouseExited: (NSEvent *) event
            withFrame: (NSRect) frame
-              inView: (NSView *) view {
+              inView: (NSView *) view
+{
     NSUnimplementedMethod();
 }
 
@@ -124,7 +126,8 @@
 
 - (NSRect) rectOfPathComponentCell: (NSPathComponentCell *) cell
                          withFrame: (NSRect) frame
-                            inView: (NSView *) view {
+                            inView: (NSView *) view
+{
     NSRect rect = frame;
 
     for (NSPathComponentCell *check in _pathComponentCells) {
@@ -153,7 +156,8 @@
 
 - (NSPathComponentCell *) pathComponentCellAtPoint: (NSPoint) point
                                          withFrame: (NSRect) frame
-                                            inView: (NSView *) view {
+                                            inView: (NSView *) view
+{
 
     for (NSPathComponentCell *cell in _pathComponentCells) {
         NSRect checkFrame = [self rectOfPathComponentCell: cell
@@ -170,7 +174,8 @@
 - (BOOL) trackMouse: (NSEvent *) event
              inRect: (NSRect) cellFrame
              ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) untilMouseUp {
+       untilMouseUp: (BOOL) untilMouseUp
+{
 
     do {
         NSPoint point = [controlView convertPoint: [event locationInWindow]

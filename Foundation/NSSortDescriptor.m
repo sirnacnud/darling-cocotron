@@ -35,7 +35,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + sortDescriptorWithKey: (NSString *) key
               ascending: (BOOL) ascending
-               selector: (SEL) selector {
+               selector: (SEL) selector
+{
     return [[[NSSortDescriptor allocWithZone: NULL] initWithKey: key
                                                       ascending: ascending
                                                        selector: selector]
@@ -48,7 +49,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithKey: (NSString *) key
     ascending: (BOOL) ascending
-     selector: (SEL) selector {
+     selector: (SEL) selector
+{
     _key = [key copy];
     _ascending = ascending;
 

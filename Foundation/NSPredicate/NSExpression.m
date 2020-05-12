@@ -69,14 +69,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSExpression *) expressionForFunction: (NSString *) name
-                               arguments: (NSArray *) arguments {
+                               arguments: (NSArray *) arguments
+{
     return [[[NSExpression_function allocWithZone: NULL]
         initWithName: name
            arguments: arguments] autorelease];
 }
 
 + (NSExpression *) expressionForKeyPathLeft: (NSExpression *) left
-                                      right: (NSExpression *) right {
+                                      right: (NSExpression *) right
+{
     return nil;
 }
 
@@ -130,7 +132,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSExpression *) _expressionWithSubstitutionVariables:
-    (NSDictionary *) variables {
+    (NSDictionary *) variables
+{
     return self;
 }
 

@@ -107,7 +107,8 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 - (BOOL) _setValue: (id) value
           toBuffer: (void *) buffer
             ofType: (const char *) type
-      shouldRetain: (BOOL) shouldRetain {
+      shouldRetain: (BOOL) shouldRetain
+{
     char *cleanType = __builtin_alloca(strlen(type) + 1);
     [self _demangleTypeEncoding: type to: cleanType];
 
@@ -369,7 +370,8 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 
 - (BOOL) validateValue: (id *) ioValue
                 forKey: (NSString *) key
-                 error: (NSError **) outError {
+                 error: (NSError **) outError
+{
     SEL sel = NSSelectorFromString([NSString
         stringWithFormat: @"validate%@:error:", [key capitalizedString]]);
     if ([self respondsToSelector: sel]) {
@@ -437,7 +439,8 @@ NSString *const NSUndefinedKeyException = @"NSUnknownKeyException";
 
 - (BOOL) validateValue: (id *) ioValue
             forKeyPath: (NSString *) keyPath
-                 error: (NSError **) outError {
+                 error: (NSError **) outError
+{
     id array =
         [[[keyPath componentsSeparatedByString: @"."] mutableCopy] autorelease];
     id lastPathComponent = [array lastObject];

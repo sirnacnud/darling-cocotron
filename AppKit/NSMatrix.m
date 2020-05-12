@@ -114,7 +114,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                mode: (NSMatrixMode) mode
           prototype: (NSCell *) prototype
        numberOfRows: (NSInteger) rows
-    numberOfColumns: (NSInteger) columns {
+    numberOfColumns: (NSInteger) columns
+{
     NSInteger i;
 
     [self initWithFrame: frame];
@@ -133,7 +134,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                mode: (NSMatrixMode) mode
           cellClass: (Class) cls
        numberOfRows: (NSInteger) rows
-    numberOfColumns: (NSInteger) columns {
+    numberOfColumns: (NSInteger) columns
+{
     NSInteger i;
 
     [self initWithFrame: frame];
@@ -308,7 +310,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) getRow: (NSInteger *) row
          column: (NSInteger *) column
-         ofCell: (NSCell *) cell {
+         ofCell: (NSCell *) cell
+{
     NSInteger index = [_cells indexOfObjectIdenticalTo: cell];
 
     if (index != NSNotFound) {
@@ -322,7 +325,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) getRow: (NSInteger *) row
          column: (NSInteger *) column
-       forPoint: (NSPoint) point {
+       forPoint: (NSPoint) point
+{
     NSRect cellFrame;
 
     *row = point.y / (_cellSize.height + _intercellSpacing.height);
@@ -528,7 +532,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) putCell: (NSCell *) cell
            atRow: (NSInteger) row
-          column: (NSInteger) column {
+          column: (NSInteger) column
+{
     NSUInteger index = row * _numberOfColumns + column;
 
     [_cells replaceObjectAtIndex: index withObject: cell];
@@ -716,7 +721,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setSelectionFrom: (NSInteger) from
                        to: (NSInteger) to
                    anchor: (NSInteger) anchor
-                highlight: (BOOL) highlight {
+                highlight: (BOOL) highlight
+{
     if (anchor != -1) { // no anchor, i.e., no selected cell
         if (anchor < from)
             from = anchor;
@@ -786,7 +792,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setState: (NSInteger) state
             atRow: (NSInteger) row
-           column: (NSInteger) column {
+           column: (NSInteger) column
+{
     NSCell *cell = [self cellAtRow: row column: column];
 
     if (cell != nil) {
@@ -799,7 +806,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) highlightCell: (BOOL) highlight
                  atRow: (NSInteger) row
-                column: (NSInteger) column {
+                column: (NSInteger) column
+{
     NSCell *cell = [self cellAtRow: row column: column];
 
     if (cell != nil) {
@@ -923,7 +931,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) _fieldEditCell: (NSCell *) cell
                     row: (NSInteger) row
-                 column: (NSInteger) column {
+                 column: (NSInteger) column
+{
     [self selectCell: cell];
 
     NSText *editor = [[self window] fieldEditor: YES forObject: self];
@@ -952,7 +961,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) _editTextCell: (NSCell *) cell
                    row: (NSInteger) row
                 column: (NSInteger) column
-                 event: (NSEvent *) event {
+                 event: (NSEvent *) event
+{
     NSRect cellFrame = [self cellFrameAtRow: row column: column];
 
     [self _fieldEditCell: cell row: row column: column];
@@ -965,7 +975,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSCell *) _enabledCellAtPoint: (NSPoint) point
                              row: (NSInteger *) row
-                          column: (NSInteger *) column {
+                          column: (NSInteger *) column
+{
     if ([self getRow: row column: column forPoint: point]) {
         NSCell *cell = [self cellAtRow: *row column: *column];
 

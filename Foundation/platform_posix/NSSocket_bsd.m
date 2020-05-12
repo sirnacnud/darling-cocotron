@@ -162,7 +162,8 @@ static inline void byteZero(void *vsrc, size_t size) {
 
 - (NSError *) connectToHost: (NSHost *) host
                        port: (NSInteger) portNumber
-                  immediate: (BOOL *) immediate {
+                  immediate: (BOOL *) immediate
+{
     BOOL block = NO;
     NSArray *addresses = [host addresses];
     NSInteger i, count = [addresses count];
@@ -176,7 +177,8 @@ static inline void byteZero(void *vsrc, size_t size) {
     }
 
     for (i = 0; i < count; i++) {
-        struct sockaddr_in try
+        struct sockaddr_in
+        try
             ;
         NSString *stringAddress = [addresses objectAtIndex: i];
         char cString[[stringAddress cStringLength] + 1];
@@ -267,7 +269,8 @@ static inline void byteZero(void *vsrc, size_t size) {
 @end
 
 NSData *NSSocketAddressDataForNetworkOrderAddressBytesAndPort(
-    const void *address, NSUInteger length, uint16_t port, uint32_t interface) {
+    const void *address, NSUInteger length, uint16_t port, uint32_t interface)
+{
     return nil;
 }
 #endif

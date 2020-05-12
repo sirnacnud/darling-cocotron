@@ -32,7 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
          rightExpression: (NSExpression *) right
                 modifier: (NSComparisonPredicateModifier) modifier
                     type: (NSPredicateOperatorType) type
-                 options: (NSUInteger) options {
+                 options: (NSUInteger) options
+{
     _left = [left retain];
     _right = [right retain];
     _modifier = modifier;
@@ -44,7 +45,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithLeftExpression: (NSExpression *) left
          rightExpression: (NSExpression *) right
-          customSelector: (SEL) selector {
+          customSelector: (SEL) selector
+{
     _left = [left retain];
     _right = [right retain];
     _modifier = NSDirectPredicateModifier;
@@ -78,7 +80,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 rightExpression: (NSExpression *) right
                        modifier: (NSComparisonPredicateModifier) modifier
                            type: (NSPredicateOperatorType) type
-                        options: (NSUInteger) options {
+                        options: (NSUInteger) options
+{
     return [[[self alloc] initWithLeftExpression: left
                                  rightExpression: right
                                         modifier: modifier
@@ -88,7 +91,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSPredicate *) predicateWithLeftExpression: (NSExpression *) left
                               rightExpression: (NSExpression *) right
-                               customSelector: (SEL) selector {
+                               customSelector: (SEL) selector
+{
     return [[[self alloc] initWithLeftExpression: left
                                  rightExpression: right
                                   customSelector: selector] autorelease];
@@ -180,8 +184,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
    return result;
 }
 
-- (NSPredicate *) predicateWithSubstitutionVariables:
-    (NSDictionary *) variables {
+- (NSPredicate *) predicateWithSubstitutionVariables: (NSDictionary *) variables
+{
     NSExpression *left =
         [_left _expressionWithSubstitutionVariables: variables];
     NSExpression *right =
@@ -306,7 +310,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                    : NO;
 
     case NSCustomSelectorPredicateOperatorType: {
-        BOOL (*function)
+        BOOL(*function)
         (id, SEL, id) = (BOOL(*)(
             id, SEL, id)) [leftResult methodForSelector: _customSelector];
 

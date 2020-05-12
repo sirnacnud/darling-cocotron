@@ -139,7 +139,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 #pragma mark Creating an NSAttributedString
 
 + (NSAttributedString *) attributedStringWithAttachment:
-    (NSTextAttachment *) attachment {
+    (NSTextAttachment *) attachment
+{
     unichar unicode = NSAttachmentCharacter;
     NSString *string = [NSString stringWithCharacters: &unicode length: 1];
     NSDictionary *attributes =
@@ -153,39 +154,44 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 - initWithData: (NSData *) data
                options: (NSDictionary *) options
     documentAttributes: (NSDictionary **) attributes
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithDocFormat: (NSData *) werd
-    documentAttributes: (NSDictionary **) attributes {
+    documentAttributes: (NSDictionary **) attributes
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithHTML: (NSData *) html
                baseURL: (NSURL *) url
-    documentAttributes: (NSDictionary **) attributes {
+    documentAttributes: (NSDictionary **) attributes
+{
     NSUnimplementedMethod();
     return nil;
 }
 
-- initWithHTML: (NSData *) html
-    documentAttributes: (NSDictionary **) attributes {
+- initWithHTML: (NSData *) html documentAttributes: (NSDictionary **) attributes
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithHTML: (NSData *) html
                options: (NSDictionary *) options
-    documentAttributes: (NSDictionary **) attributes {
+    documentAttributes: (NSDictionary **) attributes
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithPath: (NSString *) path
-    documentAttributes: (NSDictionary **) attributes {
+    documentAttributes: (NSDictionary **) attributes
+{
     NSAttributedString *string =
         [NSRichTextReader attributedStringWithContentsOfFile: path];
     if (string == nil) {
@@ -205,14 +211,15 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
     return [self initWithAttributedString: string];
 }
 
-- initWithRTFD: (NSData *) rtfd
-    documentAttributes: (NSDictionary **) attributes {
+- initWithRTFD: (NSData *) rtfd documentAttributes: (NSDictionary **) attributes
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - initWithRTFDFileWrapper: (NSFileWrapper *) wrapper
-       documentAttributes: (NSDictionary **) attributes {
+       documentAttributes: (NSDictionary **) attributes
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -225,7 +232,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 - initWithURL: (NSURL *) url
                options: (NSDictionary *) options
     documentAttributes: (NSDictionary **) attributes
-                 error: (NSError **) error {
+                 error: (NSError **) error
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -294,21 +302,23 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 }
 
 - (NSUInteger) lineBreakBeforeIndex: (NSUInteger) index
-                        withinRange: (NSRange) range {
+                        withinRange: (NSRange) range
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSUInteger) lineBreakByHyphenatingBeforeIndex: (NSUInteger) index
-                                     withinRange: (NSRange) range {
+                                     withinRange: (NSRange) range
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 /* as usual, the documentation says one thing and the system behaves
  * differently, this is the way i think it should work... (dwy 5/11/2003) */
-- (NSUInteger) nextWordFromIndex: (NSUInteger) location
-                         forward: (BOOL) forward {
+- (NSUInteger) nextWordFromIndex: (NSUInteger) location forward: (BOOL) forward
+{
     NSCharacterSet *alpha = [NSCharacterSet alphanumericCharacterSet];
     NSString *string = [self string];
     int i = location, length = [self length];
@@ -385,13 +395,14 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 #pragma mark Calculating Ranges
 
 - (NSInteger) itemNumberInTextList: (NSTextList *) list
-                           atIndex: (NSUInteger) index {
+                           atIndex: (NSUInteger) index
+{
     NSUnimplementedMethod();
     return 0;
 }
 
-- (NSRange) rangeOfTextBlock: (NSTextBlock *) block
-                     atIndex: (NSUInteger) index {
+- (NSRange) rangeOfTextBlock: (NSTextBlock *) block atIndex: (NSUInteger) index
+{
     NSUnimplementedMethod();
     return NSMakeRange(0, 0);
 }
@@ -401,8 +412,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
     return NSMakeRange(0, 0);
 }
 
-- (NSRange) rangeOfTextTable: (NSTextTable *) table
-                     atIndex: (NSUInteger) index {
+- (NSRange) rangeOfTextTable: (NSTextTable *) table atIndex: (NSUInteger) index
+{
     NSUnimplementedMethod();
     return NSMakeRange(0, 0);
 }
@@ -411,37 +422,43 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 #pragma mark Generating Data
 
 - (NSFileWrapper *) RTFDFileWrapperFromRange: (NSRange) range
-                          documentAttributes: (NSDictionary *) attributes {
+                          documentAttributes: (NSDictionary *) attributes
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - (NSData *) RTFDFromRange: (NSRange) range
-        documentAttributes: (NSDictionary *) attributes {
+        documentAttributes: (NSDictionary *) attributes
+{
     return [NSRichTextWriter dataWithAttributedString: self range: range];
 }
 
 - (NSData *) RTFFromRange: (NSRange) range
-       documentAttributes: (NSDictionary *) attributes {
+       documentAttributes: (NSDictionary *) attributes
+{
     return [NSRichTextWriter dataWithAttributedString: self range: range];
 }
 
 - (NSData *) dataFromRange: (NSRange) range
         documentAttributes: (NSDictionary *) attributes
-                     error: (NSError **) error {
+                     error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSData *) docFormatFromRange: (NSRange) range
-             documentAttributes: (NSDictionary *) attributes {
+             documentAttributes: (NSDictionary *) attributes
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSFileWrapper *) fileWrapperFromRange: (NSRange) range
                       documentAttributes: (NSDictionary *) attributes
-                                   error: (NSError **) error {
+                                   error: (NSError **) error
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -474,7 +491,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 #pragma mark Getting the Bounding Rectangle of Rendered Strings
 
 - (NSRect) boundingRectWithSize: (NSSize) size
-                        options: (NSStringDrawingOptions) options {
+                        options: (NSStringDrawingOptions) options
+{
     NSUnimplementedMethod();
     return NSMakeRect(0, 0, 0, 0);
 }
@@ -539,7 +557,8 @@ NSColor *NSForegroundColorAttributeInDictionary(NSDictionary *dictionary) {
 }
 
 NSParagraphStyle *
-NSParagraphStyleAttributeInDictionary(NSDictionary *dictionary) {
+NSParagraphStyleAttributeInDictionary(NSDictionary *dictionary)
+{
     NSParagraphStyle *style =
         [dictionary objectForKey: NSParagraphStyleAttributeName];
 

@@ -23,8 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSKeyValueObserving.h>
 #import <Foundation/NSString.h>
 
-void NSStringKVCSplitOnDot(NSString *self, NSString **before,
-                           NSString **after) {
+void NSStringKVCSplitOnDot(NSString *self, NSString **before, NSString **after)
+{
     NSRange range = [self rangeOfString: @"."];
     if (range.location != NSNotFound) {
         *before = [self substringToIndex: range.location];
@@ -39,7 +39,8 @@ void NSStringKVCSplitOnDot(NSString *self, NSString **before,
 
 - initWithKeyPath: (NSString *) keyPath
          observer: (id) observer
-           object: (id) object {
+           object: (id) object
+{
     _keyPath = [keyPath retain];
     _observer = observer;
     _object = object;
@@ -84,7 +85,8 @@ void NSStringKVCSplitOnDot(NSString *self, NSString **before,
 - (void) observeValueForKeyPath: (NSString *) keyPath
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     if (_notifyObject) {
         [_object observeValueForKeyPath: _keyPath
                                ofObject: _object

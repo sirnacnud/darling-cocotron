@@ -55,7 +55,8 @@
 - (void) observeValueForKeyPath: (NSString *) keyPath
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     if (context == 0) {
         observerCalled++;
         self.lastObserved = keyPath;

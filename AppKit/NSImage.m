@@ -326,8 +326,7 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
     return [self initWithData: data];
 }
 
-- initWithCGImage: (CGImageRef) cgImage size: (NSSize) size;
-{
+- initWithCGImage: (CGImageRef) cgImage size: (NSSize) size; {
     if (self = [self initWithSize: size]) {
         NSBitmapImageRep *rep =
             [[[NSBitmapImageRep alloc] initWithCGImage: cgImage] autorelease];
@@ -582,7 +581,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
 - (NSImageRep *)
     _bestUncachedFallbackCachedRepresentationForDevice: (NSDictionary *) device
-                                                  size: (NSSize) size {
+                                                  size: (NSSize) size
+{
     int i, count = [_representations count];
     NSImageRep *best = nil;
 
@@ -727,7 +727,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 }
 
 - (NSData *) TIFFRepresentationUsingCompression: (NSTIFFCompression) compression
-                                         factor: (float) factor {
+                                         factor: (float) factor
+{
     NSMutableArray *bitmaps = [NSMutableArray array];
 
     for (NSImageRep *check in _representations) {
@@ -854,8 +855,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
     [NSGraphicsContext restoreGraphicsState];
 }
 
-- (BOOL) drawRepresentation: (NSImageRep *) representation
-                     inRect: (NSRect) rect {
+- (BOOL) drawRepresentation: (NSImageRep *) representation inRect: (NSRect) rect
+{
     NSColor *bg = [self backgroundColor];
 
     if (bg != nil) {
@@ -868,7 +869,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
 - (void) compositeToPoint: (NSPoint) point
                  fromRect: (NSRect) rect
-                operation: (NSCompositingOperation) operation {
+                operation: (NSCompositingOperation) operation
+{
     [self compositeToPoint: point
                   fromRect: rect
                  operation: operation
@@ -878,7 +880,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 - (void) compositeToPoint: (NSPoint) point
                  fromRect: (NSRect) source
                 operation: (NSCompositingOperation) operation
-                 fraction: (CGFloat) fraction {
+                 fraction: (CGFloat) fraction
+{
     /* Compositing is a blitting operation. We simulate it using the draw
        operation.
 
@@ -907,13 +910,15 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 }
 
 - (void) compositeToPoint: (NSPoint) point
-                operation: (NSCompositingOperation) operation {
+                operation: (NSCompositingOperation) operation
+{
     [self compositeToPoint: point operation: operation fraction: 1.0];
 }
 
 - (void) compositeToPoint: (NSPoint) point
                 operation: (NSCompositingOperation) operation
-                 fraction: (CGFloat) fraction {
+                 fraction: (CGFloat) fraction
+{
     [self compositeToPoint: point
                   fromRect: NSZeroRect
                  operation: operation
@@ -926,14 +931,16 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 
 - (void) dissolveToPoint: (NSPoint) point
                 fromRect: (NSRect) rect
-                fraction: (CGFloat) fraction {
+                fraction: (CGFloat) fraction
+{
     NSUnimplementedMethod();
 }
 
 - (void) drawAtPoint: (NSPoint) point
             fromRect: (NSRect) source
            operation: (NSCompositingOperation) operation
-            fraction: (CGFloat) fraction {
+            fraction: (CGFloat) fraction
+{
     NSSize size = [self size];
 
     [self drawInRect: NSMakeRect(point.x, point.y, size.width, size.height)
@@ -945,7 +952,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
 - (void) drawInRect: (NSRect) rect
            fromRect: (NSRect) source
           operation: (NSCompositingOperation) operation
-           fraction: (CGFloat) fraction {
+           fraction: (CGFloat) fraction
+{
 
     // Keep a lid on any intermediate allocations while producing caches
     NSAutoreleasePool *pool = [NSAutoreleasePool new];

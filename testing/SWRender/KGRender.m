@@ -92,7 +92,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
              dashLengths: (float *) dashLengths
                 flatness: (float) flatness
                transform: (CGAffineTransform) xform
-               antialias: (BOOL) antialias {
+               antialias: (BOOL) antialias
+{
     [self doesNotRecognizeSelector: _cmd];
 }
 
@@ -101,7 +102,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
        interpolationQuality: (CGInterpolationQuality) interpolationQuality
                   blendMode: (CGBlendMode) blendMode
                   fillColor: (NSColor *) fillColor
-                  transform: (CGAffineTransform) xform {
+                  transform: (CGAffineTransform) xform
+{
     [self doesNotRecognizeSelector: _cmd];
 }
 

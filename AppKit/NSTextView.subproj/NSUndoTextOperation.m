@@ -32,8 +32,8 @@
 @end
 
 @implementation _NSAttributeRun
-- (id) initWithTextStorage: (NSTextStorage *) textStorage
-                     range: (NSRange) range {
+- (id) initWithTextStorage: (NSTextStorage *) textStorage range: (NSRange) range
+{
     if ((self = [super init])) {
         _range = range;
         _textStorage = [_textStorage retain];
@@ -88,7 +88,8 @@
 @implementation NSUndoTextOperation
 - (id) initWithAffectedRange: (NSRange) affectedRange
                layoutManager: (NSLayoutManager *) layoutManager
-                 undoManager: (NSUndoManager *) undoManager {
+                 undoManager: (NSUndoManager *) undoManager
+{
     if ((self = [super init])) {
         _affectedRange = affectedRange;
         _layoutManager = [layoutManager retain];
@@ -141,7 +142,8 @@
 - (id) initWithAffectedRange: (NSRange) affectedRange
                layoutManager: (NSLayoutManager *) layoutManager
                  undoManager: (NSUndoManager *) undoManager
-            replacementRange: (NSRange) replacementRange {
+            replacementRange: (NSRange) replacementRange
+{
     if ((self = [super initWithAffectedRange: affectedRange
                                layoutManager: layoutManager
                                  undoManager: undoManager])) {
@@ -160,7 +162,8 @@
 - (BOOL) coalesceAffectedRange: (NSRange) affectedRange
               replacementRange: (NSRange) replacementRange
                  selectedRange: (NSRange) selectedRange
-                          text: (NSAttributedString *) string {
+                          text: (NSAttributedString *) string
+{
     // - selection is at the end of the known replaced range and zero length and
     // the affected & replacement range location matches
     if ((selectedRange.length == 0) &&
@@ -229,7 +232,8 @@
 @implementation NSUndoSetAttributes
 - (id) initWithAffectedRange: (NSRange) affectedRange
                layoutManager: (NSLayoutManager *) layoutManager
-                 undoManager: (NSUndoManager *) undoManager {
+                 undoManager: (NSUndoManager *) undoManager
+{
     if ((self = [super initWithAffectedRange: affectedRange
                                layoutManager: layoutManager
                                  undoManager: undoManager])) {
@@ -268,7 +272,8 @@
 - (id) initWithAffectedRange: (NSRange) affectedRange
                layoutManager: (NSLayoutManager *) layoutManager
                  undoManager: (NSUndoManager *) undoManager
-            replacementRange: (NSRange) replacementRange {
+            replacementRange: (NSRange) replacementRange
+{
     if ((self = [super initWithAffectedRange: affectedRange
                                layoutManager: layoutManager
                                  undoManager: undoManager])) {

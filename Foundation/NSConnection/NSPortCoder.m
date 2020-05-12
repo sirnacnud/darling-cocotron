@@ -25,14 +25,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithReceivePort: (NSPort *) receivePort
              sendPort: (NSPort *) sendPort
-           components: (NSArray *) components {
+           components: (NSArray *) components
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + portCoderWithReceivePort: (NSPort *) receivePort
                   sendPort: (NSPort *) sendPort
-                components: (NSArray *) components {
+                components: (NSArray *) components
+{
     return [[[self alloc] initWithReceivePort: receivePort
                                      sendPort: sendPort
                                    components: components] autorelease];

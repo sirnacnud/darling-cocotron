@@ -51,21 +51,23 @@ NSString *const NSConnectionReplyMode = @"NSConnectionReplyMode";
 }
 
 + (NSConnection *) connectionWithReceivePort: (NSPort *) receivePort
-                                    sendPort: (NSPort *) sendPort {
+                                    sendPort: (NSPort *) sendPort
+{
     return [[[self alloc] initWithReceivePort: receivePort
                                      sendPort: sendPort] autorelease];
 }
 
 + (NSConnection *) connectionWithRegisteredName: (NSString *) name
                                            host: (NSString *) hostName
-                                usingNameServer:
-                                    (NSPortNameServer *) nameServer {
+                                usingNameServer: (NSPortNameServer *) nameServer
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSConnection *) connectionWithRegisteredName: (NSString *) name
-                                           host: (NSString *) hostName {
+                                           host: (NSString *) hostName
+{
     return
         [self connectionWithRegisteredName: name
                                       host: hostName
@@ -76,7 +78,8 @@ NSString *const NSConnectionReplyMode = @"NSConnectionReplyMode";
 + (NSDistantObject *)
     rootProxyForConnectionWithRegisteredName: (NSString *) name
                                         host: (NSString *) hostName
-                             usingNameServer: (NSPortNameServer *) nameServer {
+                             usingNameServer: (NSPortNameServer *) nameServer
+{
     return [[self connectionWithRegisteredName: name
                                           host: hostName
                                usingNameServer: nameServer] rootProxy];
@@ -84,7 +87,8 @@ NSString *const NSConnectionReplyMode = @"NSConnectionReplyMode";
 
 + (NSDistantObject *)
     rootProxyForConnectionWithRegisteredName: (NSString *) name
-                                        host: (NSString *) hostName {
+                                        host: (NSString *) hostName
+{
     return [[self connectionWithRegisteredName: name host: hostName] rootProxy];
 }
 
@@ -200,7 +204,8 @@ NSString *const NSConnectionReplyMode = @"NSConnectionReplyMode";
 }
 
 - (BOOL) registerName: (NSString *) name
-       withNameServer: (NSPortNameServer *) nameServer {
+       withNameServer: (NSPortNameServer *) nameServer
+{
     NSUnimplementedMethod();
     return NO;
 }

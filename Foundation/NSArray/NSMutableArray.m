@@ -267,7 +267,8 @@ static inline void memswp(void *a, void *b, size_t width) {
 //  http://www.inf.fh-flensburg.de/lang/algorithmen/sortieren/merge/mergiter.htm
 
 static int mergesortL(void *base, size_t nel, size_t width,
-                      int (*compar)(const void *, const void *)) {
+                      int (*compar)(const void *, const void *))
+{
     NSInteger h, i, j, k, l, m, n = nel;
     void *A;                                           // points to an element
     void *B = NSZoneMalloc(NULL, (n / 2 + 1) * width); // points to a temp array
@@ -310,7 +311,8 @@ static int _nsmutablearraycompareindices(const void *v1, const void *v2) {
 }
 
 - (void) removeObjectsFromIndices: (NSUInteger *) indices
-                       numIndices: (NSUInteger) count {
+                       numIndices: (NSUInteger) count
+{
     if (count) {
         NSUInteger lastIndex = NSNotFound;
         NSUInteger sortedIndices[count];
@@ -369,7 +371,8 @@ static int _nsmutablearraycompareindices(const void *v1, const void *v2) {
 }
 
 - (void) replaceObjectsInRange: (NSRange) range
-          withObjectsFromArray: (NSArray *) array {
+          withObjectsFromArray: (NSArray *) array
+{
     [self replaceObjectsInRange: range
            withObjectsFromArray: array
                           range: NSMakeRange(0, [array count])];
@@ -377,7 +380,8 @@ static int _nsmutablearraycompareindices(const void *v1, const void *v2) {
 
 - (void) replaceObjectsInRange: (NSRange) range
           withObjectsFromArray: (NSArray *) array
-                         range: (NSRange) arrayRange {
+                         range: (NSRange) arrayRange
+{
     NSInteger i;
 
     for (i = 0; i < range.length && i < arrayRange.length; i++)
@@ -397,7 +401,8 @@ static int _nsmutablearraycompareindices(const void *v1, const void *v2) {
 }
 
 - (void) replaceObjectsAtIndexes: (NSIndexSet *) indexes
-                     withObjects: (NSArray *) objects {
+                     withObjects: (NSArray *) objects
+{
     NSUInteger index = [indexes firstIndex];
     for (id object in objects) {
         [self replaceObjectAtIndex: index withObject: object];
@@ -406,7 +411,8 @@ static int _nsmutablearraycompareindices(const void *v1, const void *v2) {
 }
 
 - (void) exchangeObjectAtIndex: (NSUInteger) index
-             withObjectAtIndex: (NSUInteger) other {
+             withObjectAtIndex: (NSUInteger) other
+{
     id object = [[self objectAtIndex: index] retain];
     id otherObject = [self objectAtIndex: other];
 
@@ -432,7 +438,8 @@ static NSInteger selectorCompare(id object1, id object2, void *userData) {
 
 // ... using a comparison function
 - (void) sortUsingFunction: (NSInteger (*)(id, id, void *)) compare
-                   context: (void *) context {
+                   context: (void *) context
+{
     NSInteger h, i, j, k, l, m, n = [self count];
     id A, *B = NSZoneMalloc(NULL, (n / 2 + 1) * sizeof(id));
 
@@ -471,7 +478,8 @@ static NSInteger selectorCompare(id object1, id object2, void *userData) {
 }
 
 static NSComparisonResult compareObjectsUsingDescriptors(id A, id B,
-                                                         void *descriptorsX) {
+                                                         void *descriptorsX)
+{
     NSArray *descriptors = (id) descriptorsX;
     NSComparisonResult result = NSOrderedSame;
 
@@ -493,7 +501,8 @@ static NSComparisonResult compareObjectsUsingDescriptors(id A, id B,
 }
 
 - (NSUInteger) _insertObject: (id) obj
-    inArraySortedByDescriptors: (NSArray *) descriptors {
+    inArraySortedByDescriptors: (NSArray *) descriptors
+{
     NSUInteger start = 0;
     NSUInteger end = [self count];
     NSUInteger mid = 0;

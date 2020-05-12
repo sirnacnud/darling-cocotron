@@ -213,7 +213,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     toObjectsAtIndexes: (NSIndexSet *) indexes
             forKeyPath: (NSString *) keyPath
                options: (NSKeyValueObservingOptions) options
-               context: (void *) context {
+               context: (void *) context
+{
     NSUInteger idx = [indexes firstIndex];
     while (idx != NSNotFound) {
         [[self objectAtIndex: idx] addObserver: observer
@@ -226,7 +227,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) removeObserver: (NSObject *) observer
     fromObjectsAtIndexes: (NSIndexSet *) indexes
-              forKeyPath: (NSString *) keyPath {
+              forKeyPath: (NSString *) keyPath
+{
     NSUInteger idx = [indexes firstIndex];
     while (idx != NSNotFound) {
         [[self objectAtIndex: idx] removeObserver: observer
@@ -252,8 +254,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                    context: context];
 }
 
-- (void) removeObserver: (id) observer forKeyPath: (NSString *) keyPath;
-{
+- (void) removeObserver: (id) observer forKeyPath: (NSString *) keyPath; {
     if ([[self class] instanceMethodForSelector: _cmd] ==
         [NSArray instanceMethodForSelector: _cmd])
         NSRaiseException(NSInvalidArgumentException, self, _cmd,

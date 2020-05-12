@@ -98,7 +98,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) encodeArrayOfObjCType: (const char *) itemType
                          count: (NSUInteger) count
-                            at: (const void *) ptr {
+                            at: (const void *) ptr
+{
     char typeBuf[1 + sizeof(NSUInteger) * 3 + strlen(itemType) + 2];
 
     sprintf(typeBuf, "[" NSUIntegerFormat "%s]", count, itemType);
@@ -164,7 +165,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) encodeBytes: (const uint8_t *) bytes
               length: (NSUInteger) length
-              forKey: (NSString *) key {
+              forKey: (NSString *) key
+{
     [self encodeBytes: bytes length: length];
 }
 
@@ -230,7 +232,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) decodeArrayOfObjCType: (const char *) itemType
                          count: (NSUInteger) count
-                            at: (void *) ptr {
+                            at: (void *) ptr
+{
     char typeBuf[1 + sizeof(NSUInteger) * 3 + strlen(itemType) + 1 + 1];
 
     sprintf(typeBuf, "[" NSUIntegerFormat "%s]", count, itemType);
@@ -273,7 +276,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (const uint8_t *) decodeBytesForKey: (NSString *) key
-                       returnedLength: (NSUInteger *) lengthp {
+                       returnedLength: (NSUInteger *) lengthp
+{
     *lengthp = 0;
     return NULL;
 }

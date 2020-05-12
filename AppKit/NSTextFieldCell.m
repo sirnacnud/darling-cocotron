@@ -309,7 +309,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 inView: (NSView *) view
                 editor: (NSText *) editor
               delegate: (id) delegate
-                 event: (NSEvent *) event {
+                 event: (NSEvent *) event
+{
     frame = [self titleRectForBounds: frame];
     [super editWithFrame: frame
                   inView: view
@@ -323,7 +324,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                   editor: (NSText *) editor
                 delegate: (id) delegate
                    start: (NSInteger) location
-                  length: (NSInteger) length {
+                  length: (NSInteger) length
+{
     frame = [self titleRectForBounds: frame];
     [super selectWithFrame: frame
                     inView: view

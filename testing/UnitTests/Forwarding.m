@@ -91,7 +91,8 @@
 
 - (NSString *) concatObjects: (NSString *)
                        first: (NSString *) second
-                            :(NSString *) third {
+                            :(NSString *) third
+{
     beenInMethodFlag = YES;
     return [NSString stringWithFormat: @"%@%@%@", first, second, third];
 }
@@ -111,7 +112,8 @@
                             :(NSRange) range
                             :(NSRect) rect
                             :(double) d
-                            :(long long) l {
+                            :(long long) l
+{
     beenInMethodFlag = YES;
     return [NSString
         stringWithFormat: @"%i %i %i %i %i %i %i %i %i %i %i", (int) size.width,

@@ -43,7 +43,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithXMLString: (NSString *) string
             options: (NSUInteger) options
-              error: (NSError **) error {
+              error: (NSError **) error
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -52,7 +53,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     didStartElement: (NSString *) elementName
        namespaceURI: (NSString *) namespaceURI
       qualifiedName: (NSString *) qualifiedName
-         attributes: (NSDictionary *) attributes {
+         attributes: (NSDictionary *) attributes
+{
     NSXMLElement *element = [[NSXMLElement alloc] initWithName: elementName];
 
     // NSLog(@"element=%@",[element name]);
@@ -72,7 +74,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) parser: (NSXMLParser *) parser
     didEndElement: (NSString *) elementName
      namespaceURI: (NSString *) namespaceURI
-    qualifiedName: (NSString *) qualifiedName {
+    qualifiedName: (NSString *) qualifiedName
+{
     [_elementStack removeLastObject];
 }
 
@@ -85,7 +88,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) parser: (NSXMLParser *) parser
-    foundIgnorableWhitespace: (NSString *) whitespace {
+    foundIgnorableWhitespace: (NSString *) whitespace
+{
 
     if (_options & NSXMLDocumentTidyXML)
         return;
@@ -95,7 +99,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithData: (NSData *) data
        options: (NSUInteger) options
-         error: (NSError **) error {
+         error: (NSError **) error
+{
     [super initWithKind: NSXMLDocumentKind options: NSXMLNodeOptionsNone];
     //   NSLog(@"xml=%@",[[[NSString alloc] initWithData:data
     //   encoding:NSUTF8StringEncoding] autorelease]);
@@ -122,7 +127,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithContentsOfURL: (NSURL *) url
                 options: (NSUInteger) options
-                  error: (NSError **) error {
+                  error: (NSError **) error
+{
     NSData *data = [NSData dataWithContentsOfURL: url options: 0 error: error];
 
     if (data == nil) {
@@ -271,21 +277,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - objectByApplyingXSLT: (NSData *) xslt
              arguments: (NSDictionary *) arguments
-                 error: (NSError *) error {
+                 error: (NSError *) error
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - objectByApplyingXSLTAtURL: (NSURL *) url
                   arguments: (NSDictionary *) arguments
-                      error: (NSError *) error {
+                      error: (NSError *) error
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - objectByApplyingXSLTString: (NSString *) string
                    arguments: (NSDictionary *) arguments
-                       error: (NSError *) error {
+                       error: (NSError *) error
+{
     NSUnimplementedMethod();
     return nil;
 }

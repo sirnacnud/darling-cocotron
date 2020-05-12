@@ -42,7 +42,8 @@ NSString *const NSRecoveryAttempterErrorKey = @"NSRecoveryAttempterErrorKey";
 
 - initWithDomain: (NSString *) domain
             code: (NSInteger) code
-        userInfo: (NSDictionary *) userInfo {
+        userInfo: (NSDictionary *) userInfo
+{
     _domain = [domain copy];
     _code = code;
     _userInfo = [userInfo retain];
@@ -70,7 +71,8 @@ NSString *const NSRecoveryAttempterErrorKey = @"NSRecoveryAttempterErrorKey";
 
 + errorWithDomain: (NSString *) domain
              code: (NSInteger) code
-         userInfo: (NSDictionary *) userInfo {
+         userInfo: (NSDictionary *) userInfo
+{
     return [[[self alloc] initWithDomain: domain code: code
                                 userInfo: userInfo] autorelease];
 }

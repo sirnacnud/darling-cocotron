@@ -66,7 +66,8 @@ static NSString *DriveLetterInPath(NSString *path) {
                        isWritable: (BOOL *) isWritable
                     isUnmountable: (BOOL *) isUnmountable
                       description: (NSString **) description
-                             type: (NSString **) type {
+                             type: (NSString **) type
+{
     *isWritable = YES;
     *isRemovable = NO;
     *isUnmountable = NO;
@@ -209,7 +210,8 @@ static BOOL openFileWithHelpViewer(const char *helpFilePath) {
 }
 
 - (BOOL) selectFile: (NSString *) path
-    inFileViewerRootedAtPath: (NSString *) rootFullpath {
+    inFileViewerRootedAtPath: (NSString *) rootFullpath
+{
     BOOL isDir = NO;
 
     if ([[NSFileManager defaultManager] fileExistsAtPath: path
@@ -237,7 +239,8 @@ static BOOL openFileWithHelpViewer(const char *helpFilePath) {
 
 - (void) slideImage: (NSImage *) image
                from: (NSPoint) fromPoint
-                 to: (NSPoint) toPoint {
+                 to: (NSPoint) toPoint
+{
     NSUnimplementedMethod();
 }
 
@@ -279,7 +282,8 @@ static NSImageRep *imageRepForIcon(HICON icon) {
 }
 
 static NSImageRep *imageRepForImageListAndIndex(HIMAGELIST imageListH,
-                                                int index) {
+                                                int index)
+{
     // Create a bitmap context, and draw the image into its DC
     NSImageRep *imageRep = nil;
     if (imageListH != NULL) {

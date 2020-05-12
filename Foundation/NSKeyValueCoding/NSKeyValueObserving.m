@@ -185,7 +185,8 @@ static void removeKeyObserver(NSKeyObserver *keyObserver) {
 }
 
 static NSKeyObserver *keyObserverForObserverAndKeyPath(id object, id observer,
-                                                       NSString *path) {
+                                                       NSString *path)
+{
     NSKVOInfoPerObject *observationInfo = [object observationInfo];
     NSString *restOfPath;
     NSString *key = _NSKVOSplitKeyPath(path, &restOfPath);
@@ -209,7 +210,8 @@ addKeyPathObserverToObject(id object, NSString *path,
 
 static NSArray *
 addKeyPathObserverToDependantPaths(id object, NSSet *dependentPaths,
-                                   NSKeyPathObserver *keyPathObserver) {
+                                   NSKeyPathObserver *keyPathObserver)
+{
     NSMutableArray *result = [NSMutableArray array];
 
     for (NSString *path in dependentPaths) {
@@ -250,7 +252,8 @@ static void addKeyObserverDependantsAndRestOfPath(NSKeyObserver *keyObserver) {
 
 static NSKeyObserver *
 addKeyPathObserverToObject(id object, NSString *path,
-                           NSKeyPathObserver *keyPathObserver) {
+                           NSKeyPathObserver *keyPathObserver)
+{
     if (object == nil)
         return nil;
 
@@ -296,7 +299,8 @@ addKeyPathObserverToObject(id object, NSString *path,
 - (void) addObserver: observer
           forKeyPath: (NSString *) keyPath
              options: (NSKeyValueObservingOptions) options
-             context: (void *) context {
+             context: (void *) context
+{
 
     NSKeyValueDebugLog(kNSKeyValueDebugLevel1,
                        @"self: %@ observer: %@, keyPath: %@", self, observer,
@@ -356,7 +360,8 @@ static void pruneKeyObserver(NSKeyObserver *keyObserver) {
 }
 
 static void willChangeValueForKey(id object, NSString *key,
-                                  NSDictionary *changeInfo) {
+                                  NSDictionary *changeInfo)
+{
 
     NSKeyValueDebugLog(kNSKeyValueDebugLevel3, @"object: %@, key: %@", object,
                        key);
@@ -477,7 +482,8 @@ static void willChangeValueForKey(id object, NSString *key,
 
 - (void) willChange: (NSKeyValueChange) change
     valuesAtIndexes: (NSIndexSet *) indexes
-             forKey: (NSString *) key {
+             forKey: (NSString *) key
+{
     NSMutableDictionary *changeInfo =
         [[NSMutableDictionary allocWithZone: NULL] init];
 
@@ -492,7 +498,8 @@ static void willChangeValueForKey(id object, NSString *key,
 
 - (void) willChangeValueForKey: (NSString *) key
                withSetMutation: (NSKeyValueSetMutationKind) mutation
-                  usingObjects: (NSSet *) objects {
+                  usingObjects: (NSSet *) objects
+{
     NSMutableSet *changeSet;
     NSMutableDictionary *changeInfo =
         [[NSMutableDictionary allocWithZone: NULL] init];
@@ -627,18 +634,21 @@ static void didChangeValueForKey(id object, NSString *key) {
 
 - (void) didChange: (NSKeyValueChange) change
     valuesAtIndexes: (NSIndexSet *) indexes
-             forKey: (NSString *) key {
+             forKey: (NSString *) key
+{
     didChangeValueForKey(self, key);
 }
 
 - (void) didChangeValueForKey: (NSString *) key
               withSetMutation: (NSKeyValueSetMutationKind) mutation
-                 usingObjects: (NSSet *) objects {
+                 usingObjects: (NSSet *) objects
+{
     didChangeValueForKey(self, key);
 }
 
 + (void) setKeys: (NSArray *) keys
-    triggerChangeNotificationsForDependentKey: (NSString *) dependentKey {
+    triggerChangeNotificationsForDependentKey: (NSString *) dependentKey
+{
     NSKVOInfoPerObject *observationInfo = [self observationInfo];
 
     if (!observationInfo) {
@@ -804,7 +814,8 @@ CHANGE_DECLARATION(SEL)
 }
 
 - (void) KVO_notifying_change_insertObject: (id) object
-                              inKeyAtIndex: (NSInteger) index {
+                              inKeyAtIndex: (NSInteger) index
+{
     const char *origName = sel_getName(_cmd);
 
     size_t selLen = strlen(origName);
@@ -831,7 +842,8 @@ CHANGE_DECLARATION(SEL)
 }
 
 - (void) KVO_notifying_change_insertKey: (NSArray *) objects
-                              atIndexes: (NSIndexSet *) indexes {
+                              atIndexes: (NSIndexSet *) indexes
+{
     const char *origName = sel_getName(_cmd);
 
     size_t selLen = strlen(origName);
@@ -1025,7 +1037,8 @@ CHANGE_DECLARATION(SEL)
 }
 
 - (void) KVO_notifying_change_replaceObjectInKeyAtIndex: (int) index
-                                             withObject: (id) object {
+                                             withObject: (id) object
+{
     const char *origName = sel_getName(_cmd);
     size_t selLen = strlen(origName);
     char *sel = __builtin_alloca(selLen + 1);
@@ -1109,8 +1122,8 @@ CHANGE_DECLARATION(SEL)
     pthread_mutex_unlock(&kvoLock);
 }
 
-static BOOL methodIsAutoNotifyingSetter(Class class,
-                                        const char *methodCString) {
+static BOOL methodIsAutoNotifyingSetter(Class class, const char *methodCString)
+{
     size_t cStringLength = strlen(methodCString), keyCStringLength = 0;
     char keyCString[cStringLength + 1];
     enum {
@@ -1384,8 +1397,7 @@ or primitive signed type matching unsigned type
     return swizzledClass;
 }
 
-+ (BOOL) automaticallyNotifiesObserversForKey: (NSString *) key;
-{
++ (BOOL) automaticallyNotifiesObserversForKey: (NSString *) key; {
     if ([key isEqualToString: @"observationInfo"]) {
         return NO;
     }

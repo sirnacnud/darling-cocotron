@@ -16,7 +16,8 @@ NSString *const kCAMediaTimingFunctionDefault =
 - initWithControlPoints: (CGFloat)
                     c1x: (CGFloat) c1y
                        :(CGFloat) c2x
-                       :(CGFloat) c2y {
+                       :(CGFloat) c2y
+{
     _c1x = c1x;
     _c1y = c1y;
     _c2x = c2x;
@@ -27,7 +28,8 @@ NSString *const kCAMediaTimingFunctionDefault =
 + functionWithControlPoints: (CGFloat)
                         c1x: (CGFloat) c1y
                            :(CGFloat) c2x
-                           :(CGFloat) c2y {
+                           :(CGFloat) c2y
+{
     return [[[self alloc] initWithControlPoints: c1x: c1y:c2x:c2y] autorelease];
 }
 

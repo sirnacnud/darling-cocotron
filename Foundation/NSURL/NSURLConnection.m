@@ -53,7 +53,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSData *) sendSynchronousRequest: (NSURLRequest *) request
                   returningResponse: (NSURLResponse **) responsep
-                              error: (NSError **) errorp {
+                              error: (NSError **) errorp
+{
     NSURLConnectionState *state =
         [[[NSURLConnectionState alloc] init] autorelease];
     NSURLConnection *connection = [[self alloc] initWithRequest: request
@@ -108,14 +109,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSURLConnection *) connectionWithRequest: (NSURLRequest *) request
-                                   delegate: delegate {
+                                   delegate: delegate
+{
     return [[[self alloc] initWithRequest: request
                                  delegate: delegate] autorelease];
 }
 
 - initWithRequest: (NSURLRequest *) request
             delegate: delegate
-    startImmediately: (BOOL) startLoading {
+    startImmediately: (BOOL) startLoading
+{
     _request = [request copy];
     Class cls = [NSURLProtocol _URLProtocolClassForRequest: request];
 
@@ -165,14 +168,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_protocol scheduleInRunLoop: runLoop forMode: mode];
 }
 
-- (void) unscheduleFromRunLoop: (NSRunLoop *) runLoop
-                       forMode: (NSString *) mode {
+- (void) unscheduleFromRunLoop: (NSRunLoop *) runLoop forMode: (NSString *) mode
+{
     [_protocol unscheduleFromRunLoop: runLoop forMode: mode];
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
     wasRedirectedToRequest: (NSURLRequest *) request
-          redirectResponse: (NSURLResponse *) redirect {
+          redirectResponse: (NSURLResponse *) redirect
+{
 #if DEBUG
     NSLog(@"wasRedirectedToRequest: %@", request);
 #endif
@@ -183,7 +187,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
     didReceiveAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge {
+        (NSURLAuthenticationChallenge *) challenge
+{
 #if DEBUG
     NSLog(@"didReceiveAuthenticationChallenge: %@", challenge);
 #endif
@@ -191,8 +196,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didCancelAuthenticationChallenge:
-        (NSURLAuthenticationChallenge *) challenge {
+    didCancelAuthenticationChallenge: (NSURLAuthenticationChallenge *) challenge
+{
 #if DEBUG
     NSLog(@"didCancelAuthenticationChallenge: %@", challenge);
 #endif
@@ -201,7 +206,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
     didReceiveResponse: (NSURLResponse *) response
-    cacheStoragePolicy: (NSURLCacheStoragePolicy) policy {
+    cacheStoragePolicy: (NSURLCacheStoragePolicy) policy
+{
 #if DEBUG
     NSLog(@"didReceiveResponse: %@", response);
 #endif
@@ -214,14 +220,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    cachedResponseIsValid: (NSCachedURLResponse *) cachedResponse {
+    cachedResponseIsValid: (NSCachedURLResponse *) cachedResponse
+{
 #if DEBUG
     NSLog(@"cachedResponseIsValid: %@", cachedResponse);
 #endif
 }
 
-- (void) URLProtocol: (NSURLProtocol *) urlProtocol
-         didLoadData: (NSData *) data {
+- (void) URLProtocol: (NSURLProtocol *) urlProtocol didLoadData: (NSData *) data
+{
 
 #if DEBUG
     NSString *str =
@@ -239,7 +246,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) URLProtocol: (NSURLProtocol *) urlProtocol
-    didFailWithError: (NSError *) error {
+    didFailWithError: (NSError *) error
+{
 #if DEBUG
     NSLog(@"didFailWithError: %@", error);
 #endif

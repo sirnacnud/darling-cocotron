@@ -42,7 +42,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (instancetype) initWithType: (NSEventType) type
                      location: (NSPoint) location
                 modifierFlags: (NSEventModifierFlags) modifierFlags
-                       window: (NSWindow *) window {
+                       window: (NSWindow *) window
+{
     _type = type;
     _timestamp = [NSDate timeIntervalSinceReferenceDate];
     _locationInWindow = location;
@@ -57,7 +58,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                              window: (NSWindow *) window
                          clickCount: (NSInteger) clickCount
                              deltaX: (CGFloat) deltaX
-                             deltaY: (CGFloat) deltaY {
+                             deltaY: (CGFloat) deltaY
+{
     return [[[NSEvent_mouse alloc] initWithType: type
                                        location: location
                                   modifierFlags: modifierFlags
@@ -71,7 +73,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                            location: (NSPoint) location
                       modifierFlags: (NSEventModifierFlags) modifierFlags
                              window: (NSWindow *) window
-                             deltaY: (CGFloat) deltaY {
+                             deltaY: (CGFloat) deltaY
+{
     return [[[NSEvent_mouse alloc] initWithType: type
                                        location: location
                                   modifierFlags: modifierFlags
@@ -87,7 +90,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                                 context: (NSGraphicsContext *) context
                             eventNumber: (NSInteger) eventNumber
                          trackingNumber: (NSInteger) tracking
-                               userData: (void *) userData {
+                               userData: (void *) userData
+{
     return [[[NSEvent_mouse alloc] initWithType: type
                                        location: location
                                   modifierFlags: flags
@@ -107,7 +111,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                             context: (NSGraphicsContext *) context
                         eventNumber: (NSInteger) eventNumber
                          clickCount: (NSInteger) clickCount
-                           pressure: (float) pressure {
+                           pressure: (float) pressure
+{
     return [[[NSEvent_mouse alloc] initWithType: type
                                        location: location
                                   modifierFlags: modifierFlags
@@ -126,7 +131,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                        characters: (NSString *) characters
       charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
                         isARepeat: (BOOL) isARepeat
-                          keyCode: (unsigned short) keyCode {
+                          keyCode: (unsigned short) keyCode
+{
     return [[[NSEvent_keyboard alloc] initWithType: type
                                           location: location
                                      modifierFlags: modifierFlags
@@ -146,7 +152,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                        characters: (NSString *) characters
       charactersIgnoringModifiers: (NSString *) charactersIgnoringModifiers
                         isARepeat: (BOOL) isARepeat
-                          keyCode: (unsigned short) keyCode {
+                          keyCode: (unsigned short) keyCode
+{
     return [[[NSEvent_keyboard alloc]
                        initWithType: type
                            location: location
@@ -167,7 +174,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                             context: (NSGraphicsContext *) context
                             subtype: (short) subtype
                               data1: (NSInteger) data1
-                              data2: (NSInteger) data2 {
+                              data2: (NSInteger) data2
+{
     return [[[NSEvent_other alloc] initWithType: type
                                        location: location
                                   modifierFlags: flags
@@ -272,7 +280,8 @@ static NSTimer *_periodicTimer = nil;
 }
 
 + (void) startPeriodicEventsAfterDelay: (NSTimeInterval) delay
-                            withPeriod: (NSTimeInterval) period {
+                            withPeriod: (NSTimeInterval) period
+{
     NSNumber *userInfo = [NSNumber numberWithDouble: period];
 
     if (_periodicTimer != nil)

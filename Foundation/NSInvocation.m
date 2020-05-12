@@ -74,7 +74,8 @@ id objc_msgSendv(id self, SEL selector, unsigned arg_size, void *arg_frame);
 }
 
 - initWithMethodSignature: (NSMethodSignature *) signature
-                arguments: (void *) arguments {
+                arguments: (void *) arguments
+{
     unsigned i;
     uint8_t *stackFrame = arguments;
 
@@ -190,14 +191,16 @@ static void *bufferForType(void *buffer, const char *type) {
 }
 
 + (NSInvocation *) invocationWithMethodSignature:
-    (NSMethodSignature *) signature {
+    (NSMethodSignature *) signature
+{
     return [[[self allocWithZone: NULL] initWithMethodSignature: signature]
         autorelease];
 }
 
 + (NSInvocation *) invocationWithMethodSignature:
                        (NSMethodSignature *) signature
-                                       arguments: (void *) arguments {
+                                       arguments: (void *) arguments
+{
     return [[[self allocWithZone: NULL] initWithMethodSignature: signature
                                                       arguments: arguments]
         autorelease];

@@ -69,7 +69,8 @@ static inline int float2int(float coord) {
 }
 
 void O2DeviceContextEstablishDeviceSpacePath_gdi(HDC dc, O2Path *path,
-                                                 O2AffineTransform xform) {
+                                                 O2AffineTransform xform)
+{
     unsigned opCount = O2PathNumberOfElements(path);
     const unsigned char *elements = O2PathElements(path);
     unsigned pointCount = O2PathNumberOfPoints(path);
@@ -158,8 +159,8 @@ void O2DeviceContextClipReset_gdi(HDC dc) {
 
 void O2DeviceContextClipToPath_gdi(HDC dc, O2Path *path,
                                    O2AffineTransform xform,
-                                   O2AffineTransform deviceXFORM,
-                                   BOOL evenOdd) {
+                                   O2AffineTransform deviceXFORM, BOOL evenOdd)
+{
     XFORM current;
     XFORM userToDevice = {deviceXFORM.a, deviceXFORM.b,  deviceXFORM.c,
                           deviceXFORM.d, deviceXFORM.tx, deviceXFORM.ty};
@@ -196,13 +197,15 @@ void O2DeviceContextClipToPath_gdi(HDC dc, O2Path *path,
 
 void O2DeviceContextClipToNonZeroPath_gdi(HDC dc, O2Path *path,
                                           O2AffineTransform xform,
-                                          O2AffineTransform deviceXFORM) {
+                                          O2AffineTransform deviceXFORM)
+{
     O2DeviceContextClipToPath_gdi(dc, path, xform, deviceXFORM, NO);
 }
 
 void O2DeviceContextClipToEvenOddPath_gdi(HDC dc, O2Path *path,
                                           O2AffineTransform xform,
-                                          O2AffineTransform deviceXFORM) {
+                                          O2AffineTransform deviceXFORM)
+{
     O2DeviceContextClipToPath_gdi(dc, path, xform, deviceXFORM, YES);
 }
 

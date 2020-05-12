@@ -41,7 +41,8 @@ ONYX2D_STATIC int O2PaintReadResampledHighSpan_largb32f_PRE(O2Paint *selfX,int x
 ONYX2D_STATIC int O2PaintReadResampledLowSpan_largb32f_PRE(O2Paint *selfX,
                                                            int x, int y,
                                                            O2argb32f *span,
-                                                           int length) {
+                                                           int length)
+{
     O2Paint_image *self = (O2Paint_image *) selfX;
 
     O2ImageBilinear_largb32f_PRE(self->_image, x, y, span, length,
@@ -52,7 +53,8 @@ ONYX2D_STATIC int O2PaintReadResampledLowSpan_largb32f_PRE(O2Paint *selfX,
 ONYX2D_STATIC int O2PaintReadResampledNoneSpan_largb32f_PRE(O2Paint *selfX,
                                                             int x, int y,
                                                             O2argb32f *span,
-                                                            int length) {
+                                                            int length)
+{
     O2Paint_image *self = (O2Paint_image *) selfX;
 
     O2ImagePointSampling_largb32f_PRE(self->_image, x, y, span, length,
@@ -95,7 +97,8 @@ ONYX2D_STATIC int O2PaintReadResampledHighSpan_largb8u_PRE(O2Paint *selfX,int x,
 
 ONYX2D_STATIC int O2PaintReadResampledLowSpan_largb8u_PRE(O2Paint *selfX, int x,
                                                           int y, O2argb8u *span,
-                                                          int length) {
+                                                          int length)
+{
     O2Paint_image *self = (O2Paint_image *) selfX;
 
     O2ImageBilinear_largb8u_PRE(self->_image, x, y, span, length,
@@ -113,7 +116,8 @@ ONYX2D_STATIC int O2PaintReadResampledLowSpan_largb8u_PRE(O2Paint *selfX, int x,
 }
 
 ONYX2D_STATIC int O2PaintReadResampledLowSpanFloatTranslate_largb8u_PRE(
-    O2Paint *selfX, int x, int y, O2argb8u *span, int length) {
+    O2Paint *selfX, int x, int y, O2argb8u *span, int length)
+{
     O2Paint_image *self = (O2Paint_image *) selfX;
 
     O2ImageBilinearFloatTranslate_largb8u_PRE(self->_image, x, y, span, length,
@@ -132,7 +136,8 @@ ONYX2D_STATIC int O2PaintReadResampledLowSpanFloatTranslate_largb8u_PRE(
 ONYX2D_STATIC int O2PaintReadResampledNoneSpan_largb8u_PRE(O2Paint *selfX,
                                                            int x, int y,
                                                            O2argb8u *span,
-                                                           int length) {
+                                                           int length)
+{
     O2Paint_image *self = (O2Paint_image *) selfX;
 
     O2ImagePointSampling_largb8u_PRE(self->_image, x, y, span, length,
@@ -151,7 +156,8 @@ ONYX2D_STATIC int O2PaintReadResampledNoneSpan_largb8u_PRE(O2Paint *selfX,
 ONYX2D_STATIC int O2PaintReadIntegerTranslateSpan_largb8u_PRE(O2Paint *selfX,
                                                               int x, int y,
                                                               O2argb8u *span,
-                                                              int length) {
+                                                              int length)
+{
     O2Paint_image *self = (O2Paint_image *) selfX;
 
     O2ImageIntegerTranslate_largb8u_PRE(self->_image, x, y, span, length,
@@ -169,7 +175,8 @@ ONYX2D_STATIC int O2PaintReadIntegerTranslateSpan_largb8u_PRE(O2Paint *selfX,
 }
 
 ONYX2D_STATIC int multiply(O2Paint *selfX, int x, int y, O2argb32f *span,
-                           int length) {
+                           int length)
+{
     O2Paint_image *self = (O2Paint_image *) selfX;
 
     O2PaintReadSpan_largb32f_PRE(self->_paint, x, y, span, length);
@@ -203,7 +210,8 @@ ONYX2D_STATIC int multiply(O2Paint *selfX, int x, int y, O2argb32f *span,
 }
 
 ONYX2D_STATIC int stencil(O2Paint *selfX, int x, int y, O2argb32f *span,
-                          int length) {
+                          int length)
+{
     O2Paint_image *self = (O2Paint_image *) selfX;
 
     self->_paint->_paint_largb32f_PRE(self->_paint, x, y, span, length);
@@ -264,7 +272,8 @@ ONYX2D_STATIC int stencil(O2Paint *selfX, int x, int y, O2argb32f *span,
                    paint: (O2Paint *) paint
     interpolationQuality: (O2InterpolationQuality) interpolationQuality
           surfaceToImage: (O2AffineTransform) surfaceToImage
-           surfaceToMask: (O2AffineTransform) surfaceToMask {
+           surfaceToMask: (O2AffineTransform) surfaceToMask
+{
     bool integerTranslate = FALSE;
     bool floatTranslate = FALSE;
 

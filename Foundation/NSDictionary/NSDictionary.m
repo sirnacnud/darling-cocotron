@@ -45,9 +45,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return NSAllocateObject(self, 0, zone);
 }
 
-- initWithObjects: (id *) objects
-          forKeys: (id *) keys
-            count: (NSUInteger) count {
+- initWithObjects: (id *) objects forKeys: (id *) keys count: (NSUInteger) count
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
@@ -168,7 +167,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + dictionaryWithObjects: (id *) objects
                 forKeys: (id *) keys
-                  count: (NSUInteger) count {
+                  count: (NSUInteger) count
+{
     return [[[self allocWithZone: NULL] initWithObjects: objects
                                                 forKeys: keys
                                                   count: count] autorelease];
@@ -364,7 +364,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSUInteger) countByEnumeratingWithState: (NSFastEnumerationState *) state
                                    objects: (id *) stackbuf
-                                     count: (NSUInteger) len {
+                                     count: (NSUInteger) len
+{
     return [[self allKeys] countByEnumeratingWithState: state
                                                objects: stackbuf
                                                  count: len];
@@ -395,9 +396,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return result;
 }
 
-- (NSArray *) keysSortedByValueUsingSelector:
-    (SEL) selector { // there is probably a faster implementation, but at least
-                     // this is easy to understand.
+- (NSArray *) keysSortedByValueUsingSelector: (SEL) selector
+{ // there is probably a faster implementation, but at least
+    // this is easy to understand.
     NSMutableArray *result = nil;
     NSAutoreleasePool *pool = [NSAutoreleasePool new];
     NSArray *values = [[self allValues] sortedArrayUsingSelector: selector];

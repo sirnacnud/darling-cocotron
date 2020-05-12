@@ -86,8 +86,8 @@ void NSRectClip(NSRect rect) {
     CGContextClipToRect(graphicsPort, rect);
 }
 
-void NSRectFillListWithColors(const NSRect *rects, NSColor **colors,
-                              int count) {
+void NSRectFillListWithColors(const NSRect *rects, NSColor **colors, int count)
+{
     CGContextRef context = NSCurrentGraphicsPort();
     int i;
 
@@ -105,7 +105,8 @@ void NSRectFillListWithColors(const NSRect *rects, NSColor **colors,
 }
 
 void NSRectFillListWithGrays(const NSRect *rects, const CGFloat *grays,
-                             int count) {
+                             int count)
+{
     CGContextRef context = NSCurrentGraphicsPort();
     int i;
 
@@ -148,7 +149,8 @@ void NSEraseRect(NSRect rect) {
 }
 
 void NSRectFillListUsingOperation(const NSRect *rects, int count,
-                                  NSCompositingOperation operation) {
+                                  NSCompositingOperation operation)
+{
     CGContextRef context = NSCurrentGraphicsPort();
     CGContextSaveGState(context);
     CGContextSetBlendMode(context, blendModeForCompositeOp(operation));
@@ -165,7 +167,8 @@ void NSFrameRectWithWidth(NSRect rect, CGFloat width) {
 }
 
 void NSFrameRectWithWidthUsingOperation(NSRect rect, CGFloat width,
-                                        NSCompositingOperation operation) {
+                                        NSCompositingOperation operation)
+{
     CGContextRef context = NSCurrentGraphicsPort();
     CGContextSaveGState(context);
     CGContextSetBlendMode(context, blendModeForCompositeOp(operation));
@@ -210,8 +213,7 @@ void NSDottedFrameRect(NSRect rect) {
         Fortunately this is not used heavily...
      */
     if (rect.size.width <= 0 || rect.size.height <= 0)
-        return;
-    {
+        return; {
         NSRect rects[(int) rect.size.width + 2 + (int) rect.size.height + 2];
         int count = 0;
         int x, y, maxx = NSMaxX(rect), maxy = NSMaxY(rect);
@@ -238,8 +240,8 @@ void NSDottedFrameRect(NSRect rect) {
 }
 
 static NSRect NSDrawColorRects(NSRect boundsRect, NSRect clipRect,
-                               const NSRect *sides, NSColor **colors,
-                               int count) {
+                               const NSRect *sides, NSColor **colors, int count)
+{
     CGContextRef graphicsPort = NSCurrentGraphicsPort();
 
     CGContextSaveGState(graphicsPort);
@@ -502,7 +504,8 @@ void NSDrawWindowBackground(NSRect rect) {
 }
 
 NSRect NSDrawTiledRects(NSRect bounds, NSRect clip, const NSRectEdge *sides,
-                        const CGFloat *grays, int count) {
+                        const CGFloat *grays, int count)
+{
     return bounds;
 }
 
@@ -527,7 +530,8 @@ void NSDisableScreenUpdates(void) {
 
 void NSShowAnimationEffect(NSAnimationEffect effect, NSPoint center,
                            NSSize size, id delegate, SEL didEndSelector,
-                           void *context) {
+                           void *context)
+{
     [NSPoofAnimation poofAtLocation: center
                                size: size
                   animationDelegate: delegate

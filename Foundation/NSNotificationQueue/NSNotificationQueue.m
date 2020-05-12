@@ -108,7 +108,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) coalesceNotification: (NSNotification *) note
                       inQueue: (NSMutableArray *) queue
-                 coalesceMask: (NSUInteger) mask {
+                 coalesceMask: (NSUInteger) mask
+{
     if (mask != NSNotificationNoCoalescing) {
         NSInteger count = [queue count];
 
@@ -132,7 +133,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (BOOL) canPlaceNotification: (NSNotification *) note
                       inQueue: (NSArray *) queue
-                 coalesceMask: (NSUInteger) mask {
+                 coalesceMask: (NSUInteger) mask
+{
     if (mask != NSNotificationNoCoalescing) {
         NSInteger i, count = [queue count];
 
@@ -154,7 +156,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) enqueueNotification: (NSNotification *) note
                 postingStyle: (NSPostingStyle) style
                 coalesceMask: (NSUInteger) mask
-                    forModes: (NSArray *) modes {
+                    forModes: (NSArray *) modes
+{
     /*
       Figure out what modes==nil means, does it mean the current mode?
         .. run in mode X ...
@@ -182,7 +185,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) enqueueNotification: (NSNotification *) note
-                postingStyle: (NSPostingStyle) style {
+                postingStyle: (NSPostingStyle) style
+{
     [self enqueueNotification: note
                  postingStyle: style
                  coalesceMask: NSNotificationCoalescingOnName |
@@ -191,7 +195,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) dequeueNotificationsMatching: (NSNotification *) note
-                         coalesceMask: (NSUInteger) mask {
+                         coalesceMask: (NSUInteger) mask
+{
     NSUnimplementedMethod();
 
     if (mask ==

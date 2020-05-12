@@ -55,7 +55,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     abbreviation: (NSString *) abbreviation
     unitToPointsConversionFactor: (CGFloat) conversionFactor
                      stepUpCycle: (NSArray *) stepUpCycle
-                   stepDownCycle: (NSArray *) stepDownCycle {
+                   stepDownCycle: (NSArray *) stepDownCycle
+{
     [NSMeasurementUnit
         registerUnit: [NSMeasurementUnit
                           measurementUnitWithName: name
@@ -72,7 +73,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initWithScrollView: (NSScrollView *) scrollView
-         orientation: (NSRulerOrientation) orientation {
+         orientation: (NSRulerOrientation) orientation
+{
     NSRect frame = NSMakeRect(0, 0, 1, 1);
     if (scrollView) {
         frame = [scrollView frame];
@@ -267,8 +269,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [self invalidateHashMarks];
 }
 
-- (BOOL) trackMarker: (NSRulerMarker *) marker
-      withMouseEvent: (NSEvent *) event {
+- (BOOL) trackMarker: (NSRulerMarker *) marker withMouseEvent: (NSEvent *) event
+{
     NSPoint point = [self convertPoint: [event locationInWindow] fromView: nil];
 
     if (NSMouseInRect(point, [self bounds], [self isFlipped])) {
@@ -300,7 +302,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) moveRulerlineFromLocation: (CGFloat) fromLocation
-                        toLocation: (CGFloat) toLocation {
+                        toLocation: (CGFloat) toLocation
+{
     NSNumber *old = [NSNumber numberWithFloat: fromLocation];
     NSNumber *new = [ NSNumber numberWithFloat : toLocation ];
 

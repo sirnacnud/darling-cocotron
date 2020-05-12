@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (NSTimeZoneType *) timeZoneTypeWithSecondsFromGMT: (NSInteger) seconds
                                isDaylightSavingTime: (BOOL) isDST
-                                       abbreviation: (NSString *) abbreviation {
+                                       abbreviation: (NSString *) abbreviation
+{
     return [[[self allocWithZone: NULL] initWithSecondsFromGMT: seconds
                                           isDaylightSavingTime: isDST
                                                   abbreviation: abbreviation]
@@ -33,7 +34,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithSecondsFromGMT: (NSInteger) seconds
     isDaylightSavingTime: (BOOL) isDST
-            abbreviation: (NSString *) abbreviation {
+            abbreviation: (NSString *) abbreviation
+{
     _secondsFromGMT = seconds;
     _isDaylightSavingTime = isDST;
     _abbreviation = [abbreviation retain];

@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithResponse: (NSURLResponse *) response
               data: (NSData *) data
           userInfo: (NSDictionary *) userInfo
-     storagePolicy: (NSURLCacheStoragePolicy) storagePolicy {
+     storagePolicy: (NSURLCacheStoragePolicy) storagePolicy
+{
     _response = [response copy];
     _data = [data copy];
     _userInfo = [userInfo copy];

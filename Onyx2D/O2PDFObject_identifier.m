@@ -64,7 +64,8 @@ O2PDFIdentifier O2PDFClassifyIdentifier(const char *bytes, unsigned length) {
 
 - initWithIdentifier: (O2PDFIdentifier) identifier
                 name: (const char *) bytes
-              length: (unsigned) length {
+              length: (unsigned) length
+{
     _identifier = identifier;
     _length = length;
     _bytes = NSZoneMalloc(NULL, _length + 1);
@@ -80,7 +81,8 @@ O2PDFIdentifier O2PDFClassifyIdentifier(const char *bytes, unsigned length) {
 
 + pdfObjectWithIdentifier: (O2PDFIdentifier) identifier
                      name: (const char *) bytes
-                   length: (unsigned) length {
+                   length: (unsigned) length
+{
     return [[[self alloc] initWithIdentifier: identifier
                                         name: bytes
                                       length: length] autorelease];

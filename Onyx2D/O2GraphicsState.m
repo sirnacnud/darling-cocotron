@@ -62,7 +62,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - initFlippedWithDeviceHeight: (O2Float) height
-                       concat: (O2AffineTransform) concat {
+                       concat: (O2AffineTransform) concat
+{
     O2AffineTransform flip = {1, 0, 0, -1, 0, height};
 
     return
@@ -233,11 +234,13 @@ void O2GStateSetPatternPhase(O2GState *self, O2Size value) {
 }
 
 - (void) setStrokePattern: (O2Pattern *) pattern
-               components: (const O2Float *) components {
+               components: (const O2Float *) components
+{
 }
 
 - (void) setFillPattern: (O2Pattern *) pattern
-             components: (const O2Float *) components {
+             components: (const O2Float *) components
+{
 }
 
 - (void) setTextDrawingMode: (int) textMode {
@@ -318,7 +321,8 @@ void O2GStateSetFontEncoding(O2GState *self, O2Encoding *encoding) {
 
 - (void) selectFontWithName: (const char *) name
                        size: (O2Float) size
-                   encoding: (O2TextEncoding) textEncoding {
+                   encoding: (O2TextEncoding) textEncoding
+{
     O2Font *font = O2FontCreateWithFontName(
         [NSString stringWithCString: name encoding: NSUTF8StringEncoding]);
 
@@ -391,7 +395,8 @@ void O2GStateSetMiterLimit(O2GState *self, O2Float limit) {
 }
 
 void O2GStateSetLineDash(O2GState *self, O2Float phase, const O2Float *lengths,
-                         size_t count) {
+                         size_t count)
+{
     self->_dashPhase = phase;
     self->_dashLengthsCount = count;
 
@@ -439,7 +444,8 @@ void O2GStateSetAlpha(O2GState *self, O2Float alpha) {
 
 - (void) setShadowOffset: (O2Size) offset
                     blur: (O2Float) blur
-                   color: (O2ColorRef) color {
+                   color: (O2ColorRef) color
+{
     _shadowOffset = offset;
     _shadowBlur = blur;
     color = [color retain];

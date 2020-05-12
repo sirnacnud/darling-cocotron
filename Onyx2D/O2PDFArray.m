@@ -43,7 +43,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (O2PDFArray *) pdfArrayWithNumbers: (O2PDFReal *) values
-                               count: (NSUInteger) count {
+                               count: (NSUInteger) count
+{
     O2PDFArray *result = [self pdfArray];
     NSInteger i;
 
@@ -54,7 +55,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (O2PDFArray *) pdfArrayWithIntegers: (O2PDFInteger *) values
-                                count: (NSUInteger) count {
+                                count: (NSUInteger) count
+{
     O2PDFArray *result = [self pdfArray];
     NSInteger i;
 
@@ -171,7 +173,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) getDictionaryAtIndex: (NSUInteger) index
-                        value: (O2PDFDictionary **) dictionaryp {
+                        value: (O2PDFDictionary **) dictionaryp
+{
     O2PDFObject *object = [self objectAtIndex: index];
 
     return [object checkForType: kO2PDFObjectTypeDictionary value: dictionaryp];

@@ -48,7 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithBytesNoCopy: (void *) bytes
                length: (NSUInteger) length
-         freeWhenDone: (BOOL) freeWhenDone {
+         freeWhenDone: (BOOL) freeWhenDone
+{
     self = [self initWithCapacity: length];
 
     [self appendBytes: bytes length: length];
@@ -132,7 +133,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) replaceBytesInRange: (NSRange) range
                    withBytes: (const void *) bytes
-                      length: (NSUInteger) bytesLength {
+                      length: (NSUInteger) bytesLength
+{
     NSUInteger i, delta, length = [self length];
     char *mutableBytes;
 

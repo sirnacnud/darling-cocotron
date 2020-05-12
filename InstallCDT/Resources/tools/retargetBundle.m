@@ -87,7 +87,8 @@ static void usageAndExit() {
 }
 
 static void copyRegularAtInto(NSFileManager *fileManager, NSString *original,
-                              NSString *copy) {
+                              NSString *copy)
+{
     NSError *error;
 
     [fileManager removeItemAtPath: copy error: &error];
@@ -107,7 +108,8 @@ static void copyRegularAtInto(NSFileManager *fileManager, NSString *original,
 }
 
 static void copyPathAtInto(NSFileManager *fileManager, NSString *original,
-                           NSString *copy, NSArray *ignore) {
+                           NSString *copy, NSArray *ignore)
+{
     NSError *error = nil;
 
     if ([ignore containsObject: original])
@@ -159,7 +161,8 @@ static void copyPathAtInto(NSFileManager *fileManager, NSString *original,
 
 static void copyChangedFilesAtInto(NSFileManager *fileManager,
                                    NSString *original, NSString *copy,
-                                   NSArray *ignore) {
+                                   NSArray *ignore)
+{
     NSError *error;
 
     if ([ignore containsObject: original])
@@ -231,7 +234,8 @@ static void copyChangedFilesAtInto(NSFileManager *fileManager,
 }
 
 static NSString *sharedObjectFileInFramework(NSFileManager *fileManager,
-                                             NSString *original) {
+                                             NSString *original)
+{
     NSError *error;
     NSArray *children = [fileManager contentsOfDirectoryAtPath: original
                                                          error: &error];
@@ -249,7 +253,8 @@ static NSString *sharedObjectFileInFramework(NSFileManager *fileManager,
 }
 
 static NSMutableArray *ignoredFilesInFramework(NSFileManager *fileManager,
-                                               NSString *original) {
+                                               NSString *original)
+{
     NSString *name =
         [[original lastPathComponent] stringByDeletingPathExtension];
     NSMutableArray *result = [NSMutableArray array];
@@ -267,7 +272,8 @@ static NSMutableArray *ignoredFilesInFramework(NSFileManager *fileManager,
 
 static void copyFrameworkAtIntoDirectory(NSFileManager *fileManager,
                                          NSString *original,
-                                         NSString *destination) {
+                                         NSString *destination)
+{
     NSMutableArray *ignore = ignoredFilesInFramework(fileManager, original);
 
     NSString *soFile = sharedObjectFileInFramework(fileManager, original);
@@ -290,7 +296,8 @@ static void copyFrameworkAtIntoDirectory(NSFileManager *fileManager,
 }
 
 NSString *resolveFrameworkWithPath(NSFileManager *fileManager, NSString *name,
-                                   NSArray *path) {
+                                   NSArray *path)
+{
     int i, count = [path count];
 
     for (i = 0; i < count; i++) {

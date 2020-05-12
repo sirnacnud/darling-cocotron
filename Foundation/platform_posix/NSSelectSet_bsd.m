@@ -154,7 +154,8 @@ static void transferSetToNative(NSSet *set, native_set *native) {
 
 static void transferNativeToSetWithOriginals(native_set *sset,
                                              NSMutableSet *set, NSSet *original,
-                                             NSSocket_bsd *cheater) {
+                                             NSSocket_bsd *cheater)
+{
     int i;
 
     for (i = 0; i < sset->max; i++) {
@@ -166,7 +167,8 @@ static void transferNativeToSetWithOriginals(native_set *sset,
 }
 
 - (NSError *) waitForSelectWithOutputSet: (NSSelectSet **) outputSetX
-                              beforeDate: (NSDate *) beforeDate {
+                              beforeDate: (NSDate *) beforeDate
+{
     NSError *result = nil;
     NSSocket_bsd *cheater = [NSSocket_bsd socketWithDescriptor: -1];
     int maxDescriptor =

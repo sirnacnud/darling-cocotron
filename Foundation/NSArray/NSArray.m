@@ -421,7 +421,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSArray *) sortedArrayUsingFunction: (NSInteger (*)(id, id, void *)) function
-                               context: (void *) context {
+                               context: (void *) context
+{
     NSMutableArray *array = [NSMutableArray arrayWithArray: self];
 
     [array sortUsingFunction: function context: context];
@@ -467,7 +468,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSString *) descriptionWithLocale: (NSDictionary *) locale
-                              indent: (NSUInteger) indent {
+                              indent: (NSUInteger) indent
+{
     NSUnimplementedMethod();
     return nil;
 }

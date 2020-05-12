@@ -4,7 +4,8 @@
 @implementation NSManagedObjectSetEnumerator
 
 - initWithManagedObjectContext: (NSManagedObjectContext *) context
-              objectEnumerator: (NSEnumerator *) enumerator {
+              objectEnumerator: (NSEnumerator *) enumerator
+{
     _context = [context retain];
     _enumerator = [enumerator retain];
     return self;

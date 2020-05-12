@@ -248,7 +248,8 @@ NSString *const IKImageBrowserBackgroundColorKey = @"backgroundColor";
 }
 
 - (void) setSelectionIndexes: (NSIndexSet *) indexes
-        byExtendingSelection: (BOOL) extendSelection {
+        byExtendingSelection: (BOOL) extendSelection
+{
     NSUnimplementedMethod();
 }
 

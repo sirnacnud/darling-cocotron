@@ -30,7 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) drawSortIndicatorWithFrame: (NSRect) frame
                              inView: (NSView *) controlView
                           ascending: (BOOL) ascending
-                           priority: (NSInteger) priority {
+                           priority: (NSInteger) priority
+{
     NSUnimplementedMethod();
 }
 

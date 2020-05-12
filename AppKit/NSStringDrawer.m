@@ -49,7 +49,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 
 - (NSSize) sizeOfString: (NSString *) string
          withAttributes: (NSDictionary *) attributes
-                 inSize: (NSSize) maxSize {
+                 inSize: (NSSize) maxSize
+{
     if (maxSize.width == NSZeroSize.width &&
         maxSize.height == NSZeroSize.height)
         maxSize = NSMakeSize(NSStringDrawerLargeDimension,
@@ -67,7 +68,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 
 - (void) drawString: (NSString *) string
      withAttributes: (NSDictionary *) attributes
-             inRect: (NSRect) rect {
+             inRect: (NSRect) rect
+{
     NSRange glyphRange;
 
     [_textContainer setContainerSize: rect.size];
@@ -89,7 +91,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 - (void) drawString: (NSString *) string
      withAttributes: (NSDictionary *) attributes
             atPoint: (NSPoint) point
-             inSize: (NSSize) maxSize {
+             inSize: (NSSize) maxSize
+{
     NSRange glyphRange;
 
     if (maxSize.width == NSZeroSize.width &&
@@ -111,7 +114,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 }
 
 - (NSSize) sizeOfAttributedString: (NSAttributedString *) astring
-                           inSize: (NSSize) maxSize {
+                           inSize: (NSSize) maxSize
+{
     if (maxSize.width == NSZeroSize.width &&
         maxSize.height == NSZeroSize.height)
         maxSize = NSMakeSize(NSStringDrawerLargeDimension,
@@ -122,7 +126,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 }
 
 - (void) drawAttributedString: (NSAttributedString *) astring
-                       inRect: (NSRect) rect {
+                       inRect: (NSRect) rect
+{
     NSRange glyphRange;
 
     [_textContainer setContainerSize: rect.size];
@@ -136,7 +141,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 
 - (void) drawAttributedString: (NSAttributedString *) astring
                       atPoint: (NSPoint) point
-                       inSize: (NSSize) maxSize {
+                       inSize: (NSSize) maxSize
+{
     NSRange glyphRange;
 
     if (maxSize.width == NSZeroSize.width &&
@@ -157,7 +163,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 
 - (void) _clipAndDrawInRect: (NSRect) rect
              withAttributes: (NSDictionary *) attributes
-             truncatingTail: (BOOL) truncateTail {
+             truncatingTail: (BOOL) truncateTail
+{
     NSAttributedString *string =
         [[[NSAttributedString alloc] initWithString: self
                                          attributes: attributes] autorelease];
@@ -166,7 +173,8 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
 
 // Draw self in the rect, clipped - add ellipsis if needed
 - (void) _clipAndDrawInRect: (NSRect) rect
-             withAttributes: (NSDictionary *) attributes {
+             withAttributes: (NSDictionary *) attributes
+{
     [self _clipAndDrawInRect: rect
               withAttributes: attributes
               truncatingTail: YES];

@@ -37,7 +37,8 @@
 }
 
 - (BOOL) filenameExtension: (NSString *) extension
-            isValidForType: (NSString *) type {
+            isValidForType: (NSString *) type
+{
     // TODO: call UTTypeCreateAllIdentifiersForTag
     NSUnimplementedMethod();
     return NO;
@@ -78,14 +79,16 @@
 - (BOOL) openFile: (NSString *) path
         fromImage: (NSImage *) image
                at: (NSPoint) point
-           inView: (NSView *) view {
+           inView: (NSView *) view
+{
     NSUnimplementedMethod();
     return NO;
 }
 
 - (BOOL) openFile: (NSString *) path
     withApplication: (NSString *) application
-      andDeactivate: (BOOL) deactivate {
+      andDeactivate: (BOOL) deactivate
+{
     // TODO: call LSOpenFromURLSpec()
     NSUnimplementedMethod();
     return NO;
@@ -98,7 +101,8 @@
 }
 
 - (BOOL) selectFile: (NSString *) path
-    inFileViewerRootedAtPath: (NSString *) rootedAtPath {
+    inFileViewerRootedAtPath: (NSString *) rootedAtPath
+{
     // TODO: call activateFileViewerSelectingURLs
     NSUnimplementedMethod();
     return NO;
@@ -111,7 +115,8 @@
                        source: (NSString *) source
                   destination: (NSString *) destination
                         files: (NSArray *) files
-                          tag: (NSInteger *) tag {
+                          tag: (NSInteger *) tag
+{
     NSUnimplementedMethod();
 }
 
@@ -120,7 +125,8 @@
                        isWritable: (BOOL *) isWritable
                     isUnmountable: (BOOL *) isUnmountable
                       description: (NSString **) description
-                             type: (NSString **) type {
+                             type: (NSString **) type
+{
     if (!path)
         return NO;
 
@@ -132,7 +138,8 @@
 
 - (BOOL) getInfoForFile: (NSString *) path
             application: (NSString **) application
-                   type: (NSString **) type {
+                   type: (NSString **) type
+{
     // TODO: call LSGetApplicationForURL()
     NSUnimplementedMethod();
     return NO;
@@ -220,7 +227,8 @@
 
 - (BOOL) launchApplication: (NSString *) application
                   showIcon: (BOOL) showIcon
-                autolaunch: (BOOL) autolaunch {
+                autolaunch: (BOOL) autolaunch
+{
     return [self openFile: nil withApplication: application andDeactivate: YES];
 }
 
@@ -243,7 +251,8 @@
 
 - (BOOL) setIcon: (NSImage *) image
          forFile: (NSString *) fullPath
-         options: (NSWorkspaceIconCreationOptions) options {
+         options: (NSWorkspaceIconCreationOptions) options
+{
     // For directories, we would call the NSFileManager to create a file named
     // "Icon\r" with icon data. For files, we would call
     // FSCreateResFile/FSOpenResFile, FSSetCatalogInfo and other historical
@@ -261,8 +270,8 @@
     NSUnimplementedMethod();
 }
 
-- (NSURL *) URLForApplicationWithBundleIdentifier:
-    (NSString *) bundleIdentifier {
+- (NSURL *) URLForApplicationWithBundleIdentifier: (NSString *) bundleIdentifier
+{
     CFURLRef url;
     OSStatus status = LSFindApplicationForInfo(
         kLSUnknownCreator, (CFStringRef) bundleIdentifier, NULL, NULL, &url);

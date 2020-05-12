@@ -70,7 +70,8 @@ const unichar _mapWin1252ToUnichar(const unsigned char c) {
     return c;
 }
 unichar *NSWin1252ToUnicode(const char *cString, NSUInteger length,
-                            NSUInteger *resultLength, NSZone *zone) {
+                            NSUInteger *resultLength, NSZone *zone)
+{
     unichar *characters = NSZoneMalloc(zone, sizeof(unichar) * length);
     int i;
 
@@ -84,7 +85,8 @@ unichar *NSWin1252ToUnicode(const char *cString, NSUInteger length,
 
 char *NSUnicodeToWin1252(const unichar *characters, NSUInteger length,
                          BOOL lossy, NSUInteger *resultLength, NSZone *zone,
-                         BOOL zeroTerminate) {
+                         BOOL zeroTerminate)
+{
     char *win1252 = NSZoneMalloc(
         zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
     int i;
@@ -128,7 +130,8 @@ char *NSUnicodeToWin1252(const unichar *characters, NSUInteger length,
 
 NSString *NSWin1252CStringNewWithCharacters(NSZone *zone,
                                             const unichar *characters,
-                                            NSUInteger length, BOOL lossy) {
+                                            NSUInteger length, BOOL lossy)
+{
     NSString *string;
     NSUInteger bytesLength;
     char *bytes;
@@ -149,7 +152,8 @@ NSString *NSWin1252CStringNewWithCharacters(NSZone *zone,
 NSUInteger NSGetWin1252CStringWithMaxLength(const unichar *characters,
                                             NSUInteger length,
                                             NSUInteger *location, char *cString,
-                                            NSUInteger maxLength, BOOL lossy) {
+                                            NSUInteger maxLength, BOOL lossy)
+{
     NSUInteger i, result = 0;
 
     if (length + 1 > maxLength) {
@@ -188,7 +192,8 @@ NSUInteger NSGetWin1252CStringWithMaxLength(const unichar *characters,
 @implementation NSString_win1252
 
 NSString *NSString_win1252NewWithBytes(NSZone *zone, const char *bytes,
-                                       NSUInteger length) {
+                                       NSUInteger length)
+{
     NSString_win1252 *self =
         NSAllocateObject([NSString_win1252 class], length * sizeof(char), zone);
 

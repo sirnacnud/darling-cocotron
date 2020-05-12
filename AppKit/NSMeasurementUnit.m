@@ -109,7 +109,8 @@ static NSMutableArray *_measurementUnits = nil;
                                    abbreviation: (NSString *) abbreviation
                                   pointsPerUnit: (CGFloat) points
                                     stepUpCycle: (NSArray *) upCycle
-                                  stepDownCycle: (NSArray *) downCycle {
+                                  stepDownCycle: (NSArray *) downCycle
+{
     return [[[self alloc] initWithName: name
                           abbreviation: abbreviation
                          pointsPerUnit: points

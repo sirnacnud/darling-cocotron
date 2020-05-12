@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithTimeInterval: (NSTimeInterval) timeInterval
                repeats: (BOOL) repeats
-            invocation: (NSInvocation *) invocation {
+            invocation: (NSInvocation *) invocation
+{
 
     [super initWithTimeInterval: timeInterval repeats: repeats];
 

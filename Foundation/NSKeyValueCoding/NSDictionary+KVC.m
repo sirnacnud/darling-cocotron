@@ -19,8 +19,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/Foundation.h>
 
 @implementation NSDictionary (NSKeyValueCoding)
-- (id) valueForKey: (NSString *) key;
-{
+- (id) valueForKey: (NSString *) key; {
     if ([key hasPrefix: @"@"])
         return [super valueForKey: [key substringFromIndex: 1]];
     return [self objectForKey: key];

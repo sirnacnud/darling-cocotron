@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithCharacterIdentifier: (NSUInteger) identifier
                    collection: (NSCharacterCollection) collection
-                    glyphName: (NSString *) glyphName {
+                    glyphName: (NSString *) glyphName
+{
     _identifier = identifier;
     _collection = collection;
     _glyphName = [glyphName copy];
@@ -39,21 +40,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 + (NSGlyphInfo *) glyphInfoWithCharacterIdentifier: (NSUInteger) identifier
                                         collection:
                                             (NSCharacterCollection) collection
-                                        baseString: (NSString *) baseString {
+                                        baseString: (NSString *) baseString
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSGlyphInfo *) glyphInfoWithGlyph: (NSGlyph) glyph
                              forFont: (NSFont *) font
-                          baseString: (NSString *) baseString {
+                          baseString: (NSString *) baseString
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 + (NSGlyphInfo *) glyphInfoWithGlyphName: (NSString *) glyphName
                                  forFont: (NSFont *) font
-                              baseString: (NSString *) baseString {
+                              baseString: (NSString *) baseString
+{
     NSUnimplementedMethod();
     return nil;
 }

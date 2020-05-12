@@ -256,7 +256,8 @@ static NSDocumentController *shared = nil;
 
 - makeDocumentWithContentsOfURL: (NSURL *) url
                          ofType: (NSString *) type
-                          error: (NSError **) error {
+                          error: (NSError **) error
+{
     id result;
     Class class = [self documentClassForType: type];
 
@@ -269,7 +270,8 @@ static NSDocumentController *shared = nil;
 - makeDocumentForURL: (NSURL *) url
     withContentsOfURL: (NSURL *) contentsURL
                ofType: (NSString *) type
-                error: (NSError **) error {
+                error: (NSError **) error
+{
     id result;
     Class class = [self documentClassForType: type];
 
@@ -297,7 +299,8 @@ static NSDocumentController *shared = nil;
 }
 
 - (id) makeUntitledDocumentOfType: (NSString *) type
-                            error: (NSError **) outError {
+                            error: (NSError **) outError
+{
     /* Cocoa documentation says:
          "For backward binary compatibility with Mac OS X v10.3 and earlier,
           the default implementation of this method instead invokes
@@ -395,7 +398,8 @@ static NSDocumentController *shared = nil;
 
 - openDocumentWithContentsOfURL: (NSURL *) url
                         display: (BOOL) display
-                          error: (NSError **) error {
+                          error: (NSError **) error
+{
     IMP mine = [NSDocumentController instanceMethodForSelector: @selector
                                      (openDocumentWithContentsOfFile:display:)];
     IMP theirs = [self
@@ -430,14 +434,16 @@ static NSDocumentController *shared = nil;
 
 - (BOOL) reopenDocumentForURL: (NSURL *) url
             withContentsOfURL: (NSURL *) contentsUL
-                        error: (NSError **) error {
+                        error: (NSError **) error
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (void) _closeDocumentsStartingWith: (NSDocument *) document
                          shouldClose: (BOOL) shouldClose
-                     closeAllContext: (NSDictionary *) context {
+                     closeAllContext: (NSDictionary *) context
+{
     // This is a recursive callback method. Start it by passing in a document of
     // nil.
     void (*delegateMethod)(id, SEL, id, BOOL, void *);
@@ -471,7 +477,8 @@ static NSDocumentController *shared = nil;
 
 - (void) closeAllDocumentsWithDelegate: delegate
                    didCloseAllSelector: (SEL) selector
-                           contextInfo: (void *) info {
+                           contextInfo: (void *) info
+{
     NSDictionary *closeAllContext = [[NSDictionary alloc]
         initWithObjectsAndKeys: delegate, @"delegate",
                                 NSStringFromSelector(selector), @"selector",
@@ -486,7 +493,8 @@ static NSDocumentController *shared = nil;
                                   cancellable: (BOOL) cancellable
                                      delegate: delegate
                          didReviewAllSelector: (SEL) selector
-                                         info: (void *) info {
+                                         info: (void *) info
+{
     NSUnimplementedMethod();
 }
 
@@ -503,7 +511,8 @@ static NSDocumentController *shared = nil;
         modalForWindow: (NSWindow *) window
               delegate: delegate
     didPresentSelector: (SEL) selector
-           contextInfo: (void *) info {
+           contextInfo: (void *) info
+{
     [NSApp presentError: [self willPresentError: error]
             modalForWindow: window
                   delegate: delegate
@@ -512,7 +521,8 @@ static NSDocumentController *shared = nil;
 }
 
 - (int) runModalOpenPanel: (NSOpenPanel *) openPanel
-                 forTypes: (NSArray *) extensions {
+                 forTypes: (NSArray *) extensions
+{
     int result = [openPanel runModalForDirectory: [self currentDirectory]
                                             file: nil
                                            types: extensions];
@@ -768,7 +778,8 @@ static BOOL actionIsDocumentController(SEL selector) {
 }
 
 - (BOOL) reviewUnsavedDocumentsWithAlertTitle: (NSString *) title
-                                  cancellable: (BOOL) cancellable {
+                                  cancellable: (BOOL) cancellable
+{
     NSUnimplementedMethod();
     return 0;
 }

@@ -131,21 +131,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSDictionary *) attributesAtIndex: (NSUInteger) location
-                      effectiveRange: (NSRange *) range {
+                      effectiveRange: (NSRange *) range
+{
     NSInvalidAbstractInvocation();
     return nil;
 }
 
 - (NSDictionary *) attributesAtIndex: (NSUInteger) location
                longestEffectiveRange: (NSRange *) range
-                             inRange: (NSRange) inRange {
+                             inRange: (NSRange) inRange
+{
     NSUnimplementedMethod();
     return nil;
 }
 
 - attribute: (NSString *) name
            atIndex: (NSUInteger) location
-    effectiveRange: (NSRange *) range {
+    effectiveRange: (NSRange *) range
+{
     return [[self attributesAtIndex: location
                      effectiveRange: range] objectForKey: name];
 }
@@ -153,7 +156,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - attribute: (NSString *) name
                   atIndex: (NSUInteger) location
     longestEffectiveRange: (NSRange *) range
-                  inRange: (NSRange) inRange {
+                  inRange: (NSRange) inRange
+{
     NSUnimplementedMethod();
     return nil;
 }

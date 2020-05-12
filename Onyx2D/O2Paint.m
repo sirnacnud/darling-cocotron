@@ -30,7 +30,8 @@
 @implementation O2Paint
 
 O2PaintRef O2PaintInitWithTransform(O2PaintRef self,
-                                    O2AffineTransform transform) {
+                                    O2AffineTransform transform)
+{
     self->m_surfaceToPaintMatrix = transform;
     self->isOpaque = FALSE;
     return self;

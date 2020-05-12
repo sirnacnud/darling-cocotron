@@ -192,7 +192,8 @@ static NSSpellChecker *shared = nil;
 }
 
 - (void) updateSpellingPanelWithGrammarString: (NSString *) problemString
-                                       detail: (NSDictionary *) detail {
+                                       detail: (NSDictionary *) detail
+{
     NSUnimplementedMethod();
 }
 
@@ -217,7 +218,8 @@ static NSSpellChecker *shared = nil;
 }
 
 - (void) setSubstitutionsPanelAccessoryViewController:
-    (NSViewController *) viewController {
+    (NSViewController *) viewController
+{
     NSUnimplementedMethod();
 }
 
@@ -225,13 +227,15 @@ static NSSpellChecker *shared = nil;
 #pragma mark Checking Strings for Spelling and Grammar
 
 - (NSInteger) countWordsInString: (NSString *) string
-                        language: (NSString *) language {
+                        language: (NSString *) language
+{
     NSUnimplementedMethod();
     return 0;
 }
 
 - (NSRange) checkSpellingOfString: (NSString *) string
-                       startingAt: (NSInteger) offset {
+                       startingAt: (NSInteger) offset
+{
     return
         [self checkSpellingOfString: string
                          startingAt: offset
@@ -246,7 +250,8 @@ static NSSpellChecker *shared = nil;
                          language: (NSString *) language
                              wrap: (BOOL) wrap
            inSpellDocumentWithTag: (NSInteger) tag
-                        wordCount: (NSInteger *) wordCount {
+                        wordCount: (NSInteger *) wordCount
+{
 
     NSMutableDictionary *options = [NSMutableDictionary dictionary];
 
@@ -287,7 +292,8 @@ static NSSpellChecker *shared = nil;
                         language: (NSString *) language
                             wrap: (BOOL) wrap
           inSpellDocumentWithTag: (NSInteger) documentTag
-                         details: (NSArray **) outDetails {
+                         details: (NSArray **) outDetails
+{
     NSUnimplementedMethod();
     return NSMakeRange(0, 0);
 }
@@ -298,7 +304,8 @@ static NSSpellChecker *shared = nil;
                    options: (NSDictionary *) options
     inSpellDocumentWithTag: (NSInteger) tag
                orthography: (NSOrthography **) orthography
-                 wordCount: (NSInteger *) wordCount {
+                 wordCount: (NSInteger *) wordCount
+{
     NSSpellEngine *spellEngine = [[self class] _currentSpellEngine];
 
     /* NSSpellChecker and NSSpellServer have inconsistent API, we accept a range
@@ -344,7 +351,8 @@ static NSSpellChecker *shared = nil;
                     completionHandler:
                         (void (^)(NSInteger sequenceNumber, NSArray *results,
                                   NSOrthography *orthography,
-                                  NSInteger wordCount)) completionHandler {
+                                  NSInteger wordCount)) completionHandler
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -353,7 +361,8 @@ static NSSpellChecker *shared = nil;
 - (NSArray *) guessesForWordRange: (NSRange) range
                          inString: (NSString *) string
                          language: (NSString *) language
-           inSpellDocumentWithTag: (NSInteger) tag {
+           inSpellDocumentWithTag: (NSInteger) tag
+{
     NSSpellEngine *spellEngine = [[self class] _currentSpellEngine];
 
     NSString *word = [string substringWithRange: range];
@@ -396,7 +405,8 @@ static NSSpellChecker *shared = nil;
 }
 
 - (void) setIgnoredWords: (NSArray *) ignoredWords
-    inSpellDocumentWithTag: (NSInteger) tag {
+    inSpellDocumentWithTag: (NSInteger) tag
+{
     [[self _dataForDocumentTag: tag] setIgnoredWords: ignoredWords];
 }
 
@@ -422,7 +432,8 @@ static NSSpellChecker *shared = nil;
 - (NSArray *) completionsForPartialWordRange: (NSRange) partialWordRange
                                     inString: (NSString *) string
                                     language: (NSString *) language
-                      inSpellDocumentWithTag: (NSInteger) tag {
+                      inSpellDocumentWithTag: (NSInteger) tag
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -456,7 +467,8 @@ static NSSpellChecker *shared = nil;
                     string: (NSString *) checkedString
                    options: (NSDictionary *) options
                 atLocation: (NSPoint) location
-                    inView: (NSView *) view {
+                    inView: (NSView *) view
+{
     NSSpellEngine *engine = [[self class] _currentSpellEngine];
 
     NSMenu *result = [[NSMenu alloc] initWithTitle: @""];
@@ -505,7 +517,8 @@ static NSSpellChecker *shared = nil;
                        forStringInRect: (NSRect) rect
                                   view: (NSView *) view
                      completionHandler:
-                         (void (^)(NSString *acceptedString)) completionBlock {
+                         (void (^)(NSString *acceptedString)) completionBlock
+{
     NSUnimplementedMethod();
 }
 #endif
@@ -513,7 +526,8 @@ static NSSpellChecker *shared = nil;
 - (NSString *) correctionForWordRange: (NSRange) range
                              inString: (NSString *) string
                              language: (NSString *) language
-               inSpellDocumentWithTag: (NSInteger) tag {
+               inSpellDocumentWithTag: (NSInteger) tag
+{
     NSUnimplementedMethod();
     return 0;
 }
@@ -522,7 +536,8 @@ static NSSpellChecker *shared = nil;
               toCorrection: (NSString *) correction
                    forWord: (NSString *) word
                   language: (NSString *) language
-    inSpellDocumentWithTag: (NSInteger) tag {
+    inSpellDocumentWithTag: (NSInteger) tag
+{
     NSUnimplementedMethod();
 }
 

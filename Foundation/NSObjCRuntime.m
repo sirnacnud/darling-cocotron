@@ -61,7 +61,8 @@ static void NSLogFormat(NSString *format, ...) {
 }
 
 static void NSLogDefaultCStringFunction(const char *string, unsigned length,
-                                        BOOL withSyslogBanner) {
+                                        BOOL withSyslogBanner)
+{
     NSString *message =
         [[NSString alloc] initWithBytes: string
                                  length: length
@@ -116,7 +117,8 @@ void _NSSetLogCStringFunction(NSLogCStringFunc proc) {
 }
 
 const char *NSGetSizeAndAlignment(const char *type, NSUInteger *size,
-                                  NSUInteger *alignment) {
+                                  NSUInteger *alignment)
+{
     NSUInteger ignore = 0;
     if (!size) {
         size = &ignore;

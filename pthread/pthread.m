@@ -18,12 +18,14 @@ int sched_get_priority_max(int policy) {
 }
 
 int pthread_getschedparam(pthread_t thread, int *policy,
-                          struct sched_param *scheduling) {
+                          struct sched_param *scheduling)
+{
     return 0;
 }
 
 int pthread_setschedparam(pthread_t thread, int policy,
-                          const struct sched_param *scheduling) {
+                          const struct sched_param *scheduling)
+{
     return 0;
 }
 
@@ -37,8 +39,8 @@ static void pthread_mutex_init_win32(pthread_mutex_t volatile *mutex) {
     InitializeCriticalSection(*pcs);
 }
 
-int pthread_mutex_init(pthread_mutex_t *mutex,
-                       const pthread_mutexattr_t *attr) {
+int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr)
+{
     if (!mutex)
         return EINVAL;
     pthread_mutex_init_win32(mutex);
@@ -209,7 +211,8 @@ static inline void filetime_to_timespec(FILETIME *ft, struct timespec *ts) {
 }
 
 static inline DWORD
-abstime_to_win32_millisec_timeout(const struct timespec *abstime) {
+abstime_to_win32_millisec_timeout(const struct timespec *abstime)
+{
     FILETIME ft;
     GetSystemTimeAsFileTime(&ft);
 
@@ -228,7 +231,8 @@ abstime_to_win32_millisec_timeout(const struct timespec *abstime) {
 }
 
 static int impl_win32_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex,
-                                const struct timespec *abstime) {
+                                const struct timespec *abstime)
+{
     if (!cond)
         return EINVAL;
     pthread_cond_impl *impl = *((pthread_cond_impl **) cond);
@@ -265,7 +269,8 @@ int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex) {
 }
 
 int pthread_cond_timedwait(pthread_cond_t *cond, pthread_mutex_t *mutex,
-                           const struct timespec *abstime) {
+                           const struct timespec *abstime)
+{
     if (!abstime)
         return EINVAL;
 
@@ -343,7 +348,8 @@ unsigned __stdcall startroutine_thunk_for_win32_beginthreadex(void *arg)
 }
 
 int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
-                   void *(*start_routine)(void *), void *arg) {
+                   void *(*start_routine)(void *), void *arg)
+{
     if (!thread)
         return EINVAL;
 

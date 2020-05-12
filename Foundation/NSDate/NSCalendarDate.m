@@ -75,7 +75,8 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
 
 - initWithString: (NSString *) string
     calendarFormat: (NSString *) format
-            locale: (NSDictionary *) locale {
+            locale: (NSDictionary *) locale
+{
     NSMutableString *mu = [[string mutableCopy] autorelease];
 
     if ([mu rangeOfString: @"T"].location != NSNotFound)
@@ -120,7 +121,8 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
           hour: (NSUInteger) hour
         minute: (NSUInteger) minute
         second: (NSUInteger) second
-      timeZone: (NSTimeZone *) timeZone {
+      timeZone: (NSTimeZone *) timeZone
+{
     return [[[self allocWithZone: NULL] initWithYear: year
                                                month: month
                                                  day: day
@@ -133,7 +135,8 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
 
 + dateWithString: (NSString *) string
     calendarFormat: (NSString *) format
-            locale: (NSDictionary *) locale {
+            locale: (NSDictionary *) locale
+{
     return [[[self allocWithZone: NULL] initWithString: string
                                         calendarFormat: format
                                                 locale: locale] autorelease];
@@ -246,7 +249,8 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
          hours: (NSInteger *) hoursp
        minutes: (NSInteger *) minutesp
        seconds: (NSInteger *) secondsp
-     sinceDate: (NSCalendarDate *) since {
+     sinceDate: (NSCalendarDate *) since
+{
     NSTimeInterval delta;
     BOOL inverted = NO;
     NSInteger carry = 0;
@@ -340,7 +344,8 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
                                   days: (NSInteger) dayDelta
                                  hours: (NSInteger) hourDelta
                                minutes: (NSInteger) minuteDelta
-                               seconds: (NSInteger) secondDelta {
+                               seconds: (NSInteger) secondDelta
+{
     NSInteger year = NSYearFromTimeInterval(_timeInterval);
     NSInteger month = NSMonthFromTimeInterval(_timeInterval);
     NSInteger day = NSDayOfMonthFromTimeInterval(_timeInterval);
@@ -422,7 +427,8 @@ static NSString *const defaultCalendarDate = @"%Y-%m-%d %H:%M:%S %z";
 }
 
 - (NSString *) descriptionWithCalendarFormat: (NSString *) format
-                                      locale: (NSDictionary *) locale {
+                                      locale: (NSDictionary *) locale
+{
     return NSStringWithDateFormatLocale(_timeInterval, format, locale,
                                         _timeZone);
 }

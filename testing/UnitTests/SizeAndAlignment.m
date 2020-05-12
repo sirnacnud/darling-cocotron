@@ -21,8 +21,7 @@
 #import "SizeAndAlignment.h"
 #import "Forwarding.h"
 
-#define TEST_TYPE(type)                                                        \
-    {                                                                          \
+#define TEST_TYPE(type) {                                                      \
         size_t size, alignment;                                                \
         NSGetSizeAndAlignment(@encode(type), &size, &alignment);               \
         STAssertEquals(size, sizeof(type),                                     \

@@ -105,9 +105,7 @@ enum { KEYBOARD_INACTIVE, KEYBOARD_ACTIVE, KEYBOARD_OK, KEYBOARD_CANCEL };
     if (index == _selectedIndex)
         attributes = [self selectedItemAttributes];
     else
-        attributes = [self itemAttributes];
-
-    {
+        attributes = [self itemAttributes]; {
         NSString *string = [item description];
         NSSize size = [string sizeWithAttributes: attributes];
         NSRect itemRect = [self rectForItemAtIndex: index];

@@ -108,7 +108,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setValidationPredicates: (NSArray *) predicates
-          withValidationWarnings: (NSArray *) warnings {
+          withValidationWarnings: (NSArray *) warnings
+{
     NSUnimplementedMethod();
 }
 

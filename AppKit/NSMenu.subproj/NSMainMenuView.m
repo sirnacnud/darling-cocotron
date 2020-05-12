@@ -83,7 +83,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSRect) titleRectForItem: (NSMenuItem *) item
-         previousBorderRect: (NSRect) previousBorderRect {
+         previousBorderRect: (NSRect) previousBorderRect
+{
     NSRect result;
     NSSize titleSize = [[self graphicsStyle] menuItemTextSize: [item title]];
 
@@ -295,7 +296,8 @@ static void drawSunkenBorder(NSRect rect) {
 }
 
 - (void) positionBranchForSelectedItem: (NSWindow *) branch
-                                screen: (NSScreen *) screen {
+                                screen: (NSScreen *) screen
+{
     NSRect branchFrame = [branch frame];
     NSRect screenVisible = [screen visibleFrame];
     NSArray *items = [[self menu] itemArray];

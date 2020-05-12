@@ -42,7 +42,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSRect) cellFrameForTextContainer: (NSTextContainer *) textContainer
                 proposedLineFragment: (NSRect) proposedRect
                        glyphPosition: (NSPoint) glyphPoint
-                      characterIndex: (unsigned) characterIndex {
+                      characterIndex: (unsigned) characterIndex
+{
     NSUnimplementedMethod();
     return NSMakeRect(0, 0, 0, 0);
 }
@@ -54,7 +55,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) wantsToTrackMouseForEvent: (NSEvent *) event
                             inRect: (NSRect) rect
                             ofView: (NSView *) view
-                  atCharacterIndex: (unsigned) characterIndex {
+                  atCharacterIndex: (unsigned) characterIndex
+{
     return [self wantsToTrackMouse];
 }
 
@@ -62,7 +64,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
               inRect: (NSRect) rect
               ofView: (NSView *) view
     atCharacterIndex: (unsigned) characterIndex
-        untilMouseUp: (BOOL) untilMouseUp {
+        untilMouseUp: (BOOL) untilMouseUp
+{
     NSUnimplementedMethod();
     return NO;
 }
@@ -70,27 +73,31 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) trackMouse: (NSEvent *) event
              inRect: (NSRect) rect
              ofView: (NSView *) view
-       untilMouseUp: (BOOL) untilMouseUp {
+       untilMouseUp: (BOOL) untilMouseUp
+{
     NSUnimplementedMethod();
     return NO;
 }
 
 - (void) highlight: (BOOL) highlight
          withFrame: (NSRect) frame
-            inView: (NSView *) view {
+            inView: (NSView *) view
+{
     NSUnimplementedMethod();
 }
 
 - (void) drawWithFrame: (NSRect) frame
                 inView: (NSView *) view
         characterIndex: (unsigned) characterIndex
-         layoutManager: (NSLayoutManager *) layoutManager {
+         layoutManager: (NSLayoutManager *) layoutManager
+{
     NSUnimplementedMethod();
 }
 
 - (void) drawWithFrame: (NSRect) frame
                 inView: (NSView *) view
-        characterIndex: (unsigned) characterIndex {
+        characterIndex: (unsigned) characterIndex
+{
     NSUnimplementedMethod();
 }
 

@@ -2,7 +2,8 @@
 
 O2GlyphStencilRef O2GlyphStencilCreate(size_t width, size_t height,
                                        uint8_t *coverage, size_t bytesPerRow,
-                                       size_t left, size_t top) {
+                                       size_t left, size_t top)
+{
     O2GlyphStencilRef self = NSZoneMalloc(NULL, sizeof(struct O2GlyphStencil));
     self->_width = width;
     self->_height = height;

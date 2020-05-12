@@ -33,7 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (id) initWithFrame: (NSRect) frame
-         pixelFormat: (NSOpenGLPixelFormat *) pixelFormat {
+         pixelFormat: (NSOpenGLPixelFormat *) pixelFormat
+{
     [super initWithFrame: frame];
 
     _pixelFormat = [pixelFormat retain];

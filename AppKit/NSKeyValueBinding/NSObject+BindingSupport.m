@@ -133,8 +133,9 @@ void NSDetermineBindingDebugLoggingLevel(void) {
     return [_NSKVOBinder class];
 }
 
-- (id) _binderForBinding: (id) binding;
-{ return [self _binderForBinding: binding create: NO]; }
+- (id) _binderForBinding: (id) binding; {
+    return [self _binderForBinding: binding create: NO];
+}
 
 - (id) _binderForBinding: (id) binding create: (BOOL) create {
     if (!bindersForObjects)
@@ -177,7 +178,8 @@ void NSDetermineBindingDebugLoggingLevel(void) {
 - (void) bind: (id) binding
        toObject: (id) destination
     withKeyPath: (NSString *) keyPath
-        options: (NSDictionary *) options {
+        options: (NSDictionary *) options
+{
     NSBindingDebugLog(
         kNSBindingDebugLogLevel1,
         @"binding: %@\n   toObject: %@\n   withKeyPath: %@\n   options: %@",

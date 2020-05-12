@@ -76,8 +76,7 @@
     return NO;
 }
 
-- (BOOL) lockBeforeDate: (NSDate *) value;
-{
+- (BOOL) lockBeforeDate: (NSDate *) value; {
     if ([self tryLock])
         return YES;
     // tryLock failed. That means someone else owns the lock. So we wait it out:

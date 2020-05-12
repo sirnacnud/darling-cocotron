@@ -75,7 +75,8 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
 
 - (void) applyFromObject: (id) object
                    inRow: (NSInteger) row
-                 keyPath: (id) keypath {
+                 keyPath: (id) keypath
+{
     [[_rowValues objectAtIndex: row] setValue: [object valueForKeyPath: keypath]
                                    forKeyPath: _valueKeyPath];
 }
@@ -189,7 +190,8 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
 - (void) observeValueForKeyPath: (NSString *) kp
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     if (context == &NSMultipleValueBinderWholeArrayChangeContext) {
         [self stopObservingChanges];
         // NSLog(@"bind event from %@.%@ to %@.%@ alias %@ (%@)", [_destination
@@ -299,7 +301,8 @@ static void *NSTableViewContentBinderChangeContext;
 - (void) observeValueForKeyPath: (NSString *) kp
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
     [self stopObservingChanges];
 
     if (context == &NSTableViewContentBinderChangeContext) {

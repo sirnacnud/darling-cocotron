@@ -104,7 +104,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                      defaultButton: (NSString *) defaultTitle
                    alternateButton: (NSString *) alternateTitle
                        otherButton: (NSString *) otherTitle
-         informativeTextWithFormat: (NSString *) format, ... {
+         informativeTextWithFormat: (NSString *) format, ...
+{
     va_list arguments;
     NSString *informativeText;
 
@@ -503,7 +504,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) sheetDidEnd: (NSWindow *) sheet
           returnCode: (int) returnCode
-         contextInfo: (void *) contextInfo {
+         contextInfo: (void *) contextInfo
+{
     typedef void (*alertDidEnd)(id, SEL, NSAlert *, int, void *);
     if (_sheetDidEnd) {
         alertDidEnd endFunction =
@@ -518,7 +520,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) beginSheetModalForWindow: (NSWindow *) window
                     modalDelegate: delegate
                    didEndSelector: (SEL) selector
-                      contextInfo: (void *) info {
+                      contextInfo: (void *) info
+{
     [_window setStyleMask: NSDocModalWindowMask];
     [self layoutIfNeeded];
     [_window setDefaultButtonCell: [[_buttons objectAtIndex: 0] cell]];

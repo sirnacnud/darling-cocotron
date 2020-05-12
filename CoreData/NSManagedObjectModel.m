@@ -143,7 +143,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) setEntities: (NSArray *) entities
-    forConfiguration: (NSString *) configuration {
+    forConfiguration: (NSString *) configuration
+{
     [_configurations setObject: entities forKey: configuration];
 }
 
@@ -153,12 +154,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSFetchRequest *) fetchRequestFromTemplateWithName: (NSString *) name
                                 substitutionVariables:
-                                    (NSDictionary *) variables {
+                                    (NSDictionary *) variables
+{
     NSUnimplementedMethod();
 }
 
 - (void) setFetchRequestTemplate: (NSFetchRequest *) fetchRequest
-                         forName: (NSString *) name {
+                         forName: (NSString *) name
+{
     [_fetchRequestTemplates setObject: fetchRequest forKey: name];
 }
 

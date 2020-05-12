@@ -151,7 +151,8 @@ static inline int dbl_to_int26p6(double p) {
 template <class Scanline, class ScanlineStorage>
 void decompose_win32_glyph_bitmap_mono(const char *gbuf, int w, int h, int x,
                                        int y, bool flip_y, Scanline &sl,
-                                       ScanlineStorage &storage) {
+                                       ScanlineStorage &storage)
+{
     int i;
     int pitch = ((w + 31) >> 5) << 2;
     const int8u *buf = (const int8u *) gbuf;
@@ -183,8 +184,8 @@ void decompose_win32_glyph_bitmap_mono(const char *gbuf, int w, int h, int x,
 template <class Rasterizer, class Scanline, class ScanlineStorage>
 void decompose_win32_glyph_bitmap_gray8(const char *gbuf, int w, int h, int x,
                                         int y, bool flip_y, Rasterizer &ras,
-                                        Scanline &sl,
-                                        ScanlineStorage &storage) {
+                                        Scanline &sl, ScanlineStorage &storage)
+{
     int i, j;
     int pitch = ((w + 3) >> 2) << 2;
     const int8u *buf = (const int8u *) gbuf;
@@ -221,7 +222,8 @@ void decompose_win32_glyph_bitmap_gray8(const char *gbuf, int w, int h, int x,
 template <class PathStorage>
 bool decompose_win32_glyph_outline(const char *gbuf, unsigned total_size,
                                    bool flip_y, const trans_affine &mtx,
-                                   PathStorage &path) {
+                                   PathStorage &path)
+{
     const char *cur_glyph = gbuf;
     const char *end_glyph = gbuf + total_size;
     double x, y;
@@ -337,7 +339,8 @@ font_engine_win32_tt_base::font_engine_win32_tt_base(bool flag32, HDC dc,
 
       m_path16(), m_path32(), m_curves16(m_path16), m_curves32(m_path32),
       m_scanline_aa(), m_scanline_bin(), m_scanlines_aa(), m_scanlines_bin(),
-      m_rasterizer() {
+      m_rasterizer()
+{
     m_curves16.approximation_scale(4.0);
     m_curves32.approximation_scale(4.0);
     memset(&m_matrix, 0, sizeof(m_matrix));
@@ -357,7 +360,8 @@ int font_engine_win32_tt_base::find_font(const char *name) const {
 
 //------------------------------------------------------------------------
 bool font_engine_win32_tt_base::create_font(const char *typeface_,
-                                            glyph_rendering ren_type) {
+                                            glyph_rendering ren_type)
+{
     if (m_dc) {
         unsigned len = strlen(typeface_);
         if (len > m_typeface_len) {
@@ -434,7 +438,8 @@ bool font_engine_win32_tt_base::create_font(const char *typeface_,
                                             double height_, double width_,
                                             int weight_, bool italic_,
                                             DWORD char_set_,
-                                            DWORD pitch_and_family_) {
+                                            DWORD pitch_and_family_)
+{
     height(height_);
     width(width_);
     weight(weight_);
@@ -699,7 +704,8 @@ void font_engine_win32_tt_base::load_kerning_pairs() {
 
 //------------------------------------------------------------------------
 bool font_engine_win32_tt_base::add_kerning(unsigned first, unsigned second,
-                                            double *x, double *y) {
+                                            double *x, double *y)
+{
     if (m_dc && m_cur_font) {
         if (m_num_kerning_pairs == 0) {
             load_kerning_pairs();

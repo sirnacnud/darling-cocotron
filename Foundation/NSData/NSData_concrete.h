@@ -52,7 +52,8 @@ static inline void NSByteZeroRange(void *bytes, NSRange range) {
 }
 
 static inline BOOL NSBytesEqual(const void *src1, const void *src2,
-                                NSUInteger count) {
+                                NSUInteger count)
+{
     const char *bytes1 = src1, *bytes2 = src2;
     NSUInteger i;
 

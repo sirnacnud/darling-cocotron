@@ -115,7 +115,8 @@ CFDictionaryRef CGPointCreateDictionaryRepresentation(CGPoint point) {
 }
 
 bool CGPointMakeWithDictionaryRepresentation(CFDictionaryRef dict,
-                                             CGPoint *point) {
+                                             CGPoint *point)
+{
     if (!dict || !point)
         return NO;
 
@@ -156,8 +157,8 @@ CFDictionaryRef CGSizeCreateDictionaryRepresentation(CGSize size) {
     return dict;
 }
 
-bool CGSizeMakeWithDictionaryRepresentation(CFDictionaryRef dict,
-                                            CGSize *size) {
+bool CGSizeMakeWithDictionaryRepresentation(CFDictionaryRef dict, CGSize *size)
+{
     if (!dict || !size)
         return NO;
 
@@ -203,8 +204,8 @@ CFDictionaryRef CGRectCreateDictionaryRepresentation(CGRect rect) {
     return dict;
 }
 
-bool CGRectMakeWithDictionaryRepresentation(CFDictionaryRef dict,
-                                            CGRect *rect) {
+bool CGRectMakeWithDictionaryRepresentation(CFDictionaryRef dict, CGRect *rect)
+{
     if (!dict || !rect)
         return NO;
 

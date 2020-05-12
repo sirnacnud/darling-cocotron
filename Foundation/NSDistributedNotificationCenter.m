@@ -29,7 +29,8 @@ NSString *const NSLocalNotificationCenterType =
 }
 
 + (NSDistributedNotificationCenter *) notificationCenterForType:
-    (NSString *) type {
+    (NSString *) type
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -46,7 +47,8 @@ NSString *const NSLocalNotificationCenterType =
 - (void) addObserver: observer
             selector: (SEL) selector
                 name: (NSString *) name
-              object: (NSString *) object {
+              object: (NSString *) object
+{
     NSUnimplementedMethod();
 }
 
@@ -54,13 +56,15 @@ NSString *const NSLocalNotificationCenterType =
               selector: (SEL) selector
                   name: (NSString *) name
                 object: (NSString *) object
-    suspensionBehavior: (NSNotificationSuspensionBehavior) behavior {
+    suspensionBehavior: (NSNotificationSuspensionBehavior) behavior
+{
     NSUnimplementedMethod();
 }
 
 - (void) removeObserver: observer
                    name: (NSString *) name
-                 object: (NSString *) object {
+                 object: (NSString *) object
+{
     NSUnimplementedMethod();
 }
 
@@ -70,21 +74,24 @@ NSString *const NSLocalNotificationCenterType =
 
 - (void) postNotificationName: (NSString *) name
                        object: (NSString *) object
-                     userInfo: (NSDictionary *) userInfo {
+                     userInfo: (NSDictionary *) userInfo
+{
     NSUnimplementedMethod();
 }
 
 - (void) postNotificationName: (NSString *) name
                        object: (NSString *) object
                      userInfo: (NSDictionary *) userInfo
-           deliverImmediately: (BOOL) immediately {
+           deliverImmediately: (BOOL) immediately
+{
     NSUnimplementedMethod();
 }
 
 - (void) postNotificationName: (NSString *) name
                        object: (NSString *) object
                      userInfo: (NSDictionary *) userInfo
-                      options: (NSUInteger) options {
+                      options: (NSUInteger) options
+{
     NSUnimplementedMethod();
 }
 

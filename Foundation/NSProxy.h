@@ -21,7 +21,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @class NSMethodSignature, NSInvocation;
 
-NS_ROOT_CLASS @interface NSProxy<NSObject> { Class isa; }
+NS_ROOT_CLASS @interface NSProxy<NSObject> {
+    Class isa;
+}
 
 + allocWithZone: (NSZone *) zone;
 + alloc;

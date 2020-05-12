@@ -54,7 +54,8 @@ static inline void _clearCurrentContext() {
 }
 
 - initWithFormat: (NSOpenGLPixelFormat *) pixelFormat
-    shareContext: (NSOpenGLContext *) shareContext {
+    shareContext: (NSOpenGLContext *) shareContext
+{
     CGLError error;
 
     if (_pixelFormat != nil) {
@@ -117,12 +118,14 @@ static inline void _clearCurrentContext() {
 }
 
 - (void) getValues: (GLint *) vals
-      forParameter: (NSOpenGLContextParameter) parameter {
+      forParameter: (NSOpenGLContextParameter) parameter
+{
     CGLGetParameter(_glContext, parameter, vals);
 }
 
 - (void) setValues: (const GLint *) vals
-      forParameter: (NSOpenGLContextParameter) parameter {
+      forParameter: (NSOpenGLContextParameter) parameter
+{
     CGLSetParameter(_glContext, parameter, vals);
 }
 
@@ -213,19 +216,22 @@ static inline void _clearCurrentContext() {
 - (void) setOffscreen: (void *) bytes
                 width: (long) width
                height: (long) height
-             rowbytes: (long) rowbytes {
+             rowbytes: (long) rowbytes
+{
     NSUnimplementedMethod();
 }
 
 - (void) setPixelBuffer: (NSOpenGLPixelBuffer *) pixelBuffer
              cubeMapFace: (unsigned long) cubeMapFace
               mipMapLeve: (long) mipMapLevel
-    currentVirtualScreen: (int) screen {
+    currentVirtualScreen: (int) screen
+{
     NSUnimplementedMethod();
 }
 
 - (void) setTextureImageToPixelBuffer: (NSOpenGLPixelBuffer *) pixelBuffer
-                          colorBuffer: (unsigned long) source {
+                          colorBuffer: (unsigned long) source
+{
     NSUnimplementedMethod();
 }
 
@@ -238,13 +244,15 @@ static inline void _clearCurrentContext() {
 }
 
 - (void) copyAttributesFromContext: (NSOpenGLContext *) context
-                          withMask: (unsigned long) mask {
+                          withMask: (unsigned long) mask
+{
     NSUnimplementedMethod();
 }
 
 - (void) createTexture: (unsigned long) identifier
               fromView: (NSView *) view
-        internalFormat: (unsigned long) internalFormat {
+        internalFormat: (unsigned long) internalFormat
+{
     NSUnimplementedMethod();
 }
 

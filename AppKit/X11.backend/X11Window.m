@@ -438,7 +438,8 @@ static NSData *makeWindowIcon() {
 }
 
 - (void) invalidateContextWithNewSize: (NSSize) size
-                         forceRebuild: (BOOL) forceRebuild {
+                         forceRebuild: (BOOL) forceRebuild
+{
     if (!NSEqualSizes(_frame.size, size) || forceRebuild) {
         _frame.size = size;
         if (![_context resizeWithNewSize: size]) {
@@ -687,8 +688,9 @@ static int ignoreBadWindow(Display *display, XErrorEvent *errorEvent) {
                       fmax(frame.size.height, 1.0));
 }
 
-- (NSPoint) transformPoint: (NSPoint) pos;
-{ return NSMakePoint(pos.x, _frame.size.height - pos.y); }
+- (NSPoint) transformPoint: (NSPoint) pos; {
+    return NSMakePoint(pos.x, _frame.size.height - pos.y);
+}
 
 - (X11SubWindow *) createSubWindowWithFrame: (CGRect) frame {
     return [[[X11SubWindow alloc] initWithParentWindow: self

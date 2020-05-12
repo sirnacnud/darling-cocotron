@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithColorSpace: (O2ColorSpaceRef) colorSpace
              pattern: (O2Pattern *) pattern
-          components: (const O2Float *) components {
+          components: (const O2Float *) components
+{
     size_t i;
 
     _colorSpace = [colorSpace retain];
@@ -40,7 +41,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 O2ColorRef O2ColorInitWithColorSpace(O2ColorRef self,
                                      O2ColorSpaceRef colorSpace,
-                                     const O2Float *components) {
+                                     const O2Float *components)
+{
     size_t i;
 
     self->_colorSpace = [colorSpace retain];
@@ -66,7 +68,8 @@ O2ColorRef O2ColorInitWithColorSpace(O2ColorRef self,
 - initWithDeviceRed: (O2Float) red
               green: (O2Float) green
                blue: (O2Float) blue
-              alpha: (O2Float) alpha {
+              alpha: (O2Float) alpha
+{
     O2Float components[4] = {red, green, blue, alpha};
     O2ColorSpaceRef colorSpace = O2ColorSpaceCreateDeviceRGB();
     O2ColorInitWithColorSpace(self, colorSpace, components);
@@ -78,7 +81,8 @@ O2ColorRef O2ColorInitWithColorSpace(O2ColorRef self,
              magenta: (O2Float) magenta
               yellow: (O2Float) yellow
                black: (O2Float) black
-               alpha: (O2Float) alpha {
+               alpha: (O2Float) alpha
+{
     O2Float components[5] = {cyan, magenta, yellow, black, alpha};
     O2ColorSpaceRef colorSpace = O2ColorSpaceCreateDeviceCMYK();
     O2ColorInitWithColorSpace(self, colorSpace, components);
@@ -86,8 +90,8 @@ O2ColorRef O2ColorInitWithColorSpace(O2ColorRef self,
     return self;
 }
 
-O2ColorRef O2ColorCreate(O2ColorSpaceRef colorSpace,
-                         const O2Float *components) {
+O2ColorRef O2ColorCreate(O2ColorSpaceRef colorSpace, const O2Float *components)
+{
     return O2ColorInitWithColorSpace([O2Color alloc], colorSpace, components);
 }
 
@@ -100,7 +104,8 @@ O2ColorRef O2ColorCreateGenericRGB(O2Float r, O2Float g, O2Float b, O2Float a) {
 }
 
 O2ColorRef O2ColorCreateGenericCMYK(O2Float c, O2Float m, O2Float y, O2Float k,
-                                    O2Float a) {
+                                    O2Float a)
+{
     return [[O2Color alloc] initWithDeviceCyan: c
                                        magenta: m
                                         yellow: y
@@ -110,7 +115,8 @@ O2ColorRef O2ColorCreateGenericCMYK(O2Float c, O2Float m, O2Float y, O2Float k,
 
 O2ColorRef O2ColorCreateWithPattern(O2ColorSpaceRef colorSpace,
                                     O2PatternRef pattern,
-                                    const O2Float *components) {
+                                    const O2Float *components)
+{
     return [[O2Color alloc] initWithColorSpace: colorSpace
                                        pattern: pattern
                                     components: components];
@@ -191,7 +197,8 @@ BOOL O2ColorEqualToColor(O2ColorRef self, O2ColorRef other) {
 
 int O2ColorConvertComponentsToDeviceRGB(O2ColorSpaceRef inputSpace,
                                         const O2Float *components,
-                                        O2Float *rgbComponents) {
+                                        O2Float *rgbComponents)
+{
     O2ColorSpaceModel model = O2ColorSpaceGetModel(inputSpace);
 
     switch (model) {

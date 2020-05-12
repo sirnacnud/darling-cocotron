@@ -27,7 +27,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - initWithCharacter: (unichar) character
            fontName: (NSString *) fontName
           pointSize: (CGFloat) pointSize
-              color: (NSColor *) color {
+              color: (NSColor *) color
+{
     NSString *string = [NSString stringWithCharacters: &character length: 1];
     NSFont *font = [NSFont fontWithName: fontName size: pointSize];
     NSDictionary *attributes = [NSDictionary

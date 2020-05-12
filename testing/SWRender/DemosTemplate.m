@@ -1,6 +1,7 @@
 #import "DemoContext.h"
 
-@interface DEMONAME (Context) : DemoContext {
+@interface DEMONAME (Context) : DemoContext
+{
     int _pixelsWide;
     int _pixelsHigh;
     int _bitsPerComponent;
@@ -288,8 +289,8 @@ static CGColorRef createCGColor(float r, float g, float b, float a) {
 }
 
 static void addSliceToPath(CGMutablePathRef path, float innerRadius,
-                           float outerRadius, float startAngle,
-                           float endAngle) {
+                           float outerRadius, float startAngle, float endAngle)
+{
     CGPoint point;
 
     point = CGPointApplyAffineTransform(

@@ -26,7 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSString (NSStringDrawing)
 
 - (void) drawAtPoint: (NSPoint) point
-      withAttributes: (NSDictionary *) attributes {
+      withAttributes: (NSDictionary *) attributes
+{
     [[NSStringDrawer sharedStringDrawer] drawString: self
                                      withAttributes: attributes
                                             atPoint: point
@@ -47,7 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSRect) boundingRectWithSize: (NSSize) size
                         options: (NSStringDrawingOptions) options
-                     attributes: (NSDictionary *) attributes {
+                     attributes: (NSDictionary *) attributes
+{
     NSUnimplementedMethod();
     return NSMakeRect(0, 0, 0, 0);
 }

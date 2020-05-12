@@ -71,7 +71,8 @@ static NSURLCache *shared = nil;
 
 - initWithMemoryCapacity: (NSUInteger) memoryCapacity
             diskCapacity: (NSUInteger) diskCapacity
-                diskPath: (NSString *) diskPath {
+                diskPath: (NSString *) diskPath
+{
     _path = [diskPath copy];
     _memoryCapacity = memoryCapacity;
     _diskCapacity = diskCapacity;
@@ -244,7 +245,8 @@ static NSURLCache *shared = nil;
 }
 
 - (void) storeDiskCachedResponse: (NSCachedURLResponse *) cachedResponse
-                      forRequest: (NSURLRequest *) request {
+                      forRequest: (NSURLRequest *) request
+{
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     NSURLResponse *response = [cachedResponse response];
     NSData *data = [cachedResponse data];
@@ -288,7 +290,8 @@ static NSURLCache *shared = nil;
 }
 
 - (void) storeCachedResponse: (NSCachedURLResponse *) response
-                  forRequest: (NSURLRequest *) request {
+                  forRequest: (NSURLRequest *) request
+{
     switch ([response storagePolicy]) {
 
     case NSURLCacheStorageAllowed:

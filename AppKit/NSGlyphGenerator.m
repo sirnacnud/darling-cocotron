@@ -34,7 +34,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) generateGlyphsForGlyphStorage: (id<NSGlyphStorage>) glyphStorage
              desiredNumberOfCharacters: (NSUInteger) numberOfCharacters
                             glyphIndex: (NSUInteger *) glyphIndexp
-                        characterIndex: (NSUInteger *) characterIndexp {
+                        characterIndex: (NSUInteger *) characterIndexp
+{
     NSAttributedString *text = [glyphStorage attributedString];
     NSString *string = [text string];
     NSUInteger length = [string length];

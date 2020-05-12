@@ -11,7 +11,8 @@
 @implementation SecAccess
 
 - initWithDescriptor: (CFStringRef) descriptor
-         trustedList: (CFArrayRef) trustedList {
+         trustedList: (CFArrayRef) trustedList
+{
     _descriptor = CFRetain(descriptor);
     _trustedList = (CFArrayRef) CFRetain(trustedList);
     return self;

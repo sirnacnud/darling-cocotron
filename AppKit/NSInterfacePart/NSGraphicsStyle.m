@@ -222,7 +222,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 - (void) drawMenuItemText: (NSString *) string
                    inRect: (NSRect) rect
                   enabled: (BOOL) enabled
-                 selected: (BOOL) selected {
+                 selected: (BOOL) selected
+{
     // Ensure we have enough width - fractional widths give float comparison
     // trouble
     rect.size.width = ceilf(rect.size.width);
@@ -256,7 +257,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 - (void) drawAttributedMenuItemText: (NSAttributedString *) string
                              inRect: (NSRect) rect
                             enabled: (BOOL) enabled
-                           selected: (BOOL) selected {
+                           selected: (BOOL) selected
+{
     // Ensure we have enough width - fractional widths give float comparison
     // trouble
     rect.size.width = ceilf(rect.size.width);
@@ -301,7 +303,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
 - (void) drawMenuCheckmarkInRect: (NSRect) rect
                          enabled: (BOOL) enabled
-                        selected: (BOOL) selected {
+                        selected: (BOOL) selected
+{
     NSColor *color;
     NSInterfacePartAttributedString *checkMark;
     Margins margins = [self menuItemTextMargins];
@@ -325,7 +328,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
 - (void) drawMenuBranchArrowInRect: (NSRect) rect
                            enabled: (BOOL) enabled
-                          selected: (BOOL) selected {
+                          selected: (BOOL) selected
+{
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     NSColor *color;
     Margins margins = [self menuItemBranchArrowMargins];
@@ -368,7 +372,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
 - (void) drawMenuBarItemBorderInRect: (NSRect) rect
                                hover: (BOOL) hovering
-                            selected: (BOOL) selected {
+                            selected: (BOOL) selected
+{
     if (selected || hovering) {
         [[NSColor selectedMenuItemColor] setFill];
         NSRectFill(rect);
@@ -420,14 +425,16 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
 - (NSSize) sizeOfButtonImage: (NSImage *) image
                      enabled: (BOOL) enabled
-                       mixed: (BOOL) mixed {
+                       mixed: (BOOL) mixed
+{
     return [image size];
 }
 
 - (void) drawButtonImage: (NSImage *) image
                   inRect: (NSRect) rect
                  enabled: (BOOL) enabled
-                   mixed: (BOOL) mixed {
+                   mixed: (BOOL) mixed
+{
     CGFloat fraction = enabled ? 1.0 : 0.5;
 
     [image drawInRect: rect
@@ -445,7 +452,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 }
 
 - (void) drawBrowserHorizontalScrollerWellInRect: (NSRect) rect
-                                        clipRect: (NSRect) clipRect {
+                                        clipRect: (NSRect) clipRect
+{
     NSDrawGrayBezel(rect, clipRect);
 }
 
@@ -456,7 +464,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 - (NSRect) drawColorWellBorderInRect: (NSRect) rect
                              enabled: (BOOL) enabled
                             bordered: (BOOL) bordered
-                              active: (BOOL) active {
+                              active: (BOOL) active
+{
     if (bordered) {
         if (active)
             NSInterfaceDrawHighlightedButton(rect, rect);
@@ -501,7 +510,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
 - (NSRect) drawProgressIndicatorBackground: (NSRect) rect
                                   clipRect: (NSRect) clipRect
-                                   bezeled: (BOOL) bezeled {
+                                   bezeled: (BOOL) bezeled
+{
     if (bezeled) {
         NSInterfaceDrawProgressIndicatorBezel(rect, clipRect);
         return NSInsetRect(rect, 2, 2);
@@ -524,7 +534,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 - (void) drawProgressIndicatorIndeterminate: (NSRect) rect
                                    clipRect: (NSRect) clipRect
                                     bezeled: (BOOL) bezeled
-                                  animation: (double) animation {
+                                  animation: (double) animation
+{
     if (bezeled)
         rect = [self drawProgressIndicatorBackground: rect
                                             clipRect: clipRect
@@ -558,7 +569,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 - (void) drawProgressIndicatorDeterminate: (NSRect) rect
                                  clipRect: (NSRect) clipRect
                                   bezeled: (BOOL) bezeled
-                                    value: (double) value {
+                                    value: (double) value
+{
     if (bezeled)
         rect = [self drawProgressIndicatorBackground: rect
                                             clipRect: clipRect
@@ -595,7 +607,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
                           enabled: (BOOL) enabled
                           pressed: (BOOL) pressed
                          vertical: (BOOL) vertical
-                         upOrLeft: (BOOL) upOrLeft {
+                         upOrLeft: (BOOL) upOrLeft
+{
     /*
        unichar code=vertical?(upOrLeft?0x74:0x75):(upOrLeft?0x33:0x34);
        Class   class;
@@ -633,13 +646,15 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
 - (void) drawScrollerKnobInRect: (NSRect) rect
                        vertical: (BOOL) vertical
-                      highlight: (BOOL) highlight {
+                      highlight: (BOOL) highlight
+{
     [self drawPushButtonNormalInRect: rect defaulted: NO];
 }
 
 - (void) drawScrollerTrackInRect: (NSRect) rect
                         vertical: (BOOL) vertical
-                        upOrLeft: (BOOL) upOrLeft {
+                        upOrLeft: (BOOL) upOrLeft
+{
     [[NSColor colorWithCalibratedWhite: 0.9 alpha: 1] setFill];
     NSRectFill(rect);
 }
@@ -672,7 +687,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
                      vertical: (BOOL) vertical
                   highlighted: (BOOL) highlighted
                  hasTickMarks: (BOOL) hasTickMarks
-             tickMarkPosition: (NSTickMarkPosition) tickMarkPosition {
+             tickMarkPosition: (NSTickMarkPosition) tickMarkPosition
+{
     NSDrawButton(rect, rect);
 
     if (highlighted) {
@@ -683,7 +699,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 
 - (void) drawSliderTrackInRect: (NSRect) rect
                       vertical: (BOOL) vertical
-                  hasTickMarks: (BOOL) hasTickMarks {
+                  hasTickMarks: (BOOL) hasTickMarks
+{
     NSRect groove = rect;
 
     if (vertical) {
@@ -710,7 +727,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
                         clipRect: (NSRect) clipRect
                          enabled: (BOOL) enabled
                      highlighted: (BOOL) highlighted
-                       upNotDown: (BOOL) upNotDown {
+                       upNotDown: (BOOL) upNotDown
+{
     unichar code = upNotDown ? 0x74 : 0x75;
     NSInterfacePart *arrow;
 
@@ -738,7 +756,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 @implementation NSGraphicsStyle (NSTableView)
 
 - (void) drawTableViewHeaderInRect: (NSRect) rect
-                       highlighted: (BOOL) highlighted {
+                       highlighted: (BOOL) highlighted
+{
     NSDrawButton(rect, rect);
 
     if (highlighted) {
@@ -780,7 +799,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 - (void) drawComboBoxButtonInRect: (NSRect) rect
                           enabled: (BOOL) enabled
                          bordered: (BOOL) bordered
-                          pressed: (BOOL) pressed {
+                          pressed: (BOOL) pressed
+{
     NSImage *image = [NSImage imageNamed: @"NSComboBoxCellDown"];
     NSSize imageSize = [image size];
     NSRect imageRect;
@@ -808,7 +828,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 - (void) drawTabInRect: (NSRect) rect
               clipRect: (NSRect) clipRect
                  color: (NSColor *) color
-              selected: (BOOL) selected {
+              selected: (BOOL) selected
+{
     NSRect originalRect = rect;
     NSRect rects[8];
     NSColor *colors[8];
@@ -894,7 +915,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 @implementation NSGraphicsStyle (NSTextField)
 
 - (void) drawTextFieldBorderInRect: (NSRect) rect
-                    bezeledNotLine: (BOOL) bezeledNotLine {
+                    bezeledNotLine: (BOOL) bezeledNotLine
+{
     if (bezeledNotLine)
         NSDrawWhiteBezel(rect, rect);
     else {
@@ -904,7 +926,8 @@ static NSDictionary *sScrollerButtonAttributes = nil;
 }
 
 - (void) drawTextViewInsertionPointInRect: (NSRect) rect
-                                    color: (NSColor *) color {
+                                    color: (NSColor *) color
+{
     [color setFill];
     NSRectFill(rect);
 }

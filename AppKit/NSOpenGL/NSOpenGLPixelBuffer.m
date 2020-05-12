@@ -26,7 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                  textureInternalFormat: (GLenum) textureFormat
                  textureMaxMipMapLevel: (GLint) mipMapLevel
                             pixelsWide: (GLsizei) pixelsWide
-                            pixelsHigh: (GLsizei) pixelsHigh {
+                            pixelsHigh: (GLsizei) pixelsHigh
+{
     NSUnimplementedMethod();
     return self;
 }

@@ -53,7 +53,8 @@ NSString *const NSInconsistentArchiveException =
 
 + (void) raise: (NSString *) name
         format: (NSString *) format
-     arguments: (va_list) arguments {
+     arguments: (va_list) arguments
+{
     [[self exceptionWithName: name
                       reason: NSStringWithFormatArguments(format, arguments)
                     userInfo: nil] raise];
@@ -61,7 +62,8 @@ NSString *const NSInconsistentArchiveException =
 
 - initWithName: (NSString *) name
         reason: (NSString *) reason
-      userInfo: (NSDictionary *) userInfo {
+      userInfo: (NSDictionary *) userInfo
+{
     _name = [name copy];
     _reason = [reason copy];
     _userInfo = [userInfo retain];
@@ -81,7 +83,8 @@ NSString *const NSInconsistentArchiveException =
 
 + (NSException *) exceptionWithName: (NSString *) name
                              reason: (NSString *) reason
-                           userInfo: (NSDictionary *) userInfo {
+                           userInfo: (NSDictionary *) userInfo
+{
     return [[[self allocWithZone: NULL] initWithName: name
                                               reason: reason
                                             userInfo: userInfo] autorelease];

@@ -32,7 +32,8 @@ typedef struct {
 
 typedef struct {
     NSUInteger (*hash)(NSHashTable *table, const void *);
-    BOOL (*isEqual)(NSHashTable *table, const void *, const void *);
+    BOOL(*isEqual)
+    (NSHashTable *table, const void *, const void *);
     void (*retain)(NSHashTable *table, const void *);
     void (*release)(NSHashTable *table, void *);
     NSString *(*describe)(NSHashTable *table, const void *);

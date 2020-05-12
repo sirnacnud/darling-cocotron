@@ -52,9 +52,9 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
         [NSArray arrayWithObjects:
                      // Try to order them so the most used ones are at the top
                      // of the list
-                         @"png", @"tiff", @"tif", @"jpg", @"jpeg", @"icns",
-                         @"gif", @"bmp", @"PNG", @"TIFF", @"TIF", @"JPG",
-                         @"JPEG", @"ICNS", @"jpe", @"JPE", @"GIF", @"BMP", nil];
+                     @"png", @"tiff", @"tif", @"jpg", @"jpeg", @"icns", @"gif",
+                     @"bmp", @"PNG", @"TIFF", @"TIF", @"JPG", @"JPEG", @"ICNS",
+                     @"jpe", @"JPE", @"GIF", @"BMP", nil];
 }
 
 + (NSArray *) imageRepsWithContentsOfFile: (NSString *) path {
@@ -70,7 +70,8 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 }
 
 + (void) getTIFFCompressionTypes: (const NSTIFFCompression **) types
-                           count: (int *) count {
+                           count: (int *) count
+{
     NSUnimplementedMethod();
 }
 
@@ -88,7 +89,8 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 + (NSData *) TIFFRepresentationOfImageRepsInArray: (NSArray *) array
                                  usingCompression:
                                      (NSTIFFCompression) compression
-                                           factor: (float) factor {
+                                           factor: (float) factor
+{
     NSMutableData *result = [NSMutableData data];
     CGImageDestinationRef dest = CGImageDestinationCreateWithData(
         (CFMutableDataRef) result, (CFStringRef) @"public.tiff", [array count],
@@ -106,7 +108,8 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 
 + (NSData *) representationOfImageRepsInArray: (NSArray *) array
                                     usingType: (NSBitmapImageFileType) type
-                                   properties: (NSDictionary *) properties {
+                                   properties: (NSDictionary *) properties
+{
     NSUnimplementedMethod();
     return nil;
 }
@@ -189,7 +192,8 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
             colorSpaceName: (NSString *) colorSpaceName
               bitmapFormat: (NSBitmapFormat) bitmapFormat
                bytesPerRow: (int) bytesPerRow
-              bitsPerPixel: (int) bitsPerPixel {
+              bitsPerPixel: (int) bitsPerPixel
+{
     int i, numberOfPlanes = isPlanar ? samplesPerPixel : 1;
 
     _size = NSMakeSize(width, height);
@@ -248,7 +252,8 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
                   isPlanar: (BOOL) isPlanar
             colorSpaceName: (NSString *) colorSpaceName
                bytesPerRow: (int) bytesPerRow
-              bitsPerPixel: (int) bitsPerPixel {
+              bitsPerPixel: (int) bitsPerPixel
+{
     return [self initWithBitmapDataPlanes: planes
                                pixelsWide: width
                                pixelsHigh: height
@@ -613,17 +618,19 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 - (void) colorizeByMappingGray: (CGFloat) gray
                        toColor: (NSColor *) color
                   blackMapping: (NSColor *) blackMapping
-                  whiteMapping: (NSColor *) whiteMapping {
+                  whiteMapping: (NSColor *) whiteMapping
+{
     NSUnimplementedMethod();
 }
 
 - (void) getCompression: (NSTIFFCompression *) compression
-                 factor: (float *) factor {
+                 factor: (float *) factor
+{
     NSUnimplementedMethod();
 }
 
-- (void) setCompression: (NSTIFFCompression) compression
-                 factor: (float) factor {
+- (void) setCompression: (NSTIFFCompression) compression factor: (float) factor
+{
     NSUnimplementedMethod();
 }
 
@@ -633,7 +640,8 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 }
 
 - (NSData *) representationUsingType: (NSBitmapImageFileType) type
-                          properties: (NSDictionary *) properties {
+                          properties: (NSDictionary *) properties
+{
     CFStringRef uti;
 
     switch (type) {
@@ -705,7 +713,8 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
 }
 
 - (NSData *) TIFFRepresentationUsingCompression: (NSTIFFCompression) compression
-                                         factor: (float) factor {
+                                         factor: (float) factor
+{
     return [[self class]
         TIFFRepresentationOfImageRepsInArray: [NSArray arrayWithObject: self]
                             usingCompression: compression

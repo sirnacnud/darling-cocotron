@@ -32,7 +32,8 @@ void CGFunctionRelease(CGFunctionRef self) {
 CGFunctionRef CGFunctionCreate(void *info, size_t domainDimension,
                                const CGFloat *domain, size_t rangeDimension,
                                const CGFloat *range,
-                               const CGFunctionCallbacks *callbacks) {
+                               const CGFunctionCallbacks *callbacks)
+{
     return O2FunctionCreate(info, domainDimension, domain, rangeDimension,
                             range, O2FunctionCallbacksFromCG(callbacks));
 }

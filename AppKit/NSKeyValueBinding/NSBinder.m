@@ -237,7 +237,8 @@ static void *NSBinderChangeContext;
 - (void) observeValueForKeyPath: (NSString *) kp
                        ofObject: (id) object
                          change: (NSDictionary *) change
-                        context: (void *) context {
+                        context: (void *) context
+{
 
     NSBindingDebugLog(
         kNSBindingDebugLogLevel1,

@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithSendPort: (NSPort *) sendPort
        receivePort: (NSPort *) receivePort
-        components: (NSArray *) components {
+        components: (NSArray *) components
+{
     _sendPort = [sendPort retain];
     _receivePort = [receivePort retain];
     _components = [[NSMutableArray alloc] initWithArray: components];

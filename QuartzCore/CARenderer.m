@@ -34,7 +34,8 @@ NSString *const kCARendererColorSpace = @"kCARendererColorSpace";
 }
 
 + (CARenderer *) rendererWithCGLContext: (void *) cglContext
-                                options: (NSDictionary *) options {
+                                options: (NSDictionary *) options
+{
     return [[[self alloc] initWithCGLContext: cglContext
                                      options: options] autorelease];
 }
@@ -57,7 +58,8 @@ static void startAnimationsInLayer(CALayer *layer, CFTimeInterval currentTime) {
 }
 
 - (void) beginFrameAtTime: (CFTimeInterval) currentTime
-                timeStamp: (CVTimeStamp *) timeStamp {
+                timeStamp: (CVTimeStamp *) timeStamp
+{
     startAnimationsInLayer(_rootLayer, currentTime);
 }
 
@@ -70,7 +72,8 @@ static inline CGFloat squared(CGFloat value) {
 }
 
 static CGFloat applyMediaTimingFunction(CAMediaTimingFunction *function,
-                                        CGFloat t) {
+                                        CGFloat t)
+{
     CGFloat result;
     CGFloat cp1[2];
     CGFloat cp2[2];
@@ -88,7 +91,8 @@ static CGFloat applyMediaTimingFunction(CAMediaTimingFunction *function,
 }
 
 static CGFloat mediaTimingScale(CAAnimation *animation,
-                                CFTimeInterval currentTime) {
+                                CFTimeInterval currentTime)
+{
     CFTimeInterval begin = [animation beginTime];
     CFTimeInterval duration = [animation duration];
     CFTimeInterval delta = currentTime - begin;
@@ -103,7 +107,8 @@ static CGFloat mediaTimingScale(CAAnimation *animation,
 }
 
 static CGFloat interpolateFloatInLayerKey(CALayer *layer, NSString *key,
-                                          CFTimeInterval currentTime) {
+                                          CFTimeInterval currentTime)
+{
     CAAnimation *animation = [layer animationForKey: key];
 
     if (animation == nil)
@@ -133,7 +138,8 @@ static CGFloat interpolateFloatInLayerKey(CALayer *layer, NSString *key,
 }
 
 static CGPoint interpolatePointInLayerKey(CALayer *layer, NSString *key,
-                                          CFTimeInterval currentTime) {
+                                          CFTimeInterval currentTime)
+{
     CAAnimation *animation = [layer animationForKey: key];
 
     if (animation == nil)
@@ -164,7 +170,8 @@ static CGPoint interpolatePointInLayerKey(CALayer *layer, NSString *key,
 }
 
 static CGRect interpolateRectInLayerKey(CALayer *layer, NSString *key,
-                                        CFTimeInterval currentTime) {
+                                        CFTimeInterval currentTime)
+{
     CAAnimation *animation = [layer animationForKey: key];
 
     if (animation == nil) {
@@ -275,7 +282,8 @@ void CATexImage2DCGImage(CGImageRef image) {
 
 - (void) _renderLayer: (CALayer *) layer
                     z: (CGFloat) z
-          currentTime: (CFTimeInterval) currentTime {
+          currentTime: (CFTimeInterval) currentTime
+{
     NSNumber *textureId = [layer _textureId];
     GLuint texture = [textureId unsignedIntValue];
     GLboolean loadPixelData = GL_FALSE;

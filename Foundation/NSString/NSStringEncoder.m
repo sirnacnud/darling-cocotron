@@ -37,7 +37,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 static NSMapTable *sTables = nil;
 
 + (void) registerTable: (uint16_t *) table
-           forEncoding: (CFStringEncoding) encoding {
+           forEncoding: (CFStringEncoding) encoding
+{
     if (sTables == nil) {
         sTables = NSCreateMapTable(NSIntegerMapKeyCallBacks,
                                    NSNonOwnedPointerMapValueCallBacks, 20);
@@ -180,7 +181,8 @@ static NSDictionary *dictionaryForDecoding(NSStringEncoding encoding) {
 
 unichar *NSBytesToUnicode(const unsigned char *bytes, NSUInteger length,
                           NSStringEncoding encoding, NSUInteger *resultLength,
-                          NSZone *zone) {
+                          NSZone *zone)
+{
     unichar *data = NULL;
     NSDictionary *dict = dictionaryForEncoding(encoding);
     if (dict) {
@@ -228,7 +230,8 @@ unichar *NSBytesToUnicode(const unsigned char *bytes, NSUInteger length,
 
 unsigned char *NSBytesFromUnicode(const unichar *characters, NSUInteger length,
                                   NSStringEncoding encoding, BOOL lossy,
-                                  NSUInteger *resultLength, NSZone *zone) {
+                                  NSUInteger *resultLength, NSZone *zone)
+{
     unsigned char *data = NULL;
     NSDictionary *dict = dictionaryForDecoding(encoding);
     if (dict) {

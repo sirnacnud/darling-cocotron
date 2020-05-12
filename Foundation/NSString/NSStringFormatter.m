@@ -43,8 +43,8 @@ static inline void prepForUse(NSStringBuffer *buffer, NSZone *zone) {
         NSZoneMalloc(buffer->zone, sizeof(unichar) * buffer->max);
 }
 
-static inline void makeRoomForNcharacters(NSStringBuffer *buffer,
-                                          NSUInteger n) {
+static inline void makeRoomForNcharacters(NSStringBuffer *buffer, NSUInteger n)
+{
     if (buffer->length + n > buffer->max) {
         while (buffer->length + n > buffer->max)
             buffer->max *= 2;
@@ -62,7 +62,8 @@ static inline void appendCharacter(NSStringBuffer *buffer, unichar unicode) {
 
 static inline void appendCharacters(NSStringBuffer *buffer, unichar *characters,
                                     NSUInteger length, unichar fillChar,
-                                    BOOL leftAdj, int fieldWidth) {
+                                    BOOL leftAdj, int fieldWidth)
+{
     NSUInteger i;
 
     makeRoomForNcharacters(buffer, (fieldWidth > length) ? fieldWidth : length);
@@ -82,14 +83,15 @@ static inline void appendCharacters(NSStringBuffer *buffer, unichar *characters,
 }
 
 static inline void appendUnichar(NSStringBuffer *buffer, unichar code,
-                                 unichar fillChar, BOOL leftAdj,
-                                 int fieldWidth) {
+                                 unichar fillChar, BOOL leftAdj, int fieldWidth)
+{
     appendCharacters(buffer, &code, 1, fillChar, leftAdj, fieldWidth);
 }
 
 static inline void appendUnicodeString(NSStringBuffer *buffer,
                                        unichar *characters, unichar fillChar,
-                                       BOOL leftAdj, int fieldWidth) {
+                                       BOOL leftAdj, int fieldWidth)
+{
     NSInteger length;
 
     for (length = 0; characters[length] != 0x0000; length++)
@@ -111,7 +113,8 @@ static inline void reverseCharacters(unichar *characters, unsigned length) {
 
 static inline void appendReversed(NSStringBuffer *buffer, unichar *characters,
                                   unsigned length, unichar fillChar,
-                                  BOOL leftAdj, int fieldWidth) {
+                                  BOOL leftAdj, int fieldWidth)
+{
     reverseCharacters(characters, length);
     appendCharacters(buffer, characters, length, fillChar, leftAdj, fieldWidth);
 }
@@ -120,7 +123,8 @@ static inline void appendDecimal(NSStringBuffer *buffer, long long value,
                                  unichar fillChar, BOOL leftAdj, BOOL plusSign,
                                  BOOL spaceSign, int fieldWidth,
                                  NSString *groupingSeparator,
-                                 NSUInteger groupingSize) {
+                                 NSUInteger groupingSize)
+{
     unsigned length = 0, numberOfIntegralDigits = 0;
     unichar characters[100];
     unichar sign = (value < 0) ? '-' : plusSign ? '+' : spaceSign ? ' ' : '\0';
@@ -157,7 +161,8 @@ static inline void appendDecimal(NSStringBuffer *buffer, long long value,
 }
 
 static inline void appendOctal(NSStringBuffer *buffer, unsigned long long value,
-                               unichar fillChar, BOOL leftAdj, int fieldWidth) {
+                               unichar fillChar, BOOL leftAdj, int fieldWidth)
+{
     unsigned length = 0;
     unichar characters[100];
 
@@ -174,7 +179,8 @@ static inline void appendOctal(NSStringBuffer *buffer, unsigned long long value,
 
 static inline void appendHex(NSStringBuffer *buffer, unsigned long long value,
                              unichar fillChar, BOOL leftAdj, int fieldWidth,
-                             const char *hexes) {
+                             const char *hexes)
+{
     unsigned length = 0;
     unichar characters[100];
 
@@ -193,7 +199,8 @@ static inline void appendUnsigned(NSStringBuffer *buffer,
                                   unsigned long long value, unichar fillChar,
                                   BOOL leftAdj, int fieldWidth,
                                   NSString *groupingSeparator,
-                                  NSUInteger groupingSize) {
+                                  NSUInteger groupingSize)
+{
     unsigned length = 0, numberOfIntegralDigits = 0;
     unichar characters[100];
     NSUInteger groupingLength = [groupingSeparator length];
@@ -224,8 +231,8 @@ static inline void appendUnsigned(NSStringBuffer *buffer,
 }
 
 static inline void appendCString(NSStringBuffer *buffer, const char *cString,
-                                 unichar fillChar, BOOL leftAdj,
-                                 int fieldWidth) {
+                                 unichar fillChar, BOOL leftAdj, int fieldWidth)
+{
     NSUInteger length;
     unichar *characters;
 
@@ -241,7 +248,8 @@ static inline void appendCString(NSStringBuffer *buffer, const char *cString,
 
 static inline void appendCStringChar(NSStringBuffer *buffer, char c,
                                      unichar fillChar, BOOL leftAdj,
-                                     int fieldWidth) {
+                                     int fieldWidth)
+{
     char cString[2] = {c, '\0'};
     appendCString(buffer, cString, fillChar, leftAdj, fieldWidth);
 }
@@ -270,7 +278,8 @@ static inline void appendFloat(NSStringBuffer *buffer, double value,
                                BOOL spaceSign, int fieldWidth, int precision,
                                BOOL gFormat, BOOL altForm, NSDictionary *locale,
                                NSString *groupingSeparator,
-                               NSUInteger groupingSize) {
+                               NSUInteger groupingSize)
+{
     int valueType = fpclassify(value);
 
     if (valueType == FP_INFINITE)
@@ -394,8 +403,8 @@ static inline void appendFloat(NSStringBuffer *buffer, double value,
 }
 
 static inline void appendObject(NSStringBuffer *buffer, id object,
-                                unichar fillChar, BOOL leftAdj,
-                                int fieldWidth) {
+                                unichar fillChar, BOOL leftAdj, int fieldWidth)
+{
     if (object == nil)
         appendCString(buffer, "*nil*", fillChar, leftAdj, fieldWidth);
     else {
@@ -410,7 +419,8 @@ static inline void appendObject(NSStringBuffer *buffer, id object,
 }
 
 static inline unichar *prepForReturn(NSStringBuffer *buffer,
-                                     NSUInteger *lengthp) {
+                                     NSUInteger *lengthp)
+{
 
     *lengthp = buffer->max = buffer->length;
     buffer->characters = NSZoneRealloc(buffer->zone, buffer->characters,
@@ -421,7 +431,8 @@ static inline unichar *prepForReturn(NSStringBuffer *buffer,
 
 unichar *NSCharactersNewWithFormat(NSString *format, NSDictionary *locale,
                                    va_list arguments, NSUInteger *lengthp,
-                                   NSZone *zone) {
+                                   NSZone *zone)
+{
     return NSCharactersNewWithFormatAndGrouping(format, locale, arguments,
                                                 lengthp, zone, nil, 0);
 }
@@ -431,7 +442,8 @@ unichar *NSCharactersNewWithFormatAndGrouping(NSString *format,
                                               va_list arguments,
                                               NSUInteger *lengthp, NSZone *zone,
                                               NSString *groupingSeparator,
-                                              NSInteger groupingSize) {
+                                              NSInteger groupingSize)
+{
     NSUInteger pos, fmtLength = [format length];
     unichar fmtBuffer[fmtLength], unicode;
     NSStringBuffer result;
@@ -764,7 +776,8 @@ unichar *NSCharactersNewWithFormatAndGrouping(NSString *format,
 }
 
 NSString *NSStringNewWithFormat(NSString *format, NSDictionary *locale,
-                                va_list arguments, NSZone *zone) {
+                                va_list arguments, NSZone *zone)
+{
     NSUInteger length;
     unichar *unicode;
 
@@ -790,7 +803,8 @@ NSString *NSStringWithFormatArguments(NSString *format, va_list arguments) {
 }
 
 NSString *NSStringWithFormatAndLocale(NSString *format, NSDictionary *locale,
-                                      ...) {
+                                      ...)
+{
     va_list arguments;
 
     va_start(arguments, locale);

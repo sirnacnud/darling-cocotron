@@ -8,7 +8,8 @@
 
 + (CIColor *) colorWithRed: (CGFloat) red
                      green: (CGFloat) green
-                      blue: (CGFloat) blue {
+                      blue: (CGFloat) blue
+{
     CGColorRef cgColor = CGColorCreateGenericRGB(red, green, blue, 1.0);
     CIColor *result = [self colorWithCGColor: cgColor];
 
@@ -20,7 +21,8 @@
 + (CIColor *) colorWithRed: (CGFloat) red
                      green: (CGFloat) green
                       blue: (CGFloat) blue
-                     alpha: (CGFloat) alpha {
+                     alpha: (CGFloat) alpha
+{
     CGColorRef cgColor = CGColorCreateGenericRGB(red, green, blue, alpha);
     CIColor *result = [self colorWithCGColor: cgColor];
 

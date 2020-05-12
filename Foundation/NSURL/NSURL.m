@@ -483,7 +483,8 @@ static BOOL scanURL(urlScanner *scanner, NSURL *url) {
 
 - initWithScheme: (NSString *) scheme
             host: (NSString *) host
-            path: (NSString *) path {
+            path: (NSString *) path
+{
     _scheme = [scheme copy];
     _host = [host copy];
     _path = [path copy];
@@ -708,7 +709,8 @@ static NSString *NormalizePath(NSString *path) {
 }
 
 static void AppendValueWithPrefix(NSMutableString *orig, NSString *prefix,
-                                  NSString *value) {
+                                  NSString *value)
+{
     if (nil != value) {
         [orig appendString: prefix];
         [orig appendString: value];
@@ -719,7 +721,8 @@ static NSMutableString *
 AssembleResourceSpecifier(NSMutableString *result, NSString *host,
                           NSString *user, NSString *password, NSString *path,
                           NSString *parameterString, NSString *query,
-                          NSString *fragment) {
+                          NSString *fragment)
+{
     if (host) {
         [result appendString: @"//"];
         if (user) {
@@ -864,8 +867,9 @@ AssembleResourceSpecifier(NSMutableString *result, NSString *host,
     return nil;
 }
 
-- (NSString *) description;
-{ return [self absoluteString]; }
+- (NSString *) description; {
+    return [self absoluteString];
+}
 
 - (NSURL *) absoluteURL {
     if (_baseURL == nil)
@@ -945,7 +949,8 @@ AssembleResourceSpecifier(NSMutableString *result, NSString *host,
 }
 
 - (NSURL *) URLByAppendingPathComponent: (NSString *) pathComponent
-                            isDirectory: (BOOL) isDirectory {
+                            isDirectory: (BOOL) isDirectory
+{
     NSUnimplementedMethod();
     return nil;
 }

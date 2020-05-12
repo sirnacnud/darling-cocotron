@@ -28,7 +28,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
           context: (NSGraphicsContext *) context
           subtype: (short) subtype
             data1: (NSInteger) data1
-            data2: (NSInteger) data2 {
+            data2: (NSInteger) data2
+{
     _type = type;
     _locationInWindow = location;
     _modifierFlags = modifierFlags;

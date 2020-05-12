@@ -30,7 +30,8 @@ static NSAffineTransformStruct identity = {1, 0, 0, 1, 0, 0};
 // Instead of doing start * append - this imp is doing append * start - which is
 // quite different in matrix multiplication
 static inline NSAffineTransformStruct
-multiplyStruct(NSAffineTransformStruct start, NSAffineTransformStruct append) {
+multiplyStruct(NSAffineTransformStruct start, NSAffineTransformStruct append)
+{
     NSAffineTransformStruct result;
 
     result.m11 = append.m11 * start.m11 + append.m12 * start.m21;
@@ -44,7 +45,8 @@ multiplyStruct(NSAffineTransformStruct start, NSAffineTransformStruct append) {
 }
 
 static inline NSAffineTransformStruct
-invertStruct(NSAffineTransformStruct matrix) {
+invertStruct(NSAffineTransformStruct matrix)
+{
     NSAffineTransformStruct result;
     CGFloat determinant;
 

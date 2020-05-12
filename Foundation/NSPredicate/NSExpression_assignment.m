@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSExpression_assignment
 
 - initWithVariable: (NSExpression *) variable
-        expression: (NSExpression *) expression {
+        expression: (NSExpression *) expression
+{
     _variable = [variable retain];
     _expression = [expression retain];
     return self;
@@ -36,7 +37,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 + (NSExpression *) expressionWithVariable: (NSExpression *) variable
-                               expression: (NSExpression *) expression {
+                               expression: (NSExpression *) expression
+{
     return
         [[[self allocWithZone: NULL] initWithVariable: variable
                                            expression: expression] autorelease];
@@ -52,7 +54,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSExpression *) _expressionWithSubstitutionVariables:
-    (NSDictionary *) variables {
+    (NSDictionary *) variables
+{
     // FIX?
     return self;
 }

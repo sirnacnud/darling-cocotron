@@ -10,7 +10,8 @@
 
 - (void) getBytes: (unsigned char *) bytes
         forGlyphs: (const CGGlyph *) glyphs
-           length: (unsigned) length {
+           length: (unsigned) length
+{
     unichar characters[length];
     unsigned i;
 

@@ -164,7 +164,8 @@ const unichar _mapMacOSRomanToUnichar(const unsigned char c) {
     return c;
 }
 unichar *NSMacOSRomanToUnicode(const char *cString, NSUInteger length,
-                               NSUInteger *resultLength, NSZone *zone) {
+                               NSUInteger *resultLength, NSZone *zone)
+{
     unichar *characters = NSZoneMalloc(zone, sizeof(unichar) * length);
     int i;
 
@@ -178,7 +179,8 @@ unichar *NSMacOSRomanToUnicode(const char *cString, NSUInteger length,
 
 char *NSUnicodeToMacOSRoman(const unichar *characters, NSUInteger length,
                             BOOL lossy, NSUInteger *resultLength, NSZone *zone,
-                            BOOL zeroTerminate) {
+                            BOOL zeroTerminate)
+{
     char *macOSRoman = NSZoneMalloc(
         zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
     int i;
@@ -220,7 +222,8 @@ char *NSUnicodeToMacOSRoman(const unichar *characters, NSUInteger length,
 
 NSString *NSMacOSRomanCStringNewWithCharacters(NSZone *zone,
                                                const unichar *characters,
-                                               NSUInteger length, BOOL lossy) {
+                                               NSUInteger length, BOOL lossy)
+{
     NSString *string;
     NSUInteger bytesLength;
     char *bytes;
@@ -238,9 +241,12 @@ NSString *NSMacOSRomanCStringNewWithCharacters(NSZone *zone,
     return string;
 }
 
-NSUInteger NSGetMacOSRomanCStringWithMaxLength(
-    const unichar *characters, NSUInteger length, NSUInteger *location,
-    char *cString, NSUInteger maxLength, BOOL lossy) {
+NSUInteger NSGetMacOSRomanCStringWithMaxLength(const unichar *characters,
+                                               NSUInteger length,
+                                               NSUInteger *location,
+                                               char *cString,
+                                               NSUInteger maxLength, BOOL lossy)
+{
     NSUInteger i, result = 0;
 
     if (length + 1 > maxLength) {
@@ -279,7 +285,8 @@ NSUInteger NSGetMacOSRomanCStringWithMaxLength(
 @implementation NSString_macOSRoman
 
 NSString *NSString_macOSRomanNewWithBytes(NSZone *zone, const char *bytes,
-                                          NSUInteger length) {
+                                          NSUInteger length)
+{
     NSString_macOSRoman *self = NSAllocateObject([NSString_macOSRoman class],
                                                  length * sizeof(char), zone);
 

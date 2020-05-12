@@ -670,7 +670,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) scanCharactersFromSet: (NSCharacterSet *) charset
-                    intoString: (NSString **) stringp {
+                    intoString: (NSString **) stringp
+{
     NSInteger length = [_string length];
     unichar *result = NSZoneMalloc(NULL, sizeof(unichar) * length);
     int resultLength = 0;
@@ -703,7 +704,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (BOOL) scanUpToCharactersFromSet: (NSCharacterSet *) charset
-                        intoString: (NSString **) stringp {
+                        intoString: (NSString **) stringp
+{
     NSInteger length = [_string length];
     unichar *result = NSZoneMalloc(NULL, sizeof(unichar) * length);
     int resultLength = 0;

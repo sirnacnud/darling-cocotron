@@ -4,13 +4,14 @@ CGError CGDisplayFade(CGDisplayFadeReservationToken token,
                       CGDisplayFadeInterval duration,
                       CGDisplayBlendFraction startBlend,
                       CGDisplayBlendFraction endBlend, float redBlend,
-                      float greenBlend, float blueBlend,
-                      boolean_t synchronous) {
+                      float greenBlend, float blueBlend, boolean_t synchronous)
+{
     return 0;
 }
 
 CGError CGAcquireDisplayFadeReservation(CGDisplayReservationInterval seconds,
-                                        CGDisplayFadeReservationToken *token) {
+                                        CGDisplayFadeReservationToken *token)
+{
     return 0;
 }
 

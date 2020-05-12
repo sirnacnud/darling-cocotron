@@ -80,7 +80,8 @@ static id _readInlineObjectAtOffset(NSPropertyListReader_binary1 *self,
 }
 
 static inline uint64_t _readIntOfSize(NSPropertyListReader_binary1 *self,
-                                      size_t size, NSUInteger *offsetPtr) {
+                                      size_t size, NSUInteger *offsetPtr)
+{
     uint64_t ret = 0;
     const uint8_t *ptr = self->_bytes + *offsetPtr;
     size_t i;
@@ -96,7 +97,8 @@ static inline uint64_t _readIntOfSize(NSPropertyListReader_binary1 *self,
 }
 
 static inline double _readFloatOfSize(NSPropertyListReader_binary1 *self,
-                                      size_t size, NSUInteger *offsetPtr) {
+                                      size_t size, NSUInteger *offsetPtr)
+{
     uint64_t val = _readIntOfSize(self, size, offsetPtr);
 
     if (size == 4) {
@@ -129,7 +131,8 @@ static inline double _readFloatOfSize(NSPropertyListReader_binary1 *self,
 }
 
 static uint64_t ReadSizedInt(NSPropertyListReader_binary1 *bplist,
-                             uint64_t offset, uint8_t size) {
+                             uint64_t offset, uint8_t size)
+{
     const uint8_t *ptr = bplist->_bytes;
     NSUInteger length = bplist->_length;
 
@@ -147,7 +150,8 @@ static uint64_t ReadSizedInt(NSPropertyListReader_binary1 *bplist,
 
 static BOOL ReadSelfSizedInt(NSPropertyListReader_binary1 *bplist,
                              uint64_t offset, uint64_t *outValue,
-                             size_t *outSize) {
+                             size_t *outSize)
+{
     const uint8_t *ptr = bplist->_bytes;
     NSUInteger length = bplist->_length;
 
@@ -199,7 +203,8 @@ static id ExtractUID(NSPropertyListReader_binary1 *bplist, uint64_t offset) {
 }
 
 static id _readObjectAtOffset(NSPropertyListReader_binary1 *self,
-                              NSUInteger *offset) {
+                              NSUInteger *offset)
+{
     const uint8_t *ptr = self->_bytes;
     uint8_t marker = ptr[*offset];
 
@@ -319,7 +324,8 @@ static id _readObjectAtOffset(NSPropertyListReader_binary1 *self,
 }
 
 static id _readInlineObjectAtOffset(NSPropertyListReader_binary1 *self,
-                                    NSUInteger *offset) {
+                                    NSUInteger *offset)
+{
     // first read the offset table index out of the file
     NSUInteger objOffset =
         _readIntOfSize(self, self->_trailerOffsetRefSize, offset);

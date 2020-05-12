@@ -53,7 +53,8 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 
 - initWithConsumer: (O2DataConsumer *) consumer
           mediaBox: (const O2Rect *) mediaBox
-     auxiliaryInfo: (NSDictionary *) auxiliaryInfo {
+     auxiliaryInfo: (NSDictionary *) auxiliaryInfo
+{
     [super init];
 
     _dataConsumer = [consumer retain];
@@ -173,7 +174,8 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 
 - (void) appendPDFStringWithBytes: (const void *) bytesV
                            length: (NSUInteger) length
-                         toObject: (id) data {
+                         toObject: (id) data
+{
     const unsigned char *bytes = bytesV;
     BOOL hex = NO;
     int i;
@@ -211,7 +213,8 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 }
 
 - (void) appendPDFStringWithBytes: (const void *) bytes
-                           length: (NSUInteger) length {
+                           length: (NSUInteger) length
+{
     [self appendPDFStringWithBytes: bytes length: length toObject: self];
 }
 
@@ -281,7 +284,8 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 }
 
 - (void) contentPDFStringWithBytes: (const void *) bytes
-                            length: (NSUInteger) length {
+                            length: (NSUInteger) length
+{
     [self appendPDFStringWithBytes: bytes
                             length: length
                           toObject: [[_contentStreamStack lastObject]
@@ -289,14 +293,16 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 }
 
 - (O2PDFObject *) referenceForFontWithName: (NSString *) name
-                                      size: (O2Float) size {
+                                      size: (O2Float) size
+{
     return [(NSDictionary *) [_fontCache objectForKey: name]
         objectForKey: [NSNumber numberWithFloat: size]];
 }
 
 - (void) setReference: (O2PDFObject *) reference
       forFontWithName: (NSString *) name
-                 size: (O2Float) size {
+                 size: (O2Float) size
+{
     NSMutableDictionary *sizes = [_fontCache objectForKey: name];
 
     if (sizes == nil) {
@@ -308,7 +314,8 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 }
 
 - (O2PDFObject *) nameForResource: (O2PDFObject *) pdfObject
-                       inCategory: (const char *) categoryName {
+                       inCategory: (const char *) categoryName
+{
     O2PDFDictionary *resources;
     O2PDFDictionary *category;
 
@@ -406,9 +413,7 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 }
 
 - (void) emitCurrentGState {
-    O2GState *gState = O2ContextCurrentGState(self);
-
-    {
+    O2GState *gState = O2ContextCurrentGState(self); {
         const O2Float *components = O2ColorGetComponents(gState->_strokeColor);
 
         switch ([O2ColorGetColorSpace(gState->_strokeColor) type]) {
@@ -432,9 +437,7 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
             O2UnimplementedMethod();
             break;
         }
-    }
-
-    {
+    } {
         const O2Float *components = O2ColorGetComponents(gState->_fillColor);
 
         switch ([O2ColorGetColorSpace(gState->_fillColor) type]) {
@@ -572,7 +575,8 @@ const NSString *kO2PDFContextTitle = @"kO2PDFContextTitle";
 
 - (void) showGlyphs: (const O2Glyph *) glyphs
            advances: (const O2Size *) advances
-              count: (NSUInteger) count {
+              count: (NSUInteger) count
+{
     // FIXME: use advances if not null
 
     [self emitSaveGState];

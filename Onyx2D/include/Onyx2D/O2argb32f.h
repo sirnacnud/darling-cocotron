@@ -41,7 +41,8 @@ typedef struct {
 } O2argb32f;
 
 static inline O2argb32f O2argb32fInit(O2Float r, O2Float g, O2Float b,
-                                      O2Float a) {
+                                      O2Float a)
+{
     O2argb32f result;
     result.r = r;
     result.g = g;
@@ -51,7 +52,8 @@ static inline O2argb32f O2argb32fInit(O2Float r, O2Float g, O2Float b,
 }
 
 static inline O2argb32f O2argb32fMultiplyByFloat(O2argb32f result,
-                                                 O2Float value) {
+                                                 O2Float value)
+{
     result.r *= value;
     result.g *= value;
     result.b *= value;

@@ -228,7 +228,8 @@ NSString *const NSComboBoxWillPopUpNotification =
 - (NSArray *) textView: (NSTextView *) textView
             completions: (NSArray *) words
     forPartialWordRange: (NSRange) range
-    indexOfSelectedItem: (NSInteger *) index {
+    indexOfSelectedItem: (NSInteger *) index
+{
     NSString *string = [[self cell]
         completedString: [[textView string] substringWithRange: range]];
 

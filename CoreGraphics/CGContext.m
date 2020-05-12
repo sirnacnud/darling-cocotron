@@ -35,7 +35,8 @@ void CGContextSetAllowsAntialiasing(CGContextRef context, bool yesOrNo) {
 }
 
 void CGContextBeginTransparencyLayer(CGContextRef context,
-                                     CFDictionaryRef unused) {
+                                     CFDictionaryRef unused)
+{
     O2ContextBeginTransparencyLayer(context, (NSDictionary *) unused);
 }
 
@@ -64,7 +65,8 @@ bool CGContextIsBitmapContext(CGContextRef context) {
 }
 
 bool CGContextPathContainsPoint(CGContextRef context, CGPoint point,
-                                CGPathDrawingMode pathMode) {
+                                CGPathDrawingMode pathMode)
+{
     return O2ContextPathContainsPoint(context, point, pathMode);
 }
 
@@ -85,17 +87,20 @@ void CGContextAddLineToPoint(CGContextRef context, CGFloat x, CGFloat y) {
 }
 
 void CGContextAddCurveToPoint(CGContextRef context, CGFloat cx1, CGFloat cy1,
-                              CGFloat cx2, CGFloat cy2, CGFloat x, CGFloat y) {
+                              CGFloat cx2, CGFloat cy2, CGFloat x, CGFloat y)
+{
     O2ContextAddCurveToPoint(context, cx1, cy1, cx2, cy2, x, y);
 }
 
 void CGContextAddQuadCurveToPoint(CGContextRef context, CGFloat cx1,
-                                  CGFloat cy1, CGFloat x, CGFloat y) {
+                                  CGFloat cy1, CGFloat x, CGFloat y)
+{
     O2ContextAddQuadCurveToPoint(context, cx1, cy1, x, y);
 }
 
 void CGContextAddLines(CGContextRef context, const CGPoint *points,
-                       unsigned count) {
+                       unsigned count)
+{
     O2ContextAddLines(context, points, count);
 }
 
@@ -104,17 +109,20 @@ void CGContextAddRect(CGContextRef context, CGRect rect) {
 }
 
 void CGContextAddRects(CGContextRef context, const CGRect *rects,
-                       unsigned count) {
+                       unsigned count)
+{
     O2ContextAddRects(context, rects, count);
 }
 
 void CGContextAddArc(CGContextRef context, CGFloat x, CGFloat y, CGFloat radius,
-                     CGFloat startRadian, CGFloat endRadian, bool clockwise) {
+                     CGFloat startRadian, CGFloat endRadian, bool clockwise)
+{
     O2ContextAddArc(context, x, y, radius, startRadian, endRadian, clockwise);
 }
 
 void CGContextAddArcToPoint(CGContextRef context, CGFloat x1, CGFloat y1,
-                            CGFloat x2, CGFloat y2, CGFloat radius) {
+                            CGFloat x2, CGFloat y2, CGFloat radius)
+{
     O2ContextAddArcToPoint(context, x1, y1, x2, y2, radius);
 }
 
@@ -143,7 +151,8 @@ void CGContextRestoreGState(CGContextRef context) {
 }
 
 CGAffineTransform
-CGContextGetUserSpaceToDeviceSpaceTransform(CGContextRef context) {
+CGContextGetUserSpaceToDeviceSpaceTransform(CGContextRef context)
+{
     return CGAffineTransformFromO2(
         O2ContextGetUserSpaceToDeviceSpaceTransform(context));
 }
@@ -168,8 +177,8 @@ CGPoint CGContextGetTextPosition(CGContextRef context) {
     return O2ContextGetTextPosition(context);
 }
 
-CGPoint CGContextConvertPointToDeviceSpace(CGContextRef context,
-                                           CGPoint point) {
+CGPoint CGContextConvertPointToDeviceSpace(CGContextRef context, CGPoint point)
+{
     return O2ContextConvertPointToDeviceSpace(context, point);
 }
 
@@ -230,17 +239,20 @@ void CGContextClipToRect(CGContextRef context, CGRect rect) {
 }
 
 void CGContextClipToRects(CGContextRef context, const CGRect *rects,
-                          unsigned count) {
+                          unsigned count)
+{
     O2ContextClipToRects(context, rects, count);
 }
 
 void CGContextSetStrokeColorSpace(CGContextRef context,
-                                  CGColorSpaceRef colorSpace) {
+                                  CGColorSpaceRef colorSpace)
+{
     O2ContextSetStrokeColorSpace(context, colorSpace);
 }
 
 void CGContextSetFillColorSpace(CGContextRef context,
-                                CGColorSpaceRef colorSpace) {
+                                CGColorSpaceRef colorSpace)
+{
     O2ContextSetFillColorSpace(context, colorSpace);
 }
 
@@ -253,17 +265,20 @@ void CGContextSetStrokeColorWithColor(CGContextRef context, CGColorRef color) {
 }
 
 void CGContextSetGrayStrokeColor(CGContextRef context, CGFloat gray,
-                                 CGFloat alpha) {
+                                 CGFloat alpha)
+{
     O2ContextSetGrayStrokeColor(context, gray, alpha);
 }
 
 void CGContextSetRGBStrokeColor(CGContextRef context, CGFloat r, CGFloat g,
-                                CGFloat b, CGFloat alpha) {
+                                CGFloat b, CGFloat alpha)
+{
     O2ContextSetRGBStrokeColor(context, r, g, b, alpha);
 }
 
 void CGContextSetCMYKStrokeColor(CGContextRef context, CGFloat c, CGFloat m,
-                                 CGFloat y, CGFloat k, CGFloat alpha) {
+                                 CGFloat y, CGFloat k, CGFloat alpha)
+{
     O2ContextSetCMYKStrokeColor(context, c, m, y, k, alpha);
 }
 
@@ -276,17 +291,20 @@ void CGContextSetFillColorWithColor(CGContextRef context, CGColorRef color) {
 }
 
 void CGContextSetGrayFillColor(CGContextRef context, CGFloat gray,
-                               CGFloat alpha) {
+                               CGFloat alpha)
+{
     O2ContextSetGrayFillColor(context, gray, alpha);
 }
 
 void CGContextSetRGBFillColor(CGContextRef context, CGFloat r, CGFloat g,
-                              CGFloat b, CGFloat alpha) {
+                              CGFloat b, CGFloat alpha)
+{
     O2ContextSetRGBFillColor(context, r, g, b, alpha);
 }
 
 void CGContextSetCMYKFillColor(CGContextRef context, CGFloat c, CGFloat m,
-                               CGFloat y, CGFloat k, CGFloat alpha) {
+                               CGFloat y, CGFloat k, CGFloat alpha)
+{
     O2ContextSetCMYKFillColor(context, c, m, y, k, alpha);
 }
 
@@ -299,12 +317,14 @@ void CGContextSetPatternPhase(CGContextRef context, CGSize phase) {
 }
 
 void CGContextSetStrokePattern(CGContextRef context, CGPatternRef pattern,
-                               const CGFloat *components) {
+                               const CGFloat *components)
+{
     O2ContextSetStrokePattern(context, pattern, components);
 }
 
 void CGContextSetFillPattern(CGContextRef context, CGPatternRef pattern,
-                             const CGFloat *components) {
+                             const CGFloat *components)
+{
     O2ContextSetFillPattern(context, pattern, components);
 }
 
@@ -321,7 +341,8 @@ void CGContextSetCharacterSpacing(CGContextRef context, CGFloat spacing) {
 }
 
 void CGContextSetTextDrawingMode(CGContextRef context,
-                                 CGTextDrawingMode textMode) {
+                                 CGTextDrawingMode textMode)
+{
     O2ContextSetTextDrawingMode(context, textMode);
 }
 
@@ -334,7 +355,8 @@ void CGContextSetFontSize(CGContextRef context, CGFloat size) {
 }
 
 void CGContextSelectFont(CGContextRef context, const char *name, CGFloat size,
-                         CGTextEncoding encoding) {
+                         CGTextEncoding encoding)
+{
     O2ContextSelectFont(context, name, size, encoding);
 }
 
@@ -359,12 +381,14 @@ void CGContextSetMiterLimit(CGContextRef context, CGFloat miterLimit) {
 }
 
 void CGContextSetLineDash(CGContextRef context, CGFloat phase,
-                          const CGFloat *lengths, unsigned count) {
+                          const CGFloat *lengths, unsigned count)
+{
     O2ContextSetLineDash(context, phase, lengths, count);
 }
 
 void CGContextSetRenderingIntent(CGContextRef context,
-                                 CGColorRenderingIntent renderingIntent) {
+                                 CGColorRenderingIntent renderingIntent)
+{
     O2ContextSetRenderingIntent(context, renderingIntent);
 }
 
@@ -377,12 +401,14 @@ void CGContextSetFlatness(CGContextRef context, CGFloat flatness) {
 }
 
 void CGContextSetInterpolationQuality(CGContextRef context,
-                                      CGInterpolationQuality quality) {
+                                      CGInterpolationQuality quality)
+{
     O2ContextSetInterpolationQuality(context, quality);
 }
 
 void CGContextSetShadowWithColor(CGContextRef context, CGSize offset,
-                                 CGFloat blur, CGColorRef color) {
+                                 CGFloat blur, CGColorRef color)
+{
     O2ContextSetShadowWithColor(context, offset, blur, color);
 }
 
@@ -395,7 +421,8 @@ void CGContextSetShouldAntialias(CGContextRef context, bool yesOrNo) {
 }
 
 void CGContextStrokeLineSegments(CGContextRef context, const CGPoint *points,
-                                 unsigned count) {
+                                 unsigned count)
+{
     O2ContextStrokeLineSegments(context, points, count);
 }
 
@@ -404,7 +431,8 @@ void CGContextStrokeRect(CGContextRef context, CGRect rect) {
 }
 
 void CGContextStrokeRectWithWidth(CGContextRef context, CGRect rect,
-                                  CGFloat width) {
+                                  CGFloat width)
+{
     O2ContextStrokeRectWithWidth(context, rect, width);
 }
 
@@ -417,7 +445,8 @@ void CGContextFillRect(CGContextRef context, CGRect rect) {
 }
 
 void CGContextFillRects(CGContextRef context, const CGRect *rects,
-                        unsigned count) {
+                        unsigned count)
+{
     O2ContextFillRects(context, rects, count);
 }
 
@@ -446,18 +475,21 @@ void CGContextClearRect(CGContextRef context, CGRect rect) {
 }
 
 void CGContextShowGlyphs(CGContextRef context, const CGGlyph *glyphs,
-                         unsigned count) {
+                         unsigned count)
+{
     O2ContextShowGlyphs(context, glyphs, count);
 }
 
 void CGContextShowGlyphsAtPoint(CGContextRef context, CGFloat x, CGFloat y,
-                                const CGGlyph *glyphs, unsigned count) {
+                                const CGGlyph *glyphs, unsigned count)
+{
     O2ContextShowGlyphsAtPoint(context, x, y, glyphs, count);
 }
 
 void CGContextShowGlyphsWithAdvances(CGContextRef context,
                                      const CGGlyph *glyphs,
-                                     const CGSize *advances, unsigned count) {
+                                     const CGSize *advances, unsigned count)
+{
     O2ContextShowGlyphsWithAdvances(context, glyphs, advances, count);
 }
 
@@ -466,7 +498,8 @@ void CGContextShowText(CGContextRef context, const char *text, unsigned count) {
 }
 
 void CGContextShowTextAtPoint(CGContextRef context, CGFloat x, CGFloat y,
-                              const char *text, unsigned count) {
+                              const char *text, unsigned count)
+{
     O2ContextShowTextAtPoint(context, x, y, text, count);
 }
 
@@ -479,12 +512,14 @@ void CGContextDrawImage(CGContextRef context, CGRect rect, CGImageRef image) {
 }
 
 void CGContextDrawLayerAtPoint(CGContextRef context, CGPoint point,
-                               CGLayerRef layer) {
+                               CGLayerRef layer)
+{
     O2ContextDrawLayerAtPoint(context, point, layer);
 }
 
 void CGContextDrawLayerInRect(CGContextRef context, CGRect rect,
-                              CGLayerRef layer) {
+                              CGLayerRef layer)
+{
     O2ContextDrawLayerInRect(context, rect, layer);
 }
 
@@ -515,7 +550,8 @@ void CGContextResetClip(CGContextRef context) {
 }
 
 void CGContextCopyBits(CGContextRef context, CGRect rect, CGPoint point,
-                       int gState) {
+                       int gState)
+{
     O2ContextCopyBits(context, rect, point, gState);
 }
 
@@ -524,31 +560,36 @@ CFDataRef CGContextCaptureBitmap(CGContextRef context, CGRect rect) {
 }
 
 void CGContextSetAllowsFontSmoothing(CGContextRef context,
-                                     bool allowsFontSmoothing) {
+                                     bool allowsFontSmoothing)
+{
     O2ContextSetAllowsFontSmoothing((O2ContextRef) context,
                                     allowsFontSmoothing);
 }
 
 void CGContextSetAllowsFontSubpixelQuantization(
-    CGContextRef context, bool allowsFontSubpixelQuantization) {
+    CGContextRef context, bool allowsFontSubpixelQuantization)
+{
     O2ContextSetAllowsFontSubpixelQuantization((O2ContextRef) context,
                                                allowsFontSubpixelQuantization);
 }
 
 void CGContextSetShouldSubpixelQuantizeFonts(CGContextRef context,
-                                             bool shouldSubpixelQuantizeFonts) {
+                                             bool shouldSubpixelQuantizeFonts)
+{
     O2ContextSetShouldSubpixelQuantizeFonts((O2ContextRef) context,
                                             shouldSubpixelQuantizeFonts);
 }
 
 void CGContextSetAllowsFontSubpixelPositioning(
-    CGContextRef context, bool allowsFontSubpixelPositioning) {
+    CGContextRef context, bool allowsFontSubpixelPositioning)
+{
     O2ContextSetAllowsFontSubpixelPositioning((O2ContextRef) context,
                                               allowsFontSubpixelPositioning);
 }
 
 void CGContextSetShouldSubpixelPositionFonts(CGContextRef context,
-                                             bool shouldSubpixelPositionFonts) {
+                                             bool shouldSubpixelPositionFonts)
+{
     O2ContextSetShouldSubpixelPositionFonts((O2ContextRef) context,
                                             shouldSubpixelPositionFonts);
 }

@@ -45,8 +45,8 @@ static inline unichar characterForGlyph(KTFont_gdi *self, CGGlyph glyph) {
     return 0;
 }
 
-static inline CGGlyphMetrics *glyphInfoForGlyph(KTFont_gdi *self,
-                                                CGGlyph glyph) {
+static inline CGGlyphMetrics *glyphInfoForGlyph(KTFont_gdi *self, CGGlyph glyph)
+{
     if (glyph < self->_glyphInfoSet->numberOfGlyphs)
         return self->_glyphInfoSet->info + glyph;
 
@@ -244,7 +244,8 @@ static inline void fetchAllGlyphRangesIfNeeded(KTFont_gdi *self) {
 }
 
 static inline CGGlyphMetrics *fetchGlyphInfoIfNeeded(KTFont_gdi *self,
-                                                     CGGlyph glyph) {
+                                                     CGGlyph glyph)
+{
     fetchAllGlyphRangesIfNeeded(self);
     if (self->_glyphInfoSet->info == NULL)
         [self fetchGlyphInfo];
@@ -313,7 +314,8 @@ static inline CGGlyphMetrics *fetchGlyphInfoIfNeeded(KTFont_gdi *self,
 }
 
 static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
-                                                            CGGlyph glyph) {
+                                                            CGGlyph glyph)
+{
     CGGlyphMetrics *info = fetchGlyphInfoIfNeeded(self, glyph);
 
     if (info == NULL)
@@ -438,7 +440,8 @@ static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
 
 - initWithUIFontType: (CTFontUIFontType) uiFontType
                 size: (CGFloat) size
-            language: (NSString *) language {
+            language: (NSString *) language
+{
     O2Font *font = nil;
 
     // Try to ask the system which font we should use for menus
@@ -602,7 +605,8 @@ static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
 
 - (CGPoint) positionOfGlyph: (CGGlyph) current
             precededByGlyph: (CGGlyph) previous
-                  isNominal: (BOOL *) isNominalp {
+                  isNominal: (BOOL *) isNominalp
+{
     CGGlyphMetrics *previousInfo;
     CGGlyphMetrics *currentInfo;
     CGPoint result = CGPointMake(0, 0);
@@ -642,7 +646,8 @@ static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
 
 - (void) getGlyphs: (CGGlyph *) glyphs
      forCharacters: (const unichar *) characters
-            length: (unsigned) length {
+            length: (unsigned) length
+{
     int i;
 
     fetchAllGlyphRangesIfNeeded(self);
@@ -652,7 +657,8 @@ static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
 
 - (void) getCharacters: (unichar *) characters
              forGlyphs: (const CGGlyph *) glyphs
-                length: (unsigned) length {
+                length: (unsigned) length
+{
     int i;
 
     fetchAllGlyphRangesIfNeeded(self);
@@ -662,7 +668,8 @@ static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
 
 - (void) getAdvancements: (CGSize *) advancements
                forGlyphs: (const CGGlyph *) glyphs
-                   count: (unsigned) count {
+                   count: (unsigned) count
+{
     int i;
 
     for (i = 0; i < count; i++) {
@@ -684,7 +691,8 @@ static inline CGGlyphMetrics *fetchGlyphAdvancementIfNeeded(KTFont_gdi *self,
 }
 
 - (CGSize) advancementForNominalGlyphs: (const CGGlyph *) glyphs
-                                 count: (unsigned) count {
+                                 count: (unsigned) count
+{
     CGSize result = CGSizeMake(0, 0);
     int i;
 
@@ -791,7 +799,8 @@ static UINT MakeBezierFromQBSpline(CGPoint *pPts, POINTFX *pSpline) {
  *  RETURNS    : number of Bezier points added to the POINT array.
  ****************************************************************************/
 static UINT AppendQuadBSplineToBezier(POINTFX start, LPTTPOLYCURVE lpCurve,
-                                      O2MutablePathRef path) {
+                                      O2MutablePathRef path)
+{
     WORD i;
     UINT cTotal = 0;
     POINTFX spline[3]; // a Quadratic is defined by 3 points
@@ -845,7 +854,8 @@ static UINT AppendQuadBSplineToBezier(POINTFX start, LPTTPOLYCURVE lpCurve,
  *  RETURNS    : number of Bezier points added to the POINT array.
  ****************************************************************************/
 static UINT AppendPolyLineToBezier(POINTFX start, LPTTPOLYCURVE lpCurve,
-                                   O2MutablePathRef path) {
+                                   O2MutablePathRef path)
+{
     int i;
     UINT cTotal = 0;
     CGPoint endpt;
@@ -869,7 +879,8 @@ static UINT AppendPolyLineToBezier(POINTFX start, LPTTPOLYCURVE lpCurve,
 // Code adapted from here: http://support.microsoft.com/kb/243285 - fixed-to-int
 // conversions replaced with fixed-to-float
 static void ConvertTTPolygonToPath(LPTTPOLYGONHEADER lpHeader, DWORD size,
-                                   O2MutablePathRef path) {
+                                   O2MutablePathRef path)
+{
     WORD i;
     LPTTPOLYGONHEADER lpStart;               // the start of the buffer
     LPTTPOLYCURVE lpCurve;                   // the current curve of a contour
@@ -952,7 +963,8 @@ static void ConvertTTPolygonToPath(LPTTPOLYGONHEADER lpHeader, DWORD size,
 }
 
 - (O2Path *) createPathForGlyph: (CGGlyph) glyph
-                      transform: (CGAffineTransform *) xform {
+                      transform: (CGAffineTransform *) xform
+{
     O2MutablePath *result = [[O2MutablePath alloc] init];
     Win32Font *gdiFont = [self selectFontInDefaultDC];
     int size = GetOutlineTextMetricsA(_dc, 0, NULL);

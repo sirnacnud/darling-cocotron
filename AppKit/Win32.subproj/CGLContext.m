@@ -112,7 +112,8 @@ static DWORD cglThreadStorageIndex() {
 }
 
 static LRESULT CALLBACK windowProcedure(HWND handle, UINT message,
-                                        WPARAM wParam, LPARAM lParam) {
+                                        WPARAM wParam, LPARAM lParam)
+{
 
     if (message == WM_PAINT) {
         Win32Window *parentWindow = GetProp(handle, "Win32Window");
@@ -229,7 +230,8 @@ CGLError _CGLSetCurrentContextFromThreadLocal(int value);
 
 static void adjustFrameInParent(CGLContextObj context,
                                 Win32Window *parentWindow, GLint *x, GLint *y,
-                                GLint *w, GLint *h) {
+                                GLint *w, GLint *h)
+{
     if (parentWindow != nil) {
         CGFloat top, left, bottom, right;
 
@@ -349,7 +351,8 @@ static inline bool attributeHasArgument(CGLPixelFormatAttribute attribute) {
 }
 
 static void pfdFromPixelFormat(PIXELFORMATDESCRIPTOR *pfd,
-                               CGLPixelFormatObj pixelFormat) {
+                               CGLPixelFormatObj pixelFormat)
+{
     int i, virtualScreen = 0;
 
     memset(pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
@@ -500,7 +503,8 @@ static void _CGLDestroyDynamicPbufferBacking(CGLContextObj context) {
 
 CGL_EXPORT CGLError CGLCreateContext(CGLPixelFormatObj pixelFormat,
                                      CGLContextObj share,
-                                     CGLContextObj *resultp) {
+                                     CGLContextObj *resultp)
+{
     CGLContextObj context =
         NSZoneCalloc(NULL, 1, sizeof(struct _CGLContextObj));
     PIXELFORMATDESCRIPTOR pfd;
@@ -682,7 +686,8 @@ static void reflectChildWindowState(CGLContextObj context, GLint force) {
 
 CGL_EXPORT CGLError CGLSetParameter(CGLContextObj context,
                                     CGLContextParameter parameter,
-                                    const GLint *value) {
+                                    const GLint *value)
+{
 
     switch (parameter) {
     case kCGLCPSwapInterval:;
@@ -757,8 +762,8 @@ CGL_EXPORT CGLError CGLSetParameter(CGLContextObj context,
 }
 
 CGL_EXPORT CGLError CGLGetParameter(CGLContextObj context,
-                                    CGLContextParameter parameter,
-                                    GLint *value) {
+                                    CGLContextParameter parameter, GLint *value)
+{
     // if(NSDebugEnabled) NSCLog("%s %d %p CGLGetParameter
     // parameter=%d",__FILE__,__LINE__,context,parameter);
     switch (parameter) {
@@ -797,7 +802,8 @@ CGL_EXPORT CGLError CGLGetParameter(CGLContextObj context,
 }
 
 CGL_EXPORT CGLError CGLCopyPixelsFromSurface(O2Surface_DIBSection *srcSurface,
-                                             CGLContextObj destination) {
+                                             CGLContextObj destination)
+{
 
     O2Surface_DIBSection *dstSurface =
         (O2Surface_DIBSection *) [destination->overlay validSurface];
@@ -843,7 +849,8 @@ O2Surface *CGLGetSurface(CGLContextObj context) {
 }
 
 CGL_EXPORT CGLError CGLCopyPixels(CGLContextObj source,
-                                  CGLContextObj destination) {
+                                  CGLContextObj destination)
+{
     CGLPixelSurface *overlay = source->overlay;
 
     O2Surface_DIBSection *dstSurface =
@@ -900,7 +907,8 @@ static int attributesCount(const CGLPixelFormatAttribute *attributes) {
 
 CGLError CGLChoosePixelFormat(const CGLPixelFormatAttribute *attributes,
                               CGLPixelFormatObj *pixelFormatp,
-                              GLint *numberOfScreensp) {
+                              GLint *numberOfScreensp)
+{
     CGLPixelFormatObj result = malloc(sizeof(struct _CGLPixelFormatObj));
     int i, count = attributesCount(attributes);
 
@@ -947,7 +955,8 @@ GLuint CGLGetPixelFormatRetainCount(CGLPixelFormatObj pixelFormat) {
 CGL_EXPORT CGLError CGLDescribePixelFormat(CGLPixelFormatObj pixelFormat,
                                            GLint screenNumber,
                                            CGLPixelFormatAttribute attribute,
-                                           GLint *valuesp) {
+                                           GLint *valuesp)
+{
     int i;
 
     for (i = 0; pixelFormat->attributes[i] != 0; i++) {
@@ -971,7 +980,8 @@ CGL_EXPORT CGLError CGLDescribePixelFormat(CGLPixelFormatObj pixelFormat,
 
 CGLError CGLCreatePBuffer(GLsizei width, GLsizei height, GLenum target,
                           GLenum internalFormat, GLint maxDetail,
-                          CGLPBufferObj *pbufferp) {
+                          CGLPBufferObj *pbufferp)
+{
     CGLPBufferObj pbuffer = calloc(1, sizeof(struct _CGLPBufferObj));
     pbuffer->retainCount = 1;
     pbuffer->width = width;
@@ -985,7 +995,8 @@ CGLError CGLCreatePBuffer(GLsizei width, GLsizei height, GLenum target,
 
 CGLError CGLDescribePBuffer(CGLPBufferObj pbuffer, GLsizei *width,
                             GLsizei *height, GLenum *target,
-                            GLenum *internalFormat, GLint *mipmap) {
+                            GLenum *internalFormat, GLint *mipmap)
+{
     *width = pbuffer->width;
     *height = pbuffer->height;
     *target = pbuffer->target;
@@ -1037,12 +1048,14 @@ CGLError CGLDestroyPBuffer(CGLPBufferObj pbuffer) {
 }
 
 CGLError CGLGetPBuffer(CGLContextObj context, CGLPBufferObj *pbuffer,
-                       GLenum *face, GLint *level, GLint *screen) {
+                       GLenum *face, GLint *level, GLint *screen)
+{
     return kCGLNoError;
 }
 
 CGLError CGLSetPBuffer(CGLContextObj context, CGLPBufferObj pbuffer,
-                       GLenum face, GLint level, GLint screen) {
+                       GLenum face, GLint level, GLint screen)
+{
     int piFormats[1];
 
     /** XXX: this must match window context setup. */
@@ -1112,7 +1125,8 @@ CGLError CGLSetPBuffer(CGLContextObj context, CGLPBufferObj pbuffer,
 }
 
 CGLError CGLTexImagePBuffer(CGLContextObj context, CGLPBufferObj pbuffer,
-                            GLenum sourceBuffer) {
+                            GLenum sourceBuffer)
+{
     opengl_wglBindTexImageARB(pbuffer->pBuffer, sourceBuffer);
     reportGLErrorIfNeeded(__PRETTY_FUNCTION__, __LINE__);
     return kCGLNoError;

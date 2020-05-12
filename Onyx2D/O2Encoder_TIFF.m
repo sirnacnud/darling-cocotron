@@ -105,7 +105,8 @@ static void putUnsigned32(O2TIFFEncoderRef self, uint32_t value) {
 }
 
 static void putUnsigned32AtPosition(O2TIFFEncoderRef self, uint32_t value,
-                                    uint32_t position) {
+                                    uint32_t position)
+{
     uint32_t save = setPosition(self, position);
     putUnsigned32(self, value);
     setPosition(self, save);
@@ -133,7 +134,8 @@ static uint32_t reserveRational(O2TIFFEncoderRef self) {
 }
 
 static void encodeRationalAtPosition(O2TIFFEncoderRef self, double value,
-                                     uint32_t position) {
+                                     uint32_t position)
+{
     uint32_t save = setPosition(self, position);
 
     putUnsigned16(self, NSTIFFTypeRATIONAL);
@@ -148,8 +150,8 @@ static void encodeRationalAtPosition(O2TIFFEncoderRef self, double value,
     putUnsigned32(self, denominator);
 }
 
-static void encodeUnsigned16OrUnsigned32(O2TIFFEncoderRef self,
-                                         uint32_t value) {
+static void encodeUnsigned16OrUnsigned32(O2TIFFEncoderRef self, uint32_t value)
+{
     if ((value & 0xFFFF) == 0)
         encodeUnsigned16(self, value);
     else
@@ -199,7 +201,8 @@ static uint32_t reserveArrayOfUnsigned16(O2TIFFEncoderRef self) {
 
 static void encodeArrayOfUnsigned16AtPosition(O2TIFFEncoderRef self,
                                               uint16_t *values, size_t count,
-                                              uint32_t position) {
+                                              uint32_t position)
+{
     uint32_t save = setPosition(self, position);
 
     putUnsigned16(self, NSTIFFTypeSHORT);
@@ -235,7 +238,8 @@ static size_t reserveArrayOfUnsigned32(O2TIFFEncoderRef self) {
 
 static void encodeArrayOfUnsigned32AtPosition(O2TIFFEncoderRef self,
                                               uint32_t *values, size_t count,
-                                              uint32_t position) {
+                                              uint32_t position)
+{
     uint32_t save = setPosition(self, position);
 
     putUnsigned16(self, NSTIFFTypeLONG);
@@ -291,7 +295,8 @@ void pack_argb8u_as_rgba8u(O2argb8u *imageRow, size_t width, uint8_t *tiffRow) {
 }
 
 void O2TIFFEncoderWriteImage(O2TIFFEncoderRef self, O2ImageRef image,
-                             CFDictionaryRef properties, bool lastImage) {
+                             CFDictionaryRef properties, bool lastImage)
+{
     size_t imageWidth = O2ImageGetWidth(image);
     size_t imageHeight = O2ImageGetHeight(image);
     O2ImageAlphaInfo imageAlphaInfo = O2ImageGetAlphaInfo(image);

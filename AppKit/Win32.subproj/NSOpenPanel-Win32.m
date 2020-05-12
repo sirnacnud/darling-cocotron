@@ -42,7 +42,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSOpenPanel (Win32)
 
 static int CALLBACK browseFolderHook(HWND hdlg, UINT uMsg, LPARAM lParam,
-                                     LPARAM lpData) {
+                                     LPARAM lpData)
+{
     if (uMsg == BFFM_INITIALIZED) {
         SendMessage(hdlg, BFFM_SETSELECTIONW, YES, lpData);
     }
@@ -115,7 +116,8 @@ static int CALLBACK browseFolderHook(HWND hdlg, UINT uMsg, LPARAM lParam,
 // against
 
 static unsigned *openFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
-                              LPARAM lParam) {
+                              LPARAM lParam)
+{
     static BOOL pastInitialFolderChange;
 
     if (uiMsg == WM_INITDIALOG)
@@ -276,8 +278,7 @@ static unsigned *openFileHook(HWND hdlg, UINT uiMsg, WPARAM wParam,
 
     @synchronized(self) {
 
-        [_filenames release];
-        {
+        [_filenames release]; {
             NSString *firstFile =
                 [NSString stringWithCharacters: openFileName.lpstrFile
                                         length: wcslen(openFileName.lpstrFile)];

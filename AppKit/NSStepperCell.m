@@ -134,7 +134,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) trackMouse: (NSEvent *) event
              inRect: (NSRect) cellFrame
              ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) untilMouseUp {
+       untilMouseUp: (BOOL) untilMouseUp
+{
     NSPoint point;
     double delta = 0.0;
     NSRect trackFrame;

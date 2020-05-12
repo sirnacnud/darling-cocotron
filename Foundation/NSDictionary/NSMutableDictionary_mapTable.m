@@ -57,7 +57,8 @@ typedef struct {
 }
 
 BOOL NSNextDictionaryEnumeratorPair(CFDictionaryEnumerator *state, void **key,
-                                    void **value) {
+                                    void **value)
+{
 
     if (state->_j == NULL)
         return NO;
@@ -114,8 +115,8 @@ const void *defaultRetainCallBack(CFAllocatorRef allocator, const void *value) {
     return value;
 }
 
-static void defaultReleaseCallBack(CFAllocatorRef allocator,
-                                   const void *value) {
+static void defaultReleaseCallBack(CFAllocatorRef allocator, const void *value)
+{
 }
 
 static CFHashCode defaultHashCallBack(const void *value) {
@@ -163,7 +164,8 @@ static CFDictionaryEnumerator keyEnumeratorState(NSMutableDictionary_CF *self) {
 }
 
 static void NSDictInsert(NSMutableDictionary_CF *self, const void *key,
-                         const void *value) {
+                         const void *value)
+{
     NSZone *zone;
     NSUInteger hash = self->_keyCallBacks.hash(key);
     NSUInteger i = hash % self->_nBuckets;
@@ -218,12 +220,14 @@ static void NSDictInsert(NSMutableDictionary_CF *self, const void *key,
 }
 
 static inline void setValueForKey(NSMutableDictionary_CF *self,
-                                  const void *value, const void *key) {
+                                  const void *value, const void *key)
+{
     NSDictInsert(self, key, value);
 }
 
 static inline void setObjectForKey(NSMutableDictionary_CF *self, id object,
-                                   id key) {
+                                   id key)
+{
     if (key == nil) {
         NSRaiseException(NSInvalidArgumentException, self,
                          @selector(setObject:forKey:),
@@ -275,7 +279,8 @@ static void NSDictRemove(NSMutableDictionary_CF *self, const void *key) {
             values: (const void **) values
              count: (NSUInteger) count
       keyCallBacks: (const CFDictionaryKeyCallBacks *) keyCallBacks
-    valueCallBacks: (const CFDictionaryValueCallBacks *) valueCallBacks {
+    valueCallBacks: (const CFDictionaryValueCallBacks *) valueCallBacks
+{
 
     _keyCallBacks.hash =
         (keyCallBacks->hash != NULL) ? keyCallBacks->hash : defaultHashCallBack;
@@ -324,9 +329,8 @@ static void NSDictRemove(NSMutableDictionary_CF *self, const void *key) {
     return self;
 }
 
-- initWithObjects: (id *) objects
-          forKeys: (id *) keys
-            count: (NSUInteger) count {
+- initWithObjects: (id *) objects forKeys: (id *) keys count: (NSUInteger) count
+{
     return [self initWithKeys: (const void **) keys
                        values: (const void **) objects
                         count: count
@@ -382,7 +386,8 @@ static void NSDictRemove(NSMutableDictionary_CF *self, const void *key) {
 }
 
 static NSDictionary *copyWithClassAndZone(NSMutableDictionary_CF *self,
-                                          Class cls, NSZone *zone) {
+                                          Class cls, NSZone *zone)
+{
     void **keys = __builtin_alloca(sizeof(void *) * self->_count);
     void **values = __builtin_alloca(sizeof(void *) * self->_count);
 

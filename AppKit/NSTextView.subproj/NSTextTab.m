@@ -31,7 +31,8 @@ NSString *NSTabColumnTerminatorsAttributeName =
 
 - (id) initWithTextAlignment: (NSTextAlignment) alignment
                     location: (CGFloat) location
-                     options: (NSDictionary *) options {
+                     options: (NSDictionary *) options
+{
     NSTextTabType type = NSLeftTabStopType;
     switch (alignment) {
     case NSLeftTextAlignment:

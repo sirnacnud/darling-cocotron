@@ -49,7 +49,8 @@ static NSString *textEncodingNameFromContentType(NSString *contentType) {
 
 - initWithURL: (NSURL *) url
     statusCode: (NSInteger) statusCode
-       headers: (NSDictionary *) headers {
+       headers: (NSDictionary *) headers
+{
     NSString *contentType = valueInHeaders(headers, @"content-type");
     NSInteger contentLength =
         [valueInHeaders(headers, @"content-length") integerValue];

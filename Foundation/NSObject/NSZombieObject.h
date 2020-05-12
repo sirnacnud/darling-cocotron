@@ -19,7 +19,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/NSObject.h>
 
-NS_ROOT_CLASS @interface NSZombieObject { Class isa; }
+NS_ROOT_CLASS @interface NSZombieObject {
+    Class isa;
+}
 
 @end
 

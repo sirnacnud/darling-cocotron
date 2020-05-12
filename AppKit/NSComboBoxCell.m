@@ -273,7 +273,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (BOOL) trackMouse: (NSEvent *) event
              inRect: (NSRect) cellFrame
              ofView: (NSView *) controlView
-       untilMouseUp: (BOOL) flag {
+       untilMouseUp: (BOOL) flag
+{
     NSComboBoxWindow *window;
     NSPoint origin = [controlView bounds].origin;
     NSSize size = [self cellSize];

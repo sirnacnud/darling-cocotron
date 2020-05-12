@@ -29,7 +29,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - initWithDocument: (O2PDFDocument *) document
         pageNumber: (int) pageNumber
-        dictionary: (O2PDFDictionary *) dictionary {
+        dictionary: (O2PDFDictionary *) dictionary
+{
     _document = [document retain];
     _pageNumber = pageNumber;
     _dictionary = [dictionary retain];
@@ -44,7 +45,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 + (O2PDFPage *) pdfPageWithDocument: (O2PDFDocument *) document
                          pageNumber: (int) pageNumber
-                         dictionary: (O2PDFDictionary *) dictionary {
+                         dictionary: (O2PDFDictionary *) dictionary
+{
     return [[[self alloc] initWithDocument: document
                                 pageNumber: pageNumber
                                 dictionary: dictionary] autorelease];
@@ -63,7 +65,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 BOOL O2PDFGetPageObjectForKey(O2PDFPage *page, const char *key,
-                              O2PDFObject **object) {
+                              O2PDFObject **object)
+{
     O2PDFDictionary *dictionary = [page dictionary];
 
     do {
@@ -80,7 +83,8 @@ BOOL O2PDFGetPageObjectForKey(O2PDFPage *page, const char *key,
 }
 
 BOOL O2PDFGetPageArrayForKey(O2PDFPage *page, const char *key,
-                             O2PDFArray **arrayp) {
+                             O2PDFArray **arrayp)
+{
     O2PDFObject *check;
 
     if (!O2PDFGetPageObjectForKey(page, key, &check))
@@ -146,7 +150,8 @@ BOOL O2PDFGetPageArrayForKey(O2PDFPage *page, const char *key,
 O2AffineTransform O2PDFPageGetDrawingTransform(O2PDFPageRef self, O2PDFBox box,
                                                O2Rect rect,
                                                int clockwiseDegrees,
-                                               bool preserveAspectRatio) {
+                                               bool preserveAspectRatio)
+{
 
     O2AffineTransform result = O2AffineTransformIdentity;
     O2Rect boxRect, mediaBoxRect;

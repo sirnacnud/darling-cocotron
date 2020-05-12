@@ -672,7 +672,8 @@ unsigned char *stbi_png_load_from_memory(const unsigned char *buffer, int len, i
 }
 
 - initWithDataProvider: (O2DataProvider *) provider
-               options: (NSDictionary *) options {
+               options: (NSDictionary *) options
+{
     [super initWithDataProvider: provider options: options];
     _png = (NSData *) O2DataProviderCopyData(provider);
     return self;
@@ -692,7 +693,8 @@ unsigned char *stbi_png_load_from_memory(const unsigned char *buffer, int len, i
 }
 
 - (O2Image *) createImageAtIndex: (NSUInteger) index
-                         options: (NSDictionary *) options {
+                         options: (NSDictionary *) options
+{
     int width, height;
     int comp;
     unsigned char *pixels = stbi_png_load_from_memory(

@@ -21,7 +21,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSString_isoLatin1.h>
 
 unichar *NSISOLatin1ToUnicode(const char *cString, NSUInteger length,
-                              NSUInteger *resultLength, NSZone *zone) {
+                              NSUInteger *resultLength, NSZone *zone)
+{
     unichar *characters = NSZoneMalloc(zone, sizeof(unichar) * length);
     int i;
 
@@ -34,7 +35,8 @@ unichar *NSISOLatin1ToUnicode(const char *cString, NSUInteger length,
 
 char *NSUnicodeToISOLatin1(const unichar *characters, NSUInteger length,
                            BOOL lossy, NSUInteger *resultLength, NSZone *zone,
-                           BOOL zeroTerminate) {
+                           BOOL zeroTerminate)
+{
     char *isolatin1 = NSZoneMalloc(
         zone, sizeof(char) * (length + (zeroTerminate == YES ? 1 : 0)));
     int i;
@@ -58,10 +60,12 @@ char *NSUnicodeToISOLatin1(const unichar *characters, NSUInteger length,
     return isolatin1;
 }
 
-NSUInteger
-NSGetISOLatin1CStringWithMaxLength(const unichar *characters, NSUInteger length,
-                                   NSUInteger *location, char *cString,
-                                   NSUInteger maxLength, BOOL lossy) {
+NSUInteger NSGetISOLatin1CStringWithMaxLength(const unichar *characters,
+                                              NSUInteger length,
+                                              NSUInteger *location,
+                                              char *cString,
+                                              NSUInteger maxLength, BOOL lossy)
+{
     NSUInteger i, result = 0;
 
     if (length + 1 > maxLength) {
@@ -91,7 +95,8 @@ NSGetISOLatin1CStringWithMaxLength(const unichar *characters, NSUInteger length,
 
 NSString *NSISOLatin1CStringNewWithCharacters(NSZone *zone,
                                               const unichar *characters,
-                                              NSUInteger length, BOOL lossy) {
+                                              NSUInteger length, BOOL lossy)
+{
     NSString *string;
     NSUInteger bytesLength;
     char *bytes;
@@ -112,7 +117,8 @@ NSString *NSISOLatin1CStringNewWithCharacters(NSZone *zone,
 @implementation NSString_isoLatin1
 
 NSString *NSString_isoLatin1NewWithBytes(NSZone *zone, const char *bytes,
-                                         NSUInteger length) {
+                                         NSUInteger length)
+{
 
     NSString_isoLatin1 *self = NSAllocateObject([NSString_isoLatin1 class],
                                                 length * sizeof(char), zone);

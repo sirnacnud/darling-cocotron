@@ -153,7 +153,8 @@ static uint8_t eightBitCLUT[256][3] = {
 }
 
 - initWithDataProvider: (O2DataProvider *) provider
-               options: (NSDictionary *) options {
+               options: (NSDictionary *) options
+{
     [super initWithDataProvider: provider options: options];
     _data = (NSData *) O2DataProviderCopyData(provider);
     _bytes = [_data bytes];
@@ -200,7 +201,8 @@ static uint32_t nextUnsigned32(O2ImageSource_ICNS *self) {
 - (O2ICNSNode *) createNodeForWidth: (size_t) width
                              height: (size_t) height
                        bitsPerPixel: (size_t) bitsPerPixel
-                             isMask: (bool) isMask {
+                             isMask: (bool) isMask
+{
     O2ICNSNode *result = NSZoneMalloc(NULL, sizeof(O2ICNSNode));
     result->width = width;
     result->height = height;
@@ -675,7 +677,8 @@ static uint32_t nextUnsigned32(O2ImageSource_ICNS *self) {
 }
 
 - (O2Image *) createImageAtIndex: (NSUInteger) index
-                         options: (NSDictionary *) options {
+                         options: (NSDictionary *) options
+{
     [self parseIfNeeded];
 
     if (index >= [self count])

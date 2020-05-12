@@ -36,7 +36,8 @@
 }
 
 void O2EncodingGetGlyphsForBytes(O2Encoding *self, O2Glyph *glyphs,
-                                 const uint8_t *bytes, unsigned length) {
+                                 const uint8_t *bytes, unsigned length)
+{
     int i;
 
     for (i = 0; i < length; i++)
@@ -44,7 +45,8 @@ void O2EncodingGetGlyphsForBytes(O2Encoding *self, O2Glyph *glyphs,
 }
 
 void O2EncodingGetUnicodeForBytes(O2Encoding *self, uint16_t *unicode,
-                                  const uint8_t *bytes, unsigned length) {
+                                  const uint8_t *bytes, unsigned length)
+{
     int i;
 
     for (i = 0; i < length; i++)
@@ -139,9 +141,8 @@ void O2EncodingGetWinAnsiUnicode(unichar *codes) {
     return [[O2Encoding alloc] initWithGlyphs: _glyphs unicode: _unicode];
 }
 
-- (void) setGlyph: (O2Glyph) glyph
-          unicode: (uint16_t) code
-          atIndex: (int) index {
+- (void) setGlyph: (O2Glyph) glyph unicode: (uint16_t) code atIndex: (int) index
+{
     if (index < 0 || index >= 256) {
         NSLog(@"%s %d, index (%d) out of range", __FILE__, __LINE__, index);
         return;

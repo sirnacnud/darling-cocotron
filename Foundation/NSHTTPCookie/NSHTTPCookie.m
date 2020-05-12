@@ -23,7 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSHTTPCookie
 
 + (NSArray *) cookiesWithResponseHeaderFields: (NSDictionary *) headerFields
-                                       forURL: (NSURL *) url {
+                                       forURL: (NSURL *) url
+{
     NSUnimplementedMethod();
     return nil;
 }

@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSOpenGLPixelFormat
 
 - (instancetype) initWithAttributes:
-    (const NSOpenGLPixelFormatAttribute *) attributes {
+    (const NSOpenGLPixelFormatAttribute *) attributes
+{
     CGLChoosePixelFormat(attributes, (CGLPixelFormatObj *) &_cglPixelFormat,
                          &_numberOfVirtualScreens);
     return self;
@@ -80,7 +81,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) getValues: (long *) values
         forAttribute: (NSOpenGLPixelFormatAttribute) attribute
-    forVirtualScreen: (int) screen {
+    forVirtualScreen: (int) screen
+{
     GLint glValue = 0;
 
     CGLDescribePixelFormat(_cglPixelFormat, screen, attribute, &glValue);

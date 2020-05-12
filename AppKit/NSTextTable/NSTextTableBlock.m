@@ -25,7 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
        startingRow: (int) startingRow
            rowSpan: (int) rowSpan
     startingColumn: (int) startingColumn
-        columnSpan: (int) columnSpan {
+        columnSpan: (int) columnSpan
+{
     _table = table;
     _startingRow = startingRow;
     _rowSpan = rowSpan;

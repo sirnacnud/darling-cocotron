@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSOldXMLAttribute
 
 + (NSOldXMLAttribute *) attributeWithName: (NSString *) name
-                                    value: (NSString *) value {
+                                    value: (NSString *) value
+{
     return [[[self alloc] initWithName: name value: value] autorelease];
 }
 

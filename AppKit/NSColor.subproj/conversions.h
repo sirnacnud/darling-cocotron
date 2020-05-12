@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static inline void NSColorHSBToRGB(CGFloat hue, CGFloat saturation,
                                    CGFloat brightness, CGFloat *redp,
-                                   CGFloat *greenp, CGFloat *bluep) {
+                                   CGFloat *greenp, CGFloat *bluep)
+{
     CGFloat red = brightness, green = brightness, blue = brightness;
 
     CGFloat H = hue * 360.f; // convert to degrees
@@ -86,12 +87,13 @@ static inline void NSColorHSBToRGB(CGFloat hue, CGFloat saturation,
     *bluep = blue + m;
 
     //	NSLog(@"RGB(%f, %f, %f) <- HSB(%f, %f, %f)", *redp, *greenp, *bluep,
-    //hue, saturation, brightness);
+    // hue, saturation, brightness);
 }
 
 static inline void NSColorRGBToHSB(CGFloat red, CGFloat green, CGFloat blue,
                                    CGFloat *huep, CGFloat *saturationp,
-                                   CGFloat *brightnessp) {
+                                   CGFloat *brightnessp)
+{
 
     CGFloat M = MAX(red, MAX(green, blue));
     CGFloat m = MIN(red, MIN(green, blue));
@@ -130,5 +132,5 @@ static inline void NSColorRGBToHSB(CGFloat red, CGFloat green, CGFloat blue,
         *brightnessp = V;
     }
     //	NSLog(@"RGB(%f, %f, %f) -> HSB(%f, %f, %f)", red, green, blue, H/360.f,
-    //S, V);
+    // S, V);
 }
