@@ -159,7 +159,8 @@
         [_layoutManager setNotShownAttribute: flag forGlyphAtIndex: i];
 }
 
-- (void) setDrawsOutsideLineFragment: (BOOL) flag forGlyphRange: (NSRange) range
+- (void) setDrawsOutsideLineFragment: (BOOL) flag
+                       forGlyphRange: (NSRange) range
 {
     int i, max = NSMaxRange(range);
 

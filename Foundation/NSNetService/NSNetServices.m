@@ -1037,7 +1037,8 @@ BrowserCallback(bonjour_DNSServiceRef sdRef, bonjour_DNSServiceFlags flags,
         [_delegate netServiceBrowserDidStopSearch: self];
 }
 
-- (void) _didFindDomain: (NSString *) domainString moreComing: (BOOL) moreComing
+- (void) _didFindDomain: (NSString *) domainString
+             moreComing: (BOOL) moreComing
 {
 
     if ([_delegate respondsToSelector: @selector

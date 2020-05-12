@@ -373,7 +373,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return @"expand";
 }
 
-- (BOOL) outlineView: (NSOutlineView *) outlineView isItemExpandable: (id) item
+- (BOOL) outlineView: (NSOutlineView *) outlineView
+    isItemExpandable: (id) item
 {
     return [item isEqual: @"expand"];
 }

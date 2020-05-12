@@ -13,7 +13,8 @@
 
 @implementation CIContext
 
-- initWithCGContext: (CGContextRef) cgContext options: (NSDictionary *) options
+- initWithCGContext: (CGContextRef) cgContext
+            options: (NSDictionary *) options
 {
     _cgContext = CGContextRetain(cgContext);
     return self;

@@ -23,7 +23,6 @@
 #include <CoreFoundation/CFAvailability.h>
 #include <CoreFoundation/CFBase.h>
 #include <CoreGraphics/CGBase.h>
-#include <CoreGraphics/CGRemoteOperation.h>
 
 typedef CF_ENUM(uint32_t, CGEventTapLocation) {
     kCGHIDEventTap = 0,
@@ -32,7 +31,5 @@ typedef CF_ENUM(uint32_t, CGEventTapLocation) {
 };
 
 typedef uint32_t CGEventSourceKeyboardType;
-
-#define CGEventMaskBit(eventType) ((CGEventMask) 1 << (eventType))
 
 #endif

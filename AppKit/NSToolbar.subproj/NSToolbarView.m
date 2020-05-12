@@ -110,7 +110,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return result;
 }
 
-- (void) layoutViewsWithWidth: (CGFloat) desiredWidth setFrame: (BOOL) setFrame
+- (void) layoutViewsWithWidth: (CGFloat) desiredWidth
+                     setFrame: (BOOL) setFrame
 {
     NSArray *items = [_toolbar items];
     NSUInteger count = [items count];

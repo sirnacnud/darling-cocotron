@@ -18,7 +18,8 @@
     return [self initWithGraphicsState: gState deviceContext: deviceContext];
 }
 
-- initWithPrinterDC: (HDC) printer auxiliaryInfo: (NSDictionary *) auxiliaryInfo
+- initWithPrinterDC: (HDC) printer
+      auxiliaryInfo: (NSDictionary *) auxiliaryInfo
 {
     O2DeviceContext_gdi *deviceContext =
         [[[Win32DeviceContextPrinter alloc] initWithDC: printer] autorelease];

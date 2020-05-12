@@ -267,7 +267,8 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
         [state addInputSource: source];
 }
 
-- (void) removeInputSource: (NSInputSource *) source forMode: (NSString *) mode
+- (void) removeInputSource: (NSInputSource *) source
+                   forMode: (NSString *) mode
 {
     NSArray *modeStates = [self statesForMode: mode];
 
@@ -321,7 +322,9 @@ NSString *const NSRunLoopCommonModes = @"kCFRunLoopCommonModes";
     [self _wakeUp];
 }
 
-- (void) cancelPerformSelector: (SEL) selector target: target argument: argument
+- (void) cancelPerformSelector: (SEL) selector
+                        target: target
+                      argument: argument
 {
     @synchronized(_orderedPerforms) {
         NSInteger count = [_orderedPerforms count];

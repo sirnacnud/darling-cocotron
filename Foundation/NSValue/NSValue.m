@@ -42,7 +42,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return nil;
 }
 
-+ (NSValue *) valueWithBytes: (const void *) value objCType: (const char *) type
++ (NSValue *) valueWithBytes: (const void *) value
+                    objCType: (const char *) type
 {
     if (self == [NSValue class])
         return NSAutorelease(NSValue_concreteNew(NULL, value, type));

@@ -3613,7 +3613,8 @@ NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
 {
 }
 
-- (void) rulerView: (NSRulerView *) rulerView handleMouseDown: (NSEvent *) event
+- (void) rulerView: (NSRulerView *) rulerView
+    handleMouseDown: (NSEvent *) event
 {
     // Add a new tab stop
     NSPoint point = [self convertPoint: event.locationInWindow fromView: nil];

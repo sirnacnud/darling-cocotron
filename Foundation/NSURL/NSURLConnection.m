@@ -168,7 +168,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_protocol scheduleInRunLoop: runLoop forMode: mode];
 }
 
-- (void) unscheduleFromRunLoop: (NSRunLoop *) runLoop forMode: (NSString *) mode
+- (void) unscheduleFromRunLoop: (NSRunLoop *) runLoop
+                       forMode: (NSString *) mode
 {
     [_protocol unscheduleFromRunLoop: runLoop forMode: mode];
 }
@@ -227,7 +228,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #endif
 }
 
-- (void) URLProtocol: (NSURLProtocol *) urlProtocol didLoadData: (NSData *) data
+- (void) URLProtocol: (NSURLProtocol *) urlProtocol
+         didLoadData: (NSData *) data
 {
 
 #if DEBUG

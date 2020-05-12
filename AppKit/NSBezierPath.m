@@ -736,7 +736,8 @@ static inline void expandPointCapacity(NSBezierPath *self, unsigned delta) {
     [self curveToPoint: point controlPoint1: cp1 controlPoint2: cp2];
 }
 
-- (void) appendBezierPathWithPoints: (NSPoint *) points count: (unsigned) count
+- (void) appendBezierPathWithPoints: (NSPoint *) points
+                              count: (unsigned) count
 {
     if (count == 0)
         return;

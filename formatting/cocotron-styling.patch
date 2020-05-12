@@ -51,7 +51,15 @@
                   ? 1
                   : 0;
 +    } else if (I[1]->First->is(tok::l_brace) && Style.BraceWrapping.AfterFunction) {
-+      return TheLine->Last->TotalLength + I[1]->Last->TotalLength + 1 <= Style.ColumnLimit ? 1 : 0;
++      return (Style.ColumnLimit == 0 || TheLine->Last->TotalLength + I[1]->Last->TotalLength + 1 <= Style.ColumnLimit) ? 1 : 0;
      }
      // Try to merge either empty or one-line block if is precedeed by control
      // statement token
+@@ -1132,6 +1140,7 @@ unsigned UnwrappedLineFormatter::format(
+             !Style.JavaScriptWrapImports)) ||
+           (Style.isCSharp() &&
+            TheLine.InPPDirective); // don't split #regions in C#
++      FitsIntoOneLine = FitsIntoOneLine && (!TheLine.mightBeFunctionDefinition() || TheLine.endsWith(tok::l_brace));
+       if (Style.ColumnLimit == 0)
+         NoColumnLimitLineFormatter(Indenter, Whitespaces, Style, this)
+             .formatLine(TheLine, NextStartColumn + Indent,

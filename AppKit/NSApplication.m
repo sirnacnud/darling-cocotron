@@ -105,7 +105,9 @@ NSApplication *NSApp = nil;
     return NSApp;
 }
 
-+ (void) detachDrawingThread: (SEL) selector toTarget: target withObject: object
++ (void) detachDrawingThread: (SEL) selector
+                    toTarget: target
+                  withObject: object
 {
     NSUnimplementedMethod();
 }

@@ -779,7 +779,8 @@ static void loadItemIntoMapTables(NSOutlineView *self, id item,
     [super drawGridInClipRect: clipRect];
 }
 
-- (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber row: (NSInteger) row
+- (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber
+                              row: (NSInteger) row
 {
     NSTableColumn *column = [_tableColumns objectAtIndex: columnNumber];
     NSCell *result = [super preparedCellAtColumn: columnNumber row: row];

@@ -24,7 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSColorPickerColorList
 
-- initWithPickerMask: (NSUInteger) mask colorPanel: (NSColorPanel *) colorPanel
+- initWithPickerMask: (NSUInteger) mask
+          colorPanel: (NSColorPanel *) colorPanel
 {
     NSEnumerator *colorListsEnumerator =
         [[NSColorList availableColorLists] objectEnumerator];

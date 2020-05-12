@@ -83,7 +83,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return (_status == NSStreamStatusOpen) ? YES : NO;
 }
 
-- (NSInteger) write: (const uint8_t *) buffer maxLength: (NSUInteger) maxLength
+- (NSInteger) write: (const uint8_t *) buffer
+          maxLength: (NSUInteger) maxLength
 {
     if (_status != NSStreamStatusOpen)
         return -1;

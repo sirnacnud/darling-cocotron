@@ -26,7 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSColorPicker
 
-- initWithPickerMask: (NSUInteger) mask colorPanel: (NSColorPanel *) colorPanel
+- initWithPickerMask: (NSUInteger) mask
+          colorPanel: (NSColorPanel *) colorPanel
 {
     if (![NSBundle loadNibNamed: [[self class] description] owner: self])
         NSLog(@"Couldn't load %@.nib", [[self class] description]);
@@ -60,7 +61,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [NSImage imageNamed: @"NSAlertPanelExclamation"];
 }
 
-- (void) insertNewButtonImage: (NSImage *) image in: (NSButtonCell *) buttonCell
+- (void) insertNewButtonImage: (NSImage *) image
+                           in: (NSButtonCell *) buttonCell
 {
     [buttonCell setImage: image];
 }

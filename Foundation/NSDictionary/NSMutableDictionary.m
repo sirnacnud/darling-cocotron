@@ -32,7 +32,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return nil;
 }
 
-- initWithObjects: (id *) objects forKeys: (id *) keys count: (NSUInteger) count
+- initWithObjects: (id *) objects
+          forKeys: (id *) keys
+            count: (NSUInteger) count
 {
     int i;
 

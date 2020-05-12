@@ -364,7 +364,8 @@ static void getRectsInFrameForAttributesStrings(NSRect *rects, NSRect frame,
     }
 }
 
-- (void) _multiplyCurrentUnitBy: (NSInteger) multiply add: (NSInteger) addValue
+- (void) _multiplyCurrentUnitBy: (NSInteger) multiply
+                            add: (NSInteger) addValue
 {
     NSArray *array = [self _attributedStrings];
     NSInteger i, count = [array count];

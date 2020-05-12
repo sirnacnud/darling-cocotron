@@ -175,7 +175,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
     return nil;
 }
 
-- initWithHTML: (NSData *) html documentAttributes: (NSDictionary **) attributes
+- initWithHTML: (NSData *) html
+    documentAttributes: (NSDictionary **) attributes
 {
     NSUnimplementedMethod();
     return nil;
@@ -211,7 +212,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
     return [self initWithAttributedString: string];
 }
 
-- initWithRTFD: (NSData *) rtfd documentAttributes: (NSDictionary **) attributes
+- initWithRTFD: (NSData *) rtfd
+    documentAttributes: (NSDictionary **) attributes
 {
     NSUnimplementedMethod();
     return nil;
@@ -317,7 +319,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 
 /* as usual, the documentation says one thing and the system behaves
  * differently, this is the way i think it should work... (dwy 5/11/2003) */
-- (NSUInteger) nextWordFromIndex: (NSUInteger) location forward: (BOOL) forward
+- (NSUInteger) nextWordFromIndex: (NSUInteger) location
+                         forward: (BOOL) forward
 {
     NSCharacterSet *alpha = [NSCharacterSet alphanumericCharacterSet];
     NSString *string = [self string];
@@ -401,7 +404,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
     return 0;
 }
 
-- (NSRange) rangeOfTextBlock: (NSTextBlock *) block atIndex: (NSUInteger) index
+- (NSRange) rangeOfTextBlock: (NSTextBlock *) block
+                     atIndex: (NSUInteger) index
 {
     NSUnimplementedMethod();
     return NSMakeRange(0, 0);
@@ -412,7 +416,8 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
     return NSMakeRange(0, 0);
 }
 
-- (NSRange) rangeOfTextTable: (NSTextTable *) table atIndex: (NSUInteger) index
+- (NSRange) rangeOfTextTable: (NSTextTable *) table
+                     atIndex: (NSUInteger) index
 {
     NSUnimplementedMethod();
     return NSMakeRange(0, 0);

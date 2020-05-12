@@ -58,7 +58,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     }
 }
 
-- initWithParent: (_NSManagedProxy *) parent object: (NSManagedObject *) object
+- initWithParent: (_NSManagedProxy *) parent
+          object: (NSManagedObject *) object
 {
     _object = [object retain];
     _entity = [parent entity];

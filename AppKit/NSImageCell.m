@@ -174,7 +174,8 @@ static NSSize scaledImageSizeInFrameSize(NSSize imageSize, NSSize frameSize,
     return frame;
 }
 
-- (void) drawInteriorWithFrame: (NSRect) controlFrame inView: (NSView *) control
+- (void) drawInteriorWithFrame: (NSRect) controlFrame
+                        inView: (NSView *) control
 {
     if ([self _imageValue] != nil) {
 

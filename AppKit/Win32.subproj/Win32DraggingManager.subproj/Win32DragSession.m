@@ -26,7 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation Win32DragSession
 
-- initWithWindow: (Win32Window *) window pasteboard: (NSPasteboard *) pasteboard
+- initWithWindow: (Win32Window *) window
+      pasteboard: (NSPasteboard *) pasteboard
 {
     _window = [window retain];
     _pasteboard = [pasteboard retain];

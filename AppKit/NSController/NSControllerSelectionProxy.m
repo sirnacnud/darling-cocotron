@@ -278,7 +278,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [proxy release];
 }
 
-- (void) removeObserver: (NSObject *) observer forKeyPath: (NSString *) keyPath
+- (void) removeObserver: (NSObject *) observer
+             forKeyPath: (NSString *) keyPath
 {
     _NSObservationProxy *proxy =
         [[_NSObservationProxy alloc] initWithKeyPath: keyPath

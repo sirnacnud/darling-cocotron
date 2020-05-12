@@ -146,7 +146,10 @@ O2ColorRef O2ContextFillColor(O2ContextRef self) {
     O2ContextSetRGBFillColor(self, r, g, b, alpha);
 }
 
-- (void) setFillColorC: (O2Float) c m: (O2Float) m y: (O2Float) y k: (O2Float) k
+- (void) setFillColorC: (O2Float) c
+                     m: (O2Float) m
+                     y: (O2Float) y
+                     k: (O2Float) k
 {
     O2Float alpha = O2ColorGetAlpha(O2ContextFillColor(self));
     O2ContextSetCMYKFillColor(self, c, m, y, k, alpha);

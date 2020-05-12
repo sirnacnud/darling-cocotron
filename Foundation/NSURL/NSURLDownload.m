@@ -41,7 +41,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return self;
 }
 
-- initWithResumeData: (NSData *) data delegate: delegate path: (NSString *) path
+- initWithResumeData: (NSData *) data
+            delegate: delegate
+                path: (NSString *) path
 {
     NSUnimplementedMethod();
     return NO;
@@ -64,7 +66,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _deletesOnFailure = flag;
 }
 
-- (void) setDestination: (NSString *) path allowOverwrite: (BOOL) allowOverwrite
+- (void) setDestination: (NSString *) path
+         allowOverwrite: (BOOL) allowOverwrite
 {
     _path = [path copy];
     _allowOverwrite = allowOverwrite;

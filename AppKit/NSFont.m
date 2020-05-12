@@ -130,7 +130,8 @@ static NSLock *_cacheLock = nil;
     }
 }
 
-+ (NSUInteger) _cacheIndexOfFontWithName: (NSString *) name size: (CGFloat) size
++ (NSUInteger) _cacheIndexOfFontWithName: (NSString *) name
+                                    size: (CGFloat) size
 {
     NSUInteger i;
 
@@ -661,7 +662,7 @@ static NSLock *_cacheLock = nil;
             [[NSNumber numberWithDouble: [self pointSize]] stringValue],
             NSFontSizeAttribute,
             //								[self
-            //matrix], NSFontMatrixAttribute,
+            // matrix], NSFontMatrixAttribute,
             //// currently returns nil
             // [self coveredCharacterSet], NSFontCharacterSetAttribute, //
             // currently returns nil

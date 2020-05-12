@@ -32,7 +32,8 @@
 @end
 
 @implementation _NSAttributeRun
-- (id) initWithTextStorage: (NSTextStorage *) textStorage range: (NSRange) range
+- (id) initWithTextStorage: (NSTextStorage *) textStorage
+                     range: (NSRange) range
 {
     if ((self = [super init])) {
         _range = range;

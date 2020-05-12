@@ -141,7 +141,9 @@ void O2EncodingGetWinAnsiUnicode(unichar *codes) {
     return [[O2Encoding alloc] initWithGlyphs: _glyphs unicode: _unicode];
 }
 
-- (void) setGlyph: (O2Glyph) glyph unicode: (uint16_t) code atIndex: (int) index
+- (void) setGlyph: (O2Glyph) glyph
+          unicode: (uint16_t) code
+          atIndex: (int) index
 {
     if (index < 0 || index >= 256) {
         NSLog(@"%s %d, index (%d) out of range", __FILE__, __LINE__, index);

@@ -855,7 +855,8 @@ NSImageName const NSImageNameTouchBarRecordStopTemplate =
     [NSGraphicsContext restoreGraphicsState];
 }
 
-- (BOOL) drawRepresentation: (NSImageRep *) representation inRect: (NSRect) rect
+- (BOOL) drawRepresentation: (NSImageRep *) representation
+                     inRect: (NSRect) rect
 {
     NSColor *bg = [self backgroundColor];
 

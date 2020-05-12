@@ -63,7 +63,8 @@ static unsigned int uniquenum = 1;
     return [self initWithContentsOfFile: [url path] byReference: byReference];
 }
 
-- (id) initWithContentsOfFile: (NSString *) path byReference: (BOOL) byReference
+- (id) initWithContentsOfFile: (NSString *) path
+                  byReference: (BOOL) byReference
 {
     if ((self = [super initWithContentsOfFile: path
                                   byReference: byReference])) {

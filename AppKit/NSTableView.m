@@ -1251,7 +1251,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
                                                                                row]];
 }
 
-- (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber row: (NSInteger) row
+- (NSCell *) preparedCellAtColumn: (NSInteger) columnNumber
+                              row: (NSInteger) row
 {
     NSTableColumn *column = [_tableColumns objectAtIndex: columnNumber];
     NSCell *dataCell = [column dataCellForRow: row];

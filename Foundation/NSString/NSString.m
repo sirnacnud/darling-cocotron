@@ -146,7 +146,8 @@ int __CFConstantStringClassReference[1];
                       encoding: defaultEncoding()];
 }
 
-- initWithCString: (const char *) cString encoding: (NSStringEncoding) encoding
+- initWithCString: (const char *) cString
+         encoding: (NSStringEncoding) encoding
 {
     return [self initWithBytes: cString
                         length: strlen(cString)

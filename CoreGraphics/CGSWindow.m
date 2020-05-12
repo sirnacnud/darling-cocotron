@@ -16,8 +16,8 @@
  You should have received a copy of the GNU General Public License
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
-#import <CoreGraphics/CGSWindow.h>
 #import <CoreGraphics/CGSConnection.h>
+#import <CoreGraphics/CGSWindow.h>
 #import <Foundation/NSRaise.h>
 
 const CFStringRef kCGSWindowTitle = CFSTR("WindowTitle");
@@ -25,87 +25,78 @@ const CFStringRef kCGSWindowTitle = CFSTR("WindowTitle");
 @implementation CGSWindow
 @synthesize windowId = _windowId;
 
--(instancetype) initWithRegion:(CGSRegionRef) region
-						connection:(CGSConnection*) connection
-						windowID:(CGSWindowID) windowID
+- (instancetype) initWithRegion: (CGSRegionRef) region
+                     connection: (CGSConnection *) connection
+                       windowID: (CGSWindowID) windowID
 {
-	_connection = connection;
-	_nextSurfaceId = 1;
-	_surfaces = [[NSMutableDictionary alloc] initWithCapacity: 1];
-	_windowId = windowID;
-	return self;
+    _connection = connection;
+    _nextSurfaceId = 1;
+    _surfaces = [[NSMutableDictionary alloc] initWithCapacity: 1];
+    _windowId = windowID;
+    return self;
 }
 
--(void) dealloc
-{
-	[_surfaces release];
-	[super dealloc];
+- (void) dealloc {
+    [_surfaces release];
+    [super dealloc];
 }
 
--(CGSSurface*) surfaceForId:(CGSSurfaceID) surfaceId
-{
-	@synchronized(_surfaces)
-	{
-		return [_surfaces objectForKey: [NSNumber numberWithInt: surfaceId]];
-	}
+- (CGSSurface *) surfaceForId: (CGSSurfaceID) surfaceId {
+    CGSSurface *rv;
+    @synchronized(_surfaces) {
+        rv = [_surfaces objectForKey: [NSNumber numberWithInt: surfaceId]];
+    }
+    return rv;
 }
 
--(void) _surfaceInvalidated:(CGSSurfaceID) surfaceId
-{
-	@synchronized(_surfaces)
-	{
-		[_surfaces removeObjectForKey: [NSNumber numberWithInt: surfaceId]];
-	}
+- (void) _surfaceInvalidated: (CGSSurfaceID) surfaceId {
+    @synchronized(_surfaces) {
+        [_surfaces removeObjectForKey: [NSNumber numberWithInt: surfaceId]];
+    }
 }
 
--(void)invalidate
-{
-	[_connection _windowInvalidated: _windowId];
+- (void) invalidate {
+    [_connection _windowInvalidated: _windowId];
 }
 
--(CGError) orderWindow:(CGSWindowOrderingMode) place relativeTo:(CGSWindow*) window
+- (CGError) orderWindow: (CGSWindowOrderingMode) place
+             relativeTo: (CGSWindow *) window
 {
-	NSInvalidAbstractInvocation();
+    NSInvalidAbstractInvocation();
 }
 
--(CGError) moveTo:(const CGPoint*) point
-{
-	NSInvalidAbstractInvocation();
+- (CGError) moveTo: (const CGPoint *) point {
+    NSInvalidAbstractInvocation();
 }
 
--(CGError) setRegion:(CGSRegionRef) region
-{
-	NSInvalidAbstractInvocation();
+- (CGError) setRegion: (CGSRegionRef) region {
+    NSInvalidAbstractInvocation();
 }
 
--(CGError) getRect:(CGRect*) outRect
-{
-	NSInvalidAbstractInvocation();
+- (CGError) getRect: (CGRect *) outRect {
+    NSInvalidAbstractInvocation();
 }
 
--(CGError) setProperty:(CFStringRef) key value:(CFTypeRef) value
-{
-	NSInvalidAbstractInvocation();
+- (CGError) setProperty: (CFStringRef) key value: (CFTypeRef) value {
+    NSInvalidAbstractInvocation();
 }
 
--(CGError) getProperty:(CFStringRef) key value:(CFTypeRef*) value
-{
-	NSInvalidAbstractInvocation();
+- (CGError) getProperty: (CFStringRef) key value: (CFTypeRef *) value {
+    NSInvalidAbstractInvocation();
 }
 
--(CGSSurface*) createSurface
-{
-	NSInvalidAbstractInvocation();
+- (CGSSurface *) createSurface {
+    NSInvalidAbstractInvocation();
 }
 
--(void*) nativeWindow
-{
-	NSInvalidAbstractInvocation();
+- (void *) nativeWindow {
+    NSInvalidAbstractInvocation();
 }
 
 @end
 
-CGError CGSSetWindowTitle(CGSConnectionID cid, CGSWindowID wid, CFStringRef title)
+CGError CGSSetWindowTitle(CGSConnectionID cid, CGSWindowID wid,
+                          CFStringRef title)
 {
-	return CGSSetWindowProperty(cid, wid, kCGSWindowTitle, title);
+    return CGSSetWindowProperty(cid, wid, kCGSWindowTitle, title);
 }

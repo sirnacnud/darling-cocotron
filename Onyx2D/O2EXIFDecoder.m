@@ -441,7 +441,9 @@ static unsigned long _getLong(const unsigned char *data, size_t offset,
     }
 }
 
-- (void) setTagForType: (int) type number: (int) tagNumber value: (id) tagValue
+- (void) setTagForType: (int) type
+                number: (int) tagNumber
+                 value: (id) tagValue
 {
     // switzzle type & tagNumber to strings keys
     id typeKey = [self keyForType: type];

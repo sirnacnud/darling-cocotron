@@ -263,7 +263,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 {
 }
 
-- (void) replaceGlyphAtIndex: (NSUInteger) glyphIndex withGlyph: (NSGlyph) glyph
+- (void) replaceGlyphAtIndex: (NSUInteger) glyphIndex
+                   withGlyph: (NSGlyph) glyph
 {
 }
 
@@ -2329,7 +2330,8 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
     return newXOffset;
 }
 
-- (void) drawGlyphsForGlyphRange: (NSRange) glyphRange atPoint: (NSPoint) origin
+- (void) drawGlyphsForGlyphRange: (NSRange) glyphRange
+                         atPoint: (NSPoint) origin
 {
 
 #if DEBUG_LM_DRAWING

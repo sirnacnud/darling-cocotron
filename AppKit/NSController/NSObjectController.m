@@ -186,7 +186,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                context: context];
 }
 
-- (void) removeObserver: (NSObject *) observer forKeyPath: (NSString *) keyPath
+- (void) removeObserver: (NSObject *) observer
+             forKeyPath: (NSString *) keyPath
 {
     [_observedKeys removeObject: keyPath];
     [super removeObserver: observer forKeyPath: keyPath];

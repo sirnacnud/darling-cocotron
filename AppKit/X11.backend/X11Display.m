@@ -345,7 +345,8 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
     return -1;
 }
 
-- (void) keyboardLayoutName: (NSString **) name fullName: (NSString **) fullName
+- (void) keyboardLayoutName: (NSString **) name
+                   fullName: (NSString **) fullName
 {
     int major = XkbMajorVersion, minor = XkbMinorVersion;
 

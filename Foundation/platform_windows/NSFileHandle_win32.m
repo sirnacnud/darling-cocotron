@@ -44,7 +44,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return self;
 }
 
-- initWithFileDescriptor: (int) descriptor closeOnDealloc: (BOOL) closeOnDealloc
+- initWithFileDescriptor: (int) descriptor
+          closeOnDealloc: (BOOL) closeOnDealloc
 {
     _handle = (HANDLE) descriptor;
     _closeOnDealloc = closeOnDealloc;

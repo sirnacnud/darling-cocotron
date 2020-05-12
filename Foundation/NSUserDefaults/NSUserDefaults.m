@@ -265,7 +265,8 @@ static NSUserDefaults *stdUserDefaults = nil;
     NSUnimplementedMethod();
 }
 
-- (void) setPersistentDomain: (NSDictionary *) domain forName: (NSString *) name
+- (void) setPersistentDomain: (NSDictionary *) domain
+                     forName: (NSString *) name
 {
     NSUnimplementedMethod();
 }

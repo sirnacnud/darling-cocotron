@@ -45,7 +45,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return NSAllocateObject(self, 0, zone);
 }
 
-- initWithObjects: (id *) objects forKeys: (id *) keys count: (NSUInteger) count
+- initWithObjects: (id *) objects
+          forKeys: (id *) keys
+            count: (NSUInteger) count
 {
     NSInvalidAbstractInvocation();
     return nil;

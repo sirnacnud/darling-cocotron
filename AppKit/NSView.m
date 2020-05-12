@@ -2156,7 +2156,8 @@ static NSView *viewBeingPrinted = nil;
     return needsToDrawRect;
 }
 
-- (void) getRectsBeingDrawn: (const NSRect **) rects count: (NSInteger *) count
+- (void) getRectsBeingDrawn: (const NSRect **) rects
+                      count: (NSInteger *) count
 {
     // This method returns all the rects being drawn concerning the view
     // That's all of the dirty rects from the view, but also all the ones

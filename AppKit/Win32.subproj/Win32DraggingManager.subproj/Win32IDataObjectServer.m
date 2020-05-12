@@ -346,7 +346,9 @@ static void flipRowsAndSwapColors(long width, long height, long bytesPerRow,
     return S_OK;
 }
 
-- (HRESULT) SetData: (FORMATETC *) format: (STGMEDIUM *) pmedium:(BOOL) fRelease
+- (HRESULT) SetData: (FORMATETC *)
+             format: (STGMEDIUM *) pmedium
+                   :(BOOL) fRelease
 {
     NSUnimplementedMethod();
     return S_OK;

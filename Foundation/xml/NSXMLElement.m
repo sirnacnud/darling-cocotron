@@ -68,7 +68,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return [_attributes objectForKey: name];
 }
 
-- (NSArray *) elementsForLocalName: (NSString *) localName URI: (NSString *) uri
+- (NSArray *) elementsForLocalName: (NSString *) localName
+                               URI: (NSString *) uri
 {
     NSUnimplementedMethod();
     return 0;

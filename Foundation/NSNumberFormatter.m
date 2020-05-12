@@ -1324,7 +1324,8 @@ static BOOL numberIsPositive(NSNumber *number) {
         return [self stringFromNumber10_4: number];
 }
 
-- (NSNumber *) _numberFromString: (NSString *) string error: (NSString **) error
+- (NSNumber *) _numberFromString: (NSString *) string
+                           error: (NSString **) error
 {
     // Note: this method is still quite incomplete compared to the thousand of
     // formatting combinations you can set on a number formatter...

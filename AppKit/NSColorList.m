@@ -322,7 +322,8 @@ static NSMutableDictionary *_namedColorLists = nil;
     return _keys;
 }
 
-- (NSColor *) colorWithKey: (NSString *) soughtKey indexPtr: (unsigned *) index
+- (NSColor *) colorWithKey: (NSString *) soughtKey
+                  indexPtr: (unsigned *) index
 {
     NSEnumerator *keyEnumerator = [_keys objectEnumerator];
     NSString *thisKey;

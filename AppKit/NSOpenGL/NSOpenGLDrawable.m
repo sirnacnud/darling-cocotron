@@ -2,7 +2,8 @@
 
 @implementation NSOpenGLDrawable
 
-- initWithPixelFormat: (NSOpenGLPixelFormat *) pixelFormat view: (NSView *) view
+- initWithPixelFormat: (NSOpenGLPixelFormat *) pixelFormat
+                 view: (NSView *) view
 {
     return self;
 }

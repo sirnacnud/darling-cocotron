@@ -740,7 +740,8 @@ enum {
     [[NSRunLoop currentRunLoop] addTimer: _timeout forMode: mode];
 }
 
-- (void) unscheduleFromRunLoop: (NSRunLoop *) runLoop forMode: (NSString *) mode
+- (void) unscheduleFromRunLoop: (NSRunLoop *) runLoop
+                       forMode: (NSString *) mode
 {
     [_inputStream removeFromRunLoop: runLoop forMode: mode];
     [_outputStream removeFromRunLoop: runLoop forMode: mode];

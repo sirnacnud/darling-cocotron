@@ -76,7 +76,8 @@
 #define CGContextAddArcToPoint O2ContextAddArcToPoint
 #define CGContextAddEllipseInRect O2ContextAddEllipseInRect
 #define CGContextAddPath O2ContextAddPath
-#define CGContextReplacePathWithStrokedPath O2ContextReplacePathWithStrokedPath
+#define CGContextReplacePathWithStrokedPath                                    \
+    O2ContextReplacePathWithStrokedPath
 #define CGContextSaveGState O2ContextSaveGState
 #define CGContextRestoreGState O2ContextRestoreGState
 #define CGContextGetUserSpaceToDeviceSpaceTransform                            \

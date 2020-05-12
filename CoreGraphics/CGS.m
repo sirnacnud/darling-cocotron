@@ -16,16 +16,15 @@
  You should have received a copy of the GNU General Public License
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
+#import <CoreGraphics/CGSConnection.h>
+#import <CoreGraphics/CGSSurface.h>
+#import <CoreGraphics/CGSWindow.h>
 #include <CoreGraphics/CoreGraphicsPrivate.h>
 #import <Foundation/Foundation.h>
 #include <dispatch/dispatch.h>
 #include <stdatomic.h>
-#import <CoreGraphics/CGSConnection.h>
-#import <CoreGraphics/CGSWindow.h>
-#import <CoreGraphics/CGSSurface.h>
-#include <pthread.h>
 
-static NSMutableDictionary<NSNumber*, CGSConnection*>* g_connections = nil;
+static NSMutableDictionary<NSNumber *, CGSConnection *> *g_connections = nil;
 static Boolean g_denyConnections = FALSE;
 
 static CGSConnectionID g_defaultConnection = -1;
@@ -44,138 +43,148 @@ void CGSShutdownServerConnections(void) {
     // TODO
 }
 
-CGError CGSNewWindow(CGSConnectionID conn, CFIndex flags, float x_offset, float y_offset, const CGSRegionRef region, CGSWindowID* windowID)
+CGError CGSNewWindow(CGSConnectionID conn, CFIndex flags, float x_offset,
+                     float y_offset, const CGSRegionRef region,
+                     CGSWindowID *windowID)
 {
-	CGSConnection* c = _CGSConnectionForID(conn);
-	if (!c)
-		return kCGErrorInvalidConnection;
+    CGSConnection *c = _CGSConnectionForID(conn);
+    if (!c)
+        return kCGErrorInvalidConnection;
 
-	CGSWindow* window = [c newWindow: region];
-	if (!window)
-		return kCGErrorIllegalArgument;
-	
-	*windowID = window.windowId;
-	return kCGSErrorSuccess;
+    CGSWindow *window = [c newWindow: region];
+    if (!window)
+        return kCGErrorIllegalArgument;
+
+    *windowID = window.windowId;
+    return kCGSErrorSuccess;
 }
 
-CGError CGSReleaseWindow(CGSConnectionID cid, CGSWindowID wid)
-{
-	CGSConnection* c = _CGSConnectionForID(cid);
-	if (!c)
-		return kCGErrorInvalidConnection;
-	return [c destroyWindow: wid];
+CGError CGSReleaseWindow(CGSConnectionID cid, CGSWindowID wid) {
+    CGSConnection *c = _CGSConnectionForID(cid);
+    if (!c)
+        return kCGErrorInvalidConnection;
+    return [c destroyWindow: wid];
 }
 
-CGError CGSSetWindowShape(CGSConnectionID cid, CGSWindowID wid, float x_offset, float y_offset, const CGSRegionRef shape)
+CGError CGSSetWindowShape(CGSConnectionID cid, CGSWindowID wid, float x_offset,
+                          float y_offset, const CGSRegionRef shape)
 {
-	CGSWindow* window;
-	CGError err = getWindow(cid, wid, &window);
+    CGSWindow *window;
+    CGError err = getWindow(cid, wid, &window);
 
-	if (err != kCGSErrorSuccess)
-		return err;
-	
-	return [window setRegion: shape];
+    if (err != kCGSErrorSuccess)
+        return err;
+
+    return [window setRegion: shape];
 }
 
-OSStatus CGSOrderWindow(CGSConnectionID cid, CGSWindowID wid, CGSWindowOrderingMode place, CGSWindowID relativeToWindow)
+OSStatus CGSOrderWindow(CGSConnectionID cid, CGSWindowID wid,
+                        CGSWindowOrderingMode place,
+                        CGSWindowID relativeToWindow)
 {
-	CGSConnection* c = _CGSConnectionForID(cid);
-	if (!c)
-		return kCGErrorInvalidConnection;
+    CGSConnection *c = _CGSConnectionForID(cid);
+    if (!c)
+        return kCGErrorInvalidConnection;
 
-	CGSWindow* window = [c windowForId: wid];
-	if (!window)
-		return kCGErrorIllegalArgument;
+    CGSWindow *window = [c windowForId: wid];
+    if (!window)
+        return kCGErrorIllegalArgument;
 
-	CGSWindow* relativeTo = [c windowForId: relativeToWindow];
-	return [window orderWindow: place relativeTo: relativeTo];
+    CGSWindow *relativeTo = [c windowForId: relativeToWindow];
+    return [window orderWindow: place relativeTo: relativeTo];
 }
 
-CGError CGSMoveWindow(CGSConnectionID cid, CGSWindowID wid, const CGPoint *window_pos)
+CGError CGSMoveWindow(CGSConnectionID cid, CGSWindowID wid,
+                      const CGPoint *window_pos)
 {
-	CGSWindow* window;
-	CGError err = getWindow(cid, wid, &window);
-	
-	if (err != kCGSErrorSuccess)
-		return err;
-	
-	return [window moveTo: window_pos];
+    CGSWindow *window;
+    CGError err = getWindow(cid, wid, &window);
+
+    if (err != kCGSErrorSuccess)
+        return err;
+
+    return [window moveTo: window_pos];
 }
 
-extern CGError CGSSetWindowOpacity(CGSConnectionID cid, CGSWindowID wid, bool isOpaque);
-extern CGError CGSSetWindowAlpha(CGSConnectionID cid, CGSWindowID wid, float alpha);
-extern CGError CGSSetWindowLevel(CGSConnectionID cid, CGSWindowID wid, CGWindowLevel level);
+extern CGError CGSSetWindowOpacity(CGSConnectionID cid, CGSWindowID wid,
+                                   bool isOpaque);
+extern CGError CGSSetWindowAlpha(CGSConnectionID cid, CGSWindowID wid,
+                                 float alpha);
+extern CGError CGSSetWindowLevel(CGSConnectionID cid, CGSWindowID wid,
+                                 CGWindowLevel level);
 
-CGError CGSGetWindowProperty(CGSConnectionID cid, CGSWindowID wid, CFStringRef key, CFTypeRef *outValue)
+CGError CGSGetWindowProperty(CGSConnectionID cid, CGSWindowID wid,
+                             CFStringRef key, CFTypeRef *outValue)
 {
-	CGSWindow* window;
-	CGError err = getWindow(cid, wid, &window);
-	
-	if (err != kCGSErrorSuccess)
-		return err;
-	
-	return [window getProperty: key value: outValue];
+    CGSWindow *window;
+    CGError err = getWindow(cid, wid, &window);
+
+    if (err != kCGSErrorSuccess)
+        return err;
+
+    return [window getProperty: key value: outValue];
 }
 
-CGError CGSSetWindowProperty(CGSConnectionID cid, CGSWindowID wid, CFStringRef key, CFTypeRef value)
+CGError CGSSetWindowProperty(CGSConnectionID cid, CGSWindowID wid,
+                             CFStringRef key, CFTypeRef value)
 {
-	CGSWindow* window;
-	CGError err = getWindow(cid, wid, &window);
-	
-	if (err != kCGSErrorSuccess)
-		return err;
-	
-	return [window setProperty: key value: value];
+    CGSWindow *window;
+    CGError err = getWindow(cid, wid, &window);
+
+    if (err != kCGSErrorSuccess)
+        return err;
+
+    return [window setProperty: key value: value];
 }
 
-CGError getSurface(CGSConnectionID cid, CGSWindowID wid, CGSSurfaceID sid, CGSSurface** surface)
+CGError getSurface(CGSConnectionID cid, CGSWindowID wid, CGSSurfaceID sid,
+                   CGSSurface **surface)
 {
-	CGSWindow* window;
+    CGSWindow *window;
 
-	CGError err = getWindow(cid, wid, &window);
-	if (err != kCGSErrorSuccess)
-		return err;
+    CGError err = getWindow(cid, wid, &window);
+    if (err != kCGSErrorSuccess)
+        return err;
 
-	*surface = [window surfaceForId: sid];
-	return (*surface) ? kCGSErrorSuccess : kCGErrorIllegalArgument;
+    *surface = [window surfaceForId: sid];
+    return (*surface) ? kCGSErrorSuccess : kCGErrorIllegalArgument;
 }
 
-CGError CGSAddSurface(CGSConnectionID cid, CGSWindowID wid, CGSSurfaceID *sid)
-{
-	CGSWindow* window;
+CGError CGSAddSurface(CGSConnectionID cid, CGSWindowID wid, CGSSurfaceID *sid) {
+    CGSWindow *window;
 
-	CGError err = getWindow(cid, wid, &window);
-	if (err != kCGSErrorSuccess)
-		return err;
-	
-	CGSSurface* surface = [window createSurface];
-	if (!surface)
-		return kCGErrorFailure;
-	
-	*sid = surface.surfaceId;
-	return kCGSErrorSuccess;
+    CGError err = getWindow(cid, wid, &window);
+    if (err != kCGSErrorSuccess)
+        return err;
+
+    CGSSurface *surface = [window createSurface];
+    if (!surface)
+        return kCGErrorFailure;
+
+    *sid = surface.surfaceId;
+    return kCGSErrorSuccess;
 }
 
 CGError CGSRemoveSurface(CGSConnectionID cid, CGSWindowID wid, CGSSurfaceID sid)
 {
-	CGSSurface* surface;
+    CGSSurface *surface;
 
-	CGError err = getSurface(cid, wid, sid, &surface);
-	if (err != kCGSErrorSuccess)
-		return err;
+    CGError err = getSurface(cid, wid, sid, &surface);
+    if (err != kCGSErrorSuccess)
+        return err;
 
-	[surface invalidate];
-	return kCGSErrorSuccess;
+    [surface invalidate];
+    return kCGSErrorSuccess;
 }
 
-CGError CGSSetSurfaceBounds(CGSConnectionID cid, CGSWindowID wid, CGSSurfaceID sid, CGRect rect)
+CGError CGSSetSurfaceBounds(CGSConnectionID cid, CGSWindowID wid,
+                            CGSSurfaceID sid, CGRect rect)
 {
-	CGSSurface* surface;
+    CGSSurface *surface;
 
-	CGError err = getSurface(cid, wid, sid, &surface);
-	if (err != kCGSErrorSuccess)
-		return err;
+    CGError err = getSurface(cid, wid, sid, &surface);
+    if (err != kCGSErrorSuccess)
+        return err;
 
-	return [surface setBounds: rect];
+    return [surface setBounds: rect];
 }
-

@@ -629,7 +629,8 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
     NSUnimplementedMethod();
 }
 
-- (void) setCompression: (NSTIFFCompression) compression factor: (float) factor
+- (void) setCompression: (NSTIFFCompression) compression
+                 factor: (float) factor
 {
     NSUnimplementedMethod();
 }

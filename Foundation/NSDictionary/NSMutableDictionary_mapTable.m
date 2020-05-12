@@ -329,7 +329,9 @@ static void NSDictRemove(NSMutableDictionary_CF *self, const void *key) {
     return self;
 }
 
-- initWithObjects: (id *) objects forKeys: (id *) keys count: (NSUInteger) count
+- initWithObjects: (id *) objects
+          forKeys: (id *) keys
+            count: (NSUInteger) count
 {
     return [self initWithKeys: (const void **) keys
                        values: (const void **) objects

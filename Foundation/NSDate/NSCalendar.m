@@ -120,7 +120,8 @@ NSString *const NSGregorianCalendar = @"NSGregorianCalendar";
     return 0;
 }
 
-- (NSDateComponents *) components: (NSUInteger) flags fromDate: (NSDate *) date
+- (NSDateComponents *) components: (NSUInteger) flags
+                         fromDate: (NSDate *) date
 {
     NSDateComponents *result = [[[NSDateComponents alloc] init] autorelease];
     NSTimeInterval interval = [date timeIntervalSinceReferenceDate];

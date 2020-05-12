@@ -196,7 +196,8 @@ NSString *const PDFDocumentDidFindMatchNotification =
     }
 }
 
-- (void) _setupFindString: (NSString *) string withOptions: (NSUInteger) options
+- (void) _setupFindString: (NSString *) string
+              withOptions: (NSUInteger) options
 {
     NSInteger i, pos;
 
@@ -254,7 +255,8 @@ NSString *const PDFDocumentDidFindMatchNotification =
     _findPageIndex = 0;
 }
 
-- (void) beginFindString: (NSString *) string withOptions: (NSUInteger) options
+- (void) beginFindString: (NSString *) string
+             withOptions: (NSUInteger) options
 {
     [self _setupFindString: string withOptions: options];
 
@@ -266,7 +268,8 @@ NSString *const PDFDocumentDidFindMatchNotification =
                                          repeats: YES] retain];
 }
 
-- (NSArray *) findString: (NSString *) string withOptions: (NSUInteger) options
+- (NSArray *) findString: (NSString *) string
+             withOptions: (NSUInteger) options
 {
     NSMutableArray *result = [NSMutableArray array];
 

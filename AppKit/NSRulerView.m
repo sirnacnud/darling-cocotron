@@ -269,7 +269,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [self invalidateHashMarks];
 }
 
-- (BOOL) trackMarker: (NSRulerMarker *) marker withMouseEvent: (NSEvent *) event
+- (BOOL) trackMarker: (NSRulerMarker *) marker
+      withMouseEvent: (NSEvent *) event
 {
     NSPoint point = [self convertPoint: [event locationInWindow] fromView: nil];
 
