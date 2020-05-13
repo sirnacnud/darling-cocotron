@@ -51,10 +51,10 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
     return [NSArray arrayWithObjects:
                             // Try to order them so the most used ones are at
                             // the top of the list
-                                    @"png", @"tiff", @"tif", @"jpg", @"jpeg",
-                                    @"icns", @"gif", @"bmp", @"PNG", @"TIFF",
-                                    @"TIF", @"JPG", @"JPEG", @"ICNS", @"jpe",
-                                    @"JPE", @"GIF", @"BMP", nil];
+                            @"png", @"tiff", @"tif", @"jpg", @"jpeg", @"icns",
+                            @"gif", @"bmp", @"PNG", @"TIFF", @"TIF", @"JPG",
+                            @"JPEG", @"ICNS", @"jpe", @"JPE", @"GIF", @"BMP",
+                            nil];
 }
 
 + (NSArray *) imageRepsWithContentsOfFile: (NSString *) path {

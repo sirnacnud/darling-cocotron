@@ -681,51 +681,51 @@ enum bidi_state // possible states
 
 static int stateWeak[][10] = {
         //	N,  L,  R,  AN, EN, AL,NSM, CS, ES, ET,
-        /*xa*/ ao,  xl,  xr, cn, cn,
-        xa,         xa,  ao, ao, ao, /* arabic letter		  */
-        /*xr*/ ro,  xl,  xr, ra, re,
-        xa,         xr,  ro, ro, rt, /* right letter 		  */
-        /*xl*/ lo,  xl,  xr, la, le,
-        xa,         xl,  lo, lo, lt, /* left letter			  */
+        /*xa*/ ao,  xl, xr, cn,  cn, xa,
+        xa,         ao, ao, ao, /* arabic letter		  */
+        /*xr*/ ro,  xl, xr, ra,  re, xa,
+        xr,         ro, ro, rt, /* right letter 		  */
+        /*xl*/ lo,  xl, xr, la,  le, xa,
+        xl,         lo, lo, lt, /* left letter			  */
 
-        /*ao*/ ao,  xl,  xr, cn, cn,
-        xa,         ao,  ao, ao, ao, /* arabic lett. foll by ON*/
-        /*ro*/ ro,  xl,  xr, ra, re,
-        xa,         ro,  ro, ro, rt, /* right lett. foll by ON */
-        /*lo*/ lo,  xl,  xr, la, le,
-        xa,         lo,  lo, lo, lt, /* left lett. foll by ON  */
+        /*ao*/ ao,  xl, xr, cn,  cn, xa,
+        ao,         ao, ao, ao, /* arabic lett. foll by ON*/
+        /*ro*/ ro,  xl, xr, ra,  re, xa,
+        ro,         ro, ro, rt, /* right lett. foll by ON */
+        /*lo*/ lo,  xl, xr, la,  le, xa,
+        lo,         lo, lo, lt, /* left lett. foll by ON  */
 
-        /*rt*/ ro,  xl,  xr, ra, re,
-        xa,         rt,  ro, ro, rt, /* ET following R		  */
-        /*lt*/ lo,  xl,  xr, la, le,
-        xa,         lt,  lo, lo, lt, /* ET following L		  */
+        /*rt*/ ro,  xl, xr, ra,  re, xa,
+        rt,         ro, ro, rt, /* ET following R		  */
+        /*lt*/ lo,  xl, xr, la,  le, xa,
+        lt,         lo, lo, lt, /* ET following L		  */
 
-        /*cn*/ ao,  xl,  xr, cn, cn,
-        xa,         cn,  ac, ao, ao, /* EN, AN following AL	  */
-        /*ra*/ ro,  xl,  xr, ra, re,
-        xa,         ra,  rc, ro, rt, /* arabic number foll R   */
-        /*re*/ ro,  xl,  xr, ra, re,
-        xa,         re,  rs, rs, ret, /* european number foll R */
-        /*la*/ lo,  xl,  xr, la, le,
-        xa,         la,  lc, lo, lt, /* arabic number foll L   */
-        /*le*/ lo,  xl,  xr, la, le,
-        xa,         le,  ls, ls, let, /* european number foll L */
+        /*cn*/ ao,  xl, xr, cn,  cn, xa,
+        cn,         ac, ao, ao, /* EN, AN following AL	  */
+        /*ra*/ ro,  xl, xr, ra,  re, xa,
+        ra,         rc, ro, rt, /* arabic number foll R   */
+        /*re*/ ro,  xl, xr, ra,  re, xa,
+        re,         rs, rs, ret, /* european number foll R */
+        /*la*/ lo,  xl, xr, la,  le, xa,
+        la,         lc, lo, lt, /* arabic number foll L   */
+        /*le*/ lo,  xl, xr, la,  le, xa,
+        le,         ls, ls, let, /* european number foll L */
 
-        /*ac*/ ao,  xl,  xr, cn, cn,
-        xa,         ao,  ao, ao, ao, /* CS following cn		  */
-        /*rc*/ ro,  xl,  xr, ra, re,
-        xa,         ro,  ro, ro, rt, /* CS following ra		  */
-        /*rs*/ ro,  xl,  xr, ra, re,
-        xa,         ro,  ro, ro, rt, /* CS,ES following re	  */
-        /*lc*/ lo,  xl,  xr, la, le,
-        xa,         lo,  lo, lo, lt, /* CS following la		  */
-        /*ls*/ lo,  xl,  xr, la, le,
-        xa,         lo,  lo, lo, lt, /* CS,ES following le	  */
+        /*ac*/ ao,  xl, xr, cn,  cn, xa,
+        ao,         ao, ao, ao, /* CS following cn		  */
+        /*rc*/ ro,  xl, xr, ra,  re, xa,
+        ro,         ro, ro, rt, /* CS following ra		  */
+        /*rs*/ ro,  xl, xr, ra,  re, xa,
+        ro,         ro, ro, rt, /* CS,ES following re	  */
+        /*lc*/ lo,  xl, xr, la,  le, xa,
+        lo,         lo, lo, lt, /* CS following la		  */
+        /*ls*/ lo,  xl, xr, la,  le, xa,
+        lo,         lo, lo, lt, /* CS,ES following le	  */
 
-        /*ret*/ ro, xl,  xr, ra, re,
-        xa,         ret, ro, ro, ret, /* ET following re		  */
-        /*let*/ lo, xl,  xr, la, le,
-        xa,         let, lo, lo, let, /* ET following le		  */
+        /*ret*/ ro, xl, xr, ra,  re, xa,
+        ret,        ro, ro, ret, /* ET following re		  */
+        /*let*/ lo, xl, xr, la,  le, xa,
+        let,        lo, lo, let, /* ET following le		  */
 
 };
 
@@ -1178,8 +1178,8 @@ static void resolveNeutrals(int baselevel, uint8_t *pcls, const uint8_t *plevel,
 static int addLevel[][4] = {
         // L,  R,	AN, EN = cls
         // level =
-        /* even */ 0,     1, 2, 2, // EVEN
-        /* odd	*/ 1, 0, 1, 1,     // ODD
+        /* even */ 0, 1, 2, 2, // EVEN
+        /* odd	*/ 1, 0, 1, 1, // ODD
 
 };
 

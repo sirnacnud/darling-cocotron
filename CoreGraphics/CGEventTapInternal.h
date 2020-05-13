@@ -21,11 +21,10 @@
 
 extern void _CGEventTapDestroyed(CGEventTapLocation loc, mach_port_t mp);
 
-struct TapMachMessage
-{
-	mach_msg_header_t header;
-	CGEventTapProxy proxy;
-	CGEventRef event;
+struct TapMachMessage {
+    mach_msg_header_t header;
+    CGEventTapProxy proxy;
+    CGEventRef event;
 };
 
 #endif

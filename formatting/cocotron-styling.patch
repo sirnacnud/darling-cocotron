@@ -55,11 +55,12 @@
      }
      // Try to merge either empty or one-line block if is precedeed by control
      // statement token
-@@ -1132,6 +1140,7 @@ unsigned UnwrappedLineFormatter::format(
+@@ -1132,6 +1134,8 @@ unsigned UnwrappedLineFormatter::format(
              !Style.JavaScriptWrapImports)) ||
            (Style.isCSharp() &&
             TheLine.InPPDirective); // don't split #regions in C#
-+      FitsIntoOneLine = FitsIntoOneLine && (!TheLine.mightBeFunctionDefinition() || TheLine.endsWith(tok::l_brace));
++      bool functionBraceWrapped = TheLine.mightBeFunctionDefinition() && NextLine && NextLine->startsWith(tok::l_brace) && !TheLine.endsWith(tok::l_brace);
++      FitsIntoOneLine = FitsIntoOneLine && !functionBraceWrapped;
        if (Style.ColumnLimit == 0)
          NoColumnLimitLineFormatter(Indenter, Whitespaces, Style, this)
              .formatLine(TheLine, NextStartColumn + Indent,
