@@ -474,11 +474,11 @@ static NSData *makeWindowIcon() {
 }
 
 - (void) showWindowForAppActivation: (O2Rect) frame {
-    NSUnimplementedMethod();
+    [self showWindowWithoutActivation];
 }
 
 - (void) hideWindowForAppDeactivation: (O2Rect) frame {
-    NSUnimplementedMethod();
+    /* Ignored */
 }
 
 - (void) hideWindow {

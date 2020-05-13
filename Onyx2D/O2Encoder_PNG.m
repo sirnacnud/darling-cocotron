@@ -217,8 +217,7 @@ typedef int stb_image_write_test[sizeof(stbiw_uint32) == 4 ? 1 : -1];
     (stbi__sbneedgrow(a, (n)) ? stbi__sbgrow(a, n) : 0)
 #define stbi__sbgrow(a, n) stbi__sbgrowf((void **) &(a), (n), sizeof(*(a)))
 
-#define stbi__sbpush(a, v)                                                     \
-        (stbi__sbmaybegrow(a, 1), (a)[stbi__sbn(a)++] = (v))
+#define stbi__sbpush(a, v) (stbi__sbmaybegrow(a, 1), (a)[stbi__sbn(a)++] = (v))
 #define stbi__sbcount(a) ((a) ? stbi__sbn(a) : 0)
 #define stbi__sbfree(a) ((a) ? free(stbi__sbraw(a)), 0 : 0)
 

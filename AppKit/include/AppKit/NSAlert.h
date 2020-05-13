@@ -33,6 +33,8 @@ enum {
     NSAlertThirdButtonReturn = 1002,
 };
 
+typedef NSInteger NSModalResponse;
+
 @interface NSAlert : NSObject {
     id _delegate;
     NSAlertStyle _style;
@@ -90,6 +92,9 @@ enum {
                     modalDelegate: delegate
                    didEndSelector: (SEL) selector
                       contextInfo: (void *) info;
+- (void) beginSheetModalForWindow: (NSWindow *) sheetWindow
+                completionHandler:
+                        (void (^)(NSModalResponse returnCode)) handler;
 - (NSInteger) runModal;
 
 @end
