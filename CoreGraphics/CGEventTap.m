@@ -17,54 +17,54 @@
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <CoreGraphics/CGEvent.h>
 #import "CGEventObjC.h"
 #include "CGEventTapInternal.h"
+#include <CoreGraphics/CGEvent.h>
 
-void CGEventPost(CGEventTapLocation tap, CGEventRef _Nullable event)
-{
-	// TODO: Create an appropriate CGEventTapProxy and call CGEventTapPostEvent()
+void CGEventPost(CGEventTapLocation tap, CGEventRef _Nullable event) {
+    // TODO: Create an appropriate CGEventTapProxy and call
+    // CGEventTapPostEvent()
 }
 
-CFMachPortRef CGEventTapCreate(CGEventTapLocation tap, CGEventTapPlacement place,
-	CGEventTapOptions options, CGEventMask eventsOfInterest, CGEventTapCallBack callback, void *userInfo)
+CFMachPortRef CGEventTapCreate(CGEventTapLocation tap,
+                               CGEventTapPlacement place,
+                               CGEventTapOptions options,
+                               CGEventMask eventsOfInterest,
+                               CGEventTapCallBack callback, void *userInfo)
 {
-	CGEventTap* newTap = [[CGEventTap alloc] initWithLocation: tap
-													options: options
-													mask: eventsOfInterest
-													callback: callback
-													userInfo: userInfo];
+    CGEventTap *newTap = [[CGEventTap alloc] initWithLocation: tap
+                                                      options: options
+                                                         mask: eventsOfInterest
+                                                     callback: callback
+                                                     userInfo: userInfo];
 
-	mach_port_t port = newTap.machPort;
+    mach_port_t port = newTap.machPort;
 
-	// TODO: Save this port to tapping structures
+    // TODO: Save this port to tapping structures
 
-	CFMachPortRef mp = [newTap createCFMachPort];
-	[newTap release]; // CFMachPortRef now holds a ref
+    CFMachPortRef mp = [newTap createCFMachPort];
+    [newTap release]; // CFMachPortRef now holds a ref
 
-	return mp;
+    return mp;
 }
 
-void _CGEventTapDestroyed(CGEventTapLocation location, mach_port_t mp)
-{
-	// TODO: Deregister the tap
+void _CGEventTapDestroyed(CGEventTapLocation location, mach_port_t mp) {
+    // TODO: Deregister the tap
 }
 
-void CGEventTapEnable(CFMachPortRef tap, bool enable)
-{
-	mach_port_t mp = CFMachPortGetPort(tap);
+void CGEventTapEnable(CFMachPortRef tap, bool enable) {
+    mach_port_t mp = CFMachPortGetPort(tap);
 
-	// TODO: Lookup CGEventTap instance by mp
-	CGEventTap* tapObj = nil;
-	tapObj.enabled = enable;
+    // TODO: Lookup CGEventTap instance by mp
+    CGEventTap *tapObj = nil;
+    tapObj.enabled = enable;
 }
 
-void CGEventTapPostEvent(CGEventTapProxy proxy, CGEventRef event)
-{
-
+void CGEventTapPostEvent(CGEventTapProxy proxy, CGEventRef event) {
 }
 
-CGError CGGetEventTapList(uint32_t maxNumberOfTaps, CGEventTapInformation *tapList, uint32_t *eventTapCount)
+CGError CGGetEventTapList(uint32_t maxNumberOfTaps,
+                          CGEventTapInformation *tapList,
+                          uint32_t *eventTapCount)
 {
-
 }

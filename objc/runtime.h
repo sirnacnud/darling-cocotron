@@ -1,5 +1,5 @@
-#import <objc/objc.h>
 #import <objc/objc-class.h>
+#import <objc/objc.h>
 #import <stdint.h>
 
 typedef struct objc_method *Method;

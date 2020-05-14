@@ -18,35 +18,30 @@
 */
 #ifndef CGSCONNECTION_H
 #define CGSCONNECTION_H
-#import <Foundation/NSObject.h>
-#import <Foundation/NSDictionary.h>
 #include <CoreGraphics/CoreGraphicsPrivate.h>
-#include <CoreServices/UnicodeUtilities.h>
+#import <Foundation/NSDictionary.h>
+#import <Foundation/NSObject.h>
 #include <stdatomic.h>
 
 @class CGSWindow;
 
 @interface CGSConnection : NSObject {
-	CGSConnectionID _connectionId;
-	_Atomic CGSWindowID _nextWindowId;
-	NSMutableDictionary<NSNumber*, CGSWindow*>* _windows;
+    CGSConnectionID _connectionId;
+    _Atomic CGSWindowID _nextWindowId;
+    NSMutableDictionary<NSNumber *, CGSWindow *> *_windows;
 }
--(instancetype) initWithConnectionID:(CGSConnectionID)connId;
--(void) dealloc;
--(CGSWindow*) windowForId:(CGSWindowID)winId;
--(CGSWindow*) newWindow:(CGSRegionRef)region;
--(CGError) destroyWindow:(CGSWindowID)winId;
+- (instancetype) initWithConnectionID: (CGSConnectionID) connId;
+- (void) dealloc;
+- (CGSWindow *) windowForId: (CGSWindowID) winId;
+- (CGSWindow *) newWindow: (CGSRegionRef) region;
+- (CGError) destroyWindow: (CGSWindowID) winId;
 
-// Implementation should also emit kTISNotifySelectedKeyboardInputSourceChanged via NSDistributedNotificationCenter
--(UCKeyboardLayout*) keyboardLayout:(uint32_t*)byteLength;
++ (BOOL) isAvailable;
 
-+(BOOL) isAvailable;
-
--(void) _windowInvalidated: (CGSWindowID) winId;
+- (void) _windowInvalidated: (CGSWindowID) winId;
 
 // For CGL
--(void*) nativeDisplay;
+- (void *) nativeDisplay;
 @end
 
 #endif
-

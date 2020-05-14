@@ -8,7 +8,6 @@
 
 #import <windows.h>
 
-
 int _NSGetExecutablePath(char *path, uint32_t *capacity) {
     int bufferCapacity = MAXPATHLEN;
     uint16_t buffer[bufferCapacity + 1];

@@ -11,6 +11,6 @@
     NSMutableData *_endOfFileBuffer;
 }
 
-- initWithSocket:(NSSocket *)socket closeOnDealloc:(BOOL)closeOnDealloc;
+- initWithSocket: (NSSocket *) socket closeOnDealloc: (BOOL) closeOnDealloc;
 
 @end

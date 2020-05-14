@@ -14,6 +14,6 @@
     Demo *_demo;
 }
 
-- (void)setDemo:(Demo *)value;
+- (void) setDemo: (Demo *) value;
 
 @end

@@ -19,10 +19,14 @@
 
 #import <AppKit/NSTouchBarItem.h>
 
-NSTouchBarItemIdentifier const NSTouchBarItemIdentifierFixedSpaceLarge = @"NSTouchBarItemIdentifierFixedSpaceLarge";
-NSTouchBarItemIdentifier const NSTouchBarItemIdentifierFixedSpaceSmall = @"NSTouchBarItemIdentifierFixedSpaceSmall";
-NSTouchBarItemIdentifier const NSTouchBarItemIdentifierFlexibleSpace = @"NSTouchBarItemIdentifierFlexibleSpace";
-NSTouchBarItemIdentifier const NSTouchBarItemIdentifierOtherItemsProxy = @"NSTouchBarItemIdentifierOtherItemsProxy";
+NSTouchBarItemIdentifier const NSTouchBarItemIdentifierFixedSpaceLarge =
+        @"NSTouchBarItemIdentifierFixedSpaceLarge";
+NSTouchBarItemIdentifier const NSTouchBarItemIdentifierFixedSpaceSmall =
+        @"NSTouchBarItemIdentifierFixedSpaceSmall";
+NSTouchBarItemIdentifier const NSTouchBarItemIdentifierFlexibleSpace =
+        @"NSTouchBarItemIdentifierFlexibleSpace";
+NSTouchBarItemIdentifier const NSTouchBarItemIdentifierOtherItemsProxy =
+        @"NSTouchBarItemIdentifierOtherItemsProxy";
 
 @implementation NSTouchBarItem
 @end

@@ -2,27 +2,27 @@
 
 @implementation PDFSelectedRange
 
--initWithPage:(PDFPage *)page range:(NSRange)range {
-   _page=[page retain];
-   _range=range;
-   return self;
+- initWithPage: (PDFPage *) page range: (NSRange) range {
+    _page = [page retain];
+    _range = range;
+    return self;
 }
 
--(void)dealloc {
-   [_page release];
-   [super dealloc];
+- (void) dealloc {
+    [_page release];
+    [super dealloc];
 }
 
--copyWithZone:(NSZone *)zone {
-   return [self retain];
+- copyWithZone: (NSZone *) zone {
+    return [self retain];
 }
 
--(PDFPage *)page {
-   return _page;
+- (PDFPage *) page {
+    return _page;
 }
 
--(NSRange)range {
-   return _range;
+- (NSRange) range {
+    return _range;
 }
 
 @end

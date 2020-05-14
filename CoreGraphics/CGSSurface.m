@@ -23,26 +23,23 @@
 @implementation CGSSurface
 @synthesize surfaceId = _surfaceId;
 
--(instancetype) initWithWindow:(CGSWindow*)window surfaceID:(CGSSurfaceID) surfaceID
+- (instancetype) initWithWindow: (CGSWindow *) window
+                      surfaceID: (CGSSurfaceID) surfaceID
 {
-	_window = window;
-	_surfaceId = surfaceID;
-	return self;
+    _window = window;
+    _surfaceId = surfaceID;
+    return self;
 }
 
--(CGError) setBounds:(CGRect) rect
-{
-	NSInvalidAbstractInvocation();
+- (CGError) setBounds: (CGRect) rect {
+    NSInvalidAbstractInvocation();
 }
 
--(void*) nativeWindow
-{
-	NSInvalidAbstractInvocation();
+- (void *) nativeWindow {
+    NSInvalidAbstractInvocation();
 }
 
--(void) invalidate
-{
-	[_window _surfaceInvalidated: _surfaceId];
+- (void) invalidate {
+    [_window _surfaceInvalidated: _surfaceId];
 }
 @end
-

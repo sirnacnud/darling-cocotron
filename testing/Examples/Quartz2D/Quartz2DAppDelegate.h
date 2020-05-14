@@ -19,6 +19,6 @@
 
 @property(assign) IBOutlet NSWindow *window;
 
-- (void)selectDemo:sender;
+- (void) selectDemo: sender;
 
 @end

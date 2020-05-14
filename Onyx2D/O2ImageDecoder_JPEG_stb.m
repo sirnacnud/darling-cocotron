@@ -1,6 +1,7 @@
 #import <Onyx2D/O2ImageDecoder_JPEG_stb.h>
 
-/*  JPEG decode is based on the public domain implementation by Sean Barrett  http://www.nothings.org/stb_image.c  V 1.14 */
+/*  JPEG decode is based on the public domain implementation by Sean Barrett
+ * http://www.nothings.org/stb_image.c  V 1.14 */
 // clang-format off
 #define STBI_NO_STDIO
 
@@ -1108,52 +1109,58 @@ static unsigned char *stbi_jpeg_load_from_memory(jpeg *j,stbi_uc const *buffer, 
 }
 // clang-format on
 
--initWithDataProvider:(O2DataProviderRef)dataProvider {
-    
-    _compressionType=O2ImageCompressionJPEG;
-    _dataProvider=[dataProvider retain];
-    
-    CFDataRef encodedData=O2DataProviderCopyData(dataProvider);
-    CFIndex encodedLength=CFDataGetLength(encodedData);
-    const uint8_t *encodedBytes=CFDataGetBytePtr(encodedData);
-    
-    int      comp;
+- initWithDataProvider: (O2DataProviderRef) dataProvider {
+
+    _compressionType = O2ImageCompressionJPEG;
+    _dataProvider = [dataProvider retain];
+
+    CFDataRef encodedData = O2DataProviderCopyData(dataProvider);
+    CFIndex encodedLength = CFDataGetLength(encodedData);
+    const uint8_t *encodedBytes = CFDataGetBytePtr(encodedData);
+
+    int comp;
     uint8_t *bitmap;
-    
+
     jpeg jpeg_decoder;
-    int width,height;
-    
-    bitmap=stbi_jpeg_load_from_memory(&jpeg_decoder,encodedBytes,encodedLength,&width,&height,&comp,STBI_rgb_alpha);
-    
+    int width, height;
+
+    bitmap = stbi_jpeg_load_from_memory(&jpeg_decoder, encodedBytes,
+                                        encodedLength, &width, &height, &comp,
+                                        STBI_rgb_alpha);
+
     CFRelease(encodedData);
 
-    if(bitmap==NULL){
+    if (bitmap == NULL) {
         [self dealloc];
         return nil;
     }
-    
-    _width=width;
-    _height=height;
-    _bitsPerComponent=8;
-    _bitsPerPixel=32;
-    _bytesPerRow=(_bitsPerPixel/(sizeof(char)*8))*_width;
-    _colorSpace=O2ColorSpaceCreateDeviceRGB();
-    _bitmapInfo=kO2BitmapByteOrder32Big|kO2ImageAlphaPremultipliedLast;
-    
-    _pixelData=CFDataCreateWithBytesNoCopy(NULL, bitmap, _bytesPerRow*_height, NULL);
-    _pixelData=(CFDataRef)[[NSData alloc] initWithBytesNoCopy:bitmap length:_bytesPerRow*_height freeWhenDone:YES];
+
+    _width = width;
+    _height = height;
+    _bitsPerComponent = 8;
+    _bitsPerPixel = 32;
+    _bytesPerRow = (_bitsPerPixel / (sizeof(char) * 8)) * _width;
+    _colorSpace = O2ColorSpaceCreateDeviceRGB();
+    _bitmapInfo = kO2BitmapByteOrder32Big | kO2ImageAlphaPremultipliedLast;
+
+    _pixelData = CFDataCreateWithBytesNoCopy(NULL, bitmap,
+                                             _bytesPerRow * _height, NULL);
+    _pixelData = (CFDataRef)
+            [[NSData alloc] initWithBytesNoCopy: bitmap
+                                         length: _bytesPerRow * _height
+                                   freeWhenDone: YES];
 
     return self;
 }
 
--(void)dealloc {
+- (void) dealloc {
     [_dataProvider release];
     [_colorSpace release];
     CFRelease(_pixelData);
     [super dealloc];
 }
 
--(CFDataRef)createPixelData {
+- (CFDataRef) createPixelData {
     return CFRetain(_pixelData);
 }
 

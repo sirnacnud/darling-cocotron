@@ -1,6 +1,6 @@
+#import <Foundation/NSDate.h>
 #import <Foundation/NSObject.h>
 #import <Foundation/NSRange.h>
-#import <Foundation/NSDate.h>
 
 @class NSDictionary, NSURL, NSOrthography;
 
@@ -31,7 +31,8 @@ typedef uint64_t NSTextCheckingType;
 enum {
     NSTextCheckingAllSystemTypes = 0xffffffffULL,
     NSTextCheckingAllCustomTypes = 0xffffffffULL << 32,
-    NSTextCheckingAllTypes = (NSTextCheckingAllSystemTypes | NSTextCheckingAllCustomTypes),
+    NSTextCheckingAllTypes =
+            (NSTextCheckingAllSystemTypes | NSTextCheckingAllCustomTypes),
 };
 typedef uint64_t NSTextCheckingTypes;
 
@@ -41,17 +42,36 @@ typedef uint64_t NSTextCheckingTypes;
     NSDictionary *_properties;
 }
 
-+ (NSTextCheckingResult *)addressCheckingResultWithRange:(NSRange)range components:(NSDictionary *)components;
-+ (NSTextCheckingResult *)correctionCheckingResultWithRange:(NSRange)range replacementString:(NSString *)replacement;
-+ (NSTextCheckingResult *)dashCheckingResultWithRange:(NSRange)range replacementString:(NSString *)replacement;
-+ (NSTextCheckingResult *)dateCheckingResultWithRange:(NSRange)range date:(NSDate *)date;
-+ (NSTextCheckingResult *)dateCheckingResultWithRange:(NSRange)range date:(NSDate *)date timeZone:(NSTimeZone *)timeZone duration:(NSTimeInterval)duration;
-+ (NSTextCheckingResult *)grammarCheckingResultWithRange:(NSRange)range details:(NSArray *)details;
-+ (NSTextCheckingResult *)linkCheckingResultWithRange:(NSRange)range URL:(NSURL *)url;
-+ (NSTextCheckingResult *)orthographyCheckingResultWithRange:(NSRange)range orthography:(NSOrthography *)orthography;
-+ (NSTextCheckingResult *)quoteCheckingResultWithRange:(NSRange)range replacementString:(NSString *)replacement;
-+ (NSTextCheckingResult *)replacementCheckingResultWithRange:(NSRange)range replacementString:(NSString *)replacement;
-+ (NSTextCheckingResult *)spellCheckingResultWithRange:(NSRange)range;
++ (NSTextCheckingResult *) addressCheckingResultWithRange: (NSRange) range
+                                               components: (NSDictionary *)
+                                                                   components;
++ (NSTextCheckingResult *) correctionCheckingResultWithRange: (NSRange) range
+                                           replacementString:
+                                                   (NSString *) replacement;
++ (NSTextCheckingResult *) dashCheckingResultWithRange: (NSRange) range
+                                     replacementString:
+                                             (NSString *) replacement;
++ (NSTextCheckingResult *) dateCheckingResultWithRange: (NSRange) range
+                                                  date: (NSDate *) date;
++ (NSTextCheckingResult *) dateCheckingResultWithRange: (NSRange) range
+                                                  date: (NSDate *) date
+                                              timeZone: (NSTimeZone *) timeZone
+                                              duration:
+                                                      (NSTimeInterval) duration;
++ (NSTextCheckingResult *) grammarCheckingResultWithRange: (NSRange) range
+                                                  details: (NSArray *) details;
++ (NSTextCheckingResult *) linkCheckingResultWithRange: (NSRange) range
+                                                   URL: (NSURL *) url;
++ (NSTextCheckingResult *)
+        orthographyCheckingResultWithRange: (NSRange) range
+                               orthography: (NSOrthography *) orthography;
++ (NSTextCheckingResult *) quoteCheckingResultWithRange: (NSRange) range
+                                      replacementString:
+                                              (NSString *) replacement;
++ (NSTextCheckingResult *) replacementCheckingResultWithRange: (NSRange) range
+                                            replacementString:
+                                                    (NSString *) replacement;
++ (NSTextCheckingResult *) spellCheckingResultWithRange: (NSRange) range;
 
 @property(readonly) NSDictionary *addressComponents;
 @property(readonly) NSDate *date;

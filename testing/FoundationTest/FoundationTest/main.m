@@ -8,14 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-int main(int argc, const char * argv[])
-{
+int main(int argc, const char *argv[]) {
 
     [NSAutoreleasePool new];
-        
-        // insert code here...
-        NSLog(@"Hello, World! %p",argv);
-        
+
+    // insert code here...
+    NSLog(@"Hello, World! %p", argv);
+
     return 0;
 }
-

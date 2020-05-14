@@ -4,8 +4,8 @@
 #import <OpenGL/glweak.h>
 #endif
 
-#import <OpenGL/CGLTypes.h>
 #import <OpenGL/CGLCurrent.h>
+#import <OpenGL/CGLTypes.h>
 
 #include <OpenGL/gltypes.h>
 

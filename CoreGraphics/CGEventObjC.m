@@ -18,10 +18,10 @@
 */
 #include "CGEventObjC.h"
 #include "CGEventTapInternal.h"
-#include <time.h>
 #include <CoreGraphics/CGEventSource.h>
 #import <Foundation/NSKeyedArchiver.h>
 #import <Foundation/NSString.h>
+#include <time.h>
 
 @implementation CGEvent
 
@@ -36,100 +36,92 @@
 @synthesize scrollEventUnit = _scrollEventUnit;
 @synthesize wheelCount = _wheelCount;
 
--(instancetype) initWithSource:(CGEventSource*) source
-{
-	return [self initWithSource: source
-							type: kCGEventNull];
+- (instancetype) initWithSource: (CGEventSource *) source {
+    return [self initWithSource: source type: kCGEventNull];
 }
 
--(instancetype) initWithSource:(CGEventSource*) source
-						type:(CGEventType) type;
+- (instancetype) initWithSource: (CGEventSource *) source
+                           type: (CGEventType) type;
 {
-	_source = [source retain];
-	_type = type;
-	_fields = [[NSMutableDictionary alloc] initWithCapacity: 0];
-	_timestamp = clock_gettime_nsec_np(CLOCK_UPTIME_RAW);
-	return self;
+    _source = [source retain];
+    _type = type;
+    _fields = [[NSMutableDictionary alloc] initWithCapacity: 0];
+    _timestamp = clock_gettime_nsec_np(CLOCK_UPTIME_RAW);
+    return self;
 }
 
--(instancetype) initWithCoder:(NSCoder*) coder
-{
-	NSKeyedUnarchiver* unarchiver = (NSKeyedUnarchiver*) coder;
-	
-	// TODO
+- (instancetype) initWithCoder: (NSCoder *) coder {
+    NSKeyedUnarchiver *unarchiver = (NSKeyedUnarchiver *) coder;
 
-	return self;
+    // TODO
+
+    return self;
 }
 
--(void) dealloc
-{
-	[_source release];
-	[_fields release];
-	[super dealloc];
+- (void) dealloc {
+    [_source release];
+    [_fields release];
+    [super dealloc];
 }
 
--(id)copy
-{
-	CGEvent* rv = [[CGEvent alloc] initWithSource: _source type: _type];
-	rv->_timestamp = self->_timestamp;
-	rv->_flags = self->_flags;
-	rv->_fields = [_fields copy];
+- (id) copy {
+    CGEvent *rv = [[CGEvent alloc] initWithSource: _source type: _type];
+    rv->_timestamp = self->_timestamp;
+    rv->_flags = self->_flags;
+    rv->_fields = [_fields copy];
 
-	rv->_virtualKey = _virtualKey;
-	memcpy(rv->_unicodeString, _unicodeString, sizeof(_unicodeString));
+    rv->_virtualKey = _virtualKey;
+    memcpy(rv->_unicodeString, _unicodeString, sizeof(_unicodeString));
 
-	rv->_location = _location;
-	rv->_mouseButton = _mouseButton;
+    rv->_location = _location;
+    rv->_mouseButton = _mouseButton;
 
-	rv->_scrollEventUnit = _scrollEventUnit;
-	rv->_wheelCount = _wheelCount;
-	memcpy(rv->_wheels, _wheels, sizeof(_wheels));
+    rv->_scrollEventUnit = _scrollEventUnit;
+    rv->_wheelCount = _wheelCount;
+    memcpy(rv->_wheels, _wheels, sizeof(_wheels));
 
-	return rv;
+    return rv;
 }
 
-- (id)copyWithZone:(NSZone *)zone
-{
-	return [self copy];
+- (id) copyWithZone: (NSZone *) zone {
+    return [self copy];
 }
 
--(CFTypeID) _cfTypeID
-{
-	return CGEventGetTypeID();
+- (CFTypeID) _cfTypeID {
+    return CGEventGetTypeID();
 }
 
--(int32_t*) wheels
-{
-	return _wheels;
+- (int32_t *) wheels {
+    return _wheels;
 }
 
--(UniChar*) unicodeString
-{
-	return _unicodeString;
+- (UniChar *) unicodeString {
+    return _unicodeString;
 }
 
--(void) encodeWithCoder:(NSCoder*) coder
-{
-	NSKeyedArchiver* archiver = (NSKeyedArchiver*) coder;
+- (void) encodeWithCoder: (NSCoder *) coder {
+    NSKeyedArchiver *archiver = (NSKeyedArchiver *) coder;
 
-	CGEventSourceStateID stateId = _source.stateID;
-	[archiver encodeInt: stateId forKey:@"stateId"];
+    CGEventSourceStateID stateId = _source.stateID;
+    [archiver encodeInt: stateId forKey: @"stateId"];
 
-	[archiver encodeInt: _type forKey: @"type"];
-	[archiver encodeInt64: _timestamp forKey: @"timestamp"];
-	[archiver encodeObject: _fields forKey: @"fields"];
-	[archiver encodeInt: _virtualKey forKey: @"virtualKey"];
-	[archiver encodeBytes: (uint8_t*) _unicodeString length: sizeof(_unicodeString) forKey: @"unicodeString"];
-	[archiver encodeDouble: _location.x forKey: @"location.x"];
-	[archiver encodeDouble: _location.y forKey: @"location.y"];
-	[archiver encodeInt: _mouseButton forKey: @"mouseButton"];
-	[archiver encodeInt: _scrollEventUnit forKey: @"scrollEventUnit"];
-	[archiver encodeInt: _wheelCount forKey:@"wheelCount"];
+    [archiver encodeInt: _type forKey: @"type"];
+    [archiver encodeInt64: _timestamp forKey: @"timestamp"];
+    [archiver encodeObject: _fields forKey: @"fields"];
+    [archiver encodeInt: _virtualKey forKey: @"virtualKey"];
+    [archiver encodeBytes: (uint8_t *) _unicodeString
+                   length: sizeof(_unicodeString)
+                   forKey: @"unicodeString"];
+    [archiver encodeDouble: _location.x forKey: @"location.x"];
+    [archiver encodeDouble: _location.y forKey: @"location.y"];
+    [archiver encodeInt: _mouseButton forKey: @"mouseButton"];
+    [archiver encodeInt: _scrollEventUnit forKey: @"scrollEventUnit"];
+    [archiver encodeInt: _wheelCount forKey: @"wheelCount"];
 
-	for (uint32_t i = 0; i < _wheelCount; i++)
-	{
-		[archiver encodeInt: _wheels[i] forKey:[NSString stringWithFormat:@"wheel-%d", i]];
-	}
+    for (uint32_t i = 0; i < _wheelCount; i++) {
+        [archiver encodeInt: _wheels[i]
+                     forKey: [NSString stringWithFormat: @"wheel-%d", i]];
+    }
 }
 @end
 
@@ -141,47 +133,45 @@
 @synthesize userData = _userData;
 @synthesize pixelsPerLine = _pixelsPerLine;
 
--(instancetype) initWithState: (CGEventSourceStateID) stateId
-{
-	_stateId = stateId;
-	return self;
+- (instancetype) initWithState: (CGEventSourceStateID) stateId {
+    _stateId = stateId;
+    return self;
 }
 
--(CFTypeID) _cfTypeID
-{
-	return CGEventSourceGetTypeID();
+- (CFTypeID) _cfTypeID {
+    return CGEventSourceGetTypeID();
 }
 @end
 
 ////////////////////////////////////////////////////////////////
 
-static void cgEventTapCallout(CFMachPortRef mp, void* msg, CFIndex size, void* info)
+static void cgEventTapCallout(CFMachPortRef mp, void *msg, CFIndex size,
+                              void *info)
 {
-	CGEventTap* tap = (CGEventTap*) info;
+    CGEventTap *tap = (CGEventTap *) info;
 
-	struct TapMachMessage* tapMessage = (struct TapMachMessage*) msg;
-	CGEventRef event = tapMessage->event;
+    struct TapMachMessage *tapMessage = (struct TapMachMessage *) msg;
+    CGEventRef event = tapMessage->event;
 
-	CGEventType type = CGEventGetType(tapMessage->event);
-	if (tap.enabled && (CGEventMaskBit(type) & tap.mask) != 0)
-	{
-		// Invoke callback
-		CGEventRef returned = tap.callback(tapMessage->proxy, type, event, tap.userInfo);
+    CGEventType type = CGEventGetType(tapMessage->event);
+    if (tap.enabled && (CGEventMaskBit(type) & tap.mask) != 0) {
+        // Invoke callback
+        CGEventRef returned =
+                tap.callback(tapMessage->proxy, type, event, tap.userInfo);
 
-		if (!(tap.options & kCGEventTapOptionListenOnly))
-			event = returned;
-	}
+        if (!(tap.options & kCGEventTapOptionListenOnly))
+            event = returned;
+    }
 
-	// Pass the message on
-	if (event != NULL)
-	{
-		CGEventTapPostEvent(tapMessage->proxy, event);
+    // Pass the message on
+    if (event != NULL) {
+        CGEventTapPostEvent(tapMessage->proxy, event);
 
-		if (event != tapMessage->event)
-			CFRelease(event);
-	}
+        if (event != tapMessage->event)
+            CFRelease(event);
+    }
 
-	CFRelease(tapMessage->event);
+    CFRelease(tapMessage->event);
 }
 
 @implementation CGEventTap
@@ -193,53 +183,55 @@ static void cgEventTapCallout(CFMachPortRef mp, void* msg, CFIndex size, void* i
 @synthesize userInfo = _userInfo;
 @synthesize enabled = _enabled;
 
--(instancetype) initWithLocation: (CGEventTapLocation) location
-						options: (CGEventTapOptions) options
-							mask: (CGEventMask) mask
-						callback: (CGEventTapCallBack) callback
-						userInfo: (void*) userInfo
+- (instancetype) initWithLocation: (CGEventTapLocation) location
+                          options: (CGEventTapOptions) options
+                             mask: (CGEventMask) mask
+                         callback: (CGEventTapCallBack) callback
+                         userInfo: (void *) userInfo
 {
-	_location = location;
-	_options = options;
-	_mask = mask;
-	_callback = callback;
-	_userInfo = userInfo;
-	_enabled = TRUE;
+    _location = location;
+    _options = options;
+    _mask = mask;
+    _callback = callback;
+    _userInfo = userInfo;
+    _enabled = TRUE;
 
-	kern_return_t ret = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &_machPort);
+    kern_return_t ret = mach_port_allocate(mach_task_self(),
+                                           MACH_PORT_RIGHT_RECEIVE, &_machPort);
     if (KERN_SUCCESS == ret) {
-        ret = mach_port_insert_right(mach_task_self(), _machPort, _machPort, MACH_MSG_TYPE_MAKE_SEND);
+        ret = mach_port_insert_right(mach_task_self(), _machPort, _machPort,
+                                     MACH_MSG_TYPE_MAKE_SEND);
     }
     if (KERN_SUCCESS != ret) {
-        if (MACH_PORT_NULL != _machPort) mach_port_destroy(mach_task_self(), _machPort);
-		[self release];
+        if (MACH_PORT_NULL != _machPort)
+            mach_port_destroy(mach_task_self(), _machPort);
+        [self release];
         return nil;
     }
 
-	return self;
+    return self;
 }
 
--(void) dealloc
-{
-	_CGEventTapDestroyed(_location, _machPort);
-	mach_port_destroy(mach_task_self(), _machPort);
-	[super dealloc];
+- (void) dealloc {
+    _CGEventTapDestroyed(_location, _machPort);
+    mach_port_destroy(mach_task_self(), _machPort);
+    [super dealloc];
 }
 
--(CFMachPortRef) createCFMachPort
-{
-	CFMachPortRef mp;
-	CFMachPortContext ctxt = {
-		.copyDescription = NULL,
-		.info = self,
-		.release = CFRelease,
-		.retain = CFRetain,
-		.version = 0,
-	};
+- (CFMachPortRef) createCFMachPort {
+    CFMachPortRef mp;
+    CFMachPortContext ctxt = {
+            .copyDescription = NULL,
+            .info = self,
+            .release = CFRelease,
+            .retain = CFRetain,
+            .version = 0,
+    };
 
-	mp = CFMachPortCreateWithPort(NULL, _machPort, cgEventTapCallout, &ctxt, NULL);
+    mp = CFMachPortCreateWithPort(NULL, _machPort, cgEventTapCallout, &ctxt,
+                                  NULL);
 
-	return mp;
+    return mp;
 }
 
 @end

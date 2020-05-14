@@ -16,64 +16,59 @@
  You should have received a copy of the GNU General Public License
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <CoreGraphics/CGEventSource.h>
 #include "CGEventObjC.h"
+#include <CoreGraphics/CGEventSource.h>
 
 static CGEventFlags g_sourceStates[3];
 
-CFTypeID CGEventSourceGetTypeID(void)
-{
-	return (CFTypeID) [CGEventSource self];
+CFTypeID CGEventSourceGetTypeID(void) {
+    return (CFTypeID)[CGEventSource self];
 }
 
-CGEventSourceRef CGEventSourceCreate(CGEventSourceStateID stateID)
-{
-	return (CGEventSourceRef) [[CGEventSource alloc] initWithState: stateID];
+CGEventSourceRef CGEventSourceCreate(CGEventSourceStateID stateID) {
+    return (CGEventSourceRef) [[CGEventSource alloc] initWithState: stateID];
 }
 
 CGEventSourceKeyboardType CGEventSourceGetKeyboardType(CGEventSourceRef source)
 {
-	CGEventSource* src = (CGEventSource*) source;
-	return src.keyboardType;
+    CGEventSource *src = (CGEventSource *) source;
+    return src.keyboardType;
 }
 
-void CGEventSourceSetKeyboardType(CGEventSourceRef source, CGEventSourceKeyboardType keyboardType)
+void CGEventSourceSetKeyboardType(CGEventSourceRef source,
+                                  CGEventSourceKeyboardType keyboardType)
 {
-	CGEventSource* src = (CGEventSource*) source;
-	src.keyboardType = keyboardType;
+    CGEventSource *src = (CGEventSource *) source;
+    src.keyboardType = keyboardType;
 }
 
-CGEventSourceStateID CGEventSourceGetSourceStateID(CGEventSourceRef source)
-{
-	CGEventSource* src = (CGEventSource*) source;
-	return src.stateID;
+CGEventSourceStateID CGEventSourceGetSourceStateID(CGEventSourceRef source) {
+    CGEventSource *src = (CGEventSource *) source;
+    return src.stateID;
 }
 
-int64_t CGEventSourceGetUserData(CGEventSourceRef source)
-{
-	CGEventSource* src = (CGEventSource*) source;
-	return src.userData;
+int64_t CGEventSourceGetUserData(CGEventSourceRef source) {
+    CGEventSource *src = (CGEventSource *) source;
+    return src.userData;
 }
 
-void CGEventSourceSetUserData(CGEventSourceRef source, int64_t userData)
-{
-	CGEventSource* src = (CGEventSource*) source;
-	src.userData = userData;
+void CGEventSourceSetUserData(CGEventSourceRef source, int64_t userData) {
+    CGEventSource *src = (CGEventSource *) source;
+    src.userData = userData;
 }
 
-double CGEventSourceGetPixelsPerLine(CGEventSourceRef source)
-{
-	CGEventSource* src = (CGEventSource*) source;
-	return src.pixelsPerLine;
+double CGEventSourceGetPixelsPerLine(CGEventSourceRef source) {
+    CGEventSource *src = (CGEventSource *) source;
+    return src.pixelsPerLine;
 }
 
-void CGEventSourceSetPixelsPerLine(CGEventSourceRef source, double pixelsPerLine)
+void CGEventSourceSetPixelsPerLine(CGEventSourceRef source,
+                                   double pixelsPerLine)
 {
-	CGEventSource* src = (CGEventSource*) source;
-	src.pixelsPerLine = pixelsPerLine;
+    CGEventSource *src = (CGEventSource *) source;
+    src.pixelsPerLine = pixelsPerLine;
 }
 
-CGEventFlags CGEventSourceFlagsState(CGEventSourceStateID stateID)
-{
-	return g_sourceStates[stateID+1];
+CGEventFlags CGEventSourceFlagsState(CGEventSourceStateID stateID) {
+    return g_sourceStates[stateID + 1];
 }

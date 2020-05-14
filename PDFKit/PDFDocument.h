@@ -1,8 +1,9 @@
+#import <ApplicationServices/ApplicationServices.h>
 #import <Foundation/NSObject.h>
 #import <PDFKit/PDFKitExport.h>
-#import <ApplicationServices/ApplicationServices.h>
 
-@class NSURL, NSArray, NSMutableArray, PDFPage, PDFSelection, NSTimer, NSNotification;
+@class NSURL, NSArray, NSMutableArray, PDFPage, PDFSelection, NSTimer,
+        NSNotification;
 
 PDFKIT_EXPORT NSString *const PDFDocumentDidEndFindNotification;
 PDFKIT_EXPORT NSString *const PDFDocumentDidFindMatchNotification;
@@ -22,36 +23,36 @@ PDFKIT_EXPORT NSString *const PDFDocumentDidFindMatchNotification;
     NSTimer *_findTimer;
 }
 
-- initWithData:(NSData *)data;
-- initWithURL:(NSURL *)url;
+- initWithData: (NSData *) data;
+- initWithURL: (NSURL *) url;
 
-- (NSURL *)documentURL;
+- (NSURL *) documentURL;
 
-- (void)setDelegate:object;
+- (void) setDelegate: object;
 
-- (Class)pageClass;
+- (Class) pageClass;
 
-- (NSUInteger)pageCount;
-- (PDFPage *)pageAtIndex:(NSUInteger)index;
-- (NSUInteger)indexForPage:(PDFPage *)page;
+- (NSUInteger) pageCount;
+- (PDFPage *) pageAtIndex: (NSUInteger) index;
+- (NSUInteger) indexForPage: (PDFPage *) page;
 
-- (BOOL)isFinding;
-- (void)cancelFindString;
-- (void)beginFindString:(NSString *)string withOptions:(NSUInteger)options;
-- (NSArray *)findString:(NSString *)string withOptions:(NSUInteger)options;
+- (BOOL) isFinding;
+- (void) cancelFindString;
+- (void) beginFindString: (NSString *) string withOptions: (NSUInteger) options;
+- (NSArray *) findString: (NSString *) string withOptions: (NSUInteger) options;
 
 @end
 
 @interface NSObject (PDFDocumentDelegate)
-- (void)didMatchString:(PDFSelection *)selection;
+- (void) didMatchString: (PDFSelection *) selection;
 
-- (void)documentDidBeginDocumentFind:(NSNotification *)note;
-- (void)documentDidEndDocumentFind:(NSNotification *)note;
+- (void) documentDidBeginDocumentFind: (NSNotification *) note;
+- (void) documentDidEndDocumentFind: (NSNotification *) note;
 
-- (void)documentDidBeginPageFind:(NSNotification *)note;
-- (void)documentDidEndPageFind:(NSNotification *)note;
+- (void) documentDidBeginPageFind: (NSNotification *) note;
+- (void) documentDidEndPageFind: (NSNotification *) note;
 
-- (void)documentDidFindMatch:(NSNotification *)note;
+- (void) documentDidFindMatch: (NSNotification *) note;
 
-- (void)documentDidUnlock:(NSNotification *)note;
+- (void) documentDidUnlock: (NSNotification *) note;
 @end

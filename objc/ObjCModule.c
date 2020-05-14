@@ -7,10 +7,10 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import "ObjCModule.h"
 #import "objc_class.h"
-#import "objc_sel.h"
 #import "objc_log.h"
 #import "objc_malloc.h"
 #import "objc_protocol.h"
+#import "objc_sel.h"
 #if defined(__APPLE__)
 #import "OBJCRegisterModule_Darwin.h"
 #endif
@@ -29,9 +29,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #else
 #define __USE_GNU // for dladdr()
 #import <dlfcn.h>
-#import <unistd.h>
-#import <sys/param.h>
 #import <limits.h>
+#import <sys/param.h>
+#import <unistd.h>
 #endif
 #ifdef BSD
 #import <sys/sysctl.h>

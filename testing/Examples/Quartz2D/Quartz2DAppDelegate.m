@@ -15,64 +15,60 @@
 
 @synthesize window;
 
-NSArray *ClassGetSubclasses(Class parentClass){
+NSArray *ClassGetSubclasses(Class parentClass) {
     int numClasses = objc_getClassList(NULL, 0);
     Class *classes = NULL;
 
     classes = malloc(sizeof(Class) * numClasses);
     numClasses = objc_getClassList(classes, numClasses);
-    
+
     NSMutableArray *result = [NSMutableArray array];
     NSInteger i;
-    
-    for ( i = 0; i < numClasses; i++)
-    {
+
+    for (i = 0; i < numClasses; i++) {
         Class superClass = classes[i];
-        do
-        {
+        do {
             superClass = class_getSuperclass(superClass);
-        } while(superClass && superClass != parentClass);
-        
-        if (superClass == nil)
-        {
+        } while (superClass && superClass != parentClass);
+
+        if (superClass == nil) {
             continue;
         }
-        
-        [result addObject:classes[i]];
+
+        [result addObject: classes[i]];
     }
 
     free(classes);
-    
+
     return result;
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void) applicationDidFinishLaunching: (NSNotification *) aNotification {
 
-   [_popupButton removeAllItems];
-   
-   NSArray *demoClasses=ClassGetSubclasses([Demo class]);
+    [_popupButton removeAllItems];
 
-   NSMutableArray *demoInstances=[NSMutableArray array];
-   
-   for(Class demoClass in demoClasses)
-    [demoInstances addObject:[[demoClass alloc] init]];
-   
-   _allDemos=[demoInstances copy];
-   
-   for(Demo *demo in _allDemos){
-    [_popupButton addItemWithTitle:[demo title]];
-   }
-   
-   [_demoView setDemo:[demoInstances objectAtIndex:0]];
+    NSArray *demoClasses = ClassGetSubclasses([Demo class]);
+
+    NSMutableArray *demoInstances = [NSMutableArray array];
+
+    for (Class demoClass in demoClasses)
+        [demoInstances addObject: [[demoClass alloc] init]];
+
+    _allDemos = [demoInstances copy];
+
+    for (Demo *demo in _allDemos) {
+        [_popupButton addItemWithTitle: [demo title]];
+    }
+
+    [_demoView setDemo: [demoInstances objectAtIndex: 0]];
 }
 
--(void)selectDemo:sender {
-   NSString *title=[sender titleOfSelectedItem];
-   
-   for(Demo *check in _allDemos)
-    if([[check title] isEqual:title])
-     [_demoView setDemo:check];
-}
+- (void) selectDemo: sender {
+    NSString *title = [sender titleOfSelectedItem];
 
+    for (Demo *check in _allDemos)
+        if ([[check title] isEqual: title])
+            [_demoView setDemo: check];
+}
 
 @end

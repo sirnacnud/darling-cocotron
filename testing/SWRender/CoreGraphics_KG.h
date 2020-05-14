@@ -1,18 +1,18 @@
-#import <Onyx2D/O2Context.h>
 #import <Onyx2D/O2BitmapContext.h>
-#import <Onyx2D/O2Path.h>
-#import <Onyx2D/O2MutablePath.h>
 #import <Onyx2D/O2Color.h>
 #import <Onyx2D/O2ColorSpace.h>
-#import <Onyx2D/O2Image.h>
-#import <Onyx2D/O2ImageSource.h>
-#import <Onyx2D/O2ImageDestination.h>
+#import <Onyx2D/O2Context.h>
 #import <Onyx2D/O2DataProvider.h>
+#import <Onyx2D/O2Font.h>
+#import <Onyx2D/O2Function.h>
+#import <Onyx2D/O2Image.h>
+#import <Onyx2D/O2ImageDestination.h>
+#import <Onyx2D/O2ImageSource.h>
+#import <Onyx2D/O2MutablePath.h>
 #import <Onyx2D/O2PDFDocument.h>
 #import <Onyx2D/O2PDFPage.h>
-#import <Onyx2D/O2Function.h>
+#import <Onyx2D/O2Path.h>
 #import <Onyx2D/O2Shading.h>
-#import <Onyx2D/O2Font.h>
 
 #define ONYX2D
 
@@ -76,10 +76,12 @@
 #define CGContextAddArcToPoint O2ContextAddArcToPoint
 #define CGContextAddEllipseInRect O2ContextAddEllipseInRect
 #define CGContextAddPath O2ContextAddPath
-#define CGContextReplacePathWithStrokedPath O2ContextReplacePathWithStrokedPath
+#define CGContextReplacePathWithStrokedPath                                    \
+        O2ContextReplacePathWithStrokedPath
 #define CGContextSaveGState O2ContextSaveGState
 #define CGContextRestoreGState O2ContextRestoreGState
-#define CGContextGetUserSpaceToDeviceSpaceTransform O2ContextGetUserSpaceToDeviceSpaceTransform
+#define CGContextGetUserSpaceToDeviceSpaceTransform                            \
+    O2ContextGetUserSpaceToDeviceSpaceTransform
 #define CGContextGetCTM O2ContextGetCTM
 #define CGContextGetClipBoundingBox O2ContextGetClipBoundingBox
 #define CGContextGetTextMatrix O2ContextGetTextMatrix
@@ -280,36 +282,30 @@
 
 // image source
 
-#define CGImageSourceCreateWithData(data, opts) \
-    [O2ImageSource newImageSourceWithData:data options:opts]
+#define CGImageSourceCreateWithData(data, opts)                                \
+    [O2ImageSource newImageSourceWithData: data options: opts]
 
-#define CGImageSourceCreateImageAtIndex(self, index, opts) \
-    [self createImageAtIndex:index options:opts]
+#define CGImageSourceCreateImageAtIndex(self, index, opts)                     \
+    [self createImageAtIndex: index options: opts]
 
 // pdf document
 
-#define CGPDFDocumentRetain(self) \
-    [self retain]
+#define CGPDFDocumentRetain(self) [self retain]
 
-#define CGPDFDocumentRelease(self) \
-    [self release]
+#define CGPDFDocumentRelease(self) [self release]
 
-#define CGPDFDocumentCreateWithProvider(provider) \
-    [[O2PDFDocument alloc] initWithDataProvider:provider]
+#define CGPDFDocumentCreateWithProvider(provider)                              \
+    [[O2PDFDocument alloc] initWithDataProvider: provider]
 
-#define CGPDFDocumentGetNumberOfPages(self) \
-    [self pageCount]
+#define CGPDFDocumentGetNumberOfPages(self) [self pageCount]
 
-#define CGPDFDocumentGetPage(self, pageNumber) \
-    [self pageAtNumber:pageNumber]
+#define CGPDFDocumentGetPage(self, pageNumber) [self pageAtNumber: pageNumber]
 
 // pdf page
 
-#define CGPDFPageRetain(self) \
-    [self retain]
+#define CGPDFPageRetain(self) [self retain]
 
-#define CGPDFPageRelease(self) \
-    [self release]
+#define CGPDFPageRelease(self) [self release]
 
 // shadings
 #define CGFunctionCreate O2FunctionCreate
