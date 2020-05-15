@@ -21,7 +21,6 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSDictionary.h>
 #include <CoreGraphics/CoreGraphicsPrivate.h>
-#include <CoreServices/UnicodeUtilities.h>
 #include <stdatomic.h>
 
 @class CGSWindow;

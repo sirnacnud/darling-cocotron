@@ -601,7 +601,7 @@ static NSData *makeWindowIcon() {
     [_caContext renderSurface: surface];
 
     glFlush();
-    CGLSwapBuffers(_cglWindow);
+    CGLFlushDrawable(_cglWindow);
 
     CGLSetCurrentContext(prevContext);
 }

@@ -431,7 +431,7 @@ static stbi_uc *bmp_load(int *x, int *y, int *comp, int req_comp) {
     }
     if (flip_vertically) {
         stbi_uc t;
-        for (j = 0; j<(int) img_y> > 1; ++j) {
+        for (j = 0; j<img_y; ++j) {
             stbi_uc *p1 = out + j * img_x * target;
             stbi_uc *p2 = out + (img_y - 1 - j) * img_x * target;
             for (i = 0; i < (int) img_x * target; ++i) {
