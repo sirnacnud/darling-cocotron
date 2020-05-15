@@ -16,25 +16,13 @@
  You should have received a copy of the GNU General Public License
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CGEVENTTAP_INTERNAL_H
-#define CGEVENTTAP_INTERNAL_H
-#include <CoreGraphics/CGEventTypes.h>
-#include <mach/message.h>
+#ifndef CGSSURFACEX11_H
+#define CGSSURFACEX11_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#import <CoreGraphics/CGSSurface.h>
 
-extern void _CGEventTapDestroyed(CGEventTapLocation loc, mach_port_t mp);
-
-struct TapMachMessage {
-    mach_msg_header_t header;
-    CGEventTapProxy proxy;
-    CGEventRef event;
-};
-
-#ifdef __cplusplus
-}
-#endif
+@interface CGSSurfaceX11 : CGSSurface
+@end
 
 #endif
+

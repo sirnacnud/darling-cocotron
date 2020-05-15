@@ -105,7 +105,9 @@ set(CoreGraphics_sources
 	CGSConnection.m
 	CGSWindow.m
 	CGSSurface.m
+	CGSKeyboardLayout.m
 	CGSRegion.m
+	CGSScreen.m
 	CGEvent.m
 	CGEventSource.m
 	CGEventTap.m
@@ -133,3 +135,5 @@ add_framework(CoreGraphics
 		GL
 		IOKit
 )
+
+add_subdirectory(X11.backend)

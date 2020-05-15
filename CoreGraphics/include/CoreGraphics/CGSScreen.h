@@ -16,25 +16,27 @@
  You should have received a copy of the GNU General Public License
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CGEVENTTAP_INTERNAL_H
-#define CGEVENTTAP_INTERNAL_H
-#include <CoreGraphics/CGEventTypes.h>
-#include <mach/message.h>
+#ifndef CGSSCREEN_H
+#define CGSSCREEN_H
+#import <Foundation/NSArray.h>
+#import <Foundation/NSDictionary.h>
+#import <Foundation/NSData.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+@interface CGSScreen : NSObject {
+	NSData* _edid;
+	NSArray<NSDictionary*>* _modes;
+	CFIndex _currentMode;
 
-extern void _CGEventTapDestroyed(CGEventTapLocation loc, mach_port_t mp);
-
-struct TapMachMessage {
-    mach_msg_header_t header;
-    CGEventTapProxy proxy;
-    CGEventRef event;
-};
-
-#ifdef __cplusplus
+	uint32_t _currentModeHeightCached;
 }
-#endif
+
+@property(readwrite, strong) NSData* edid;
+@property(readwrite, strong) NSArray<NSDictionary*>* modes;
+@property(readwrite, assign) CFIndex currentMode;
+
+@property(readonly) uint32_t currentModeHeight;
+
+@end
 
 #endif
+

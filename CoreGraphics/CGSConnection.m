@@ -17,61 +17,95 @@
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
 #import <CoreGraphics/CGSConnection.h>
-#import <CoreGraphics/CGSSurface.h>
 #import <CoreGraphics/CGSWindow.h>
+#import <CoreGraphics/CGSSurface.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSNumber.h>
 #import <Foundation/NSRaise.h>
 
 @implementation CGSConnection
-- (instancetype) initWithConnectionID: (CGSConnectionID) connId {
-    _nextWindowId = 1;
-    _connectionId = connId;
-    _windows = [[NSMutableDictionary alloc] initWithCapacity: 1];
-    return self;
+-(instancetype) initWithConnectionID:(CGSConnectionID)connId
+{
+	_nextWindowId = 1;
+	_connectionId = connId;
+	_windows = [[NSMutableDictionary alloc] initWithCapacity: 1];
+	return self;
 }
 
-- (CGSWindow *) windowForId: (CGSWindowID) winId {
-    CGSWindow *rv;
-    @synchronized(_windows) {
-        rv = [_windows objectForKey: [NSNumber numberWithInt: winId]];
-    }
-    return rv;
+-(CGSWindow*) windowForId:(CGSWindowID)winId
+{
+	@synchronized(_windows)
+	{
+		return [_windows objectForKey: [NSNumber numberWithInt: winId]];
+	}
 }
 
-- (void) _windowInvalidated: (CGSWindowID) winId {
-    @synchronized(_windows) {
-        [_windows removeObjectForKey: [NSNumber numberWithInt: winId]];
-    }
+-(void) _windowInvalidated: (CGSWindowID) winId
+{
+	@synchronized(_windows)
+	{
+		[_windows removeObjectForKey: [NSNumber numberWithInt: winId]];
+	}
 }
 
-- (void) dealloc {
-    [_windows release];
-    [super dealloc];
+-(void) dealloc
+{
+	[_windows release];
+	[super dealloc];
 }
 
-+ (BOOL) isAvailable {
-    NSInvalidAbstractInvocation();
++(BOOL) isAvailable
+{
+	NSInvalidAbstractInvocation();
 }
 
-- (CGSWindow *) newWindow: (CGSRegionRef) region {
-    NSInvalidAbstractInvocation();
+-(CGSKeyboardLayout*) createKeyboardLayout
+{
+	NSInvalidAbstractInvocation();
 }
 
-- (void *) nativeDisplay {
-    NSInvalidAbstractInvocation();
+-(CGPoint) mouseLocation
+{
+	NSInvalidAbstractInvocation();
 }
 
-- (CGError) destroyWindow: (CGSWindowID) winId {
-    CGSWindow *win = [self windowForId: winId];
-    if (win == nil)
-        return kCGErrorIllegalArgument;
-    [win invalidate];
+-(NSArray *) modesForScreen:(int)screenIndex
+{
+	NSInvalidAbstractInvocation();
+}
 
-    @synchronized(_windows) {
-        [_windows removeObjectForKey: [NSNumber numberWithInt: winId]];
-    }
-    return kCGSErrorSuccess;
+-(BOOL) setMode:(NSDictionary *)mode forScreen:(int)screenIndex
+{
+	NSInvalidAbstractInvocation();
+}
+
+-(NSDictionary*) currentModeForScreen:(int)screenIndex
+{
+	NSInvalidAbstractInvocation();
+}
+
+-(CGSWindow*) newWindow:(CGSRegionRef)region
+{
+	NSInvalidAbstractInvocation();
+}
+
+-(void*) nativeDisplay
+{
+	NSInvalidAbstractInvocation();
+}
+
+-(CGError) destroyWindow:(CGSWindowID)winId
+{
+	CGSWindow* win = [self windowForId: winId];
+	if (win == nil)
+		return kCGErrorIllegalArgument;
+	[win invalidate];
+
+	@synchronized (_windows)
+	{
+		[_windows removeObjectForKey: [NSNumber numberWithInt: winId]];
+	}
+	return kCGSErrorSuccess;
 }
 
 @end

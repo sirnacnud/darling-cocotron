@@ -19,72 +19,73 @@
 
 #ifndef CGEVENT_OBJC_H
 #define CGEVENT_OBJC_H
-#include <CoreFoundation/CFBase.h>
 #include <CoreGraphics/CGEvent.h>
-#import <Foundation/NSData.h>
-#import <Foundation/NSDictionary.h>
+#include <CoreFoundation/CFBase.h>
 #import <Foundation/NSObject.h>
+#import <Foundation/NSDictionary.h>
+#import <Foundation/NSData.h>
 
 @class CGEventSource;
 
 @interface CGEvent : NSObject <NSCopying, NSCoding> {
-    CGEventSource *_source;
-    CGEventType _type;
-    CGEventTimestamp _timestamp;
-    CGEventFlags _flags;
-    NSMutableDictionary<NSNumber *, NSNumber *> *_fields;
+	CGEventSource* _source;
+	CGEventType _type;
+	CGEventTimestamp _timestamp;
+	CGEventFlags _flags;
+	NSMutableDictionary<NSNumber*, NSNumber*>* _fields;
 
-    // keyboard events
-    CGKeyCode _virtualKey;
-    UniChar _unicodeString[5];
+	// keyboard events
+	CGKeyCode _virtualKey;
+	UniChar _unicodeString[5];
 
-    // mouse button events
-    CGPoint _location;
-    CGMouseButton _mouseButton;
+	// mouse button events
+	CGPoint _location;
+	CGMouseButton _mouseButton;
 
-    // mouse wheel events
-    CGScrollEventUnit _scrollEventUnit;
-    uint32_t _wheelCount;
-    int32_t _wheels[3];
+	CGSEventRecordPtr _eventRecord;
+	uint32_t _eventRecordLength;
 }
-- (instancetype) initWithSource: (CGEventSource *) source;
-- (instancetype) initWithSource: (CGEventSource *) source
-                           type: (CGEventType) type;
-- (instancetype) initWithData: (NSData *) data;
+-(instancetype) initWithSource:(CGEventSource*) source;
+-(instancetype) initWithSource:(CGEventSource*) source
+						type:(CGEventType) type;
+-(instancetype) initWithEventRecord:(const CGSEventRecordPtr) eventRecord
+							length:(uint32_t) length;
 
-- (void) dealloc;
-- (id) copy;
-- (CFTypeID) _cfTypeID;
-- (NSData *) createData;
+-(void) dealloc;
+-(id)copy;
+-(CFTypeID) _cfTypeID;
+
+-(void) setEventRecord:(CGSEventRecordPtr) record
+				length:(uint32_t) length;
+@property(readonly) uint32_t eventRecordLength;
+@property(readonly) CGSEventRecordPtr eventRecord;
 
 @property(readwrite) CGEventType type;
-@property(retain) CGEventSource *source;
+@property(retain) CGEventSource* source;
 @property(readwrite) CGEventTimestamp timestamp;
 @property(readwrite) CGEventFlags flags;
-@property(readonly) NSMutableDictionary<NSNumber *, NSNumber *> *fields;
+@property(readonly) NSMutableDictionary<NSNumber*, NSNumber*>* fields;
 
 @property(readwrite) CGKeyCode virtualKey;
 
 @property(readwrite) CGPoint location;
 @property(readwrite) CGMouseButton mouseButton;
 
-@property(readwrite) CGScrollEventUnit scrollEventUnit;
-@property(readwrite) uint32_t wheelCount;
-@property(readonly) int32_t *wheels;
-@property(readonly) UniChar *unicodeString;
+@property(readonly) UniChar* unicodeString;
 
 @end
 
 //////////////////////////////////////////////////////////////////////
 
 @interface CGEventSource : NSObject {
-    CGEventSourceStateID _stateId;
-    CGEventSourceKeyboardType _keyboardType;
-    int64_t _userData;
-    double _pixelsPerLine;
+	CGEventSourceStateID _stateId;
+	CGEventSourceKeyboardType _keyboardType;
+	int64_t _userData;
+	double _pixelsPerLine;
 }
-- (instancetype) initWithState: (CGEventSourceStateID) stateId;
-- (CFTypeID) _cfTypeID;
+-(instancetype) initWithState: (CGEventSourceStateID) stateId;
+-(CFTypeID) _cfTypeID;
++(CGEventSource*) hidEventSource;
 
 @property CGEventSourceKeyboardType keyboardType;
 @property CGEventSourceStateID stateID;
@@ -96,32 +97,33 @@
 //////////////////////////////////////////////////////////////////////
 
 @interface CGEventTap : NSObject {
-    CGEventTapLocation _location;
-    CGEventTapOptions _options;
-    CGEventMask _mask;
-    CGEventTapCallBack _callback;
-    void *_userInfo;
-    Boolean _enabled;
+	CGEventTapLocation _location;
+	CGEventTapOptions _options;
+	CGEventMask _mask;
+	CGEventTapCallBack _callback;
+	void* _userInfo;
+	Boolean _enabled;
 
-    mach_port_t _machPort;
+	mach_port_t _machPort;
 }
 
-- (instancetype) initWithLocation: (CGEventTapLocation) location
-                          options: (CGEventTapOptions) options
-                             mask: (CGEventMask) mask
-                         callback: (CGEventTapCallBack) callback
-                         userInfo: (void *) userInfo;
+-(instancetype) initWithLocation: (CGEventTapLocation) location
+						options: (CGEventTapOptions) options
+							mask: (CGEventMask) mask
+						callback: (CGEventTapCallBack) callback
+						userInfo: (void*) userInfo;
 
-- (void) dealloc;
-- (CFMachPortRef) createCFMachPort;
+-(void) dealloc;
+-(CFMachPortRef) createCFMachPort;
 
 @property(readonly) mach_port_t machPort;
 @property(readonly) CGEventTapOptions options;
 @property(readonly) CGEventMask mask;
 @property(readonly) CGEventTapCallBack callback;
-@property(readonly) void *userInfo;
+@property(readonly) void* userInfo;
 @property Boolean enabled;
 
 @end
 
 #endif
+

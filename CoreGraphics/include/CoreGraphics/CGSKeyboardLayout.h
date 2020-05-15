@@ -16,25 +16,27 @@
  You should have received a copy of the GNU General Public License
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CGEVENTTAP_INTERNAL_H
-#define CGEVENTTAP_INTERNAL_H
-#include <CoreGraphics/CGEventTypes.h>
-#include <mach/message.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef CGSKEYBOARDLAYOUT_H
+#define CGSKEYBOARDLAYOUT_H
+#import <Foundation/NSString.h>
+#include <CoreServices/UnicodeUtilities.h>
+#include <stdint.h>
 
-extern void _CGEventTapDestroyed(CGEventTapLocation loc, mach_port_t mp);
-
-struct TapMachMessage {
-    mach_msg_header_t header;
-    CGEventTapProxy proxy;
-    CGEventRef event;
-};
-
-#ifdef __cplusplus
+@interface CGSKeyboardLayout : NSObject {
+	UCKeyboardLayout* _layout;
+	uint32_t _layoutLength;
+	NSString* _name;
+	NSString* _fullName;
 }
-#endif
+
+@property(readwrite, strong) NSString* name;
+@property(readwrite, strong) NSString* fullName;
+@property(readonly) UCKeyboardLayout* layout;
+@property(readonly) uint32_t layoutLength;
+
+-(void) setLayout:(UCKeyboardLayout*) layout length:(uint32_t) length;
+
+@end
 
 #endif

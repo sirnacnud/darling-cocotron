@@ -18,42 +18,42 @@
 */
 #ifndef CGSWINDOW_H
 #define CGSWINDOW_H
-#include <CoreGraphics/CoreGraphicsPrivate.h>
 #import <Foundation/NSObject.h>
+#import <Foundation/NSDictionary.h>
+#include <CoreGraphics/CoreGraphicsPrivate.h>
 #include <stdatomic.h>
 
 @class CGSSurface;
 @class CGSConnection;
 
 @interface CGSWindow : NSObject {
-    CGSConnection *_connection;
-    CGSWindowID _windowId;
-    _Atomic CGSSurfaceID _nextSurfaceId;
-    NSMutableDictionary<NSNumber *, CGSSurface *> *_surfaces;
+	CGSConnection* _connection;
+	CGSWindowID _windowId;
+	_Atomic CGSSurfaceID _nextSurfaceId;
+	NSMutableDictionary<NSNumber*, CGSSurface*>* _surfaces;
 }
 
-- (instancetype) initWithRegion: (CGSRegionRef) region
-                     connection: (CGSConnection *) connection
-                       windowID: (CGSWindowID) windowID;
-- (void) dealloc;
-- (CGSSurface *) surfaceForId: (CGSSurfaceID) surfaceId;
+-(instancetype) initWithRegion:(CGSRegionRef) region
+						connection:(CGSConnection*) connection
+						windowID:(CGSWindowID) windowID;
+-(void) dealloc;
+-(CGSSurface*) surfaceForId:(CGSSurfaceID) surfaceId;
 
-- (CGError) orderWindow: (CGSWindowOrderingMode) place
-             relativeTo: (CGSWindow *) window;
-- (CGError) moveTo: (const CGPoint *) point;
-- (CGError) setRegion: (CGSRegionRef) region;
-- (CGError) getRect: (CGRect *) outRect;
-- (CGError) setProperty: (CFStringRef) key value: (CFTypeRef) value;
-- (CGError) getProperty: (CFStringRef) key value: (CFTypeRef *) value;
-- (void) invalidate;
+-(CGError) orderWindow:(CGSWindowOrderingMode) place relativeTo:(CGSWindow*) window;
+-(CGError) moveTo:(const CGPoint*) point;
+-(CGError) setRegion:(CGSRegionRef) region;
+-(CGError) getRect:(CGRect*) outRect;
+-(CGError) setProperty:(CFStringRef) key value:(CFTypeRef) value;
+-(CGError) getProperty:(CFStringRef) key value:(CFTypeRef*) value;
+-(void) invalidate;
 
 // Used, for example, by CGWindowContextCreate()
-- (void *) nativeWindow;
-- (CGSSurface *) createSurface;
+-(void*) nativeWindow;
+-(CGSSurface*) createSurface;
 
-@property(readonly) CGSWindowID windowId;
+@property (readonly) CGSWindowID windowId;
 
-- (void) _surfaceInvalidated: (CGSSurfaceID) surfaceId;
+-(void) _surfaceInvalidated:(CGSSurfaceID) surfaceId;
 
 @end
 

@@ -18,30 +18,46 @@
 */
 #ifndef CGSCONNECTION_H
 #define CGSCONNECTION_H
-#include <CoreGraphics/CoreGraphicsPrivate.h>
-#import <Foundation/NSDictionary.h>
 #import <Foundation/NSObject.h>
+#import <Foundation/NSDictionary.h>
+#include <CoreGraphics/CoreGraphicsPrivate.h>
+#include <CoreServices/UnicodeUtilities.h>
 #include <stdatomic.h>
 
 @class CGSWindow;
+@class CGSScreen;
+@class CGSKeyboardLayout;
 
 @interface CGSConnection : NSObject {
-    CGSConnectionID _connectionId;
-    _Atomic CGSWindowID _nextWindowId;
-    NSMutableDictionary<NSNumber *, CGSWindow *> *_windows;
+	CGSConnectionID _connectionId;
+	_Atomic CGSWindowID _nextWindowId;
+	NSMutableDictionary<NSNumber*, CGSWindow*>* _windows;
 }
-- (instancetype) initWithConnectionID: (CGSConnectionID) connId;
-- (void) dealloc;
-- (CGSWindow *) windowForId: (CGSWindowID) winId;
-- (CGSWindow *) newWindow: (CGSRegionRef) region;
-- (CGError) destroyWindow: (CGSWindowID) winId;
+-(instancetype) initWithConnectionID:(CGSConnectionID)connId;
+-(void) dealloc;
+-(CGSWindow*) windowForId:(CGSWindowID)winId;
+-(CGSWindow*) newWindow:(CGSRegionRef)region;
+-(CGError) destroyWindow:(CGSWindowID)winId;
 
-+ (BOOL) isAvailable;
+// Mouse location in CG coordinates, i.e. relative to the upper left corner
+-(CGPoint) mouseLocation;
 
-- (void) _windowInvalidated: (CGSWindowID) winId;
+-(BOOL) setMode:(NSDictionary *)mode forScreen:(int)screenIndex;
+// Implementations should cache this information, because it may be accessed frequently
+-(NSArray<CGSScreen*>*) createScreens;
+
+// Implementations should also emit kTISNotifySelectedKeyboardInputSourceChanged via NSDistributedNotificationCenter
+// if layout changes.
+// Implementations should also cache this and return the same pointer if nothing changed.
+-(CGSKeyboardLayout*) createKeyboardLayout;
+
++(BOOL) isAvailable;
+
+-(void) _windowInvalidated: (CGSWindowID) winId;
 
 // For CGL
-- (void *) nativeDisplay;
+-(void*) nativeDisplay;
 @end
 
 #endif
+
