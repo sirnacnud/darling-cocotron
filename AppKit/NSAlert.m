@@ -19,7 +19,6 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <AppKit/NSAlert.h>
-#import <AppKit/NSApplication.h>
 #import <AppKit/NSAttributedString.h>
 #import <AppKit/NSButton.h>
 #import <AppKit/NSFont.h>
@@ -31,7 +30,43 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSStringDrawer.h>
 #import <AppKit/NSTextField.h>
 #import <AppKit/NSWindow-Private.h>
+#import <AppKit/NSApplication.h>
 #import <Foundation/NSDictionary.h>
+
+@interface _NSAlertCompletionHandler : NSObject {
+    void (^completionHandler)(NSModalResponse returnCode);
+}
+
+- (id) initWithBlock: (void (^)(NSModalResponse returnCode)) handler;
+
+- (void) alertDidEnd: (NSAlert *) alert
+          returnCode: (NSModalResponse) returnCode
+         contextInfo: (void *) contextInfo;
+
+@end
+
+@implementation _NSAlertCompletionHandler
+
+- (id) initWithBlock: (void (^)(NSModalResponse returnCode)) handler {
+    self = [super init];
+    completionHandler = [handler copy];
+    return self;
+}
+
+- (void) alertDidEnd: (NSAlert *) alert
+          returnCode: (NSModalResponse) returnCode
+         contextInfo: (void *) contextInfo
+{
+    completionHandler(returnCode);
+    [self release];
+}
+
+- (void) dealloc {
+    [completionHandler release];
+    [super dealloc];
+}
+
+@end
 
 @implementation NSAlert
 
@@ -535,6 +570,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
              modalDelegate: self
             didEndSelector: @selector(sheetDidEnd:returnCode:contextInfo:)
                contextInfo: info];
+}
+
+- (void) beginSheetModalForWindow: (NSWindow *) sheetWindow
+                completionHandler:
+                        (void (^)(NSModalResponse returnCode)) handler
+{
+    [self beginSheetModalForWindow: sheetWindow
+                     modalDelegate: [[_NSAlertCompletionHandler alloc]
+                                            initWithBlock: handler]
+                    didEndSelector: @selector(sheetDidEnd:returnCode:contextInfo:)
+                       contextInfo: 0];
 }
 
 - (NSInteger) runModal {

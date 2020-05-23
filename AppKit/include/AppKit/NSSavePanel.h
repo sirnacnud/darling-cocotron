@@ -19,6 +19,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <AppKit/NSNibLoading.h>
 #import <AppKit/NSPanel.h>
+#import <Foundation/NSURL.h>
 
 @class NSView, NSOutlineView;
 
@@ -62,6 +63,9 @@ enum {
 
 - (void) setRequiredFileType: (NSString *) type;
 - (void) setTreatsFilePackagesAsDirectories: (BOOL) flag;
+
+- (void) setDirectoryURL: (NSURL *) url;
+- (NSURL *) directoryURL;
 
 - (NSArray *) allowedFileTypes;
 

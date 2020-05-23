@@ -152,6 +152,14 @@ static NSSavePanel *_newPanel = nil;
     _directory = directory;
 }
 
+- (void) setDirectoryURL: (NSURL *) url {
+    [self setDirectory: [url path]];
+}
+
+- (NSURL *) directoryURL {
+    return [NSURL fileURLWithPath: [self directory]];
+}
+
 - (void) setRequiredFileType: (NSString *) type {
     @synchronized(self) {
         type = [type copy];

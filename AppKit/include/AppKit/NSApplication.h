@@ -21,6 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSGraphics.h>
 #import <AppKit/NSResponder.h>
 #import <AppKit/NSRunningApplication.h>
+#import <AppKit/NSAlert.h>
 #import <Foundation/NSNotification.h>
 #import <Foundation/NSRunLoop.h>
 
@@ -58,7 +59,6 @@ typedef double NSAppKitVersion;
 APPKIT_EXPORT const NSAppKitVersion NSAppKitVersionNumber;
 
 typedef id NSModalSession;
-typedef NSInteger NSModalResponse;
 
 enum {
     NSRunStoppedResponse = -1000,
