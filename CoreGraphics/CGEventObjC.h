@@ -42,20 +42,23 @@
 	CGPoint _location;
 	CGMouseButton _mouseButton;
 
-	// mouse wheel events
-	CGScrollEventUnit _scrollEventUnit;
-	uint32_t _wheelCount;
-	int32_t _wheels[3];
+	CGSEventRecordPtr _eventRecord;
+	uint32_t _eventRecordLength;
 }
 -(instancetype) initWithSource:(CGEventSource*) source;
 -(instancetype) initWithSource:(CGEventSource*) source
 						type:(CGEventType) type;
--(instancetype) initWithData:(NSData*) data;
+-(instancetype) initWithEventRecord:(const CGSEventRecordPtr) eventRecord
+							length:(uint32_t) length;
 
 -(void) dealloc;
 -(id)copy;
 -(CFTypeID) _cfTypeID;
--(NSData*) createData;
+
+-(void) setEventRecord:(CGSEventRecordPtr) record
+				length:(uint32_t) length;
+@property(readonly) uint32_t eventRecordLength;
+@property(readonly) CGSEventRecordPtr eventRecord;
 
 @property(readwrite) CGEventType type;
 @property(retain) CGEventSource* source;
@@ -68,9 +71,6 @@
 @property(readwrite) CGPoint location;
 @property(readwrite) CGMouseButton mouseButton;
 
-@property(readwrite) CGScrollEventUnit scrollEventUnit;
-@property(readwrite) uint32_t wheelCount;
-@property(readonly) int32_t* wheels;
 @property(readonly) UniChar* unicodeString;
 
 @end
@@ -85,6 +85,7 @@
 }
 -(instancetype) initWithState: (CGEventSourceStateID) stateId;
 -(CFTypeID) _cfTypeID;
++(CGEventSource*) hidEventSource;
 
 @property CGEventSourceKeyboardType keyboardType;
 @property CGEventSourceStateID stateID;

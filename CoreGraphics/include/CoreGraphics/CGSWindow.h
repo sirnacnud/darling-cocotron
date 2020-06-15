@@ -19,6 +19,7 @@
 #ifndef CGSWINDOW_H
 #define CGSWINDOW_H
 #import <Foundation/NSObject.h>
+#import <Foundation/NSDictionary.h>
 #include <CoreGraphics/CoreGraphicsPrivate.h>
 #include <stdatomic.h>
 

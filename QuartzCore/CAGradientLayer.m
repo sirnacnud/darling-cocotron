@@ -19,9 +19,9 @@
 
 #import <QuartzCore/CAGradientLayer.h>
 
-NSString * const kCAGradientLayerAxial = @"axial";
-NSString * const kCAGradientLayerRadial = @"radial";
-NSString * const kCAGradientLayerConic = @"conic";
+NSString *const kCAGradientLayerAxial = @"axial";
+NSString *const kCAGradientLayerRadial = @"radial";
+NSString *const kCAGradientLayerConic = @"conic";
 
 @implementation CAGradientLayer
 @end

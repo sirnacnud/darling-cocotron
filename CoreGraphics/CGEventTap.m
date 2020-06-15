@@ -19,11 +19,12 @@
 
 #include <CoreGraphics/CGEvent.h>
 #import "CGEventObjC.h"
-#include "CGEventTapInternal.h"
+#include <CoreGraphics/CGEventTapInternal.h>
 
 void CGEventPost(CGEventTapLocation tap, CGEventRef _Nullable event)
 {
 	// TODO: Create an appropriate CGEventTapProxy and call CGEventTapPostEvent()
+	// TODO: Finally, invoke callbacks registered with CGSRegisterNotifyProc()
 }
 
 CFMachPortRef CGEventTapCreate(CGEventTapLocation tap, CGEventTapPlacement place,

@@ -9,36 +9,35 @@
 #import "DemoView.h"
 #import "Demo.h"
 
-
 @implementation DemoView
 
-- (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
+- (id) initWithFrame: (NSRect) frame {
+    self = [super initWithFrame: frame];
     if (self) {
         // Initialization code here.
     }
     return self;
 }
 
--(void)setDemo:(Demo *)value {
-   value=[value retain];
-   [_demo release];
-   _demo=value;
-   [self setNeedsDisplay:YES];
+- (void) setDemo: (Demo *) value {
+    value = [value retain];
+    [_demo release];
+    _demo = value;
+    [self setNeedsDisplay: YES];
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
-   CGContextRef context=[[NSGraphicsContext currentContext] graphicsPort];
-   NSRect bounds=[self bounds];
-   
-   [[NSColor whiteColor] set];
-   NSRectFill([self bounds]);
-   
-   CGContextSaveGState(context);
-   
-   CGContextScaleCTM(context,bounds.size.width,bounds.size.height);
-   [_demo renderInContext:context];
-   CGContextRestoreGState(context);
+- (void) drawRect: (NSRect) dirtyRect {
+    CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
+    NSRect bounds = [self bounds];
+
+    [[NSColor whiteColor] set];
+    NSRectFill([self bounds]);
+
+    CGContextSaveGState(context);
+
+    CGContextScaleCTM(context, bounds.size.width, bounds.size.height);
+    [_demo renderInContext: context];
+    CGContextRestoreGState(context);
 }
 
 @end

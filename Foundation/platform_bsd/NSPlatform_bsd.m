@@ -25,54 +25,49 @@
  * based on NSPlatform_linux port
  */
 
-#import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 #import <Foundation/NSPlatform_bsd.h>
+#import <objc/runtime.h>
 
 #include <sys/param.h>
 #include <time.h>
 #include <unistd.h>
 
-NSString	*NSPlatformClassName = @"NSPlatform_bsd";
+NSString *NSPlatformClassName = @"NSPlatform_bsd";
 
 @implementation NSPlatform_bsd
 
 void NSPlatformSleepThreadForTimeInterval(NSTimeInterval interval) {
-	 if (interval <= 0.0)
-		  return;
+    if (interval <= 0.0)
+        return;
 
-	 if (interval > 1.0)
-		  sleep((unsigned int)interval);
-	 else 
-		  usleep((unsigned long)(1000000.0 * interval));
+    if (interval > 1.0)
+        sleep((unsigned int) interval);
+    else
+        usleep((unsigned long) (1000000.0 * interval));
 }
 
-- (NSString *)hostName
-{
-	 char	buf[MAXHOSTNAMELEN];
+- (NSString *) hostName {
+    char buf[MAXHOSTNAMELEN];
 
-	 gethostname(buf, MAXHOSTNAMELEN);
-	 return [NSString stringWithCString:buf];
+    gethostname(buf, MAXHOSTNAMELEN);
+    return [NSString stringWithCString: buf];
 }
 
-- (NSString *)DNSHostName
-{
-	 return [self hostName];
+- (NSString *) DNSHostName {
+    return [self hostName];
 }
 
-NSString * const NSPlatformExecutableDirectory=@"BSD";
-NSString * const NSPlatformResourceNameSuffix=@"bsd";
+NSString *const NSPlatformExecutableDirectory = @"BSD";
+NSString *const NSPlatformResourceNameSuffix = @"bsd";
 
-NSString * const NSPlatformExecutableFileExtension=@"";
-NSString * const NSPlatformLoadableObjectFileExtension=@"so";
-NSString * const NSPlatformLoadableObjectFilePrefix=@"lib";
-
+NSString *const NSPlatformExecutableFileExtension = @"";
+NSString *const NSPlatformLoadableObjectFileExtension = @"so";
+NSString *const NSPlatformLoadableObjectFilePrefix = @"lib";
 
 @end
 
-char **NSPlatform_environ()
-{	
-	extern char **environ;
-	return environ;
+char **NSPlatform_environ() {
+    extern char **environ;
+    return environ;
 }
-

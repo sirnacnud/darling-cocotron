@@ -24,17 +24,18 @@
 @class CGSWindow;
 
 @interface CGSSurface : NSObject {
-	CGSWindow* _window;
-	CGSSurfaceID _surfaceId;
+    CGSWindow *_window;
+    CGSSurfaceID _surfaceId;
 }
--(instancetype) initWithWindow:(CGSWindow*)window surfaceID:(CGSSurfaceID) surfaceID;
--(CGError) setBounds:(CGRect) rect;
+- (instancetype) initWithWindow: (CGSWindow *) window
+                      surfaceID: (CGSSurfaceID) surfaceID;
+- (CGError) setBounds: (CGRect) rect;
 
 // Used by CGL as EGLNativeWindowType for CGLSetSurface()
--(void*) nativeWindow;
--(void) invalidate;
+- (void *) nativeWindow;
+- (void) invalidate;
 
-@property (readonly) CGSSurfaceID surfaceId;
+@property(readonly) CGSSurfaceID surfaceId;
 
 @end
 

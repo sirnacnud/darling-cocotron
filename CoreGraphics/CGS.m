@@ -34,6 +34,16 @@ static pthread_mutex_t g_defaultConnectionMutex = PTHREAD_MUTEX_INITIALIZER;
 static _Atomic CGSConnectionID g_nextConnectionID = 1;
 static Class g_backendClass = nil;
 
+__attribute__((visibility("hidden"))) CFMutableArrayRef g_cgsNotifyProc;
+__attribute__((visibility("hidden"))) pthread_mutex_t g_cgsNotifyProcMutex = PTHREAD_MUTEX_INITIALIZER;
+
+typedef struct
+{
+	CGSNotifyProcPtr proc;
+	CGSNotificationType notificationType;
+	void* private;
+} NotifyProcEntry;
+
 CGError CGSSetDenyWindowServerConnections(Boolean deny)
 {
 	NSUInteger connectionCount;
@@ -337,3 +347,61 @@ CGError CGSSetSurfaceBounds(CGSConnectionID cid, CGSWindowID wid, CGSSurfaceID s
 	return [surface setBounds: rect];
 }
 
+CGSConnection* _CGSConnectionFromEventRecord(const CGSEventRecordPtr record)
+{
+	if (!record)
+		return nil;
+	return _CGSConnectionForID(record->connection);
+}
+
+static void simplyFree(CFAllocatorRef allocator, const void* mem)
+{
+	free((void*) mem);
+}
+
+CGError CGSRegisterNotifyProc(CGSNotifyProcPtr proc, CGSNotificationType notificationType, void* private)
+{
+	static dispatch_once_t once;
+
+	dispatch_once(&once, ^{
+		CFArrayCallBacks cb = {
+			.release = simplyFree,
+			.version = 0,
+		};
+		g_cgsNotifyProc = CFArrayCreateMutable(NULL, 0, &cb);
+	});
+
+	NotifyProcEntry* e = (NotifyProcEntry*) malloc(sizeof(NotifyProcEntry));
+	e->proc = proc;
+	e->notificationType = notificationType;
+	e->private = private;
+
+	pthread_mutex_lock(&g_cgsNotifyProcMutex);
+	CFArrayAppendValue(g_cgsNotifyProc, e);
+	pthread_mutex_unlock(&g_cgsNotifyProcMutex);
+
+	return kCGSErrorSuccess;
+}
+
+CGError CGSRemoveNotifyProc(CGSNotifyProcPtr proc, CGSNotificationType notificationType)
+{
+	if (!g_cgsNotifyProc)
+		return kCGSErrorSuccess;
+
+	pthread_mutex_lock(&g_cgsNotifyProcMutex);
+
+	// This code is not too efficient, but it is called so rarely (if ever), it doesn't matter.
+	for (CFIndex i = 0; i < CFArrayGetCount(g_cgsNotifyProc); i++)
+	{
+		NotifyProcEntry* e = (NotifyProcEntry*) CFArrayGetValueAtIndex(g_cgsNotifyProc, i);
+		if (e->proc == proc && e->notificationType == notificationType)
+		{
+			CFArrayRemoveValueAtIndex(g_cgsNotifyProc, i);
+			break;
+		}
+	}
+
+	pthread_mutex_unlock(&g_cgsNotifyProcMutex);
+
+	return kCGSErrorSuccess;
+}

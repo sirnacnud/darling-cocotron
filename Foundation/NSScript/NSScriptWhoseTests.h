@@ -1,5 +1,5 @@
 #import <Foundation/NSObject.h>
 
 @interface NSObject (NSScriptWhoseTests)
-- (BOOL)isEqualTo:other;
+- (BOOL) isEqualTo: other;
 @end

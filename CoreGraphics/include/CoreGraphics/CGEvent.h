@@ -24,6 +24,7 @@
 #include <CoreGraphics/CGGeometry.h>
 #include <CoreGraphics/CGError.h>
 #include <CoreGraphics/CGRemoteOperation.h>
+#include <CoreGraphics/CoreGraphicsPrivate.h>
 
 __BEGIN_DECLS
 

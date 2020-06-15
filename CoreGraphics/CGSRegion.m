@@ -20,7 +20,7 @@
 #import <Foundation/NSObject.h>
 
 @interface CGSRegion : NSObject {
-	CGRect _rect;
+    CGRect _rect;
 }
 @property CGRect rect;
 @end
@@ -29,35 +29,29 @@
 @synthesize rect = _rect;
 @end
 
-CGError CGSNewRegionWithRect(const CGRect * rect, CGSRegionRef *newRegion)
-{
-	CGSRegion* reg = [CGSRegion new];
-	reg.rect = *rect;
-	*newRegion = (CGSRegionRef) reg;
-	return kCGSErrorSuccess;
+CGError CGSNewRegionWithRect(const CGRect *rect, CGSRegionRef *newRegion) {
+    CGSRegion *reg = [CGSRegion new];
+    reg.rect = *rect;
+    *newRegion = (CGSRegionRef) reg;
+    return kCGSErrorSuccess;
 }
 
-void CGSRegionRelease(CGSRegionRef reg)
-{
-	CGSRegion* r = (CGSRegion*) reg;
-	[r release];
+void CGSRegionRelease(CGSRegionRef reg) {
+    CGSRegion *r = (CGSRegion *) reg;
+    [r release];
 }
 
-void CGSRegionRetain(CGSRegionRef reg)
-{
-	CGSRegion* r = (CGSRegion*) reg;
-	[r retain];
+void CGSRegionRetain(CGSRegionRef reg) {
+    CGSRegion *r = (CGSRegion *) reg;
+    [r retain];
 }
 
 // This is non-standard. We should support non-rectangular regions instead
-void CGSRegionToRect(CGSRegionRef reg, CGRect* rect)
-{
-	CGSRegion* r = (CGSRegion*) reg;
-	*rect = r.rect;
+void CGSRegionToRect(CGSRegionRef reg, CGRect *rect) {
+    CGSRegion *r = (CGSRegion *) reg;
+    *rect = r.rect;
 }
 
-bool CGSRegionIsRectangular(CGSRegionRef reg)
-{
-	return TRUE;
+bool CGSRegionIsRectangular(CGSRegionRef reg) {
+    return TRUE;
 }
-

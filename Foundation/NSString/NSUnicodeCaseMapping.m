@@ -1,14 +1,25 @@
 /* Copyright (c) 2006-2007 Christopher J. W. Lloyd
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-#import <Foundation/NSUnicodeCaseMapping.h>
 #import <Foundation/NSData.h>
 #import <Foundation/NSException.h>
+#import <Foundation/NSUnicodeCaseMapping.h>
 
 // Unicode 1.1.5
 
@@ -690,146 +701,158 @@ FF59 FF39
 FF5A FF3A
 #endif
 
-static unichar _toUpperCase(unichar character){
-   if(character>='a' && character<='z')
-    return character-('a'-'A');
-   return character;
+static unichar _toUpperCase(unichar character) {
+    if (character >= 'a' && character <= 'z')
+        return character - ('a' - 'A');
+    return character;
 }
 
 // FIX
-void NSUnicodeToUppercase(unichar *characters,NSUInteger length) {
-   NSUInteger i;
+void NSUnicodeToUppercase(unichar *characters, NSUInteger length) {
+    NSUInteger i;
 
-   for(i=0;i<length;i++)
-    characters[i]=_toUpperCase(characters[i]);
+    for (i = 0; i < length; i++)
+        characters[i] = _toUpperCase(characters[i]);
 }
 
-static unichar _toLowerCase(unichar character){
-   if(character>='A' && character<='Z')
-    return character+('a'-'A');
-   return character;
+static unichar _toLowerCase(unichar character) {
+    if (character >= 'A' && character <= 'Z')
+        return character + ('a' - 'A');
+    return character;
 }
 
 // FIX
-void NSUnicodeToLowercase(unichar *characters,NSUInteger length) {
-   NSUInteger i;
+void NSUnicodeToLowercase(unichar *characters, NSUInteger length) {
+    NSUInteger i;
 
-   for(i=0;i<length;i++)
-    characters[i]=_toLowerCase(characters[i]);
+    for (i = 0; i < length; i++)
+        characters[i] = _toLowerCase(characters[i]);
 }
 
+void NSUnicodeToCapitalized(unichar *characters, NSUInteger length) {
+    NSUInteger i;
+    unichar prev = ' ';
 
-void NSUnicodeToCapitalized(unichar *characters,NSUInteger length) {
-   NSUInteger i;
-   unichar  prev=' ';
+    for (i = 0; i < length; i++) {
+        if (prev == ' ')
+            characters[i] = _toUpperCase(characters[i]);
+        else
+            characters[i] = characters[i];
 
-   for(i=0;i<length;i++){
-    if(prev==' ')
-     characters[i]=_toUpperCase(characters[i]);
-    else
-     characters[i]=characters[i];
-
-    prev=characters[i];
-   }
-}
-
-unichar *NSUnicodeFromBytes(const unsigned char *bytes,NSUInteger length,NSUInteger *resultLengthp) {
-   NSUInteger             i,resultLength,resultIndex=0;
-   BOOL                 swap=NO;
-   unichar             *result;
-
-   if(length%2!=0)
-    [NSException raise:NSInvalidArgumentException
-                format:@"length of unicode NSData is not even (length=%d)",length];
-
-   if(length<2)
-    i=0;
-   else if(bytes[0]==0xFE && bytes[1]==0xFF)
-    i=2;
-   else if(bytes[0]==0xFF && bytes[1]==0xFE){
-    swap=YES;
-    i=2;
-   }
-   else
-    i=0;
-
-   resultLength=(length-i)/2;
-   result=NSZoneMalloc(NULL,sizeof(unichar)*resultLength);
-
-   if(!swap){
-    for(;i<length;i+=2){
-     unichar high=bytes[i];
-     unichar low=bytes[i+1];
-
-     result[resultIndex++]=(high<<8)|low;
+        prev = characters[i];
     }
-   }
-   else {
-    for(;i<length;i+=2){
-     unichar low=bytes[i];
-     unichar high=bytes[i+1];
+}
 
-     result[resultIndex++]=(high<<8)|low;
+unichar *NSUnicodeFromBytes(const unsigned char *bytes, NSUInteger length,
+                            NSUInteger *resultLengthp)
+{
+    NSUInteger i, resultLength, resultIndex = 0;
+    BOOL swap = NO;
+    unichar *result;
+
+    if (length % 2 != 0)
+        [NSException raise: NSInvalidArgumentException
+                    format: @"length of unicode NSData is not even (length=%d)",
+                            length];
+
+    if (length < 2)
+        i = 0;
+    else if (bytes[0] == 0xFE && bytes[1] == 0xFF)
+        i = 2;
+    else if (bytes[0] == 0xFF && bytes[1] == 0xFE) {
+        swap = YES;
+        i = 2;
+    } else
+        i = 0;
+
+    resultLength = (length - i) / 2;
+    result = NSZoneMalloc(NULL, sizeof(unichar) * resultLength);
+
+    if (!swap) {
+        for (; i < length; i += 2) {
+            unichar high = bytes[i];
+            unichar low = bytes[i + 1];
+
+            result[resultIndex++] = (high << 8) | low;
+        }
+    } else {
+        for (; i < length; i += 2) {
+            unichar low = bytes[i];
+            unichar high = bytes[i + 1];
+
+            result[resultIndex++] = (high << 8) | low;
+        }
     }
-   }
 
-   *resultLengthp=resultLength;
+    *resultLengthp = resultLength;
 
-   return result;
+    return result;
 }
 
-unichar *NSUnicodeFromBytesUTF16BigEndian(const unsigned char *bytes,NSUInteger length,NSUInteger *resultLengthp) {
-   NSUInteger             i,resultLength,resultIndex=0;
-   unichar             *result;
+unichar *NSUnicodeFromBytesUTF16BigEndian(const unsigned char *bytes,
+                                          NSUInteger length,
+                                          NSUInteger *resultLengthp)
+{
+    NSUInteger i, resultLength, resultIndex = 0;
+    unichar *result;
 
-   if(length%2!=0)
-    [NSException raise:NSInvalidArgumentException format:@"length of unicode NSData is not even (length=%d)",length];
+    if (length % 2 != 0)
+        [NSException raise: NSInvalidArgumentException
+                    format: @"length of unicode NSData is not even (length=%d)",
+                            length];
 
-   resultLength=length/2;
-   result=NSZoneMalloc(NULL,sizeof(unichar)*resultLength);
+    resultLength = length / 2;
+    result = NSZoneMalloc(NULL, sizeof(unichar) * resultLength);
 
-	i = 0;
-	BOOL skippedMarker = NO;
-	if (bytes[0] == 0xFE && bytes[1] == 0xFF) {
-		i = 2; // Skip the marker word - internal Unicode rep doesn't use it.
-		skippedMarker = YES;
-	}
-   for(;i<length;i+=2){
-    unichar high=bytes[i];
-    unichar low=bytes[i+1];
+    i = 0;
+    BOOL skippedMarker = NO;
+    if (bytes[0] == 0xFE && bytes[1] == 0xFF) {
+        i = 2; // Skip the marker word - internal Unicode rep doesn't use it.
+        skippedMarker = YES;
+    }
+    for (; i < length; i += 2) {
+        unichar high = bytes[i];
+        unichar low = bytes[i + 1];
 
-    result[resultIndex++]=(high<<8)|low;
-   }
+        result[resultIndex++] = (high << 8) | low;
+    }
 
-	*resultLengthp=resultLength - ((skippedMarker) ? 2 : 0); // we skipped the marker word
+    *resultLengthp = resultLength -
+                     ((skippedMarker) ? 2 : 0); // we skipped the marker word
 
-   return result;
+    return result;
 }
 
-unichar *NSUnicodeFromBytesUTF16LittleEndian(const unsigned char *bytes,NSUInteger length,NSUInteger *resultLengthp) {
-	NSUInteger             i,resultLength,resultIndex=0;
-	unichar             *result;
-	
-	if(length%2!=0)
-		[NSException raise:NSInvalidArgumentException format:@"length of unicode NSData is not even (length=%d)",length];
-	
-	resultLength=length/2;
-	result=NSZoneMalloc(NULL,sizeof(unichar)*resultLength);
-	
-	i = 0;
-	BOOL skippedMarker = NO;
-	if (bytes[0] == 0xFF && bytes[1] == 0xFE) {
-		i = 2; // Skip the marker word - internal Unicode rep doesn't use it.
-		skippedMarker = YES;
-	}
-	for(;i<length;i+=2){
-		unichar high=bytes[i+1];
-		unichar low=bytes[i];
-		
-		result[resultIndex++]=(high<<8)|low;
-	}
-	
-	*resultLengthp=resultLength - ((skippedMarker) ? 2 : 0); // we skipped the marker word
-	
-	return result;
+unichar *NSUnicodeFromBytesUTF16LittleEndian(const unsigned char *bytes,
+                                             NSUInteger length,
+                                             NSUInteger *resultLengthp)
+{
+    NSUInteger i, resultLength, resultIndex = 0;
+    unichar *result;
+
+    if (length % 2 != 0)
+        [NSException raise: NSInvalidArgumentException
+                    format: @"length of unicode NSData is not even (length=%d)",
+                            length];
+
+    resultLength = length / 2;
+    result = NSZoneMalloc(NULL, sizeof(unichar) * resultLength);
+
+    i = 0;
+    BOOL skippedMarker = NO;
+    if (bytes[0] == 0xFF && bytes[1] == 0xFE) {
+        i = 2; // Skip the marker word - internal Unicode rep doesn't use it.
+        skippedMarker = YES;
+    }
+    for (; i < length; i += 2) {
+        unichar high = bytes[i + 1];
+        unichar low = bytes[i];
+
+        result[resultIndex++] = (high << 8) | low;
+    }
+
+    *resultLengthp = resultLength -
+                     ((skippedMarker) ? 2 : 0); // we skipped the marker word
+
+    return result;
 }

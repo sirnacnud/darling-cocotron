@@ -18,14 +18,23 @@
 */
 #ifndef CGEVENTTAP_INTERNAL_H
 #define CGEVENTTAP_INTERNAL_H
+#include <CoreGraphics/CGEventTypes.h>
+#include <mach/message.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 extern void _CGEventTapDestroyed(CGEventTapLocation loc, mach_port_t mp);
 
-struct TapMachMessage
-{
-	mach_msg_header_t header;
-	CGEventTapProxy proxy;
-	CGEventRef event;
+struct TapMachMessage {
+    mach_msg_header_t header;
+    CGEventTapProxy proxy;
+    CGEventRef event;
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -17,11 +17,14 @@
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "CGEventObjC.h"
-#include "CGEventTapInternal.h"
 #include <time.h>
 #include <CoreGraphics/CGEventSource.h>
+#include <CoreGraphics/CGSConnection.h>
+#include "CGEventTapInternal.h"
 #import <Foundation/NSKeyedArchiver.h>
 #import <Foundation/NSString.h>
+
+#define CGInvalidPoint CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX)
 
 @implementation CGEvent
 
@@ -32,9 +35,6 @@
 @synthesize fields = _fields;
 @synthesize virtualKey = _virtualKey;
 @synthesize mouseButton = _mouseButton;
-@synthesize location = _location;
-@synthesize scrollEventUnit = _scrollEventUnit;
-@synthesize wheelCount = _wheelCount;
 
 -(instancetype) initWithSource:(CGEventSource*) source
 {
@@ -49,6 +49,8 @@
 	_type = type;
 	_fields = [[NSMutableDictionary alloc] initWithCapacity: 0];
 	_timestamp = clock_gettime_nsec_np(CLOCK_UPTIME_RAW);
+
+	_location = CGInvalidPoint;
 	return self;
 }
 
@@ -61,8 +63,109 @@
 	return self;
 }
 
+-(void) _fillFromEventRecord
+{
+	_location = _eventRecord->location;
+	_type = _eventRecord->type; // These types match!
+	_timestamp = _eventRecord->time;
+
+	switch (_eventRecord->type)
+	{
+		case NX_LMOUSEDOWN:
+		case NX_LMOUSEUP:
+		case NX_RMOUSEDOWN:
+		case NX_RMOUSEUP:
+		case NX_OMOUSEDOWN:
+		case NX_OMOUSEUP:
+		case NX_LMOUSEDRAGGED:
+		case NX_RMOUSEDRAGGED:
+		case NX_OMOUSEDRAGGED:
+		{
+			_fields[@(kCGMouseEventButtonNumber)] = [NSNumber numberWithInt: _eventRecord->data.mouse.buttonNumber];
+			_fields[@(kCGMouseEventNumber)] = [NSNumber numberWithInt: _eventRecord->data.mouse.eventNum];
+			_fields[@(kCGMouseEventPressure)] = [NSNumber numberWithDouble: _eventRecord->data.mouse.pressure / 255.0];
+			_fields[@(kCGMouseEventClickState)] = [NSNumber numberWithInt: _eventRecord->data.mouse.click];
+			_fields[@(kCGMouseEventSubtype)] = [NSNumber numberWithInt: _eventRecord->data.mouse.subType];
+			break;
+		}
+		case NX_MOUSEMOVED:
+		{
+			_fields[@(kCGMouseEventDeltaX)] = [NSNumber numberWithInt: _eventRecord->data.mouseMove.dx];
+			_fields[@(kCGMouseEventDeltaY)] = [NSNumber numberWithInt: _eventRecord->data.mouseMove.dy];
+			_fields[@(kCGMouseEventSubtype)] = [NSNumber numberWithInt: _eventRecord->data.mouseMove.subType];
+			break;
+		}
+		case NX_SCROLLWHEELMOVED:
+		{
+			_fields[@(kCGScrollWheelEventDeltaAxis1)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.deltaAxis1];
+			_fields[@(kCGScrollWheelEventDeltaAxis2)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.deltaAxis2];
+			_fields[@(kCGScrollWheelEventDeltaAxis3)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.deltaAxis3];
+
+			_fields[@(kCGScrollWheelEventFixedPtDeltaAxis1)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.fixedDeltaAxis1];
+			_fields[@(kCGScrollWheelEventFixedPtDeltaAxis2)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.fixedDeltaAxis2];
+			_fields[@(kCGScrollWheelEventFixedPtDeltaAxis3)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.fixedDeltaAxis3];
+
+			_fields[@(kCGScrollWheelEventPointDeltaAxis1)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.pointDeltaAxis1];
+			_fields[@(kCGScrollWheelEventPointDeltaAxis2)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.pointDeltaAxis2];
+			_fields[@(kCGScrollWheelEventPointDeltaAxis3)] = [NSNumber numberWithInt: _eventRecord->data.scrollWheel.pointDeltaAxis3];
+			break;
+		}
+		case NX_KEYDOWN:
+		case NX_KEYUP:
+		{
+			break;
+		}
+	}
+}
+
+-(void) _createEventRecord
+{
+	// TODO
+}
+
+-(uint32_t) eventRecordLength
+{
+	if (!_eventRecordLength)
+		[self _createEventRecord];
+	return _eventRecordLength;
+}
+
+-(CGSEventRecordPtr) eventRecord
+{
+	if (!_eventRecord)
+		[self _createEventRecord];
+	return _eventRecord;
+}
+
+-(instancetype) initWithEventRecord:(const CGSEventRecordPtr) eventRecord
+							length:(uint32_t) length
+{
+	_eventRecord = malloc(length);
+	memcpy(_eventRecord, eventRecord, length);
+	_eventRecordLength = length;
+
+	_fields = [[NSMutableDictionary alloc] initWithCapacity: 0];
+	_source = [[CGEventSource hidEventSource] retain];
+
+	[self _fillFromEventRecord];
+
+	return self;
+}
+
+-(void) setEventRecord:(CGSEventRecordPtr) record
+				length:(uint32_t) length
+{
+	CGSEventRecordPtr myCopy = (CGSEventRecordPtr) malloc(length);
+	memcpy(myCopy, record, length);
+
+	free(_eventRecord);
+	_eventRecord = myCopy;
+	_eventRecordLength = length;
+}
+
 -(void) dealloc
 {
+	free(_eventRecord);
 	[_source release];
 	[_fields release];
 	[super dealloc];
@@ -81,9 +184,12 @@
 	rv->_location = _location;
 	rv->_mouseButton = _mouseButton;
 
-	rv->_scrollEventUnit = _scrollEventUnit;
-	rv->_wheelCount = _wheelCount;
-	memcpy(rv->_wheels, _wheels, sizeof(_wheels));
+	if (_eventRecord)
+	{
+		rv->_eventRecordLength = _eventRecordLength;
+		rv->_eventRecord = (CGSEventRecordPtr) malloc(_eventRecordLength);
+		memcpy(rv->_eventRecord, _eventRecord, _eventRecordLength);
+	}
 
 	return rv;
 }
@@ -96,11 +202,6 @@
 -(CFTypeID) _cfTypeID
 {
 	return CGEventGetTypeID();
-}
-
--(int32_t*) wheels
-{
-	return _wheels;
 }
 
 -(UniChar*) unicodeString
@@ -123,14 +224,26 @@
 	[archiver encodeDouble: _location.x forKey: @"location.x"];
 	[archiver encodeDouble: _location.y forKey: @"location.y"];
 	[archiver encodeInt: _mouseButton forKey: @"mouseButton"];
-	[archiver encodeInt: _scrollEventUnit forKey: @"scrollEventUnit"];
-	[archiver encodeInt: _wheelCount forKey:@"wheelCount"];
 
-	for (uint32_t i = 0; i < _wheelCount; i++)
-	{
-		[archiver encodeInt: _wheels[i] forKey:[NSString stringWithFormat:@"wheel-%d", i]];
-	}
+	if (_eventRecord)
+		[archiver encodeBytes: (uint8_t*)_eventRecord length: _eventRecordLength forKey: @"eventRecord"];
 }
+
+-(CGPoint) location
+{
+	const CGPoint invalid = CGInvalidPoint;
+	if (_location.x == invalid.x && _location.y == invalid.y)
+	{
+		_location = [_CGSConnectionForID(CGSDefaultConnection) mouseLocation];
+	}
+	return _location;
+}
+
+-(void) setLocation:(CGPoint) location
+{
+	_location = location;
+}
+
 @end
 
 ////////////////////////////////////////////////////////////////
@@ -143,6 +256,7 @@
 
 -(instancetype) initWithState: (CGEventSourceStateID) stateId
 {
+	_pixelsPerLine = 10;
 	_stateId = stateId;
 	return self;
 }
@@ -150,6 +264,17 @@
 -(CFTypeID) _cfTypeID
 {
 	return CGEventSourceGetTypeID();
+}
+
++(CGEventSource*) hidEventSource
+{
+	static CGEventSource* instance;
+	static dispatch_once_t once;
+
+	dispatch_once(&once, ^{
+		instance = [[CGEventSource alloc] initWithState: kCGEventSourceStateHIDSystemState];
+	});
+	return instance;
 }
 @end
 

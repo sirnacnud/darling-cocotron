@@ -1,6 +1,6 @@
-#import <CoreFoundation/CoreFoundation.h>
-#import <CFNetwork/CFNetworkExport.h>
 #import <CFNetwork/CFNetServices.h>
+#import <CFNetwork/CFNetworkExport.h>
+#import <CoreFoundation/CoreFoundation.h>
 
 CFNETWORK_EXPORT const CFStringRef kCFStreamPropertyShouldCloseNativeSocket;
 CFNETWORK_EXPORT const CFStringRef kCFStreamPropertySocketSecurityLevel;

@@ -19,5 +19,7 @@
 
 #import <AppKit/NSCollectionViewFlowLayout.h>
 
-NSString *const NSCollectionElementKindSectionHeader = @"UICollectionElementKindSectionHeader";
-NSString *const NSCollectionElementKindSectionFooter = @"UICollectionElementKindSectionFooter";
+NSString *const NSCollectionElementKindSectionHeader =
+        @"UICollectionElementKindSectionHeader";
+NSString *const NSCollectionElementKindSectionFooter =
+        @"UICollectionElementKindSectionFooter";

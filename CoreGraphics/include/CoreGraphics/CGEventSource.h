@@ -19,8 +19,8 @@
 #ifndef CGEVENTSOURCE_H
 #define CGEVENTSOURCE_H
 #include <CoreFoundation/CFBase.h>
-#include <stdint.h>
 #include <CoreGraphics/CGEventTypes.h>
+#include <stdint.h>
 
 __BEGIN_DECLS
 
@@ -28,7 +28,6 @@ extern CFTypeID CGEventSourceGetTypeID(void);
 
 extern CGEventSourceRef _Nullable CGEventSourceCreate(
     CGEventSourceStateID stateID);
-
 
 extern CGEventSourceKeyboardType CGEventSourceGetKeyboardType(
     CGEventSourceRef _Nullable source);
@@ -53,7 +52,8 @@ extern CGEventFlags CGEventSourceFlagsState(CGEventSourceStateID stateID);
 extern CFTimeInterval CGEventSourceSecondsSinceLastEventType(
     CGEventSourceStateID stateID, CGEventType eventType);
 extern uint32_t CGEventSourceCounterForEventType(CGEventSourceStateID
-    stateID, CGEventType eventType);
+                                                     stateID,
+    CGEventType eventType);
 extern void CGEventSourceSetUserData(CGEventSourceRef _Nullable source,
     int64_t userData);
 extern int64_t CGEventSourceGetUserData(CGEventSourceRef _Nullable source);
@@ -61,7 +61,7 @@ extern void CGEventSourceSetLocalEventsFilterDuringSuppressionState(
     CGEventSourceRef _Nullable source, CGEventFilterMask filter,
     CGEventSuppressionState state);
 extern CGEventFilterMask
-    CGEventSourceGetLocalEventsFilterDuringSuppressionState(
+CGEventSourceGetLocalEventsFilterDuringSuppressionState(
     CGEventSourceRef _Nullable source, CGEventSuppressionState state);
 extern void CGEventSourceSetLocalEventsSuppressionInterval(
     CGEventSourceRef _Nullable source, CFTimeInterval seconds);

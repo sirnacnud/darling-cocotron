@@ -1,6 +1,6 @@
-#import <Foundation/NSObject.h>
-#import <Foundation/NSGeometry.h>
 #import <ApplicationServices/ApplicationServices.h>
+#import <Foundation/NSGeometry.h>
+#import <Foundation/NSObject.h>
 
 @class PDFDocument;
 
@@ -24,24 +24,24 @@ typedef enum {
     NSRect *_characterRects;
 }
 
-- (PDFDocument *)document;
-- (CGPDFPageRef)pageRef;
-- (NSString *)label;
+- (PDFDocument *) document;
+- (CGPDFPageRef) pageRef;
+- (NSString *) label;
 
-- (NSUInteger)numberOfCharacters;
-- (NSString *)string;
+- (NSUInteger) numberOfCharacters;
+- (NSString *) string;
 
-- (NSRect)boundsForBox:(PDFDisplayBox)box;
+- (NSRect) boundsForBox: (PDFDisplayBox) box;
 
-- (void)transformContextForBox:(PDFDisplayBox)box;
+- (void) transformContextForBox: (PDFDisplayBox) box;
 
-- (void)drawWithBox:(PDFDisplayBox)box;
+- (void) drawWithBox: (PDFDisplayBox) box;
 
 @end
 
 @interface PDFPage (private)
-- (void)_getRects:(NSRect *)rects range:(NSRange)range;
-- (void)setPageRef:(CGPDFPageRef)pageRef;
-- (void)setDocument:(PDFDocument *)document;
-- (void)setLabel:(NSString *)value;
+- (void) _getRects: (NSRect *) rects range: (NSRange) range;
+- (void) setPageRef: (CGPDFPageRef) pageRef;
+- (void) setDocument: (PDFDocument *) document;
+- (void) setLabel: (NSString *) value;
 @end

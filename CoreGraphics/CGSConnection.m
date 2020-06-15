@@ -59,6 +59,31 @@
 	NSInvalidAbstractInvocation();
 }
 
+-(CGSKeyboardLayout*) createKeyboardLayout
+{
+	NSInvalidAbstractInvocation();
+}
+
+-(CGPoint) mouseLocation
+{
+	NSInvalidAbstractInvocation();
+}
+
+-(NSArray *) modesForScreen:(int)screenIndex
+{
+	NSInvalidAbstractInvocation();
+}
+
+-(BOOL) setMode:(NSDictionary *)mode forScreen:(int)screenIndex
+{
+	NSInvalidAbstractInvocation();
+}
+
+-(NSDictionary*) currentModeForScreen:(int)screenIndex
+{
+	NSInvalidAbstractInvocation();
+}
+
 -(CGSWindow*) newWindow:(CGSRegionRef)region
 {
 	NSInvalidAbstractInvocation();

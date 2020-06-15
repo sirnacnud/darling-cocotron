@@ -13,6 +13,7 @@
     CFArrayRef _trustedList;
 }
 
-- initWithDescriptor:(CFStringRef)descriptor trustedList:(CFArrayRef)trustedList;
+- initWithDescriptor: (CFStringRef) descriptor
+         trustedList: (CFArrayRef) trustedList;
 
 @end

@@ -20,8 +20,10 @@
     SecKeychainCursor *_keychainCursor;
 }
 
-- initWithKeychainOrArray:(CFTypeRef)keychainOrArray itemClass:(SecItemClass)itemClass attributeList:(const SecKeychainAttributeList *)attributeList;
+- initWithKeychainOrArray: (CFTypeRef) keychainOrArray
+                itemClass: (SecItemClass) itemClass
+            attributeList: (const SecKeychainAttributeList *) attributeList;
 
-- (SecKeychainItemRef)copyNextItem;
+- (SecKeychainItemRef) copyNextItem;
 
 @end

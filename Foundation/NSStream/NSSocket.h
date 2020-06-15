@@ -1,40 +1,55 @@
 /* Copyright (c) 2007 Christopher J. W. Lloyd
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
-#import <Foundation/NSObject.h>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <CoreFoundation/CoreFoundation.h>
+#import <Foundation/NSObject.h>
 
 @class NSError, NSHost, NSData, CFSSLHandler;
 
 @interface NSSocket : NSObject
 
 // returns nil if descriptor is not a socket
-- initWithFileDescriptor:(int)descriptor;
+- initWithFileDescriptor: (int) descriptor;
 
-- initConnectedToSocket:(NSSocket **)other;
+- initConnectedToSocket: (NSSocket **) other;
 
 - initTCPStream;
 
-- (int)fileDescriptor;
+- (int) fileDescriptor;
 
-- (NSError *)close;
+- (NSError *) close;
 
-- (NSError *)connectToHost:(NSHost *)host port:(NSInteger)port immediate:(BOOL *)immediate;
+- (NSError *) connectToHost: (NSHost *) host
+                       port: (NSInteger) port
+                  immediate: (BOOL *) immediate;
 
-- (BOOL)hasBytesAvailable;
+- (BOOL) hasBytesAvailable;
 
-- (NSInteger)read:(uint8_t *)buffer maxLength:(NSUInteger)length;
-- (NSInteger)write:(const uint8_t *)buffer maxLength:(NSUInteger)length;
+- (NSInteger) read: (uint8_t *) buffer maxLength: (NSUInteger) length;
+- (NSInteger) write: (const uint8_t *) buffer maxLength: (NSUInteger) length;
 
-- (NSSocket *)acceptWithError:(NSError **)errorp;
+- (NSSocket *) acceptWithError: (NSError **) errorp;
 
-- (CFSSLHandler *)sslHandler;
-- (BOOL)setSSLProperties:(CFDictionaryRef)sslProperties;
+- (CFSSLHandler *) sslHandler;
+- (BOOL) setSSLProperties: (CFDictionaryRef) sslProperties;
 
 @end
 
-NSData *NSSocketAddressDataForNetworkOrderAddressBytesAndPort(const void *address, NSUInteger length, uint16_t port, uint32_t interface);
+NSData *NSSocketAddressDataForNetworkOrderAddressBytesAndPort(
+        const void *address, NSUInteger length, uint16_t port,
+        uint32_t interface);

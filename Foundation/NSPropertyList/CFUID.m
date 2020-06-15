@@ -2,17 +2,17 @@
 
 @implementation CFUID
 
--initWithUnsignedLongLong:(unsigned long long)value {
-   _value=value;
-   return self;
+- initWithUnsignedLongLong: (unsigned long long) value {
+    _value = value;
+    return self;
 }
 
--(unsigned long long)unsignedLongLongValue {
-   return _value;
+- (unsigned long long) unsignedLongLongValue {
+    return _value;
 }
 
--(NSInteger)integerValue {
-   return _value;
+- (NSInteger) integerValue {
+    return _value;
 }
 
 @end

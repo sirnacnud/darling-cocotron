@@ -1,6 +1,7 @@
 #ifndef COREGRAPHICSPRIVATE_H
 #define COREGRAPHICSPRIVATE_H
 #include <CoreGraphics/CoreGraphics.h>
+#include <IOKit/hidsystem/IOLLEvent.h>
 #include <CoreFoundation/CoreFoundation.h>
 
 __BEGIN_DECLS
@@ -12,6 +13,7 @@ __BEGIN_DECLS
 typedef int CGSConnectionID;
 typedef int CGSWindowID;
 typedef int CGSSurfaceID;
+typedef unsigned long CGSNotificationType;
 typedef CFMutableDictionaryRef CGSDictionaryObj;
 typedef CFTypeRef CGSRegionRef;
 
@@ -86,10 +88,54 @@ extern CGError CGSSetWindowTitle(CGSConnectionID cid, CGSWindowID wid, CFStringR
 extern CGError CGSGetWindowProperty(CGSConnectionID cid, CGSWindowID wid, CFStringRef key, CFTypeRef *outValue);
 extern CGError CGSSetWindowProperty(CGSConnectionID cid, CGSWindowID wid, CFStringRef key, CFTypeRef value);
 
+typedef uint32_t CGSByteCount;
+typedef uint16_t CGSEventRecordVersion;
+typedef unsigned long CGSEventType;
+typedef uint64_t CGSEventRecordTime;  /* nanosecond timer */
+typedef unsigned long CGSEventFlag;
+typedef NXEventData CGSEventRecordData;
+
+struct _CGSEventRecord
+{
+	CGSEventRecordVersion major;
+	CGSEventRecordVersion minor;
+	CGSByteCount length;	/* Length of complete event record */
+	CGSEventType type;		/* An event type from above */
+	CGPoint location;		/* Base coordinates (global), from upper-left */
+	CGPoint windowLocation;	/* Coordinates relative to window */
+	CGSEventRecordTime time;	/* nanoseconds since startup */
+	CGSEventFlag flags;		/* key state flags */
+	CGSWindowID	window;		/* window number of assigned window */
+	CGSConnectionID connection;	/* connection the event came from */
+	CGSEventRecordData data;	/* type-dependent data: 40 bytes */
+};
+typedef struct _CGSEventRecord CGSEventRecord;
+typedef CGSEventRecord *CGSEventRecordPtr;
+
+typedef void(*CGSNotifyProcPtr)(CGSNotificationType type, void* data, unsigned long dataLength, void* client);
+
+// CGSNotificationType:
+// 710 + NX event type from IOLLEvent.h
+#define CGSNotificationSingleEventType(event) (701 + event)
+#define kCGSNotificationAllEvents 0
+extern CGError CGSRegisterNotifyProc(CGSNotifyProcPtr proc, CGSNotificationType notificationType, void* client);
+extern CGError CGSRemoveNotifyProc(CGSNotifyProcPtr proc, CGSNotificationType notificationType);
+
 // Darling extras, e.g. for CGL
 void* _CGSNativeDisplay(CGSConnectionID connId);
 void* _CGSNativeWindowForID(CGSConnectionID connId, CGSWindowID winId);
 void* _CGSNativeWindowForSurfaceID(CGSConnectionID connId, CGSWindowID winId, CGSSurfaceID surfaceId);
+
+extern CGEventRef CGEventCreateWithEventRecord(const CGSEventRecordPtr event, uint32_t eventRecordSize);
+extern CGError CGEventGetEventRecord(CGEventRef event, CGSEventRecordPtr eventRecord, uint32_t eventRecordSize);
+extern CGError CGEventSetEventRecord(CGEventRef event, CGSEventRecordPtr eventRecord, uint32_t eventRecordSize);
+extern uint32_t CGEventGetEventRecordSize(CGEventRef event);
+
+#ifdef __OBJC__
+@class CGSConnection;
+CGSConnection* _CGSConnectionForID(CGSConnectionID connId);
+CGSConnection* _CGSConnectionFromEventRecord(const CGSEventRecordPtr record);
+#endif
 
 __END_DECLS
 

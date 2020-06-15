@@ -12,5 +12,5 @@
     int _numFailures;
     int _numSuccesses;
 }
-- (void)callSelectors:(BOOL)msgSend;
+- (void) callSelectors: (BOOL) msgSend;
 @end

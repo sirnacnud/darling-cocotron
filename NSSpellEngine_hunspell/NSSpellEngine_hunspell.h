@@ -19,6 +19,6 @@
     void *_hunspell;
 }
 
-- initWithContentsOfFile:(NSString *)path;
+- initWithContentsOfFile: (NSString *) path;
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import <Onyx2D/O2Font_ttf.h>
 #import <ApplicationServices/ApplicationServices.h>
+#import <Onyx2D/O2Font_ttf.h>
 
 @interface O2Font_CG : O2Font_ttf {
     CGFontRef _cgFont;

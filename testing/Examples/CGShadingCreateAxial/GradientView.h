@@ -12,10 +12,10 @@
     BOOL _mouseFirst;
 }
 
-- (IBAction)takeStartColorFromSender:sender;
-- (IBAction)takeEndColorFromSender:sender;
+- (IBAction) takeStartColorFromSender: sender;
+- (IBAction) takeEndColorFromSender: sender;
 
-- (IBAction)takeExtendStartFromSender:sender;
-- (IBAction)takeExtendEndFromSender:sender;
+- (IBAction) takeExtendStartFromSender: sender;
+- (IBAction) takeExtendEndFromSender: sender;
 
 @end

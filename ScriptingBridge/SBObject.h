@@ -4,6 +4,6 @@
     NSDictionary *_properties;
 }
 
-- initWithProperties:(NSDictionary *)properties;
+- initWithProperties: (NSDictionary *) properties;
 
 @end

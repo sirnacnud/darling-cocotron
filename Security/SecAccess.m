@@ -8,19 +8,20 @@
 
 #import "SecAccess.h"
 
-
 @implementation SecAccess
 
--initWithDescriptor:(CFStringRef)descriptor trustedList:(CFArrayRef)trustedList {
-   _descriptor=CFRetain(descriptor);
-   _trustedList=(CFArrayRef)CFRetain(trustedList);
-   return self;
+- initWithDescriptor: (CFStringRef) descriptor
+         trustedList: (CFArrayRef) trustedList
+{
+    _descriptor = CFRetain(descriptor);
+    _trustedList = (CFArrayRef) CFRetain(trustedList);
+    return self;
 }
 
--(void)dealloc {
-   CFRelease(_descriptor);
-   CFRelease(_trustedList);
-   [super dealloc];
+- (void) dealloc {
+    CFRelease(_descriptor);
+    CFRelease(_trustedList);
+    [super dealloc];
 }
 
 @end

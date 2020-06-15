@@ -20,7 +20,6 @@
 #include <CoreGraphics/CGEvent.h>
 #include <stdio.h>
 
-CGError CGPostMouseEvent(CGPoint mouseCursorPosition, boolean_t updateMouseCursorPosition, CGButtonCount buttonCount, boolean_t mouseButtonDown, ...)
-{
-	printf("STUB CGPostMouseEvent called\n");
+CGError CGPostMouseEvent(CGPoint mouseCursorPosition, boolean_t updateMouseCursorPosition, CGButtonCount buttonCount, boolean_t mouseButtonDown, ...) {
+    printf("STUB CGPostMouseEvent called\n");
 }

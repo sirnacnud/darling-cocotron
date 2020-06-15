@@ -10,13 +10,13 @@
 
 - init;
 
-- (BOOL)isEmpty;
+- (BOOL) isEmpty;
 
-- objectForKey:key;
-- (void)setObject:object forKey:key;
+- objectForKey: key;
+- (void) setObject: object forKey: key;
 
-- (NSArray *)keyObserversForKey:(NSString *)key;
-- (void)addKeyObserver:(NSKeyObserver *)keyObserver;
-- (void)removeKeyObserver:(NSKeyObserver *)keyObserver;
+- (NSArray *) keyObserversForKey: (NSString *) key;
+- (void) addKeyObserver: (NSKeyObserver *) keyObserver;
+- (void) removeKeyObserver: (NSKeyObserver *) keyObserver;
 
 @end
