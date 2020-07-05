@@ -124,6 +124,7 @@ enum {
     BOOL _refusesFirstResponder;
     BOOL _isContinuous;
     BOOL _allowsMixedState;
+    BOOL _allowsEditingTextAttributes;
     BOOL _sendsActionOnEndEditing;
     BOOL _hasValidObjectValue;
     BOOL _usesSingleLineMode;
@@ -191,6 +192,8 @@ enum {
 - (void) setNextState;
 - (BOOL) allowsMixedState;
 - (void) setAllowsMixedState: (BOOL) allow;
+- (BOOL) allowsEditingTextAttributes;
+- (void) setAllowsEditingTextAttributes: (BOOL) allow;
 
 - (void) setTarget: target;
 - (void) setAction: (SEL) action;
