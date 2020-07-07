@@ -154,6 +154,7 @@ typedef enum {
 @end
 
 typedef NSString *NSImageName;
+typedef NSString *NSImageHintKey;
 
 APPKIT_EXPORT NSImageName const NSImageNameActionTemplate;
 APPKIT_EXPORT NSImageName const NSImageNameAddTemplate;
@@ -222,3 +223,5 @@ APPKIT_EXPORT NSImageName const NSImageNameTouchBarDeleteTemplate;
 APPKIT_EXPORT NSImageName const NSImageNameTouchBarPauseTemplate;
 APPKIT_EXPORT NSImageName const NSImageNameTouchBarPlayTemplate;
 APPKIT_EXPORT NSImageName const NSImageNameTouchBarRecordStopTemplate;
+
+APPKIT_EXPORT NSImageHintKey const NSImageHintInterpolation;

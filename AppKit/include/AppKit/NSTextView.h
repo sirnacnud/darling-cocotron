@@ -63,6 +63,7 @@ typedef enum {
 
 APPKIT_EXPORT NSString *const NSTextViewDidChangeSelectionNotification;
 APPKIT_EXPORT NSString *const NSOldSelectedCharacterRange;
+APPKIT_EXPORT NSString *const NSAllRomanInputSourcesLocaleIdentifier;
 
 @class NSUndoTyping;
 

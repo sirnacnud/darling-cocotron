@@ -34,6 +34,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // Issues
 typedef NSTrackingArea *NSTrackingRectTag;
 typedef NSTrackingArea *NSToolTipTag;
+typedef NSString *NSViewFullScreenModeOptionKey;
 
 typedef NS_OPTIONS(NSUInteger, NSAutoresizingMaskOptions) {
     NSViewNotSizable = 0x00,
@@ -78,6 +79,8 @@ APPKIT_EXPORT const NSNotificationName NSViewFrameDidChangeNotification;
 APPKIT_EXPORT const NSNotificationName NSViewBoundsDidChangeNotification;
 APPKIT_EXPORT const NSNotificationName NSViewFocusDidChangeNotification;
 APPKIT_EXPORT const NSNotificationName NSViewGlobalFrameDidChangeNotification;
+
+APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPresentationOptions;
 
 @interface NSView : NSResponder <NSAnimatablePropertyContainer> {
     NSRect _frame;
