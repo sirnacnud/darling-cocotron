@@ -1,6 +1,6 @@
-#import "NSTokenAttachmentCell.h"
+#import <AppKit/NSPageController.h>
 
-@implementation NSTokenAttachmentCell
+@implementation NSPageController
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {

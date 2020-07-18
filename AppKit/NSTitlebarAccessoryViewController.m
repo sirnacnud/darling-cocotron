@@ -1,6 +1,6 @@
-#import "NSTokenAttachmentCell.h"
+#import <AppKit/NSTitlebarAccessoryViewController.h>
 
-@implementation NSTokenAttachmentCell
+@implementation NSTitlebarAccessoryViewController
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {

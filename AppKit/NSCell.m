@@ -594,6 +594,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _allowsMixedState = allow;
 }
 
+- (BOOL) allowsEditingTextAttributes {
+    return _allowsEditingTextAttributes;
+}
+
+- (void) setAllowsEditingTextAttributes: (BOOL) allow {
+    _allowsEditingTextAttributes = allow;
+}
+
 - (void) setTarget: target {
     [NSException
              raise: NSInternalInconsistencyException

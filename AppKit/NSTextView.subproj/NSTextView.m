@@ -59,6 +59,8 @@
 NSString *const NSTextViewDidChangeSelectionNotification =
         @"NSTextViewDidChangeSelectionNotification";
 NSString *const NSOldSelectedCharacterRange = @"NSOldSelectedCharacterRange";
+NSString *const NSAllRomanInputSourcesLocaleIdentifier =
+        @"NSAllRomanInputSourcesLocaleIdentifier";
 
 @interface NSLayoutManager (NSLayoutManager_visualKeyboardMovement)
 - (NSRange) _softLineRangeForCharacterAtIndex: (NSUInteger) location;
