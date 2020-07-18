@@ -41,10 +41,18 @@ NSString *const NSWorkspaceActiveSpaceDidChangeNotification =
         @"NSWorkspaceActiveSpaceDidChangeNotification";
 const NSNotificationName NSWorkspaceDidDeactivateApplicationNotification =
         @"NSWorkspaceDidDeactivateApplicationNotification";
+const NSNotificationName NSWorkspaceDidWakeNotification = 
+        @"NSWorkspaceDidWakeNotification";
 NSString *const NSWorkspaceDidLaunchApplicationNotification =
         @"NSWorkspaceDidLaunchApplicationNotification";
 NSString *const NSWorkspaceDidTerminateApplicationNotification =
         @"NSWorkspaceDidTerminateApplicationNotification";
+const NSNotificationName NSWorkspaceScreensDidSleepNotification =
+        @"NSWorkspaceScreensDidSleepNotification";
+const NSNotificationName NSWorkspaceScreensDidWakeNotification =
+        @"NSWorkspaceScreensDidWakeNotification";
+const NSNotificationName NSWorkspaceWillSleepNotification =
+        @"NSWorkspaceWillSleepNotification";
 const NSNotificationName NSWorkspaceSessionDidBecomeActiveNotification =
         @"NSWorkspaceSessionDidBecomeActiveNotification";
 const NSNotificationName NSWorkspaceSessionDidResignActiveNotification =

@@ -113,6 +113,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSOpenPanel.h>
 #import <AppKit/NSOutlineView.h>
 #import <AppKit/NSPDFImageRep.h>
+#import <AppKit/NSPageController.h>
 #import <AppKit/NSPageLayout.h>
 #import <AppKit/NSPanel.h>
 #import <AppKit/NSParagraphStyle.h>
@@ -144,6 +145,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSSegmentedCell.h>
 #import <AppKit/NSSegmentedControl.h>
 #import <AppKit/NSShadow.h>
+#import <AppKit/NSSharingService.h>
 #import <AppKit/NSSlider.h>
 #import <AppKit/NSSliderCell.h>
 #import <AppKit/NSSound.h>
@@ -178,6 +180,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSTextTable.h>
 #import <AppKit/NSTextTableBlock.h>
 #import <AppKit/NSTextView.h>
+#import <AppKit/NSTitlebarAccessoryViewController.h>
 #import <AppKit/NSTokenField.h>
 #import <AppKit/NSTokenFieldCell.h>
 #import <AppKit/NSToolbar.h>

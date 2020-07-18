@@ -91,6 +91,7 @@ set(AppKit_sources
 	NSComboBoxCell.m
 	NSWindowScripting.m
 	NSGraphicsContext.m
+	NSPageController.m
 	NSPageLayout.m
 	NSTabViewItem.m
 	NSText.m
@@ -189,6 +190,7 @@ set(AppKit_sources
 	NSMutableParagraphStyle.m
 	NSBrowser.m
 	NSToolTipWindow.m
+	NSTitlebarAccessoryViewController.m
 	NSPasteboard.m
 	NSSearchFieldCell.m
 	NSOutlineView.m
