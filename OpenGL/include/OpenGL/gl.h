@@ -2833,7 +2833,7 @@ extern void glPointParameteriv(GLenum pname, const GLint *params);
 extern void glBlendFuncSeparate(GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
 
 extern void glMultiDrawArrays(GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
-extern void glMultiDrawElements(GLenum mode, const GLsizei *count, GLenum type, const GLvoid *const *indices, GLsizei primcount);
+extern void glMultiDrawElements(GLenum mode, const GLsizei *count, GLenum type, const GLvoid **indices, GLsizei primcount);
 
 extern void glWindowPos2d(GLdouble x, GLdouble y);
 extern void glWindowPos2dv(const GLdouble *v);
@@ -2920,7 +2920,7 @@ extern void glGetVertexAttribPointerv(GLuint index, GLenum pname, GLvoid **point
 extern void glDeleteShader(GLuint shader);
 extern void glDetachShader(GLuint program, GLuint shader);
 extern GLuint glCreateShader(GLenum type);
-extern void glShaderSource(GLuint shader, GLsizei count, const GLchar *const *string, const GLint *length);
+extern void glShaderSource(GLuint shader, GLsizei count, const GLchar **string, const GLint *length);
 extern void glCompileShader(GLuint shader);
 extern GLuint glCreateProgram(void);
 extern void glAttachShader(GLuint program, GLuint shader);
