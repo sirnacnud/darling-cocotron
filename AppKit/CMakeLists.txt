@@ -12,6 +12,12 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
 	-mmacosx-version-min=10.10"
 )
 
+add_compile_definitions(
+	# tells the objc API headers to use the generically-typed function declarations for `objc_msgSend` and friends
+	# (Apple really wants people to cast the functions before using them)
+	OBJC_OLD_DISPATCH_PROTOTYPES=1
+)
+
 set(OpenGL_GL_PREFERENCE "GLVND")
 
 find_package(X11 REQUIRED)
