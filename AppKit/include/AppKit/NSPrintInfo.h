@@ -30,9 +30,9 @@ typedef enum NSPrintingPaginationMode : int {
 
 } NSPrintingPaginationMode;
 
-const NSPrintingPaginationMode NSFitPagination;
-const NSPrintingPaginationMode NSAutoPagination;
-const NSPrintingPaginationMode NSClipPagination;
+APPKIT_EXPORT const NSPrintingPaginationMode NSFitPagination;
+APPKIT_EXPORT const NSPrintingPaginationMode NSAutoPagination;
+APPKIT_EXPORT const NSPrintingPaginationMode NSClipPagination;
 
 typedef enum {
     NSPortraitOrientation,

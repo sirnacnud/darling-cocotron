@@ -55,4 +55,4 @@ NSUInteger O2PDFHashCString(NSMapTable *table, const void *data);
 BOOL O2PDFIsEqualCString(NSMapTable *table, const void *data1,
                          const void *data2);
 void O2PDFFreeCString(NSMapTable *table, void *data);
-NSMapTableKeyCallBacks O2PDFOwnedCStringKeyCallBacks;
+extern NSMapTableKeyCallBacks O2PDFOwnedCStringKeyCallBacks;

@@ -23,7 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @class O2PDFContext, O2PDFxref, O2PDFObject, O2PDFDictionary, O2PDFArray,
         NSMutableData, NSMutableDictionary, O2DataConsumer;
 
-const NSString *kO2PDFContextTitle;
+extern const NSString *kO2PDFContextTitle;
 
 @interface O2PDFContext : O2Context {
     O2DataConsumer *_dataConsumer;
