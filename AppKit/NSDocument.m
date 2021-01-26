@@ -119,9 +119,11 @@ static int untitled_document_number = 0;
 - (void) _updateFileModificationDate {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *path = [_fileURL path];
-    NSDictionary *attributes = [fileManager fileAttributesAtPath: path
-                                                    traverseLink: YES];
-    [self setFileModificationDate: attributes[NSFileModificationDate]];
+    if (path != nil) {
+        NSDictionary *attributes = [fileManager fileAttributesAtPath: path
+                                                        traverseLink: YES];
+        [self setFileModificationDate: attributes[NSFileModificationDate]];
+    }
 }
 
 - (instancetype) initWithContentsOfURL: (NSURL *) url
