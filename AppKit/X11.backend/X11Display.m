@@ -813,9 +813,17 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
                 setObject: window
                    forKey: [NSNumber
                                    numberWithUnsignedLong: (unsigned long) i]];
-    else
+    else {
         [_windowsByID removeObjectForKey: [NSNumber numberWithUnsignedLong:
                                                             (unsigned long) i]];
+
+        // if "lastFocusedWindow" is dying, drop it
+        //
+        // this is an ugly hack because we miss FocusOut events sometimes and
+        // retaining the window causes it to keep popping back up endlessly even after dismissing it
+        if (lastFocusedWindow && [[lastFocusedWindow platformWindow] windowHandle] == i)
+            lastFocusedWindow = nil;
+    }
 }
 
 - (id) windowForID: (XID) i {
@@ -1084,6 +1092,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         break;
 
     case FocusIn:
+        NSLog(@"FocusIn");
         if ([delegate attachedSheet]) {
             [[delegate attachedSheet] makeKeyAndOrderFront: delegate];
             break;
@@ -1098,6 +1107,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         break;
 
     case FocusOut:
+        NSLog(@"FocusOut");
         [delegate platformWindowDeactivated: window
                     checkForAppDeactivation: NO];
         lastFocusedWindow = nil;
@@ -1219,8 +1229,20 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
     case ClientMessage:
         if (ev->xclient.format == 32 &&
             ev->xclient.data.l[0] ==
-                    XInternAtom(_display, "WM_DELETE_WINDOW", False))
-            [delegate platformWindowWillClose: window];
+                    XInternAtom(_display, "WM_DELETE_WINDOW", False)) {
+            NSLog(@"ClientMessage:WM_DELETE_WINDOW");
+            [[NSRunLoop currentRunLoop] cancelPerformSelector: @selector(platformWindowWillClose:)
+                                                       target: delegate
+                                                     argument: window];
+            [[NSRunLoop currentRunLoop] performSelector: @selector(platformWindowWillClose:)
+                                                 target: delegate
+                                               argument: window
+                                                  order: 0
+                                                  modes: @[
+                                                        NSDefaultRunLoopMode, NSModalPanelRunLoopMode,
+                                                        NSEventTrackingRunLoopMode
+                                                    ]];
+        }
         break;
 
     case MappingNotify:
