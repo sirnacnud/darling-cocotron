@@ -417,6 +417,9 @@ set(AppKit_sources
 
 	NSMovie.m
 	NSMovieView.m
+
+	NSTextInput.m
+	NSInputManager.m
 )
 
 set_source_files_properties(${AppKit_sources} LANGUAGE C)

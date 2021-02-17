@@ -48,6 +48,7 @@ const NSPasteboardType NSTabularTextPboardType = @"NSTabularTextPboardType";
 const NSPasteboardType NSTIFFPboardType = @"NSTIFFPboardType";
 const NSPasteboardType NSURLPboardType = @"NSURLPboardType";
 const NSPasteboardType NSHTMLPboardType = @"Apple HTML pasteboard type";
+const NSPasteboardType NSVCardPboardType = @"NSVCardPboardType";
 
 const NSPasteboardType NSFilesPromisePboardType =
         @"Apple files promise pasteboard type";

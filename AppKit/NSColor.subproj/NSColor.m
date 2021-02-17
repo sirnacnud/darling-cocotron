@@ -34,6 +34,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 static int NSColor_ignoresAlpha = -1;
 
+NSString *const NSSystemColorsDidChangeNotification = @"NSSystemColorsDidChangeNotification";
+
 @interface NSColor (private)
 - (NSString *) catalogName;
 - (NSString *) colorName;

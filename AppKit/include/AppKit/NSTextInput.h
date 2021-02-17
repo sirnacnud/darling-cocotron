@@ -18,6 +18,14 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSGeometry.h>
 #import <Foundation/NSRange.h>
+#import <Foundation/NSObject.h>
+#import <AppKit/AppKitExport.h>
+
+APPKIT_EXPORT NSString *const NSTextInputContextKeyboardSelectionDidChangeNotification;
+
+@interface NSTextInputContext : NSObject
+
+@end
 
 @protocol NSTextInput
 - (NSRect) firstRectForCharacterRange: (NSRange) range;

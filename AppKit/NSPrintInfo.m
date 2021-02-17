@@ -57,6 +57,8 @@ NSString *const NSPrintHorizontallyCentered = @"NSPrintHorizontallyCentered";
 NSString *const NSPrintVerticallyCentered = @"NSPrintVerticallyCentered";
 
 NSString *const NSPrintHeaderAndFooter = @"NSPrintHeaderAndFooter";
+NSString *const NSPrintMustCollate = @"NSPrintMustCollate";
+NSString *const NSPrintSelectionOnly = @"NSPrintSelectionOnly";
 
 const NSPrintingPaginationMode NSFitPagination = NSPrintingPaginationModeFit;
 const NSPrintingPaginationMode NSAutoPagination =

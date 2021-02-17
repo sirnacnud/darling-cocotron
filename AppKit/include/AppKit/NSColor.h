@@ -21,6 +21,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <ApplicationServices/ApplicationServices.h>
 #import <Foundation/Foundation.h>
 
+APPKIT_EXPORT NSString *const NSSystemColorsDidChangeNotification;
+
 @class NSImage;
 @class NSPasteboard;
 
