@@ -25,6 +25,12 @@
 #import <IOKit/graphics/IOGraphicsTypes.h>
 #include <dlfcn.h>
 
+// not sure what type or value this has
+unsigned int kCGDisplayPixelHeight = kCGDisplayHeight;
+unsigned int kCGDisplayPixelWidth = kCGDisplayWidth;
+
+const CFStringRef kCGDisplayProductNameKey = CFSTR("kCGDisplayProductNameKey");
+
 CGError CGCaptureAllDisplays(void) {
     return kCGErrorSuccess;
 }
