@@ -1,7 +1,7 @@
 /*
  This file is part of Darling.
 
- Copyright (C) 2019 Lubos Dolezel
+ Copyright (C) 2021 Lubos Dolezel
 
  Darling is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -17,23 +17,9 @@
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#import <AppKit/NSCollectionViewFlowLayout.h>
+#import <AppKit/AppKitExport.h>
+#import <Foundation/Foundation.h>
 
-NSString *const NSCollectionElementKindSectionHeader =
-        @"UICollectionElementKindSectionHeader";
-NSString *const NSCollectionElementKindSectionFooter =
-        @"UICollectionElementKindSectionFooter";
-
-@implementation NSCollectionViewFlowLayout
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
-{
-    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
-}
-
-- (void)forwardInvocation:(NSInvocation *)anInvocation
-{
-    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
-}
+@interface NSSplitViewItem : NSObject <NSCoding>
 
 @end

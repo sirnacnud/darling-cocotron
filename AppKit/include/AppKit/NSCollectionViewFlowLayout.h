@@ -19,6 +19,11 @@
 
 #import <AppKit/AppKitExport.h>
 #import <Foundation/NSString.h>
+#import <AppKit/NSCollectionViewLayout.h>
 
 APPKIT_EXPORT NSString *const NSCollectionElementKindSectionHeader;
 APPKIT_EXPORT NSString *const NSCollectionElementKindSectionFooter;
+
+@interface NSCollectionViewFlowLayout : NSCollectionViewLayout
+
+@end

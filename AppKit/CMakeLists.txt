@@ -420,6 +420,23 @@ set(AppKit_sources
 
 	NSTextInput.m
 	NSInputManager.m
+	NSDynamicNamedColor.m
+	NSCatalogColor.m
+	NSPanGestureRecognizer.m
+	NSPressureConfiguration.m
+	NSPulseGestureRecognizer.m
+	NSStoryboard.m
+	NSTokenAttachment.m
+	NSTouchDevice.m
+	NSTouchDevice.m
+	NSSplitViewController.m
+	NSSplitViewItem.m
+	NSTabViewController.m
+	NSTableViewRowAction.m
+	NSCollectionViewLayoutAttributes.m
+	NSCollectionViewLayoutInvalidationContext.m
+	NSLayoutGuide.m
+	NSPressGestureRecognizer.m
 )
 
 set_source_files_properties(${AppKit_sources} LANGUAGE C)

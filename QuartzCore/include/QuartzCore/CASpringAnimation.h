@@ -17,23 +17,8 @@
  along with Darling.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#import <AppKit/NSCollectionViewFlowLayout.h>
+#import <QuartzCore/CAAnimation.h>
 
-NSString *const NSCollectionElementKindSectionHeader =
-        @"UICollectionElementKindSectionHeader";
-NSString *const NSCollectionElementKindSectionFooter =
-        @"UICollectionElementKindSectionFooter";
-
-@implementation NSCollectionViewFlowLayout
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
-{
-    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
-}
-
-- (void)forwardInvocation:(NSInvocation *)anInvocation
-{
-    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
-}
+@interface CASpringAnimation : CABasicAnimation
 
 @end

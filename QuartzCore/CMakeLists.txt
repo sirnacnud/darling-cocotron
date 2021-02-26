@@ -57,6 +57,7 @@ set(QuartzCore_sources
 	CAScrollLayer.m
 	CAOpenGLLayer.m
 	CAMetalLayer.m
+	CASpringAnimation.m
 )
 
 set_source_files_properties(${QuartzCore_sources} LANGUAGE C)

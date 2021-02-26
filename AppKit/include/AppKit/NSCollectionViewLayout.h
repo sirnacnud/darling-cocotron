@@ -25,3 +25,7 @@ typedef NSString *NSCollectionViewDecorationElementKind;
 
 APPKIT_EXPORT NSCollectionViewSupplementaryElementKind const
         NSCollectionElementKindInterItemGapIndicator;
+
+@interface NSCollectionViewLayout : NSObject
+
+@end

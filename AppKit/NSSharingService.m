@@ -1,5 +1,7 @@
 #import <AppKit/NSSharingService.h>
 
+NSString* const NSSharingServiceNameComposeEmail = @"NSSharingServiceNameComposeEmail";
+
 @implementation NSSharingService
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector

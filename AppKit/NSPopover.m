@@ -5,6 +5,8 @@ const NSString *NSPopoverDidCloseNotification =
         @"NSPopoverDidCloseNotification";
 const NSString *NSPopoverWillCloseNotification =
         @"NSPopoverWillCloseNotification";
+const NSString *NSPopoverDidShowNotification =
+        @"NSPopoverDidShowNotification";
 
 @interface NSPopover : NSObject
 @end
