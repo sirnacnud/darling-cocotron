@@ -1362,16 +1362,26 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
 
             break;
         } else if (fragment->container == container) {
-            // Part of the line fragment to process
-            NSRange intersect = NSIntersectionRange(remainder, range);
+#if DEBUG_rectArrayForGlyphRange_withinSelectedGlyphRange_inTextContainer_rectCount
+            NSLog(@"This existing range is %@\n", NSStringFromRange(range));
+#endif
+            
             // The part of the that we are interested in - start with the full
             // rect, we'll change it if we don't want the full fragment
             NSRect fill = fragment->rect;
-            if (!NSEqualRanges(range, intersect)) {
+            if (NSLocationInRange(remainder.location, range)) {
+                // Part of the line fragment to process
+                NSRange intersect;
+                if (remainder.length > 0)
+                    intersect = NSIntersectionRange(remainder, range);
+                else // NSIntersectionRange's returned location is undefined for 0-length ranges
+                    intersect = NSMakeRange(remainder.location, 0);
+
 #if DEBUG_rectArrayForGlyphRange_withinSelectedGlyphRange_inTextContainer_rectCount
                 NSLog(@"found a sub range to process: %@",
                       NSStringFromRange(intersect));
 #endif
+
                 // We only want part of that fragment - so check the part we
                 // want by getting the interesting glyphs locations
 
@@ -1406,7 +1416,7 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                                           precededByGlyph: previousGlyph
                                                 isNominal: &ignore]
                                           .x;
-                        if (range.location + i <= intersect.location) {
+                        if (range.location + i < intersect.location) {
                             // Not yet part of intersect - advance the fill rect
                             // origin
                             fill.origin.x += advance;
