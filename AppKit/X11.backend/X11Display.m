@@ -117,6 +117,7 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
 #endif
 
         _windowsByID = [NSMutableDictionary new];
+        [self _enableDetectableAutoRepeat];
 
         lastFocusedWindow = nil;
         lastClickTimeStamp = 0.0;
@@ -149,6 +150,19 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
 
 - (Display *) display {
     return _display;
+}
+
+- (void) _enableDetectableAutoRepeat {
+    int major = XkbMajorVersion, minor = XkbMinorVersion;
+    XkbStateRec state;
+
+    if (!XkbLibraryVersion(&major, &minor))
+        return;
+    if (!XkbQueryExtension(_display, NULL, NULL, &major, &minor, NULL))
+        return;
+    
+    Bool supported;
+    XkbSetDetectableAutoRepeat(_display, TRUE, &supported);
 }
 
 - (NSArray *) screens {
@@ -926,6 +940,15 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         // kVK_ANSI_A), this gives it a chance to work.
         const int carbonKeyCode = x11ToCarbon[ev->xkey.keycode];
 
+        BOOL isARepeat = NO;
+
+        if (ev->type == KeyPress) {
+            isARepeat = _lastKeySym == keySym;
+            _lastKeySym = keySym;
+        } else {
+            _lastKeySym = 0;
+        }
+
         id event = [NSEvent keyEventWithType: ev->type == KeyPress ? NSKeyDown
                                                                    : NSKeyUp
                                     location: pos
@@ -935,7 +958,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
                                      context: nil
                                   characters: str
                  charactersIgnoringModifiers: strIg
-                                   isARepeat: NO
+                                   isARepeat: isARepeat
                                      keyCode: carbonKeyCode];
 
         [self postEvent: event atStart: NO];

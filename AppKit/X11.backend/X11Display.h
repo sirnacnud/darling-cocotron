@@ -35,6 +35,7 @@
     int clickCount;
     X11Cursor *_blankCursor, *_defaultCursor;
     BOOL _cursorGrabbed;
+    KeySym _lastKeySym;
 }
 
 - (Display *) display;
