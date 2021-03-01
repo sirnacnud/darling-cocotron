@@ -919,9 +919,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         } else {
             // It was a function key of some sort
             uint16_t ucsCode = (uint16_t) X11KeySymToUCS(keySym); // All defined codes in the table fit into 16 bits
-            strIg = [[NSString alloc]
-                    initWithCharacters: &ucsCode
-                    length: 1];
+            strIg = [NSString stringWithCharacters: &ucsCode length: 1];
         }
 
         // If there's an app that uses constants from HIToolbox/Events.h (e.g.
@@ -943,7 +941,6 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         [self postEvent: event atStart: NO];
 
         [str release];
-        [strIg release];
         break;
 
     case ButtonPress:;
