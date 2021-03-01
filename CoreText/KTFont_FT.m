@@ -80,7 +80,8 @@
 
     for (i = 0; i < count; i++) {
         FT_Load_Glyph(face, glyphs[i], FT_LOAD_DEFAULT);
-        advancements[i] = CGSizeMake(face->glyph->bitmap_left, 0);
+        advancements[i] = CGSizeMake(face->glyph->advance.x / (O2Float)(2 << 5),
+                       face->glyph->advance.y / (O2Float)(2 << 5));
     }
 }
 
