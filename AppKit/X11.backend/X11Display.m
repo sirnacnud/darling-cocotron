@@ -907,7 +907,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
                 [window transformPoint: NSMakePoint(ev->xkey.x, ev->xkey.y)];
 
         id strIg;
-        if ([str length] != 0) {
+        if ([str length] != 0 && [str characterAtIndex: 0] != 0x7f /* backspace */) {
             strIg = [str lowercaseString];
             if (ev->xkey.state) {
                 ev->xkey.state = 0;
