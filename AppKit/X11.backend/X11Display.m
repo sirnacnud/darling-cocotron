@@ -898,20 +898,30 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         NSEventModifierFlags modifierFlags =
                 [self modifierFlagsForState: ev->xkey.state];
         char buf[4] = {0};
+        KeySym keySym;
 
-        XLookupString((XKeyEvent *) ev, buf, 4, NULL, NULL);
+        XLookupString((XKeyEvent *) ev, buf, 4, &keySym, NULL);
         id str = [[NSString alloc] initWithCString: buf
                                           encoding: NSISOLatin1StringEncoding];
         NSPoint pos =
                 [window transformPoint: NSMakePoint(ev->xkey.x, ev->xkey.y)];
 
-        id strIg = [str lowercaseString];
-        if (ev->xkey.state) {
-            ev->xkey.state = 0;
-            XLookupString((XKeyEvent *) ev, buf, 4, NULL, NULL);
+        id strIg;
+        if ([str length] != 0) {
+            strIg = [str lowercaseString];
+            if (ev->xkey.state) {
+                ev->xkey.state = 0;
+                XLookupString((XKeyEvent *) ev, buf, 4, NULL, NULL);
+                strIg = [[NSString alloc]
+                        initWithCString: buf
+                            encoding: NSISOLatin1StringEncoding];
+            }
+        } else {
+            // It was a function key of some sort
+            uint16_t ucsCode = (uint16_t) X11KeySymToUCS(keySym); // All defined codes in the table fit into 16 bits
             strIg = [[NSString alloc]
-                    initWithCString: buf
-                           encoding: NSISOLatin1StringEncoding];
+                    initWithCharacters: &ucsCode
+                    length: 1];
         }
 
         // If there's an app that uses constants from HIToolbox/Events.h (e.g.
@@ -933,6 +943,7 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         [self postEvent: event atStart: NO];
 
         [str release];
+        [strIg release];
         break;
 
     case ButtonPress:;
