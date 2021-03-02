@@ -154,7 +154,10 @@ static NSData *makeWindowIcon() {
     _styleMask = [delegate styleMask];
     _backingType = (CGSBackingStoreType)[delegate backingType];
     _deviceDictionary = [NSMutableDictionary new];
-    _display = [(X11Display *) [NSDisplay currentDisplay] display];
+
+    X11Display* x11disp = (X11Display *) [NSDisplay currentDisplay];
+    _display = [x11disp display];
+
     _frame = [self transformFrame: [delegate frame]];
     BOOL isPanel = [delegate isKindOfClass: [NSPanel class]];
     if (isPanel && _styleMask & NSDocModalWindowMask)
@@ -244,6 +247,12 @@ static NSData *makeWindowIcon() {
                 (X11Window *) [[NSApp mainWindow] platformWindow];
         XSetTransientForHint(_display, _window, [mainWindow windowHandle]);
     }
+
+    _xic = XCreateIC(x11disp->_xim,
+        XNInputStyle, XIMPreeditNothing | XIMStatusNothing,
+        XNClientWindow, _window,
+        XNFocusWindow, _window,
+        NULL);
 
     _cglWindow = CGLGetWindow((void *) _window);
 
@@ -403,6 +412,8 @@ static NSData *makeWindowIcon() {
     }
 
     if (_window) {
+        XDestroyIC(_xic);
+
         [(X11Display *) [NSDisplay currentDisplay] setWindow: nil
                                                        forID: _window];
         XDestroyWindow(_display, _window);

@@ -8,6 +8,8 @@
 
 #import <AppKit/NSDisplay.h>
 #import <X11/Xlib.h>
+#import <X11/Xresource.h>
+#import <X11/Xlocale.h>
 
 #ifdef DARLING
 #import <CoreFoundation/CFRunLoop.h>
@@ -36,6 +38,9 @@
     X11Cursor *_blankCursor, *_defaultCursor;
     BOOL _cursorGrabbed;
     KeySym _lastKeySym;
+
+@public
+    XIM _xim;
 }
 
 - (Display *) display;

@@ -23,6 +23,8 @@
 #import <Onyx2D/O2Geometry.h>
 #import <OpenGL/CGLInternal.h>
 #import <X11/Xlib.h>
+#import <X11/Xresource.h>
+#import <X11/Xlocale.h>
 
 @class X11Display, CAWindowOpenGLContext, NSWindow, O2Context;
 
@@ -45,6 +47,9 @@
     BOOL _mapped;
     CGPoint _lastMotionPos;
     BOOL _isModal;
+
+@public
+    XIC _xic;
 }
 
 + (void) removeDecorationForWindow: (Window) w onDisplay: (Display *) dpy;
