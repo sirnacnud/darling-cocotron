@@ -70,3 +70,13 @@ NSString *const NSConditionallySetsEditableBindingOption =
 NSString *const NSContinuouslyUpdatesValueBindingOption =
         @"NSContinuouslyUpdatesValue";
 NSString *const NSDisplayPatternBindingOption = @"NSDisplayPattern";
+
+// TODO: actually implement this stuff
+@implementation NSObject (NSKeyValueBindingCreation)
+
+- (NSArray<NSString *> *) exposedBindings
+{
+        return @[];
+}
+
+@end

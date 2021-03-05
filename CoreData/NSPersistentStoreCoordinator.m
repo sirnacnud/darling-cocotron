@@ -47,6 +47,8 @@ NSString *const NSInferMappingModelAutomaticallyOption =
         @"NSInferMappingModelAutomaticallyOption";
 NSString *const NSReadOnlyPersistentStoreOption =
         @"NSReadOnlyPersistentStoreOption";
+NSString *const NSStoreModelVersionHashesKey =
+        @"NSStoreModelVersionHashesKey";
 
 @implementation NSPersistentStoreCoordinator
 

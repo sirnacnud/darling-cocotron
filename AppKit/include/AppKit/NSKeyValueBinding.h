@@ -19,6 +19,7 @@
 
 #import <AppKit/AppKitExport.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSArray.h>
 
 APPKIT_EXPORT NSString *const NSObservedObjectKey;
 APPKIT_EXPORT NSString *const NSObservedKeyPathKey;
@@ -62,3 +63,9 @@ APPKIT_EXPORT NSString *const NSConditionallySetsEnabledBindingOption;
 APPKIT_EXPORT NSString *const NSConditionallySetsEditableBindingOption;
 APPKIT_EXPORT NSString *const NSContinuouslyUpdatesValueBindingOption;
 APPKIT_EXPORT NSString *const NSDisplayPatternBindingOption;
+
+@interface NSObject (NSKeyValueBindingCreation)
+
+@property(readonly, copy) NSArray<NSString *> *exposedBindings;
+
+@end
