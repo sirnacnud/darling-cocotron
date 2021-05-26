@@ -107,6 +107,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // should probably be boldUserFont
     _font = [[NSFont boldSystemFontOfSize: 0] retain];
     _type = NSTopTabsBezelBorder;
+    _position = NSTabPositionTop;
     _allowsTruncatedLabels = NO;
     return self;
 }
@@ -203,6 +204,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return _type;
 }
 
+- (NSTabPosition) tabPosition {
+    return _position;
+}
+
 - (BOOL) drawsBackground {
     return _drawsBackground;
 }
@@ -223,6 +228,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setTabViewType: (NSTabViewType) type {
     _type = type;
+    [self setNeedsDisplay: YES];
+}
+
+- (void) setTabPosition: (NSTabPosition) position {
+    // TODO: Implement
+    NSLog(@"-[NSTabView tabPosition] Is Currently Unimplemented");
+    _position = position;
     [self setNeedsDisplay: YES];
 }
 
