@@ -2888,8 +2888,6 @@ static BOOL _allowsAutomaticWindowTabbing;
 
     [self _setSheetOrigin];
     NSRect sheetFrame = [sheet frame];
-    sheetFrame.origin.y = NSMaxY(sheetFrame);
-    sheetFrame.size.height = 0;
 
     sheet->_isVisible = YES;
     [sheet display];
