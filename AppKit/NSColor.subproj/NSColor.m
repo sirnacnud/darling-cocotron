@@ -562,6 +562,17 @@ NSString *const NSSystemColorsDidChangeNotification = @"NSSystemColorsDidChangeN
                                spaceName: NSDeviceRGBColorSpace];
 }
 
++ (NSColor *) colorWithRed: (CGFloat) red
+                     green: (CGFloat) green
+                      blue: (CGFloat) blue
+                     alpha: (CGFloat) alpha
+{
+    return [NSColor colorWithDeviceRed: red
+                                 green: green
+                                  blue: blue
+                                 alpha: alpha];
+}
+
 + (NSColor *) colorWithSRGBRed: (CGFloat) red
                          green: (CGFloat) green
                           blue: (CGFloat) blue
