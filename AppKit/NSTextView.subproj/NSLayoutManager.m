@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSTypesetter.h>
 #import <AppKit/NSWindow.h>
 
-#import "../../Foundation/NSAttributedString/NSRangeEntries.h"
+#import <Foundation/NSRangeEntries.h>
 #import <AppKit/NSAttributedString.h>
 #import <AppKit/NSColor.h>
 #import <AppKit/NSGraphics.h>
