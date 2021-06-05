@@ -579,7 +579,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [self beginSheetModalForWindow: sheetWindow
                      modalDelegate: [[_NSAlertCompletionHandler alloc]
                                             initWithBlock: handler]
-                    didEndSelector: @selector(sheetDidEnd:returnCode:contextInfo:)
+                    didEndSelector: @selector(alertDidEnd:returnCode:contextInfo:)
                        contextInfo: 0];
 }
 

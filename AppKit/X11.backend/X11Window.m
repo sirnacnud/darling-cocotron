@@ -484,6 +484,17 @@ static NSData *makeWindowIcon() {
     _level = value;
 }
 
+- (void) sheetOrderFrontFromFrame: (NSRect) frame
+                      aboveWindow: (CGWindow *) aboveWindow
+{
+    [self setFrame: frame];
+    [self placeAboveWindow: [aboveWindow windowNumber]];
+}
+
+- (void) sheetOrderOutToFrame: (NSRect) frame {
+    [self hideWindow];
+}
+
 - (void) showWindowForAppActivation: (O2Rect) frame {
     [self showWindowWithoutActivation];
 }
