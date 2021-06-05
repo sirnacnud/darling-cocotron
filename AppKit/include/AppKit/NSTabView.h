@@ -32,11 +32,20 @@ typedef enum {
     NSNoTabsNoBorder
 } NSTabViewType;
 
+typedef enum {
+    NSTabPositionNone,
+    NSTabPositionTop,
+    NSTabPositionLeft,
+    NSTabPositionBottom,
+    NSTabPositionRight
+} NSTabPosition;
+
 @interface NSTabView : NSView {
     NSMutableArray *_items;
     NSTabViewItem *_selectedItem;
     NSFont *_font;
     NSTabViewType _type;
+    NSTabPosition _position;
     BOOL _allowsTruncatedLabels;
     id _delegate;
     BOOL _drawsBackground;
@@ -50,12 +59,14 @@ typedef enum {
 
 - (NSFont *) font;
 - (NSTabViewType) tabViewType;
+- (NSTabPosition) tabPosition;
 - (BOOL) drawsBackground;
 - (BOOL) allowsTruncatedLabels;
 
 - (void) setDelegate: delegate;
 - (void) setFont: (NSFont *) font;
 - (void) setTabViewType: (NSTabViewType) type;
+- (void) setTabPosition: (NSTabPosition) position;
 - (void) setDrawsBackground: (BOOL) flag;
 - (void) setAllowsTruncatedLabels: (BOOL) flag;
 
