@@ -28,6 +28,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSWindowController.h>
 #import <objc/runtime.h>
 
+@interface _NSUnsupportedDocument : NSObject
+
+- initWithType: (NSString *) type error: (NSError **) error;
+
+@end
+
+@implementation _NSUnsupportedDocument
+
+- initWithType: (NSString *) type error: (NSError **) error {
+    *error = [NSError errorWithDomain:NSCocoaErrorDomain code: NSFeatureUnsupportedError userInfo: nil];
+    return nil;
+}
+
+@end
+
 @interface NSDocument (private)
 - (void) _setUntitledNumber: (int) number;
 @end
@@ -126,7 +141,7 @@ static NSDocumentController *shared = nil;
     NSDictionary *info = [self _infoForType: type];
     NSString *result = [info objectForKey: @"NSDocumentClass"];
 
-    return (result == nil) ? Nil : NSClassFromString(result);
+    return (result == nil) ? [_NSUnsupportedDocument class] : NSClassFromString(result);
 }
 
 - (NSArray *) fileExtensionsFromType: (NSString *) type {
@@ -272,7 +287,7 @@ static NSDocumentController *shared = nil;
                    ofType: (NSString *) type
                     error: (NSError **) error
 {
-    id result;
+    id result = nil;
     Class class = [self documentClassForType: type];
 
     result = [[[class alloc] initForURL: url
@@ -285,10 +300,10 @@ static NSDocumentController *shared = nil;
 
 - (id) makeUntitledDocumentOfType: (NSString *) type {
     static int nextUntitledNumber = 1;
-    id result;
+    id result = nil;
     Class class = [self documentClassForType: type];
 
-    NSError *error;
+    NSError *error = nil;
     result = [[[class alloc] initWithType: type error: &error] autorelease];
     if (result)
         [result _setUntitledNumber: nextUntitledNumber++];
@@ -316,10 +331,10 @@ static NSDocumentController *shared = nil;
     }
 
     static int nextUntitledNumber = 1;
-    id result;
+    id result = nil;
     Class class = [self documentClassForType: type];
 
-    NSError *error;
+    NSError *error = nil;
     result = [[[class alloc] initWithType: type error: &error] autorelease];
     if (result)
         [result _setUntitledNumber: nextUntitledNumber++];
