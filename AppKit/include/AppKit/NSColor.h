@@ -97,6 +97,14 @@ APPKIT_EXPORT NSString *const NSSystemColorsDidChangeNotification;
                            green: (CGFloat) green
                             blue: (CGFloat) blue
                            alpha: (CGFloat) alpha;
++ (NSColor *) colorWithRed: (CGFloat) red
+                     green: (CGFloat) green
+                      blue: (CGFloat) blue
+                     alpha: (CGFloat) alpha;
++ (NSColor *) colorWithSRGBRed: (CGFloat) red
+                         green: (CGFloat) green
+                          blue: (CGFloat) blue
+                         alpha: (CGFloat) alpha;
 + (NSColor *) colorWithDeviceHue: (CGFloat) hue
                       saturation: (CGFloat) saturation
                       brightness: (CGFloat) brightness
