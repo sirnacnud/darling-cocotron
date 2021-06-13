@@ -160,9 +160,9 @@ FcConfig *O2FontSharedFontConfig() {
     } else if (hasMacRoman) {
         _ftEncoding = FT_ENCODING_APPLE_ROMAN;
     } else {
-        NSLog(@"encoding = %c %c %c %c", face->charmaps[i]->encoding >> 24,
-              face->charmaps[i]->encoding >> 16,
-              face->charmaps[i]->encoding >> 8, face->charmaps[i]->encoding);
+        NSLog(@"encoding = %c %c %c %c", face->charmaps[0]->encoding >> 24,
+              face->charmaps[0]->encoding >> 16,
+              face->charmaps[0]->encoding >> 8, face->charmaps[0]->encoding);
         _ftEncoding = face->charmaps[0]->encoding;
     }
 
