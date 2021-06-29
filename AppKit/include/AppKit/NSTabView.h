@@ -93,7 +93,7 @@ typedef enum {
 
 @end
 
-@interface NSObject (NSTabView_delegate)
+@protocol NSTabViewDelegate <NSObject>
 - (void) tabViewDidChangeNumberOfTabViewItems: (NSTabView *) tabView;
 
 - (BOOL) tabView: (NSTabView *) tabView

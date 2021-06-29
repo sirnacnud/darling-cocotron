@@ -153,6 +153,12 @@ typedef enum {
 - (NSString *) pathForImageResource: (NSString *) name;
 @end
 
+@protocol NSImageDelegate <NSObject>
+
+// TODO
+
+@end
+
 typedef NSString *NSImageName;
 typedef NSString *NSImageHintKey;
 

@@ -25,3 +25,9 @@ APPKIT_EXPORT NSString *const NSVoiceName;
 
 @interface NSSpeechSynthesizer : NSObject
 @end
+
+@protocol NSSpeechSynthesizerDelegate <NSObject>
+
+// TODO
+
+@end

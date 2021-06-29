@@ -1,3 +1,5 @@
+#ifdef __OBJC__
+
 #import <CoreGraphics/CGGeometry.h>
 #import <Foundation/Foundation.h>
 
@@ -11,3 +13,5 @@
 - (void) setFrame: (CGRect) frame;
 
 @end
+
+#endif

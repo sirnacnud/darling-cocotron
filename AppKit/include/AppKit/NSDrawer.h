@@ -113,7 +113,7 @@ APPKIT_EXPORT NSString *const NSDrawerDidCloseNotification;
 
 @end
 
-@interface NSObject (NSDrawer_delegate)
+@protocol NSDrawerDelegate <NSObject>
 
 - (NSSize) drawerWillResizeContents: (NSDrawer *) drawer
                              toSize: (NSSize) contentSize;

@@ -13,6 +13,19 @@ typedef struct CF_BRIDGED_TYPE(id) O2DataProvider *CGDataProviderRef;
 
 typedef void (*CGDataProviderReleaseDataCallback)(void *info, const void *data, size_t size);
 
+typedef size_t (*CGDataProviderGetBytesCallback)(void* info, void* buffer, size_t count);
+typedef off_t (*CGDataProviderSkipForwardCallback)(void* info, off_t count);
+typedef void (*CGDataProviderRewindCallback)(void* info);
+typedef void (*CGDataProviderReleaseInfoCallback)(void* info);
+
+typedef struct CGDataProviderSequentialCallbacks {
+	unsigned int version;
+	CGDataProviderGetBytesCallback getBytes;
+	CGDataProviderSkipForwardCallback skipForward;
+	CGDataProviderRewindCallback rewind;
+	CGDataProviderReleaseInfoCallback releaseInfo;
+} CGDataProviderSequentialCallbacks;
+
 CF_IMPLICIT_BRIDGING_ENABLED
 
 COREGRAPHICS_EXPORT CGDataProviderRef CGDataProviderRetain(CGDataProviderRef provider);
@@ -21,6 +34,8 @@ COREGRAPHICS_EXPORT void CGDataProviderRelease(CGDataProviderRef provider);
 COREGRAPHICS_EXPORT CGDataProviderRef CGDataProviderCreateWithCFData(CFDataRef data);
 
 COREGRAPHICS_EXPORT CGDataProviderRef CGDataProviderCreateWithData(void *info, const void *data, size_t size, CGDataProviderReleaseDataCallback releaseCallback);
+
+COREGRAPHICS_EXPORT CGDataProviderRef __nullable CGDataProviderCreateSequential(void* info, const CGDataProviderSequentialCallbacks* callbacks);
 
 COREGRAPHICS_EXPORT CFDataRef CGDataProviderCopyData(CGDataProviderRef self);
 

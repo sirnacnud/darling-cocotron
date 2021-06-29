@@ -242,7 +242,7 @@ typedef enum {
 - (void) setSortDescriptors: (NSArray *) value;
 @end
 
-@interface NSObject (NSTableView_dataSource)
+@protocol NSTableViewDataSource <NSObject>
 - (NSInteger) numberOfRowsInTableView: (NSTableView *) tableView;
 - (id) tableView: (NSTableView *) tableView
         objectValueForTableColumn: (NSTableColumn *) tableColumn
@@ -264,7 +264,7 @@ typedef enum {
         dropOperation: (NSTableViewDropOperation) dropOperation;
 @end
 
-@interface NSObject (NSTableView_delegate)
+@protocol NSTableViewDelegate <NSObject>
 - (BOOL) tableView: (NSTableView *) tableView
         shouldEditTableColumn: (NSTableColumn *) tableColumn
                           row: (NSInteger) row;

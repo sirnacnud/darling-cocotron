@@ -51,6 +51,13 @@ typedef enum {
     kCTFontControlContentFontType = 26
 } CTFontUIFontType;
 
+typedef CF_OPTIONS(uint32_t, CTFontTableOptions) {
+    kCTFontTableOptionNoOptions        = 0,
+    kCTFontTableOptionExcludeSynthetic = 1,
+};
+
+typedef FourCharCode CTFontTableTag;
+
 CF_IMPLICIT_BRIDGING_ENABLED
 
 CORETEXT_EXPORT CTFontRef CTFontCreateWithGraphicsFont(

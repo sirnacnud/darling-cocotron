@@ -47,7 +47,7 @@ enum {
 - (NSArray *) namesOfPromisedFilesDroppedAtDestination: (NSURL *) destination;
 @end
 
-@interface NSObject (NSDragging_destination)
+@protocol NSDraggingDestination <NSObject>
 - (BOOL) prepareForDragOperation: (id<NSDraggingInfo>) sender;
 - (BOOL) performDragOperation: (id<NSDraggingInfo>) sender;
 - (void) concludeDragOperation: (id<NSDraggingInfo>) sender;
@@ -59,7 +59,7 @@ enum {
 - (BOOL) wantsPeriodicDraggingUpdates;
 @end
 
-@interface NSObject (NSDragging_source)
+@protocol NSDraggingSource <NSObject>
 - (BOOL) ignoreModifierKeysWhileDragging;
 - (NSDragOperation) draggingSourceOperationMaskForLocal: (BOOL) flag;
 - (void) draggedImage: (NSImage *) image beganAt: (NSPoint) point;

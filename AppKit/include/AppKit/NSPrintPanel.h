@@ -34,5 +34,11 @@ typedef NSInteger NSPrintPanelOptions;
 
 @end
 
+@protocol NSPrintPanelAccessorizing
+
+// TODO
+
+@end
+
 APPKIT_EXPORT NSString *const NSPrintPanelAccessorySummaryItemNameKey;
 APPKIT_EXPORT NSString *const NSPrintPanelAccessorySummaryItemDescriptionKey;

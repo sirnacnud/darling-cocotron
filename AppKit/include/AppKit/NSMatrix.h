@@ -177,3 +177,9 @@ typedef enum {
 - (BOOL) sendAction;
 
 @end
+
+@protocol NSMatrixDelegate <NSControlTextEditingDelegate>
+
+// TODO
+
+@end

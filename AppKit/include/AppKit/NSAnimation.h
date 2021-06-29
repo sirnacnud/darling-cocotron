@@ -109,7 +109,7 @@ APPKIT_EXPORT NSString *NSAnimationTriggerOrderOut;
 
 @end
 
-@interface NSObject (NSAnimationDelegate)
+@protocol NSAnimationDelegate <NSObject>
 - (BOOL) animationShouldStart: (NSAnimation *) animation;
 - (float) animation: (NSAnimation *) animation
         valueForProgress: (NSAnimationProgress) progress;

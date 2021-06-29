@@ -88,6 +88,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSImageCell.h>
 #import <AppKit/NSImageRep.h>
 #import <AppKit/NSImageView.h>
+#import <AppKit/NSInputServer.h>
 #import <AppKit/NSInterfaceStyle.h>
 #import <AppKit/NSKeyBindingManager.h>
 #import <AppKit/NSKeyValueBinding.h>
@@ -124,6 +125,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSPathControl.h>
 #import <AppKit/NSPopUpButton.h>
 #import <AppKit/NSPopUpButtonCell.h>
+#import <AppKit/NSPopover.h>
 #import <AppKit/NSPopoverTouchBarItem.h>
 #import <AppKit/NSPrintInfo.h>
 #import <AppKit/NSPrintOperation.h>
@@ -150,6 +152,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSSliderCell.h>
 #import <AppKit/NSSound.h>
 #import <AppKit/NSSpaceTouchBarItem.h>
+#import <AppKit/NSSpeechRecognizer.h>
 #import <AppKit/NSSpeechSynthesizer.h>
 #import <AppKit/NSSpellChecker.h>
 #import <AppKit/NSSplitView.h>
@@ -174,6 +177,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSTextContainer.h>
 #import <AppKit/NSTextField.h>
 #import <AppKit/NSTextFieldCell.h>
+#import <AppKit/NSTextFinder.h>
 #import <AppKit/NSTextList.h>
 #import <AppKit/NSTextStorage.h>
 #import <AppKit/NSTextTab.h>
@@ -192,11 +196,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSTreeController.h>
 #import <AppKit/NSTreeNode.h>
 #import <AppKit/NSUserDefaultsController.h>
+#import <AppKit/NSUserInterfaceItemIdentification.h>
+#import <AppKit/NSUserInterfaceItemSearching.h>
 #import <AppKit/NSView.h>
 #import <AppKit/NSViewController.h>
 #import <AppKit/NSVisualEffectView.h>
 #import <AppKit/NSWindow.h>
 #import <AppKit/NSWindowController.h>
+#import <AppKit/NSWindowRestoration.h>
 #import <AppKit/NSWorkspace.h>
 
 #import <ApplicationServices/ApplicationServices.h>

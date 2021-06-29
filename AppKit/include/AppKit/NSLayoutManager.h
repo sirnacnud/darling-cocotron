@@ -281,3 +281,7 @@ typedef enum {
                     atCharacterIndex: (NSUInteger) charIndex
                       effectiveRange: (NSRangePointer) effectiveCharRange;
 @end
+
+@protocol NSTextLayoutOrientationProvider
+
+@end

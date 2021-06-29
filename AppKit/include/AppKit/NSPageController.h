@@ -4,3 +4,7 @@
 @interface NSPageController : NSViewController
 
 @end
+
+@protocol NSPageControllerDelegate <NSObject>
+
+@end

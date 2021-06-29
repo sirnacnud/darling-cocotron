@@ -21,3 +21,9 @@
 
 @interface NSPasteboardItem : NSObject
 @end
+
+@protocol NSPasteboardItemDataProvider <NSObject>
+
+// TODO
+
+@end

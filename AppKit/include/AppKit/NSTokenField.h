@@ -35,3 +35,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setCompletionDelay: (NSTimeInterval) delay;
 
 @end
+
+@protocol NSTokenFieldDelegate <NSTextFieldDelegate>
+
+// TODO
+
+@end

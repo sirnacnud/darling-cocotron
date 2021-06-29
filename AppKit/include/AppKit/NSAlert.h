@@ -99,6 +99,6 @@ typedef NSInteger NSModalResponse;
 
 @end
 
-@interface NSObject (NSAlertDelegate)
+@protocol NSAlertDelegate <NSObject>
 - (BOOL) alertShowHelp: (NSAlert *) alert;
 @end

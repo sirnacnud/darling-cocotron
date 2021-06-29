@@ -50,3 +50,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) setTitleWithMnemonic: (NSString *) value;
 
 @end
+
+@protocol NSTextFieldDelegate <NSObject>
+
+// TODO
+
+@end

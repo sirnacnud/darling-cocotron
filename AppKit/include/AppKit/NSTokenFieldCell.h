@@ -46,3 +46,9 @@ typedef enum {
 - (void) setDelegate: delegate;
 
 @end
+
+@protocol NSTokenFieldCellDelegate <NSObject>
+
+// TODO
+
+@end

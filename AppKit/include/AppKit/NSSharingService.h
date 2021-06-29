@@ -25,5 +25,13 @@
 @interface NSSharingServicePicker : NSObject
 @end
 
+@protocol NSSharingServiceDelegate <NSObject>
+
+@end
+
+@protocol NSSharingServicePickerDelegate <NSObject>
+
+@end
+
 // @interface NSItemProvider (NSCloudKitSharing)
 // @end

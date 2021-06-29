@@ -20,7 +20,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #include <CoreFoundation/CoreFoundation.h>
 #import <CoreGraphics/CGSubWindow.h>
 #import <CoreGraphics/CGWindowLevel.h>
+#import <CoreGraphics/CGImage.h>
+#ifdef __OBJC__
 #import <Foundation/Foundation.h>
+#endif
 #import <OpenGL/CGLTypes.h>
 
 extern const CFStringRef kCGWindowAlpha;
@@ -28,7 +31,9 @@ extern const CFStringRef kCGWindowBounds;
 extern const CFStringRef kCGWindowLayer;
 extern const CFStringRef kCGWindowOwnerPID;
 
+#ifdef __OBJC__
 @class CGEvent;
+#endif
 
 typedef enum {
     CGSBackingStoreRetained = 0,
@@ -36,6 +41,27 @@ typedef enum {
     CGSBackingStoreBuffered = 2
 } CGSBackingStoreType;
 
+typedef CF_OPTIONS(uint32_t, CGWindowListOption) {
+    kCGWindowListOptionAll                 = 0,
+    kCGWindowListOptionOnScreenOnly        = (1 << 0),
+    kCGWindowListOptionOnScreenAboveWindow = (1 << 1),
+    kCGWindowListOptionOnScreenBelowWindow = (1 << 2),
+    kCGWindowListOptionIncludingWindow     = (1 << 3),
+    kCGWindowListExcludeDesktopElements    = (1 << 4),
+};
+
+typedef CF_OPTIONS(uint32_t, CGWindowImageOption) {
+    kCGWindowImageDefault             = 0,
+    kCGWindowImageBoundsIgnoreFraming = (1 << 0),
+    kCGWindowImageShouldBeOpaque      = (1 << 1),
+    kCGWindowImageOnlyShadows         = (1 << 2),
+    kCGWindowImageBestResolution      = (1 << 3),
+    kCGWindowImageNominalResolution   = (1 << 4),
+};
+
+typedef uint32_t CGWindowID;
+
+#ifdef __OBJC__
 @interface CGWindow : NSObject
 
 - (void) setDelegate: delegate;
@@ -138,3 +164,12 @@ typedef enum {
 - (void) platformWindowShouldZoom: (CGWindow *) window;
 
 @end
+#endif
+
+CF_IMPLICIT_BRIDGING_ENABLED
+
+COREGRAPHICS_EXPORT CFArrayRef CGWindowListCreate(CGWindowListOption option, CGWindowID relativeToWindow);
+COREGRAPHICS_EXPORT CFArrayRef CGWindowListCreateDescriptionFromArray(CFArrayRef windowArray);
+COREGRAPHICS_EXPORT CGImageRef CGWindowListCreateImageFromArray(CGRect screenBounds, CFArrayRef  windowArray, CGWindowImageOption imageOption);
+
+CF_IMPLICIT_BRIDGING_DISABLED

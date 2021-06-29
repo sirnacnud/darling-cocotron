@@ -69,9 +69,15 @@ APPKIT_EXPORT NSString *const NSComboBoxWillPopUpNotification;
 
 @end
 
-@interface NSObject (NSComboBox)
+@protocol NSComboBoxDelegate <NSObject>
 - (void) comboBoxWillPopUp: (NSNotification *) note;
 - (void) comboBoxWillDismiss: (NSNotification *) note;
 - (void) comboBoxSelectionDidChange: (NSNotification *) note;
 - (void) comboBoxSelectionIsChanging: (NSNotification *) note;
+@end
+
+@protocol NSComboBoxDataSource <NSObject>
+
+// TODO
+
 @end

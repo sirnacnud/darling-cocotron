@@ -22,6 +22,8 @@
 
 #include <CoreFoundation/CFString.h>
 #include <CoreGraphics/CoreGraphicsExport.h>
+#include <CoreGraphics/CGContext.h>
+#include <CoreGraphics/CGDataConsumer.h>
 
 COREGRAPHICS_EXPORT const CFStringRef kCGPDFContextKeywords;
 COREGRAPHICS_EXPORT const CFStringRef kCGPDFContextTitle;

@@ -110,3 +110,15 @@ APPKIT_EXPORT const NSPasteboardReadingOptionKey
 - (BOOL) setPropertyList: plist forType: (NSPasteboardType) type;
 
 @end
+
+@protocol NSPasteboardReading <NSObject>
+
+// TODO
+
+@end
+
+@protocol NSPasteboardWriting <NSObject>
+
+// TODO
+
+@end

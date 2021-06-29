@@ -28,6 +28,8 @@ typedef uint16_t CGGlyph;
 
 CF_IMPLICIT_BRIDGING_ENABLED
 
+COREGRAPHICS_EXPORT CFArrayRef CGFontCopyTableTags(CGFontRef font);
+
 COREGRAPHICS_EXPORT CGFontRef CGFontCreateWithFontName(CFStringRef name);
 COREGRAPHICS_EXPORT CGFontRef CGFontRetain(CGFontRef self);
 COREGRAPHICS_EXPORT void CGFontRelease(CGFontRef self);

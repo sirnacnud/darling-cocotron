@@ -41,3 +41,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @interface NSBundle (NSSound)
 - (NSString *) pathForSoundResource: (NSString *) sound;
 @end
+
+@protocol NSSoundDelegate <NSObject>
+
+// TODO
+
+@end

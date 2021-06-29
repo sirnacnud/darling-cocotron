@@ -66,3 +66,7 @@ typedef NSString *NSCollectionViewSupplementaryElementKind;
 - (NSCollectionViewItem *) newItemForRepresentedObject: object;
 
 @end
+
+@protocol NSCollectionViewDelegate <NSObject>
+// TODO
+@end

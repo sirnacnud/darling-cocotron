@@ -27,6 +27,7 @@ typedef uint32_t CGButtonCount;
 typedef uint32_t CGWheelCount;
 typedef uint16_t CGCharCode;
 typedef uint16_t CGKeyCode;
+typedef uint32_t CGRectCount;
 
 typedef CF_OPTIONS(uint32_t, CGEventFilterMask) {
     kCGEventFilterMaskPermitLocalMouseEvents = 0x00000001,
@@ -39,6 +40,16 @@ typedef CF_ENUM(uint32_t, CGEventSuppressionState) {
     kCGEventSuppressionStateRemoteMouseDrag,
     kCGNumberOfEventSuppressionStates
 };
+
+typedef CF_OPTIONS(uint32_t, CGScreenUpdateOperation) {
+    kCGScreenUpdateOperationRefresh                    =        0,
+    kCGScreenUpdateOperationMove                       = 1u <<  0,
+    kCGScreenUpdateOperationReducedDirtyRectangleCount = 1u << 31,
+};
+
+typedef struct CGScreenUpdateMoveDelta {
+    int32_t dX, dY;
+} CGScreenUpdateMoveDelta;
 
 #define kCGEventFilterMaskPermitAllEvents (kCGEventFilterMaskPermitLocalMouseEvents | kCGEventFilterMaskPermitLocalKeyboardEvents | kCGEventFilterMaskPermitSystemDefinedEvents)
 

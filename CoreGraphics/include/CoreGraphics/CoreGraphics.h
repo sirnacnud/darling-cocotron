@@ -15,18 +15,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <CoreGraphics/CGDataProvider.h>
 #import <CoreGraphics/CGDirectDisplay.h>
 #import <CoreGraphics/CGDisplayFade.h>
+#import <CoreGraphics/CGDisplayConfiguration.h>
 #import <CoreGraphics/CGFont.h>
 #import <CoreGraphics/CGFunction.h>
 #import <CoreGraphics/CGGeometry.h>
 #import <CoreGraphics/CGImage.h>
 #import <CoreGraphics/CGLayer.h>
 #import <CoreGraphics/CGPDFContext.h>
+#import <CoreGraphics/CGPDFDictionary.h>
 #import <CoreGraphics/CGPDFDocument.h>
+#import <CoreGraphics/CGPDFObject.h>
 #import <CoreGraphics/CGPDFPage.h>
 #import <CoreGraphics/CGPath.h>
 #import <CoreGraphics/CGPattern.h>
+#import <CoreGraphics/CGPSConverter.h>
 #import <CoreGraphics/CGShading.h>
 #import <CoreGraphics/CGWindowLevel.h>
+#import <CoreGraphics/CGWindow.h>
 
 #include <CoreGraphics/CGEvent.h>
 #include <CoreGraphics/CGPDFContext.h>

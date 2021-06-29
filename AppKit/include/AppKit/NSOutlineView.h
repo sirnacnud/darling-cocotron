@@ -20,6 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/AppKitExport.h>
 #import <AppKit/NSDragging.h>
 #import <AppKit/NSTableView.h>
+#import <AppKit/NSControl.h>
 
 @class NSTableColumn, NSButtonCell;
 
@@ -95,7 +96,7 @@ APPKIT_EXPORT NSString *const NSOutlineViewDisclosureButtonKey;
 
 @end
 
-@interface NSObject (NSOutlineView_dataSource)
+@protocol NSOutlineViewDataSource <NSObject>
 - (NSInteger) outlineView: (NSOutlineView *) outlineView
         numberOfChildrenOfItem: item;
 - (BOOL) outlineView: (NSOutlineView *) outlineView isItemExpandable: item;
@@ -111,7 +112,7 @@ APPKIT_EXPORT NSString *const NSOutlineViewDisclosureButtonKey;
                 byItem: item;
 @end
 
-@interface NSObject (NSOutlineView_delegate)
+@protocol NSOutlineViewDelegate <NSControlTextEditingDelegate>
 - (BOOL) outlineView: (NSOutlineView *) outlineView shouldExpandItem: item;
 - (BOOL) outlineView: (NSOutlineView *) outlineView shouldCollapseItem: item;
 - (BOOL) selectionShouldChangeInOutlineView: (NSOutlineView *) outlineView;

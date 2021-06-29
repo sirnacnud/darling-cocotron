@@ -90,3 +90,9 @@ enum {
 - (IBAction) _selectFile: (id) sender;
 - (IBAction) _cancel: (id) sender;
 @end
+
+@protocol NSOpenSavePanelDelegate <NSObject>
+
+// TODO
+
+@end

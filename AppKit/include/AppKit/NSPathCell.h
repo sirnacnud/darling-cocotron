@@ -66,3 +66,9 @@ typedef NSInteger NSPathStyle;
 - (void) setDelegate: (id) delegate;
 
 @end
+
+@protocol NSPathCellDelegate <NSObject>
+
+// TODO
+
+@end

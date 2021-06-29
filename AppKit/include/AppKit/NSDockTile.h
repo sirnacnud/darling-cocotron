@@ -25,3 +25,7 @@
 - (void) display;
 
 @end
+
+@protocol NSDockTilePlugIn <NSObject>
+
+@end

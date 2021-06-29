@@ -60,7 +60,7 @@ APPKIT_EXPORT NSString *const NSTextStorageDidProcessEditingNotification;
 
 @end
 
-@interface NSObject (NSTextStorage_delegate)
+@protocol NSTextStorageDelegate <NSObject>
 - (void) textStorageWillProcessEditing: (NSNotification *) note;
 - (void) textStorageDidProcessEditing: (NSNotification *) note;
 @end

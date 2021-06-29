@@ -61,7 +61,7 @@ typedef enum {
 
 // nb. it looks like the API for this is changed in MacOS X, replacing
 // splitView:constrainMix:max:ofSubviewAt with two individual methods for each.
-@interface NSObject (NSSplitView_delegate)
+@protocol NSSplitViewDelegate <NSObject>
 - (BOOL) splitView: (NSSplitView *) splitView
         canCollapseSubview: (NSView *) subview;
 - (BOOL) splitView: (NSSplitView *) splitView

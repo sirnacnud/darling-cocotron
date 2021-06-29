@@ -28,13 +28,6 @@ bool CGAffineTransformIsIdentity(CGAffineTransform xform) {
            xform.tx == 0 && xform.ty == 0;
 }
 
-CGAffineTransform CGAffineTransformMake(CGFloat a, CGFloat b, CGFloat c,
-                                        CGFloat d, CGFloat tx, CGFloat ty)
-{
-    CGAffineTransform xform = {a, b, c, d, tx, ty};
-    return xform;
-}
-
 CGAffineTransform CGAffineTransformMakeRotation(CGFloat radians) {
     CGAffineTransform xform = {
             cos(radians), sin(radians), -sin(radians), cos(radians), 0, 0};
@@ -104,24 +97,6 @@ CGAffineTransform CGAffineTransformTranslate(CGAffineTransform xform,
 {
     CGAffineTransform translate = CGAffineTransformMakeTranslation(tx, ty);
     return CGAffineTransformConcat(translate, xform);
-}
-
-CGPoint CGPointApplyAffineTransform(CGPoint point, CGAffineTransform xform) {
-    CGPoint p;
-
-    p.x = xform.a * point.x + xform.c * point.y + xform.tx;
-    p.y = xform.b * point.x + xform.d * point.y + xform.ty;
-
-    return p;
-}
-
-CGSize CGSizeApplyAffineTransform(CGSize size, CGAffineTransform xform) {
-    CGSize s;
-
-    s.width = xform.a * size.width + xform.c * size.height;
-    s.height = xform.b * size.width + xform.d * size.height;
-
-    return s;
 }
 
 CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform t) {

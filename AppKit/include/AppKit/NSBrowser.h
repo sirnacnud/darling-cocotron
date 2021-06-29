@@ -134,7 +134,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @end
 
-@interface NSObject (NSBrowser_delegate)
+@protocol NSBrowserDelegate <NSObject>
 - (BOOL) browser: (NSBrowser *) browser isColumnValid: (NSInteger) column;
 
 - (NSInteger) browser: (NSBrowser *) browser
