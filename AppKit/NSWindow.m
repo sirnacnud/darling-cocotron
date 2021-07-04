@@ -2206,7 +2206,8 @@ static BOOL _allowsAutomaticWindowTabbing;
 }
 
 - (void) orderFrontRegardless {
-    NSUnimplementedMethod();
+    // XXX: this should maybe do something extra?
+    [self orderFront: nil];
 }
 
 - (NSPoint) mouseLocationOutsideOfEventStream {
