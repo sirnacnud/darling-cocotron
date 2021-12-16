@@ -147,7 +147,6 @@ add_framework(Onyx2D
 		CoreFoundation
 		Foundation
 		z
-		elfloader
 		# native libraries
 		FreeType
 		fontconfig
