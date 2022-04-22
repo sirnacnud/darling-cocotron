@@ -38,6 +38,8 @@
     X11Cursor *_blankCursor, *_defaultCursor;
     BOOL _cursorGrabbed;
     KeySym _lastKeySym;
+    int _rrEventBase;
+    NSArray* _lastScreens;
 
 @public
     XIM _xim;

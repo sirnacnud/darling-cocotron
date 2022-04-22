@@ -130,6 +130,11 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
             _xim = XOpenIM(_display, NULL, NULL, NULL);
         }
 
+        int errorBase;
+        if (XRRQueryExtension(_display, &_rrEventBase, &errorBase)) {
+            XRRSelectInput(_display, DefaultRootWindow(_display), RRScreenChangeNotifyMask | RRCrtcChangeNotifyMask | RROutputChangeNotifyMask | RROutputPropertyNotifyMask);
+        }
+
         lastFocusedWindow = nil;
         lastClickTimeStamp = 0.0;
         clickCount = 0;
@@ -178,7 +183,20 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
     XkbSetDetectableAutoRepeat(_display, TRUE, &supported);
 }
 
+- (void) _invalidateRRCache {
+    if (_lastScreens) {
+        [_lastScreens release];
+        _lastScreens = nil;
+    }
+}
+
 - (NSArray *) screens {
+
+    NSArray* last = [_lastScreens retain];
+    if (last) {
+        return [last autorelease];
+    }
+
     int eventBase, errorBase;
 
     if (XRRQueryExtension(_display, &eventBase, &errorBase)) {
@@ -234,7 +252,9 @@ static void socketCallback(CFSocketRef s, CFSocketCallBackType type,
 
         XRRFreeScreenResources(screen);
 
-        return [NSArray arrayWithArray: retval];
+        NSArray* array = [NSArray arrayWithArray: retval];
+        _lastScreens = [array retain];
+        return array;
     } else {
         NSRect frame = NSMakeRect(
                 0, 0, DisplayWidth(_display, DefaultScreen(_display)),
@@ -1299,6 +1319,10 @@ static NSDictionary *modeInfoToDictionary(const XRRModeInfo *mi, int depth) {
         break;
 
     default:
+        if (ev->type == _rrEventBase + RRNotify) {
+            [self _invalidateRRCache];
+            break;
+        }
         NSLog(@"Unknown X11 event type %i", ev->type);
         break;
     }
