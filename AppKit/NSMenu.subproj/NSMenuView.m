@@ -43,6 +43,11 @@ enum {
     return NSNotFound;
 }
 
+- (NSUInteger) itemIndexAtPoint: (NSPoint) point rect: (NSRect*) rect {
+    NSInvalidAbstractInvocation();
+    return NSNotFound;
+}
+
 - (NSUInteger) selectedItemIndex {
     return _selectedItemIndex;
 }
@@ -141,7 +146,7 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
     NSTimeInterval firstTimestamp = [event timestamp];
 
     // Cascading menus we manage will be pushed and popped on the viewStack
-    NSMutableArray *viewStack = [NSMutableArray array];
+    __block NSMutableArray *viewStack = [NSMutableArray array];
 
     // Make sure we can put things back the way we found them
     BOOL oldAcceptsMouseMovedEvents = [[self window] acceptsMouseMovedEvents];
@@ -160,6 +165,8 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
     int keyboardNavigationAction = kNSMenuKeyboardNavigationNone;
 
     BOOL cancelled = NO;
+    NSTimer* delaySubmenu = nil;
+    NSRect lastRect = NSMakeRect(0,0,0,0);
 
     MENUDEBUG(@"entering outer loop");
 
@@ -201,15 +208,18 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
 
                     MENUDEBUG(@"found a menu: %@", checkView);
 
+                    // Performance optimization - break if we're still in the same menu item rect as last time
+                    if (NSMouseInRect(checkPoint, lastRect, [self isFlipped]))
+                        break;
+
                     // Which item is the cursor on top of?
                     NSUInteger itemIndex =
-                            [checkView itemIndexAtPoint: checkPoint];
+                            [checkView itemIndexAtPoint: checkPoint rect: &lastRect];
 
                     MENUDEBUG(@"found an item index: %u", itemIndex);
 
                     // If it's not the currently selected item
                     if (itemIndex != [checkView selectedItemIndex]) {
-                        NSMenuView *branch;
 
                         // This looks like it's dealing with pushed cascading
                         // menu views that are no longer needed because the user
@@ -224,19 +234,42 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
                         // And now select the new item
                         [checkView setSelectedItemIndex: itemIndex];
 
+                        if (delaySubmenu) {
+                            [delaySubmenu invalidate];
+                            [delaySubmenu release];
+                            delaySubmenu = nil;
+                        }
+
                         // If it's got a cascading menu then push that on the
                         // stack
-                        if ((branch = [checkView
-                                     viewAtSelectedIndexPositionOnScreen:
-                                             screen]) != nil) {
-                            MENUDEBUG(@"adding a new cascading view: %@",
-                                      branch);
-                            [viewStack addObject: branch];
-                        }
+                        // Do this with a delay to improve performance - this is what toolkits commonly do
+                        double delay = (count == 0) ? 0 : 0.5;
+                        delaySubmenu = [[NSTimer timerWithTimeInterval: delay repeats: NO block: ^(NSTimer* timer){
+
+                            NSMenuView *branch;
+
+                            if ((branch = [checkView
+                                        viewAtSelectedIndexPositionOnScreen:
+                                                screen]) != nil) {
+                                MENUDEBUG(@"adding a new cascading view: %@",
+                                        branch);
+                                [viewStack addObject: branch];
+                            }
+                        }] retain];
+                        [[NSRunLoop currentRunLoop] addTimer: delaySubmenu
+                                                     forMode: NSEventTrackingRunLoopMode];
                     }
                     // And bail out of the while loop - we're in the right place
                     break;
                 } else {
+                    if (delaySubmenu) {
+                        [delaySubmenu invalidate];
+                        [delaySubmenu release];
+                        delaySubmenu = nil;
+                    }
+
+                    lastRect = NSMakeRect(0,0,0,0);
+                    
                     // We've wandered off the menu so don't show anything
                     // selected if it's the deepest visible view
                     if (checkView == [viewStack lastObject]) {
@@ -568,6 +601,12 @@ const NSTimeInterval kMouseMovementThreshold = .001f;
         [pool release];
     } while (cancelled == NO && state != STATE_EXIT);
     [event release];
+
+    if (delaySubmenu) {
+        [delaySubmenu invalidate];
+        [delaySubmenu release];
+        delaySubmenu = nil;
+    }
 
     MENUDEBUG(@"done with the event loop");
 

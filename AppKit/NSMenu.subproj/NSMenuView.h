@@ -25,6 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSUInteger) itemIndexAtPoint: (NSPoint) point;
+- (NSUInteger) itemIndexAtPoint: (NSPoint) point rect: (NSRect*) rect;
 - (NSUInteger) selectedItemIndex;
 - (void) setSelectedItemIndex: (NSUInteger) itemIndex;
 
