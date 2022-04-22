@@ -29,6 +29,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 const CGFloat NSStringDrawerLargeDimension = 1000000.;
 
+@interface NSStringDrawer_CacheItem : NSObject {
+    @public
+    NSString* _string;
+    NSDictionary* _attributes;
+    NSAttributedString* _attributedString;
+    NSSize _maxSize;
+}
+
+-(instancetype) initWithString: (NSString *) string
+                    attributes: (NSDictionary *) attribs
+                       maxSize: (NSSize) size;
+-(instancetype) initWithAttributedString: (NSAttributedString *) string
+                                 maxSize: (NSSize) size;
+@end
+
 @implementation NSStringDrawer
 
 + (NSStringDrawer *) sharedStringDrawer {
@@ -41,6 +56,10 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
         _textStorage = [NSTextStorage new];
         _layoutManager = [NSLayoutManager new];
         _textContainer = [[NSTextContainer alloc] init];
+
+        _cache = [NSCache new];
+        _cache.countLimit = 250;
+
         [_textStorage addLayoutManager: _layoutManager];
         [_layoutManager addTextContainer: _textContainer];
     }
@@ -55,6 +74,20 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
         maxSize.height == NSZeroSize.height)
         maxSize = NSMakeSize(NSStringDrawerLargeDimension,
                              NSStringDrawerLargeDimension);
+
+    static NSStringDrawer_CacheItem* fastCacheKey;
+    if (!fastCacheKey)
+        fastCacheKey = [NSStringDrawer_CacheItem alloc];
+    fastCacheKey->_string = string;
+    fastCacheKey->_attributes = attributes;
+    fastCacheKey->_maxSize = maxSize;
+    
+    NSValue* entry = [_cache objectForKey: fastCacheKey];
+    if (entry != nil)
+    {
+        return [entry sizeValue];
+    }
+
     [_textContainer setContainerSize: maxSize];
     [_textStorage beginEditing];
     [_textStorage
@@ -63,7 +96,16 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
     [_textStorage setAttributes: attributes
                           range: NSMakeRange(0, [_textStorage length])];
     [_textStorage endEditing];
-    return [_layoutManager usedRectForTextContainer: _textContainer].size;
+    NSSize result = [_layoutManager usedRectForTextContainer: _textContainer].size;
+
+    NSStringDrawer_CacheItem* cacheKey = [[NSStringDrawer_CacheItem alloc] initWithString: string
+                                                                               attributes: attributes
+                                                                                  maxSize: maxSize];
+    [_cache setObject: [NSValue valueWithSize: result]
+              forKey: cacheKey];
+
+    [cacheKey release];
+    return result;
 }
 
 - (void) drawString: (NSString *) string
@@ -120,9 +162,30 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
         maxSize.height == NSZeroSize.height)
         maxSize = NSMakeSize(NSStringDrawerLargeDimension,
                              NSStringDrawerLargeDimension);
+
+    static NSStringDrawer_CacheItem* fastCacheKey;
+    if (!fastCacheKey)
+        fastCacheKey = [NSStringDrawer_CacheItem alloc];
+    fastCacheKey->_maxSize = maxSize;
+    fastCacheKey->_attributedString = astring;
+    
+    NSValue* entry = [_cache objectForKey: fastCacheKey];
+    if (entry != nil)
+    {
+        return [entry sizeValue];
+    }
+
     [_textContainer setContainerSize: maxSize];
     [_textStorage setAttributedString: astring];
-    return [_layoutManager usedRectForTextContainer: _textContainer].size;
+    NSSize result = [_layoutManager usedRectForTextContainer: _textContainer].size;
+
+    NSStringDrawer_CacheItem* realCacheKey = [[NSStringDrawer_CacheItem alloc] initWithAttributedString: astring
+                                                                                            maxSize: maxSize];
+    [_cache setObject: [NSValue valueWithSize: result]
+              forKey: realCacheKey];
+
+    [realCacheKey release];
+    return result;
 }
 
 - (void) drawAttributedString: (NSAttributedString *) astring
@@ -226,4 +289,72 @@ const CGFloat NSStringDrawerLargeDimension = 1000000.;
     [self _clipAndDrawInRect: rect truncatingTail: YES];
 }
 
+@end
+
+@implementation NSStringDrawer_CacheItem
+-(instancetype) initWithString: (NSString *) string
+     attributes: (NSDictionary *) attribs
+        maxSize: (NSSize) size
+{
+    _string = [string retain];
+    _attributes = [attribs retain];
+    _maxSize = size;
+
+    return self;
+}
+
+-(instancetype) initWithAttributedString: (NSAttributedString *) string
+                                 maxSize: (NSSize) size;
+{
+    _attributedString = [string retain];
+    _maxSize = size;
+
+    return self;
+}
+
+- (NSUInteger) hash {
+    NSUInteger h;
+
+    if (_attributedString != nil)
+        h = [_attributedString hash];
+    else
+        h = [_string hash] ^ [_attributes hash];
+
+    return h ^ ((unsigned long)(_maxSize.width * _maxSize.height));
+}
+
+- (BOOL) isEqual: (id) object {
+    if (self == object) {
+        return YES;
+    }
+    if (![object isKindOfClass: [NSStringDrawer_CacheItem class]]) {
+        return NO;
+    }
+    NSStringDrawer_CacheItem *oo = (NSStringDrawer_CacheItem *) object;
+
+    if (!CGSizeEqualToSize(_maxSize, oo->_maxSize))
+        return NO;
+
+    if (_attributedString != nil) {
+        if (![_attributedString isEqual: oo->_attributedString])
+            return NO;
+    } else {
+        if (![_string isEqual: oo->_string])
+            return NO;
+
+        if (_attributes != nil && oo->_attributes != nil) {
+            if (![_attributes isEqual: oo->_attributes])
+                return NO;
+        }
+    }
+
+    return YES;
+}
+
+- (void) dealloc {
+    [_string release];
+    [_attributes release];
+    [_attributedString release];
+    [super dealloc];
+}
 @end

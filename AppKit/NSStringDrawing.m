@@ -41,17 +41,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSSize) sizeWithAttributes: (NSDictionary *) attributes {
-    return [[NSStringDrawer sharedStringDrawer] sizeOfString: self
-                                              withAttributes: attributes
-                                                      inSize: NSZeroSize];
+    NSRect rect = [self boundingRectWithSize: NSZeroSize
+                                     options: 0
+                                  attributes: attributes];
+    return rect.size;
 }
 
 - (NSRect) boundingRectWithSize: (NSSize) size
                         options: (NSStringDrawingOptions) options
                      attributes: (NSDictionary *) attributes
 {
-    NSUnimplementedMethod();
-    return NSMakeRect(0, 0, 0, 0);
+    NSSize s = [[NSStringDrawer sharedStringDrawer] sizeOfString: self
+                                                  withAttributes: attributes
+                                                          inSize: size];
+    return NSMakeRect(0, 0, s.width, s.height);
 }
 
 @end

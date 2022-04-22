@@ -29,6 +29,7 @@ APPKIT_EXPORT const CGFloat NSStringDrawerLargeDimension;
     NSTextStorage *_textStorage;
     NSLayoutManager *_layoutManager;
     NSTextContainer *_textContainer;
+    NSCache *_cache;
 }
 
 + (NSStringDrawer *) sharedStringDrawer;
