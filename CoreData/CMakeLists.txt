@@ -2,6 +2,8 @@ project(CoreData)
 
 include(darling_framework)
 
+remove_sdk_framework(CoreData)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
 	-include math.h \
 	-include stdlib.h \
@@ -50,12 +52,19 @@ set_source_files_properties(${CoreData_sources} LANGUAGE C)
 set(DYLIB_COMPAT_VERSION "1.0.0")
 set(DYLIB_CURRENT_VERSION "752.0.0")
 
+set(FRAMEWORK_VERSION "A")
+
+generate_sdk_framework(CoreData
+    VERSION ${FRAMEWORK_VERSION}
+    HEADER "include/CoreData"
+)
+
 add_framework(CoreData
 	FAT
 	CURRENT_VERSION
 	SOURCES
 		${CoreData_sources}
-	VERSION "A"
+	VERSION ${FRAMEWORK_VERSION}
 	DEPENDENCIES
 		objc
 		system

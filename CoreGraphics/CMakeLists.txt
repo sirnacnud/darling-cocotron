@@ -2,6 +2,8 @@ project(CoreGraphics)
 
 include(darling_framework)
 
+remove_sdk_framework(CoreGraphics)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
 	-include math.h \
 	-include stdlib.h \
@@ -106,12 +108,19 @@ set_source_files_properties(${CoreGraphics_sources} LANGUAGE C)
 set(DYLIB_COMPAT_VERSION "64.0.0")
 set(DYLIB_CURRENT_VERSION "1070.22.0")
 
+set(FRAMEWORK_VERSION "A")
+
+generate_sdk_framework(CoreGraphics
+    VERSION ${FRAMEWORK_VERSION}
+    HEADER "include/CoreGraphics"
+)
+
 add_framework(CoreGraphics
 	FAT
 	CURRENT_VERSION
 	SOURCES
 		${CoreGraphics_sources}
-	VERSION "A"
+	VERSION ${FRAMEWORK_VERSION}
 	DEPENDENCIES
 		objc
 		system

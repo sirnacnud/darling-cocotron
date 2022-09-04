@@ -2,6 +2,8 @@ project(AppKit)
 
 include(darling_framework)
 
+remove_sdk_framework(AppKit)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
 	-include math.h \
 	-include stdlib.h \
@@ -444,6 +446,8 @@ set_source_files_properties(${AppKit_sources} LANGUAGE C)
 set(DYLIB_COMPAT_VERSION "45.0.0")
 set(DYLIB_CURRENT_VERSION "1499.11.0")
 
+set(FRAMEWORK_VERSION "C")
+
 set(AppKit_resources
 	Info.plist Info.plist
 
@@ -504,6 +508,11 @@ set(AppKit_resources
 	en.lproj/NSOpenPanel.nib en.lproj/NSOpenPanel.nib
 )
 
+generate_sdk_framework(AppKit
+    VERSION ${FRAMEWORK_VERSION}
+    HEADER "include/AppKit"
+)
+
 add_framework(AppKit
 	FAT
 	CURRENT_VERSION
@@ -511,7 +520,7 @@ add_framework(AppKit
 		${AppKit_sources}
 	RESOURCES
 		${AppKit_resources}
-	VERSION "C"
+	VERSION ${FRAMEWORK_VERSION}
 	DEPENDENCIES
 		objc
 		system
