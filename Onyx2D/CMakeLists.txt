@@ -2,6 +2,8 @@ project(Onyx2D)
 
 include(darling_framework)
 
+remove_sdk_framework(Onyx2D)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
 	-include math.h \
 	-include stdlib.h \
@@ -134,13 +136,21 @@ set(Onyx2D_sources
 
 set_source_files_properties(${Onyx2D_sources} LANGUAGE C)
 
+
+set(FRAMEWORK_VERSION "A")
+
+generate_sdk_framework(Onyx2D
+    VERSION ${FRAMEWORK_VERSION}
+    HEADER "include/Onyx2D"
+)
+
 add_framework(Onyx2D
 	FAT
 	CURRENT_VERSION
 	PRIVATE
 	SOURCES
 		${Onyx2D_sources}
-	VERSION "A"
+	VERSION ${FRAMEWORK_VERSION}
 	DEPENDENCIES
 		objc
 		system

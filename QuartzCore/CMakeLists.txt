@@ -2,6 +2,8 @@ project(QuartzCore)
 
 include(darling_framework)
 
+remove_sdk_framework(QuartzCore)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
 	-include math.h \
 	-include stdlib.h \
@@ -65,12 +67,19 @@ set_source_files_properties(${QuartzCore_sources} LANGUAGE C)
 set(DYLIB_COMPAT_VERSION "1.2.0")
 set(DYLIB_CURRENT_VERSION "1.11.0")
 
+set(FRAMEWORK_VERSION "A")
+
+generate_sdk_framework(QuartzCore
+    VERSION ${FRAMEWORK_VERSION}
+    HEADER "include/QuartzCore"
+)
+
 add_framework(QuartzCore
 	FAT
 	CURRENT_VERSION
 	SOURCES
 		${QuartzCore_sources}
-	VERSION "A"
+	VERSION ${FRAMEWORK_VERSION}
 	DEPENDENCIES
 		objc
 		system
