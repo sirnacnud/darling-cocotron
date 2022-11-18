@@ -294,6 +294,41 @@ static void drawSunkenBorder(NSRect rect) {
     return result;
 }
 
+- (NSUInteger) itemIndexAtPoint: (NSPoint) point rect: (NSRect*) rect {
+    NSUInteger result = NSNotFound;
+    NSRect bounds = [self bounds];
+    NSArray *items = [[self menu] itemArray];
+    NSUInteger i, count = [items count];
+    NSRect previousBorderRect = NSMakeRect(0, 0, 0, 0);
+    BOOL overflow = NO;
+
+    for (i = 0; i < count; i++) {
+        NSMenuItem *item = [items objectAtIndex: i];
+        NSRect titleRect = [self titleRectForItem: item
+                               previousBorderRect: previousBorderRect];
+        NSRect borderRect = [self borderRectFromTitleRect: titleRect];
+
+        if (NSMaxX(borderRect) > NSMaxX(bounds))
+            overflow = YES;
+
+        if (NSMouseInRect(point, borderRect, [self isFlipped])) {
+            *rect = borderRect;
+            result = i;
+        }
+
+        previousBorderRect = borderRect;
+    }
+
+    if (overflow) {
+        if (NSMouseInRect(point, [self overflowRect], [self isFlipped])) {
+            *rect = [self overflowRect];
+            return count;
+        }
+    }
+
+    return result;
+}
+
 - (void) positionBranchForSelectedItem: (NSWindow *) branch
                                 screen: (NSScreen *) screen
 {

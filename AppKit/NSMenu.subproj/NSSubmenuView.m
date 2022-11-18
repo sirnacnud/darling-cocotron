@@ -316,6 +316,27 @@ static NSRect boundsToTitleAreaRect(NSRect rect) {
     return NSNotFound;
 }
 
+- (NSUInteger) itemIndexAtPoint: (NSPoint) point rect: (NSRect*) rect {
+    NSArray *items = [[self menu] itemArray];
+    NSUInteger i, count = [items count];
+    NSRect check = boundsToTitleAreaRect([self bounds]);
+
+    for (i = 0; i < count; i++) {
+        NSMenuItem *item = [items objectAtIndex: i];
+
+        check.size.height = [self heightOfMenuItem: item];
+
+        if (NSMouseInRect(point, check, [self isFlipped])) {
+            *rect = check;
+            return i;
+        }
+            
+        check.origin.y += check.size.height;
+    }
+
+    return NSNotFound;
+}
+
 - (void) positionBranchForSelectedItem: (NSWindow *) branch
                                 screen: (NSScreen *) screen
 {
