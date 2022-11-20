@@ -290,7 +290,7 @@ enum {
 - (void) setSendsActionOnEndEditing: (BOOL) flag;
 - (BOOL) sendsActionOnEndEditing;
 
-- (BOOL) usesSignleLineMode;
+- (BOOL) usesSingleLineMode;
 
 @end
 

@@ -1163,8 +1163,8 @@ static NSString *NSStringFromCellType(NSCellType type) {
                               _objectValue];
 }
 
-- (BOOL) usesSignleLineMode {
-    NSLog(@"Stub called: usesSignleLineMode in %@", [self class]);
+- (BOOL) usesSingleLineMode {
+    NSLog(@"Stub called: usesSingleLineMode in %@", [self class]);
     return NO;
 }
 

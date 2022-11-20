@@ -233,7 +233,7 @@ static NSMutableDictionary *cellClassDictionary = nil;
 }
 
 - (BOOL) usesSingleLineMode {
-    return [_cell usesSignleLineMode];
+    return [_cell usesSingleLineMode];
 }
 
 - objectValue {
