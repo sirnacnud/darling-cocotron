@@ -20,3 +20,5 @@ typedef struct CGPSConverterCallbacks {
 	CGPSConverterMessageCallback noteMessage;
 	CGPSConverterReleaseInfoCallback releaseInfo;
 } CGPSConverterCallbacks;
+
+extern CGPSConverterRef CGPSConverterCreate(void *info, const CGPSConverterCallbacks *callbacks, CFDictionaryRef options);

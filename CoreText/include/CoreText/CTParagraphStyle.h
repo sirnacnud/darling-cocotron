@@ -1,5 +1,7 @@
 #import <CoreFoundation/CFBase.h>
 
+#include <stdint.h>
+
 typedef const struct __CTParagraphStyle* CTParagraphStyleRef;
 
 typedef CF_ENUM(uint32_t, CTParagraphStyleSpecifier) {
@@ -59,3 +61,6 @@ typedef struct CTParagraphStyleSetting {
 	size_t valueSize;
 	const void* value;
 } CTParagraphStyleSetting;
+
+extern CTParagraphStyleRef CTParagraphStyleCreate(const CTParagraphStyleSetting *settings, size_t settingCount);
+extern bool CTParagraphStyleGetValueForSpecifier(CTParagraphStyleRef paragraphStyle, CTParagraphStyleSpecifier spec, size_t valueBufferSize, void *valueBuffer);

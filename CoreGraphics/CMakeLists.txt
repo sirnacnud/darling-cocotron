@@ -24,6 +24,7 @@ set_property(SOURCE
 	CGDataConsumer.m
 	CGDataProvider.m
 	CGDirectDisplay.m
+	CGDisplayConfiguration.m
 	CGFont.m
 	CGFunction.m
 	CGGeometry.m
@@ -39,6 +40,8 @@ set_property(SOURCE
 	CGPDFContext.m
 	CGPDFDocument.m
 	CGPDFPage.m
+	CGPSConverter.m
+	CGRemoteOperation.m
 	CGShading.m
 	CGWindow.m
 	CGSubWindow.m

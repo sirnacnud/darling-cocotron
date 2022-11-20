@@ -196,4 +196,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _relationshipKeyPathsForPrefetching = value;
 }
 
+- (NSUInteger) _countInContext: (NSManagedObjectContext *) _context {
+    NSLog(@"Stub called: _countInContext in %@", [self class]);
+    return 0;
+}
+
 @end

@@ -1162,6 +1162,12 @@ static NSString *NSStringFromCellType(NSCellType type) {
                               NSStringFromCellType(_cellType), _font,
                               _objectValue];
 }
+
+- (BOOL) usesSignleLineMode {
+    NSLog(@"Stub called: usesSignleLineMode in %@", [self class]);
+    return NO;
+}
+
 @end
 
 void NSDrawThreePartImage(NSRect frame, NSImage *startCap, NSImage *centerFill,

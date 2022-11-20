@@ -88,4 +88,6 @@ typedef NSUInteger NSFetchRequestResultType;
 
 - (void) setRelationshipKeyPathsForPrefetching: (NSArray *) value;
 
+- (NSUInteger) _countInContext: (NSManagedObjectContext *) _context;
+
 @end

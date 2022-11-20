@@ -34,8 +34,3 @@ void *CTLineGetTypographicBounds(void) {
     printf("STUB %s\n", __PRETTY_FUNCTION__);
     return NULL;
 }
-
-void *CTParagraphStyleCreate(void) {
-    printf("STUB %s\n", __PRETTY_FUNCTION__);
-    return NULL;
-}

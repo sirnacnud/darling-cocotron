@@ -19,6 +19,9 @@
 
 #ifndef CGREMOTEOPERATION_H
 #define CGREMOTEOPERATION_H
+
+#import <CoreGraphics/CGGeometry.h>
+
 #include <CoreGraphics/CGError.h>
 #include <stdint.h>
 
@@ -51,8 +54,12 @@ typedef struct CGScreenUpdateMoveDelta {
     int32_t dX, dY;
 } CGScreenUpdateMoveDelta;
 
+typedef void (*CGScreenUpdateMoveCallback)(CGScreenUpdateMoveDelta delta, size_t count, const CGRect *rects, void *userInfo);
+
 #define kCGEventFilterMaskPermitAllEvents (kCGEventFilterMaskPermitLocalMouseEvents | kCGEventFilterMaskPermitLocalKeyboardEvents | kCGEventFilterMaskPermitSystemDefinedEvents)
 
 // TODO: All those deprecated functions
+extern CGError CGScreenRegisterMoveCallback(CGScreenUpdateMoveCallback callback, void *userInfo);
+extern void CGScreenUnregisterMoveCallback(CGScreenUpdateMoveCallback callback, void *userInfo);
 
 #endif

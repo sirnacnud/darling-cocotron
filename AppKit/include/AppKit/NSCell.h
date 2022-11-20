@@ -290,6 +290,8 @@ enum {
 - (void) setSendsActionOnEndEditing: (BOOL) flag;
 - (BOOL) sendsActionOnEndEditing;
 
+- (BOOL) usesSignleLineMode;
+
 @end
 
 void NSDrawThreePartImage(NSRect frame, NSImage *startCap, NSImage *centerFill,

@@ -1,4 +1,5 @@
 #import <CoreFoundation/CoreFoundation.h>
+#import <CoreGraphics/CGGeometry.h>
 
 typedef CF_OPTIONS(uint32_t, CGDisplayChangeSummaryFlags) {
 	kCGDisplayBeginConfigurationFlag  = (1 << 0),
@@ -13,3 +14,8 @@ typedef CF_OPTIONS(uint32_t, CGDisplayChangeSummaryFlags) {
 	kCGDisplayUnMirrorFlag            = (1 << 11),
 	kCGDisplayDesktopShapeChangedFlag = (1 << 12),
 };
+
+typedef void (*CGDisplayReconfigurationCallBack)(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo);
+
+extern CGError CGDisplayRegisterReconfigurationCallback(CGDisplayReconfigurationCallBack callback, void *userInfo);
+extern CGError CGDisplayRemoveReconfigurationCallback(CGDisplayReconfigurationCallBack callback, void *userInfo);

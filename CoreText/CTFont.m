@@ -104,3 +104,8 @@ CGPathRef CTFontCreatePathForGlyph(CTFontRef self, CGGlyph glyph,
 {
     return (CGPathRef) [self createPathForGlyph: glyph transform: xform];
 }
+
+CFArrayRef CTFontCopyAvailableTables(CTFontRef font, CTFontTableOptions options) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
