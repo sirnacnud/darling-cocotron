@@ -72,7 +72,8 @@ private:
 	CAMetalLayerInternal* _layer = nil;
 	std::shared_ptr<Indium::BinarySemaphore> _semaphore = nullptr;
 	GLuint _glSemaphore = 0;
-	std::function<void()> _presentCallback = nullptr;
+	std::function<void()> _wantsToPresentCallback = nullptr;
+	std::function<void()> _didPresentCallback = nullptr;
 	NSUInteger _drawableID = NSUIntegerMax;
 	CFTimeInterval _presentedTime = 0;
 	bool _queued = false;
@@ -88,7 +89,8 @@ public:
 	NSUInteger drawableID() const;
 	CFTimeInterval presentedTime() const;
 
-	void setPresentCallback(std::function<void()> presentCallback);
+	void setWantsToPresentCallback(std::function<void()> wantsToPresentCallback);
+	void setDidPresentCallback(std::function<void()> didPresentCallback);
 
 	void disown();
 

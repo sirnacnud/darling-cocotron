@@ -57,6 +57,66 @@ VkResult dynamic_vkGetMemoryFdKHR(VkDevice device, const VkMemoryGetFdInfoKHR* p
 };
 
 //
+// helper classes
+//
+
+// used to store a weak reference to an objc object within a C++ object (so it can be passed around in C++ code)
+template<typename T>
+class ObjcppWeakWrapper {
+private:
+	// needs to be mutable so we can use it in the copy constructor and the copy assignment operator.
+	// plus, it's also modified externally, so it can never be truly const.
+	mutable id _ref = nil;
+
+public:
+	ObjcppWeakWrapper() {};
+
+	ObjcppWeakWrapper(T ref) {
+		objc_storeWeak(&_ref, ref);
+	};
+
+	ObjcppWeakWrapper(const ObjcppWeakWrapper& other) {
+		@autoreleasepool {
+			objc_storeWeak(&_ref, objc_loadWeak(&other._ref));
+		}
+	};
+
+	ObjcppWeakWrapper(ObjcppWeakWrapper&& other) {
+		@autoreleasepool {
+			objc_storeWeak(&_ref, objc_loadWeak(&other._ref));
+			objc_storeWeak(&other._ref, nil);
+		}
+	};
+
+	~ObjcppWeakWrapper() {
+		objc_storeWeak(&_ref, nil);
+	};
+
+	ObjcppWeakWrapper& operator=(const ObjcppWeakWrapper& other) {
+		@autoreleasepool {
+			objc_storeWeak(&_ref, objc_loadWeak(&other._ref));
+		}
+		return *this;
+	};
+
+	ObjcppWeakWrapper& operator=(ObjcppWeakWrapper&& other) {
+		@autoreleasepool {
+			objc_storeWeak(&_ref, objc_loadWeak(&other._ref));
+			objc_storeWeak(&other._ref, nil);
+		}
+		return *this;
+	};
+
+	operator T() const {
+		return get();
+	};
+
+	T get() const {
+		return objc_loadWeak(&_ref);
+	};
+};
+
+//
 // ideally, we would use a Vulkan surface + swapchain here to render directly to the screen.
 // however, CALayers can also be rendered offscreen (e.g. with a CARenderer) and our current implementation of rendering
 // in most places is to render to an OpenGL buffer (per window) and display that.
@@ -521,14 +581,23 @@ CAMetalDrawableActual::~CAMetalDrawableActual() {
 
 void CAMetalDrawableActual::present() {
 	if (_queued) {
-		if (_presentCallback) {
-			_presentCallback();
-			_presentCallback = nullptr;
+		if (_wantsToPresentCallback) {
+			_wantsToPresentCallback();
+			_wantsToPresentCallback = nullptr;
+		}
+		if (_didPresentCallback) {
+			_didPresentCallback();
+			_didPresentCallback = nullptr;
 		}
 		return;
 	}
 
 	_queued = true;
+
+	if (_wantsToPresentCallback) {
+		_wantsToPresentCallback();
+		_wantsToPresentCallback = nullptr;
+	}
 
 	@autoreleasepool {
 		CAMetalLayerInternal* layer = objc_loadWeak(&_layer);
@@ -583,8 +652,12 @@ CFTimeInterval CAMetalDrawableActual::presentedTime() const {
 	return _presentedTime;
 };
 
-void CAMetalDrawableActual::setPresentCallback(std::function<void()> presentCallback) {
-	_presentCallback = presentCallback;
+void CAMetalDrawableActual::setWantsToPresentCallback(std::function<void()> wantsToPresentCallback) {
+	_wantsToPresentCallback = wantsToPresentCallback;
+};
+
+void CAMetalDrawableActual::setDidPresentCallback(std::function<void()> didPresentCallback) {
+	_didPresentCallback = didPresentCallback;
 };
 
 void CAMetalDrawableActual::disown() {
@@ -594,18 +667,18 @@ void CAMetalDrawableActual::disown() {
 void CAMetalDrawableActual::didPresent() {
 	_presentedTime = CACurrentMediaTime();
 
-	if (_presentCallback) {
-		_presentCallback();
-		_presentCallback = nullptr;
+	if (_didPresentCallback) {
+		_didPresentCallback();
+		_didPresentCallback = nullptr;
 	}
 };
 
 void CAMetalDrawableActual::didDrop() {
 	_presentedTime = 0;
 
-	if (_presentCallback) {
-		_presentCallback();
-		_presentCallback = nullptr;
+	if (_didPresentCallback) {
+		_didPresentCallback();
+		_didPresentCallback = nullptr;
 	}
 };
 
@@ -625,7 +698,8 @@ void CAMetalDrawableActual::reset() {
 	}
 
 	_semaphore = nullptr;
-	_presentCallback = nullptr;
+	_wantsToPresentCallback = nullptr;
+	_didPresentCallback = nullptr;
 	_presentedTime = 0;
 	_queued = false;
 };
@@ -668,6 +742,49 @@ static void glDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severi
 		_texture = [[MTLTextureInternal alloc] initWithTexture: drawable->texture() device: layer.device resourceOptions: MTLResourceStorageModeShared];
 
 		_drawable->reset();
+
+		_drawable->setWantsToPresentCallback([weakSelf = ObjcppWeakWrapper(self)]() {
+			@autoreleasepool {
+				CAMetalDrawableInternal* me = weakSelf.get();
+
+				if (!me) {
+					return;
+				}
+
+				// ensure we stick around to see final presentation so we can notify _presentedHandlers
+				// even if the user drops all their references to the drawable object
+				//
+				// once the wantsToPresentCallback is invoked (the one we're in right now),
+				// it's guaranteed that the didPresentCallback will invoked (either for presentation
+				// or for dropping), so we can be sure we're not leaking ourselves here.
+				[me retain];
+				me->_drawable->setDidPresentCallback([=]() {
+					@autoreleasepool {
+						// autorelease ourselves
+						[me autorelease];
+
+						me->_presentedTime = me->_drawable->presentedTime();
+
+						// TODO: synchronize/lock this
+						for (MTLDrawablePresentedHandler handler in me->_presentedHandlers) {
+							handler(me);
+						}
+
+						// release the C++ drawable instance (and allow it to be recycled)
+						me->_drawable->release();
+						me->_drawable = nullptr;
+
+						// XXX: it's not clear whether the texture is still accessible after presentation,
+						//      but it *seems* that it would no longer be accessible. according to the documentation,
+						//      you can safely retain a drawable to query certain properties such as drawableID and presentedTime,
+						//      but no mention of texture is made.
+						// TODO: verify this
+						[me->_texture release];
+						me->_texture = nil;
+					}
+				});
+			}
+		});
 	}
 	return self;
 }
@@ -689,34 +806,6 @@ static void glDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severi
 
 - (void)present
 {
-	// retain ourselves for the callback
-	[self retain];
-	_drawable->setPresentCallback([self]() {
-		@autoreleasepool {
-			// autorelease ourselves
-			[self autorelease];
-
-			self->_presentedTime = self->_drawable->presentedTime();
-
-			// TODO: synchronize/lock this
-			for (MTLDrawablePresentedHandler handler in self->_presentedHandlers) {
-				handler(self);
-			}
-
-			// release the C++ drawable instance (and allow it to be recycled)
-			self->_drawable->release();
-			self->_drawable = nullptr;
-
-			// XXX: it's not clear whether the texture is still accessible after presentation,
-			//      but it *seems* that it would no longer be accessible. according to the documentation,
-			//      you can safely retain a drawable to query certain properties such as drawableID and presentedTime,
-			//      but no mention of texture is made.
-			// TODO: verify this
-			[self->_texture release];
-			self->_texture = nil;
-		}
-	});
-
 	_drawable->present();
 }
 
