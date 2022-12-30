@@ -405,10 +405,10 @@ static void reportGLErrors(void) {
 
 - (void)queuePresent: (NSUInteger)drawableID
 {
-	@synchronized(self) {
-		_queuedDrawables[_queuedDrawableCount] = drawableID;
-		++_queuedDrawableCount;
-	}
+	[_drawableCondition lock];
+	_queuedDrawables[_queuedDrawableCount] = drawableID;
+	++_queuedDrawableCount;
+	[_drawableCondition unlock];
 
 	// we now need to schedule a render
 	//
@@ -432,6 +432,11 @@ static void reportGLErrors(void) {
 	// drop all queued presentations
 	for (NSUInteger i = 0; i < _queuedDrawableCount; ++i) {
 		auto& drawable = _drawables[_queuedDrawables[i]];
+
+		// disown it first so it doesn't try to release itself
+		// (and end up deadlocking in `releaseDrawable:`)
+		drawable->disown();
+
 		drawable->didDrop();
 	}
 	_queuedDrawableCount = 0;
@@ -507,13 +512,13 @@ static void reportGLErrors(void) {
 {
 	std::shared_ptr<CAMetalDrawableActual> drawable = nullptr;
 
-	@synchronized(self) {
-		if (_queuedDrawableCount > 0) {
-			drawable = _drawables[_queuedDrawables[0]];
-			--_queuedDrawableCount;
-			std::copy(_queuedDrawables.begin() + 1, _queuedDrawables.end(), _queuedDrawables.begin());
-		}
+	[_drawableCondition lock];
+	if (_queuedDrawableCount > 0) {
+		drawable = _drawables[_queuedDrawables[0]];
+		--_queuedDrawableCount;
+		std::copy(_queuedDrawables.begin() + 1, _queuedDrawables.end(), _queuedDrawables.begin());
 	}
+	[_drawableCondition unlock];
 
 	if (drawable) {
 		// wait for the drawable to be fully rendered before copying it to the render texture
