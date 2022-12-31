@@ -28,6 +28,8 @@
 #include <OpenGL/glext.h>
 #include <indium/indium.private.hpp>
 
+namespace DynamicVK = Indium::DynamicVK;
+
 static void reportGLErrors(void) {
 #if 0
 	GLenum err;
@@ -42,18 +44,9 @@ static void reportGLErrors(void) {
 // dynamically imported
 //
 
-VkResult dynamic_vkGetSemaphoreFdKHR(VkDevice device, const VkSemaphoreGetFdInfoKHR* pGetFdInfo, int* pFd) {
-	static PFN_vkGetSemaphoreFdKHR ptr = [&]() {
-		return reinterpret_cast<PFN_vkGetSemaphoreFdKHR>(vkGetInstanceProcAddr(Indium::globalInstance, "vkGetSemaphoreFdKHR"));
-	}();
-	return ptr(device, pGetFdInfo, pFd);
-};
-
-VkResult dynamic_vkGetMemoryFdKHR(VkDevice device, const VkMemoryGetFdInfoKHR* pGetFdInfo, int* pFd) {
-	static PFN_vkGetMemoryFdKHR ptr = [&]() {
-		return reinterpret_cast<PFN_vkGetMemoryFdKHR>(vkGetInstanceProcAddr(Indium::globalInstance, "vkGetMemoryFdKHR"));
-	}();
-	return ptr(device, pGetFdInfo, pFd);
+namespace Indium::DynamicVK {
+	static DynamicFunction<PFN_vkGetSemaphoreFdKHR> vkGetSemaphoreFdKHR("vkGetSemaphoreFdKHR");
+	static DynamicFunction<PFN_vkGetMemoryFdKHR> vkGetMemoryFdKHR("vkGetMemoryFdKHR");
 };
 
 //
@@ -187,7 +180,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 	imgInfo.pQueueFamilyIndices = nullptr;
 	imgInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 
-	if (vkCreateImage(_device->device(), &imgInfo, nullptr, &_image) != VK_SUCCESS) {
+	if (DynamicVK::vkCreateImage(_device->device(), &imgInfo, nullptr, &_image) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
@@ -207,7 +200,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 
 	imgInfo.pNext = &extMemInfo;
 
-	if (vkCreateImage(_device->device(), &imgInfo, nullptr, &_internalImage) != VK_SUCCESS) {
+	if (DynamicVK::vkCreateImage(_device->device(), &imgInfo, nullptr, &_internalImage) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
@@ -220,7 +213,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 
 	// first, the public image
 
-	vkGetImageMemoryRequirements(_device->device(), _image, &reqs);
+	DynamicVK::vkGetImageMemoryRequirements(_device->device(), _image, &reqs);
 
 	size_t targetIndex = findSharedMemory(reqs, _device);
 
@@ -234,16 +227,16 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 	allocInfo.allocationSize = reqs.size;
 	allocInfo.memoryTypeIndex = targetIndex;
 
-	if (vkAllocateMemory(_device->device(), &allocInfo, nullptr, &_memory) != VK_SUCCESS) {
+	if (DynamicVK::vkAllocateMemory(_device->device(), &allocInfo, nullptr, &_memory) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
 
-	vkBindImageMemory(_device->device(), _image, _memory, 0);
+	DynamicVK::vkBindImageMemory(_device->device(), _image, _memory, 0);
 
 	// now, the internal image
 
-	vkGetImageMemoryRequirements(_device->device(), _internalImage, &reqs);
+	DynamicVK::vkGetImageMemoryRequirements(_device->device(), _internalImage, &reqs);
 
 	targetIndex = findSharedMemory(reqs, _device);
 
@@ -267,12 +260,12 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 
 	exportAllocInfo.pNext = &dedicatedInfo;
 
-	if (vkAllocateMemory(_device->device(), &allocInfo, nullptr, &_internalMemory) != VK_SUCCESS) {
+	if (DynamicVK::vkAllocateMemory(_device->device(), &allocInfo, nullptr, &_internalMemory) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
 
-	vkBindImageMemory(_device->device(), _internalImage, _internalMemory, 0);
+	DynamicVK::vkBindImageMemory(_device->device(), _internalImage, _internalMemory, 0);
 
 	//
 	// transition the images into the general layout
@@ -285,7 +278,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 	cmdBufAllocInfo.commandBufferCount = 1;
 
 	VkCommandBuffer cmdBuf;
-	if (vkAllocateCommandBuffers(_device->device(), &cmdBufAllocInfo, &cmdBuf) != VK_SUCCESS) {
+	if (DynamicVK::vkAllocateCommandBuffers(_device->device(), &cmdBufAllocInfo, &cmdBuf) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
@@ -294,7 +287,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 	cmdBufBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 	cmdBufBeginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 
-	vkBeginCommandBuffer(cmdBuf, &cmdBufBeginInfo);
+	DynamicVK::vkBeginCommandBuffer(cmdBuf, &cmdBufBeginInfo);
 
 	VkImageMemoryBarrier barriers[2];
 
@@ -316,16 +309,16 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 	barriers[1] = barriers[0];
 	barriers[1].image = _internalImage;
 
-	vkCmdPipelineBarrier(cmdBuf, VK_PIPELINE_STAGE_NONE, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0, 0, nullptr, 0, nullptr, sizeof(barriers) / sizeof(*barriers), barriers);
+	DynamicVK::vkCmdPipelineBarrier(cmdBuf, VK_PIPELINE_STAGE_NONE, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0, 0, nullptr, 0, nullptr, sizeof(barriers) / sizeof(*barriers), barriers);
 
-	vkEndCommandBuffer(cmdBuf);
+	DynamicVK::vkEndCommandBuffer(cmdBuf);
 
 	VkFenceCreateInfo fenceCreateInfo {};
 	fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 
 	VkFence theFence = VK_NULL_HANDLE;
 
-	if (vkCreateFence(_device->device(), &fenceCreateInfo, nullptr, &theFence) != VK_SUCCESS) {
+	if (DynamicVK::vkCreateFence(_device->device(), &fenceCreateInfo, nullptr, &theFence) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
@@ -335,15 +328,15 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 	submitInfo.commandBufferCount = 1;
 	submitInfo.pCommandBuffers = &cmdBuf;
 
-	vkQueueSubmit(_device->graphicsQueue(), 1, &submitInfo, theFence);
-	if (vkWaitForFences(_device->device(), 1, &theFence, VK_TRUE, /* 1s */ 1ull * 1000 * 1000 * 1000) != VK_SUCCESS) {
+	DynamicVK::vkQueueSubmit(_device->graphicsQueue(), 1, &submitInfo, theFence);
+	if (DynamicVK::vkWaitForFences(_device->device(), 1, &theFence, VK_TRUE, /* 1s */ 1ull * 1000 * 1000 * 1000) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
 
-	vkDestroyFence(_device->device(), theFence, nullptr);
+	DynamicVK::vkDestroyFence(_device->device(), theFence, nullptr);
 
-	vkFreeCommandBuffers(_device->device(), _device->oneshotCommandPool(), 1, &cmdBuf);
+	DynamicVK::vkFreeCommandBuffers(_device->device(), _device->oneshotCommandPool(), 1, &cmdBuf);
 
 	//
 	// create an image view for the public image
@@ -360,7 +353,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 	imgViewInfo.components.a = VK_COMPONENT_SWIZZLE_A;
 	imgViewInfo.subresourceRange = barriers[0].subresourceRange;
 
-	if (vkCreateImageView(_device->device(), &imgViewInfo, nullptr, &_imageView) != VK_SUCCESS) {
+	if (DynamicVK::vkCreateImageView(_device->device(), &imgViewInfo, nullptr, &_imageView) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
@@ -378,7 +371,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 
 	int fd = -1;
 
-	if (dynamic_vkGetMemoryFdKHR(_device->device(), &getFDInfo, &fd) != VK_SUCCESS) {
+	if (DynamicVK::vkGetMemoryFdKHR(_device->device(), &getFDInfo, &fd) != VK_SUCCESS) {
 		// TODO
 		abort();
 	}
@@ -419,11 +412,11 @@ CAMetalDrawableTexture::~CAMetalDrawableTexture() {
 	glDeleteMemoryObjectsEXT(1, &_memoryObject);
 	reportGLErrors();
 
-	vkDestroyImageView(_device->device(), _imageView, nullptr);
-	vkDestroyImage(_device->device(), _image, nullptr);
-	vkFreeMemory(_device->device(), _memory, nullptr);
-	vkDestroyImage(_device->device(), _internalImage, nullptr);
-	vkFreeMemory(_device->device(), _internalMemory, nullptr);
+	DynamicVK::vkDestroyImageView(_device->device(), _imageView, nullptr);
+	DynamicVK::vkDestroyImage(_device->device(), _image, nullptr);
+	DynamicVK::vkFreeMemory(_device->device(), _memory, nullptr);
+	DynamicVK::vkDestroyImage(_device->device(), _internalImage, nullptr);
+	DynamicVK::vkFreeMemory(_device->device(), _internalMemory, nullptr);
 };
 
 GLuint CAMetalDrawableTexture::glTexture() const {
@@ -527,7 +520,7 @@ void CAMetalDrawableTexture::precommit(std::shared_ptr<Indium::PrivateCommandBuf
 	barriers[1].newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 	barriers[1].image = _internalImage;
 
-	vkCmdPipelineBarrier(cmdbuf->commandBuffer(), VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, sizeof(barriers) / sizeof(*barriers), barriers);
+	DynamicVK::vkCmdPipelineBarrier(cmdbuf->commandBuffer(), VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, sizeof(barriers) / sizeof(*barriers), barriers);
 
 	VkImageBlit region {};
 
@@ -542,7 +535,7 @@ void CAMetalDrawableTexture::precommit(std::shared_ptr<Indium::PrivateCommandBuf
 	region.dstOffsets[1] = region.srcOffsets[1];
 	region.dstSubresource = region.srcSubresource;
 
-	vkCmdBlitImage(cmdbuf->commandBuffer(), _image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, _internalImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region, VK_FILTER_LINEAR);
+	DynamicVK::vkCmdBlitImage(cmdbuf->commandBuffer(), _image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, _internalImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region, VK_FILTER_LINEAR);
 
 	barriers[0].srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
 	barriers[0].dstAccessMask = VK_ACCESS_MEMORY_READ_BIT | VK_ACCESS_MEMORY_WRITE_BIT;
@@ -554,7 +547,7 @@ void CAMetalDrawableTexture::precommit(std::shared_ptr<Indium::PrivateCommandBuf
 	barriers[1].oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
 	barriers[1].newLayout = VK_IMAGE_LAYOUT_GENERAL;
 
-	vkCmdPipelineBarrier(cmdbuf->commandBuffer(), VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, sizeof(barriers) / sizeof(*barriers), barriers);
+	DynamicVK::vkCmdPipelineBarrier(cmdbuf->commandBuffer(), VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, sizeof(barriers) / sizeof(*barriers), barriers);
 };
 
 bool CAMetalDrawableTexture::needsExportablePresentationSemaphore() const {
@@ -620,7 +613,7 @@ void CAMetalDrawableActual::present() {
 			info.semaphore = _semaphore->semaphore;
 			info.handleType = VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT;
 
-			if (dynamic_vkGetSemaphoreFdKHR(_semaphore->device->device(), &info, &fd) != VK_SUCCESS) {
+			if (DynamicVK::vkGetSemaphoreFdKHR(_semaphore->device->device(), &info, &fd) != VK_SUCCESS) {
 				// TODO
 				abort();
 			}
