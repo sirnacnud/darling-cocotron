@@ -23,6 +23,9 @@
 #import "CAMetalLayerInternal.h"
 #import <QuartzCore/CAMetalLayer.h>
 #import <Metal/MTLDeviceInternal.h>
+#import <Metal/stubs.h>
+
+#if DARLING_METAL_ENABLED
 
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
@@ -825,3 +828,18 @@ static void glDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severi
 }
 
 @end
+
+#else
+
+@implementation CAMetalDrawableInternal
+
+@dynamic texture;
+@dynamic layer;
+@dynamic drawableID;
+@dynamic presentedTime;
+
+MTL_UNSUPPORTED_CLASS
+
+@end
+
+#endif

@@ -23,6 +23,7 @@
 #import <Foundation/NSRaise.h>
 #import <Metal/MTLDeviceInternal.h>
 #import <QuartzCore/CALayerContext.h>
+#import <Metal/stubs.h>
 
 #include <algorithm>
 
@@ -40,6 +41,7 @@ static void reportGLErrors(void) {
 
 @implementation CAMetalLayer
 
+#if DARLING_METAL_ENABLED
 // FIXME: this breaks inheritance from CAMetalLayer.
 //        the problem is that we need some C++ ivars, but we can't put those in the public header
 //        and this code needs to compile on 32-bit (so it can't use non-fragile ivars).
@@ -55,6 +57,7 @@ static void reportGLErrors(void) {
 		return [super allocWithZone: zone];
 	}
 }
+#endif
 
 - (id<MTLDevice>)device
 {
@@ -203,6 +206,8 @@ static void reportGLErrors(void) {
 @end
 
 @implementation CAMetalLayerInternal
+
+#if DARLING_METAL_ENABLED
 
 @synthesize presentsWithTransaction = _presentsWithTransaction;
 @synthesize displaySyncEnabled = _displaySyncEnabled;
@@ -589,5 +594,11 @@ static void reportGLErrors(void) {
 		CGLSetCurrentContext(prev);
 	}
 }
+
+#else
+
+MTL_UNSUPPORTED_CLASS
+
+#endif
 
 @end

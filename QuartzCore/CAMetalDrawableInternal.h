@@ -23,6 +23,8 @@
 #import <OpenGL/gl.h>
 #import <OpenGL/OpenGL.h>
 
+#if DARLING_METAL_ENABLED
+
 #include <indium/indium.private.hpp>
 
 @class CAMetalLayerInternal;
@@ -102,8 +104,12 @@ public:
 	void release();
 	void reset();
 };
+#endif
 
-@interface CAMetalDrawableInternal : NSObject <CAMetalDrawable, MTLDrawableInternal> {
+@interface CAMetalDrawableInternal : NSObject <CAMetalDrawable, MTLDrawableInternal>
+
+#if DARLING_METAL_ENABLED
+{
 	NSUInteger _drawableID;
 	CFTimeInterval _presentedTime;
 	std::shared_ptr<CAMetalDrawableActual> _drawable;
@@ -114,5 +120,6 @@ public:
 
 - (instancetype)initWithLayer: (CAMetalLayer*)layer
                      drawable: (std::shared_ptr<CAMetalDrawableActual>)drawable;
+#endif
 
 @end

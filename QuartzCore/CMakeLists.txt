@@ -75,6 +75,12 @@ generate_sdk_framework(QuartzCore
     HEADER "include/QuartzCore"
 )
 
+if (BUILD_METAL)
+	set(QUARTZCORE_LINK_INDIUM_PRIVATE indium_private)
+else()
+	set(QUARTZCORE_LINK_INDIUM_PRIVATE "")
+endif()
+
 add_framework(QuartzCore
 	FAT
 	CURRENT_VERSION
@@ -90,7 +96,7 @@ add_framework(QuartzCore
 		OpenGL
 		CoreGraphics
 		Metal_private
-		indium_private
+		${QUARTZCORE_LINK_INDIUM_PRIVATE}
 		cxx
 	LINK_FLAGS
 	" -Wl,-reexport_library,${CMAKE_BINARY_DIR}/src/frameworks/CoreImage/CoreImage \
