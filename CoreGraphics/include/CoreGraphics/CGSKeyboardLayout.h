@@ -20,7 +20,7 @@
 #ifndef CGSKEYBOARDLAYOUT_H
 #define CGSKEYBOARDLAYOUT_H
 #import <Foundation/NSString.h>
-#include <CoreServices/UnicodeUtilities.h>
+#include <CarbonCore/UnicodeUtilities.h>
 #include <stdint.h>
 
 @interface CGSKeyboardLayout : NSObject {

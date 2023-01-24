@@ -20,7 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSEvent.h>
 #import <AppKit/NSFont.h>
 #import <AppKit/NSPasteboard.h>
-#import <CoreServices/UnicodeUtilities.h>
+#import <CarbonCore/UnicodeUtilities.h>
 #import <Foundation/Foundation.h>
 
 @class NSColor, NSDraggingManager, NSPrintInfo, NSView, NSSavePanel,
