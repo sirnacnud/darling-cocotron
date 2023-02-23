@@ -128,7 +128,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     [result setMessageText: [error localizedDescription]];
     [result setInformativeText: [error localizedRecoverySuggestion]];
-    int i, count = [titles count];
+    NSUInteger i, count = [titles count];
     for (i = 0; i < count; i++)
         [result addButtonWithTitle: [titles objectAtIndex: i]];
 
@@ -332,7 +332,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     CGFloat suppressionAccessoryGap = 0.;
     NSSize mainSize = NSZeroSize;
     NSSize panelSize = NSZeroSize;
-    int i, count = [_buttons count];
+    NSUInteger i, count = [_buttons count];
     NSSize okCancelButtonSize = NSMakeSize(40, 24);
     NSSize otherButtonSize = okCancelButtonSize;
     NSSize allButtonsSize = NSZeroSize;
@@ -545,10 +545,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) sheetDidEnd: (NSWindow *) sheet
-          returnCode: (int) returnCode
+          returnCode: (NSModalResponse) returnCode
          contextInfo: (void *) contextInfo
 {
-    typedef void (*alertDidEnd)(id, SEL, NSAlert *, int, void *);
+    typedef void (*alertDidEnd)(id, SEL, NSAlert *, NSModalResponse, void *);
     if (_sheetDidEnd) {
         alertDidEnd endFunction =
                 (alertDidEnd) [_sheetDelegate methodForSelector: _sheetDidEnd];
@@ -589,7 +589,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                        contextInfo: 0];
 }
 
-- (NSInteger) runModal {
+- (NSModalResponse) runModal {
     [_window setLevel: NSModalPanelWindowLevel];
     [_window setStyleMask: NSTitledWindowMask];
     [self layoutIfNeeded];
