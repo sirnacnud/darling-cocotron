@@ -158,11 +158,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         defaultTitle = NSLocalizedStringFromTableInBundle(
                 @"OK", nil, [NSBundle bundleForClass: [NSAlert class]],
                 @"Default button title for NSAlert");
-    [result addButtonWithTitle: defaultTitle];
+    [result _addButtonWithTitle: defaultTitle returnCode:NSAlertDefaultReturn];
     if (alternateTitle != nil)
-        [result addButtonWithTitle: alternateTitle];
+        [result _addButtonWithTitle: alternateTitle returnCode:NSAlertAlternateReturn];
     if (otherTitle != nil)
-        [result addButtonWithTitle: otherTitle];
+        [result _addButtonWithTitle: otherTitle returnCode:NSAlertOtherReturn];
 
     return result;
 }
@@ -276,15 +276,21 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _needsLayout = YES;
 }
 
-- (NSButton *) addButtonWithTitle: (NSString *) title {
+- (NSButton *) _addButtonWithTitle: (NSString *) title
+                        returnCode: (NSModalResponse) returnCode
+{
     NSButton *result = [[NSButton alloc] init];
     [result setTitle: title];
     [result setTarget: self];
     [result setAction: @selector(_alertButton:)];
-    [result setTag: NSAlertFirstButtonReturn + [_buttons count]];
+    [result setTag: returnCode];
     [_buttons addObject: result];
     _needsLayout = YES;
     return result;
+}
+
+- (NSButton *) addButtonWithTitle: (NSString *) title {
+    return [self _addButtonWithTitle:title returnCore:NSAlertFirstButtonReturn + [_buttons count]];
 }
 
 - (void) layout {
