@@ -124,6 +124,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [result setAction: @selector(_alertButton:)];
     [result setTag: returnCode];
     [_buttons addObject: result];
+    [result release];
     _needsLayout = YES;
     return result;
 }
