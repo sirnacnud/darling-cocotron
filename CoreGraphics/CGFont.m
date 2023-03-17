@@ -93,3 +93,9 @@ CFStringRef CGFontCopyGlyphNameForGlyph(CGFontRef self, CGGlyph glyph) {
 CFDataRef CGFontCopyTableForTag(CGFontRef self, uint32_t tag) {
     return (CFDataRef) O2FontCopyTableForTag(self, tag);
 }
+
+CGFontRef _Nullable CGFontCreateWithDataProvider(CGDataProviderRef _Nullable provider)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}

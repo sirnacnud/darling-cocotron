@@ -9,6 +9,8 @@ enum {
     kCGGradientDrawsAfterEndLocation = 0x02
 };
 
+typedef uint32_t CGGradientDrawingOptions;
+
 CGGradientRef CGGradientCreateWithColorComponents(CGColorSpaceRef colorSpace,
                                                   const CGFloat components[],
                                                   const CGFloat locations[],

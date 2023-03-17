@@ -100,3 +100,19 @@ CGError CGSSetWindowTitle(CGSConnectionID cid, CGSWindowID wid,
 {
     return CGSSetWindowProperty(cid, wid, kCGSWindowTitle, title);
 }
+
+CFArrayRef __nullable CGWindowListCreate(CGWindowListOption option, CGWindowID relativeToWindow)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+CGImageRef __nullable CGWindowListCreateImage(CGRect screenBounds,
+                                              CGWindowListOption listOption,
+                                              CGWindowID windowID,
+                                              CGWindowImageOption imageOption)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+

@@ -25,6 +25,7 @@ typedef struct CF_BRIDGED_TYPE(id) O2Context *CGContextRef;
 #import <CoreGraphics/CGColor.h>
 #import <CoreGraphics/CGFont.h>
 #import <CoreGraphics/CGGeometry.h>
+#import <CoreGraphics/CGGradient.h>
 #import <CoreGraphics/CGImage.h>
 #import <CoreGraphics/CGLayer.h>
 #import <CoreGraphics/CGPDFPage.h>
@@ -410,5 +411,22 @@ CGContextSetAllowsFontSubpixelPositioning(CGContextRef context,
 COREGRAPHICS_EXPORT void
 CGContextSetShouldSubpixelPositionFonts(CGContextRef context,
                                         bool shouldSubpixelPositionFonts);
+
+COREGRAPHICS_EXPORT void
+CGContextDrawLinearGradient(CGContextRef c,
+                            CGGradientRef gradient, CGPoint startPoint, CGPoint endPoint,
+                            CGGradientDrawingOptions options);
+
+COREGRAPHICS_EXPORT void
+CGContextDrawRadialGradient(CGContextRef c,
+                            CGGradientRef gradient, CGPoint startCenter, CGFloat startRadius,
+                            CGPoint endCenter, CGFloat endRadius, CGGradientDrawingOptions options);
+
+COREGRAPHICS_EXPORT void CGContextDrawTiledImage(CGContextRef c, CGRect rect, CGImageRef image);
+
+COREGRAPHICS_EXPORT void
+CGContextShowGlyphsAtPositions(CGContextRef c,
+                               const CGGlyph * glyphs, const CGPoint * Lpositions,
+                               size_t count);
 
 CF_IMPLICIT_BRIDGING_DISABLED

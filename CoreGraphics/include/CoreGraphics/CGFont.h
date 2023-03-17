@@ -19,6 +19,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <CoreGraphics/CGGeometry.h>
 #import <CoreGraphics/CoreGraphicsExport.h>
+#import <CoreGraphics/CGDataProvider.h>
 
 #include <CoreFoundation/CoreFoundation.h>
 
@@ -57,5 +58,7 @@ COREGRAPHICS_EXPORT CFStringRef CGFontCopyGlyphNameForGlyph(CGFontRef self,
 
 COREGRAPHICS_EXPORT CFDataRef CGFontCopyTableForTag(CGFontRef self,
                                                     uint32_t tag);
+
+COREGRAPHICS_EXPORT CGFontRef CGFontCreateWithDataProvider(CGDataProviderRef provider);
 
 CF_IMPLICIT_BRIDGING_DISABLED

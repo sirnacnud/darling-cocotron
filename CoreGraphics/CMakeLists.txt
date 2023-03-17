@@ -44,6 +44,7 @@ set_property(SOURCE
 	CGRemoteOperation.m
 	CGShading.m
 	CGWindow.m
+	CGWindowLevel.m
 	CGSubWindow.m
 	CGS.m
 	CGSConnection.m
@@ -74,6 +75,7 @@ set(CoreGraphics_sources
 	CGDataConsumer.m
 	CGDataProvider.m
 	CGDirectDisplay.m
+	CGDisplayConfiguration.m
 	src/CGEvent.c
 	src/stubs.c
 	CGFont.m
@@ -90,6 +92,7 @@ set(CoreGraphics_sources
 	CGPDFPage.m
 	CGShading.m
 	CGWindow.m
+	CGWindowLevel.m
 	CGSubWindow.m
 	CGDisplayFade.m
 	CGS.m

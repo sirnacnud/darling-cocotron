@@ -593,3 +593,29 @@ void CGContextSetShouldSubpixelPositionFonts(CGContextRef context,
     O2ContextSetShouldSubpixelPositionFonts((O2ContextRef) context,
                                             shouldSubpixelPositionFonts);
 }
+
+void CGContextDrawLinearGradient(CGContextRef c,
+                                 CGGradientRef gradient, CGPoint startPoint, CGPoint endPoint,
+                                 CGGradientDrawingOptions options)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+}
+
+void CGContextDrawRadialGradient(CGContextRef c,
+                                 CGGradientRef gradient, CGPoint startCenter, CGFloat startRadius,
+                                 CGPoint endCenter, CGFloat endRadius, CGGradientDrawingOptions options)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+}
+
+void CGContextDrawTiledImage(CGContextRef c, CGRect rect, CGImageRef image)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+}
+
+void CGContextShowGlyphsAtPositions(CGContextRef c,
+                                    const CGGlyph * glyphs, const CGPoint * Lpositions,
+                                    size_t count)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+}
