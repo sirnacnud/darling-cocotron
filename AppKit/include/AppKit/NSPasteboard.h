@@ -36,6 +36,7 @@ APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeTabularText;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeFont;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeRuler;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeColor;
+APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeFileURL;
 
 // Old Pasteboard Types
 APPKIT_EXPORT const NSPasteboardType NSColorPboardType;
@@ -108,6 +109,8 @@ APPKIT_EXPORT const NSPasteboardReadingOptionKey
 - (BOOL) setData: (NSData *) data forType: (NSPasteboardType) type;
 - (BOOL) setString: (NSString *) string forType: (NSPasteboardType) type;
 - (BOOL) setPropertyList: plist forType: (NSPasteboardType) type;
+- (BOOL) canReadItemWithDataConformingToTypes:(NSArray<NSString *> *) types;
+- (NSArray *)readObjectsForClasses:(NSArray<Class> *)classArray options:(NSDictionary<NSPasteboardReadingOptionKey, id> *) options;
 
 @end
 
