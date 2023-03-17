@@ -20,6 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <CoreGraphics/CGFont.h>
 #import <CoreGraphics/CGPath.h>
 #import <CoreText/CoreTextExport.h>
+#import <CoreText/CTFontDescriptor.h>
 #import <CoreText/CTParagraphStyle.h>
 
 typedef struct CF_BRIDGED_TYPE(id) KTFont *CTFontRef;
@@ -90,5 +91,16 @@ CORETEXT_EXPORT CGPathRef CTFontCreatePathForGlyph(CTFontRef self,
                                                    CGAffineTransform *xform);
 
 CORETEXT_EXPORT CFArrayRef CTFontCopyAvailableTables(CTFontRef font, CTFontTableOptions options);
+
+CORETEXT_EXPORT CFTypeRef CTFontCopyAttribute(CTFontRef font, CFStringRef attribute );
+CORETEXT_EXPORT CGFontRef CTFontCopyGraphicsFont(CTFontRef font, CTFontDescriptorRef _Nullable *attributes);
+CORETEXT_EXPORT CFStringRef CTFontCopyPostScriptName(CTFontRef font);
+CORETEXT_EXPORT CTFontRef CTFontCreateCopyWithAttributes(CTFontRef font, CGFloat size,
+                                                         const CGAffineTransform *matrix,
+                                                         CTFontDescriptorRef attributes);
+CORETEXT_EXPORT CTFontRef CTFontCreateWithName(CFStringRef name, CGFloat size,
+                                               const CGAffineTransform *matrix);
+
+CORETEXT_EXPORT CFStringRef CTFontCopyName(CTFontRef font, CFStringRef nameKey);
 
 CF_IMPLICIT_BRIDGING_DISABLED
