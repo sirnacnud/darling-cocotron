@@ -476,3 +476,7 @@ CGError CGDisplaySwitchToMode(CGDirectDisplayID display, CFDictionaryRef mode) {
 CFDictionaryRef CGDisplayCurrentMode(CGDirectDisplayID display) {
     return nil;
 }
+
+size_t CGDisplayModeGetPixelWidth(CGDisplayModeRef mode) {
+    return 0;
+}

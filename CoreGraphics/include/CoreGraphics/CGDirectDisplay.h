@@ -73,3 +73,4 @@ COREGRAPHICS_EXPORT boolean_t CGDisplayIsCaptured(CGDirectDisplayID display);
 COREGRAPHICS_EXPORT double CGDisplayModeGetRefreshRate(CGDisplayModeRef mode);
 COREGRAPHICS_EXPORT CGError CGDisplaySwitchToMode(CGDirectDisplayID display,
                                                   CFDictionaryRef mode);
+COREGRAPHICS_EXPORT size_t CGDisplayModeGetPixelWidth(CGDisplayModeRef mode);
