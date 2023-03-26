@@ -172,4 +172,10 @@ COREGRAPHICS_EXPORT CFArrayRef CGWindowListCreate(CGWindowListOption option, CGW
 COREGRAPHICS_EXPORT CFArrayRef CGWindowListCreateDescriptionFromArray(CFArrayRef windowArray);
 COREGRAPHICS_EXPORT CGImageRef CGWindowListCreateImageFromArray(CGRect screenBounds, CFArrayRef  windowArray, CGWindowImageOption imageOption);
 
+COREGRAPHICS_EXPORT CFArrayRef CGWindowListCreate(CGWindowListOption option, CGWindowID relativeToWindow);
+COREGRAPHICS_EXPORT CGImageRef CGWindowListCreateImage(CGRect screenBounds,
+                                                       CGWindowListOption listOption,
+                                                       CGWindowID windowID,
+                                                       CGWindowImageOption imageOption);
+
 CF_IMPLICIT_BRIDGING_DISABLED

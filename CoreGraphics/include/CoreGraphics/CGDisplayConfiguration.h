@@ -1,4 +1,5 @@
 #import <CoreFoundation/CoreFoundation.h>
+#import <CoreGraphics/CGDirectDisplay.h>
 #import <CoreGraphics/CGGeometry.h>
 
 typedef CF_OPTIONS(uint32_t, CGDisplayChangeSummaryFlags) {
