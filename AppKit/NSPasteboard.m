@@ -181,10 +181,12 @@ const NSPasteboardReadingOptionKey
 }
 
 - (BOOL) canReadItemWithDataConformingToTypes:(NSArray<NSString *> *) types {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
     return NO;
 }
 
 - (nullable NSArray *)readObjectsForClasses:(NSArray<Class> *)classArray options:(nullable NSDictionary<NSPasteboardReadingOptionKey, id> *) options {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
     return nil;
 }
 

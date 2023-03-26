@@ -586,14 +586,17 @@ id NSAccessibilityUnignoredAncestor(id element) {
 }
 
 id NSAccessibilityUnignoredDescendant(id element) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
     return nil;
 }
 
 NSArray *NSAccessibilityUnignoredChildren(NSArray *originalChildren) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
     return nil;
 }
 
 NSArray *NSAccessibilityUnignoredChildrenForOnlyChild(id originalChild) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
     return nil;
 }
 
