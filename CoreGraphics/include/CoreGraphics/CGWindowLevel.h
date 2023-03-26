@@ -1,9 +1,10 @@
 #ifndef CGWINDOWLEVEL_H
 #define CGWINDOWLEVEL_H
 
-typedef int32_t CGWindowLevel;
+#import <CoreFoundation/CoreFoundation.h>
 
-enum {
+typedef CF_ENUM(int32_t, CGWindowLevel)
+{
     kCGNormalWindowLevel,
     kCGFloatingWindowLevel,
     kCGTornOffMenuWindowLevel,
@@ -14,9 +15,8 @@ enum {
     kCGScreenSaverWindowLevel,
 };
 
-typedef int32_t CGWindowLevelKey;
-
-enum {
+typedef CF_ENUM(int32_t, CGWindowLevelKey)
+{
     kCGBaseWindowLevelKey,
     kCGMinimumWindowLevelKey,
     kCGDesktopWindowLevelKey,
