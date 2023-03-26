@@ -8,17 +8,15 @@ typedef struct __CTFrame* CTFrameRef;
 
 CFTypeID CTFrameGetTypeID(void);
 
-typedef uint32_t CTFrameProgression;
-
-enum {
+typedef NS_ENUM(uint32_t, CTFrameProgression)
+{
     kCTFrameProgressionTopToBottom  = 0,
     kCTFrameProgressionRightToLeft  = 1,
     kCTFrameProgressionLeftToRight  = 2
 };
 
-typedef uint32_t CTFramePathFillRule;
-
-enum {
+typedef NS_ENUM(uint32_t, CTFramePathFillRule)
+{
     kCTFramePathFillEvenOdd         = 0,
     kCTFramePathFillWindingNumber   = 1
 };

@@ -5,9 +5,8 @@ CF_IMPLICIT_BRIDGING_ENABLED
 
 typedef struct __CTLine* CTLineRef;
 
-typedef CFOptionFlags CTLineBoundsOptions;
-
-enum {
+typedef NS_ENUM(CFOptionFlags, CTLineBoundsOptions)
+{
     kCTLineBoundsExcludeTypographicLeading  = 1 << 0,
     kCTLineBoundsExcludeTypographicShifts   = 1 << 1,
     kCTLineBoundsUseHangingPunctuation      = 1 << 2,
@@ -16,9 +15,8 @@ enum {
     kCTLineBoundsIncludeLanguageExtents     = 1 << 5,
 };
 
-typedef uint32_t CTLineTruncationType;
-
-enum {
+typedef NS_ENUM(uint32_t, CTLineTruncationType)
+{
     kCTLineTruncationStart  = 0,
     kCTLineTruncationEnd    = 1,
     kCTLineTruncationMiddle = 2

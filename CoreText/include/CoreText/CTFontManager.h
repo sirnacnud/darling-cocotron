@@ -3,7 +3,7 @@
 
 CF_IMPLICIT_BRIDGING_ENABLED
 
-enum
+typedef NS_ENUM(uint32_t, CTFontManagerScope)
 {
     kCTFontManagerScopeNone = 0,
     kCTFontManagerScopeProcess = 1,
@@ -11,8 +11,6 @@ enum
     kCTFontManagerScopeSession = 3,
     kCTFontManagerScopeUser = 2,
 };
-
-typedef uint32_t CTFontManagerScope;
 
 CORETEXT_EXPORT bool CTFontManagerRegisterGraphicsFont(CGFontRef font, CFErrorRef* error);
 CORETEXT_EXPORT bool CTFontManagerUnregisterGraphicsFont(CGFontRef font, CFErrorRef *error);
