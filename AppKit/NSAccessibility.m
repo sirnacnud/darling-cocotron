@@ -1,5 +1,6 @@
 #import <AppKit/AppKitExport.h>
 #import <Foundation/NSString.h>
+#import <AppKit/NSAccessibilityConstants.h>
 
 NSString *const NSAccessibilityChildrenAttribute =
         @"NSAccessibilityChildrenAttribute";
@@ -567,6 +568,12 @@ NSString *const NSAccessibilityLayoutChangedNotification = @"AXLayoutChanged";
 NSString *const NSAccessibilityUIElementsKey = @"AXUIElementsKey";
 NSString *const NSAccessibilityToggleSubrole = @"NSAccessibilityToggleSubrole";
 
+NSString *const NSAccessibilityFullScreenButtonSubrole = @"AXFullScreenButton";
+
+NSString *const NSAccessibilityAnnouncementKey = @"AXAnnouncementKey";
+NSString *const NSAccessibilityAnnouncementRequestedNotification = @"AXAnnouncementRequested";
+NSString *const NSAccessibilityPriorityKey = @"AXPriorityKey";
+
 void NSAccessibilityPostNotification(id element, NSString *notification) {
 }
 
@@ -576,4 +583,26 @@ NSString *NSAccessibilityRoleDescription(NSString *role, NSString *subrole) {
 
 id NSAccessibilityUnignoredAncestor(id element) {
     return nil;
+}
+
+id NSAccessibilityUnignoredDescendant(id element) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+NSArray *NSAccessibilityUnignoredChildren(NSArray *originalChildren) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+NSArray *NSAccessibilityUnignoredChildrenForOnlyChild(id originalChild) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+void NSAccessibilityPostNotificationWithUserInfo(id element,
+                                                 NSAccessibilityNotificationName notification,
+                                                 NSDictionary<NSAccessibilityNotificationUserInfoKey, id> *userInfo)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
 }

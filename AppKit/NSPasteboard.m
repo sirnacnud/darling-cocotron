@@ -32,6 +32,7 @@ const NSPasteboardType NSPasteboardTypeTabularText = @"NSTabularTextPboardType";
 const NSPasteboardType NSPasteboardTypeFont = @"NSFontPboardType";
 const NSPasteboardType NSPasteboardTypeRuler = @"NSRulerPboardType";
 const NSPasteboardType NSPasteboardTypeColor = @"NSColorPboardType";
+const NSPasteboardType NSPasteboardTypeFileURL = @"public.file-url";
 
 const NSPasteboardType NSColorPboardType = @"NSColorPboardType";
 const NSPasteboardType NSFileContentsPboardType = @"NSFileContentsPboardType";
@@ -177,6 +178,16 @@ const NSPasteboardReadingOptionKey
     }
     NSLog(@"setPropertyList:forType: produced error: %@", errorDesc);
     return NO;
+}
+
+- (BOOL) canReadItemWithDataConformingToTypes:(NSArray<NSString *> *) types {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return NO;
+}
+
+- (nullable NSArray *)readObjectsForClasses:(NSArray<Class> *)classArray options:(nullable NSDictionary<NSPasteboardReadingOptionKey, id> *) options {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
 }
 
 @end

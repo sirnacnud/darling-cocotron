@@ -42,7 +42,10 @@ APPKIT_EXPORT const NSNotificationName NSWorkspaceScreensDidSleepNotification;
 APPKIT_EXPORT const NSNotificationName NSWorkspaceScreensDidWakeNotification;
 APPKIT_EXPORT const NSNotificationName NSWorkspaceWillSleepNotification;
 APPKIT_EXPORT const NSNotificationName NSWorkspaceSessionDidBecomeActiveNotification;
-APPKIT_EXPORT const NSNotificationName NSWorkspaceSessionDidResignActiveNotification;
+
+APPKIT_EXPORT NSNotificationName NSWorkspaceDidMountNotification;
+APPKIT_EXPORT NSNotificationName NSWorkspaceDidUnmountNotification;
+APPKIT_EXPORT NSNotificationName NSWorkspaceWillUnmountNotification;
 
 typedef NSUInteger NSWorkspaceIconCreationOptions;
 
@@ -142,5 +145,24 @@ typedef NSUInteger NSWorkspaceIconCreationOptions;
 // build it with Launch Services But so many files are typically hidden from
 // users in GUI browsers that this just makes life better for everyone...
 - (BOOL) isFileHiddenAtPath: (NSString *) path;
+
+@end
+
+@interface NSWorkspaceOpenConfiguration : NSObject <NSCopying>
++ (instancetype)configuration;
+
+@property BOOL requiresUniversalLinks;
+@property (getter=isForPrinting) BOOL forPrinting;
+@property BOOL activates;
+@property BOOL addsToRecentItems;
+@property BOOL allowsRunningApplicationSubstitution;
+@property BOOL createsNewApplicationInstance;
+@property BOOL hides;
+@property BOOL hidesOthers;
+@property BOOL promptsUserIfNeeded;
+@property (strong) NSAppleEventDescriptor *appleEvent;
+@property (copy) NSArray<NSString *> *arguments;
+@property (copy) NSDictionary<NSString *, NSString *> *environment;
+@property cpu_type_t architecture;
 
 @end

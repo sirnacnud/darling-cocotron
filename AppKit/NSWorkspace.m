@@ -62,6 +62,10 @@ const NSNotificationName
         NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification =
                 @"NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification";
 
+NSNotificationName NSWorkspaceDidMountNotification = @"NSWorkspaceDidMountNotification";
+NSNotificationName NSWorkspaceDidUnmountNotification = @"NSWorkspaceDidUnmountNotification";
+NSNotificationName NSWorkspaceWillUnmountNotification = @"NSWorkspaceWillUnmountNotification";
+
 @implementation NSWorkspace
 
 + (NSWorkspace *) sharedWorkspace {
@@ -309,6 +313,13 @@ const NSNotificationName
 
 - (BOOL) isFileHiddenAtPath: (NSString *) path {
     return NO;
+}
+
+@end
+
+@implementation NSWorkspaceOpenConfiguration
++ (instancetype)configuration {
+    return self;
 }
 
 @end

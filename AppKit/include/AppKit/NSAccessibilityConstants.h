@@ -98,7 +98,6 @@ APPKIT_EXPORT NSString *const NSAccessibilityWindowsAttribute;
 APPKIT_EXPORT NSString *const NSAccessibilityColumnCountAttribute;
 APPKIT_EXPORT NSString *const NSAccessibilityOrderedByRowAttribute;
 APPKIT_EXPORT NSString *const NSAccessibilityRowCountAttribute;
-
 APPKIT_EXPORT NSString *const NSAccessibilityColumnHeaderUIElementsAttribute;
 APPKIT_EXPORT NSString *const NSAccessibilityColumnsAttribute;
 APPKIT_EXPORT NSString *const NSAccessibilityRowHeaderUIElementsAttribute;
@@ -346,3 +345,17 @@ APPKIT_EXPORT NSString *const NSAccessibilityLayoutChangedNotification;
 APPKIT_EXPORT NSString *const NSAccessibilityUIElementsKey;
 
 APPKIT_EXPORT NSString *const NSAccessibilityToggleSubrole;
+
+APPKIT_EXPORT NSString *const NSAccessibilityFullScreenButtonSubrole;
+
+typedef NSString * NSAccessibilityNotificationName;
+typedef NSString * NSAccessibilityNotificationUserInfoKey;
+
+APPKIT_EXPORT NSAccessibilityNotificationUserInfoKey const NSAccessibilityAnnouncementKey;
+APPKIT_EXPORT NSAccessibilityNotificationName const NSAccessibilityAnnouncementRequestedNotification;
+APPKIT_EXPORT NSAccessibilityNotificationUserInfoKey const NSAccessibilityPriorityKey;
+
+APPKIT_EXPORT void NSAccessibilityPostNotificationWithUserInfo(id element,
+                                                               NSAccessibilityNotificationName notification,
+                                                               NSDictionary<NSAccessibilityNotificationUserInfoKey, id> *userInfo);
+
