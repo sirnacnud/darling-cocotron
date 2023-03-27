@@ -2,10 +2,10 @@
 
 CGError CGDisplayRegisterReconfigurationCallback(CGDisplayReconfigurationCallBack callback, void *userInfo) {
     printf("STUB %s\n", __PRETTY_FUNCTION__);
-    return nil;
+    return kCGErrorSuccess;
 }
 
 CGError CGDisplayRemoveReconfigurationCallback(CGDisplayReconfigurationCallBack callback, void *userInfo) {
     printf("STUB %s\n", __PRETTY_FUNCTION__);
-    return nil;
+    return kCGErrorSuccess;
 }
