@@ -19,6 +19,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <CoreText/CTFont.h>
 #import <CoreText/KTFont.h>
+#import <CoreText/CoreText.h>
+
+const CFStringRef kCTFontStyleNameKey = "CTFontSubFamilyName";
 
 CTFontRef
 CTFontCreateWithGraphicsFont(CGFontRef cgFont, CGFloat size,
@@ -105,7 +108,45 @@ CGPathRef CTFontCreatePathForGlyph(CTFontRef self, CGGlyph glyph,
     return (CGPathRef) [self createPathForGlyph: glyph transform: xform];
 }
 
-CFArrayRef CTFontCopyAvailableTables(CTFontRef font, CTFontTableOptions options) {
+CFArrayRef CTFontCopyAvailableTables(CTFontRef font, CTFontTableOptions options)
+{
     printf("STUB %s\n", __PRETTY_FUNCTION__);
     return nil;
 }
+
+CFTypeRef CTFontCopyAttribute(CTFontRef font, CFStringRef attribute)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+CGFontRef CTFontCopyGraphicsFont(CTFontRef font, CTFontDescriptorRef _Nullable *attributes)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+CFStringRef CTFontCopyPostScriptName(CTFontRef font)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+CTFontRef CTFontCreateCopyWithAttributes(CTFontRef font, CGFloat size, const CGAffineTransform *matrix, CTFontDescriptorRef attributes)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+CTFontRef CTFontCreateWithName(CFStringRef name, CGFloat size, const CGAffineTransform *matrix)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
+CFStringRef _Nullable CTFontCopyName(CTFontRef font, CFStringRef nameKey)
+{
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+

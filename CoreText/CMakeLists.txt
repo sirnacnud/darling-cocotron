@@ -17,6 +17,14 @@ include_directories(
 set(CoreText_sources
 	CTFont.m
 	CTParagraphStyle.m
+	CTStringATtributes.m
+	CTFontCollection.m
+	CTFontDescriptor.m
+	CTFontManager.m
+	CTFrame.m
+	CTFrameSetter.m
+	CTLine.m
+	CTRun.m
 	KTFont.m
 	KTFont_FT.m
 	constants.c
