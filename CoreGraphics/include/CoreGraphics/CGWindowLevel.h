@@ -3,6 +3,10 @@
 
 #import <CoreFoundation/CoreFoundation.h>
 
+// TODO: Fix CGWindowLevel
+// CGWindowLevel actually isn't a ENUM, but is just a typedef.
+// https://developer.apple.com/documentation/coregraphics/cgwindowlevel?language=objc
+
 typedef CF_ENUM(int32_t, CGWindowLevel)
 {
     kCGNormalWindowLevel,
