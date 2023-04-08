@@ -30,6 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSText.h>
 #import <AppKit/NSTextInput.h>
 #import <AppKit/NSTextInputClient.h>
+#import <AppKit/NSLayoutManager.h>
 
 #import <Foundation/NSTextCheckingResult.h>
 
@@ -68,7 +69,7 @@ APPKIT_EXPORT NSString *const NSAllRomanInputSourcesLocaleIdentifier;
 
 @class NSUndoTyping;
 
-@interface NSTextView : NSText <NSTextInput> {
+@interface NSTextView : NSText <NSTextInput, NSTextLayoutOrientationProvider> {
     NSTextStorage *_textStorage;
     NSTextContainer *_textContainer;
     NSSize _textContainerInset;
@@ -98,6 +99,7 @@ APPKIT_EXPORT NSString *const NSAllRomanInputSourcesLocaleIdentifier;
     BOOL _usesRuler;
     BOOL _rulerVisible;
     BOOL _usesFontPanel;
+    BOOL _usesFindBar;
     BOOL _allowsUndo;
 
     NSMutableArray *_selectedRanges;
@@ -129,8 +131,14 @@ APPKIT_EXPORT NSString *const NSAllRomanInputSourcesLocaleIdentifier;
     BOOL _isContinuousSpellCheckingEnabled;
     BOOL _isAutomaticSpellingCorrectionEnabled;
     NSTextCheckingTypes _enabledTextCheckingTypes;
+    BOOL _smartInsertDeleteEnabled;
+
+    BOOL _allowsDocumentBackgroundColorChange;
 
     NSUndoTyping *_undoTyping;
+    NSTextLayoutOrientation _layoutOrientation;
+
+    BOOL _incrementalSearchingEnabled;
 }
 
 - initWithFrame: (NSRect) frame textContainer: (NSTextContainer *) container;
@@ -250,7 +258,20 @@ APPKIT_EXPORT NSString *const NSAllRomanInputSourcesLocaleIdentifier;
 - (NSTextCheckingTypes) enabledTextCheckingTypes;
 - (void) setEnabledTextCheckingTypes: (NSTextCheckingTypes) checkingTypes;
 
+- (BOOL) smartInsertDeleteEnabled;
+- (void) setSmartInsertDeleteEnabled: (BOOL) boolForKey;
+
+- (BOOL) allowsDocumentBackgroundColorChange;
+- (void) setAllowsDocumentBackgroundColorChange: (BOOL) value;
+
 - (void) setSpellingState: (NSInteger) value range: (NSRange) characterRange;
+
+- (BOOL) usesFindBar;
+- (void) setUsesFindBar: (BOOL) value;
+- (BOOL) isIncrementalSearchingEnabled;
+- (void) setIncrementalSearchingEnabled: (BOOL) value;
+
+- (void) setLayoutOrientation:(NSTextLayoutOrientation)orientation;
 
 @end
 

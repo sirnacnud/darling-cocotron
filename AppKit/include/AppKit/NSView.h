@@ -109,6 +109,7 @@ APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPre
     NSInteger _rectsBeingRedrawnCount;
     CGFloat _frameRotation;
     CGFloat _boundsRotation;
+    BOOL _translatesAutoresizingMaskIntoConstraints;
 
     BOOL _validTrackingAreas;
     BOOL _validTransforms;
@@ -203,6 +204,7 @@ APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPre
 - (NSMenu *) menuForEvent: (NSEvent *) event;
 - (NSMenuItem *) enclosingMenuItem;
 - (NSString *) toolTip;
+- (BOOL) translatesAutoresizingMaskIntoConstraints;
 
 - viewWithTag: (NSInteger) tag;
 - (NSView *) hitTest: (NSPoint) point;
@@ -225,6 +227,7 @@ APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPre
 - (void) setBoundsSize: (NSSize) size;
 - (void) setBoundsOrigin: (NSPoint) origin;
 - (void) setBoundsRotation: (CGFloat) angle;
+- (void) setTranslatesAutoresizingMaskIntoConstraints: (BOOL) value;
 
 - (CGFloat) frameRotation;
 - (CGFloat) boundsRotation;

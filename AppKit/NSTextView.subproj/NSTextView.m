@@ -3630,6 +3630,22 @@ NSString *const NSAllRomanInputSourcesLocaleIdentifier =
     NSUnimplementedMethod();
 }
 
+- (BOOL) smartInsertDeleteEnabled {
+    return _smartInsertDeleteEnabled;
+}
+
+- (void) setSmartInsertDeleteEnabled: (BOOL) boolForKey {
+    _smartInsertDeleteEnabled = boolForKey;
+}
+
+- (BOOL) allowsDocumentBackgroundColorChange {
+    return _allowsDocumentBackgroundColorChange;
+}
+
+- (void) setAllowsDocumentBackgroundColorChange: (BOOL) value {
+    _allowsDocumentBackgroundColorChange = value;
+}
+
 - (void) setSpellingState: (NSInteger) value range: (NSRange) characterRange {
     [[self layoutManager]
             addTemporaryAttribute: NSSpellingStateAttributeName
@@ -3956,6 +3972,35 @@ NSString *const NSAllRomanInputSourcesLocaleIdentifier =
 - (id) replacementObjectForKeyedArchiver {
     NSUnimplementedMethod();
     return self;
+
+- (NSTextLayoutOrientation) layoutOrientation {
+    NSUnimplementedMethod();
+    return _layoutOrientation;
+}
+
+- (void)setLayoutOrientation:(NSTextLayoutOrientation)orientation {
+    _layoutOrientation = orientation;
+    NSUnimplementedMethod();
+}
+
+- (BOOL) usesFindBar {
+    NSUnimplementedMethod();
+    return _usesFindBar;
+}
+
+- (void) setUsesFindBar: (BOOL) value {
+    NSUnimplementedMethod();
+    _usesFindBar = value;
+}
+
+- (BOOL) isIncrementalSearchingEnabled {
+    NSUnimplementedMethod();
+    return _incrementalSearchingEnabled;
+}
+
+- (void) setIncrementalSearchingEnabled: (BOOL) value {
+    NSUnimplementedMethod();
+    _incrementalSearchingEnabled = value;
 }
 
 @end

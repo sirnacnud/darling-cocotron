@@ -887,6 +887,10 @@ static inline void buildTransformsIfNeeded(NSView *self) {
     return toolTip;
 }
 
+- (BOOL) translatesAutoresizingMaskIntoConstraints {
+	return _translatesAutoresizingMaskIntoConstraints;
+}
+
 - viewWithTag: (NSInteger) tag {
     int i, count = [_subviews count];
 
@@ -1124,6 +1128,11 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 
 - (void) setBoundsRotation: (CGFloat) angle {
     NSUnimplementedMethod();
+}
+
+- (void) settranslatesAutoresizingMaskIntoConstraints: (BOOL) value {
+	_translatesAutoresizingMaskIntoConstraints = value;
+	NSUnimplementedMethod();
 }
 
 - (void) setPostsFrameChangedNotifications: (BOOL) flag {

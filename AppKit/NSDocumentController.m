@@ -30,14 +30,47 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @interface _NSUnsupportedDocument : NSObject
 
-- initWithType: (NSString *) type error: (NSError **) error;
+- (instancetype) initWithType: (NSString *) type error: (NSError **) error;
+- (instancetype) initWithContentsOfURL:(NSURL *)url 
+                                ofType:(NSString *)typeName 
+                                 error:(NSError * _Nullable *)outError;
+- (id) initWithContentsOfURL:(NSURL *)url 
+                      ofType:(NSString *)typeName;
+- (id) initWithContentsOfFile:(NSString *)absolutePath 
+                       ofType:(NSString *)typeName;
 
 @end
 
 @implementation _NSUnsupportedDocument
 
-- initWithType: (NSString *) type error: (NSError **) error {
-    *error = [NSError errorWithDomain:NSCocoaErrorDomain code: NSFeatureUnsupportedError userInfo: nil];
+- (instancetype) initWithType: (NSString *) type error: (NSError **) error {
+    *error = [NSError errorWithDomain:NSCocoaErrorDomain 
+                                 code: NSFeatureUnsupportedError 
+                             userInfo: nil];
+    [self release];
+    return nil;
+}
+
+- (instancetype) initWithContentsOfURL:(NSURL *)url 
+                                ofType:(NSString *)typeName 
+                                 error:(NSError * _Nullable *)outError{
+    
+    *outError = [NSError errorWithDomain:NSCocoaErrorDomain 
+                                    code: NSFeatureUnsupportedError 
+                                userInfo: nil];
+    [self release];
+    return nil;
+}
+
+- (id) initWithContentsOfURL:(NSURL *)url 
+                      ofType:(NSString *)typeName{
+    [self release];
+    return nil;
+}
+
+- (id) initWithContentsOfFile:(NSString *)absolutePath 
+                       ofType:(NSString *)typeName{
+    [self release];
     return nil;
 }
 
@@ -141,9 +174,13 @@ static NSDocumentController *shared = nil;
 }
 
 - (Class) documentClassForType: (NSString *) type {
-    NSDictionary *info = [self _infoForType: type];
-    NSString *result = [info objectForKey: @"NSDocumentClass"];
+    NSString *result = nil;
+    for(NSDictionary *fileType in _fileTypes){
+        if ([[fileType objectForKey: @"LSItemContentTypes"] containsObject: type])
+            result = [fileType objectForKey: @"NSDocumentClass"];
+    }
 
+    NSLog(@"NSDocController - docClassForType found class %@ for type %@", result, type);
     return (result == nil) ? [_NSUnsupportedDocument class] : NSClassFromString(result);
 }
 
@@ -168,13 +205,13 @@ static NSDocumentController *shared = nil;
 
 - (NSString *) typeFromFileExtension: (NSString *) extension {
     extension = [extension lowercaseString];
-
     for (NSDictionary *fileType in _fileTypes)
         for (NSString *name in
-             [fileType objectForKey: @"CFBundleTypeExtensions"])
+             [fileType objectForKey: @"CFBundleTypeExtensions"]){
             if ([[name lowercaseString] isEqual: extension] ||
                 [name isEqual: @"*"])
                 return [fileType objectForKey: @"CFBundleTypeName"];
+        }
 
     return nil;
 }
@@ -259,7 +296,23 @@ static NSDocumentController *shared = nil;
     if (extension == nil)
         return nil;
 
-    return [self typeFromFileExtension: extension];
+    NSString *UTI;
+
+    BOOL success = [url getResourceValue:&UTI forKey:NSURLTypeIdentifierKey error:error];
+    if(success){
+        NSLog(@"NSDocumentController - found type: %@", UTI);
+        return UTI;
+        //TODO: move below code to documentClassForType
+        for(NSDictionary *type in _fileTypes){
+            for(NSString *contentType in [type objectForKey:@"LSItemContentTypes"]){
+                return [type objectForKey:@"CFBundleTypeName"];
+            }
+        }
+    }
+    else{
+        //TODO:Handle Error Here
+    }
+    return nil;
 }
 
 - makeDocumentWithContentsOfFile: (NSString *) path ofType: (NSString *) type {
@@ -277,11 +330,13 @@ static NSDocumentController *shared = nil;
                           error: (NSError **) error
 {
     id result;
+    NSLog(@"DocController - making %@ from URL", type);
     Class class = [self documentClassForType: type];
 
+    NSLog(@"DocController - initializing Document");
     result = [[[class alloc] initWithContentsOfURL: url
-                                            ofType: type] autorelease];
-
+                                            ofType: type ] autorelease];
+    NSLog(@"NSDocController - made from URL");
     return result;
 }
 
@@ -430,13 +485,18 @@ static NSDocumentController *shared = nil;
         NSDocument *result = [self documentForURL: url];
 
         if (result == nil) {
-            NSString *extension = [[url path] pathExtension];
-            NSString *type = [self typeFromFileExtension: extension];
+            NSError *type_error; 
+            NSString *type = [self typeForContentsOfURL:url error:&type_error];
+            
+            if(type_error != nil){
+                *error = type_error;
+                return result;
+            }
 
             result = [self makeDocumentWithContentsOfURL: url
                                                   ofType: type
                                                    error: error];
-
+            NSLog(@"NSDocCtrl openDocWithContsURL - made Document");
             if (result != nil) {
                 [self addDocument: result];
                 [result makeWindowControllers];

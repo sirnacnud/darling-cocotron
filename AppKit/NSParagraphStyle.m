@@ -34,6 +34,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return shared;
 }
 
++ (NSWritingDirection)defaultWritingDirectionForLanguage:(NSString *)languageName {
+    NSUnimplementedMethod();
+    return NSWritingDirectionNatural;
+}
+
 + (NSArray *) _defaultTabStops {
     static NSArray *shared = nil;
 

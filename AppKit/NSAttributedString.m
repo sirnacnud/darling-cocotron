@@ -129,6 +129,8 @@ NSString *const NSCharacterShapeAttributeName = @"NSCharacterShape";
 NSString *const NSUsesScreenFontsDocumentAttribute = @"UsesScreenFonts";
 
 NSString *const NSTextEffectAttributeName = @"NSTextEffect";
+NSAttributedStringKey NSWritingDirectionAttributeName = @"NSWritingDirectionAttribute";
+NSString *const NSCocoaVersionDocumentAttribute  = @"NSCocoaVersionDocumentAttribute";
 
 NSUInteger NSUnderlineStrikethroughMask = 0x4000;
 NSUInteger NSUnderlineByWordMask = 0x8000;
@@ -157,6 +159,53 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
                      error: (NSError **) error
 {
     NSUnimplementedMethod();
+    NSString *docType = [options objectForKey:NSDocumentTypeDocumentAttribute];
+    
+    if(docType == nil){
+        NSLog(@"NSAttributedString initFromData - inferring document type");
+        //TODO: infer document type (assume RTF for now)
+        docType = NSRTFTextDocumentType;
+    }
+
+    //Read the document based on its type
+    if([docType isEqual: NSDocFormatTextDocumentType]){
+        return nil;
+    }
+    else if([docType isEqual: NSHTMLTextDocumentType]){
+        NSLog(@"NSAttributedString initFromData - dont know how to parse %@", docType);
+        return nil;
+    }
+    else if([docType isEqual: NSMacSimpleTextDocumentType]){
+        NSLog(@"NSAttributedString initFromData - dont know how to parse %@", docType);
+        return nil;
+    }
+    else if([docType isEqual: NSOfficeOpenXMLTextDocumentType]){
+        NSLog(@"NSAttributedString initFromData - dont know how to parse %@", docType);
+        return nil;
+    }
+    else if([docType isEqual: NSOpenDocumentTextDocumentType]){
+        NSLog(@"NSAttributedString initFromData - dont know how to parse %@", docType);
+        return nil;
+    }
+    else if([docType isEqual: NSPlainTextDocumentType]){
+        NSLog(@"NSAttributedString initFromData - dont know how to parse %@", docType);
+        return nil;
+    }
+    else if([docType isEqual: NSRTFTextDocumentType]){
+        return [self initWithRTF:data documentAttributes:attributes];
+    }
+    else if([docType isEqual: NSRTFDTextDocumentType]){
+        return [self initWithRTFD:data documentAttributes:attributes];
+    }
+    else if([docType isEqual: NSWebArchiveTextDocumentType]){
+        NSLog(@"NSAttributedString initFromData - dont know how to parse %@", docType);
+        return nil;
+    }
+    else if([docType isEqual: NSWordMLTextDocumentType]){
+        NSLog(@"NSAttributedString initFromData - dont know how to parse %@", docType);
+        return nil;
+    }
+    else {
     return nil;
 }
 
@@ -237,7 +286,9 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
                      error: (NSError **) error
 {
     NSUnimplementedMethod();
-    return nil;
+    NSLog(@"NSAttributedString - initializing from URL");
+    NSData *data = [NSData dataWithContentsOfURL: url];
+    return [self initWithData:data options:options documentAttributes:attributes error:error]; 
 }
 
 #pragma mark -

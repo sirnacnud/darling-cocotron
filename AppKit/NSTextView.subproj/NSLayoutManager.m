@@ -177,6 +177,8 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 }
 
 - (NSTextView *) firstTextView {
+    if([_textContainers count] < 1)
+            return nil;
     return [[_textContainers objectAtIndex: 0] textView];
 }
 
@@ -724,6 +726,11 @@ static inline NSGlyphFragment *fragmentAtGlyphIndex(NSLayoutManager *self,
 
 - (NSTextContainer *) extraLineFragmentTextContainer {
     return _extraLineFragmentTextContainer;
+}
+
+- (BOOL) allowsNonContiguousLayout {
+    NSUnimplementedMethod();
+    return _allowsNonContiguousLayout;
 }
 
 - (void) setTextContainer: (NSTextContainer *) container
@@ -2908,5 +2915,10 @@ static inline void _appendRectToCache(NSLayoutManager *self, NSRect rect) {
                                    enabled: (BOOL) isEnabled
 {
     return nil;
+}
+
+- (void) setAllowsNonContiguousLayout: (BOOL) value {
+    _allowsNonContiguousLayout = value;
+    NSUnimplementedMethod();
 }
 @end

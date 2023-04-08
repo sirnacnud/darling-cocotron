@@ -133,6 +133,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _tabStops = tabStops;
 }
 
+- (void) addTabStop:(NSTextTab *) tabStop {
+    //NSUnimplementedMethod();
+}
+
+- (void) removeTabStop:(NSTextTab *) tabStop {
+    //NSUnimplementedMethod();
+}
+
 - (void) setHyphenationFactor: (float) factor {
     _hyphenationFactor = factor;
 }

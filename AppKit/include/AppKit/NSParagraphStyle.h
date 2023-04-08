@@ -52,6 +52,8 @@ typedef enum {
 
 + (NSParagraphStyle *) defaultParagraphStyle;
 
++ (NSWritingDirection)defaultWritingDirectionForLanguage:(NSString *)languageName;
+
 - (NSWritingDirection) baseWritingDirection;
 
 - (CGFloat) paragraphSpacing;

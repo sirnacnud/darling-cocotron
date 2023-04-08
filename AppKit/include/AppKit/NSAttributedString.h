@@ -24,6 +24,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @class NSFont, NSColor, NSParagraphStyle, NSTextAttachment, NSFileWrapper,
         NSTextList, NSTextBlock, NSTextTable;
 
+typedef NSString *NSAttributedStringDocumentReadingOptionKey;
+typedef NSString *NSAttributedStringDocumentAttributeKey;
+typedef NSString *NSAttributedStringKey;
+
 APPKIT_EXPORT NSString *const NSFontAttributeName;
 APPKIT_EXPORT NSString *const NSParagraphStyleAttributeName;
 APPKIT_EXPORT NSString *const NSForegroundColorAttributeName;
@@ -112,9 +116,12 @@ APPKIT_EXPORT NSString *const NSCharacterShapeAttributeName;
 APPKIT_EXPORT NSString *const NSUsesScreenFontsDocumentAttribute;
 
 APPKIT_EXPORT NSString *const NSTextEffectAttributeName;
+APPKIT_EXPORT NSAttributedStringKey NSWritingDirectionAttributeName;
+APPKIT_EXPORT NSString *const NSCocoaVersionDocumentAttribute;
 
 APPKIT_EXPORT NSUInteger NSUnderlineStrikethroughMask;
 APPKIT_EXPORT NSUInteger NSUnderlineByWordMask;
+
 
 enum {
     NSSpellingStateSpellingFlag = 0x01,
@@ -238,6 +245,13 @@ enum {
 
 - (NSRect) boundingRectWithSize: (NSSize) size
                         options: (NSStringDrawingOptions) options;
+
+#pragma mark -
+#pragma mark Getting Attribute Data
+- (void)enumerateAttribute:(NSAttributedStringKey)attrName 
+                   inRange:(NSRange)enumerationRange 
+                   options:(NSAttributedStringEnumerationOptions)opts 
+                usingBlock:(void (^)(id value, NSRange range, BOOL *stop))block;
 
 #pragma mark -
 #pragma mark Testing String Data Sources

@@ -86,6 +86,16 @@ static Class _rulerViewClass = nil;
     return contentSize;
 }
 
++ (NSSize)frameSizeForContentSize:(NSSize)cSize 
+          horizontalScrollerClass:(Class)horizontalScrollerClass 
+            verticalScrollerClass:(Class)verticalScrollerClass 
+                       borderType:(NSBorderType)type 
+                      controlSize:(NSControlSize)controlSize 
+                    scrollerStyle:(NSScrollerStyle)scrollerStyle
+{
+    NSUnimplementedMethod();
+}
+
 + (NSSize) contentSizeForFrameSize: (NSSize) frameSize
              hasHorizontalScroller: (BOOL) hasHorizontalScroller
                hasVerticalScroller: (BOOL) hasVerticalScroller
@@ -118,6 +128,16 @@ static Class _rulerViewClass = nil;
     }
 
     return frameSize;
+}
+
++ (NSSize)contentSizeForFrameSize:(NSSize)fSize 
+          horizontalScrollerClass:(Class)horizontalScrollerClass 
+            verticalScrollerClass:(Class)verticalScrollerClass 
+                       borderType:(NSBorderType)type 
+                      controlSize:(NSControlSize)controlSize 
+                    scrollerStyle:(NSScrollerStyle)scrollerStyle
+{
+    NSUnimplementedMethod();
 }
 
 + (void) setRulerViewClass: (Class) class {
@@ -614,6 +634,22 @@ static Class _rulerViewClass = nil;
     return _documentCursor;
 }
 
+- (CGFloat) magnification {
+    return _magnification;
+}
+
+- (CGFloat) minMagnification {
+    return _minMagnification;
+}
+
+- (CGFloat) maxMagnification {
+    return _maxMagnification;
+}
+
+- (BOOL) allowsMagnification {
+    return _allowsMagnification;
+}
+
 - (void) setDocumentView: (NSView *) view {
     [_clipView setDocumentView: view];
     [self reflectScrolledClipView: _clipView];
@@ -777,6 +813,26 @@ static Class _rulerViewClass = nil;
 - (void) setAutohidesScrollers: (BOOL) value {
     _autohidesScrollers = value;
     // FIXME: tile or hide/show scrollers?
+}
+
+- (void) setMagnification: (CGFloat) value {
+    _magnification = value;
+    NSUnimplementedMethod();
+}
+
+- (void) setMinMagnification: (CGFloat) value {
+    _minMagnification = value;
+    NSUnimplementedMethod();
+}
+
+- (void) setMaxMagnification: (CGFloat) value {
+    _maxMagnification = value;
+    NSUnimplementedMethod();
+}
+
+- (void) setAllowsMagnification: (BOOL) value {
+    _allowsMagnification = value;
+    NSUnimplementedMethod();
 }
 
 - (void) tile {

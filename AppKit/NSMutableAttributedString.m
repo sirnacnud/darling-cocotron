@@ -203,4 +203,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [self endEditing];
 }
 
+- (BOOL) readFromURL:(NSURL *)url 
+             options:(NSDictionary<NSAttributedStringDocumentReadingOptionKey, id> *)opts 
+  documentAttributes:(NSDictionary<NSAttributedStringDocumentAttributeKey, id> * _Nullable *)dict 
+               error:(NSError * _Nullable *)error {
+    NSAttributedString *str = [NSAttributedString alloc]; 
+    [str initWithURL:url options:opts documentAttributes:dict error:error];
+    //[self setAttributedString:str];
+    NSLog(@"NSMutableAttributedString readFromURL: - hopefully finished reading!");
+    return true;
+}
+
 @end
