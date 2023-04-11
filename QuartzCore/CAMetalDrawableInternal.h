@@ -39,9 +39,10 @@ class CAMetalDrawableTexture: public Indium::PrivateTexture {
 	Indium::PixelFormat _pixelFormat;
 	VkImage _internalImage = VK_NULL_HANDLE;
 	VkDeviceMemory _internalMemory = VK_NULL_HANDLE;
+	bool _framebufferOnly = false;
 
 public:
-	CAMetalDrawableTexture(CGSize size, Indium::PixelFormat pixelFormat, std::shared_ptr<Indium::PrivateDevice> privateDevice);
+	CAMetalDrawableTexture(CGSize size, Indium::PixelFormat pixelFormat, bool framebufferOnly, std::shared_ptr<Indium::PrivateDevice> privateDevice);
 	virtual ~CAMetalDrawableTexture();
 
 	GLuint glTexture() const;

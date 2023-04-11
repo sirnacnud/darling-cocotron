@@ -129,7 +129,7 @@ public:
 // texture
 //
 
-static size_t findSharedMemory(const VkMemoryRequirements& reqs, std::shared_ptr<Indium::PrivateDevice> device) {
+static size_t findSharedMemory(const VkMemoryRequirements& reqs, std::shared_ptr<Indium::PrivateDevice> device, bool framebufferOnly) {
 	size_t targetIndex = SIZE_MAX;
 
 	for (size_t i = 0; i < device->memoryProperties().memoryTypeCount; ++i) {
@@ -139,11 +139,11 @@ static size_t findSharedMemory(const VkMemoryRequirements& reqs, std::shared_ptr
 			continue;
 		}
 
-		if ((type.propertyFlags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) == 0) {
+		if (!framebufferOnly && (type.propertyFlags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT) == 0) {
 			continue;
 		}
 
-		if ((type.propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) == 0) {
+		if (!framebufferOnly && (type.propertyFlags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) == 0) {
 			continue;
 		}
 
@@ -155,10 +155,11 @@ static size_t findSharedMemory(const VkMemoryRequirements& reqs, std::shared_ptr
 	return targetIndex;
 };
 
-CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat pixelFormat, std::shared_ptr<Indium::PrivateDevice> privateDevice):
+CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat pixelFormat, bool framebufferOnly, std::shared_ptr<Indium::PrivateDevice> privateDevice):
 	Indium::PrivateTexture(privateDevice),
 	_size(size),
-	_pixelFormat(pixelFormat)
+	_pixelFormat(pixelFormat),
+	_framebufferOnly(framebufferOnly)
 {
 	//
 	// create the images
@@ -218,7 +219,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 
 	DynamicVK::vkGetImageMemoryRequirements(_device->device(), _image, &reqs);
 
-	size_t targetIndex = findSharedMemory(reqs, _device);
+	size_t targetIndex = findSharedMemory(reqs, _device, _framebufferOnly);
 
 	if (targetIndex == SIZE_MAX) {
 		throw std::runtime_error("No suitable memory region found for image");
@@ -241,7 +242,7 @@ CAMetalDrawableTexture::CAMetalDrawableTexture(CGSize size, Indium::PixelFormat 
 
 	DynamicVK::vkGetImageMemoryRequirements(_device->device(), _internalImage, &reqs);
 
-	targetIndex = findSharedMemory(reqs, _device);
+	targetIndex = findSharedMemory(reqs, _device, _framebufferOnly);
 
 	if (targetIndex == SIZE_MAX) {
 		throw std::runtime_error("No suitable memory region found for internal image");
@@ -565,7 +566,7 @@ CAMetalDrawableActual::CAMetalDrawableActual(CAMetalLayerInternal* layer, CGSize
 	_drawableID(drawableID),
 	_glContext(CGLRetainContext(glContext))
 {
-	_texture = std::make_shared<CAMetalDrawableTexture>(size, pixelFormat, std::dynamic_pointer_cast<Indium::PrivateDevice>(device));
+	_texture = std::make_shared<CAMetalDrawableTexture>(size, pixelFormat, layer.framebufferOnly, std::dynamic_pointer_cast<Indium::PrivateDevice>(device));
 	objc_storeWeak(&_layer, layer);
 };
 
