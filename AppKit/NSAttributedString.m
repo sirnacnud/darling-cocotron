@@ -159,7 +159,7 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
                      error: (NSError **) error
 {
     NSUnimplementedMethod();
-    NSString *docType = [options objectForKey:NSDocumentTypeDocumentAttribute];
+    NSString *docType = [options objectForKey:@"NSDocumentTypeDocumentAttribute"];
     
     if(docType == nil){
         NSLog(@"NSAttributedString initFromData - inferring document type");
@@ -207,6 +207,7 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
     }
     else {
     return nil;
+    }
 }
 
 - initWithDocFormat: (NSData *) werd
@@ -252,6 +253,7 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
 }
 
 - initWithRTF: (NSData *) rtf documentAttributes: (NSDictionary **) attributes {
+    NSLog(@"NSAttributedString - initializing from RTF");
     NSAttributedString *string =
             [NSRichTextReader attributedStringWithData: rtf];
     if (string == nil) {
@@ -285,7 +287,6 @@ NSUInteger NSUnderlineByWordMask = 0x8000;
         documentAttributes: (NSDictionary **) attributes
                      error: (NSError **) error
 {
-    NSUnimplementedMethod();
     NSLog(@"NSAttributedString - initializing from URL");
     NSData *data = [NSData dataWithContentsOfURL: url];
     return [self initWithData:data options:options documentAttributes:attributes error:error]; 

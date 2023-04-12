@@ -305,12 +305,10 @@ static NSDocumentController *shared = nil;
         //TODO: move below code to documentClassForType
         for(NSDictionary *type in _fileTypes){
             for(NSString *contentType in [type objectForKey:@"LSItemContentTypes"]){
-                return [type objectForKey:@"CFBundleTypeName"];
+                if([contentType isEqual: UTI])
+                    return [type objectForKey:@"CFBundleTypeName"];
             }
         }
-    }
-    else{
-        //TODO:Handle Error Here
     }
     return nil;
 }
@@ -330,13 +328,11 @@ static NSDocumentController *shared = nil;
                           error: (NSError **) error
 {
     id result;
-    NSLog(@"DocController - making %@ from URL", type);
     Class class = [self documentClassForType: type];
 
-    NSLog(@"DocController - initializing Document");
     result = [[[class alloc] initWithContentsOfURL: url
-                                            ofType: type ] autorelease];
-    NSLog(@"NSDocController - made from URL");
+                                            ofType: type] autorelease];
+
     return result;
 }
 
@@ -422,7 +418,6 @@ static NSDocumentController *shared = nil;
 
 - openUntitledDocumentAndDisplay: (BOOL) display error: (NSError **) error {
     NSString *type = [self defaultType];
-
     /* Cocoa documentation says:
          "For backward binary compatibility with Mac OS X v10.3 and earlier,
           the default implementation of this method instead invokes

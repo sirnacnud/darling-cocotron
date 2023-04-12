@@ -213,5 +213,4 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSLog(@"NSMutableAttributedString readFromURL: - hopefully finished reading!");
     return true;
 }
-
 @end
