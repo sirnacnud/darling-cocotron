@@ -26,13 +26,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) fixAttributesInRange: (NSRange) range;
 - (void) applyFontTraits: (NSFontTraitMask) traits range: (NSRange) range;
 
-- (BOOL) readFromURL:(NSURL *)url 
-             options:(NSDictionary<NSAttributedStringDocumentReadingOptionKey, id> *)opts 
-  documentAttributes:(NSDictionary<NSAttributedStringDocumentAttributeKey, id> * _Nullable *)dict 
-               error:(NSError * _Nullable *)error;
+- (BOOL) readFromURL: (NSURL *) url 
+             options: (NSDictionary<NSAttributedStringDocumentReadingOptionKey, id> *) opts 
+  documentAttributes: (NSDictionary<NSAttributedStringDocumentAttributeKey, id> * _Nullable *) dict 
+               error: (NSError * _Nullable *)error;
 
-- (void)addAttribute:(NSAttributedStringKey)name 
-               value:(id)value 
-               range:(NSRange)range;
+- (void)addAttribute: (NSAttributedStringKey) name 
+               value: (id) value 
+               range: (NSRange) range;
 
 @end

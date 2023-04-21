@@ -258,11 +258,10 @@ enum {
 
 #pragma mark -
 #pragma mark Getting Attribute Data
-- (void) enumerateAttribute: (NSAttributedStringKey) attrName
-                    inRange: (NSRange) enumerationRange
-                    options: (NSAttributedStringEnumerationOptions) opts
-                 usingBlock:
-                         (void (^)(id value, NSRange range, BOOL *stop)) block;
+- (void)enumerateAttribute: (NSAttributedStringKey) attrName 
+                   inRange: (NSRange) enumerationRange 
+                   options: (NSAttributedStringEnumerationOptions) opts 
+                usingBlock: (void (^)(id value, NSRange range, BOOL *stop)) block;
 
 #pragma mark -
 #pragma mark Testing String Data Sources
