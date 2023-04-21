@@ -139,11 +139,21 @@ APPKIT_EXPORT NSString *const NSAllRomanInputSourcesLocaleIdentifier;
     NSTextLayoutOrientation _layoutOrientation;
 
     BOOL _incrementalSearchingEnabled;
+    BOOL _grammarCheckingEnabled;
+    BOOL _automaticQuoteSubstitutionEnabled;
+    BOOL _automaticDashSubstitutionEnabled;
+    BOOL _automaticLinkDetectionEnabled;
+    BOOL _automaticDataDetectionEnabled;
+    BOOL _automaticTextReplacementEnabled;
+
+    BOOL _usesInspectorBar;
 }
 
 - initWithFrame: (NSRect) frame textContainer: (NSTextContainer *) container;
 
 - initWithFrame: (NSRect) frame;
+
+- (void) _setTextStorage: (NSTextStorage *) storage;
 
 - (NSTextContainer *) textContainer;
 
@@ -266,12 +276,27 @@ APPKIT_EXPORT NSString *const NSAllRomanInputSourcesLocaleIdentifier;
 
 - (void) setSpellingState: (NSInteger) value range: (NSRange) characterRange;
 
-- (BOOL) usesFindBar;
-- (void) setUsesFindBar: (BOOL) value;
 - (BOOL) isIncrementalSearchingEnabled;
+- (BOOL) usesFindBar;
+- (BOOL) usesInspectorBar;
 - (void) setIncrementalSearchingEnabled: (BOOL) value;
+- (void) setUsesFindBar: (BOOL) value;
+- (void) setUsesInspectorBar: (BOOL) value;
 
 - (void) setLayoutOrientation:(NSTextLayoutOrientation)orientation;
+
+- (BOOL) isGrammarCheckingEnabled;
+- (BOOL) isAutomaticQuoteSubstitutionEnabled;
+- (BOOL) isAutomaticDashSubstitutionEnabled;
+- (BOOL) isAutomaticLinkDetectionEnabled;
+- (BOOL) isAutomaticDataDetectionEnabled;
+- (BOOL) isAutomaticTextReplacementEnabled;
+- (void) setGrammarCheckingEnabled: (BOOL) value;
+- (void) setAutomaticQuoteSubstitutionEnabled: (BOOL) value;
+- (void) setAutomaticDashSubstitutionEnabled: (BOOL) value;
+- (void) setAutomaticLinkDetectionEnabled: (BOOL) value;
+- (void) setAutomaticDataDetectionEnabled: (BOOL) value;
+- (void) setAutomaticTextReplacementEnabled: (BOOL) value;
 
 @end
 
