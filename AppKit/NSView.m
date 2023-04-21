@@ -888,7 +888,7 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 }
 
 - (BOOL) translatesAutoresizingMaskIntoConstraints {
-	return _translatesAutoresizingMaskIntoConstraints;
+    return _translatesAutoresizingMaskIntoConstraints;
 }
 
 - viewWithTag: (NSInteger) tag {
@@ -1131,8 +1131,8 @@ static inline void buildTransformsIfNeeded(NSView *self) {
 }
 
 - (void) settranslatesAutoresizingMaskIntoConstraints: (BOOL) value {
-	_translatesAutoresizingMaskIntoConstraints = value;
-	NSUnimplementedMethod();
+    _translatesAutoresizingMaskIntoConstraints = value;
+    NSUnimplementedMethod();
 }
 
 - (void) setPostsFrameChangedNotifications: (BOOL) flag {
