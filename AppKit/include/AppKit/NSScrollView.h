@@ -62,22 +62,22 @@ APPKIT_EXPORT NSString *const NSScrollViewDidLiveScrollNotification;
              hasHorizontalScroller: (BOOL) hasHorizontalScroller
                hasVerticalScroller: (BOOL) hasVerticalScroller
                         borderType: (NSBorderType) borderType;
-+ (NSSize)frameSizeForContentSize:(NSSize)cSize 
-          horizontalScrollerClass:(Class)horizontalScrollerClass 
-            verticalScrollerClass:(Class)verticalScrollerClass 
-                       borderType:(NSBorderType)type 
-                      controlSize:(NSControlSize)controlSize 
-                    scrollerStyle:(NSScrollerStyle)scrollerStyle;
++ (NSSize)frameSizeForContentSize: (NSSize)cSize 
+          horizontalScrollerClass: (Class)horizontalScrollerClass 
+            verticalScrollerClass: (Class)verticalScrollerClass 
+                       borderType: (NSBorderType)type 
+                      controlSize: (NSControlSize)controlSize 
+                    scrollerStyle: (NSScrollerStyle)scrollerStyle;
 + (NSSize) contentSizeForFrameSize: (NSSize) fSize
              hasHorizontalScroller: (BOOL) hasHorizontalScroller
                hasVerticalScroller: (BOOL) hasVerticalScroller
                         borderType: (NSBorderType) borderType;
-+ (NSSize)contentSizeForFrameSize:(NSSize)fSize 
-          horizontalScrollerClass:(Class)horizontalScrollerClass 
-            verticalScrollerClass:(Class)verticalScrollerClass 
-                       borderType:(NSBorderType)type 
-                      controlSize:(NSControlSize)controlSize 
-                    scrollerStyle:(NSScrollerStyle)scrollerStyle;
++ (NSSize)contentSizeForFrameSize: (NSSize)fSize 
+          horizontalScrollerClass: (Class)horizontalScrollerClass 
+            verticalScrollerClass: (Class)verticalScrollerClass 
+                       borderType: (NSBorderType)type 
+                      controlSize: (NSControlSize)controlSize 
+                    scrollerStyle: (NSScrollerStyle)scrollerStyle;
 
 + (void) setRulerViewClass: (Class) aClass;
 + (Class) rulerViewClass;
@@ -141,7 +141,7 @@ APPKIT_EXPORT NSString *const NSScrollViewDidLiveScrollNotification;
 - (void) setMagnification: (CGFloat) value;
 - (void) setMinMagnification: (CGFloat) value;
 - (void) setMaxMagnification: (CGFloat) value;
-- (BOOL) setAllowsMagnification: (BOOL) value;
+- (void) setAllowsMagnification: (BOOL) value;
 
 - (void) tile;
 - (void) reflectScrolledClipView: (NSClipView *) clipView;

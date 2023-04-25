@@ -86,14 +86,18 @@ static Class _rulerViewClass = nil;
     return contentSize;
 }
 
-+ (NSSize)frameSizeForContentSize:(NSSize)cSize 
-          horizontalScrollerClass:(Class)horizontalScrollerClass 
-            verticalScrollerClass:(Class)verticalScrollerClass 
-                       borderType:(NSBorderType)type 
-                      controlSize:(NSControlSize)controlSize 
-                    scrollerStyle:(NSScrollerStyle)scrollerStyle
++ (NSSize) frameSizeForContentSize: (NSSize) cSize
+           horizontalScrollerClass: (Class) horizontalScrollerClass
+             verticalScrollerClass: (Class) verticalScrollerClass
+                        borderType: (NSBorderType) type
+                       controlSize: (NSControlSize) controlSize
+                     scrollerStyle: (NSScrollerStyle) scrollerStyle
 {
     NSUnimplementedMethod();
+    return [self frameSizeForContentSize: cSize
+                   hasHorizontalScroller: YES
+                     hasVerticalScroller: YES
+                              borderType: type];
 }
 
 + (NSSize) contentSizeForFrameSize: (NSSize) frameSize
@@ -130,12 +134,12 @@ static Class _rulerViewClass = nil;
     return frameSize;
 }
 
-+ (NSSize)contentSizeForFrameSize:(NSSize)fSize 
-          horizontalScrollerClass:(Class)horizontalScrollerClass 
-            verticalScrollerClass:(Class)verticalScrollerClass 
-                       borderType:(NSBorderType)type 
-                      controlSize:(NSControlSize)controlSize 
-                    scrollerStyle:(NSScrollerStyle)scrollerStyle
++ (NSSize) contentSizeForFrameSize: (NSSize) fSize
+           horizontalScrollerClass: (Class) horizontalScrollerClass
+             verticalScrollerClass: (Class) verticalScrollerClass
+                        borderType: (NSBorderType) type
+                       controlSize: (NSControlSize) controlSize
+                     scrollerStyle: (NSScrollerStyle) scrollerStyle
 {
     NSUnimplementedMethod();
 }
@@ -816,23 +820,35 @@ static Class _rulerViewClass = nil;
 }
 
 - (void) setMagnification: (CGFloat) value {
+    if (value == _magnification)
+        return;
+
     _magnification = value;
-    NSUnimplementedMethod();
+
+    if (_magnification < _minMagnification)
+        _magnification = _minMagnification;
+    if (_magnification < _maxMagnification)
+        _magnification = _maxMagnification;
+
+    // TODO: calculate new bounds and call setBounds
 }
 
 - (void) setMinMagnification: (CGFloat) value {
     _minMagnification = value;
-    NSUnimplementedMethod();
+
+    if (_minMagnification > _magnification)
+        [self setMagnification: value];
 }
 
 - (void) setMaxMagnification: (CGFloat) value {
     _maxMagnification = value;
-    NSUnimplementedMethod();
+
+    if (_maxMagnification < _magnification)
+        [self setMagnification: value];
 }
 
 - (void) setAllowsMagnification: (BOOL) value {
     _allowsMagnification = value;
-    NSUnimplementedMethod();
 }
 
 - (void) tile {
