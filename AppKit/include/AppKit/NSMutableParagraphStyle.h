@@ -48,8 +48,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setDefaultTabInterval: (CGFloat) interval;
 - (void) setTabStops: (NSArray *) tabStops;
-- (void) addTabStop:(NSTextTab *) tabStop;
-- (void) removeTabStop:(NSTextTab *) tabStop;
+- (void) addTabStop: (NSTextTab *) tabStop;
+- (void) removeTabStop: (NSTextTab *) tabStop;
 
 
 - (void) setHyphenationFactor: (float) factor;
