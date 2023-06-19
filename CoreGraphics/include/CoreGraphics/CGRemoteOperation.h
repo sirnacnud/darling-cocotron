@@ -55,11 +55,18 @@ typedef struct CGScreenUpdateMoveDelta {
 } CGScreenUpdateMoveDelta;
 
 typedef void (*CGScreenUpdateMoveCallback)(CGScreenUpdateMoveDelta delta, size_t count, const CGRect *rects, void *userInfo);
+typedef void (*CGScreenRefreshCallback)(uint32_t count, const CGRect *rects, void *userInfo);
 
 #define kCGEventFilterMaskPermitAllEvents (kCGEventFilterMaskPermitLocalMouseEvents | kCGEventFilterMaskPermitLocalKeyboardEvents | kCGEventFilterMaskPermitSystemDefinedEvents)
 
 // TODO: All those deprecated functions
 extern CGError CGScreenRegisterMoveCallback(CGScreenUpdateMoveCallback callback, void *userInfo);
 extern void CGScreenUnregisterMoveCallback(CGScreenUpdateMoveCallback callback, void *userInfo);
+
+CGError CGRegisterScreenRefreshCallback(CGScreenRefreshCallback callback, void *userInfo);
+void CGUnregisterScreenRefreshCallback(CGScreenRefreshCallback callback, void *userInfo);
+CGError CGWaitForScreenRefreshRects(CGRect * _Nullable *rects, uint32_t *count);
+void CGReleaseScreenRefreshRects(CGRect *rects);
+CGError CGWaitForScreenUpdateRects(CGScreenUpdateOperation requestedOperations, CGScreenUpdateOperation *currentOperation, CGRect * _Nullable *rects, size_t *rectCount, CGScreenUpdateMoveDelta *delta);
 
 #endif
