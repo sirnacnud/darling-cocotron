@@ -32,6 +32,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #import <CoreGraphics/CGShading.h>
 #import <CoreGraphics/CGWindowLevel.h>
 #import <CoreGraphics/CGWindow.h>
+#import <CoreGraphics/CGRemoteOperation.h>
 
 #include <CoreGraphics/CGEvent.h>
 #include <CoreGraphics/CGPDFContext.h>
