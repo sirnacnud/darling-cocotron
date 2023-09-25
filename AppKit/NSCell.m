@@ -1163,6 +1163,11 @@ static NSString *NSStringFromCellType(NSCellType type) {
                               _objectValue];
 }
 
+- (void) _validateEditing: (id)unknown
+{
+    // required by ibtool
+}
+
 @end
 
 void NSDrawThreePartImage(NSRect frame, NSImage *startCap, NSImage *centerFill,
@@ -1172,3 +1177,14 @@ void NSDrawThreePartImage(NSRect frame, NSImage *startCap, NSImage *centerFill,
 {
     NSUnimplementedFunction();
 }
+
+void NSDrawNinePartImage(NSRect frame, NSImage* topLeftCorner,
+                          NSImage* topEdgeFill, NSImage* topRightCorner,
+                          NSImage* leftEdgeFill, NSImage* centerFill,
+                          NSImage* rightEdgeFill, NSImage* bottomLeftCorner,
+                          NSImage* bottomEdgeFill, NSImage* bottomRightCorner,
+                          NSCompositingOperation operation, CGFloat alpha,
+                          BOOL flipped)
+{
+    NSUnimplementedFunction();
+};

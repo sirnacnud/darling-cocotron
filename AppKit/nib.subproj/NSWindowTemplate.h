@@ -23,17 +23,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @class NSView;
 
 @interface NSWindowTemplate : NSObject {
+    // the ivars without a `_` prefix are like that because Xcode
+    // requires them to be named like that.
+
     NSSize _maxSize;
     NSSize _minSize;
-    NSRect _screenRect;
+    NSRect screenRect;
     id _viewClass;
     unsigned _wtFlags;
     int _windowBacking;
     NSString *_windowClass;
-    NSRect _windowRect;
+    NSRect windowRect;
     int _windowStyleMask;
     NSString *_windowTitle;
-    NSView *_windowView;
+    NSView *windowView;
     NSString *_windowAutosave;
 }
 

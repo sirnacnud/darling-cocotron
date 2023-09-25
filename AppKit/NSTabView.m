@@ -29,6 +29,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSWindow.h>
 #import <Foundation/NSKeyedArchiver.h>
 
+id _NSTabViewFloatingCell = nil;
+
 @interface NSTabViewItem (NSTabViewItem_private)
 - (void) setTabView: (NSTabView *) tabView;
 - (void) setTabState: (NSTabState) tabState;

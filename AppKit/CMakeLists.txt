@@ -154,6 +154,10 @@ set(AppKit_sources
 	nib.subproj/NSClassSwapper.m
 	nib.subproj/NSNibAXRelationshipConnector.m
 	nib.subproj/NSIBUserDefinedRuntimeAttributesConnector.m
+	nib.subproj/NSNibAuxiliaryActionConnector.m
+	nib.subproj/NSNibExternalObjectPlaceholder.m
+	nib.subproj/NSIBHelpConnector.m
+	nib.subproj/UINibCoding.m
 
 	NSTextFieldCell.m
 	NSFormCell.m
@@ -439,6 +443,11 @@ set(AppKit_sources
 	NSCollectionViewLayoutInvalidationContext.m
 	NSLayoutGuide.m
 	NSPressGestureRecognizer.m
+	NSGridView.m
+	NSHaptics.m
+	NSDataAsset.m
+	NSSwitch.m
+	NSTextFinder.m
 )
 
 set_source_files_properties(${AppKit_sources} LANGUAGE C)

@@ -88,6 +88,8 @@ typedef enum {
     NSFont *_keyEquivalentFont;
     NSColor *_backgroundColor;
     float _periodicDelay, _periodicInterval;
+    NSImage *_alternateImageOrKeyEquivalentFont;
+    NSUInteger _bcFlags;
 }
 
 - (BOOL) isTransparent;

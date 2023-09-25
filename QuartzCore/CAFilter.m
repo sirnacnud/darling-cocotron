@@ -20,6 +20,9 @@
 #import <QuartzCore/CAFilter.h>
 
 NSString *const kCAFilterColorMatrix = @"colorMatrix";
+NSString *const kCAFilterColorBrightness = @"colorBrightness";
+NSString *const kCAFilterColorHueRotate = @"colorHueRotate";
+NSString *const kCAFilterMultiplyBlendMode = @"multiplyBlendMode";
 
 @implementation CAFilter
 

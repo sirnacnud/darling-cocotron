@@ -32,6 +32,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 NSString *const NSNibOwner = @"NSOwner";
 NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
 
+// IB = Interface Builder; i'm guessing this subproject is a good place for it
+NSString *const IBCocoaFramework = @"Cocoa";
+
 @implementation NSNib
 
 - initWithCoder: (NSCoder *) coder {

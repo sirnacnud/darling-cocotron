@@ -23,6 +23,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSMenu.h>
 #import <AppKit/NSMenuItem.h>
 #import <Foundation/NSKeyedArchiver.h>
+#import <AppKit/NSButtonCell.h>
+
+@interface NSMenuItemCell : NSButtonCell
+@end
 
 @implementation NSMenuItem
 
@@ -395,6 +399,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                              [self class], self, [self title],
                              NSStringFromSelector(_action),
                              ([self hasSubmenu] ? @"YES" : @"NO")];
+}
+
+@end
+
+@implementation NSMenuItemCell
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
 }
 
 @end

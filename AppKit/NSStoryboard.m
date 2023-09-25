@@ -19,7 +19,24 @@
 
 #import <AppKit/NSStoryboard.h>
 
+@interface NSStoryboardControllerPlaceholder : NSObject
+@end
+
 @implementation NSStoryboard
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSStoryboardControllerPlaceholder
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {

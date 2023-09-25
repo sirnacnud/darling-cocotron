@@ -31,4 +31,9 @@
     NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
 }
 
++ (instancetype)newWithCoder:(NSCoder *)coder zone:(NSZone *)zone
+{
+    return nil;
+}
+
 @end

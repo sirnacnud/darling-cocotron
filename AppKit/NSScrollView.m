@@ -34,6 +34,13 @@ NSString *const NSScrollViewWillStartLiveScrollNotification =
         @"NSScrollViewWillStartLiveScrollNotification";
 NSString *const NSScrollViewDidLiveScrollNotification =
         @"NSScrollViewDidLiveScrollNotification";
+NSString *const NSScrollViewWillStartLiveMagnifyNotification =
+        @"NSScrollViewWillStartLiveMagnifyNotification";
+NSString *const NSScrollViewDidEndLiveMagnifyNotification =
+        @"NSScrollViewDidEndLiveMagnifyNotification";
+
+NSString *const NSPreferredScrollerStyleDidChangeNotification =
+        @"NSPreferredScrollerStyleDidChangeNotification";
 
 @implementation NSScrollView
 

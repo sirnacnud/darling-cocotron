@@ -72,7 +72,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             }
             _cellClass = [NSCell class];
         }
-        _prototype = [[keyed decodeObjectForKey: @"NSProtoCell"] retain];
+        _protoCell = [[keyed decodeObjectForKey: @"NSProtoCell"] retain];
         _cells = [[NSMutableArray alloc]
                 initWithArray: [keyed decodeObjectForKey: @"NSCells"]];
         id selectedCell = [keyed decodeObjectForKey: @"NSSelectedCell"];
@@ -102,7 +102,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     _keyCellIndex = -1;
     _cellSize = NSMakeSize(frame.size.width, 20);
     _intercellSpacing = NSMakeSize(0, 0);
-    _prototype = nil;
+    _protoCell = nil;
     _cellClass = [NSCell class];
     _mode = NSListModeMatrix;
     _tabKeyTraversesCells = YES;
@@ -121,11 +121,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [self initWithFrame: frame];
 
     _mode = mode;
-    _prototype = [prototype copy];
+    _protoCell = [prototype copy];
     _numberOfRows = rows;
     _numberOfColumns = columns;
     for (i = 0; i < rows * columns; i++)
-        [_cells addObject: [[_prototype copy] autorelease]];
+        [_cells addObject: [[_protoCell copy] autorelease]];
 
     return self;
 }
@@ -155,7 +155,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_backgroundColor release];
     [_cellBackgroundColor release];
     [_cells release];
-    [_prototype release];
+    [_protoCell release];
     [super dealloc];
 }
 
@@ -262,7 +262,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - prototype {
-    return _prototype;
+    return _protoCell;
 }
 
 - (NSArray *) cells {
@@ -494,8 +494,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (void) setPrototype: (NSCell *) cell {
     cell = [cell retain];
-    [_prototype release];
-    _prototype = cell;
+    [_protoCell release];
+    _protoCell = cell;
 }
 
 - (void) _deselectAllCells {
@@ -522,7 +522,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (NSCell *) makeCellAtRow: (NSInteger) row column: (NSInteger) column {
-    NSCell *result = [[_prototype copy] autorelease];
+    NSCell *result = [[_protoCell copy] autorelease];
 
     if (result == nil)
         result = [[[_cellClass alloc] init] autorelease];

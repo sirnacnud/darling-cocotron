@@ -35,25 +35,25 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         _maxSize = [keyed decodeSizeForKey: @"NSMaxSize"];
         _minSize = [keyed decodeSizeForKey: @"NSMinSize"];
-        _screenRect =
+        screenRect =
                 [keyed decodeRectForKey: @"NSScreenRect"]; // screen created on
         _viewClass = [[keyed decodeObjectForKey: @"NSViewClass"] retain];
         _wtFlags = [keyed decodeIntForKey: @"NSWTFlags"];
         _windowBacking = [keyed decodeIntForKey: @"NSWindowBacking"];
         _windowClass = [[keyed decodeObjectForKey: @"NSWindowClass"] retain];
-        _windowRect = [keyed decodeRectForKey: @"NSWindowRect"];
+        windowRect = [keyed decodeRectForKey: @"NSWindowRect"];
         _windowStyleMask = [keyed decodeIntForKey: @"NSWindowStyleMask"];
         _windowTitle = [[keyed decodeObjectForKey: @"NSWindowTitle"] retain];
-        _windowView = [[keyed decodeObjectForKey: @"NSWindowView"] retain];
+        windowView = [[keyed decodeObjectForKey: @"NSWindowView"] retain];
         _windowAutosave =
                 [[keyed decodeObjectForKey: @"NSFrameAutosaveName"] retain];
 
         if ([NSScreen mainScreen])
-            _windowRect.origin.y -= _screenRect.size.height -
+            windowRect.origin.y -= screenRect.size.height -
                                     [[NSScreen mainScreen] frame].size.height;
         if ([NSClassFromString(_windowClass)
                     hasMainMenuForStyleMask: _windowStyleMask])
-            _windowRect.origin.y -= [NSMainMenuView
+            windowRect.origin.y -= [NSMainMenuView
                     menuHeight]; // compensation for the additional menu bar
     } else {
         [NSException raise: NSInvalidArgumentException
@@ -67,7 +67,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_viewClass release];
     [_windowClass release];
     [_windowTitle release];
-    [_windowView release];
+    [windowView release];
     [_windowAutosave release];
     [super dealloc];
 }
@@ -85,7 +85,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         class = [NSWindow class];
     }
     defer = (_wtFlags & 0x20000000) ? YES : NO;
-    result = [[class alloc] initWithContentRect: _windowRect
+    result = [[class alloc] initWithContentRect: windowRect
                                       styleMask: _windowStyleMask
                                         backing: _windowBacking
                                           defer: defer];
@@ -96,9 +96,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [result setHidesOnDeactivate: (_wtFlags & 0x80000000) ? YES : NO];
     [result setTitle: _windowTitle];
 
-    [result setContentView: _windowView];
-    [_windowView setAutoresizesSubviews: YES];
-    [_windowView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
+    [result setContentView: windowView];
+    [windowView setAutoresizesSubviews: YES];
+    [windowView setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
 
     if ([_viewClass isKindOfClass: [NSToolbar class]]) {
         [result setToolbar: _viewClass];

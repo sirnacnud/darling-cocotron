@@ -1,9 +1,6 @@
-#import "NSNibAXRelationshipConnector.h"
+#import <AppKit/NSHaptics.h>
 
-@interface NSNibAXAttributeConnector : NSObject
-@end
-
-@implementation NSNibAXRelationshipConnector
+@implementation NSHapticFeedbackManager
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {
@@ -17,7 +14,7 @@
 
 @end
 
-@implementation NSNibAXAttributeConnector
+@implementation NSAlignmentFeedbackFilter
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {

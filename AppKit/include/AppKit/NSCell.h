@@ -111,6 +111,7 @@ enum {
     NSFocusRingType _focusRingType;
     NSLineBreakMode _lineBreakMode;
     NSBackgroundStyle _backgroundStyle;
+    NSUInteger _cFlags; // required for Xcode
 
     BOOL _isEnabled;
     BOOL _isEditable;

@@ -28,6 +28,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 const NSNotificationName NSMenuDidBeginTrackingNotification = @"NSMenuDidBeginTrackingNotification";
 const NSNotificationName NSMenuDidEndTrackingNotification = @"NSMenuDidEndTrackingNotification";
+NSString *const _NSFontMenuName = @"Font";
+NSString *const _NSHelpMenuName = @"Help";
+NSString *const _NSMainMenuName = @"Application";
+NSString *const _NSRecentDocumentsMenuName = @"Recents";
+NSString *const _NSServicesMenuName = @"Services";
+NSString *const _NSWindowsMenuName = @"Window";
 
 @implementation NSMenu
 

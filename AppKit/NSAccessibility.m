@@ -1,6 +1,7 @@
 #import <AppKit/AppKitExport.h>
 #import <Foundation/NSString.h>
 #import <AppKit/NSAccessibilityConstants.h>
+#import <AppKit/NSView.h>
 
 NSString *const NSAccessibilityChildrenAttribute =
         @"NSAccessibilityChildrenAttribute";
@@ -43,6 +44,8 @@ NSString *const NSAccessibilityVisibleChildrenAttribute =
         @"NSAccessibilityVisibleChildrenAttribute";
 NSString *const NSAccessibilityWindowAttribute =
         @"NSAccessibilityWindowAttribute";
+NSString *const NSAccessibilityIdentifierAttribute =
+        @"NSAccessibilityIdentifierAttribute";
 
 NSString *const NSAccessibilityInsertionPointLineNumberAttribute =
         @"NSAccessibilityInsertionPointLineNumberAttribute";
@@ -573,6 +576,11 @@ NSString *const NSAccessibilityFullScreenButtonSubrole = @"AXFullScreenButton";
 NSString *const NSAccessibilityAnnouncementKey = @"AXAnnouncementKey";
 NSString *const NSAccessibilityAnnouncementRequestedNotification = @"AXAnnouncementRequested";
 NSString *const NSAccessibilityPriorityKey = @"AXPriorityKey";
+
+NSRect NSAccessibilityFrameInView(NSView *parentView, NSRect frame) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return frame;
+}
 
 void NSAccessibilityPostNotification(id element, NSString *notification) {
 }

@@ -19,7 +19,41 @@
 
 #import <AppKit/NSGestureRecognizer.h>
 
+@interface NSMagnificationGestureRecognizer : NSGestureRecognizer
+@end
+
+@interface NSRotationGestureRecognizer : NSGestureRecognizer
+@end
+
 @implementation NSGestureRecognizer
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSRotationGestureRecognizer
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSMagnificationGestureRecognizer
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {

@@ -34,6 +34,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSToolbarView.h>
 #import <AppKit/NSWindow.h>
 
+NSString *const _NSToolbarItemDragType = @"NSToolbarItemDragType";
+NSString *const _NSToolbarItemIdentifierPboardType = @"NSToolbarItemIdentifierPboardType";
+
 @interface NSToolbar (Private)
 - (NSArray *) _itemsWithIdentifiers: (NSArray *) identifiers;
 - (NSArray *) _allowedToolbarItems;

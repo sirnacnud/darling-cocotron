@@ -21,6 +21,8 @@
 
 NSString *const NSAppearanceNameAqua = @"NSAppearanceNameAqua";
 NSString *const NSAppearanceNameDarkAqua = @"NSAppearanceNameDarkAqua";
+NSString *const NSAppearanceNameSystem = @"NSAppearanceNameSystem";
+NSString *const NSAppearanceNameTouchBar = @"NSAppearanceNameTouchBar";
 NSString *const NSAppearanceNameLightContent = @"NSAppearanceNameLightContent";
 NSString *const NSAppearanceNameVibrantDark = @"NSAppearanceNameVibrantDark";
 NSString *const NSAppearanceNameVibrantLight = @"NSAppearanceNameVibrantLight";
@@ -28,6 +30,8 @@ NSString *const NSAppearanceNameAccessibilityHighContrastAqua =
         @"NSAppearanceNameAccessibilityAqua";
 NSString *const NSAppearanceNameAccessibilityHighContrastDarkAqua =
         @"NSAppearanceNameAccessibilityDarkAqua";
+NSString *const NSAppearanceNameAccessibilityHighContrastSystem =
+        @"NSAppearanceNameAccessibilityHighContrastSystem";
 NSString *const NSAppearanceNameAccessibilityHighContrastVibrantLight =
         @"NSAppearanceNameAccessibilityVibrantLight";
 NSString *const NSAppearanceNameAccessibilityHighContrastVibrantDark =

@@ -24,6 +24,10 @@
 #import <CoreData/NSPersistentStoreCoordinator.h>
 #import <Foundation/NSRaise.h>
 
+// not sure where to put this
+NSString *const NSDataBinding = @"NSDataBinding";
+NSString *const NSDisplayNameBindingOption = @"NSDisplayNameBindingOption";
+
 @implementation NSPersistentDocument
 
 - (id) init {

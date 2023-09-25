@@ -42,6 +42,7 @@ NSString *const NSCalibratedWhiteColorSpace = @"NSCalibratedWhiteColorSpace";
 NSString *const NSCalibratedRGBColorSpace = @"NSCalibratedRGBColorSpace";
 NSString *const NSNamedColorSpace = @"NSNamedColorSpace";
 NSString *const NSPatternColorSpace = @"NSPatternColorSpace";
+NSString *const NSCustomColorSpace = @"NSCustomColorSpace";
 
 NSString *const NSDeviceIsScreen = @"NSDeviceIsScreen";
 NSString *const NSDeviceIsPrinter = @"NSDeviceIsPrinter";
@@ -537,4 +538,8 @@ void NSShowAnimationEffect(NSAnimationEffect effect, NSPoint center,
                   animationDelegate: delegate
                      didEndSelector: didEndSelector
                         contextInfo: context];
+}
+
+void NSSetFocusRingStyle(NSFocusRingPlacement placement) {
+    printf("STUB: %s\n", __PRETTY_FUNCTION__);
 }

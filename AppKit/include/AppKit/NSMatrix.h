@@ -42,7 +42,7 @@ typedef enum {
     NSInteger _keyCellIndex;
     NSSize _cellSize;
     NSSize _intercellSpacing;
-    id _prototype;
+    id _protoCell;
     Class _cellClass;
     NSMatrixMode _mode;
     BOOL _selectionByRect;

@@ -34,6 +34,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 //       Those occurences are marked with "Should...".
 #define TEXTFIELD_MARGIN 3.0
 
+// not sure where to put this
+NSString *const NSToolTipHelpKey = @"NSToolTipHelp";
+
 @implementation NSToolTipWindow
 
 + (NSToolTipWindow *) sharedToolTipWindow {

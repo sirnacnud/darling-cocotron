@@ -84,6 +84,8 @@ const NSNotificationName NSWindowAnimatingNotification =
 const NSNotificationName NSWindowDidAnimateNotification =
         @"NSWindowDidAnimateNotification";
 
+const NSNotificationName NSWindowDidChangeBackingPropertiesNotification =
+        @"NSWindowDidChangeBackingPropertiesNotification";
 const NSNotificationName NSWindowDidChangeOcclusionStateNotification =
         @"NSWindowDidChangeOcclusionStateNotification";
 const NSNotificationName NSWindowDidChangeScreenNotification =

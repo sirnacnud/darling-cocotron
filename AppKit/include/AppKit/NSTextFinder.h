@@ -7,3 +7,7 @@
 @protocol NSTextFinderClient <NSObject>
 
 @end
+
+@interface NSTextFinder : NSObject
+
+@end
