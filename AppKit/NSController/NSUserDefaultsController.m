@@ -123,4 +123,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_valueProxy revertToInitialValues];
 }
 
++ (void) awakeAfterUsingCoder: (NSCoder *) coder {
+    NSUnimplementedMethod();
+}
+
 @end

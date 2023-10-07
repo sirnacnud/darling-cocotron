@@ -3953,4 +3953,9 @@ NSString *const NSAllRomanInputSourcesLocaleIdentifier =
     }
 }
 
+- (id) replacementObjectForKeyedArchiver {
+    NSUnimplementedMethod();
+    return self;
+}
+
 @end

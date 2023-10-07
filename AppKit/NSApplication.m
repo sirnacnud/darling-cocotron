@@ -1525,6 +1525,10 @@ NSApplication *NSApp = nil;
         [self unhide: nil];
 }
 
++ (void) load {
+    // Xcode expects this method to exist for some reason?
+}
+
 @end
 
 int NSApplicationMain(int argc, const char *argv[]) {

@@ -448,6 +448,7 @@ set(AppKit_sources
 	NSDataAsset.m
 	NSSwitch.m
 	NSTextFinder.m
+	NSScrubber.m
 )
 
 set_source_files_properties(${AppKit_sources} LANGUAGE C)

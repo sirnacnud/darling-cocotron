@@ -28,6 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSSplitView.h>
 #import <AppKit/NSWindow.h>
 #import <Foundation/NSKeyedArchiver.h>
+#import <Foundation/NSRaise.h>
 
 NSString *const NSSplitViewDidResizeSubviewsNotification =
         @"NSSplitViewDidResizeSubviewsNotification";
@@ -649,6 +650,15 @@ static CGFloat constrainTo(CGFloat value, CGFloat min, CGFloat max) {
     }
 
     [self setNeedsDisplay: YES];
+}
+
+- (void) _autosaveSubviewLayoutIfNecessary {
+    NSUnimplementedMethod();
+}
+
+- (BOOL) isOpaque {
+    NSUnimplementedMethod();
+    return YES;
 }
 
 @end

@@ -19,6 +19,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <AppKit/NSSlider.h>
 
+@interface NSSliderAccessory : NSObject
+@end
+
+@interface NSSliderAccessoryBehavior : NSObject
+@end
+
 @implementation NSSlider
 
 + (Class) cellClass {
@@ -136,6 +142,34 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [[self selectedCell] moveRight: sender];
     [self sendAction: [self action] to: [self target]];
     [self setNeedsDisplay: YES];
+}
+
+@end
+
+@implementation NSSliderAccessory
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSSliderAccessoryBehavior
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
 }
 
 @end

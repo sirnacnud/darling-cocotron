@@ -140,6 +140,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSScreen.h>
 #import <AppKit/NSScrollView.h>
 #import <AppKit/NSScroller.h>
+#import <AppKit/NSScrubber.h>
 #import <AppKit/NSSearchField.h>
 #import <AppKit/NSSearchFieldCell.h>
 #import <AppKit/NSSecureTextField.h>

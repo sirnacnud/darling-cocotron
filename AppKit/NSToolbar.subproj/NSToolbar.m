@@ -649,6 +649,11 @@ static BOOL isStandardItemIdentifier(NSString *identifier) {
                           object: self];
 }
 
++ (BOOL) _shouldIgnoreItemIdentifier: (NSString *) identifier {
+    NSLog(@"STUB: %s", __PRETTY_FUNCTION__);
+    return NO;
+}
+
 @end
 
 @implementation NSToolbar (NSToolbarCustomization)

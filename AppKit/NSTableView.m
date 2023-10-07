@@ -2078,6 +2078,14 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     [self _moveUp: NO extend: YES];
 }
 
+- (void)_writePersistentTableColumns {
+    NSUnimplementedMethod();
+}
+
+- (void)_readPersistentTableColumns {
+    NSUnimplementedMethod();
+}
+
 @end
 
 @implementation NSTableView (Bindings)

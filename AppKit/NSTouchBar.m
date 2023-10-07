@@ -18,8 +18,45 @@
 */
 
 #import <AppKit/NSTouchBar.h>
+#import <AppKit/NSView.h>
+
+// i'm assuming this inherits from NSView (TODO: check this assumption)
+@interface NSTouchBarView : NSView
+@end
+
+// again, i'm assuming this inherits from NSTouchBarView and this should be checked later
+@interface NSTouchBarItemContainerView : NSTouchBarView
+@end
 
 @implementation NSTouchBar
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSTouchBarView
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSTouchBarItemContainerView
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {

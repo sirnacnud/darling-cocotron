@@ -111,4 +111,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return result;
 }
 
+- (Class) windowClassForNibInstantiate {
+    // this method requires that the window class is a subclass of NSWindow; otherwise, it returns nil.
+    Class theClass = NSClassFromString(_windowClass);
+    if ([theClass isSubclassOfClass: [NSWindow class]]) {
+        return theClass;
+    }
+    return nil;
+}
+
+- (void) setStyleMask: (NSUInteger) mask {
+    _windowStyleMask = mask;
+}
+
 @end

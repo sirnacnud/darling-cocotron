@@ -61,7 +61,10 @@ static NSDocumentController *shared = nil;
 
 + sharedDocumentController {
     if (shared == nil) {
-        shared = [[NSDocumentController alloc] init];
+        // NOTE: it is important that this is `self` and not `NSDocumentController` directly;
+        //       Xcode subclasses NSDocumentController and invokes this class method on said subclass,
+        //       expecting the shared controller to be allocated as that subclass instead of `NSDocumentController`.
+        shared = [[self alloc] init];
         [shared _updateRecentDocumentsMenu];
     }
 

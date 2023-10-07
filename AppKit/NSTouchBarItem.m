@@ -27,8 +27,61 @@ NSTouchBarItemIdentifier const NSTouchBarItemIdentifierFlexibleSpace =
         @"NSTouchBarItemIdentifierFlexibleSpace";
 NSTouchBarItemIdentifier const NSTouchBarItemIdentifierOtherItemsProxy =
         @"NSTouchBarItemIdentifierOtherItemsProxy";
+NSTouchBarItemIdentifier const NSTouchBarItemIdentifierCharacterPicker =
+        @"NSTouchBarItemIdentifierCharacterPicker";
+
+@interface NSColorPickerTouchBarItem : NSTouchBarItem
+@end
+
+@interface NSSharingServicePickerTouchBarItem : NSTouchBarItem
+@end
+
+@interface NSSliderTouchBarItem : NSTouchBarItem
+@end
 
 @implementation NSTouchBarItem
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSColorPickerTouchBarItem
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSSharingServicePickerTouchBarItem
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+}
+
+@end
+
+@implementation NSSliderTouchBarItem
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
 {

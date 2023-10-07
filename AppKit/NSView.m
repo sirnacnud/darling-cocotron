@@ -46,6 +46,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <QuartzCore/CALayerContext.h>
 #import <QuartzCore/CATransaction.h>
 
+@class IBMetricsTable;
+
 NSString *const NSViewFrameDidChangeNotification =
         @"NSViewFrameDidChangeNotification";
 NSString *const NSViewBoundsDidChangeNotification =
@@ -2828,6 +2830,11 @@ static NSView *viewBeingPrinted = nil;
 - (void)displayLayer: (CALayer*)layer
 {
     [self display];
+}
+
++ (IBMetricsTable *) ibLayoutMetrics {
+    NSUnimplementedMethod();
+    return nil;
 }
 
 @end

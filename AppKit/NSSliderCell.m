@@ -32,6 +32,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #define PIXELINSET 8
 #define TICKHEIGHT 8
 
+@interface NSColorScaleSliderCell : NSSliderCell
+@end
+
 @implementation NSSliderCell
 
 - (void) encodeWithCoder: (NSCoder *) coder {
@@ -719,6 +722,20 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
             mouseIsUp: (BOOL) flag
 {
     [self highlight: NO withFrame: _lastRect inView: controlView];
+}
+
+@end
+
+@implementation NSColorScaleSliderCell
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
+    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation
+{
+    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
 }
 
 @end

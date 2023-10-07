@@ -21,6 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSException.h>
 #import <Foundation/NSKeyedArchiver.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSRaise.h>
 
 @implementation NSClassSwapper
 
@@ -63,6 +64,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_originalClassName release];
     [_object release];
     [super dealloc];
+}
+
+- (void) encodeWithCoder: (NSCoder *) coder {
+    NSUnimplementedMethod();
 }
 
 @end
