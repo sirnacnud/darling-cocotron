@@ -1492,4 +1492,9 @@ static int untitled_document_number = 0;
     [self updateChangeCount: NSChangeDone];
 }
 
+- (void) performSynchronousFileAccessUsingBlock: (void (^)(void)) block {
+    // FIXME: this is just a stub for now that performs no synchronization
+    block();
+}
+
 @end
