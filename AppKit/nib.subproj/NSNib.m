@@ -33,7 +33,7 @@ NSString *const NSNibOwner = @"NSOwner";
 NSString *const NSNibTopLevelObjects = @"NSNibTopLevelObjects";
 
 // IB = Interface Builder; i'm guessing this subproject is a good place for it
-NSString *const IBCocoaFramework = @"Cocoa";
+NSString *const IBCocoaFramework = @"IBCocoaFramework";
 
 @implementation NSNib
 
