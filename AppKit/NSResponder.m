@@ -30,7 +30,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSResponder
 
-- (void) encodeWithCoder: (NSCoder *) encoder {
+- (void) encodeWithCoder: (NSCoder *) coder {
+    if (coder.allowsKeyedCoding) {
+        [coder encodeObject: _nextResponder forKey: @"NSNextResponder"];
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSResponder"];
+    }
 }
 
 - initWithCoder: (NSCoder *) coder {

@@ -82,6 +82,22 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return self;
 }
 
+- (void) encodeWithCoder: (NSCoder *) coder {
+    [super encodeWithCoder: coder];
+
+    if (coder.allowsKeyedCoding) {
+        [coder encodeObject: _delegate forKey: @"NSDelegate"];
+        [coder encodeObject: NSStringFromSelector(_errorAction)
+                     forKey: @"NSErrorAction"];
+        [coder encodeDouble: _preferredMaxLayoutWidth
+                     forKey: @"NSPreferredMaxLayoutWidth"];
+        // TODO
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSTextField"];
+    }
+}
+
 - initWithFrame: (NSRect) frame {
     [super initWithFrame: frame];
     // Default for a NSTextFieldCell is NOT the same as NSTextField

@@ -85,7 +85,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) encodeWithCoder: (NSCoder *) coder {
-    NSUnimplementedMethod();
+    if (coder.allowsKeyedCoding) {
+        [coder encodeObject: _className forKey: @"NSClassName"];
+        [coder encodeObject: _originalClassName forKey: @"NSOriginalClassName"];
+
+        [_object encodeWithCoder: coder];
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSClassSwapper"];
+    }
 }
 
 @end

@@ -387,6 +387,100 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
     return self;
 }
 
+- (NSArray *) _sortedAndFilteredMapTableKeys: (NSMapTable *) mapTable {
+    NSMutableArray *initialKeys = [[NSAllMapTableKeys(mapTable) mutableCopy] autorelease];
+
+    // remove the firstResponder from the key array, if present.
+    // it's never included in the encoded output.
+    if (_firstResponder != nil) {
+        [initialKeys removeObjectIdenticalTo: _firstResponder];
+    }
+
+    // we need map table entries to be sorted in OID order.
+    // not sure if it's important, but that's what i've seen in NIBs so that's what we'll do.
+    return [initialKeys sortedArrayWithOptions: NSSortStable usingComparator: ^NSComparisonResult(id key1, id key2) {
+        // the OID table uses integers directly as values, so we have to use the C API instead of the ObjC API
+        NSUInteger oid1 = (NSUInteger)NSMapGet(_oidTable, key1);
+        NSUInteger oid2 = (NSUInteger)NSMapGet(_oidTable, key2);
+        if (oid1 > oid2) {
+            return NSOrderedDescending;
+        } else if (oid1 < oid2) {
+            return NSOrderedAscending;
+        } else {
+            // this shouldn't happen
+            return NSOrderedSame;
+        }
+    }];
+}
+
+- (void) _encodeObjectMapTable: (NSMapTable *) objectMapTable
+                     withCoder: (NSCoder *) coder
+                      keysName: (NSString *) keyName
+                    valuesName: (NSString *) valueName
+{
+    // all map tables entries are encoded in ascending order according to their OID
+    NSArray *keys = [self _sortedAndFilteredMapTableKeys: objectMapTable];
+
+    NSMutableArray *values = [NSMutableArray arrayWithCapacity: keys.count];
+    for (id key in keys) {
+        [values addObject: [objectMapTable objectForKey: key]];
+    }
+
+    [coder encodeObject: keys forKey: keyName];
+    [coder encodeObject: values forKey: valueName];
+}
+
+- (void) encodeWithCoder: (NSCoder *) coder {
+    if (coder.allowsKeyedCoding) {
+        // we can't use `_encodeObjectMapTable` to encode the OID table since its values aren't objects
+        NSArray *oidKeys = [self _sortedAndFilteredMapTableKeys: _oidTable];
+
+        NSMutableArray *oidValues = [NSMutableArray arrayWithCapacity: oidKeys.count];
+        for (id oidKey in oidKeys) {
+            [oidValues addObject: [NSNumber numberWithInteger: (NSUInteger)NSMapGet(_oidTable, oidKey)]];
+        }
+        NSArray *oidValuesImmutable = [[oidValues copy] autorelease];
+
+        [coder encodeObject: oidKeys forKey: @"NSOidsKeys"];
+        [coder encodeObject: oidValuesImmutable forKey: @"NSOidsValues"];
+
+        [self _encodeObjectMapTable: _objectTable
+                          withCoder: coder
+                           keysName: @"NSObjectsKeys"
+                         valuesName: @"NSObjectsValues"];
+
+        [coder encodeObject: _fileOwner forKey: @"NSRoot"];
+        [coder encodeObject: _accessibilityConnectors forKey: @"NSAccessibilityConnectors"];
+
+        // just encode empty arrays here for now
+        [coder encodeObject: [NSArray array] forKey: @"NSAccessibilityOidsKeys"];
+        [coder encodeObject: [NSArray array] forKey: @"NSAccessibilityOidsValues"];
+
+        // note that these *have* to be encoded as mutable arrays
+        [coder encodeObject: _connections forKey: @"NSConnections"];
+        [coder encodeObject: _visibleWindows forKey: @"NSVisibleWindows"];
+
+        // this is all considered "design-time" data and only encoded if `shouldEncodeDesigntimeData` is true.
+        if (self.shouldEncodeDesigntimeData) {
+            [self _encodeObjectMapTable: _nameTable
+                              withCoder: coder
+                               keysName: @"NSNamesKeys"
+                             valuesName: @"NSNamesValues"];
+            [self _encodeObjectMapTable: _classTable
+                              withCoder: coder
+                               keysName: @"NSClassesKeys"
+                             valuesName: @"NSClassesValues"];
+
+            [coder encodeObject: _fontManager forKey: @"NSFontManager"];
+            [coder encodeObject: _framework forKey: @"NSFramework"];
+            [coder encodeInt64: _nextOid forKey: @"NSNextOid"];
+        }
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSIBObjectData"];
+    }
+}
+
 - (void) dealloc {
     [_accessibilityConnectors release];
     [_classTable release];

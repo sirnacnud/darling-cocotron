@@ -40,7 +40,7 @@ typedef NS_OPTIONS(uint32_t, NSWindowTemplateFlags) {
     NSWindowTemplateFlagHidesOnDeactivate = 1u << 31,
 };
 
-@interface NSWindowTemplate : NSObject <NSUserInterfaceItemIdentification> {
+@interface NSWindowTemplate : NSObject <NSUserInterfaceItemIdentification, NSCoding> {
     // the ivars without a `_` prefix are like that because Xcode
     // requires them to be named like that.
 

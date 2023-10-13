@@ -21,7 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @class NSArray, NSCustomObject, NSSet, NSDictionary, NSMenu;
 
-@interface NSIBObjectData : NSObject {
+@interface NSIBObjectData : NSObject <NSCoding> {
     NSMapTable *_nameTable;
     NSArray *_accessibilityConnectors;
     NSMapTable *_classTable;

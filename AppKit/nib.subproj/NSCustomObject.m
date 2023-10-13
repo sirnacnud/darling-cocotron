@@ -68,6 +68,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return self;
 }
 
+- (void) encodeWithCoder: (NSCoder *) coder {
+    if (coder.allowsKeyedCoding) {
+        [coder encodeObject: _className forKey: @"NSClassName"];
+        [coder encodeObject: extension forKey: @"NSExtension"];
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSCustomObject"];
+    }
+}
+
 - (void) dealloc {
     [_className release];
     [self->extension release];

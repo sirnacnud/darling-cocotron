@@ -62,7 +62,19 @@ static NSMutableDictionary *cellClassDictionary = nil;
 
 - (void) encodeWithCoder: (NSCoder *) coder {
     [super encodeWithCoder: coder];
-    [coder encodeObject: _cell forKey: @"NSControl cell"];
+
+    if (coder.allowsKeyedCoding) {
+        [coder encodeObject: _cell forKey: @"NSCell"];
+        [coder encodeInteger: _aux.tag forKey: @"NSTag"];
+        [coder encodeObject: _aux.target forKey: @"NSControlTarget"];
+        if (_aux.action != NULL) {
+            [coder encodeObject: NSStringFromSelector(_aux.action)
+                         forKey: @"NSControlAction"];
+        }
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSControl"];
+    }
 }
 
 - initWithCoder: (NSCoder *) coder {

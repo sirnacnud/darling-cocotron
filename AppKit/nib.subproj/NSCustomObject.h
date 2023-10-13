@@ -19,7 +19,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/NSObject.h>
 
-@interface NSCustomObject : NSObject {
+@interface NSCustomObject : NSObject <NSCoding> {
     NSString *_className;
     id extension;
 }

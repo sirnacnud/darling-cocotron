@@ -38,7 +38,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @synthesize allowedInputSourceLocales = _allowedInputSourceLocales;
 
 - (void) encodeWithCoder: (NSCoder *) coder {
-    NSUnimplementedMethod();
+    [super encodeWithCoder: coder];
+
+    if (coder.allowsKeyedCoding) {
+        [coder encodeBool: _drawsBackground forKey: @"NSDrawsBackground"];
+        [coder encodeObject: _backgroundColor forKey: @"NSBackgroundColor"];
+        [coder encodeObject: _textColor forKey: @"NSTextColor"];
+        [coder encodeInteger: _bezelStyle forKey: @"NSTextBezelStyle"];
+        [coder encodeObject: _placeholder forKey: @"NSPlaceholderString"];
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSTextFieldCell"];
+    }
 }
 
 - initWithCoder: (NSCoder *) coder {

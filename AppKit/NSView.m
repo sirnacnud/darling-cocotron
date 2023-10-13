@@ -103,10 +103,6 @@ static BOOL NSShowAllViews = NO;
     return 0;
 }
 
-- (void) encodeWithCoder: (NSCoder *) coder {
-    NSUnimplementedMethod();
-}
-
 typedef struct __VFlags {
 #ifdef __BIG_ENDIAN__
     unsigned int rotatedFromBase : 1;
@@ -156,6 +152,43 @@ typedef struct __VFlags {
     unsigned int rotatedFromBase : 1;
 #endif
 } _VFlags;
+
+- (void) encodeWithCoder: (NSCoder *) coder {
+    [super encodeWithCoder: coder];
+
+    if (coder.allowsKeyedCoding) {
+        unsigned vFlags = 0;
+        vFlags |= _autoresizingMask & 0x3f;
+        vFlags |= _autoresizesSubviews ? 0x100 : 0;
+        vFlags |= _isHidden ? 0x80000000 : 0;
+        // TODO: there are almost certainly more vFlags
+
+        [coder encodeInt: vFlags forKey: @"NSvFlags"];
+        [coder encodeRect: _frame forKey: @"NSFrame"];
+        [coder encodeRect: _bounds forKey: @"NSBounds"];
+        [coder encodeInt: _tag forKey: @"NSTag"];
+        // TODO: do we need to order the subviews here in back-to-front order ourselves?
+        [coder encodeObject: _subviews forKey: @"NSSubviews"];
+        [coder encodeObject: _window forKey: @"NSWindow"];
+        [coder encodeObject: _superview forKey: @"NSSuperview"];
+        [coder encodeObject: _nextKeyView forKey: @"NSNextKeyView"];
+        [coder encodeObject: _shadow forKey: @"NSViewShadow"];
+        [coder encodeObject: _compositingFilter
+                     forKey: @"NSViewCompositeFilter"];
+        //[coder encodeObject: _backgroundFilters
+        //             forKey: @"NSViewBackgroundFilters"];
+        [coder encodeObject: _animations forKey: @"NSViewAnimations"];
+        //[coder encodeBool: _canDrawConcurrently
+        //           forKey: @"NSViewCanDrawConcurrently"];
+        [coder encodeBool: _wantsLayer forKey: @"NSViewIsLayerTreeHost"];
+        [coder encodeInteger: _layerContentsRedrawPolicy
+                      forKey: @"NSViewLayerContentsRedrawPolicy"];
+        [coder encodeObject: _contentFilters forKey: @"NSViewContentFilters"];
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSView"];
+    }
+}
 
 - initWithCoder: (NSCoder *) coder {
     [super initWithCoder: coder];

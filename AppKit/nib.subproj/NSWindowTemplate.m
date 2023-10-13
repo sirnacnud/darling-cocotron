@@ -146,6 +146,59 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [super dealloc];
 }
 
+- (void) encodeWithCoder: (NSCoder *) coder {
+    if (coder.allowsKeyedCoding) {
+        [coder encodeSize: _maxSize forKey: @"NSMaxSize"];
+        [coder encodeSize: _minSize  forKey: @"NSMinSize"];
+        [coder encodeSize: _contentMinSize forKey: @"NSWindowContentMinSize"];
+        [coder encodeSize: _contentMaxSize forKey: @"NSWindowContentMaxSize"];
+        [coder encodeRect: screenRect forKey: @"NSScreenRect"];
+        [coder encodeObject: _viewClass forKey: @"NSViewClass"];
+        [coder encodeInt: _wtFlags forKey: @"NSWTFlags"];
+        [coder encodeInteger: _windowBacking forKey: @"NSWindowBacking"];
+        [coder encodeObject: _windowClass forKey: @"NSWindowClass"];
+        [coder encodeRect: windowRect forKey: @"NSWindowRect"];
+        [coder encodeInteger: _windowStyleMask forKey: @"NSWindowStyleMask"];
+        [coder encodeObject: _windowTitle forKey: @"NSWindowTitle"];
+        [coder encodeObject: windowView forKey: @"NSWindowView"];
+        [coder encodeObject: _windowAutosave forKey: @"NSFrameAutosaveName"];
+        [coder encodeInteger: _collectionBehavior
+                      forKey: @"NSWindowCollectionBehavior"];
+        [coder encodeInteger: _animationBehavior
+                      forKey: @"NSWindowAnimationBehavior"];
+        [coder encodeSize: _minFullScreenContentSize
+                   forKey: @"NSMinFullScreenContentSize"];
+        [coder encodeSize: _maxFullScreenContentSize
+                   forKey: @"NSMaxFullScreenContentSize"];
+        [coder encodeObject: _tabbingIdentifier
+                     forKey: @"NSWindowTabbingIdentifier"];
+        [coder encodeInteger: _tabbingMode forKey: @"NSWindowTabbingMode"];
+        [coder encodeInteger: _titleVisibility
+                      forKey: @"NSWindowTitleVisibility"];
+        [coder encodeDouble: _contentBorderThicknessForMinXEdge
+                     forKey: @"NSContentBorderThicknessMinX"];
+        [coder encodeDouble: _contentBorderThicknessForMaxXEdge
+                     forKey: @"NSContentBorderThicknessMaxX"];
+        [coder encodeDouble: _contentBorderThicknessForMinYEdge
+                     forKey: @"NSContentBorderThicknessMinY"];
+        [coder encodeDouble: _contentBorderThicknessForMaxYEdge
+                     forKey: @"NSContentBorderThicknessMaxY"];
+        [coder encodeBool: _titlebarAppearsTransparent
+                   forKey: @"NSTitlebarAppearsTransparent"];
+        [coder encodeBool: _autorecalculatesContentBorderThicknessForMinXEdge
+                   forKey: @"NSAutorecalculatesContentBorderThicknessMinX"];
+        [coder encodeBool: _autorecalculatesContentBorderThicknessForMaxXEdge
+                   forKey: @"NSAutorecalculatesContentBorderThicknessMaxX"];
+        [coder encodeBool: _autorecalculatesContentBorderThicknessForMinYEdge
+                   forKey: @"NSAutorecalculatesContentBorderThicknessMinY"];
+        [coder encodeBool: _autorecalculatesContentBorderThicknessForMaxYEdge
+                   forKey: @"NSAutorecalculatesContentBorderThicknessMaxY"];
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSWindowTemplate"];
+    }
+}
+
 - awakeAfterUsingCoder: (NSCoder *) coder {
     NSWindow *result;
     Class class;

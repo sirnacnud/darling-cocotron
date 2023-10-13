@@ -36,6 +36,75 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSLocale.h>
 #import <Foundation/NSNumberFormatter.h>
 
+typedef NS_OPTIONS(unsigned int, NSCellAppleFlags) {
+    NSCellAppleFlagOnState              = 1u << 31,
+    NSCellAppleFlagHighlighted          = 1u << 30,
+    NSCellAppleFlagDisabled             = 1u << 29,
+    NSCellAppleFlagEditable             = 1u << 28,
+    NSCellAppleFlagTypeShift            = 26,
+    NSCellAppleFlagTypeMask             = 0x03u << NSCellAppleFlagTypeShift,
+    NSCellAppleFlagVerticallyCentered   = 1u << 25,
+    NSCellAppleFlagHorizontallyCentered = 1u << 24,
+    NSCellAppleFlagBordered             = 1u << 23,
+    NSCellAppleFlagBezeled              = 1u << 22,
+    NSCellAppleFlagSelectable           = 1u << 21,
+    NSCellAppleFlagScrollable           = 1u << 20,
+    NSCellAppleFlagContinuous           = 1u << 19,
+    NSCellAppleFlagActOnMouseDown       = 1u << 18,
+    NSCellAppleFlagLeaf                 = 1u << 17,
+    NSCellAppleFlagInvalidObjectValue   = 1u << 16,
+    NSCellAppleFlagInvalidFont          = 1u << 15,
+    NSCellAppleFlagReserved1            = 1u << 14,
+    NSCellAppleFlagReserved2            = 1u << 13,
+    NSCellAppleFlagReserved3            = 1u << 12,
+    NSCellAppleFlagReserved4            = 1u << 11,
+    NSCellAppleFlagSingleLineMode       = 1u << 10,
+    NSCellAppleFlagReserved5            = 1u << 9,
+    NSCellAppleFlagActOnMouseDrag       = 1u << 8,
+    NSCellAppleFlagLoaded               = 1u << 7,
+    NSCellAppleFlagTruncateLastLine     = 1u << 6,
+    NSCellAppleFlagDontActOnMouseUp     = 1u << 5,
+    NSCellAppleFlagWhite                = 1u << 4,
+    NSCellAppleFlagUserKeyEquivalent    = 1u << 3,
+    NSCellAppleFlagShowsFirstResponder  = 1u << 2,
+    NSCellAppleFlagFocusRingTypeShift   = 0,
+    NSCellAppleFlagFocusRingTypeMask    = 0x03u << NSCellAppleFlagFocusRingTypeShift,
+};
+
+typedef NS_OPTIONS(unsigned int, NSCellAppleFlags2) {
+    NSCellAppleFlag2WasSelectable         = 1u << 31,
+    NSCellAppleFlag2RichText              = 1u << 30,
+    NSCellAppleFlag2Reserved1             = 1u << 29,
+    //NSCellAppleFlag2ImportsGraph          = 1u << 28, // clearly wrong, since this would overlap with TextAlignmentMask
+    NSCellAppleFlag2TextAlignmentShift    = 16,
+    NSCellAppleFlag2TextAlignmentMask     = 0x07u << NSCellAppleFlag2TextAlignmentShift,
+    NSCellAppleFlag2RefusesFirstResponder = 1u << 25,
+    NSCellAppleFlag2AllowsMixedState      = 1u << 24,
+    NSCellAppleFlag2InMixedState          = 1u << 23,
+    NSCellAppleFlag2ActOnEditingEnd       = 1u << 22,
+    NSCellAppleFlag2Reserved3             = 1u << 21,
+    NSCellAppleFlag2Reserved4             = 1u << 20,
+    NSCellAppleFlag2ControlSizeShift      = 17,
+    NSCellAppleFlag2ControlSizeMask       = 0x07u << NSCellAppleFlag2ControlSizeShift,
+    NSCellAppleFlag2Reserved5             = 1u << 16,
+    NSCellAppleFlag2Reserved6             = 1u << 15,
+    NSCellAppleFlag2Reserved7             = 1u << 14,
+    NSCellAppleFlag2Reserved8             = 1u << 13,
+    NSCellAppleFlag2Reserved9             = 1u << 12,
+    NSCellAppleFlag2Reserved10            = 1u << 11,
+    NSCellAppleFlag2LineBreakModeShift    = 9,
+    NSCellAppleFlag2LineBreakModeMask     = 0x03u << NSCellAppleFlag2LineBreakModeShift,
+    NSCellAppleFlag2Reserved11            = 1u << 8,
+    NSCellAppleFlag2Reserved12            = 1u << 7,
+    NSCellAppleFlag2Reserved13            = 1u << 6,
+    NSCellAppleFlag2Reserved14            = 1u << 5,
+    NSCellAppleFlag2Reserved15            = 1u << 4,
+    NSCellAppleFlag2Reserved16            = 1u << 3,
+    NSCellAppleFlag2Reserved17            = 1u << 2,
+    NSCellAppleFlag2Reserved18            = 1u << 1,
+    NSCellAppleFlag2Reserved19            = 1u << 0,
+};
+
 @implementation NSCell
 
 @synthesize identifier = _identifier;
@@ -60,33 +129,29 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #pragma mark -
 
-- (void) encodeWithCoder: (NSCoder *) coder {
-    NSUnimplementedMethod();
-}
-
-- _applyAppleFlags: (unsigned int) flags flags2: (unsigned int) flags2 {
+- (void) _applyAppleFlags: (unsigned int) flags flags2: (unsigned int) flags2 {
     // These flags are big endian so the first flag is over on the left of the
     // int
-    _state = (flags & 0x80000000) ? NSOnState : NSOffState;
-    _isHighlighted = (flags & 0x40000000) ? YES : NO;
-    _isEnabled = (flags & 0x20000000) ? NO : YES; // "disabled" in Cocoa
-    _isEditable = (flags & 0x10000000) ? YES : NO;
-    _cellType = (flags & 0x0C000000) >> 26;
+    _state = (flags & NSCellAppleFlagOnState) ? NSControlStateValueOn : NSControlStateValueOff;
+    _isHighlighted = (flags & NSCellAppleFlagHighlighted) ? YES : NO;
+    _isEnabled = (flags & NSCellAppleFlagDisabled) ? NO : YES; // "disabled" in Cocoa
+    _isEditable = (flags & NSCellAppleFlagEditable) ? YES : NO;
+    _cellType = (flags & NSCellAppleFlagTypeMask) >> NSCellAppleFlagTypeShift;
 
     // vCentered     = (flags & 0x02000000)
     // hCentered     = (flags & 0x01000000)
 
-    _isBordered = (flags & 0x00800000) ? YES : NO;
-    _isBezeled = (flags & 0x00400000) ? YES : NO;
-    _isSelectable = (flags & 0x00200000) ? YES : NO;
-    _isScrollable = (flags & 0x00100000) ? YES : NO;
+    _isBordered = (flags & NSCellAppleFlagBordered) ? YES : NO;
+    _isBezeled = (flags & NSCellAppleFlagBezeled) ? YES : NO;
+    _isSelectable = (flags & NSCellAppleFlagSelectable) ? YES : NO;
+    _isScrollable = (flags & NSCellAppleFlagScrollable) ? YES : NO;
     // _wraps        = (flags & 0x00100000) ? NO : YES; // ! scrollable, use
     // lineBreakMode ?
 
     // 0x00080000 = continuous
     // 0x00040000 = action on mouse down
     // 0x00000100 = action on mouse drag
-    _isContinuous = (flags & 0x00080100) ? YES : NO;
+    _isContinuous = (flags & (NSCellAppleFlagContinuous | NSCellAppleFlagActOnMouseDrag)) ? YES : NO;
 
     // actOnMouseDown = (flags & 0x00040000)
     // isLeaf         = (flags & 0x00020000)
@@ -105,7 +170,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // userKeyEquiv  = (flags & 0x00000008)
     // showsFirstResp= (flags & 0x00000004)
 
-    _focusRingType = (flags & 0x00000003);
+    _focusRingType = (flags & NSCellAppleFlagFocusRingTypeMask) >> NSCellAppleFlagFocusRingTypeShift;
 
     // Now for flags2 - the layout of these flags seems to be more
     // random. So the best way to find out which bit(s) you need is
@@ -114,28 +179,79 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     // NSCellFlags2 value to hex
     // wasSelectable = (flags2 & 0x80000000)
 
-    _isRichText = (flags2 & 0x40000000) ? YES : NO;
+    _isRichText = (flags2 & NSCellAppleFlag2RichText) ? YES : NO;
 
     // importsGraph  = (flags2 & 0x10000000)
 
-    _textAlignment = (flags2 & 0x1c000000) >> 26;
+    _textAlignment = (flags2 & NSCellAppleFlag2TextAlignmentMask) >> NSCellAppleFlag2TextAlignmentShift;
 
     // layoutDirRTL  = (flags2 & 0x01000000)
     _writingDirection = NSWritingDirectionNatural;
 
     // backgrdStyle  = (flags2 & 0x00c00000) >> 21;
     // cellReserved  = (flags2 & 0x003c0000)
-    _refusesFirstResponder = (flags2 & 0x02000000) ? YES : NO;
-    _allowsMixedState = (flags2 & 0x01000000) ? YES : NO;
+    _refusesFirstResponder = (flags2 & NSCellAppleFlag2RefusesFirstResponder) ? YES : NO;
+    _allowsMixedState = (flags2 & NSCellAppleFlag2AllowsMixedState) ? YES : NO;
 
     // inMixedState  = (flags2 & 0x00800000)
 
-    _sendsActionOnEndEditing = (flags2 & 0x00400000) ? YES : NO;
+    _sendsActionOnEndEditing = (flags2 & NSCellAppleFlag2ActOnEditingEnd) ? YES : NO;
 
     // Odd this isn't in flags - it's near other items in flags in the Cocoa
     // struct from which these are derived.
-    _lineBreakMode = (flags2 & 0x00000600) >> 9 & 0x7;
-    _controlSize = (flags2 & 0x000E0000) >> 17;
+    _lineBreakMode = (flags2 & NSCellAppleFlag2LineBreakModeMask) >> NSCellAppleFlag2LineBreakModeShift;
+    _controlSize = (flags2 & NSCellAppleFlag2ControlSizeMask) >> NSCellAppleFlag2ControlSizeShift;
+}
+
+- (void) _generateAppleFlags: (unsigned int *) flags flags2: (unsigned int *) flags2 {
+    *flags = 0;
+    *flags2 = 0;
+
+    if (_state == NSControlStateValueOn)
+        *flags |= NSCellAppleFlagOnState;
+    else if (_state == NSControlStateValueMixed)
+        *flags2 |= NSCellAppleFlag2InMixedState;
+
+    if (_isHighlighted)
+        *flags |= NSCellAppleFlagHighlighted;
+    if (!_isEnabled)
+        *flags |= NSCellAppleFlagDisabled;
+    if (_isEditable)
+        *flags |= NSCellAppleFlagEditable;
+
+    *flags |= (_cellType << NSCellAppleFlagTypeShift) & NSCellAppleFlagTypeMask;
+
+    if (_isBordered)
+        *flags |= NSCellAppleFlagBordered;
+    if (_isBezeled)
+        *flags |= NSCellAppleFlagBezeled;
+    if (_isSelectable)
+        *flags |= NSCellAppleFlagSelectable;
+    if (_isScrollable)
+        *flags |= NSCellAppleFlagScrollable;
+
+    // we don't really store whether it's continuous or mouse drag, so assume it's continuous
+    if (_isContinuous)
+        *flags |= NSCellAppleFlagContinuous;
+
+    *flags |= (_focusRingType << NSCellAppleFlagFocusRingTypeShift) & NSCellAppleFlagFocusRingTypeMask;
+
+    if (_isRichText)
+        *flags2 |= NSCellAppleFlag2RichText;
+
+    *flags2 |= (_textAlignment << NSCellAppleFlag2TextAlignmentShift) & NSCellAppleFlag2TextAlignmentMask;
+
+    if (_refusesFirstResponder)
+        *flags2 |= NSCellAppleFlag2RefusesFirstResponder;
+
+    if (_allowsMixedState)
+        *flags2 |= NSCellAppleFlag2AllowsMixedState;
+
+    if (_sendsActionOnEndEditing)
+        *flags2 |= NSCellAppleFlag2ActOnEditingEnd;
+
+    *flags2 |= (_lineBreakMode << NSCellAppleFlag2LineBreakModeShift) & NSCellAppleFlag2LineBreakModeMask;
+    *flags2 |= (_controlSize << NSCellAppleFlag2ControlSizeShift) & NSCellAppleFlag2ControlSizeMask;
 }
 
 - initWithCoder: (NSCoder *) coder {
@@ -220,6 +336,29 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _font = [[NSFont userFontOfSize: 13 - _controlSize * 2] retain];
     }
     return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) coder {
+    unsigned int flags = 0;
+    unsigned int flags2 = 0;
+
+    [self _generateAppleFlags: &flags flags2: &flags2];
+
+    if (coder.allowsKeyedCoding) {
+        [coder encodeInt: flags forKey: @"NSCellFlags"];
+        [coder encodeInt: flags2 forKey: @"NSCellFlags2"];
+        [coder encodeObject: _objectValue forKey: @"NSContents"];
+        if (_image != nil) {
+            [coder encodeObject: _image forKey: @"NSNormalImage"];
+            if (_font != nil)
+                [coder encodeObject: _font forKey: @"NSSupport"];
+        } else if (_font != nil)
+            [coder encodeObject: _font forKey: @"NSNormalImage"];
+        [coder encodeObject: _formatter forKey: @"NSFormatter"];
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSCell"];
+    }
 }
 
 - initTextCell: (NSString *) string {

@@ -24,7 +24,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSNibConnector
 
 - (void) encodeWithCoder: (NSCoder *) coder {
-    NSUnimplementedMethod();
+    if (coder.allowsKeyedCoding) {
+        [coder encodeObject: _source forKey: @"NSSource"];
+        [coder encodeObject: _destination forKey: @"NSDestination"];
+        [coder encodeObject: _label forKey: @"NSLabel"];
+    } else {
+        [NSException raise: NSInvalidArchiveOperationException
+                    format: @"TODO: support unkeyed encoding in NSNibConnector"];
+    }
 }
 
 - initWithCoder: (NSCoder *) coder {

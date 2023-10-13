@@ -19,7 +19,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/NSObject.h>
 
-@interface NSClassSwapper : NSObject {
+@interface NSClassSwapper : NSObject <NSCoding> {
     NSString *_originalClassName;
     NSString *_className;
     id _object;
