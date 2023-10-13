@@ -449,6 +449,7 @@ set(AppKit_sources
 	NSSwitch.m
 	NSTextFinder.m
 	NSScrubber.m
+	NSUserInterfaceItemIdentification.m
 )
 
 set_source_files_properties(${AppKit_sources} LANGUAGE C)

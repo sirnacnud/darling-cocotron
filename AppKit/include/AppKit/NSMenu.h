@@ -19,6 +19,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <AppKit/AppKitExport.h>
 #import <Foundation/Foundation.h>
+#import <AppKit/NSUserInterfaceItemIdentification.h>
 
 @class NSScreen, NSMenu, NSMenuItem, NSWindow, NSEvent, NSView;
 
@@ -27,13 +28,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 APPKIT_EXPORT const NSNotificationName NSMenuDidBeginTrackingNotification;
 APPKIT_EXPORT const NSNotificationName NSMenuDidEndTrackingNotification;
 
-@interface NSMenu : NSObject <NSCopying> {
+@interface NSMenu : NSObject <NSCopying, NSUserInterfaceItemIdentification> {
     NSMenu *_supermenu;
     NSString *_title;
     NSString *_name;
     NSMutableArray *_itemArray;
     BOOL _autoenablesItems;
     id<NSMenuDelegate> _delegate;
+    NSUserInterfaceItemIdentifier _identifier;
 }
 
 + (void) popUpContextMenu: (NSMenu *) menu

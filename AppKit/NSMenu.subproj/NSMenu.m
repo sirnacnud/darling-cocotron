@@ -37,6 +37,8 @@ NSString *const _NSWindowsMenuName = @"Window";
 
 @implementation NSMenu
 
+@synthesize identifier = _identifier;
+
 + (void) popUpContextMenu: (NSMenu *) menu
                 withEvent: (NSEvent *) event
                   forView: (NSView *) view
@@ -167,6 +169,7 @@ NSString *const _NSWindowsMenuName = @"Window";
     [_itemArray makeObjectsPerformSelector: @selector(_setMenu:)
                                 withObject: nil];
     [_itemArray release];
+    [_identifier release];
     [super dealloc];
 }
 

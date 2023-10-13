@@ -69,6 +69,8 @@ const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPresentationOptio
 
 @implementation NSView
 
+@synthesize identifier = _identifier;
+
 static BOOL NSViewLayersEnabled = YES;
 static BOOL NSShowAllViews = NO;
 
@@ -407,6 +409,8 @@ typedef struct __VFlags {
 
     [_layerContext invalidate];
     [_layerContext release];
+
+    [_identifier release];
 
     [super dealloc];
 }

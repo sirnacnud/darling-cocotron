@@ -18,6 +18,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/Foundation.h>
+#import <AppKit/NSUserInterfaceItemIdentification.h>
 
 @class NSTableView, NSCell;
 
@@ -27,8 +28,8 @@ enum {
     NSTableColumnUserResizingMask = 0x02,
 };
 
-@interface NSTableColumn : NSObject {
-    id _identifier;
+@interface NSTableColumn : NSObject <NSUserInterfaceItemIdentification> {
+    NSUserInterfaceItemIdentifier _identifier;
     NSTableView *_tableView;
     NSCell *_headerCell;
     NSCell *_dataCell;
@@ -42,9 +43,8 @@ enum {
     NSSortDescriptor *_sortDescriptorPrototype;
 }
 
-- initWithIdentifier: identifier;
+- (instancetype) initWithIdentifier: (NSUserInterfaceItemIdentifier) identifier;
 
-- identifier;
 - (NSTableView *) tableView;
 - (id) headerCell;
 - (id) dataCell;
@@ -57,7 +57,6 @@ enum {
 - (BOOL) isEditable;
 - (NSUInteger) resizingMask;
 
-- (void) setIdentifier: identifier;
 - (void) setTableView: (NSTableView *) tableView;
 - (void) setHeaderCell: (NSCell *) cell;
 - (void) setDataCell: (NSCell *) cell;

@@ -1,13 +1,15 @@
 #import <AppKit/NSResponder.h>
+#import <AppKit/NSUserInterfaceItemIdentification.h>
 
 @class NSView;
 
-@interface NSViewController : NSResponder {
+@interface NSViewController : NSResponder <NSUserInterfaceItemIdentification> {
     NSString *_nibName;
     NSBundle *_nibBundle;
     id _representedObject;
     NSString *_title;
     NSView *_view;
+    NSUserInterfaceItemIdentifier _identifier;
 }
 
 - initWithNibName: (NSString *) name bundle: (NSBundle *) bundle;

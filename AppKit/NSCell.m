@@ -38,6 +38,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSCell
 
+@synthesize identifier = _identifier;
+
 #pragma mark -
 #pragma mark Class Methods
 
@@ -265,6 +267,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_image release];
     [_formatter release];
     [_representedObject release];
+    [_identifier release];
     [super dealloc];
 }
 

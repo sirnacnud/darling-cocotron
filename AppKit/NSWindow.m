@@ -206,6 +206,8 @@ NSInteger NSBitsPerPixelFromDepth(NSWindowDepth depth) {
 
 @implementation NSWindow
 
+@synthesize identifier = _identifier;
+
 static BOOL _allowsAutomaticWindowTabbing;
 
 + (NSWindowDepth) defaultDepthLimit {
@@ -416,6 +418,7 @@ static BOOL _allowsAutomaticWindowTabbing;
     _platformWindow = nil;
     [_threadToContext release];
     [_undoManager release];
+    [_identifier release];
     [super dealloc];
 }
 

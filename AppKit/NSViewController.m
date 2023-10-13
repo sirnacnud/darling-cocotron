@@ -5,6 +5,8 @@
 
 @implementation NSViewController
 
+@synthesize identifier = _identifier;
+
 - initWithNibName: (NSString *) name bundle: (NSBundle *) bundle {
     _nibName = [name copy];
     _nibBundle = [bundle retain];
@@ -22,6 +24,12 @@
     }
 
     return self;
+}
+
+- (void) dealloc {
+    [_identifier release];
+
+    [super dealloc];
 }
 
 - (NSString *) nibName {

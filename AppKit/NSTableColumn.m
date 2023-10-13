@@ -32,6 +32,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSTableColumn
 
+@synthesize identifier = _identifier;
+
 - (void) encodeWithCoder: (NSCoder *) coder {
     NSUnimplementedMethod();
 }
@@ -60,7 +62,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 // NSOutlineView needs to programmatically instantiated as IB/WOF4 doesn't have
 // an editor for it.. also theoretically -dealloc could've crashed as the cell
 // prototypes weren't initialized at all...
-- initWithIdentifier: identifier {
+- (instancetype) initWithIdentifier: (NSUserInterfaceItemIdentifier) identifier {
     _identifier = [identifier retain];
     _width = 100.0;
     _minWidth = 10.0;
@@ -89,10 +91,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                     @"dataCell: %@ width: %f minWidth: %f maxWidth: %f>",
                     [self class], self, _identifier, _headerCell, _dataCell,
                     _width, _minWidth, _maxWidth];
-}
-
-- (id) identifier {
-    return _identifier;
 }
 
 - (NSTableView *) tableView {
@@ -133,12 +131,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 - (NSUInteger) resizingMask {
     return _resizingMask;
-}
-
-- (void) setIdentifier: (id) identifier {
-    identifier = [identifier retain];
-    [_identifier release];
-    _identifier = identifier;
 }
 
 - (void) setTableView: (NSTableView *) tableView {

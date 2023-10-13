@@ -20,10 +20,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSCell.h>
 #import <AppKit/NSUserInterfaceValidation.h>
 #import <Foundation/NSObject.h>
+#import <AppKit/NSUserInterfaceItemIdentification.h>
 
 @class NSMenu, NSImage, NSAttributedString;
 
-@interface NSMenuItem : NSObject <NSCopying, NSValidatedUserInterfaceItem> {
+@interface NSMenuItem : NSObject <NSCopying, NSValidatedUserInterfaceItem, NSUserInterfaceItemIdentification> {
     NSMenu *_menu;
     NSString *_title;
     NSAttributedString *_atitle;
@@ -44,6 +45,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSImage *_onStateImage;
     NSImage *_offStateImage;
     NSImage *_mixedStateImage;
+    NSUserInterfaceItemIdentifier _identifier;
 }
 
 + (NSMenuItem *) separatorItem;

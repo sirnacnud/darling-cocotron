@@ -25,6 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSGraphics.h>
 #import <AppKit/NSResponder.h>
 #import <ApplicationServices/ApplicationServices.h>
+#import <AppKit/NSUserInterfaceItemIdentification.h>
 
 @class NSWindow, NSMenu, NSMenuItem, NSCursor, NSClipView, NSPasteboard,
         NSTextInputContext, NSImage, NSBitmapImageRep, NSScrollView,
@@ -82,7 +83,7 @@ APPKIT_EXPORT const NSNotificationName NSViewGlobalFrameDidChangeNotification;
 
 APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPresentationOptions;
 
-@interface NSView : NSResponder <NSAnimatablePropertyContainer> {
+@interface NSView : NSResponder <NSAnimatablePropertyContainer, NSUserInterfaceItemIdentification> {
     NSRect _frame;
     NSRect _bounds;
     NSWindow *_window;
@@ -127,6 +128,7 @@ APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPre
 
     CALayerContext *_layerContext;
     id __remove;
+    NSUserInterfaceItemIdentifier _identifier;
 }
 
 + (NSView *) focusView;

@@ -29,7 +29,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSWindowTemplate
 
-- initWithCoder: (NSCoder *) coder {
+@synthesize identifier = _identifier;
+
+- (instancetype) initWithCoder: (NSCoder *) coder {
     if ([coder allowsKeyedCoding]) {
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
 
@@ -69,6 +71,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_windowTitle release];
     [windowView release];
     [_windowAutosave release];
+    [_identifier release];
     [super dealloc];
 }
 

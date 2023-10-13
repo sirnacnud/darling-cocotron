@@ -30,6 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSMenuItem
 
+@synthesize identifier = _identifier;
+
 + (NSMenuItem *) separatorItem {
     return [[[self alloc] initWithTitle: nil action: NULL
                           keyEquivalent: nil] autorelease];
@@ -110,6 +112,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_mixedStateImage release];
     [_offStateImage release];
     [_representedObject release];
+    [_identifier release];
     [super dealloc];
 }
 

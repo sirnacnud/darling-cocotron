@@ -38,6 +38,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSString *_windowTitle;
     NSView *windowView;
     NSString *_windowAutosave;
+    NSUserInterfaceItemIdentifier _identifier;
 }
 
 @end

@@ -20,6 +20,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSGraphics.h>
 #import <AppKit/NSParagraphStyle.h>
 #import <AppKit/NSText.h>
+#import <AppKit/NSUserInterfaceItemIdentification.h>
 
 @class NSFont, NSImage, NSView;
 
@@ -95,7 +96,7 @@ enum {
     NSCellHitTrackableArea = 0x04,
 };
 
-@interface NSCell : NSObject <NSCopying, NSCoding> {
+@interface NSCell : NSObject <NSCopying, NSCoding, NSUserInterfaceItemIdentification> {
     NSControlStateValue _state;
     NSFont *_font;
     NSInteger _entryType;
@@ -112,6 +113,7 @@ enum {
     NSLineBreakMode _lineBreakMode;
     NSBackgroundStyle _backgroundStyle;
     NSUInteger _cFlags; // required for Xcode
+    NSUserInterfaceItemIdentifier _identifier;
 
     BOOL _isEnabled;
     BOOL _isEditable;
