@@ -22,24 +22,32 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @class NSArray, NSCustomObject, NSSet, NSDictionary, NSMenu;
 
 @interface NSIBObjectData : NSObject {
-    NSArray *_namesKeys;
-    NSArray *_namesValues;
+    NSMapTable *_nameTable;
     NSArray *_accessibilityConnectors;
-    NSArray *_accessibilityOidsKeys;
-    NSArray *_accessibilityOidsValues;
-    NSArray *_classesKeys;
-    NSArray *_classesValues;
-    NSArray *_connections;
+    NSMapTable *_classTable;
+    NSMutableArray *_connections;
     id _fontManager;
     NSString *_framework;
-    int _nextOid;
-    NSArray *_objectsKeys;
-    NSArray *_objectsValues;
-    NSArray *_oidKeys;
-    NSArray *_oidValues;
+    NSUInteger _nextOid;
+    NSMapTable *_objectTable;
+    NSMapTable *_oidTable;
     NSCustomObject *_fileOwner;
-    NSSet *_visibleWindows;
+    NSMutableSet *_visibleWindows;
+    id _firstResponder;
+    BOOL _shouldEncodeDesigntimeData;
 }
+
+@property(copy) NSString *targetFramework;
+@property NSUInteger nextObjectID;
+@property(readonly) NSMapTable *oidTable;
+@property(readonly) NSMapTable *objectTable;
+@property(readonly) NSMapTable *classTable;
+@property(readonly) NSMapTable *nameTable;
+@property(strong) id rootObject;
+@property(copy) NSArray *connections;
+@property(copy) NSSet *visibleWindows;
+@property(strong) id firstResponder;
+@property BOOL shouldEncodeDesigntimeData;
 
 - (void) buildConnectionsWithNameTable: (NSDictionary *) nameTable;
 

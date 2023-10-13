@@ -33,6 +33,7 @@
 #import <Foundation/NSKeyedUnarchiver.h>
 #import <Foundation/NSSet.h>
 #import <Foundation/NSString.h>
+#import <AppKit/NSMenuItem.h>
 
 NSString *const IBCocoaFramework = @"IBCocoaFramework";
 
@@ -54,7 +55,55 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
 
 @implementation NSIBObjectData
 
-- initWithCoder: (NSCoder *) coder {
+@synthesize targetFramework = _framework;
+@synthesize nextObjectID = _nextOid;
+@synthesize oidTable = _oidTable;
+@synthesize objectTable = _objectTable;
+@synthesize classTable = _classTable;
+@synthesize nameTable = _nameTable;
+@synthesize rootObject = _fileOwner;
+@synthesize connections = _connections;
+@synthesize visibleWindows = _visibleWindows;
+@synthesize firstResponder = _firstResponder;
+@synthesize shouldEncodeDesigntimeData = _shouldEncodeDesigntimeData;
+
+- (instancetype) init {
+    self = [super init];
+    if (self == nil) {
+        return nil;
+    }
+
+    _connections = [NSMutableArray new];
+    _framework = [IBCocoaFramework copy];
+    _nextOid = 1;
+    _visibleWindows = [NSMutableSet new];
+    _shouldEncodeDesigntimeData = YES;
+
+    _nameTable = [[NSMapTable alloc] initWithKeyOptions: NSPointerFunctionsObjectPointerPersonality | NSPointerFunctionsStrongMemory
+                                           valueOptions: NSPointerFunctionsObjectPersonality | NSPointerFunctionsStrongMemory
+                                               capacity: 0];
+
+    _classTable = [[NSMapTable alloc] initWithKeyOptions: NSPointerFunctionsObjectPointerPersonality | NSPointerFunctionsStrongMemory
+                                            valueOptions: NSPointerFunctionsObjectPersonality | NSPointerFunctionsStrongMemory
+                                                capacity: 0];
+
+    _objectTable = [[NSMapTable alloc] initWithKeyOptions: NSPointerFunctionsObjectPointerPersonality | NSPointerFunctionsStrongMemory
+                                             valueOptions: NSPointerFunctionsObjectPersonality | NSPointerFunctionsStrongMemory
+                                                 capacity: 0];
+
+    _oidTable = [[NSMapTable alloc] initWithKeyOptions: NSPointerFunctionsObjectPointerPersonality | NSPointerFunctionsStrongMemory
+                                          valueOptions: NSPointerFunctionsIntegerPersonality | NSPointerFunctionsOpaqueMemory
+                                              capacity: 0];
+
+    return self;
+}
+
+- (instancetype) initWithCoder: (NSCoder *) coder {
+    self = [self init];
+    if (self == nil) {
+        return nil;
+    }
+
     if ([coder allowsKeyedCoding]) {
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
         NSMutableDictionary *nameTable = [NSMutableDictionary
@@ -68,32 +117,31 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
         [nameTable setObject: [NSFontManager sharedFontManager]
                       forKey: @"Font Manager"];
 
-        _namesValues = [[keyed decodeObjectForKey: @"NSNamesValues"] retain];
-        count = [_namesValues count];
-        NSMutableArray *namedObjects =
-                [[keyed decodeObjectForKey: @"NSNamesKeys"] mutableCopy];
+        NSArray *namesValues = [keyed decodeObjectForKey: @"NSNamesValues"];
+        NSArray *namedObjects = [keyed decodeObjectForKey: @"NSNamesKeys"];
+        count = [namesValues count];
         for (i = 0; i < count; i++) {
-            NSString *check = [_namesValues objectAtIndex: i];
+            NSString *check = [namesValues objectAtIndex: i];
             id external = [nameTable objectForKey: check];
             id nibObject = [namedObjects objectAtIndex: i];
 
             if (external != nil) {
                 [keyed replaceObject: nibObject withObject: external];
-                [namedObjects replaceObjectAtIndex: i withObject: external];
+                [_nameTable setObject: check forKey: external];
             } else if ([nibObject isKindOfClass: [NSCustomObject class]]) {
                 id replacement = [nibObject createCustomInstance];
 
-                if (replacement == nil)
-                    NSLog(@"Custom instance creation failed for %@", nibObject);
-                else {
+                if (replacement == nil) {
+                    [_nameTable setObject: check forKey: nibObject];
+                } else {
                     [keyed replaceObject: nibObject withObject: replacement];
-                    [namedObjects replaceObjectAtIndex: i
-                                            withObject: replacement];
+                    [_nameTable setObject: check forKey: replacement];
                     [replacement release];
                 }
+            } else {
+                [_nameTable setObject: check forKey: nibObject];
             }
         }
-        _namesKeys = namedObjects;
 
         _fileOwner = [[keyed decodeObjectForKey: @"NSRoot"] retain];
         if ([_fileOwner isKindOfClass: [NSCustomObject class]]) {
@@ -106,50 +154,67 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
 
         _accessibilityConnectors = [[keyed
                 decodeObjectForKey: @"NSAccessibilityConnectors"] retain];
-        _accessibilityOidsKeys =
-                [[keyed decodeObjectForKey: @"NSAccessibilityOidsKeys"] retain];
-        _accessibilityOidsValues = [[keyed
-                decodeObjectForKey: @"NSAccessibilityOidsValues"] retain];
-        _classesKeys = [[keyed decodeObjectForKey: @"NSClassesKeys"] retain];
-        _classesValues =
-                [[keyed decodeObjectForKey: @"NSClassesValues"] retain];
-        _connections = [[keyed decodeObjectForKey: @"NSConnections"] retain];
+
+        NSArray *classesKeys = [keyed decodeObjectForKey: @"NSClassesKeys"];
+        NSArray *classesValues = [keyed decodeObjectForKey: @"NSClassesValues"];
+
+        for (NSUInteger i = 0; i < classesKeys.count; ++i) {
+            [_classTable setObject: classesValues[i] forKey: classesKeys[i]];
+        }
+
+        [_connections setArray: [keyed decodeObjectForKey: @"NSConnections"]];
         _fontManager = [[keyed decodeObjectForKey: @"NSFontManager"] retain];
-        _framework = [[keyed decodeObjectForKey: @"NSFramework"] retain];
-        _nextOid = [keyed decodeIntForKey: @"NSNextOid"];
-        _objectsKeys = [[keyed decodeObjectForKey: @"NSObjectsKeys"] retain];
-        _objectsValues =
-                [[keyed decodeObjectForKey: @"NSObjectsValues"] retain];
-        _oidKeys = [[keyed decodeObjectForKey: @"NSOidsKeys"] retain];
-        _oidValues = [[keyed decodeObjectForKey: @"NSOidsValues"] retain];
-        _visibleWindows =
-                [[keyed decodeObjectForKey: @"NSVisibleWindows"] retain];
+        self.targetFramework = [keyed decodeObjectForKey: @"NSFramework"];
+        _nextOid = [keyed decodeInt64ForKey: @"NSNextOid"];
+
+        NSArray *objectKeys = [keyed decodeObjectForKey: @"NSObjectsKeys"];
+        NSArray *objectValues = [keyed decodeObjectForKey: @"NSObjectsValues"];
 
         // Replace any custom object with the real thing - and update anything
         // tracking them
-        for (int i = [_objectsValues count] - 1; i >= 0; i--) {
-            id aValue = [_objectsValues objectAtIndex: i];
-            if (aValue == owner) {
-                id aKey = [_objectsKeys objectAtIndex: i];
-                if ([aKey isKindOfClass: [NSCustomObject class]]) {
-                    id replacement = [aKey createCustomInstance];
-                    // Tell the decoder we are now using that - that will notify
-                    // the Nib object
-                    [keyed replaceObject: aKey withObject: replacement];
-                    // Update the connections
-                    [self replaceObject: aKey withObject: replacement];
+        // NOTE(facekapow): i'm not really sure why this iterates backwards over the objects,
+        //                  but i'm keeping it this way in case it's required for correct functionality.
+        for (NSUInteger idxPlusOne = objectValues.count; idxPlusOne > 0; --idxPlusOne) {
+            NSUInteger i = idxPlusOne - 1;
+            id aKey = objectKeys[i];
+            id aValue = objectValues[i];
+            id replacement = nil;
 
-                    if (![_objectsKeys isKindOfClass: [NSMutableArray class]]) {
-                        [_objectsKeys autorelease];
-                        _objectsKeys = [_objectsKeys mutableCopy];
-                    }
-                    [(NSMutableArray *) _objectsKeys
-                            replaceObjectAtIndex: i
-                                      withObject: replacement];
-                    [replacement release];
-                }
+            if (aValue == owner && [aKey isKindOfClass: [NSCustomObject class]]) {
+                replacement = [aKey createCustomInstance];
+            }
+
+            if (replacement != nil) {
+                // Tell the decoder we are now using that - that will notify
+                // the Nib object
+                [keyed replaceObject: aKey withObject: replacement];
+                // Update the connections
+                [self replaceObject: aKey withObject: replacement];
+
+                [_objectTable setObject: aValue forKey: replacement];
+                [replacement release];
+            } else {
+                [_objectTable setObject: aValue forKey: aKey];
             }
         }
+
+        NSArray *oidKeys = [keyed decodeObjectForKey: @"NSOidsKeys"];
+        NSArray *oidValues = [keyed decodeObjectForKey: @"NSOidsValues"];
+
+        for (NSUInteger i = 0; i < oidKeys.count; ++i) {
+            // since we're using integers for the values, we should use the C API instead of the ObjC API
+            NSMapInsert(_oidTable, oidKeys[i], (const void *)((NSNumber *)oidValues[i]).integerValue);
+        }
+
+        NSArray *accessibilityOidKeys = [keyed decodeObjectForKey: @"NSAccessibilityOidsKeys"];
+        NSArray *accessibilityOidValues = [keyed decodeObjectForKey: @"NSAccessibilityOidsValues"];
+
+        for (NSUInteger i = 0; i < accessibilityOidKeys.count; ++i) {
+            // accessibility OIDs don't override normal OIDs
+            NSMapInsertIfAbsent(_oidTable, accessibilityOidKeys[i], (const void *)((NSNumber *)accessibilityOidValues[i]).integerValue);
+        }
+
+        [_visibleWindows setSet: [keyed decodeObjectForKey: @"NSVisibleWindows"]];
     } else {
         NSInteger version = [coder versionForClassName: @"NSIBObjectData"];
         int count;
@@ -163,10 +228,6 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
             // Super legacy support
             // read version 0
 
-            NSMutableArray *keys =
-                    [[NSMutableArray alloc] initWithCapacity: count];
-            NSMutableArray *values =
-                    [[NSMutableArray alloc] initWithCapacity: count];
             NSMutableSet *keySet = [[NSMutableSet alloc] init];
 
             for (int i = 0; i < count; i++) {
@@ -174,8 +235,7 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
                 NSObject *value;
 
                 [coder decodeValuesOfObjCTypes: "@@", &key, &value];
-                [keys addObject: key];
-                [values addObject: value];
+                [_objectTable setObject: value forKey: key];
                 [keySet addObject: key];
 
                 if ([key isKindOfClass: [NSMenuItem class]]) {
@@ -183,8 +243,7 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
 
                     if ([target isKindOfClass: [NSMenuTemplate class]] &&
                         ![keySet containsObject: target]) {
-                        [keys addObject: target];
-                        [values addObject: key];
+                        [_objectTable setObject: key forKey: target];
                         [keySet addObject: target];
                     }
                 }
@@ -192,15 +251,11 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
                 [value release];
             }
 
-            _objectsKeys = keys;
-            _objectsValues = values;
             [keySet release];
 
             // Decode nameTable key/value pairs
             // Old format uses ordinary strings for values
             [coder decodeValueOfObjCType: @encode(int) at: &count];
-            keys = [[NSMutableArray alloc] initWithCapacity: count];
-            values = [[NSMutableArray alloc] initWithCapacity: count];
 
             for (int i = 0; i < count; i++) {
                 NSObject *key;
@@ -215,28 +270,23 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
                                length: strlen(string)
                              encoding: NSNEXTSTEPStringEncoding];
 
-                [keys addObject: key];
-                [values addObject: nss];
+                [_nameTable setObject: nss forKey: key];
 
                 [nss release];
                 [key release];
                 free(string);
             }
-            _namesKeys = keys;
-            _namesValues = values;
 
             // Decode visibleWindows
             [coder decodeValueOfObjCType: @encode(int) at: &count];
-            keySet = [[NSMutableSet alloc] initWithCapacity: count];
 
             for (int i = 0; i < count; i++) {
                 NSObject *key;
 
                 [coder decodeValueOfObjCType: @encode(id) at: &key];
-                [keySet addObject: key];
+                [_visibleWindows addObject: key];
                 [key release];
             }
-            _visibleWindows = keySet;
 
             if ([coder versionForClassName: @"List"] == 0) {
                 int unknown;
@@ -251,114 +301,85 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
             [coder decodeArrayOfObjCType: @encode(id)
                                    count: count
                                       at: connections];
-            _connections = [[NSArray alloc] initWithObjects: connections
-                                                      count: count];
+            [_connections setArray: [NSArray arrayWithObjects: connections
+                                                        count: count]];
 
+            for (int i = 0; i < count; ++i) {
+                [connections[i] release];
+            }
             free(connections);
 
             [coder decodeValueOfObjCType: @encode(id) at: &_fontManager];
         } else {
-            NSMutableArray *keys =
-                    [[NSMutableArray alloc] initWithCapacity: count];
-            NSMutableArray *values =
-                    [[NSMutableArray alloc] initWithCapacity: count];
-
             for (int i = 0; i < count; i++) {
                 NSMenuItem *key;
                 NSObject *value;
 
                 [coder decodeValuesOfObjCTypes: "@@", &key, &value];
-                [keys addObject: key];
-                [values addObject: value];
+                [_objectTable setObject: value forKey: key];
 
                 [key release];
                 [value release];
             }
 
-            _objectsKeys = keys;
-            _objectsValues = values;
-
             // Decode nameTable key/value pairs
             [coder decodeValueOfObjCType: @encode(int) at: &count];
-
-            keys = [[NSMutableArray alloc] initWithCapacity: count];
-            values = [[NSMutableArray alloc] initWithCapacity: count];
 
             for (int i = 0; i < count; i++) {
                 NSObject *key, *value;
                 [coder decodeValuesOfObjCTypes: "@@", &key, &value];
 
-                [keys addObject: key];
-                [values addObject: value];
+                [_nameTable setObject: value forKey: key];
 
                 [key release];
                 [value release];
             }
-            _namesKeys = keys;
-            _namesValues = values;
 
-            [coder decodeValueOfObjCType: @encode(id) at: &_visibleWindows];
-            [coder decodeValueOfObjCType: @encode(id) at: &_connections];
+            NSSet *visibleWindows = nil;
+            NSArray *connections = nil;
+
+            [coder decodeValueOfObjCType: @encode(id) at: &visibleWindows];
+            [coder decodeValueOfObjCType: @encode(id) at: &connections];
             [coder decodeValueOfObjCType: @encode(id) at: &_fontManager];
+
+            [_visibleWindows setSet: visibleWindows];
+            [visibleWindows release];
+            [_connections setArray: connections];
+            [connections release];
 
             // Oid table since version 19
             if (version > 18) {
                 [coder decodeValueOfObjCType: @encode(int) at: &count];
-
-                keys = [[NSMutableArray alloc] initWithCapacity: count];
-                values = [[NSMutableArray alloc] initWithCapacity: count];
 
                 for (int i = 0; i < count; i++) {
                     NSObject *key;
                     int value;
 
                     [coder decodeValuesOfObjCTypes: "@i", &key, &value];
-                    [keys addObject: key];
-                    [values addObject: [NSNumber numberWithInt: value]];
+                    NSMapInsert(_oidTable, key, (const void *)(NSInteger)value);
                     [key release];
                 }
 
                 int nextOid;
                 [coder decodeValueOfObjCType: @encode(int) at: &nextOid];
                 _nextOid = nextOid;
-
-                _oidKeys = keys;
-                _oidValues = values;
             }
         }
 
-        _classesKeys = [[NSArray alloc] init];
-        _classesValues = [[NSArray alloc] init];
-
-        if (!_oidKeys) {
-            _oidKeys = [[NSMutableArray alloc] init];
-            _oidValues = [[NSMutableArray alloc] init];
+        if (!NSMapMember(_oidTable, _fileOwner, NULL, NULL)) {
+            NSMapInsertKnownAbsent(_oidTable, _fileOwner, (const void *)(_nextOid++));
         }
 
-        if (![_oidKeys containsObject: _fileOwner]) {
-            [(NSMutableArray *) _oidKeys addObject: _fileOwner];
-            [(NSMutableArray *) _oidValues
-                    addObject: [NSNumber numberWithInt: _nextOid++]];
-        }
-
-        for (NSInteger i = 0; i < [_objectsKeys count]; i++) {
-            NSObject *key;
-
-            key = [_objectsKeys objectAtIndex: i];
-
-            if (![_oidKeys containsObject: key]) {
-                [(NSMutableArray *) _oidKeys addObject: key];
-                [(NSMutableArray *) _oidValues
-                        addObject: [NSNumber numberWithInt: _nextOid++]];
+        for (id objectKey in _objectTable) {
+            if (!NSMapMember(_oidTable, objectKey, NULL, NULL)) {
+                NSMapInsertKnownAbsent(_oidTable, objectKey, (const void *)(_nextOid++));
             }
         }
 
         // enumerate connections
         for (id conn in _connections) {
-            if (![_oidKeys containsObject: conn]) {
-                [(NSMutableArray *) _oidKeys addObject: conn];
-                [(NSMutableArray *) _oidValues
-                        addObject: [NSNumber numberWithInt: _nextOid++]];
+            if (!NSMapMember(_oidTable, conn, NULL, NULL)) {
+                NSMapInsertKnownAbsent(_oidTable, conn, (const void *)(_nextOid++));
             }
         }
     }
@@ -368,33 +389,23 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
 
 - (void) dealloc {
     [_accessibilityConnectors release];
-    [_accessibilityOidsKeys release];
-    [_accessibilityOidsValues release];
-    [_classesKeys release];
-    [_classesValues release];
+    [_classTable release];
     [_connections release];
     [_fontManager release];
     [_framework release];
-    [_namesKeys release];
-    [_namesValues release];
-    [_objectsKeys release];
-    [_objectsValues release];
-    [_oidKeys release];
-    [_oidValues release];
+    [_nameTable release];
+    [_objectTable release];
+    [_oidTable release];
     [_fileOwner release];
     [_visibleWindows release];
+    [_firstResponder release];
     [super dealloc];
 }
 
-- (NSSet *) visibleWindows {
-    return _visibleWindows;
-}
-
 - (NSMenu *) mainMenu {
-    for (int i = [_objectsValues count] - 1; i >= 0; i--) {
-        id aValue = [_objectsValues objectAtIndex: i];
+    for (id aKey in _objectTable) {
+        id aValue = [_objectTable objectForKey: aKey];
         if (aValue == _fileOwner) {
-            id aKey = [_objectsKeys objectAtIndex: i];
             if ([aKey isKindOfClass: [NSMenu class]] &&
                 [[(NSMenu *) aKey _name] isEqual: @"_NSMainMenu"]) {
                 return aKey;
@@ -430,16 +441,10 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
         id formerOwner = [_fileOwner autorelease];
         _fileOwner = [owner retain];
 
-        if (![_objectsValues isKindOfClass: [NSMutableArray class]]) {
-            [_objectsValues autorelease];
-            _objectsValues = [_objectsValues mutableCopy];
-        }
-        for (int i = [_objectsValues count] - 1; i >= 0; i--) {
-            id aValue = [_objectsValues objectAtIndex: i];
+        for (id aKey in _objectTable) {
+            id aValue = [_objectTable objectForKey: aKey];
             if (aValue == formerOwner) {
-                [(NSMutableArray *) _objectsValues
-                        replaceObjectAtIndex: i
-                                  withObject: _fileOwner];
+                [_objectTable setObject: _fileOwner forKey: aKey];
             }
         }
     }
@@ -452,22 +457,12 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
  */
 - (NSArray *) topLevelObjects {
     NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-    NSInteger i;
-    NSMutableArray *topLevelObjects;
+    NSMutableArray *topLevelObjects = [NSMutableArray array];
 
-    for (i = [_objectsValues count] - 1; i >= 0; i--) {
-        id eachObject = [_objectsValues objectAtIndex: i];
+    for (id anObject in _objectTable) {
+        id eachObject = [_objectTable objectForKey: anObject];
 
-        if (eachObject == _fileOwner)
-            [indexes addIndex: i];
-    }
-
-    topLevelObjects = [NSMutableArray arrayWithCapacity: [indexes count]];
-    for (i = [indexes firstIndex]; i != NSNotFound;
-         i = [indexes indexGreaterThanIndex: i]) {
-        id anObject = [_objectsKeys objectAtIndex: i];
-
-        if (anObject != _fileOwner)
+        if (eachObject == _fileOwner && anObject != _fileOwner)
             [topLevelObjects addObject: anObject];
     }
 
