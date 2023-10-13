@@ -39,6 +39,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSCell
 
 @synthesize identifier = _identifier;
+@synthesize truncatesLastVisibleLine = _truncatesLastVisibleLine;
+@synthesize allowsUndo = _allowsUndo;
+@synthesize userInterfaceLayoutDirection = _userInterfaceLayoutDirection;
 
 #pragma mark -
 #pragma mark Class Methods

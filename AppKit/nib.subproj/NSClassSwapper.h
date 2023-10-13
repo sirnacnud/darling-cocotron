@@ -25,4 +25,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     id _object;
 }
 
+@property(copy) NSString *className;
+@property(strong, nonatomic) id template;
+
 @end

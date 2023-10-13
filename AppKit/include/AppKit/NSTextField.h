@@ -22,7 +22,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @interface NSTextField : NSControl {
     id _delegate;
     SEL _errorAction;
+    CGFloat _preferredMaxLayoutWidth;
 }
+
+@property CGFloat preferredMaxLayoutWidth;
 
 - delegate;
 - (void) setDelegate: delegate;

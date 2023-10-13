@@ -21,5 +21,12 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/NSString.h>
 
+typedef float NSLayoutPriority;
+
+typedef NS_ENUM(NSInteger, NSLayoutConstraintOrientation) {
+	NSLayoutConstraintOrientationHorizontal = 0,
+	NSLayoutConstraintOrientationVertical = 1,
+};
+
 APPKIT_EXPORT const CGFloat NSViewNoInstrinsicMetric;
 APPKIT_EXPORT const CGFloat NSViewNoIntrinsicMetric;

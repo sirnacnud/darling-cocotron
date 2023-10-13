@@ -24,6 +24,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     id extension;
 }
 
+@property(copy) NSString *className;
+
 - (id) createCustomInstance;
 
 @end

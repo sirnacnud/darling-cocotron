@@ -27,7 +27,7 @@ typedef enum {
     NSGradientDrawsAfterEndingLocation = (1 << 1),
 } NSGradientDrawingOptions;
 
-@interface NSGradient : NSObject {
+@interface NSGradient : NSObject <NSCopying> {
     NSColorSpace *_colorSpace;
     NSInteger _numberOfColors;
     NSInteger _numberOfComponents;

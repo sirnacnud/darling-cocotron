@@ -691,7 +691,7 @@ static NSLock *_cacheLock = nil;
 
 - (NSFont *) screenFontWithRenderingMode: (NSFontRenderingMode) mode {
     NSUnimplementedMethod();
-    return nil;
+    return [[self copy] autorelease];
 }
 
 - (NSRect) boundingRectForFont {
@@ -889,6 +889,11 @@ static NSLock *_cacheLock = nil;
 - (NSString *) description {
     return [NSString
             stringWithFormat: @"<%@ %@ %f>", [self class], _name, _pointSize];
+}
+
+- (id) _metaType {
+    NSUnimplementedMethod();
+    return nil;
 }
 
 NSInteger NSConvertGlyphsToPackedGlyphs(NSGlyph *glyphs, NSInteger length,

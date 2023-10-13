@@ -45,6 +45,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Onyx2D/O2Context.h>
 #import <QuartzCore/CALayerContext.h>
 #import <QuartzCore/CATransaction.h>
+#import <AppKit/NSLayoutConstraint.h>
 
 @class IBMetricsTable;
 
@@ -70,6 +71,7 @@ const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPresentationOptio
 @implementation NSView
 
 @synthesize identifier = _identifier;
+@synthesize translatesAutoresizingMaskIntoConstraints = _translatesAutoresizingMaskIntoConstraints;
 
 static BOOL NSViewLayersEnabled = YES;
 static BOOL NSShowAllViews = NO;
@@ -78,6 +80,10 @@ static BOOL NSShowAllViews = NO;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //NSViewLayersEnabled = [defaults boolForKey: @"NSViewLayersEnabled"];
     NSShowAllViews = [defaults boolForKey: @"NSShowAllViews"];
+}
+
++ (BOOL) requiresConstraintBasedLayout {
+    return NO;
 }
 
 - (NSColor *) _borderColorForNSShowAllViews {
@@ -153,6 +159,9 @@ typedef struct __VFlags {
 
 - initWithCoder: (NSCoder *) coder {
     [super initWithCoder: coder];
+
+    // TODO: decode this
+    _translatesAutoresizingMaskIntoConstraints = YES;
 
     if ([coder allowsKeyedCoding]) {
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
@@ -378,6 +387,8 @@ typedef struct __VFlags {
     // it's valid for a subclass of NSView to set `wantsLayer` before invoking the superclass `initWithFrame:`.
     // thus, we might have a layer context already but with an incorrect frame.
     [_layerContext setFrame: _frame];
+
+    _translatesAutoresizingMaskIntoConstraints = YES;
 
     return self;
 }
@@ -2839,6 +2850,42 @@ static NSView *viewBeingPrinted = nil;
 + (IBMetricsTable *) ibLayoutMetrics {
     NSUnimplementedMethod();
     return nil;
+}
+
+- (void) _nsib_setUsesPointIntegralizationForLayout: (BOOL) usesPointIntegralizationForLayout {
+    NSUnimplementedMethod();
+}
+
+- (NSLayoutPriority) contentHuggingPriorityForOrientation: (NSLayoutConstraintOrientation) orientation {
+    if (orientation == NSLayoutConstraintOrientationHorizontal) {
+        return _horizontalContentHuggingPriority;
+    } else {
+        return _verticalContentHuggingPriority;
+    }
+}
+
+- (void) setContentHuggingPriority: (NSLayoutPriority) contentHuggingPriority forOrientation: (NSLayoutConstraintOrientation) orientation {
+    if (orientation == NSLayoutConstraintOrientationHorizontal) {
+        _horizontalContentHuggingPriority = contentHuggingPriority;
+    } else {
+        _verticalContentHuggingPriority = contentHuggingPriority;
+    }
+}
+
+- (NSLayoutPriority) contentCompressionResistancePriorityForOrientation: (NSLayoutConstraintOrientation) orientation {
+    if (orientation == NSLayoutConstraintOrientationHorizontal) {
+        return _horizontalContentCompressionResistancePriority;
+    } else {
+        return _verticalContentCompressionResistancePriority;
+    }
+}
+
+- (void) setContentCompressionResistancePriority: (NSLayoutPriority) contentCompressionResistancePriority forOrientation: (NSLayoutConstraintOrientation) orientation {
+    if (orientation == NSLayoutConstraintOrientationHorizontal) {
+        _horizontalContentCompressionResistancePriority = contentCompressionResistancePriority;
+    } else {
+        _verticalContentCompressionResistancePriority = contentCompressionResistancePriority;
+    }
 }
 
 @end

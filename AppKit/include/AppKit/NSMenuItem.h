@@ -45,8 +45,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     NSImage *_onStateImage;
     NSImage *_offStateImage;
     NSImage *_mixedStateImage;
+    BOOL _alternate;
+    BOOL _allowsKeyEquivalentWhenHidden;
     NSUserInterfaceItemIdentifier _identifier;
 }
+
+@property(getter=isAlternate) BOOL alternate;
+@property BOOL allowsKeyEquivalentWhenHidden;
 
 + (NSMenuItem *) separatorItem;
 

@@ -198,7 +198,17 @@ static int untitled_document_number = 0;
 }
 
 - (NSString *) fileType {
-    return _fileType;
+    NSString *result = _fileType;
+
+    if (result == nil) {
+        // when `_fileType` is `nil`, it seems this method returns the first element of `[self writableTypesForSaveOperation: NSSaveOperation]`.
+        // i initially thought that `_fileType` was merely initialized to this value in `init`, but it turns out that setting it to `nil` and then
+        // querying it returns the default value again. checking for it here is simpler than initializing it in `init` + resetting it in `setFileType:`.
+        // plus, it seems that certain programs (Xcode, of course) depend on this being checked here rather than in `init` (and without ever calling `setFileType:`).
+        result = [self writableTypesForSaveOperation: NSSaveOperation].firstObject;
+    }
+
+    return [[result retain] autorelease];
 }
 
 - (BOOL) hasUndoManager {

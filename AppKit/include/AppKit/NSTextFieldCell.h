@@ -30,7 +30,10 @@ typedef enum {
     BOOL _drawsBackground;
     NSTextFieldBezelStyle _bezelStyle;
     id _placeholder;
+    NSArray<NSString *> *_allowedInputSourceLocales;
 }
+
+@property(copy) NSArray<NSString *> *allowedInputSourceLocales;
 
 - (NSColor *) backgroundColor;
 - (NSColor *) textColor;

@@ -25,7 +25,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSClassSwapper
 
+@synthesize className = _className;
+@synthesize template = _object;
+
 // TODO: replace the cell for the object too
+
+- (instancetype) init {
+    _className = @"NSObject";
+    return self;
+}
 
 - (id) initWithCoder: (NSCoder *) coder {
     _className = [[coder decodeObjectForKey: @"NSClassName"] retain];
@@ -64,6 +72,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [_originalClassName release];
     [_object release];
     [super dealloc];
+}
+
+- (void) setTemplate: (id) template {
+    [template retain];
+    [_object release];
+    _object = template;
+
+    // also update the original class name
+    [_originalClassName release];
+    _originalClassName = [[_object className] copy];
 }
 
 - (void) encodeWithCoder: (NSCoder *) coder {

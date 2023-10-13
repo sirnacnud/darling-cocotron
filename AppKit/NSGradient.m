@@ -296,4 +296,9 @@ static void evaluate(void *info, CGFloat const *input, CGFloat *output) {
                                      alpha: output[3]];
 }
 
+- (instancetype) copyWithZone: (NSZone *) zone {
+    // NSGradient is immutable
+    return [self retain];
+}
+
 @end

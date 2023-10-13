@@ -21,6 +21,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSParagraphStyle.h>
 #import <AppKit/NSText.h>
 #import <AppKit/NSUserInterfaceItemIdentification.h>
+#import <AppKit/NSApplication.h>
 
 @class NSFont, NSImage, NSView;
 
@@ -131,7 +132,14 @@ enum {
     BOOL _sendsActionOnEndEditing;
     BOOL _hasValidObjectValue;
     BOOL _usesSingleLineMode;
+    BOOL _truncatesLastVisibleLine;
+    BOOL _allowsUndo;
+    NSUserInterfaceLayoutDirection _userInterfaceLayoutDirection;
 }
+
+@property BOOL truncatesLastVisibleLine;
+@property BOOL allowsUndo;
+@property NSUserInterfaceLayoutDirection userInterfaceLayoutDirection;
 
 #pragma mark -
 #pragma mark Class Methods

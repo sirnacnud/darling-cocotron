@@ -31,7 +31,13 @@ APPKIT_EXPORT const NSNotificationName NSControlTextDidEndEditingNotification;
     NSControlAuxiliary *_aux;
     id _cell;
     NSText *_currentEditor;
+    BOOL _allowsExpansionToolTips;
+    BOOL _setsMaxLayoutWidthAtFirstLayout;
+    BOOL _allowsLogicalLayoutDirection;
 }
+
+@property BOOL allowsExpansionToolTips;
+@property BOOL allowsLogicalLayoutDirection;
 
 + (Class) cellClass;
 + (void) setCellClass: (Class) aClass;

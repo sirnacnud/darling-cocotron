@@ -26,6 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSResponder.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import <AppKit/NSUserInterfaceItemIdentification.h>
+#import <AppKit/NSLayoutConstraint.h>
 
 @class NSWindow, NSMenu, NSMenuItem, NSCursor, NSClipView, NSPasteboard,
         NSTextInputContext, NSImage, NSBitmapImageRep, NSScrollView,
@@ -129,7 +130,15 @@ APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPre
     CALayerContext *_layerContext;
     id __remove;
     NSUserInterfaceItemIdentifier _identifier;
+    NSLayoutPriority _horizontalContentHuggingPriority;
+    NSLayoutPriority _verticalContentHuggingPriority;
+    NSLayoutPriority _horizontalContentCompressionResistancePriority;
+    NSLayoutPriority _verticalContentCompressionResistancePriority;
+    BOOL _translatesAutoresizingMaskIntoConstraints;
 }
+
+@property(class, readonly) BOOL requiresConstraintBasedLayout;
+@property BOOL translatesAutoresizingMaskIntoConstraints;
 
 + (NSView *) focusView;
 + (NSMenu *) defaultMenu;

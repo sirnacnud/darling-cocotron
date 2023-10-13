@@ -42,6 +42,9 @@ NSString *const NSControlTextDidEndEditingNotification =
 
 @implementation NSControl
 
+@synthesize allowsExpansionToolTips = _allowsExpansionToolTips;
+@synthesize allowsLogicalLayoutDirection = _allowsLogicalLayoutDirection;
+
 static NSMutableDictionary *cellClassDictionary = nil;
 
 + (void) initialize {
@@ -691,6 +694,14 @@ static NSMutableDictionary *cellClassDictionary = nil;
         [self unlockFocus];
         [self setNeedsDisplay: YES];
     }
+}
+
+- (BOOL) _setsMaxLayoutWidthAtFirstLayout {
+    return _setsMaxLayoutWidthAtFirstLayout;
+}
+
+- (void) _setSetsMaxLayoutWidthAtFirstLayout: (BOOL) setsMaxLayoutWidthAtFirstLayout {
+    _setsMaxLayoutWidthAtFirstLayout = setsMaxLayoutWidthAtFirstLayout;
 }
 
 // NSEditor methods

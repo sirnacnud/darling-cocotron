@@ -37,6 +37,7 @@ NSString *const _NSWindowsMenuName = @"Window";
 
 @implementation NSMenu
 
+@synthesize showsStateColumn = _showsStateColumn;
 @synthesize identifier = _identifier;
 
 + (void) popUpContextMenu: (NSMenu *) menu
@@ -76,6 +77,8 @@ NSString *const _NSWindowsMenuName = @"Window";
 }
 
 - initWithCoder: (NSCoder *) coder {
+    _showsStateColumn = YES; // TODO: figure out the right coding for this
+
     if ([coder allowsKeyedCoding]) {
         NSKeyedUnarchiver *keyed = (NSKeyedUnarchiver *) coder;
 
@@ -156,6 +159,7 @@ NSString *const _NSWindowsMenuName = @"Window";
     _title = [title copy];
     _itemArray = [NSMutableArray new];
     _autoenablesItems = YES;
+    _showsStateColumn = YES;
     return self;
 }
 
@@ -477,6 +481,12 @@ BOOL itemIsEnabled(NSMenuItem *item) {
 
 - (NSString *) _name {
     return _name;
+}
+
+- (void) _setMenuName: (NSString *) name {
+    NSString* copied = [name copy];
+    [_name release];
+    _name = copied;
 }
 
 - (NSMenu *) _menuWithName: (NSString *) name {

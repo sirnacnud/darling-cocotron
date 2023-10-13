@@ -34,6 +34,8 @@
 #import <Foundation/NSSet.h>
 #import <Foundation/NSString.h>
 
+NSString *const IBCocoaFramework = @"IBCocoaFramework";
+
 @interface NSKeyedUnarchiver (private)
 - (void) replaceObject: object withObject: replacement;
 @end

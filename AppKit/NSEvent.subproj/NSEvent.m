@@ -28,6 +28,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSWindow.h>
 #import <Foundation/NSDate.h>
 #import <Foundation/NSException.h>
+#import <Foundation/NSRaise.h>
 
 @implementation NSEvent
 
@@ -346,6 +347,17 @@ static NSTimer *_periodicTimer = nil;
 
 - (NSInteger) buttonNumber {
     return 0;
+}
+
++ (id) addLocalMonitorForEventsMatchingMask: (NSEventMask) mask
+                                    handler: (NSEvent * (^)(NSEvent *event)) block
+{
+    NSUnimplementedMethod();
+    return nil;
+}
+
++ (void) removeMonitor: (id) eventMonitor {
+    NSUnimplementedMethod();
 }
 
 @end

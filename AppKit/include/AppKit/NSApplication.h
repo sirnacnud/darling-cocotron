@@ -90,6 +90,11 @@ typedef enum {
     NSPrintingFailure,
 } NSApplicationPrintReply;
 
+typedef NS_ENUM(NSInteger, NSUserInterfaceLayoutDirection) {
+    NSUserInterfaceLayoutDirectionLeftToRight = 0,
+    NSUserInterfaceLayoutDirectionRightToLeft = 1,
+};
+
 @interface NSApplication : NSResponder {
     NSDisplay *_display;
     id _delegate;

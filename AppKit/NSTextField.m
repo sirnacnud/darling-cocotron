@@ -39,6 +39,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSTextField
 
+@synthesize preferredMaxLayoutWidth = _preferredMaxLayoutWidth;
+
 + (Class) cellClass {
     return [NSTextFieldCell class];
 }
@@ -63,7 +65,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _errorAction = NSSelectorFromString(
                 [keyed decodeObjectForKey: @"NSErrorAction"]);
 
-        double maxLayoutWidth =
+        _preferredMaxLayoutWidth =
                 [keyed decodeDoubleForKey: @"NSPreferredMaxLayoutWidth"];
         // TODO
     } else {

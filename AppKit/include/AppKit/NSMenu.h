@@ -35,8 +35,11 @@ APPKIT_EXPORT const NSNotificationName NSMenuDidEndTrackingNotification;
     NSMutableArray *_itemArray;
     BOOL _autoenablesItems;
     id<NSMenuDelegate> _delegate;
+    BOOL _showsStateColumn;
     NSUserInterfaceItemIdentifier _identifier;
 }
+
+@property BOOL showsStateColumn;
 
 + (void) popUpContextMenu: (NSMenu *) menu
                 withEvent: (NSEvent *) event

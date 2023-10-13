@@ -35,6 +35,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSTextFieldCell
 
+@synthesize allowedInputSourceLocales = _allowedInputSourceLocales;
+
 - (void) encodeWithCoder: (NSCoder *) coder {
     NSUnimplementedMethod();
 }
@@ -130,6 +132,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (void) dealloc {
     [_backgroundColor release];
     [_textColor release];
+    [_placeholder release];
+    [_allowedInputSourceLocales release];
     [super dealloc];
 }
 

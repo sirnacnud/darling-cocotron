@@ -30,6 +30,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSMenuItem
 
+@synthesize alternate = _alternate;
+@synthesize allowsKeyEquivalentWhenHidden = _allowsKeyEquivalentWhenHidden;
 @synthesize identifier = _identifier;
 
 + (NSMenuItem *) separatorItem {
