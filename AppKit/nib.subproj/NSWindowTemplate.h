@@ -19,26 +19,103 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #import <Foundation/NSGeometry.h>
 #import <Foundation/NSObject.h>
+#import <AppKit/NSUserInterfaceItemIdentification.h>
+#import <AppKit/NSWindow.h>
 
 @class NSView;
 
-@interface NSWindowTemplate : NSObject {
+typedef NS_OPTIONS(uint32_t, NSWindowTemplateFlags) {
+    NSWindowTemplateFlagRestorable = 1u << 9,
+    NSWindowTemplateFlagDoesNotShowToolbarButton = 1u << 10,
+    NSWindowTemplateFlagAutorecalculatesKeyViewLoop = 1u << 11,
+    NSWindowTemplateFlagNoShadow = 1u << 12,
+    NSWindowTemplateFlagAllowsToolTipsWhenApplicationIsInactive = 1u << 13,
+    NSWindowTemplateFlagAutoPositionShift = 19,
+    NSWindowTemplateFlagAutoPositionMask = 0x3fu << NSWindowTemplateFlagAutoPositionShift,
+    NSWindowTemplateFlagHasDynamicDepthLimit = 1u << 25,
+    NSWindowTemplateFlagWantsToBeColor = 1u << 26,
+    NSWindowTemplateFlagOneShot = 1u << 28,
+    NSWindowTemplateFlagDeferred = 1u << 29,
+    NSWindowTemplateFlagNotReleasedWhenClosed = 1u << 30,
+    NSWindowTemplateFlagHidesOnDeactivate = 1u << 31,
+};
+
+@interface NSWindowTemplate : NSObject <NSUserInterfaceItemIdentification> {
     // the ivars without a `_` prefix are like that because Xcode
     // requires them to be named like that.
 
+    // TODO: we might also need to put these ivars in the same order as the real AppKit does.
+    //       this is only a problem for platforms with fragile base classes (e.g. i386), though.
+
     NSSize _maxSize;
     NSSize _minSize;
+    NSSize _contentMinSize;
+    NSSize _contentMaxSize;
     NSRect screenRect;
     id _viewClass;
-    unsigned _wtFlags;
-    int _windowBacking;
+    NSWindowTemplateFlags _wtFlags;
+    NSInteger _windowBacking;
     NSString *_windowClass;
     NSRect windowRect;
-    int _windowStyleMask;
+    NSWindowStyleMask _windowStyleMask;
     NSString *_windowTitle;
     NSView *windowView;
     NSString *_windowAutosave;
     NSUserInterfaceItemIdentifier _identifier;
+    NSWindowCollectionBehavior _collectionBehavior;
+    NSUInteger _animationBehavior;
+    NSSize _minFullScreenContentSize;
+    NSSize _maxFullScreenContentSize;
+    NSString *_tabbingIdentifier;
+    NSUInteger _tabbingMode;
+    NSUInteger _titleVisibility;
+    NSToolbar *_toolbar;
+    CGFloat _contentBorderThicknessForMinXEdge;
+    CGFloat _contentBorderThicknessForMaxXEdge;
+    CGFloat _contentBorderThicknessForMinYEdge;
+    CGFloat _contentBorderThicknessForMaxYEdge;
+
+    BOOL _titlebarAppearsTransparent;
+    BOOL _autorecalculatesContentBorderThicknessForMinXEdge;
+    BOOL _autorecalculatesContentBorderThicknessForMaxXEdge;
+    BOOL _autorecalculatesContentBorderThicknessForMinYEdge;
+    BOOL _autorecalculatesContentBorderThicknessForMaxYEdge;
 }
+
+@property NSWindowStyleMask styleMask;
+@property(copy) NSString *title;
+@property BOOL allowsToolTipsWhenApplicationIsInactive;
+@property BOOL autorecalculatesKeyViewLoop;
+@property(getter=isDeferred) BOOL deferred;
+@property BOOL hasShadow;
+@property BOOL hidesOnDeactivate;
+@property(getter=isReleasedWhenClosed) BOOL releasedWhenClosed;
+@property(getter=isOneShot) BOOL oneShot;
+@property NSWindowCollectionBehavior collectionBehavior;
+@property NSUInteger animationBehavior;
+@property(copy) NSString *frameAutosaveName;
+@property NSSize contentMinSize;
+@property NSSize contentMaxSize;
+@property NSSize minFullScreenContentSize;
+@property NSSize maxFullScreenContentSize;
+@property(copy) NSString *tabbingIdentifier;
+@property NSUInteger tabbingMode;
+@property BOOL titlebarAppearsTransparent;
+@property NSUInteger titleVisibility;
+@property(strong) NSToolbar *toolbar;
+@property(getter=isRestorable) BOOL restorable;
+@property uint32_t autoPositionMask;
+@property BOOL wantsToBeColor;
+@property NSSize minSize;
+@property NSSize maxSize;
+@property(copy) NSString *className;
+
+- (BOOL) autorecalculatesContentBorderThicknessForEdge: (NSRectEdge) edge;
+- (void) setAutorecalculatesContentBorderThickness: (BOOL) autorecalculatesContentBorderThickness
+                                           forEdge: (NSRectEdge) edge;
+
+- (CGFloat) contentBorderThicknessForEdge: (NSRectEdge) edge;
+- (void) setContentBorderThickness: (CGFloat) contentBorderThickness
+                           forEdge: (NSRectEdge) edge;
 
 @end

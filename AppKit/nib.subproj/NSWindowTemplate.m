@@ -22,6 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSScreen.h>
 #import <AppKit/NSWindow-Private.h>
 #import <Foundation/NSKeyedArchiver.h>
+#import <Foundation/NSRaise.h>
 
 @interface NSWindow (private)
 + (BOOL) hasMainMenuForStyleMask: (NSUInteger) styleMask;
@@ -30,6 +31,36 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 @implementation NSWindowTemplate
 
 @synthesize identifier = _identifier;
+@synthesize styleMask = _windowStyleMask;
+@synthesize title = _windowTitle;
+@synthesize collectionBehavior = _collectionBehavior;
+@synthesize animationBehavior = _animationBehavior;
+@synthesize frameAutosaveName = _windowAutosave;
+@synthesize contentMinSize = _contentMinSize;
+@synthesize contentMaxSize = _contentMaxSize;
+@synthesize minFullScreenContentSize = _minFullScreenContentSize;
+@synthesize maxFullScreenContentSize = _maxFullScreenContentSize;
+@synthesize tabbingIdentifier = _tabbingIdentifier;
+@synthesize tabbingMode = _tabbingMode;
+@synthesize titlebarAppearsTransparent = _titlebarAppearsTransparent;
+@synthesize titleVisibility = _titleVisibility;
+@synthesize toolbar = _toolbar;
+@synthesize minSize = _minSize;
+@synthesize maxSize = _maxSize;
+@synthesize className = _windowClass;
+
+- (instancetype) init {
+    self = [super init];
+
+    if (self != nil) {
+        _autorecalculatesContentBorderThicknessForMinXEdge = YES;
+        _autorecalculatesContentBorderThicknessForMaxXEdge = YES;
+        _autorecalculatesContentBorderThicknessForMinYEdge = YES;
+        _autorecalculatesContentBorderThicknessForMaxYEdge = YES;
+    }
+
+    return self;
+}
 
 - (instancetype) initWithCoder: (NSCoder *) coder {
     if ([coder allowsKeyedCoding]) {
@@ -37,18 +68,56 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
         _maxSize = [keyed decodeSizeForKey: @"NSMaxSize"];
         _minSize = [keyed decodeSizeForKey: @"NSMinSize"];
+        _contentMinSize = [keyed decodeSizeForKey: @"NSWindowContentMinSize"];
+        _contentMaxSize = [keyed decodeSizeForKey: @"NSWindowContentMaxSize"];
         screenRect =
                 [keyed decodeRectForKey: @"NSScreenRect"]; // screen created on
         _viewClass = [[keyed decodeObjectForKey: @"NSViewClass"] retain];
         _wtFlags = [keyed decodeIntForKey: @"NSWTFlags"];
-        _windowBacking = [keyed decodeIntForKey: @"NSWindowBacking"];
+        _windowBacking = [keyed decodeIntegerForKey: @"NSWindowBacking"];
         _windowClass = [[keyed decodeObjectForKey: @"NSWindowClass"] retain];
         windowRect = [keyed decodeRectForKey: @"NSWindowRect"];
-        _windowStyleMask = [keyed decodeIntForKey: @"NSWindowStyleMask"];
+        _windowStyleMask = [keyed decodeIntegerForKey: @"NSWindowStyleMask"];
         _windowTitle = [[keyed decodeObjectForKey: @"NSWindowTitle"] retain];
         windowView = [[keyed decodeObjectForKey: @"NSWindowView"] retain];
         _windowAutosave =
                 [[keyed decodeObjectForKey: @"NSFrameAutosaveName"] retain];
+        _collectionBehavior =
+                [keyed decodeIntegerForKey: @"NSWindowCollectionBehavior"];
+        _animationBehavior =
+                [keyed decodeIntegerForKey: @"NSWindowAnimationBehavior"];
+        _minFullScreenContentSize =
+                [keyed decodeSizeForKey: @"NSMinFullScreenContentSize"];
+        _maxFullScreenContentSize =
+                [keyed decodeSizeForKey: @"NSMaxFullScreenContentSize"];
+        _tabbingIdentifier =
+                [[keyed decodeObjectForKey: @"NSWindowTabbingIdentifier"]
+                        retain];
+        _tabbingMode = [keyed decodeIntegerForKey: @"NSWindowTabbingMode"];
+        _titleVisibility =
+                [keyed decodeIntegerForKey: @"NSWindowTitleVisibility"];
+        _contentBorderThicknessForMinXEdge =
+                [keyed decodeDoubleForKey: @"NSContentBorderThicknessMinX"];
+        _contentBorderThicknessForMaxXEdge =
+                [keyed decodeDoubleForKey: @"NSContentBorderThicknessMaxX"];
+        _contentBorderThicknessForMinYEdge =
+                [keyed decodeDoubleForKey: @"NSContentBorderThicknessMinY"];
+        _contentBorderThicknessForMaxYEdge =
+                [keyed decodeDoubleForKey: @"NSContentBorderThicknessMaxY"];
+        _titlebarAppearsTransparent =
+                [keyed decodeBoolForKey: @"NSTitlebarAppearsTransparent"];
+        _autorecalculatesContentBorderThicknessForMinXEdge =
+                [keyed decodeBoolForKey:
+                    @"NSAutorecalculatesContentBorderThicknessMinX"];
+        _autorecalculatesContentBorderThicknessForMaxXEdge =
+                [keyed decodeBoolForKey:
+                    @"NSAutorecalculatesContentBorderThicknessMaxX"];
+        _autorecalculatesContentBorderThicknessForMinYEdge =
+                [keyed decodeBoolForKey:
+                    @"NSAutorecalculatesContentBorderThicknessMinY"];
+        _autorecalculatesContentBorderThicknessForMaxYEdge =
+                [keyed decodeBoolForKey:
+                    @"NSAutorecalculatesContentBorderThicknessMaxY"];
 
         if ([NSScreen mainScreen])
             windowRect.origin.y -= screenRect.size.height -
@@ -72,13 +141,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     [windowView release];
     [_windowAutosave release];
     [_identifier release];
+    [_tabbingIdentifier release];
+    [_toolbar release];
     [super dealloc];
 }
 
 - awakeAfterUsingCoder: (NSCoder *) coder {
     NSWindow *result;
     Class class;
-    BOOL defer;
 
     if ((class = NSClassFromString(_windowClass)) == Nil) {
         [NSException
@@ -87,17 +157,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                         _windowClass];
         class = [NSWindow class];
     }
-    defer = (_wtFlags & 0x20000000) ? YES : NO;
     result = [[class alloc] initWithContentRect: windowRect
                                       styleMask: _windowStyleMask
                                         backing: _windowBacking
-                                          defer: defer];
+                                          defer: self.isDeferred];
     [result setMinSize: _minSize];
     [result setMaxSize: _maxSize];
-    [result setOneShot: (_wtFlags & 0x10000000) ? YES : NO];
-    [result setReleasedWhenClosed: (_wtFlags & 0x40000000) ? NO : YES];
-    [result setHidesOnDeactivate: (_wtFlags & 0x80000000) ? YES : NO];
+    [result setOneShot: self.isOneShot];
+    [result setReleasedWhenClosed: self.releasedWhenClosed];
+    [result setHidesOnDeactivate: self.hidesOnDeactivate];
     [result setTitle: _windowTitle];
+    [result setIdentifier: _identifier];
+    [result setToolbar: _toolbar];
 
     [result setContentView: windowView];
     [windowView setAutoresizesSubviews: YES];
@@ -123,8 +194,181 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     return nil;
 }
 
-- (void) setStyleMask: (NSUInteger) mask {
-    _windowStyleMask = mask;
+- (id) appearance {
+    NSUnimplementedMethod();
+    return nil;
+}
+
+- (BOOL) isOneShot {
+    return (_wtFlags & NSWindowTemplateFlagOneShot) != 0;
+}
+
+- (void) setOneShot: (BOOL) oneShot {
+    if (oneShot) {
+        _wtFlags |= NSWindowTemplateFlagOneShot;
+    } else {
+        _wtFlags &= ~NSWindowTemplateFlagOneShot;
+    }
+}
+
+- (BOOL) isDeferred {
+    return (_wtFlags & NSWindowTemplateFlagDeferred) != 0;
+}
+
+- (void) setDeferred: (BOOL) deferred {
+    if (deferred) {
+        _wtFlags |= NSWindowTemplateFlagDeferred;
+    } else {
+        _wtFlags &= ~NSWindowTemplateFlagDeferred;
+    }
+}
+
+- (BOOL) isReleasedWhenClosed {
+    return (_wtFlags & NSWindowTemplateFlagNotReleasedWhenClosed) == 0;
+}
+
+- (void) setReleasedWhenClosed: (BOOL) releasedWhenClosed {
+    if (releasedWhenClosed) {
+        _wtFlags &= ~NSWindowTemplateFlagNotReleasedWhenClosed;
+    } else {
+        _wtFlags |= NSWindowTemplateFlagNotReleasedWhenClosed;
+    }
+}
+
+- (BOOL) hidesOnDeactivate {
+    return (_wtFlags & NSWindowTemplateFlagHidesOnDeactivate) != 0;
+}
+
+- (void) setHidesOnDeactivate: (BOOL) hidesOnDeactivate {
+    if (hidesOnDeactivate) {
+        _wtFlags |= NSWindowTemplateFlagHidesOnDeactivate;
+    } else {
+        _wtFlags &= ~NSWindowTemplateFlagHidesOnDeactivate;
+    }
+}
+
+- (BOOL) allowsToolTipsWhenApplicationIsInactive {
+    return (_wtFlags & NSWindowTemplateFlagAllowsToolTipsWhenApplicationIsInactive) != 0;
+}
+
+- (void) setAllowsToolTipsWhenApplicationIsInactive: (BOOL) allowsToolTipsWhenApplicationIsInactive {
+    if (allowsToolTipsWhenApplicationIsInactive) {
+        _wtFlags |= NSWindowTemplateFlagAllowsToolTipsWhenApplicationIsInactive;
+    } else {
+        _wtFlags &= ~NSWindowTemplateFlagAllowsToolTipsWhenApplicationIsInactive;
+    }
+}
+
+- (BOOL) autorecalculatesKeyViewLoop {
+    return (_wtFlags & NSWindowTemplateFlagAutorecalculatesKeyViewLoop) != 0;
+}
+
+- (void) setAutorecalculatesKeyViewLoop: (BOOL) autorecalculatesKeyViewLoop {
+    if (autorecalculatesKeyViewLoop) {
+        _wtFlags |= NSWindowTemplateFlagAutorecalculatesKeyViewLoop;
+    } else {
+        _wtFlags &= ~NSWindowTemplateFlagAutorecalculatesKeyViewLoop;
+    }
+}
+
+- (BOOL) isRestorable {
+    return (_wtFlags & NSWindowTemplateFlagRestorable) != 0;
+}
+
+- (void) setRestorable: (BOOL) restorable {
+    if (restorable) {
+        _wtFlags |= NSWindowTemplateFlagRestorable;
+    } else {
+        _wtFlags &= ~NSWindowTemplateFlagRestorable;
+    }
+}
+
+- (BOOL) hasShadow {
+    return (_wtFlags & NSWindowTemplateFlagNoShadow) == 0;
+}
+
+- (void) setHasShadow: (BOOL) hasShadow {
+    if (hasShadow) {
+        _wtFlags &= ~NSWindowTemplateFlagNoShadow;
+    } else {
+        _wtFlags |= NSWindowTemplateFlagNoShadow;
+    }
+}
+
+- (uint32_t) autoPositionMask {
+    return (_wtFlags & NSWindowTemplateFlagAutoPositionMask) >> NSWindowTemplateFlagAutoPositionShift;
+}
+
+- (void) setAutoPositionMask: (uint32_t) autoPositionMask {
+    _wtFlags = (_wtFlags & ~NSWindowTemplateFlagAutoPositionMask) | ((autoPositionMask << NSWindowTemplateFlagAutoPositionShift) & NSWindowTemplateFlagAutoPositionMask);
+}
+
+- (BOOL) wantsToBeColor {
+    return (_wtFlags & NSWindowTemplateFlagWantsToBeColor) != 0;
+}
+
+- (void) setWantsToBeColor: (BOOL) wantsToBeColor {
+    if (wantsToBeColor) {
+        _wtFlags |= NSWindowTemplateFlagWantsToBeColor;
+    } else {
+        _wtFlags &= ~NSWindowTemplateFlagWantsToBeColor;
+    }
+}
+
+- (BOOL) autorecalculatesContentBorderThicknessForEdge: (NSRectEdge) edge {
+    if (edge == NSRectEdgeMinX) {
+        return _autorecalculatesContentBorderThicknessForMinXEdge;
+    } else if (edge == NSRectEdgeMaxX) {
+        return _autorecalculatesContentBorderThicknessForMaxXEdge;
+    } else if (edge == NSRectEdgeMinY) {
+        return _autorecalculatesContentBorderThicknessForMinYEdge;
+    } else if (edge == NSRectEdgeMaxY) {
+        return _autorecalculatesContentBorderThicknessForMaxYEdge;
+    } else {
+        return NO;
+    }
+}
+
+- (void) setAutorecalculatesContentBorderThickness: (BOOL) autorecalculatesContentBorderThickness
+                                           forEdge: (NSRectEdge) edge
+{
+    if (edge == NSRectEdgeMinX) {
+        _autorecalculatesContentBorderThicknessForMinXEdge = autorecalculatesContentBorderThickness;
+    } else if (edge == NSRectEdgeMaxX) {
+        _autorecalculatesContentBorderThicknessForMaxXEdge = autorecalculatesContentBorderThickness;
+    } else if (edge == NSRectEdgeMinY) {
+        _autorecalculatesContentBorderThicknessForMinYEdge = autorecalculatesContentBorderThickness;
+    } else if (edge == NSRectEdgeMaxY) {
+        _autorecalculatesContentBorderThicknessForMaxYEdge = autorecalculatesContentBorderThickness;
+    }
+}
+
+- (CGFloat) contentBorderThicknessForEdge: (NSRectEdge) edge {
+    if (edge == NSRectEdgeMinX) {
+        return _contentBorderThicknessForMinXEdge;
+    } else if (edge == NSRectEdgeMaxX) {
+        return _contentBorderThicknessForMaxXEdge;
+    } else if (edge == NSRectEdgeMinY) {
+        return _contentBorderThicknessForMinYEdge;
+    } else if (edge == NSRectEdgeMaxY) {
+        return _contentBorderThicknessForMaxYEdge;
+    } else {
+        return 0;
+    }
+}
+
+- (void) setContentBorderThickness: (CGFloat) contentBorderThickness
+                           forEdge: (NSRectEdge) edge
+{
+    if (edge == NSRectEdgeMinX) {
+        _contentBorderThicknessForMinXEdge = contentBorderThickness;
+    } else if (edge == NSRectEdgeMaxX) {
+        _contentBorderThicknessForMaxXEdge = contentBorderThickness;
+    } else if (edge == NSRectEdgeMinY) {
+        _contentBorderThicknessForMinYEdge = contentBorderThickness;
+    } else if (edge == NSRectEdgeMaxY) {
+        _contentBorderThicknessForMaxYEdge = contentBorderThickness;
+    }
 }
 
 @end
