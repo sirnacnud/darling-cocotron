@@ -136,7 +136,6 @@ APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPre
     NSLayoutPriority _verticalContentHuggingPriority;
     NSLayoutPriority _horizontalContentCompressionResistancePriority;
     NSLayoutPriority _verticalContentCompressionResistancePriority;
-    BOOL _translatesAutoresizingMaskIntoConstraints;
 }
 
 @property(class, readonly) BOOL requiresConstraintBasedLayout;
@@ -205,7 +204,6 @@ APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPre
 - (NSMenu *) menuForEvent: (NSEvent *) event;
 - (NSMenuItem *) enclosingMenuItem;
 - (NSString *) toolTip;
-- (BOOL) translatesAutoresizingMaskIntoConstraints;
 
 - viewWithTag: (NSInteger) tag;
 - (NSView *) hitTest: (NSPoint) point;
@@ -228,7 +226,6 @@ APPKIT_EXPORT const NSViewFullScreenModeOptionKey NSFullScreenModeApplicationPre
 - (void) setBoundsSize: (NSSize) size;
 - (void) setBoundsOrigin: (NSPoint) origin;
 - (void) setBoundsRotation: (CGFloat) angle;
-- (void) setTranslatesAutoresizingMaskIntoConstraints: (BOOL) value;
 
 - (CGFloat) frameRotation;
 - (CGFloat) boundsRotation;

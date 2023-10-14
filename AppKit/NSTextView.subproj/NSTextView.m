@@ -3979,7 +3979,7 @@ NSString *const NSAllRomanInputSourcesLocaleIdentifier =
 - (id) replacementObjectForKeyedArchiver {
     NSUnimplementedMethod();
     return self;
-
+}
 - (NSTextLayoutOrientation) layoutOrientation {
     NSUnimplementedMethod();
     return _layoutOrientation;
