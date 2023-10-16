@@ -40,12 +40,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 }
 
 - (void) encodeWithCoder: (NSCoder *) coder {
-    [coder encodeObject: _title forKey: @"NSMenuItem title"];
-    [coder encodeObject: _keyEquivalent forKey: @"NSMenuItem keyEquivalent"];
+    [coder encodeObject: _title forKey: @"NSTitle"];
+    [coder encodeObject: _keyEquivalent forKey: @"NSKeyEquiv"];
     [coder encodeInt: _keyEquivalentModifierMask
-              forKey: @"NSMenuItem keyEquivalentModifierMask"];
-    [coder encodeObject: _submenu forKey: @"NSMenuItem submenu"];
-    [coder encodeInt: _tag forKey: @"NSMenuItem tag"];
+              forKey: @"NSKeyEquivModMask"];
+    [coder encodeObject: _submenu forKey: @"NSSubmenu"];
+    [coder encodeInt: _tag forKey: @"NSTag"];
     [coder encodeObject: NSStringFromSelector(_action) forKey: @"NSAction"];
     [coder encodeObject: _target forKey: @"NSTarget"];
 }
