@@ -347,9 +347,9 @@ static NSMutableArray *_registeredClasses = nil;
     return [NSString
             stringWithFormat:
                     @"<%@[%p] size: { %f, %f } colorSpace: %@ (%dx%d @ "
-                    @"%d bps) alpha: %@ opaque: %@>",
+                    @"%ld bps) alpha: %@ opaque: %@>",
                     [self class], self, _size.width, _size.height,
-                    _colorSpaceName, _pixelsWide, _pixelsHigh, _bitsPerSample,
+                    _colorSpaceName, _pixelsWide, _pixelsHigh, (long) _bitsPerSample,
                     _hasAlpha ? @"YES" : @"NO", _isOpaque ? @"YES" : @"NO"];
 }
 

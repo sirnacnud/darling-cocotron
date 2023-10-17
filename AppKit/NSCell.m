@@ -284,9 +284,9 @@ typedef NS_OPTIONS(unsigned int, NSCellAppleFlags2) {
         if (version < 54)
             [NSException raise: NSInvalidArgumentException
                         format: @"%@ can not initWithCoder:%@ for version %ld",
-                                [self class], [coder class], version];
+                                [self class], [coder class], (long) version];
 
-        NSLog(@"NSCell version is %d\n", version);
+        NSLog(@"NSCell version is %ld\n", (long) version);
         [coder decodeValuesOfObjCTypes: "ii", &flags, &flags2];
 
         /*
@@ -442,7 +442,7 @@ typedef NS_OPTIONS(unsigned int, NSCellAppleFlags2) {
         else
             return 0;
     } else
-        return (abs(_state) > 0) ? 1 : 0;
+        return (ABS(_state) > 0) ? 1 : 0;
 }
 
 - target {
@@ -716,7 +716,7 @@ typedef NS_OPTIONS(unsigned int, NSCellAppleFlags2) {
         else
             _state = 0;
     } else
-        _state = (abs(value) > 0) ? 1 : 0;
+        _state = (ABS(value) > 0) ? 1 : 0;
 }
 
 - (NSControlStateValue) nextState {
@@ -1297,7 +1297,7 @@ static NSString *NSStringFromCellType(NSCellType type) {
     default:
         break;
     }
-    return [NSString stringWithFormat: @"Unknown: %d", type];
+    return [NSString stringWithFormat: @"Unknown: %lu", (unsigned long) type];
 }
 
 - (NSString *) description {

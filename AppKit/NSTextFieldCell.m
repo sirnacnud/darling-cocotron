@@ -67,7 +67,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
                 [[keyed decodeObjectForKey: @"NSPlaceholderString"] retain];
     } else {
         NSInteger version = [coder versionForClassName: @"NSTextFieldCell"];
-        NSLog(@"NSTextFieldCell version is %d\n", version);
+        NSLog(@"NSTextFieldCell version is %ld\n", (long) version);
         if (version > 40) {
             uint8_t flags;
             [coder decodeValuesOfObjCTypes: "c@@", &flags, &_backgroundColor,

@@ -400,8 +400,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
 
     if (column < 0 || column >= [_tableColumns count]) {
         [NSException raise: NSInternalInconsistencyException
-                    format: @"rectOfColumn: invalid index %d (valid {%d, %d})",
-                            column, 0, [_tableColumns count]];
+                    format: @"rectOfColumn: invalid index %ld (valid {%d, %lu})",
+                            (long) column, 0, (unsigned long) [_tableColumns count]];
     }
 
     rect.origin.x = 0.;
@@ -1110,8 +1110,8 @@ static CGFloat rowHeightAtIndex(NSTableView *self, NSInteger index) {
     if ([indexSet firstIndex] != NSNotFound &&
         ([indexSet firstIndex] < 0 || [indexSet lastIndex] >= numberOfRows))
         [NSException raise: NSInternalInconsistencyException
-                    format: @"Index set %@ out of range (valid are 0 to %d).",
-                            indexSet, numberOfRows];
+                    format: @"Index set %@ out of range (valid are 0 to %ld).",
+                            indexSet, (long) numberOfRows];
 
     _rowHeights = realloc(_rowHeights, sizeof(CGFloat) * numberOfRows);
 

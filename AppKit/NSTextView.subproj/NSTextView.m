@@ -1321,7 +1321,7 @@ NSString *const NSAllRomanInputSourcesLocaleIdentifier =
     }
 
     delta -= (upstream ? range.location : NSMaxRange(range));
-    delta = abs(delta);
+    delta = ABS(delta);
 
     if (upstream && range.location > 0) {
         range.location -= delta;

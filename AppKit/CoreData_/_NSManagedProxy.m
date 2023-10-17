@@ -130,7 +130,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
     else
         result = [_fetchRequest _countInContext: _context];
     NSLog(@"%@ being asked about its count and saying %lu; %@ %@\n", self,
-          result, _context, _fetchRequest);
+          (unsigned long) result, _context, _fetchRequest);
     return result;
 }
 

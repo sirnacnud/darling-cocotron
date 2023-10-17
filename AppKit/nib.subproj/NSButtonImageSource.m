@@ -32,7 +32,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
         _imageName = [[keyed decodeObjectForKey: @"NSImageName"] retain];
     } else {
         NSInteger version = [coder versionForClassName: @"NSButtonImageSource"];
-        NSLog(@"NSButtonImageSource version is %d\n", version);
+        NSLog(@"NSButtonImageSource version is %ld\n", (long) version);
 
         if (version == 1) {
             _imageName = [[coder decodeObject] retain];

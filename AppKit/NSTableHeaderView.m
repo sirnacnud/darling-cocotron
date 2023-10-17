@@ -74,9 +74,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
     if (column < 0 || column >= [[_tableView tableColumns] count]) {
         [NSException raise: NSInternalInconsistencyException
-                    format: @"headerRectOfColumn: invalid index %d (valid {%d, "
-                            @"%d})",
-                            column, 0, [tableColumns count]];
+                    format: @"headerRectOfColumn: invalid index %ld (valid {%d, "
+                            @"%lu})",
+                            (long) column, 0, (unsigned long) [tableColumns count]];
     }
 
     headerRect.size.width =

@@ -376,7 +376,7 @@ static NSLock *_cacheLock = nil;
     } else {
         NSInteger version = [coder versionForClassName: @"NSFont"];
 
-        NSLog(@"NSFont version is %d\n", version);
+        NSLog(@"NSFont version is %ld\n", (long) version);
 
         unsigned int fFlags = 0;
         bool f2;

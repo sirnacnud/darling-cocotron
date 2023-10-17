@@ -127,7 +127,7 @@ typedef NSUInteger NSWorkspaceIconCreationOptions;
 - (NSDictionary *) activeApplication;
 - (void) hideOtherApplications;
 
-- (int) extendPowerOffBy: (int) milliseconds;
+- (NSInteger) extendPowerOffBy: (NSInteger) milliseconds;
 
 - (BOOL) setIcon: (NSImage *) image
          forFile: (NSString *) fullPath
