@@ -243,7 +243,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 - (NSString *) description {
     return [NSString
             stringWithFormat:
-                    @"<NSEvent: type=%lu loc=(%f,%f) time=%f flags=0x%X "
+                    @"<NSEvent: type=%lu loc=(%f,%f) time=%f flags=0x%lX "
                     @"win=%p winNum=%lu>",
                     (unsigned long) [self type], [self locationInWindow].x,
                     [self locationInWindow].y, [self timestamp],

@@ -56,8 +56,8 @@ static void *NSMultipleValueBinderWholeArrayChangeContext;
                                   valueForKeyPath: _valueKeyPath]
                   forKey: path];
     } @catch (id e) {
-        NSLog(@"exception %@ while setting value for key path %@ for row %i", e,
-              _valueKeyPath, row);
+        NSLog(@"exception %@ while setting value for key path %@ for row %ld", e,
+              _valueKeyPath, (long) row);
     }
 }
 

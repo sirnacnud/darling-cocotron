@@ -197,7 +197,7 @@ static const CGFloat kImageMargin = 2.;
                                     // in synch with the bare _state of NSCell
     } else {
         NSInteger version = [coder versionForClassName: @"NSButtonCell"];
-        NSLog(@"NSButtonCell version is %d\n", version);
+        NSLog(@"NSButtonCell version is %ld\n", (long) version);
         unichar keyEquivModMask;
         if (version <= 16) {
             if ([(NSUnarchiver *) coder systemVersion] > 82) {

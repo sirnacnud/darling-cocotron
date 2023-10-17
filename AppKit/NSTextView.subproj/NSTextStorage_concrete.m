@@ -69,8 +69,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 {
     NSDictionary *result;
 
-    NSAssert2(location <= [self length], @"index %d beyond length %d", location,
-              [self length]);
+    NSAssert2(location <= [self length], @"index %lu beyond length %lu", (unsigned long) location,
+              (unsigned long) [self length]);
 
     if ((result = NSRangeEntryAtIndex(_rangeToAttributes, location,
                                       effectiveRangep)) == nil)

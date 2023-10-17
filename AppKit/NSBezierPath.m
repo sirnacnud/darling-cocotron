@@ -354,8 +354,8 @@ static void CGPathConverter(void *info, const CGPathElement *element) {
 - (NSBezierPathElement) elementAtIndex: (int) index {
     if (index >= _numberOfElements)
         [NSException raise: NSInvalidArgumentException
-                    format: @"index (%d) >= numberOfElements (%d)", index,
-                            _numberOfElements];
+                    format: @"index (%d) >= numberOfElements (%lu)", index,
+                            (unsigned long) _numberOfElements];
 
     return _elements[index];
 }
@@ -385,8 +385,8 @@ static int numberOfPointsForOperator(int op) {
 
     if (index >= _numberOfElements)
         [NSException raise: NSInvalidArgumentException
-                    format: @"index (%d) >= numberOfElements (%d)", index,
-                            _numberOfElements];
+                    format: @"index (%d) >= numberOfElements (%lu)", index,
+                            (unsigned long) _numberOfElements];
 
     for (i = 0; i < index; i++)
         pi += numberOfPointsForOperator(_elements[i]);
@@ -1037,8 +1037,8 @@ static inline CGFloat degreesToRadians(CGFloat degrees) {
 
     if (index >= _numberOfElements)
         [NSException raise: NSInvalidArgumentException
-                    format: @"index (%d) >= numberOfElements (%d)", index,
-                            _numberOfElements];
+                    format: @"index (%d) >= numberOfElements (%lu)", index,
+                            (unsigned long) _numberOfElements];
 
     for (i = 0; i < index; i++)
         pi += numberOfPointsForOperator(_elements[i]);

@@ -245,7 +245,7 @@
     [NSApp hideOtherApplications: self];
 }
 
-- (int) extendPowerOffBy: (int) milliseconds {
+- (NSInteger) extendPowerOffBy: (NSInteger) milliseconds {
     return 0;
 }
 

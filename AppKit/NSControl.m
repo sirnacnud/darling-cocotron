@@ -95,7 +95,7 @@ static NSMutableDictionary *cellClassDictionary = nil;
         [_aux setTarget: [keyed decodeObjectForKey: @"NSControlTarget"]];
     } else {
         NSInteger version = [coder versionForClassName: @"NSControl"];
-        NSLog(@"NSControl version is %d\n", version);
+        NSLog(@"NSControl version is %ld\n", (long) version);
 
         if (version <= 16) {
             NSInteger tag;

@@ -226,9 +226,9 @@ static void drawRoundedSelection(NSRect rect) {
                                                     fromDate: [self dateValue]];
 
         NSString *month =
-                [NSString stringWithFormat: @"%d", [components month]];
-        NSString *day = [NSString stringWithFormat: @"%d", [components day]];
-        NSString *year = [NSString stringWithFormat: @"%d", [components year]];
+                [NSString stringWithFormat: @"%ld", (long) [components month]];
+        NSString *day = [NSString stringWithFormat: @"%ld", (long) [components day]];
+        NSString *year = [NSString stringWithFormat: @"%ld", (long) [components year]];
 
         [attributes
                 setObject: [NSNumber numberWithUnsignedInteger: [components

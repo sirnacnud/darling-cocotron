@@ -287,7 +287,7 @@ typedef struct __VFlags {
                         format: @"%@ can not initWithCoder:%@", [self class],
                                 [coder class]];
 
-        NSLog(@"NSView version is %d\n", version);
+        NSLog(@"NSView version is %ld\n", (long) version);
 
         union {
             _VFlags vf;
@@ -295,7 +295,7 @@ typedef struct __VFlags {
         } vflags;
 
         vflags.value = 0;
-        NSLog(@"NSView version is %d\n", version);
+        NSLog(@"NSView version is %ld\n", (long) version);
 
         if (version <= 16) {
             float dummy;
