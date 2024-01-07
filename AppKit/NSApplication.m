@@ -80,6 +80,9 @@ const NSNotificationName NSApplicationWillTerminateNotification =
 const NSNotificationName NSApplicationDidChangeScreenParametersNotification =
         @"NSApplicationDidChangeScreenParametersNotification";
 
+NSString *const NSApplicationLaunchUserNotificationKey =
+        @"NSApplicationLaunchUserNotificationKey";
+
 const NSAppKitVersion NSAppKitVersionNumber = 1504; // macOS 10.12
 
 NSApplication *NSApp = nil;
