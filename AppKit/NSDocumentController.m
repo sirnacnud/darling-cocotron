@@ -185,8 +185,7 @@ static NSDocumentController *shared = nil;
         }
     }
 
-    return (result == nil) ? [_NSUnsupportedDocument class]
-                           : NSClassFromString(result);
+    return (result == nil) ? nil : NSClassFromString(result);
 }
 
 - (NSArray *) fileExtensionsFromType: (NSString *) type {
