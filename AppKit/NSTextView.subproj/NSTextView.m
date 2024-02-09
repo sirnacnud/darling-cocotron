@@ -164,6 +164,7 @@ NSString *const NSAllRomanInputSourcesLocaleIdentifier =
     [_typingAttributes release];
     _typingAttributes = typingAttributes;
 
+    [_defaultParagraphStyle release];
     if ([typingAttributes objectForKey: NSParagraphStyleAttributeName]) {
         _defaultParagraphStyle = [[typingAttributes
                 objectForKey: NSParagraphStyleAttributeName] copy];
