@@ -451,6 +451,7 @@ set(AppKit_sources
 	NSSwitch.m
 	NSTextFinder.m
 	NSScrubber.m
+	NSScrubberItemView.m
 	NSUserInterfaceItemIdentification.m
 )
 
