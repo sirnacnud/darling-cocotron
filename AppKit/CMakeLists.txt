@@ -395,6 +395,7 @@ set(AppKit_sources
 	NSAppearance.m
 	NSAccessibilityElement.m
 	NSKeyValueBinding.m
+	NSCandidateListTouchBarItem.m
 	NSCollectionViewFlowLayout.m
 	NSTouchBarItem.m
 	NSLayoutConstraint.m

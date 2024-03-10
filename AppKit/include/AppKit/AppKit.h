@@ -39,6 +39,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSButtonCell.h>
 #import <AppKit/NSCIImageRep.h>
 #import <AppKit/NSCachedImageRep.h>
+#import <AppKit/NSCandidateListTouchBarItem.h>
 #import <AppKit/NSCell.h>
 #import <AppKit/NSClickGestureRecognizer.h>
 #import <AppKit/NSClipView.h>
