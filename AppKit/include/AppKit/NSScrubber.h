@@ -30,3 +30,6 @@
 
 @interface NSScrubberProportionalLayout : NSScrubberLayout
 @end
+
+@interface NSScrubberSelectionStyle : NSObject <NSCoding>
+@end
