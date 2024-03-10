@@ -71,6 +71,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSEvent.h>
 #import <AppKit/NSFileWrapperExtensions.h>
 #import <AppKit/NSFont.h>
+#import <AppKit/NSFontCollection.h>
 #import <AppKit/NSFontDescriptor.h>
 #import <AppKit/NSFontManager.h>
 #import <AppKit/NSFontPanel.h>
