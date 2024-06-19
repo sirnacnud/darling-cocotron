@@ -292,6 +292,7 @@ set(AppKit_sources
 	NSPrintProgressPanelController.m
 	NSHelpManager.m
 	NSProgressIndicator.m
+	NSFontCollection.m
 	NSFontDescriptor.m
 	NSDisplay.m
 
@@ -394,6 +395,7 @@ set(AppKit_sources
 	NSAppearance.m
 	NSAccessibilityElement.m
 	NSKeyValueBinding.m
+	NSCandidateListTouchBarItem.m
 	NSCollectionViewFlowLayout.m
 	NSTouchBarItem.m
 	NSLayoutConstraint.m
@@ -449,6 +451,7 @@ set(AppKit_sources
 	NSSwitch.m
 	NSTextFinder.m
 	NSScrubber.m
+	NSScrubberItemView.m
 	NSUserInterfaceItemIdentification.m
 )
 
