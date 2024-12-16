@@ -535,7 +535,8 @@ NSString *const IBCocoaFramework = @"IBCocoaFramework";
         id formerOwner = [_fileOwner autorelease];
         _fileOwner = [owner retain];
 
-        for (id aKey in _objectTable) {
+        NSArray *keys = NSAllMapTableKeys(_objectTable);
+        for (id aKey in keys) {
             id aValue = [_objectTable objectForKey: aKey];
             if (aValue == formerOwner) {
                 [_objectTable setObject: _fileOwner forKey: aKey];
