@@ -369,7 +369,7 @@ typedef struct __VFlags {
             float bx, by, bw, bh;
             [coder decodeValuesOfObjCTypes: "@@@@ffffffff", &_subviews,
                                             &drawMatrix, &frameMatrix, &_draggedTypes,
-                                            &fx, &fy, &fw, &fh, &bx, &by, &bx,
+                                            &fx, &fy, &fw, &fh, &bx, &by, &bw,
                                             &bh];
 
             // Discard for now
