@@ -302,6 +302,7 @@ set(AppKit_sources
 	# NSOpenGL/NSOpenGLDrawable.m
 	NSOpenGL/NSOpenGLContext.m
 
+	NSMenuItemCell.m
 	NSPopUpButtonCell.m
 	NSPredicateEditor.m
 	NSFont.m
