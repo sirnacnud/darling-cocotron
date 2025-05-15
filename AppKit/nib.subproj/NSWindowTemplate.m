@@ -165,27 +165,28 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
                 [self _NXReadWindowSizeLimits: coder sizeOne: nil sizeTwo: &_maxSize];
             }
-
-            // Apple's AppKit can have maxSize as 0,0 when initWithCoder finishes,
-            // but this causes problems with our implemenationm, so we set it to biggest possible
-            if (CGSizeEqualToSize(_maxSize, CGSizeZero)) {
-                _maxSize.width = FLT_MAX;
-                _maxSize.height = FLT_MAX;
-            }
         } else {
             [NSException raise: NSInvalidArgumentException
                     format: @"%@ can not initWithCoder:%@", [self class],
                             [coder class]];
         }
-
-        if ([NSScreen mainScreen])
-            windowRect.origin.y -= screenRect.size.height -
-                                    [[NSScreen mainScreen] frame].size.height;
-        if ([NSClassFromString(_windowClass)
-                    hasMainMenuForStyleMask: _windowStyleMask])
-            windowRect.origin.y -= [NSMainMenuView
-                    menuHeight]; // compensation for the additional menu bar
     }
+
+    // Apple's AppKit can have maxSize as 0,0 when initWithCoder finishes,
+    // but this causes problems with our implemenationm, so we set it to biggest possible
+    if (CGSizeEqualToSize(_maxSize, CGSizeZero)) {
+        _maxSize.width = FLT_MAX;
+        _maxSize.height = FLT_MAX;
+    }
+
+    if ([NSScreen mainScreen])
+        windowRect.origin.y -= screenRect.size.height -
+                                [[NSScreen mainScreen] frame].size.height;
+    if ([NSClassFromString(_windowClass)
+                hasMainMenuForStyleMask: _windowStyleMask])
+        windowRect.origin.y -= [NSMainMenuView
+                menuHeight]; // compensation for the additional menu bar
+
     return self;
 }
 
