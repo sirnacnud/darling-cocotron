@@ -33,3 +33,5 @@ const CFStringRef kCTVerticalFormsAttributeName = CFSTR("CTVerticalFormsAttribut
 const CFStringRef kCTFontWeightTrait = CFSTR("NSCTFontWeightTrait");
 const CFStringRef kCTFontWidthTrait = CFSTR("NSCTFontWidthTrait");
 const CFStringRef kCTFontSlantTrait = CFSTR("NSCTFontSlantTrait");
+const CFStringRef kCTFontOpenTypeFeatureTag = CFSTR("CTFeatureOpenTypeTag");
+const CFStringRef kCTFontOpenTypeFeatureValue = CFSTR("CTFeatureOpenTypeValue");
