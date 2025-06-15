@@ -16,33 +16,33 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+
 #import <AppKit/NSFontDescriptor.h>
 #import <AppKit/NSRaise.h>
 #import <Foundation/NSDictionary.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-NSString *const NSFontNameAttribute = @"NSFontNameAttribute";
-NSString *const NSFontFamilyAttribute = @"NSFontFamilyAttribute";
-NSString *const NSFontSizeAttribute = @"NSFontSizeAttribute";
-NSString *const NSFontMatrixAttribute = @"NSFontMatrixAttribute";
-NSString *const NSFontCharacterSetAttribute = @"NSFontCharacterSetAttribute";
-NSString *const NSFontTraitsAttribute = @"NSFontTraitsAttribute";
-NSString *const NSFontFaceAttribute = @"NSFontFaceAttribute";
-NSString *const NSFontFixedAdvanceAttribute = @"NSFontFixedAdvanceAttribute";
-NSString *const NSFontVisibleNameAttribute = @"NSFontVisibleNameAttribute";
-NSString *const NSFontCascadeListAttribute = @"NSCTFontCascadeListAttribute";
-NSString *const NSFontFeatureSettingsAttribute =
-        @"NSCTFontFeatureSettingsAttribute";
-NSString *const NSFontVariationAttribute = @"NSCTFontVariationAttribute";
+NSFontDescriptorAttributeName NSFontFamilyAttribute = @"NSFontFamilyAttribute";
+NSFontDescriptorAttributeName NSFontNameAttribute = @"NSFontNameAttribute";
+NSFontDescriptorAttributeName NSFontFaceAttribute = @"NSFontFaceAttribute";
+NSFontDescriptorAttributeName NSFontSizeAttribute = @"NSFontSizeAttribute";
+NSFontDescriptorAttributeName NSFontVisibleNameAttribute = @"NSFontVisibleNameAttribute";
+NSFontDescriptorAttributeName NSFontMatrixAttribute = @"NSFontMatrixAttribute";
+NSFontDescriptorAttributeName NSFontVariationAttribute = @"NSCTFontVariationAttribute";
+NSFontDescriptorAttributeName NSFontCharacterSetAttribute = @"NSCTFontCharacterSetAttribute";
+NSFontDescriptorAttributeName NSFontCascadeListAttribute = @"NSCTFontCascadeListAttribute";
+NSFontDescriptorAttributeName NSFontTraitsAttribute = @"NSCTFontTraitsAttribute";
+NSFontDescriptorAttributeName NSFontFixedAdvanceAttribute = @"NSCTFontFixedAdvanceAttribute";
+NSFontDescriptorAttributeName NSFontFeatureSettingsAttribute = @"NSCTFontFeatureSettingsAttribute";
 
-NSString *const NSFontSymbolicTrait = @"NSFontSymbolicTrait";
-NSString *const NSFontWeightTrait = @"NSFontWeightTrait";
-NSString *const NSFontWidthTrait = @"NSFontWidthTrait";
-NSString *const NSFontSlantTrait = @"NSFontSlantTrait";
+NSFontDescriptorFeatureKey NSFontFeatureSelectorIdentifierKey = @"CTFeatureSelectorIdentifier";
+NSFontDescriptorFeatureKey NSFontFeatureTypeIdentifierKey = @"CTFeatureTypeIdentifier";
 
-NSString *const NSFontFeatureSelectorIdentifierKey = @"CTFeatureSelectorIdentifier";
-NSString *const NSFontFeatureTypeIdentifierKey = @"CTFeatureTypeIdentifier";
+NSFontDescriptorTraitKey NSFontSymbolicTrait = @"NSCTFontSymbolicTrait";
+NSFontDescriptorTraitKey NSFontWeightTrait = @"NSCTFontWeightTrait";
+NSFontDescriptorTraitKey NSFontWidthTrait = @"NSCTFontProportionTrait";
+NSFontDescriptorTraitKey NSFontSlantTrait = @"NSCTFontSlantTrait";
 
 const NSFontWeight NSFontWeightThin = 0xbfe3333340000000;
 const NSFontWeight NSFontWeightLight = 0xbfd99999a0000000;

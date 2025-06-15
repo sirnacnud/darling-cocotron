@@ -24,46 +24,38 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <Foundation/NSThread.h>
 #import <Foundation/NSValue.h>
 
-NSString *const NSPrintPrinter = @"NSPrintPrinter";
-NSString *const NSPrintPrinterName = @"NSPrintPrinterName";
-NSString *const NSPrintJobDisposition = @"NSPrintJobDisposition";
-NSString *const NSPrintDetailedErrorReporting =
-        @"NSPrintDetailedErrorReporting";
+NSPrintInfoAttributeKey const NSPrintPaperName = @"NSPaperName";
+NSPrintInfoAttributeKey const NSPrintPaperSize = @"NSPaperSize";
+NSPrintInfoAttributeKey const NSPrintOrientation = @"NSOrientation";
 
-NSString *const NSPrintSpoolJob = @"NSPrintSpoolJob";
-NSString *const NSPrintPreviewJob = @"NSPrintPreviewJob";
-NSString *const NSPrintSaveJob = @"NSPrintSaveJob";
-NSString *const NSPrintCancelJob = @"NSPrintCancelJob";
+NSPrintInfoAttributeKey const NSPrintLeftMargin = @"NSLeftMargin";
+NSPrintInfoAttributeKey const NSPrintRightMargin = @"NSRightMargin";
+NSPrintInfoAttributeKey const NSPrintTopMargin = @"NSTopMargin";
+NSPrintInfoAttributeKey const NSPrintBottomMargin = @"NSBottomMargin";
+NSPrintInfoAttributeKey const NSPrintHorizontallyCentered = @"NSHorizontallyCentered";
+NSPrintInfoAttributeKey const NSPrintVerticallyCentered = @"NSVerticallyCentered";
+NSPrintInfoAttributeKey const NSPrintHorizontalPagination = @"NSHorizonalPagination";
+NSPrintInfoAttributeKey const NSPrintVerticalPagination = @"NSVerticalPagination";
+
+NSPrintInfoAttributeKey const NSPrintAllPages = @"NSPrintAllPages";
+NSPrintInfoAttributeKey const NSPrintCopies = @"NSCopies";
+NSPrintInfoAttributeKey const NSPrintDetailedErrorReporting = @"NSDetailedErrorReporting";
+NSPrintInfoAttributeKey const NSPrintFirstPage = @"NSFirstPage";
+NSPrintInfoAttributeKey const NSPrintHeaderAndFooter = @"NSPrintHeaderAndFooter";
+NSPrintInfoAttributeKey const NSPrintJobDisposition = @"NSJobDisposition";
+NSPrintInfoAttributeKey const NSPrintJobSavingURL = @"NSJobSavingURL";
+NSPrintInfoAttributeKey const NSPrintLastPage = @"NSLastPage";
+NSPrintInfoAttributeKey const NSPrintMustCollate = @"NSMustCollate";
+NSPrintInfoAttributeKey const NSPrintPrinter = @"NSPrinter";
+NSPrintInfoAttributeKey const NSPrintPrinterName = @"NSPrinterName";
+NSPrintInfoAttributeKey const NSPrintSelectionOnly = @"NSPrintSelectionOnly";
+
+NSPrintJobDispositionValue const NSPrintSpoolJob = @"NSPrintSpoolJob";
+NSPrintJobDispositionValue const NSPrintPreviewJob = @"NSPrintPreviewJob";
+NSPrintJobDispositionValue const NSPrintSaveJob = @"NSPrintSaveJob";
+NSPrintJobDispositionValue const NSPrintCancelJob = @"NSPrintCancelJob";
 
 NSString *const NSPrintSavePath = @"NSPrintSavePath";
-
-NSString *const NSPrintCopies = @"NSPrintCopies";
-NSString *const NSPrintAllPages = @"NSPrintAllPages";
-NSString *const NSPrintFirstPage = @"NSPrintFirstPage";
-NSString *const NSPrintLastPage = @"NSPrintLastPage";
-
-NSString *const NSPrintPaperName = @"NSPrintPaperName";
-NSString *const NSPrintPaperSize = @"NSPrintPaperSize";
-NSString *const NSPrintOrientation = @"NSPrintOrientation";
-
-NSString *const NSPrintHorizontalPagination = @"NSPrintHorizontalPagination";
-NSString *const NSPrintVerticalPagination = @"NSPrintVerticalPagination";
-
-NSString *const NSPrintTopMargin = @"NSPrintTopMargin";
-NSString *const NSPrintBottomMargin = @"NSPrintBottomMargin";
-NSString *const NSPrintLeftMargin = @"NSPrintLeftMargin";
-NSString *const NSPrintRightMargin = @"NSPrintRightMargin";
-NSString *const NSPrintHorizontallyCentered = @"NSPrintHorizontallyCentered";
-NSString *const NSPrintVerticallyCentered = @"NSPrintVerticallyCentered";
-
-NSString *const NSPrintHeaderAndFooter = @"NSPrintHeaderAndFooter";
-NSString *const NSPrintMustCollate = @"NSPrintMustCollate";
-NSString *const NSPrintSelectionOnly = @"NSPrintSelectionOnly";
-
-const NSPrintingPaginationMode NSFitPagination = NSPrintingPaginationModeFit;
-const NSPrintingPaginationMode NSAutoPagination =
-        NSPrintingPaginationModeAutomatic;
-const NSPrintingPaginationMode NSClipPagination = NSPrintingPaginationModeClip;
 
 @implementation NSPrintInfo
 
