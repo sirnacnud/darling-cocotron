@@ -25,6 +25,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @protocol NSMenuDelegate;
 
+APPKIT_EXPORT const NSNotificationName NSMenuWillSendActionNotification;
+APPKIT_EXPORT const NSNotificationName NSMenuDidSendActionNotification;
 APPKIT_EXPORT const NSNotificationName NSMenuDidBeginTrackingNotification;
 APPKIT_EXPORT const NSNotificationName NSMenuDidEndTrackingNotification;
 
