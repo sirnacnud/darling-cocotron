@@ -32,6 +32,8 @@ NSString *const NSContentSetBinding = @"contentSet";
 NSString *const NSContentValuesBinding = @"contentValues";
 NSString *const NSDoubleClickTargetBinding = @"doubleClickTarget";
 NSString *const NSEnabledBinding = @"enabled";
+NSString *const NSFontBoldBinding = @"fontBold";
+NSString *const NSFontItalicBinding = @"fontItalic";
 NSString *const NSHiddenBinding = @"hidden";
 NSString *const NSImageBinding = @"image";
 NSString *const NSInsertsNullPlaceholderBindingOption =
@@ -40,6 +42,7 @@ NSString *const NSSelectedIndexBinding = @"selectedIndex";
 NSString *const NSSelectedObjectBinding = @"selectedObject";
 NSString *const NSSelectedObjectsBinding = @"selectedObjects";
 NSString *const NSSelectedTagBinding = @"selectedTag";
+NSString *const NSSelectedValueBinding = @"selectedValue";
 NSString *const NSSelectionIndexesBinding = @"selectionIndexes";
 NSString *const NSTitleBinding = @"title";
 NSString *const NSValidatesImmediatelyBindingOption = @"NSValidatesImmediately";
@@ -55,6 +58,7 @@ NSString *const NSNoSelectionPlaceholderBindingOption =
         @"NSNoSelectionPlaceholder";
 NSString *const NSMultipleValuesPlaceholderBindingOption =
         @"NSMultipleValuesPlaceholder";
+NSString *const NSPredicateFormatBindingOption = @"NSPredicateFormat";
 NSString *const NSCreatesSortDescriptorBindingOption =
         @"NSCreatesSortDescriptors";
 NSString *const NSRaisesForNotApplicableKeysBindingOption =
