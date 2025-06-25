@@ -16,30 +16,39 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+
 #import <AppKit/AppKitExport.h>
 #import <Foundation/NSObject.h>
 
 @class NSDictionary, NSAffineTransform, NSArray, NSSet;
 
-APPKIT_EXPORT NSString *const NSFontNameAttribute;
-APPKIT_EXPORT NSString *const NSFontFamilyAttribute;
-APPKIT_EXPORT NSString *const NSFontSizeAttribute;
-APPKIT_EXPORT NSString *const NSFontMatrixAttribute;
-APPKIT_EXPORT NSString *const NSFontCharacterSetAttribute;
-APPKIT_EXPORT NSString *const NSFontTraitsAttribute;
-APPKIT_EXPORT NSString *const NSFontFaceAttribute;
-APPKIT_EXPORT NSString *const NSFontFixedAdvanceAttribute;
-APPKIT_EXPORT NSString *const NSFontVisibleNameAttribute;
-APPKIT_EXPORT NSString *const NSFontCascadeListAttribute;
-APPKIT_EXPORT NSString *const NSFontFeatureSettingsAttribute;
-APPKIT_EXPORT NSString *const NSFontVariationAttribute;
+typedef NSString *NSFontDescriptorAttributeName;
+
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontFamilyAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontNameAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontFaceAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontSizeAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontVisibleNameAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontMatrixAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontVariationAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontCharacterSetAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontCascadeListAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontTraitsAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontFixedAdvanceAttribute;
+APPKIT_EXPORT NSFontDescriptorAttributeName NSFontFeatureSettingsAttribute;
+
+typedef NSString *NSFontDescriptorFeatureKey;
+
+APPKIT_EXPORT NSFontDescriptorFeatureKey NSFontFeatureTypeIdentifierKey;
+APPKIT_EXPORT NSFontDescriptorFeatureKey NSFontFeatureSelectorIdentifierKey;
 
 typedef unsigned NSFontSymbolicTraits;
+typedef NSString *NSFontDescriptorTraitKey;
 
-APPKIT_EXPORT NSString *const NSFontSymbolicTrait;
-APPKIT_EXPORT NSString *const NSFontWeightTrait;
-APPKIT_EXPORT NSString *const NSFontWidthTrait;
-APPKIT_EXPORT NSString *const NSFontSlantTrait;
+APPKIT_EXPORT NSFontDescriptorTraitKey NSFontSymbolicTrait;
+APPKIT_EXPORT NSFontDescriptorTraitKey NSFontWeightTrait;
+APPKIT_EXPORT NSFontDescriptorTraitKey NSFontWidthTrait;
+APPKIT_EXPORT NSFontDescriptorTraitKey NSFontSlantTrait;
 
 typedef CGFloat NSFontWeight;
 

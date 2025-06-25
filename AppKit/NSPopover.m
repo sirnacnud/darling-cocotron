@@ -1,12 +1,9 @@
 #import <Foundation/NSObject.h>
 
-// DUMMY
-const NSString *NSPopoverDidCloseNotification =
-        @"NSPopoverDidCloseNotification";
-const NSString *NSPopoverWillCloseNotification =
-        @"NSPopoverWillCloseNotification";
-const NSString *NSPopoverDidShowNotification =
-        @"NSPopoverDidShowNotification";
+NSNotificationName const NSPopoverDidCloseNotification = @"NSPopoverDidCloseNotification";
+NSNotificationName const NSPopoverWillCloseNotification = @"NSPopoverWillCloseNotification";
+NSNotificationName const NSPopoverWillShowNotification = @"NSPopoverWillShowNotification";
+NSNotificationName const NSPopoverDidShowNotification = @"NSPopoverDidShowNotification";
 
 @interface NSPopover : NSObject
 @end
