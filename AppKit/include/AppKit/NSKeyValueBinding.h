@@ -21,52 +21,49 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
 
-APPKIT_EXPORT NSString *const NSObservedObjectKey;
-APPKIT_EXPORT NSString *const NSObservedKeyPathKey;
-APPKIT_EXPORT NSString *const NSOptionsKey;
+typedef NSString* NSBindingName NS_TYPED_EXTENSIBLE_ENUM;
+typedef NSString* NSBindingOption NS_TYPED_ENUM;
 
-APPKIT_EXPORT NSString *const NSAnimateBinding;
-APPKIT_EXPORT NSString *const NSContentArrayBinding;
-APPKIT_EXPORT NSString *const NSContentBinding;
-APPKIT_EXPORT NSString *const NSContentObjectBinding;
-APPKIT_EXPORT NSString *const NSContentObjectsBinding;
-APPKIT_EXPORT NSString *const NSContentSetBinding;
-APPKIT_EXPORT NSString *const NSContentValuesBinding;
-APPKIT_EXPORT NSString *const NSDoubleClickTargetBinding;
-APPKIT_EXPORT NSString *const NSEnabledBinding;
-APPKIT_EXPORT NSString *const NSFontBoldBinding;
-APPKIT_EXPORT NSString *const NSFontItalicBinding;
-APPKIT_EXPORT NSString *const NSHiddenBinding;
-APPKIT_EXPORT NSString *const NSImageBinding;
-APPKIT_EXPORT NSString *const NSInsertsNullPlaceholderBindingOption;
-APPKIT_EXPORT NSString *const NSSelectedIndexBinding;
-APPKIT_EXPORT NSString *const NSSelectedObjectBinding;
-APPKIT_EXPORT NSString *const NSSelectedObjectsBinding;
-APPKIT_EXPORT NSString *const NSSelectedTagBinding;
-APPKIT_EXPORT NSString *const NSSelectedValueBinding;
-APPKIT_EXPORT NSString *const NSSelectionIndexesBinding;
-APPKIT_EXPORT NSString *const NSTitleBinding;
-APPKIT_EXPORT NSString *const NSValidatesImmediatelyBindingOption;
-APPKIT_EXPORT NSString *const NSValueBinding;
-APPKIT_EXPORT NSString *const NSVisibleBinding;
-APPKIT_EXPORT NSString *const NSToolTipBinding;
-APPKIT_EXPORT NSString *const NSEditableBinding;
-APPKIT_EXPORT NSString *const NSNotApplicablePlaceholderBindingOption;
+typedef NSString* NSBindingInfoKey NS_TYPED_ENUM;
+APPKIT_EXPORT NSBindingInfoKey NSObservedObjectKey;
+APPKIT_EXPORT NSBindingInfoKey NSObservedKeyPathKey;
+APPKIT_EXPORT NSBindingInfoKey NSOptionsKey;
 
-APPKIT_EXPORT NSString *const NSNullPlaceholderBindingOption;
-APPKIT_EXPORT NSString *const NSNoSelectionPlaceholderBindingOption;
-APPKIT_EXPORT NSString *const NSMultipleValuesPlaceholderBindingOption;
-APPKIT_EXPORT NSString *const NSPredicateFormatBindingOption;
-APPKIT_EXPORT NSString *const NSCreatesSortDescriptorBindingOption;
-APPKIT_EXPORT NSString *const NSRaisesForNotApplicableKeysBindingOption;
-APPKIT_EXPORT NSString
-        *const NSAllowsEditingMultipleValuesSelectionBindingOption;
-APPKIT_EXPORT NSString *const NSValueTransformerNameBindingOption;
-APPKIT_EXPORT NSString *const NSValueTransformerBindingOption;
-APPKIT_EXPORT NSString *const NSConditionallySetsEnabledBindingOption;
-APPKIT_EXPORT NSString *const NSConditionallySetsEditableBindingOption;
-APPKIT_EXPORT NSString *const NSContinuouslyUpdatesValueBindingOption;
-APPKIT_EXPORT NSString *const NSDisplayPatternBindingOption;
+APPKIT_EXPORT NSBindingName NSAnimateBinding;
+APPKIT_EXPORT NSBindingName NSContentArrayBinding;
+APPKIT_EXPORT NSBindingName NSContentBinding;
+APPKIT_EXPORT NSBindingName NSContentObjectBinding;
+APPKIT_EXPORT NSBindingName NSContentObjectsBinding;
+APPKIT_EXPORT NSBindingName NSContentSetBinding;
+APPKIT_EXPORT NSBindingName NSContentValuesBinding;
+APPKIT_EXPORT NSBindingName NSDoubleClickTargetBinding;
+APPKIT_EXPORT NSBindingName NSEnabledBinding;
+APPKIT_EXPORT NSBindingName NSFontBoldBinding;
+APPKIT_EXPORT NSBindingName NSFontItalicBinding;
+APPKIT_EXPORT NSBindingName NSHiddenBinding;
+APPKIT_EXPORT NSBindingName NSImageBinding;
+APPKIT_EXPORT NSBindingOption NSInsertsNullPlaceholderBindingOption;
+APPKIT_EXPORT NSBindingName NSSelectedIndexBinding;
+APPKIT_EXPORT NSBindingName NSSelectedObjectBinding;
+APPKIT_EXPORT NSBindingName NSSelectedObjectsBinding;
+APPKIT_EXPORT NSBindingName NSSelectedTagBinding;
+APPKIT_EXPORT NSBindingName NSSelectedValueBinding;
+APPKIT_EXPORT NSBindingName NSSelectionIndexesBinding;
+APPKIT_EXPORT NSBindingName NSTitleBinding;
+APPKIT_EXPORT NSBindingOption NSValidatesImmediatelyBindingOption;
+APPKIT_EXPORT NSBindingName NSValueBinding;
+APPKIT_EXPORT NSBindingName NSVisibleBinding;
+APPKIT_EXPORT NSBindingName NSToolTipBinding;
+APPKIT_EXPORT NSBindingName NSEditableBinding;
+APPKIT_EXPORT NSBindingOption NSNotApplicablePlaceholderBindingOption;
+
+APPKIT_EXPORT NSBindingOption NSAllowsEditingMultipleValuesSelectionBindingOption;
+APPKIT_EXPORT NSBindingOption NSValueTransformerNameBindingOption;
+APPKIT_EXPORT NSBindingOption NSValueTransformerBindingOption;
+APPKIT_EXPORT NSBindingOption NSConditionallySetsEnabledBindingOption;
+APPKIT_EXPORT NSBindingOption NSConditionallySetsEditableBindingOption;
+APPKIT_EXPORT NSBindingOption NSContinuouslyUpdatesValueBindingOption;
+APPKIT_EXPORT NSBindingOption NSDisplayPatternBindingOption;
 
 @interface NSObject (NSKeyValueBindingCreation)
 
