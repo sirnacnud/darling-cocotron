@@ -52,7 +52,7 @@ NSBindingOption NSAllowsEditingMultipleValuesSelectionBindingOption = @"NSAllows
 NSBindingOption NSConditionallySetsEnabledBindingOption = @"NSConditionallySetsEnabled";
 NSBindingOption NSConditionallySetsEditableBindingOption = @"NSConditionallySetsEditable";
 NSBindingOption NSContinuouslyUpdatesValueBindingOption = @"NSContinuouslyUpdatesValue";
-NSBindingOption NSCreatesSortDescriptorBindingOption = @"NSCreatesSortDescriptors";
+NSBindingOption NSCreatesSortDescriptorBindingOption = @"NSCreatesSortDescriptor";
 NSBindingOption NSDisplayPatternBindingOption = @"NSDisplayPattern";
 NSBindingOption NSInsertsNullPlaceholderBindingOption = @"NSInsertsNullPlaceholder";
 NSBindingOption NSMultipleValuesPlaceholderBindingOption = @"NSMultipleValuesPlaceholder";
@@ -62,7 +62,7 @@ NSBindingOption NSNullPlaceholderBindingOption = @"NSNullPlaceholder";
 NSBindingOption NSPredicateFormatBindingOption = @"NSPredicateFormat";
 NSBindingOption NSRaisesForNotApplicableKeysBindingOption = @"NSRaisesForNotApplicableKeys";
 NSBindingOption NSValidatesImmediatelyBindingOption = @"NSValidatesImmediately";
-NSBindingOption NSValueTransformerBindingOption = @"NSValueTransformerBinding";
+NSBindingOption NSValueTransformerBindingOption = @"NSValueTransformer";
 NSBindingOption NSValueTransformerNameBindingOption = @"NSValueTransformerName";
 
 // TODO: actually implement this stuff
