@@ -48,29 +48,19 @@ NSBindingName NSToolTipBinding = @"toolTip";
 NSBindingName NSValueBinding = @"value";
 NSBindingName NSVisibleBinding = @"visible";
 
-NSBindingOption NSAllowsEditingMultipleValuesSelectionBindingOption =
-        @"NSAllowsEditingMultipleValuesSelection";
-NSBindingOption NSConditionallySetsEnabledBindingOption =
-        @"NSConditionallySetsEnabled";
-NSBindingOption NSConditionallySetsEditableBindingOption =
-        @"NSConditionallySetsEditable";
-NSBindingOption NSContinuouslyUpdatesValueBindingOption =
-        @"NSContinuouslyUpdatesValue";
-NSBindingOption NSCreatesSortDescriptorBindingOption =
-        @"NSCreatesSortDescriptors";
+NSBindingOption NSAllowsEditingMultipleValuesSelectionBindingOption = @"NSAllowsEditingMultipleValuesSelection";
+NSBindingOption NSConditionallySetsEnabledBindingOption = @"NSConditionallySetsEnabled";
+NSBindingOption NSConditionallySetsEditableBindingOption = @"NSConditionallySetsEditable";
+NSBindingOption NSContinuouslyUpdatesValueBindingOption = @"NSContinuouslyUpdatesValue";
+NSBindingOption NSCreatesSortDescriptorBindingOption = @"NSCreatesSortDescriptors";
 NSBindingOption NSDisplayPatternBindingOption = @"NSDisplayPattern";
-NSBindingOption NSInsertsNullPlaceholderBindingOption =
-        @"NSInsertsNullPlaceholder";
-NSBindingOption NSMultipleValuesPlaceholderBindingOption =
-        @"NSMultipleValuesPlaceholder";
-NSBindingOption NSNoSelectionPlaceholderBindingOption =
-        @"NSNoSelectionPlaceholder";
-NSBindingOption NSNotApplicablePlaceholderBindingOption =
-        @"NSNotApplicablePlaceholder";
+NSBindingOption NSInsertsNullPlaceholderBindingOption = @"NSInsertsNullPlaceholder";
+NSBindingOption NSMultipleValuesPlaceholderBindingOption = @"NSMultipleValuesPlaceholder";
+NSBindingOption NSNoSelectionPlaceholderBindingOption = @"NSNoSelectionPlaceholder";
+NSBindingOption NSNotApplicablePlaceholderBindingOption = @"NSNotApplicablePlaceholder";
 NSBindingOption NSNullPlaceholderBindingOption = @"NSNullPlaceholder";
 NSBindingOption NSPredicateFormatBindingOption = @"NSPredicateFormat";
-NSBindingOption NSRaisesForNotApplicableKeysBindingOption =
-        @"NSRaisesForNotApplicableKeys";
+NSBindingOption NSRaisesForNotApplicableKeysBindingOption = @"NSRaisesForNotApplicableKeys";
 NSBindingOption NSValidatesImmediatelyBindingOption = @"NSValidatesImmediately";
 NSBindingOption NSValueTransformerBindingOption = @"NSValueTransformerBinding";
 NSBindingOption NSValueTransformerNameBindingOption = @"NSValueTransformerName";
