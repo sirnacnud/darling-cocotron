@@ -28,8 +28,10 @@ set(CoreData_sources
     NSAtomicStore.m
     NSAttributeDescription.m
     NSEntityDescription.m
+    NSEntityMapping.m
     NSFetchedPropertyDescription.m
     NSFetchRequest.m
+    NSFetchRequestExpression.m
     NSInMemoryPersistentStore.m
     NSManagedObjectContext.m
     NSManagedObjectID.m
@@ -38,9 +40,11 @@ set(CoreData_sources
     NSManagedObjectMutableSet.m
     NSManagedObjectSetEnumerator.m
     NSManagedObjectSet.m
+    NSMappingModel.m
     NSPersistentStoreCoordinator.m
     NSPersistentStore.m
     NSPropertyDescription.m
+    NSPropertyMapping.m
     NSRelationshipDescription.m
     NSXMLPersistentStore.m
     NSMergeConflict.m

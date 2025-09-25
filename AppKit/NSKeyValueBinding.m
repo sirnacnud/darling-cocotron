@@ -19,57 +19,51 @@
 
 #import <AppKit/NSKeyValueBinding.h>
 
-NSString *const NSObservedObjectKey = @"NSObservedObject";
-NSString *const NSObservedKeyPathKey = @"NSObservedKeyPath";
-NSString *const NSOptionsKey = @"NSOptions";
+NSBindingInfoKey NSObservedObjectKey = @"NSObservedObject";
+NSBindingInfoKey NSObservedKeyPathKey = @"NSObservedKeyPath";
+NSBindingInfoKey NSOptionsKey = @"NSOptions";
 
-NSString *const NSAnimateBinding = @"animate";
-NSString *const NSContentArrayBinding = @"contentArray";
-NSString *const NSContentBinding = @"content";
-NSString *const NSContentObjectBinding = @"contentObject";
-NSString *const NSContentObjectsBinding = @"contentObjects";
-NSString *const NSContentSetBinding = @"contentSet";
-NSString *const NSContentValuesBinding = @"contentValues";
-NSString *const NSDoubleClickTargetBinding = @"doubleClickTarget";
-NSString *const NSEnabledBinding = @"enabled";
-NSString *const NSHiddenBinding = @"hidden";
-NSString *const NSImageBinding = @"image";
-NSString *const NSInsertsNullPlaceholderBindingOption =
-        @"NSInsertsNullPlaceholder";
-NSString *const NSSelectedIndexBinding = @"selectedIndex";
-NSString *const NSSelectedObjectBinding = @"selectedObject";
-NSString *const NSSelectedObjectsBinding = @"selectedObjects";
-NSString *const NSSelectedTagBinding = @"selectedTag";
-NSString *const NSSelectionIndexesBinding = @"selectionIndexes";
-NSString *const NSTitleBinding = @"title";
-NSString *const NSValidatesImmediatelyBindingOption = @"NSValidatesImmediately";
-NSString *const NSNotApplicablePlaceholderBindingOption =
-        @"NSNotApplicablePlaceholder";
-NSString *const NSValueBinding = @"value";
-NSString *const NSVisibleBinding = @"visible";
-NSString *const NSToolTipBinding = @"toolTip";
-NSString *const NSEditableBinding = @"editable";
+NSBindingName NSAnimateBinding = @"animate";
+NSBindingName NSContentArrayBinding = @"contentArray";
+NSBindingName NSContentBinding = @"content";
+NSBindingName NSContentObjectBinding = @"contentObject";
+NSBindingName NSContentObjectsBinding = @"contentObjects";
+NSBindingName NSContentSetBinding = @"contentSet";
+NSBindingName NSContentValuesBinding = @"contentValues";
+NSBindingName NSDoubleClickTargetBinding = @"doubleClickTarget";
+NSBindingName NSEnabledBinding = @"enabled";
+NSBindingName NSEditableBinding = @"editable";
+NSBindingName NSFontBoldBinding = @"fontBold";
+NSBindingName NSFontItalicBinding = @"fontItalic";
+NSBindingName NSHiddenBinding = @"hidden";
+NSBindingName NSImageBinding = @"image";
+NSBindingName NSSelectedIndexBinding = @"selectedIndex";
+NSBindingName NSSelectedObjectBinding = @"selectedObject";
+NSBindingName NSSelectedObjectsBinding = @"selectedObjects";
+NSBindingName NSSelectedTagBinding = @"selectedTag";
+NSBindingName NSSelectedValueBinding = @"selectedValue";
+NSBindingName NSSelectionIndexesBinding = @"selectionIndexes";
+NSBindingName NSTitleBinding = @"title";
+NSBindingName NSToolTipBinding = @"toolTip";
+NSBindingName NSValueBinding = @"value";
+NSBindingName NSVisibleBinding = @"visible";
 
-NSString *const NSNullPlaceholderBindingOption = @"NSNullPlaceholder";
-NSString *const NSNoSelectionPlaceholderBindingOption =
-        @"NSNoSelectionPlaceholder";
-NSString *const NSMultipleValuesPlaceholderBindingOption =
-        @"NSMultipleValuesPlaceholder";
-NSString *const NSCreatesSortDescriptorBindingOption =
-        @"NSCreatesSortDescriptors";
-NSString *const NSRaisesForNotApplicableKeysBindingOption =
-        @"NSRaisesForNotApplicableKeys";
-NSString *const NSAllowsEditingMultipleValuesSelectionBindingOption =
-        @"NSAllowsEditingMultipleValuesSelection";
-NSString *const NSValueTransformerNameBindingOption = @"NSValueTransformerName";
-NSString *const NSValueTransformerBindingOption = @"NSValueTransformerBinding";
-NSString *const NSConditionallySetsEnabledBindingOption =
-        @"NSConditionallySetsEnabled";
-NSString *const NSConditionallySetsEditableBindingOption =
-        @"NSConditionallySetsEditable";
-NSString *const NSContinuouslyUpdatesValueBindingOption =
-        @"NSContinuouslyUpdatesValue";
-NSString *const NSDisplayPatternBindingOption = @"NSDisplayPattern";
+NSBindingOption NSAllowsEditingMultipleValuesSelectionBindingOption = @"NSAllowsEditingMultipleValuesSelection";
+NSBindingOption NSConditionallySetsEnabledBindingOption = @"NSConditionallySetsEnabled";
+NSBindingOption NSConditionallySetsEditableBindingOption = @"NSConditionallySetsEditable";
+NSBindingOption NSContinuouslyUpdatesValueBindingOption = @"NSContinuouslyUpdatesValue";
+NSBindingOption NSCreatesSortDescriptorBindingOption = @"NSCreatesSortDescriptor";
+NSBindingOption NSDisplayPatternBindingOption = @"NSDisplayPattern";
+NSBindingOption NSInsertsNullPlaceholderBindingOption = @"NSInsertsNullPlaceholder";
+NSBindingOption NSMultipleValuesPlaceholderBindingOption = @"NSMultipleValuesPlaceholder";
+NSBindingOption NSNoSelectionPlaceholderBindingOption = @"NSNoSelectionPlaceholder";
+NSBindingOption NSNotApplicablePlaceholderBindingOption = @"NSNotApplicablePlaceholder";
+NSBindingOption NSNullPlaceholderBindingOption = @"NSNullPlaceholder";
+NSBindingOption NSPredicateFormatBindingOption = @"NSPredicateFormat";
+NSBindingOption NSRaisesForNotApplicableKeysBindingOption = @"NSRaisesForNotApplicableKeys";
+NSBindingOption NSValidatesImmediatelyBindingOption = @"NSValidatesImmediately";
+NSBindingOption NSValueTransformerBindingOption = @"NSValueTransformer";
+NSBindingOption NSValueTransformerNameBindingOption = @"NSValueTransformerName";
 
 // TODO: actually implement this stuff
 @implementation NSObject (NSKeyValueBindingCreation)

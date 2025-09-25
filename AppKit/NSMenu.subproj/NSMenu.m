@@ -26,6 +26,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #import <AppKit/NSWindow.h>
 #import <Foundation/NSKeyedArchiver.h>
 
+const NSNotificationName NSMenuWillSendActionNotification = @"NSMenuWillSendActionNotification";
+const NSNotificationName NSMenuDidSendActionNotification = @"NSMenuDidSendActionNotification";
 const NSNotificationName NSMenuDidBeginTrackingNotification = @"NSMenuDidBeginTrackingNotification";
 const NSNotificationName NSMenuDidEndTrackingNotification = @"NSMenuDidEndTrackingNotification";
 NSString *const _NSFontMenuName = @"Font";

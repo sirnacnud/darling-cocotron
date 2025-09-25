@@ -44,6 +44,7 @@ typedef NSString *NSPrintInfoAttributeKey;
 APPKIT_EXPORT NSPrintInfoAttributeKey const NSPrintPaperName;
 APPKIT_EXPORT NSPrintInfoAttributeKey const NSPrintPaperSize;
 APPKIT_EXPORT NSPrintInfoAttributeKey const NSPrintOrientation;
+APPKIT_EXPORT NSPrintInfoAttributeKey const NSPrintScalingFactor;
 
 /* Pagination */
 APPKIT_EXPORT NSPrintInfoAttributeKey const NSPrintLeftMargin;

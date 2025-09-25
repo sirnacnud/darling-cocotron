@@ -27,6 +27,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 NSPrintInfoAttributeKey const NSPrintPaperName = @"NSPaperName";
 NSPrintInfoAttributeKey const NSPrintPaperSize = @"NSPaperSize";
 NSPrintInfoAttributeKey const NSPrintOrientation = @"NSOrientation";
+NSPrintInfoAttributeKey const NSPrintScalingFactor = @"NSScalingFactor";
 
 NSPrintInfoAttributeKey const NSPrintLeftMargin = @"NSLeftMargin";
 NSPrintInfoAttributeKey const NSPrintRightMargin = @"NSRightMargin";
