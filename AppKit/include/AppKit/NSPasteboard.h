@@ -35,6 +35,7 @@ APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeHTML;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeTabularText;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeFont;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeRuler;
+APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeURL;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeColor;
 APPKIT_EXPORT const NSPasteboardType NSPasteboardTypeFileURL;
 
