@@ -31,6 +31,7 @@ const NSPasteboardType NSPasteboardTypeHTML = @"NSPasteboardTypeHTML";
 const NSPasteboardType NSPasteboardTypeTabularText = @"NSTabularTextPboardType";
 const NSPasteboardType NSPasteboardTypeFont = @"NSFontPboardType";
 const NSPasteboardType NSPasteboardTypeRuler = @"NSRulerPboardType";
+const NSPasteboardType NSPasteboardTypeURL = @"public.url";
 const NSPasteboardType NSPasteboardTypeColor = @"NSColorPboardType";
 const NSPasteboardType NSPasteboardTypeFileURL = @"public.file-url";
 
