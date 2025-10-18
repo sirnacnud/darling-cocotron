@@ -26,13 +26,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 @implementation NSSavePanel
 
+@synthesize showsHiddenFiles=_showsHiddenFiles;
+
 - (id) resetToDefaultValues {
     _dialogTitle = @"Save";
+    _nameFieldStringValue = @"";
     _filename = @"";
     _directory = [NSHomeDirectory() copy];
     _requiredFileType = @"";
     _treatsFilePackagesAsDirectories = NO;
     _accessoryView = nil;
+    _showsHiddenFiles = false;
     return self;
 }
 
@@ -63,6 +67,7 @@ static NSSavePanel *_newPanel = nil;
 
 - (void) dealloc {
     [_dialogTitle release];
+    [_nameFieldStringValue release];
     [_filename release];
     [_directory release];
     [_requiredFileType release];
@@ -94,6 +99,20 @@ static NSSavePanel *_newPanel = nil;
     return ret;
 }
 
+- (NSString *) nameFieldStringValue {
+    id ret = [_nameFieldStringValue copy];
+    return ret;
+}
+
+- (void) setNameFieldStringValue: (NSString *) value {
+    [_nameFieldStringValue release];
+    _nameFieldStringValue = [value copy];
+
+    if (_nameFieldStringValue == nil) {
+        _nameFieldStringValue = @"";
+    }
+}
+
 - (IBAction) _selectFile: (id) sender {
     NSURL *url = [_outlineView itemAtRow: [_outlineView selectedRow]];
     [self _setFilename: [url path]];
@@ -103,6 +122,10 @@ static NSSavePanel *_newPanel = nil;
 
 - (IBAction) _cancel: (id) sender {
     [NSApp stopModalWithCode: NSCancelButton];
+}
+
+- (void) beginWithCompletionHandler: (void (^)(NSModalResponse result)) handler {
+    NSUnimplementedMethod();
 }
 
 - (NSInteger) runModalForDirectory: (NSString *) directory
