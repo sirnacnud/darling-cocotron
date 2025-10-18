@@ -72,3 +72,7 @@ void CGEventSourceSetPixelsPerLine(CGEventSourceRef source,
 CGEventFlags CGEventSourceFlagsState(CGEventSourceStateID stateID) {
     return g_sourceStates[stateID + 1];
 }
+
+void CGEventSourceSetLocalEventsSuppressionInterval(CGEventSourceRef source, CFTimeInterval seconds) {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+}
