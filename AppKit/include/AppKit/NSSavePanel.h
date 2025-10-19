@@ -31,6 +31,7 @@ enum {
 @interface NSSavePanel : NSPanel {
     NSString *_dialogTitle;
 
+    NSString *_nameFieldStringValue;
     NSString *_filename;
     NSString *_directory;
     NSString *_requiredFileType;
@@ -38,16 +39,23 @@ enum {
     NSString *_message;
     NSString *_prompt;
 
+    BOOL _showsHiddenFiles;
+
     BOOL _treatsFilePackagesAsDirectories;
     NSView *_accessoryView;
 
     IBOutlet NSOutlineView *_outlineView;
 }
 
+@property (copy) NSString *nameFieldStringValue;
+@property BOOL showsHiddenFiles;
+
 + (NSSavePanel *) savePanel;
 
 - (NSURL *) URL;
 - (NSString *) filename;
+
+- (void) beginWithCompletionHandler: (void (^)(NSModalResponse result)) handler;
 
 - (NSInteger) runModalForDirectory: (NSString *) directory
                               file: (NSString *) file;
