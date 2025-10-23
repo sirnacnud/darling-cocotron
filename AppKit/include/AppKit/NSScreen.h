@@ -23,12 +23,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 typedef NSString *NSDeviceDescriptionKey;
 
 @interface NSScreen : NSObject {
+    NSWindowDepth _depth;
     NSRect _frame;
     NSRect _visibleFrame;
     NSData *_edid;
     CGDirectDisplayID _directDisplayID;
 }
 
+@property(readonly) NSWindowDepth depth;
 @property(readonly, copy) NSDictionary<NSDeviceDescriptionKey, id> *deviceDescription;
 
 + (NSScreen *) mainScreen;
