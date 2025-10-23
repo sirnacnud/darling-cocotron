@@ -219,6 +219,9 @@ typedef NSString *NSColorSpaceName;
                           brightness: (CGFloat) brightness
                                alpha: (CGFloat) alpha;
 
++ (NSColor *) colorWithGenericGamma22White:(CGFloat) white 
+                                     alpha:(CGFloat) alpha;
+
 + (NSColor *) colorWithCatalogName: (NSString *) catalogName
                          colorName: (NSString *) colorName;
 

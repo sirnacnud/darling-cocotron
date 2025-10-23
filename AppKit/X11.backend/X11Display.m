@@ -55,6 +55,8 @@
 #import <fontconfig/fontconfig.h>
 #import <stddef.h>
 
+void NSColorSetCatalogColor(NSColorListName catalogName, NSColorName colorName, NSColor *color);
+
 @implementation X11Display
 
 static int errorHandler(Display *display, XErrorEvent *errorEvent) {
