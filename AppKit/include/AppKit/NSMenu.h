@@ -47,6 +47,8 @@ APPKIT_EXPORT const NSNotificationName NSMenuDidEndTrackingNotification;
                 withEvent: (NSEvent *) event
                   forView: (NSView *) view;
 
++ (NSZone *) menuZone;
+
 - initWithTitle: (NSString *) title;
 
 - (NSMenu *) supermenu;

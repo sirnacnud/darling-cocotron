@@ -67,6 +67,10 @@ NSString *const _NSWindowsMenuName = @"Window";
     }
 }
 
++ (NSZone *) menuZone {
+    return NSDefaultMallocZone();
+}
+
 - (void) encodeWithCoder: (NSCoder *) coder {
     [coder encodeObject: _title forKey: @"NSTitle"];
     [coder encodeObject: _name forKey: @"NSName"];
