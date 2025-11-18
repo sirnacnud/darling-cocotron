@@ -26,6 +26,8 @@ set(QuartzCore_sources
 	CAAnimation.m
 	CABase.m
 	CABasicAnimation.m
+	CAEmitterCell.m
+	CAEmitterLayer.m
 	CALayerContext.m
 	CALayer.m
 	CATextLayer.m
