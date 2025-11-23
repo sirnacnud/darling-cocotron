@@ -134,29 +134,15 @@ NSColor *NSColorGetCatalogColor(NSColorListName catalogName,
 }
 
 - (CGColorRef) CGColorRef {
-    return [NSColorGetCatalogColor(_catalogName, _colorName) CGColorRef];
+    return [self CGColor];
 }
 
 - (void) setFill {
-    NSColor *color = NSColorGetCatalogColor(_catalogName, _colorName);
-
-    if (color == nil)
-        [NSException raise: @"NSUnknownColor"
-                    format: @"Unknown color %@ in catalog %@", _colorName,
-                            _catalogName];
-
-    [color setFill];
+    [_color setFill];
 }
 
 - (void) setStroke {
-    NSColor *color = NSColorGetCatalogColor(_catalogName, _colorName);
-
-    if (color == nil)
-        [NSException raise: @"NSUnknownColor"
-                    format: @"Unknown color %@ in catalog %@", _colorName,
-                            _catalogName];
-
-    [color setStroke];
+    [_color setStroke];
 }
 
 - (NSColor *) highlightWithLevel: (CGFloat) level {
