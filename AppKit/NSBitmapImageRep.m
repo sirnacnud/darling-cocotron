@@ -817,4 +817,9 @@ NSBitmapImageRepPropertyKey NSImageCurrentFrame = @"NSImageCurrentFrame";
     return result;
 }
 
+- (NSBitmapImageRep *) bitmapImageRepByRetaggingWithColorSpace: (NSColorSpace *) newSpace {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return nil;
+}
+
 @end
