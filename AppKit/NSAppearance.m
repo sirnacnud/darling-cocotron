@@ -42,14 +42,23 @@ NSString *const NSAppearanceNameControlStrip =
 
 @implementation NSAppearance
 
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
-{
-    return [NSMethodSignature signatureWithObjCTypes: "v@:"];
++ (NSAppearance *) appearanceNamed: (NSAppearanceName) name {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return [NSAppearance alloc];
 }
 
-- (void)forwardInvocation:(NSInvocation *)anInvocation
+- (void) encodeWithCoder: (NSCoder *) aCoder {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+}
+
+- (id) initWithCoder: (NSCoder *) aDecoder {
+    printf("STUB %s\n", __PRETTY_FUNCTION__);
+    return self;
+}
+
++ (BOOL) supportsSecureCoding
 {
-    NSLog(@"Stub called: %@ in %@", NSStringFromSelector([anInvocation selector]), [self class]);
+    return YES;
 }
 
 @end
